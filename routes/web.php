@@ -10,6 +10,8 @@ Route::inertia('/', 'home/index', [
 
 Route::inertia('/experts', 'experts/index')->name('experts.index');
 Route::inertia('/experts/{id}', 'experts/[id]')->name('experts.show');
+Route::inertia('/opportunities', 'opportunities/index')->name('opportunities.index');
+Route::inertia('/opportunities/{id}', 'opportunities/[id]')->name('opportunities.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
