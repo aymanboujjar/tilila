@@ -21,4 +21,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 require __DIR__ . '/events.php';
+require __DIR__ . '/gouvernance.php';
 require __DIR__ . '/settings.php';
