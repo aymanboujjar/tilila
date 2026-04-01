@@ -14,6 +14,9 @@ Route::get('/about', function () {
 Route::get('/tililab', function () {
     return Inertia::render('user/tililab/index');
 });
+Route::get('/tilila', function () {
+    return Inertia::render('user/tilila/index');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
