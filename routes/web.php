@@ -8,6 +8,9 @@ Route::inertia('/', 'home/index', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
 
+Route::inertia('/experts', 'experts/index')->name('experts.index');
+Route::inertia('/experts/{id}', 'experts/[id]')->name('experts.show');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
