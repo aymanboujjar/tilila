@@ -21,12 +21,28 @@
     "delete": "Delete",
     "close": "Close",
     "language": "Language",
-    "search": "Search opportunities by keyword..."
+    "search": "Search opportunities by keyword...",
+    "na": "—"
   },
   "opportunities": {
     "headTitle": "Opportunities",
     "sortNewest": "Newest First",
     "sortDeadlineSoonest": "Deadline Soonest",
+    "detail": {
+      "fallbackHeadTitle": "Opportunity",
+      "organizerFallback": "Organizer information will be added soon.",
+      "shareAria": "Share",
+      "sections": {
+        "descriptionTitle": "Description",
+        "eligibilityTitle": "Eligibility Criteria",
+        "deadlineTitle": "Application Deadline",
+        "howToApplyTitle": "How to Apply",
+        "organizerTitle": "Organizer",
+        "quickInfoTitle": "Quick Info",
+        "relatedThemesTitle": "Related Themes",
+        "shareTitle": "Share this opportunity"
+      }
+    },
     "filters": {
       "allTypes": "All Types",
       "panelDiscussion": "Panel Discussion",
@@ -42,6 +58,53 @@
       "regionMarrakesh": "Marrakesh",
       "regionTangier": "Tangier"
     }
+  },
+  "experts": {
+    "headTitle": "Experts",
+    "searchPlaceholder": "Search by name, expertise, or keyword...",
+    "filters": {
+      "all": "All",
+      "economics": "Economics",
+      "technology": "Technology",
+      "health": "Health",
+      "legal": "Legal",
+      "morocco": "Morocco",
+      "senegal": "Senegal",
+      "arabic": "Arabic",
+      "french": "French",
+      "english": "English",
+      "available": "Available"
+    },
+    "sort": {
+      "relevance": "Relevance",
+      "nameAsc": "Name (A–Z)",
+      "nameDesc": "Name (Z–A)"
+    },
+    "view": {
+      "gridAria": "Grid view",
+      "listAria": "List view"
+    }
+  },
+  "contact": {
+    "form": {
+      "namePlaceholder": "Your name",
+      "emailPlaceholder": "name@company.com",
+      "subjectPlaceholder": "How can we help?",
+      "messagePlaceholder": "Write your message..."
+    }
+  },
+  "footer": {
+    "aria": {
+      "twitter": "Twitter",
+      "community": "Community",
+      "email": "Email"
+    }
+  },
+  "home": {
+    "headTitle": "Tilila"
+  },
+  "about": {
+    "headTitle": "About"
   },
   "auth": {
     "common": {

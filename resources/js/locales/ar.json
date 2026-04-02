@@ -21,12 +21,28 @@
     "delete": "حذف",
     "close": "إغلاق",
     "language": "اللغة",
-    "search": "ابحث عن الفرص باستخدام كلمة مفتاحية..."
+    "search": "ابحث عن الفرص باستخدام كلمة مفتاحية...",
+    "na": "—"
   },
   "opportunities": {
     "headTitle": "الفرص",
     "sortNewest": "الأحدث أولاً",
     "sortDeadlineSoonest": "الأقرب موعدًا",
+    "detail": {
+      "fallbackHeadTitle": "فرصة",
+      "organizerFallback": "سيتم إضافة معلومات الجهة المنظمة قريبًا.",
+      "shareAria": "مشاركة",
+      "sections": {
+        "descriptionTitle": "الوصف",
+        "eligibilityTitle": "معايير الأهلية",
+        "deadlineTitle": "آخر موعد للتقديم",
+        "howToApplyTitle": "كيفية التقديم",
+        "organizerTitle": "الجهة المنظمة",
+        "quickInfoTitle": "معلومات سريعة",
+        "relatedThemesTitle": "موضوعات ذات صلة",
+        "shareTitle": "مشاركة هذه الفرصة"
+      }
+    },
     "filters": {
       "allTypes": "كل الأنواع",
       "panelDiscussion": "حلقة نقاش",
@@ -42,6 +58,53 @@
       "regionMarrakesh": "مراكش",
       "regionTangier": "طنجة"
     }
+  },
+  "experts": {
+    "headTitle": "الخبيرات",
+    "searchPlaceholder": "ابحث بالاسم أو الخبرة أو كلمة مفتاحية...",
+    "filters": {
+      "all": "الكل",
+      "economics": "الاقتصاد",
+      "technology": "التكنولوجيا",
+      "health": "الصحة",
+      "legal": "القانون",
+      "morocco": "المغرب",
+      "senegal": "السنغال",
+      "arabic": "العربية",
+      "french": "الفرنسية",
+      "english": "الإنجليزية",
+      "available": "متاحة"
+    },
+    "sort": {
+      "relevance": "الأكثر صلة",
+      "nameAsc": "الاسم (أ-ي)",
+      "nameDesc": "الاسم (ي-أ)"
+    },
+    "view": {
+      "gridAria": "عرض شبكي",
+      "listAria": "عرض قائمة"
+    }
+  },
+  "contact": {
+    "form": {
+      "namePlaceholder": "اسمك",
+      "emailPlaceholder": "name@company.com",
+      "subjectPlaceholder": "كيف يمكننا مساعدتك؟",
+      "messagePlaceholder": "اكتب رسالتك..."
+    }
+  },
+  "footer": {
+    "aria": {
+      "twitter": "تويتر",
+      "community": "المجتمع",
+      "email": "البريد الإلكتروني"
+    }
+  },
+  "home": {
+    "headTitle": "تيليلا"
+  },
+  "about": {
+    "headTitle": "حول"
   },
   "auth": {
     "common": {

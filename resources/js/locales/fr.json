@@ -21,12 +21,28 @@
     "delete": "Supprimer",
     "close": "Fermer",
     "language": "Langue",
-    "search": "Rechercher des opportunités par mot-clé..."
+    "search": "Rechercher des opportunités par mot-clé...",
+    "na": "—"
   },
   "opportunities": {
     "headTitle": "Opportunités",
     "sortNewest": "Les plus récentes d’abord",
     "sortDeadlineSoonest": "Échéance la plus proche",
+    "detail": {
+      "fallbackHeadTitle": "Opportunité",
+      "organizerFallback": "Les informations sur l’organisateur seront ajoutées bientôt.",
+      "shareAria": "Partager",
+      "sections": {
+        "descriptionTitle": "Description",
+        "eligibilityTitle": "Critères d’éligibilité",
+        "deadlineTitle": "Date limite de candidature",
+        "howToApplyTitle": "Comment postuler",
+        "organizerTitle": "Organisateur",
+        "quickInfoTitle": "Infos rapides",
+        "relatedThemesTitle": "Thématiques associées",
+        "shareTitle": "Partager cette opportunité"
+      }
+    },
     "filters": {
       "allTypes": "Tous les types",
       "panelDiscussion": "Table ronde",
@@ -42,6 +58,53 @@
       "regionMarrakesh": "Marrakech",
       "regionTangier": "Tanger"
     }
+  },
+  "experts": {
+    "headTitle": "Expertes",
+    "searchPlaceholder": "Rechercher par nom, expertise ou mot-clé...",
+    "filters": {
+      "all": "Tous",
+      "economics": "Économie",
+      "technology": "Technologie",
+      "health": "Santé",
+      "legal": "Droit",
+      "morocco": "Maroc",
+      "senegal": "Sénégal",
+      "arabic": "Arabe",
+      "french": "Français",
+      "english": "Anglais",
+      "available": "Disponible"
+    },
+    "sort": {
+      "relevance": "Pertinence",
+      "nameAsc": "Nom (A–Z)",
+      "nameDesc": "Nom (Z–A)"
+    },
+    "view": {
+      "gridAria": "Vue en grille",
+      "listAria": "Vue en liste"
+    }
+  },
+  "contact": {
+    "form": {
+      "namePlaceholder": "Votre nom",
+      "emailPlaceholder": "nom@entreprise.com",
+      "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
+      "messagePlaceholder": "Écrivez votre message..."
+    }
+  },
+  "footer": {
+    "aria": {
+      "twitter": "Twitter",
+      "community": "Communauté",
+      "email": "E-mail"
+    }
+  },
+  "home": {
+    "headTitle": "Tilila"
+  },
+  "about": {
+    "headTitle": "À propos"
   },
   "auth": {
     "common": {
