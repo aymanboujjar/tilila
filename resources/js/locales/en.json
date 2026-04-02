@@ -240,5 +240,8 @@
       "nextAria": "Next winners"
     }
   },
+  "gouvernance": {
+    "headTitle": "Governance"
+  },
   "welcome": "Welcome to the app"
 }

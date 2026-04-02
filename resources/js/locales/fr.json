@@ -240,5 +240,8 @@
       "nextAria": "Lauréats suivants"
     }
   },
+  "gouvernance": {
+    "headTitle": "Gouvernance"
+  },
   "welcome": "Bienvenue dans l’application"
 }
