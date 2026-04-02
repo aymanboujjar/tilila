@@ -232,5 +232,12 @@
       "missionQuote": "\"La publicité a le pouvoir de façonner les esprits. Assurons-nous qu’elle façonne un monde d’égalité.\""
     }
   },
+  "tililab": {
+    "headTitle": "Tililab",
+    "pastWinners": {
+      "prevAria": "Lauréats précédents",
+      "nextAria": "Lauréats suivants"
+    }
+  },
   "welcome": "Bienvenue dans l’application"
 }

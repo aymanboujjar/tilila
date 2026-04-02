@@ -232,5 +232,12 @@
       "missionQuote": "\"Advertising has the power to shape minds. Let's make sure it shapes a world of equality.\""
     }
   },
+  "tililab": {
+    "headTitle": "Tililab",
+    "pastWinners": {
+      "prevAria": "Previous winners",
+      "nextAria": "Next winners"
+    }
+  },
   "welcome": "Welcome to the app"
 }
