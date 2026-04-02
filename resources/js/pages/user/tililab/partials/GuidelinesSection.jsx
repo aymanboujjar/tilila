@@ -22,8 +22,7 @@ const guidelines = [
             'Share a selection of your work that demonstrates your craft and creative range.',
         frDescription:
             'Partagez une sélection de vos réalisations qui illustre votre savoir-faire et votre palette créative.',
-        arDescription:
-            'شارك نماذج من أعمالك تُظهر مهارتك وتنوعك الإبداعي.',
+        arDescription: 'شارك نماذج من أعمالك تُظهر مهارتك وتنوعك الإبداعي.',
     },
     {
         number: 3,
@@ -53,7 +52,10 @@ const guidelines = [
 
 export default function GuidelinesSection() {
     return (
-        <div id="guidelines" className="mt-6 rounded-2xl border border-border bg-background p-6">
+        <div
+            id="guidelines"
+            className="mt-6 rounded-2xl border border-border bg-background p-6"
+        >
             <div className="flex items-center gap-2 text-sm font-semibold text-tblack">
                 <span className="inline-flex size-8 items-center justify-center rounded-full bg-alpha-blue text-beta-blue">
                     ✦
@@ -78,7 +80,11 @@ export default function GuidelinesSection() {
                                 {item.number}
                             </div>
                             <div className="text-sm font-semibold text-tblack">
-                                <TransText en={item.enTitle} fr={item.frTitle} ar={item.arTitle} />
+                                <TransText
+                                    en={item.enTitle}
+                                    fr={item.frTitle}
+                                    ar={item.arTitle}
+                                />
                             </div>
                         </div>
                         <p className="mt-3 text-sm leading-6 text-tgray">
@@ -94,4 +100,3 @@ export default function GuidelinesSection() {
         </div>
     );
 }
-

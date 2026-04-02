@@ -30,7 +30,10 @@ function addMonths(date, delta) {
 
 function monthLabel(date) {
     try {
-        return date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+        return date.toLocaleDateString(undefined, {
+            month: 'long',
+            year: 'numeric',
+        });
     } catch {
         return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}`;
     }
@@ -84,7 +87,9 @@ function Calendar({
     return (
         <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
             <div className="flex items-center justify-between gap-3">
-                <div className="text-sm font-extrabold text-foreground">{grid.month}</div>
+                <div className="text-sm font-extrabold text-foreground">
+                    {grid.month}
+                </div>
 
                 <div className="flex items-center gap-2">
                     <button
@@ -124,7 +129,9 @@ function Calendar({
                             key={d.iso}
                             type="button"
                             onClick={() =>
-                                setSelectedDayIso((cur) => (cur === d.iso ? null : d.iso))
+                                setSelectedDayIso((cur) =>
+                                    cur === d.iso ? null : d.iso,
+                                )
                             }
                             disabled={isDisabled}
                             className={[
@@ -135,9 +142,13 @@ function Calendar({
                                 isSelected
                                     ? 'bg-beta-blue text-white hover:bg-beta-blue'
                                     : 'bg-transparent',
-                                d.isToday && !isSelected ? 'ring-1 ring-beta-blue/30' : '',
+                                d.isToday && !isSelected
+                                    ? 'ring-1 ring-beta-blue/30'
+                                    : '',
                             ].join(' ')}
-                            aria-label={(t('events.calendar.selectDayAria') ?? '').replace('{date}', d.iso)}
+                            aria-label={(
+                                t('events.calendar.selectDayAria') ?? ''
+                            ).replace('{date}', d.iso)}
                             aria-pressed={isSelected}
                         >
                             {d.day}
@@ -145,7 +156,9 @@ function Calendar({
                                 <span
                                     className={[
                                         'absolute bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full',
-                                        isSelected ? 'bg-white' : 'bg-beta-blue',
+                                        isSelected
+                                            ? 'bg-white'
+                                            : 'bg-beta-blue',
                                     ].join(' ')}
                                     aria-hidden="true"
                                 />
@@ -161,7 +174,11 @@ function Calendar({
                     onClick={() => setSelectedDayIso(null)}
                     className="text-xs font-semibold text-muted-foreground hover:text-foreground hover:underline"
                 >
-                    <TransText en="Clear date" fr="Effacer la date" ar="مسح التاريخ" />
+                    <TransText
+                        en="Clear date"
+                        fr="Effacer la date"
+                        ar="مسح التاريخ"
+                    />
                 </button>
                 <button
                     type="button"
@@ -209,7 +226,7 @@ export default function EventsSidebar({
             />
 
             <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-                <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
                     <TransText en="Categories" fr="Catégories" ar="الفئات" />
                 </div>
 
@@ -243,4 +260,3 @@ export default function EventsSidebar({
         </div>
     );
 }
-

@@ -34,12 +34,17 @@ export default function ExpertDetails({ id }) {
 
     return (
         <>
-            <Head title={resolvedName ?? t('experts.detail.fallbackHeadTitle')} />
+            <Head
+                title={resolvedName ?? t('experts.detail.fallbackHeadTitle')}
+            />
 
             <div className="bg-background">
                 <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                     <nav className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Link href="/" className="hover:text-foreground hover:underline">
+                        <Link
+                            href="/"
+                            className="hover:text-foreground hover:underline"
+                        >
                             {t('nav.home')}
                         </Link>
                         <span aria-hidden="true">›</span>
@@ -68,7 +73,11 @@ export default function ExpertDetails({ id }) {
                                             key={t.en}
                                             className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground"
                                         >
-                                            <TransText en={t.en} fr={t.fr} ar={t.ar} />
+                                            <TransText
+                                                en={t.en}
+                                                fr={t.fr}
+                                                ar={t.ar}
+                                            />
                                         </span>
                                     ))}
                                 </div>
@@ -87,15 +96,25 @@ export default function ExpertDetails({ id }) {
                                 <div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
                                     {(details?.bio ?? []).map((p) => (
                                         <p key={p.en}>
-                                            <TransText en={p.en} fr={p.fr} ar={p.ar} />
+                                            <TransText
+                                                en={p.en}
+                                                fr={p.fr}
+                                                ar={p.ar}
+                                            />
                                         </p>
                                     ))}
                                 </div>
                             </header>
 
-                            <AreasOfExpertise items={details?.expertise ?? []} />
-                            <ProfessionalJourney items={details?.journey ?? []} />
-                            <PastAppearances items={details?.appearances ?? []} />
+                            <AreasOfExpertise
+                                items={details?.expertise ?? []}
+                            />
+                            <ProfessionalJourney
+                                items={details?.journey ?? []}
+                            />
+                            <PastAppearances
+                                items={details?.appearances ?? []}
+                            />
                             <RelatedContent items={details?.articles ?? []} />
                         </div>
                     </div>
@@ -106,4 +125,3 @@ export default function ExpertDetails({ id }) {
 }
 
 ExpertDetails.layout = (page) => <AppLayout>{page}</AppLayout>;
-

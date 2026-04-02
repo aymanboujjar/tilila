@@ -14,8 +14,12 @@ export default function RelatedMedia({ items, currentId, locale }) {
     return (
         <section className="mt-10">
             <div className="flex items-center justify-between gap-3">
-                <h2 className="text-sm font-extrabold uppercase tracking-wide text-muted-foreground">
-                    <TransText en="More from Tilila" fr="Plus de Tilila" ar="المزيد من تيليلا" />
+                <h2 className="text-sm font-extrabold tracking-wide text-muted-foreground uppercase">
+                    <TransText
+                        en="More from Tilila"
+                        fr="Plus de Tilila"
+                        ar="المزيد من تيليلا"
+                    />
                 </h2>
             </div>
 
@@ -27,4 +31,3 @@ export default function RelatedMedia({ items, currentId, locale }) {
         </section>
     );
 }
-

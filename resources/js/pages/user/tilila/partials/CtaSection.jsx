@@ -2,7 +2,7 @@ import TransText from '@/components/TransText';
 
 export default function CtaSection() {
     return (
-        <section className="mx-auto max-w-7xl px-4 pb-16 pt-14">
+        <section className="mx-auto max-w-7xl px-4 pt-14 pb-16">
             <div className="rounded-3xl bg-beta-white px-6 py-14 text-center sm:px-10">
                 <h2 className="text-4xl font-semibold tracking-tight text-tblack sm:text-5xl">
                     <TransText
@@ -45,4 +45,3 @@ export default function CtaSection() {
         </section>
     );
 }
-

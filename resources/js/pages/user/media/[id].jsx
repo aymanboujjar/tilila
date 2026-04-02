@@ -27,15 +27,20 @@ export default function MediaDetails() {
             <div className="bg-background">
                 <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                     <div className="mb-6">
-                        <Link href="/media" className="text-sm font-semibold text-beta-blue hover:underline">
-                            {t('media.actions.backToMedia') ?? '← Back to media'}
+                        <Link
+                            href="/media"
+                            className="text-sm font-semibold text-beta-blue hover:underline"
+                        >
+                            {t('media.actions.backToMedia') ??
+                                '← Back to media'}
                         </Link>
                     </div>
 
                     {!item ? (
                         <div className="rounded-2xl border border-border bg-card p-6">
                             <h1 className="text-lg font-extrabold text-foreground">
-                                {t('media.details.notFoundTitle') ?? 'Media not found'}
+                                {t('media.details.notFoundTitle') ??
+                                    'Media not found'}
                             </h1>
                             <p className="mt-2 text-sm text-muted-foreground">
                                 {t('media.details.notFoundDescription') ??
@@ -52,7 +57,10 @@ export default function MediaDetails() {
                                 </div>
 
                                 <div className="lg:col-span-7">
-                                    <MediaDetailsContent item={item} locale={locale} />
+                                    <MediaDetailsContent
+                                        item={item}
+                                        locale={locale}
+                                    />
                                 </div>
 
                                 <div className="space-y-6 lg:col-span-4">
@@ -63,7 +71,11 @@ export default function MediaDetails() {
                                 </div>
                             </div>
 
-                            <RelatedMedia items={MEDIA_ITEMS} currentId={item.id} locale={locale} />
+                            <RelatedMedia
+                                items={MEDIA_ITEMS}
+                                currentId={item.id}
+                                locale={locale}
+                            />
                         </>
                     )}
                 </div>
@@ -73,4 +85,3 @@ export default function MediaDetails() {
 }
 
 MediaDetails.layout = (page) => <AppLayout>{page}</AppLayout>;
-

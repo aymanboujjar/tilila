@@ -5,7 +5,7 @@ import TransText from '@/components/TransText';
 export default function FeaturedHero() {
     return (
         <section className="rounded-3xl bg-card p-5 shadow-sm ring-1 ring-border sm:p-6">
-            <div className="text-[11px] font-extrabold uppercase tracking-widest text-muted-foreground">
+            <div className="text-[11px] font-extrabold tracking-widest text-muted-foreground uppercase">
                 <TransText
                     en="Featured thematic dossier"
                     fr="Dossier thématique à la une"
@@ -25,14 +25,18 @@ export default function FeaturedHero() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-tblack/70 via-tblack/25 to-transparent" />
 
-                    <div className="absolute left-5 top-5 flex items-center gap-2">
+                    <div className="absolute top-5 left-5 flex items-center gap-2">
                         <span className="rounded-full bg-beta-blue px-3 py-1 text-[11px] font-extrabold text-white shadow-sm ring-1 ring-border">
-                            <TransText en="New release" fr="Nouveau" ar="إصدار جديد" />
+                            <TransText
+                                en="New release"
+                                fr="Nouveau"
+                                ar="إصدار جديد"
+                            />
                         </span>
                     </div>
 
-                    <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
-                        <h1 className="max-w-3xl text-2xl font-extrabold leading-tight text-white sm:text-3xl">
+                    <div className="absolute right-0 bottom-0 left-0 p-5 sm:p-6">
+                        <h1 className="max-w-3xl text-2xl leading-tight font-extrabold text-white sm:text-3xl">
                             <TransText
                                 en="Women in STEM: Breaking Barriers in North Africa"
                                 fr="Femmes en STEM : briser les barrières en Afrique du Nord"
@@ -65,4 +69,3 @@ export default function FeaturedHero() {
         </section>
     );
 }
-

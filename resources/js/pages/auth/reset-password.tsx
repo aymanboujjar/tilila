@@ -33,7 +33,9 @@ export default function ResetPassword({ token, email }: Props) {
                 {({ processing, errors }) => (
                     <div className="grid gap-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">{t('auth.reset.emailLabel')}</Label>
+                            <Label htmlFor="email">
+                                {t('auth.reset.emailLabel')}
+                            </Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -59,7 +61,9 @@ export default function ResetPassword({ token, email }: Props) {
                                 autoComplete="new-password"
                                 className="mt-1 block w-full"
                                 autoFocus
-                                placeholder={t('auth.common.passwordPlaceholder')}
+                                placeholder={t(
+                                    'auth.common.passwordPlaceholder',
+                                )}
                             />
                             <InputError message={errors.password} />
                         </div>
@@ -73,7 +77,9 @@ export default function ResetPassword({ token, email }: Props) {
                                 name="password_confirmation"
                                 autoComplete="new-password"
                                 className="mt-1 block w-full"
-                                placeholder={t('auth.common.confirmPasswordPlaceholder')}
+                                placeholder={t(
+                                    'auth.common.confirmPasswordPlaceholder',
+                                )}
                             />
                             <InputError
                                 message={errors.password_confirmation}

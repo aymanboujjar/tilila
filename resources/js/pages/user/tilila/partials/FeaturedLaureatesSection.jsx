@@ -42,10 +42,7 @@ export default function FeaturedLaureatesSection() {
     const { locale } = useTranslation();
 
     return (
-        <section
-            id="featured"
-            className="mx-auto max-w-7xl px-4 pb-10 pt-8"
-        >
+        <section id="featured" className="mx-auto max-w-7xl px-4 pt-8 pb-10">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <div className="text-xs font-semibold tracking-widest text-tgray">
@@ -95,7 +92,7 @@ export default function FeaturedLaureatesSection() {
                                 decoding="async"
                                 referrerPolicy="no-referrer"
                             />
-                            <span className="absolute left-4 top-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
+                            <span className="absolute top-4 left-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
                                 {item.year}
                             </span>
                         </div>
@@ -121,4 +118,3 @@ export default function FeaturedLaureatesSection() {
         </section>
     );
 }
-

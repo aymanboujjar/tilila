@@ -9,8 +9,8 @@ import {
     InputOTPGroup,
     InputOTPSlot,
 } from '@/components/ui/input-otp';
-import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { OTP_MAX_LENGTH } from '@/hooks/use-two-factor-auth';
 import { store } from '@/routes/two-factor/login';
 
 export default function TwoFactorChallenge() {
@@ -67,7 +67,9 @@ export default function TwoFactorChallenge() {
                                     <Input
                                         name="recovery_code"
                                         type="text"
-                                        placeholder={t('auth.twoFactor.recoveryPlaceholder')}
+                                        placeholder={t(
+                                            'auth.twoFactor.recoveryPlaceholder',
+                                        )}
                                         autoFocus={showRecoveryInput}
                                         required
                                     />

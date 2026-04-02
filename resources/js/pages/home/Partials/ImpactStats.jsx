@@ -2,9 +2,24 @@ import React from 'react';
 import TransText from '@/components/TransText';
 
 const STATS = [
-    { value: '500+', en: 'Experts registered', fr: 'Expertes inscrites', ar: 'خبيرات مسجلات' },
-    { value: '50+', en: 'Media partners', fr: 'Partenaires médias', ar: 'شركاء إعلاميون' },
-    { value: '120+', en: 'Events hosted', fr: 'Événements organisés', ar: 'فعاليات نُظِّمت' },
+    {
+        value: '500+',
+        en: 'Experts registered',
+        fr: 'Expertes inscrites',
+        ar: 'خبيرات مسجلات',
+    },
+    {
+        value: '50+',
+        en: 'Media partners',
+        fr: 'Partenaires médias',
+        ar: 'شركاء إعلاميون',
+    },
+    {
+        value: '120+',
+        en: 'Events hosted',
+        fr: 'Événements organisés',
+        ar: 'فعاليات نُظِّمت',
+    },
 ];
 
 export default function ImpactStats() {
@@ -40,7 +55,11 @@ export default function ImpactStats() {
                                         {stat.value}
                                     </div>
                                     <div className="mt-1 text-xs opacity-90">
-                                        <TransText en={stat.en} fr={stat.fr} ar={stat.ar} />
+                                        <TransText
+                                            en={stat.en}
+                                            fr={stat.fr}
+                                            ar={stat.ar}
+                                        />
                                     </div>
                                 </div>
                             ))}

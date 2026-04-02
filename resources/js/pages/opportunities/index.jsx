@@ -55,8 +55,10 @@ export default function OpportunitiesIndex() {
         if (filters.deadline !== 'any') {
             list = list.filter((x) => {
                 if (typeof x.deadlineDays !== 'number') return false;
-                if (filters.deadline === 'this_week') return x.deadlineDays <= 7;
-                if (filters.deadline === 'this_month') return x.deadlineDays <= 31;
+                if (filters.deadline === 'this_week')
+                    return x.deadlineDays <= 7;
+                if (filters.deadline === 'this_month')
+                    return x.deadlineDays <= 31;
                 return true;
             });
         }
@@ -124,110 +126,127 @@ export default function OpportunitiesIndex() {
             <div>
                 <div className="bg-beta-white py-10">
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <header className="max-w-3xl">
-                        <TransText
-                            tag="h1"
-                            className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
-                            en="Opportunities Board"
-                            fr="Tableau des opportunités"
-                            ar="لوحة الفرص"
-                        />
-                        <TransText
-                            tag="p"
-                            className="mt-3 text-sm leading-relaxed text-muted-foreground"
-                            en="Discover grants, media calls, panel discussions, and residencies tailored for women experts. Connect, contribute, and grow your impact."
-                            fr="Découvrez des subventions, des appels médias, des tables rondes et des résidences destinés aux expertes. Connectez-vous, contribuez et développez votre impact."
-                            ar="اكتشفي المنح وفرص الإعلام والحوارات والبرامج الإقامية المصممة للخبيرات. تواصلي، ساهمي، ووسّعي أثرَك."
-                        />
-                    </header>
+                        <header className="max-w-3xl">
+                            <TransText
+                                tag="h1"
+                                className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl"
+                                en="Opportunities Board"
+                                fr="Tableau des opportunités"
+                                ar="لوحة الفرص"
+                            />
+                            <TransText
+                                tag="p"
+                                className="mt-3 text-sm leading-relaxed text-muted-foreground"
+                                en="Discover grants, media calls, panel discussions, and residencies tailored for women experts. Connect, contribute, and grow your impact."
+                                fr="Découvrez des subventions, des appels médias, des tables rondes et des résidences destinés aux expertes. Connectez-vous, contribuez et développez votre impact."
+                                ar="اكتشفي المنح وفرص الإعلام والحوارات والبرامج الإقامية المصممة للخبيرات. تواصلي، ساهمي، ووسّعي أثرَك."
+                            />
+                        </header>
                     </div>
                 </div>
 
                 <div className="bg-twhite py-10">
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div className="mt-0 grid grid-cols-1 gap-6 lg:grid-cols-12">
-                        <div className="lg:col-span-4 xl:col-span-3">
-                            <FiltersSidebar
-                                filters={filters}
-                                setFilters={setFilters}
-                                onReset={() =>
-                                    setFilters({
-                                        type: 'all',
-                                        deadline: 'any',
-                                        region: 'all',
-                                    })
-                                }
-                            />
-                        </div>
+                        <div className="mt-0 grid grid-cols-1 gap-6 lg:grid-cols-12">
+                            <div className="lg:col-span-4 xl:col-span-3">
+                                <FiltersSidebar
+                                    filters={filters}
+                                    setFilters={setFilters}
+                                    onReset={() =>
+                                        setFilters({
+                                            type: 'all',
+                                            deadline: 'any',
+                                            region: 'all',
+                                        })
+                                    }
+                                />
+                            </div>
 
-                        <div className="lg:col-span-8 xl:col-span-9">
-                            <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-                                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                                    <div className="relative w-full md:max-w-xl">
-                                        <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
-                                            <span aria-hidden="true">⌕</span>
+                            <div className="lg:col-span-8 xl:col-span-9">
+                                <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
+                                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                                        <div className="relative w-full md:max-w-xl">
+                                            <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+                                                <span aria-hidden="true">
+                                                    ⌕
+                                                </span>
+                                            </div>
+                                            <input
+                                                value={query}
+                                                onChange={(e) =>
+                                                    setQuery(e.target.value)
+                                                }
+                                                placeholder={t('common.search')}
+                                                className="w-full rounded-md border border-border bg-background py-2 pr-3 pl-9 text-sm text-foreground shadow-sm ring-offset-background outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                            />
                                         </div>
-                                        <input
-                                            value={query}
-                                            onChange={(e) => setQuery(e.target.value)}
-                                            placeholder={t('common.search')}
-                                            className="w-full rounded-md border border-border bg-background py-2 pl-9 pr-3 text-sm text-foreground shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                                        />
-                                    </div>
 
-                                    <div className="flex items-center justify-between gap-3 md:justify-end">
-                                        <label className="flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm text-muted-foreground shadow-sm">
-                                            <span className="whitespace-nowrap">
-                                                <TransText
-                                                    en="Sort by:"
-                                                    fr="Trier par :"
-                                                    ar="ترتيب حسب:"
-                                                />
-                                            </span>
-                                            <select
-                                                value={sort}
-                                                onChange={(e) => setSort(e.target.value)}
-                                                className="bg-transparent text-sm text-foreground outline-none"
-                                            >
-                                                <option value="newest">{t('opportunities.sortNewest')}</option>
-                                                <option value="deadline_soonest">
-                                                    {t('opportunities.sortDeadlineSoonest')}
-                                                </option>
-                                            </select>
-                                        </label>
+                                        <div className="flex items-center justify-between gap-3 md:justify-end">
+                                            <label className="flex items-center gap-2 rounded-md border border-border bg-background px-3 py-2 text-sm text-muted-foreground shadow-sm">
+                                                <span className="whitespace-nowrap">
+                                                    <TransText
+                                                        en="Sort by:"
+                                                        fr="Trier par :"
+                                                        ar="ترتيب حسب:"
+                                                    />
+                                                </span>
+                                                <select
+                                                    value={sort}
+                                                    onChange={(e) =>
+                                                        setSort(e.target.value)
+                                                    }
+                                                    className="bg-transparent text-sm text-foreground outline-none"
+                                                >
+                                                    <option value="newest">
+                                                        {t(
+                                                            'opportunities.sortNewest',
+                                                        )}
+                                                    </option>
+                                                    <option value="deadline_soonest">
+                                                        {t(
+                                                            'opportunities.sortDeadlineSoonest',
+                                                        )}
+                                                    </option>
+                                                </select>
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="mt-5 space-y-4">
-                                {pageItems.map((item) => (
-                                    <OpportunityCard key={item.id} item={item} />
-                                ))}
-                            </div>
+                                <div className="mt-5 space-y-4">
+                                    {pageItems.map((item) => (
+                                        <OpportunityCard
+                                            key={item.id}
+                                            item={item}
+                                        />
+                                    ))}
+                                </div>
 
-                            <div className="mt-8 flex items-center justify-center gap-2 text-xs">
-                                {Array.from({ length: totalPages }).map((_, idx) => {
-                                    const n = idx + 1;
-                                    const isActive = n === currentPage;
-                                    return (
-                                        <button
-                                            key={n}
-                                            type="button"
-                                            onClick={() => setPage(n)}
-                                            className={[
-                                                'rounded-md border px-3 py-2 font-semibold shadow-sm',
-                                                isActive
-                                                    ? 'border-beta-blue bg-beta-blue text-white'
-                                                    : 'border-border bg-card text-muted-foreground hover:text-foreground',
-                                            ].join(' ')}
-                                        >
-                                            {n}
-                                        </button>
-                                    );
-                                })}
+                                <div className="mt-8 flex items-center justify-center gap-2 text-xs">
+                                    {Array.from({ length: totalPages }).map(
+                                        (_, idx) => {
+                                            const n = idx + 1;
+                                            const isActive = n === currentPage;
+                                            return (
+                                                <button
+                                                    key={n}
+                                                    type="button"
+                                                    onClick={() => setPage(n)}
+                                                    className={[
+                                                        'rounded-md border px-3 py-2 font-semibold shadow-sm',
+                                                        isActive
+                                                            ? 'border-beta-blue bg-beta-blue text-white'
+                                                            : 'border-border bg-card text-muted-foreground hover:text-foreground',
+                                                    ].join(' ')}
+                                                >
+                                                    {n}
+                                                </button>
+                                            );
+                                        },
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -236,4 +255,3 @@ export default function OpportunitiesIndex() {
 }
 
 OpportunitiesIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
-

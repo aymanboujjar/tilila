@@ -48,7 +48,11 @@ export const EXPERT_DETAILS = {
                 },
             },
             {
-                title: { en: 'Digital Policy', fr: 'Politique numérique', ar: 'السياسة الرقمية' },
+                title: {
+                    en: 'Digital Policy',
+                    fr: 'Politique numérique',
+                    ar: 'السياسة الرقمية',
+                },
                 description: {
                     en: 'Data policy, governance, cyber-resilience, and public-sector digitalization.',
                     fr: 'Politique des données, gouvernance, cyber-résilience et digitalisation du secteur public.',
@@ -56,7 +60,11 @@ export const EXPERT_DETAILS = {
                 },
             },
             {
-                title: { en: 'Women in STEM', fr: 'Femmes en STEM', ar: 'النساء في مجالات STEM' },
+                title: {
+                    en: 'Women in STEM',
+                    fr: 'Femmes en STEM',
+                    ar: 'النساء في مجالات STEM',
+                },
                 description: {
                     en: 'Mentoring programs, creating access, and measurable inclusion outcomes.',
                     fr: 'Programmes de mentorat, création d’accès et résultats d’inclusion mesurables.',
@@ -112,7 +120,11 @@ export const EXPERT_DETAILS = {
                     fr: 'Impact de l’IA sur l’économie locale – Interview 2M',
                     ar: 'أثر الذكاء الاصطناعي على الاقتصاد المحلي – مقابلة 2M',
                 },
-                meta: { en: '2023 • Casablanca', fr: '2023 • Casablanca', ar: '2023 • الدار البيضاء' },
+                meta: {
+                    en: '2023 • Casablanca',
+                    fr: '2023 • Casablanca',
+                    ar: '2023 • الدار البيضاء',
+                },
                 duration: '58:10',
                 thumbnailSrc: '/assets/hero.png',
             },
@@ -122,7 +134,11 @@ export const EXPERT_DETAILS = {
                     fr: 'Panel : Femmes qui mènent l’innovation en Afrique',
                     ar: 'حلقة نقاش: نساء يقُدن الابتكار في إفريقيا',
                 },
-                meta: { en: '2022 • Rabat', fr: '2022 • Rabat', ar: '2022 • الرباط' },
+                meta: {
+                    en: '2022 • Rabat',
+                    fr: '2022 • Rabat',
+                    ar: '2022 • الرباط',
+                },
                 duration: '48:20',
                 thumbnailSrc: '/assets/talk.png',
             },
@@ -156,9 +172,12 @@ export const EXPERT_DETAILS = {
                     fr: 'Une conversation sur les défis et les réussites des femmes leaders dans la tech.',
                     ar: 'حديث عن التحديات والنجاحات لدى القيادات النسائية في مجال التقنية.',
                 },
-                meta: { en: 'Podcast • 25 min', fr: 'Podcast • 25 min', ar: 'بودكاست • 25 دقيقة' },
+                meta: {
+                    en: 'Podcast • 25 min',
+                    fr: 'Podcast • 25 min',
+                    ar: 'بودكاست • 25 دقيقة',
+                },
             },
         ],
     },
 };
-

@@ -28,17 +28,41 @@ export default function MediaTabs({ tabs = [], activeTabId, setActiveTabId }) {
 
                 const label =
                     tab.id === 'all' ? (
-                        <TransText en="All Media" fr="Tous les médias" ar="كل المحتوى" />
+                        <TransText
+                            en="All Media"
+                            fr="Tous les médias"
+                            ar="كل المحتوى"
+                        />
                     ) : tab.id === 'interviews' ? (
-                        <TransText en="Interviews" fr="Interviews" ar="مقابلات" />
+                        <TransText
+                            en="Interviews"
+                            fr="Interviews"
+                            ar="مقابلات"
+                        />
                     ) : tab.id === 'tililaReplay' ? (
-                        <TransText en="Tilila Replay" fr="Replay Tilila" ar="إعادة تيليلا" />
+                        <TransText
+                            en="Tilila Replay"
+                            fr="Replay Tilila"
+                            ar="إعادة تيليلا"
+                        />
                     ) : tab.id === 'impactReports' ? (
-                        <TransText en="Impact Reports" fr="Rapports d’impact" ar="تقارير الأثر" />
+                        <TransText
+                            en="Impact Reports"
+                            fr="Rapports d’impact"
+                            ar="تقارير الأثر"
+                        />
                     ) : tab.id === 'diversityInsights' ? (
-                        <TransText en="Diversity Insights" fr="Insights diversité" ar="رؤى التنوع" />
+                        <TransText
+                            en="Diversity Insights"
+                            fr="Insights diversité"
+                            ar="رؤى التنوع"
+                        />
                     ) : (
-                        <TransText en="Expert Profiles" fr="Profils d’expertes" ar="ملفات الخبيرات" />
+                        <TransText
+                            en="Expert Profiles"
+                            fr="Profils d’expertes"
+                            ar="ملفات الخبيرات"
+                        />
                     );
 
                 return (
@@ -54,4 +78,3 @@ export default function MediaTabs({ tabs = [], activeTabId, setActiveTabId }) {
         </div>
     );
 }
-

@@ -59,7 +59,7 @@ function CtaButton({ cta }) {
             ? cta?.label?.ar
             : locale === 'fr'
               ? cta?.label?.fr
-              : cta?.label?.en ?? t('events.actions.view');
+              : (cta?.label?.en ?? t('events.actions.view'));
     const href = cta?.href ?? '#';
     const kind = cta?.kind ?? 'secondary';
 
@@ -87,7 +87,10 @@ function CtaButton({ cta }) {
 
 export default function EventCard({ event, activeTab }) {
     const { locale, t } = useTranslation();
-    const dateLabel = useMemo(() => formatDateLabel(event?.dateIso ?? ''), [event]);
+    const dateLabel = useMemo(
+        () => formatDateLabel(event?.dateIso ?? ''),
+        [event],
+    );
     const leftMonth = useMemo(() => monthShort(event?.dateIso ?? ''), [event]);
     const leftDay = useMemo(() => day2(event?.dateIso ?? ''), [event]);
 
@@ -116,13 +119,14 @@ export default function EventCard({ event, activeTab }) {
                                 loading="lazy"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-tblack/60 via-tblack/15 to-transparent" />
-                            <div className="absolute left-4 top-4">
+                            <div className="absolute top-4 left-4">
                                 <Badge tone="blue">
                                     {locale === 'ar'
                                         ? event?.badge?.ar
                                         : locale === 'fr'
                                           ? event?.badge?.fr
-                                          : event?.badge?.en ?? t('events.labels.event')}
+                                          : (event?.badge?.en ??
+                                            t('events.labels.event'))}
                                 </Badge>
                             </div>
                         </div>
@@ -139,7 +143,13 @@ export default function EventCard({ event, activeTab }) {
                         <div className="min-w-0">
                             <div className="flex flex-wrap items-center gap-2">
                                 {!isFeatured && event?.badge ? (
-                                    <Badge tone={activeTab === 'past' ? 'muted' : 'blue'}>
+                                    <Badge
+                                        tone={
+                                            activeTab === 'past'
+                                                ? 'muted'
+                                                : 'blue'
+                                        }
+                                    >
                                         {locale === 'ar'
                                             ? event.badge.ar
                                             : locale === 'fr'
@@ -156,15 +166,23 @@ export default function EventCard({ event, activeTab }) {
                                         <span className="inline-flex items-center gap-1">
                                             <span aria-hidden="true">⏱</span>
                                             {event.startTime}
-                                            {event?.endTime ? ` – ${event.endTime}` : null}{' '}
-                                            {event?.tzLabel ? `(${event.tzLabel})` : null}
+                                            {event?.endTime
+                                                ? ` – ${event.endTime}`
+                                                : null}{' '}
+                                            {event?.tzLabel
+                                                ? `(${event.tzLabel})`
+                                                : null}
                                         </span>
                                     ) : null}
                                 </div>
                             </div>
 
                             <h3 className="mt-3 text-base font-extrabold text-foreground sm:text-lg">
-                                <TransText en={event?.title?.en} fr={event?.title?.fr} ar={event?.title?.ar} />
+                                <TransText
+                                    en={event?.title?.en}
+                                    fr={event?.title?.fr}
+                                    ar={event?.title?.ar}
+                                />
                             </h3>
                             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                                 <TransText
@@ -177,7 +195,7 @@ export default function EventCard({ event, activeTab }) {
 
                         {showLeftDate ? (
                             <div className="hidden shrink-0 text-center md:block">
-                                <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                                <div className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                                     {leftMonth}
                                 </div>
                                 <div className="mt-1 text-2xl font-extrabold text-foreground">
@@ -209,4 +227,3 @@ export default function EventCard({ event, activeTab }) {
         </article>
     );
 }
-

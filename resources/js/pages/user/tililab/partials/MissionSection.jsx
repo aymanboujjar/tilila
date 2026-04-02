@@ -27,7 +27,11 @@ export default function MissionSection() {
                     ✦
                 </span>
                 <span>
-                    <TransText en="Our Mission" fr="Notre mission" ar="مهمتنا" />
+                    <TransText
+                        en="Our Mission"
+                        fr="Notre mission"
+                        ar="مهمتنا"
+                    />
                 </span>
             </div>
 
@@ -41,14 +45,22 @@ export default function MissionSection() {
 
             <div className="mt-6">
                 <div className="text-sm font-semibold text-tblack">
-                    <TransText en="Who can apply?" fr="Qui peut postuler ?" ar="من يمكنه التقديم؟" />
+                    <TransText
+                        en="Who can apply?"
+                        fr="Qui peut postuler ?"
+                        ar="من يمكنه التقديم؟"
+                    />
                 </div>
                 <ul className="mt-3 space-y-2 text-sm text-tgray">
                     {eligibility.map((item) => (
                         <li key={item.en} className="flex items-start gap-2">
                             <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-beta-blue" />
                             <span>
-                                <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                <TransText
+                                    en={item.en}
+                                    fr={item.fr}
+                                    ar={item.ar}
+                                />
                             </span>
                         </li>
                     ))}
@@ -57,4 +69,3 @@ export default function MissionSection() {
         </div>
     );
 }
-

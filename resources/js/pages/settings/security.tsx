@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, setLayoutProps } from '@inertiajs/react';
 import { ShieldCheck } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import SecurityController from '@/actions/App/Http/Controllers/Settings/SecurityController';
@@ -10,8 +10,8 @@ import TwoFactorRecoveryCodes from '@/components/two-factor-recovery-codes';
 import TwoFactorSetupModal from '@/components/two-factor-setup-modal';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useTwoFactorAuth } from '@/hooks/use-two-factor-auth';
 import { edit } from '@/routes/security';
 import { disable, enable } from '@/routes/two-factor';
 
@@ -71,7 +71,9 @@ export default function Security({
                 <Heading
                     variant="small"
                     title={t('settings.security.updatePasswordTitle')}
-                    description={t('settings.security.updatePasswordDescription')}
+                    description={t(
+                        'settings.security.updatePasswordDescription',
+                    )}
                 />
 
                 <Form
@@ -100,7 +102,9 @@ export default function Security({
                         <>
                             <div className="grid gap-2">
                                 <Label htmlFor="current_password">
-                                    {t('settings.security.currentPasswordLabel')}
+                                    {t(
+                                        'settings.security.currentPasswordLabel',
+                                    )}
                                 </Label>
 
                                 <PasswordInput
@@ -109,14 +113,18 @@ export default function Security({
                                     name="current_password"
                                     className="mt-1 block w-full"
                                     autoComplete="current-password"
-                                    placeholder={t('settings.security.currentPasswordPlaceholder')}
+                                    placeholder={t(
+                                        'settings.security.currentPasswordPlaceholder',
+                                    )}
                                 />
 
                                 <InputError message={errors.current_password} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">{t('settings.security.newPasswordLabel')}</Label>
+                                <Label htmlFor="password">
+                                    {t('settings.security.newPasswordLabel')}
+                                </Label>
 
                                 <PasswordInput
                                     id="password"
@@ -124,7 +132,9 @@ export default function Security({
                                     name="password"
                                     className="mt-1 block w-full"
                                     autoComplete="new-password"
-                                    placeholder={t('settings.security.newPasswordPlaceholder')}
+                                    placeholder={t(
+                                        'settings.security.newPasswordPlaceholder',
+                                    )}
                                 />
 
                                 <InputError message={errors.password} />
@@ -140,7 +150,9 @@ export default function Security({
                                     name="password_confirmation"
                                     className="mt-1 block w-full"
                                     autoComplete="new-password"
-                                    placeholder={t('auth.common.confirmPasswordPlaceholder')}
+                                    placeholder={t(
+                                        'auth.common.confirmPasswordPlaceholder',
+                                    )}
                                 />
 
                                 <InputError
@@ -178,7 +190,9 @@ export default function Security({
                     <Heading
                         variant="small"
                         title={t('settings.security.twoFactorTitle')}
-                        description={t('settings.security.twoFactorDescription')}
+                        description={t(
+                            'settings.security.twoFactorDescription',
+                        )}
                     />
                     {twoFactorEnabled ? (
                         <div className="flex flex-col items-start justify-start space-y-4">
@@ -232,7 +246,9 @@ export default function Security({
                                                 type="submit"
                                                 disabled={processing}
                                             >
-                                                {t('settings.security.enable2fa')}
+                                                {t(
+                                                    'settings.security.enable2fa',
+                                                )}
                                             </Button>
                                         )}
                                     </Form>

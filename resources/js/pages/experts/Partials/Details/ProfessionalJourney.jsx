@@ -14,7 +14,10 @@ export default function ProfessionalJourney({ items = [] }) {
 
             <div className="mt-5 space-y-5">
                 {items.map((it) => (
-                    <div key={`${it.year}-${it.role.en}`} className="flex gap-3">
+                    <div
+                        key={`${it.year}-${it.role.en}`}
+                        className="flex gap-3"
+                    >
                         <div className="mt-1 h-8 w-8 shrink-0 rounded-full bg-alpha-blue text-beta-blue ring-1 ring-border" />
                         <div>
                             <div className="text-xs font-semibold text-muted-foreground">
@@ -25,7 +28,11 @@ export default function ProfessionalJourney({ items = [] }) {
                                 />
                             </div>
                             <div className="mt-1 text-sm font-extrabold text-foreground">
-                                <TransText en={it.role.en} fr={it.role.fr} ar={it.role.ar} />
+                                <TransText
+                                    en={it.role.en}
+                                    fr={it.role.fr}
+                                    ar={it.role.ar}
+                                />
                             </div>
                             <div className="mt-1 text-sm leading-relaxed text-muted-foreground">
                                 <TransText
@@ -41,4 +48,3 @@ export default function ProfessionalJourney({ items = [] }) {
         </section>
     );
 }
-

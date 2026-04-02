@@ -35,7 +35,7 @@ export default function ProfileSidebar({ expert, details }) {
                         ].join(' ')}
                     />
                     {expert.badge ? (
-                        <div className="absolute left-4 top-4 rounded-full bg-beta-green px-2.5 py-1 text-xs font-semibold text-alpha-green ring-1 ring-border">
+                        <div className="absolute top-4 left-4 rounded-full bg-beta-green px-2.5 py-1 text-xs font-semibold text-alpha-green ring-1 ring-border">
                             {expert.badge.toUpperCase()}
                         </div>
                     ) : null}
@@ -66,20 +66,28 @@ export default function ProfileSidebar({ expert, details }) {
                     </div>
 
                     <div className="mt-4 flex flex-wrap gap-2">
-                        {(details?.headlineTags ?? expert.tags ?? []).slice(0, 3).map((t) => (
-                            <span
-                                key={t.en}
-                                className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground"
-                            >
-                                <TransText en={t.en} fr={t.fr} ar={t.ar} />
-                            </span>
-                        ))}
+                        {(details?.headlineTags ?? expert.tags ?? [])
+                            .slice(0, 3)
+                            .map((t) => (
+                                <span
+                                    key={t.en}
+                                    className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground"
+                                >
+                                    <TransText en={t.en} fr={t.fr} ar={t.ar} />
+                                </span>
+                            ))}
                     </div>
 
                     <div className="mt-4 flex items-center gap-2">
-                        <IconButton label={t('experts.actions.linkedinAria')}>in</IconButton>
-                        <IconButton label={t('experts.actions.twitterAria')}>𝕏</IconButton>
-                        <IconButton label={t('experts.actions.websiteAria')}>⌁</IconButton>
+                        <IconButton label={t('experts.actions.linkedinAria')}>
+                            in
+                        </IconButton>
+                        <IconButton label={t('experts.actions.twitterAria')}>
+                            𝕏
+                        </IconButton>
+                        <IconButton label={t('experts.actions.websiteAria')}>
+                            ⌁
+                        </IconButton>
                     </div>
 
                     <button
@@ -98,7 +106,9 @@ export default function ProfileSidebar({ expert, details }) {
 
             {details?.quote ? (
                 <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-                    <div className="text-2xl font-extrabold text-beta-blue">“</div>
+                    <div className="text-2xl font-extrabold text-beta-blue">
+                        “
+                    </div>
                     <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
                         <TransText
                             en={details.quote.en}
@@ -114,4 +124,3 @@ export default function ProfileSidebar({ expert, details }) {
         </aside>
     );
 }
-

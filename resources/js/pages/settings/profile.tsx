@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { Form, Head, Link, usePage } from '@inertiajs/react';
+import { Form, Head, Link, setLayoutProps, usePage } from '@inertiajs/react';
 import ProfileController from '@/actions/App/Http/Controllers/Settings/ProfileController';
 import DeleteUser from '@/components/delete-user';
 import Heading from '@/components/heading';
@@ -53,7 +53,9 @@ export default function Profile({
                     {({ processing, recentlySuccessful, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="name">{t('settings.profile.nameLabel')}</Label>
+                                <Label htmlFor="name">
+                                    {t('settings.profile.nameLabel')}
+                                </Label>
 
                                 <Input
                                     id="name"
@@ -62,7 +64,9 @@ export default function Profile({
                                     name="name"
                                     required
                                     autoComplete="name"
-                                    placeholder={t('settings.profile.namePlaceholder')}
+                                    placeholder={t(
+                                        'settings.profile.namePlaceholder',
+                                    )}
                                 />
 
                                 <InputError
@@ -72,7 +76,9 @@ export default function Profile({
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">{t('settings.profile.emailLabel')}</Label>
+                                <Label htmlFor="email">
+                                    {t('settings.profile.emailLabel')}
+                                </Label>
 
                                 <Input
                                     id="email"
@@ -82,7 +88,9 @@ export default function Profile({
                                     name="email"
                                     required
                                     autoComplete="username"
-                                    placeholder={t('settings.profile.emailPlaceholder')}
+                                    placeholder={t(
+                                        'settings.profile.emailPlaceholder',
+                                    )}
                                 />
 
                                 <InputError
@@ -95,13 +103,17 @@ export default function Profile({
                                 auth.user.email_verified_at === null && (
                                     <div>
                                         <p className="-mt-4 text-sm text-muted-foreground">
-                                            {t('settings.profile.unverifiedPrefix')}{' '}
+                                            {t(
+                                                'settings.profile.unverifiedPrefix',
+                                            )}{' '}
                                             <Link
                                                 href={send()}
                                                 as="button"
                                                 className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
                                             >
-                                                {t('settings.profile.resendVerification')}
+                                                {t(
+                                                    'settings.profile.resendVerification',
+                                                )}
                                             </Link>
                                         </p>
 

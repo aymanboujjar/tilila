@@ -1,7 +1,11 @@
 export const EXPERTS = [
     {
         id: 'sarah-amiami',
-        name: { en: 'Dr. Sarah Amiami', fr: 'Dr Sarah Amiami', ar: 'د. سارة أميامي' },
+        name: {
+            en: 'Dr. Sarah Amiami',
+            fr: 'Dr Sarah Amiami',
+            ar: 'د. سارة أميامي',
+        },
         title: {
             en: 'Economist & Researcher',
             fr: 'Économiste & chercheuse',
@@ -11,7 +15,11 @@ export const EXPERTS = [
             { en: 'Economics', fr: 'Économie', ar: 'الاقتصاد' },
             { en: 'Finance', fr: 'Finance', ar: 'المالية' },
         ],
-        location: { en: 'Casablanca, MA', fr: 'Casablanca, MA', ar: 'الدار البيضاء، المغرب' },
+        location: {
+            en: 'Casablanca, MA',
+            fr: 'Casablanca, MA',
+            ar: 'الدار البيضاء، المغرب',
+        },
         country: 'ma',
         industries: ['economics'],
         languages: ['fr', 'en', 'ar'],
@@ -20,7 +28,11 @@ export const EXPERTS = [
     },
     {
         id: 'yasmine-benjiloun',
-        name: { en: 'Yasmine Benjiloun', fr: 'Yasmine Benjiloun', ar: 'ياسمين بنجلون' },
+        name: {
+            en: 'Yasmine Benjiloun',
+            fr: 'Yasmine Benjiloun',
+            ar: 'ياسمين بنجلون',
+        },
         title: {
             en: 'Tech Entrepreneur & AI Specialist',
             fr: 'Entrepreneure tech & spécialiste IA',
@@ -53,7 +65,11 @@ export const EXPERTS = [
             { en: 'Climate', fr: 'Climat', ar: 'المناخ' },
             { en: 'Sustainability', fr: 'Durabilité', ar: 'الاستدامة' },
         ],
-        location: { en: 'Marrakesh, MA', fr: 'Marrakech, MA', ar: 'مراكش، المغرب' },
+        location: {
+            en: 'Marrakesh, MA',
+            fr: 'Marrakech, MA',
+            ar: 'مراكش، المغرب',
+        },
         country: 'ma',
         industries: ['health'],
         languages: ['fr', 'en', 'ar'],
@@ -62,7 +78,11 @@ export const EXPERTS = [
     },
     {
         id: 'khadija-oukacha',
-        name: { en: 'Khadija Oukacha', fr: 'Khadija Oukacha', ar: 'خديجة أوكاشا' },
+        name: {
+            en: 'Khadija Oukacha',
+            fr: 'Khadija Oukacha',
+            ar: 'خديجة أوكاشا',
+        },
         title: {
             en: 'Human Rights Lawyer',
             fr: 'Avocate en droits humains',
@@ -72,7 +92,11 @@ export const EXPERTS = [
             { en: 'Legal', fr: 'Droit', ar: 'القانون' },
             { en: 'Human Rights', fr: 'Droits humains', ar: 'حقوق الإنسان' },
         ],
-        location: { en: 'Casablanca, MA', fr: 'Casablanca, MA', ar: 'الدار البيضاء، المغرب' },
+        location: {
+            en: 'Casablanca, MA',
+            fr: 'Casablanca, MA',
+            ar: 'الدار البيضاء، المغرب',
+        },
         country: 'ma',
         industries: ['legal'],
         languages: ['fr', 'ar'],
@@ -100,7 +124,11 @@ export const EXPERTS = [
     },
     {
         id: 'amira-kone',
-        name: { en: 'Dr. Amira Kone', fr: 'Dr Amira Kone', ar: 'د. أميرة كوني' },
+        name: {
+            en: 'Dr. Amira Kone',
+            fr: 'Dr Amira Kone',
+            ar: 'د. أميرة كوني',
+        },
         title: {
             en: 'Public Health Specialist',
             fr: 'Spécialiste en santé publique',
@@ -156,4 +184,3 @@ export const EXPERTS = [
         badge: null,
     },
 ];
-

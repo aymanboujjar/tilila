@@ -6,9 +6,9 @@ import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { login } from '@/routes';
 import { email } from '@/routes/password';
-import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function ForgotPassword({ status }: { status?: string }) {
     const { t } = useTranslation();
@@ -33,14 +33,18 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="email">{t('auth.forgot.emailLabel')}</Label>
+                                <Label htmlFor="email">
+                                    {t('auth.forgot.emailLabel')}
+                                </Label>
                                 <Input
                                     id="email"
                                     type="email"
                                     name="email"
                                     autoComplete="off"
                                     autoFocus
-                                    placeholder={t('auth.common.emailPlaceholder')}
+                                    placeholder={t(
+                                        'auth.common.emailPlaceholder',
+                                    )}
                                 />
 
                                 <InputError message={errors.email} />
@@ -64,7 +68,9 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                 <div className="space-x-1 text-center text-sm text-muted-foreground">
                     <span>{t('auth.forgot.returnPrefix')}</span>
-                    <TextLink href={login()}>{t('auth.forgot.returnLink')}</TextLink>
+                    <TextLink href={login()}>
+                        {t('auth.forgot.returnLink')}
+                    </TextLink>
                 </div>
             </div>
         </>

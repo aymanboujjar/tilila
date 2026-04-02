@@ -50,8 +50,7 @@ const winners = [
             'A documentary-style creative concept celebrating diversity of voices and professions.',
         frDescription:
             'Un concept créatif de style documentaire célébrant la diversité des voix et des métiers.',
-        arDescription:
-            'تصور إبداعي بأسلوب وثائقي يحتفي بتنوع الأصوات والمهن.',
+        arDescription: 'تصور إبداعي بأسلوب وثائقي يحتفي بتنوع الأصوات والمهن.',
         imageUrl:
             'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
     },
@@ -67,8 +66,7 @@ const winners = [
             'A concept reframing gender roles through everyday stories and visuals.',
         frDescription:
             'Un concept qui recompose les rôles de genre à travers des récits et des visuels du quotidien.',
-        arDescription:
-            'تصور يعيد صياغة أدوار النوع من خلال قصص وصور يومية.',
+        arDescription: 'تصور يعيد صياغة أدوار النوع من خلال قصص وصور يومية.',
         imageUrl:
             'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
     },
@@ -126,14 +124,22 @@ export default function PastWinnersSection() {
     };
 
     return (
-        <section className="mx-auto max-w-7xl px-4 pb-16 pt-4">
+        <section className="mx-auto max-w-7xl px-4 pt-4 pb-16">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <div className="text-xs font-semibold tracking-widest text-tgray">
-                        <TransText en="PAST WINNERS" fr="LAURÉATS PRÉCÉDENTS" ar="الفائزون السابقون" />
+                        <TransText
+                            en="PAST WINNERS"
+                            fr="LAURÉATS PRÉCÉDENTS"
+                            ar="الفائزون السابقون"
+                        />
                     </div>
                     <h2 className="mt-3 text-2xl font-semibold text-tblack">
-                        <TransText en="Past Winners" fr="Lauréats précédents" ar="الفائزون السابقون" />
+                        <TransText
+                            en="Past Winners"
+                            fr="Lauréats précédents"
+                            ar="الفائزون السابقون"
+                        />
                     </h2>
                     <p className="mt-3 max-w-2xl text-sm leading-6 text-tgray">
                         <TransText
@@ -187,7 +193,7 @@ export default function PastWinnersSection() {
                                 decoding="async"
                                 referrerPolicy="no-referrer"
                             />
-                            <span className="absolute left-4 top-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
+                            <span className="absolute top-4 left-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
                                 <TransText
                                     en={winner.enYearLabel}
                                     fr={winner.frYearLabel}
@@ -198,7 +204,11 @@ export default function PastWinnersSection() {
 
                         <div className="p-5">
                             <h3 className="text-sm font-semibold text-tblack">
-                                <TransText en={winner.enTitle} fr={winner.frTitle} ar={winner.arTitle} />
+                                <TransText
+                                    en={winner.enTitle}
+                                    fr={winner.frTitle}
+                                    ar={winner.arTitle}
+                                />
                             </h3>
                             <p className="mt-2 text-sm leading-6 text-tgray">
                                 <TransText
@@ -214,4 +224,3 @@ export default function PastWinnersSection() {
         </section>
     );
 }
-

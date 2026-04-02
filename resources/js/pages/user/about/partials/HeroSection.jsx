@@ -3,12 +3,16 @@ import TransText from '@/components/TransText';
 
 export default function HeroSection() {
     return (
-        <section className="mx-auto max-w-7xl px-4 pb-16 pt-16 sm:pb-24 sm:pt-24">
+        <section className="mx-auto max-w-7xl px-4 pt-16 pb-16 sm:pt-24 sm:pb-24">
             <div className="mx-auto max-w-4xl text-center">
                 <div className="inline-flex items-center gap-2 rounded-full bg-alpha-blue px-5 py-2 text-sm font-semibold text-beta-blue">
                     <ShieldCheck className="size-5" />
                     <span>
-                        <TransText en="Our Initiative" fr="Notre initiative" ar="مبادرتنا" />
+                        <TransText
+                            en="Our Initiative"
+                            fr="Notre initiative"
+                            ar="مبادرتنا"
+                        />
                     </span>
                 </div>
 
@@ -37,4 +41,3 @@ export default function HeroSection() {
         </section>
     );
 }
-

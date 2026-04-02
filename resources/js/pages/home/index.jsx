@@ -31,8 +31,10 @@ export default function HomeIndex({ canRegister = true }) {
             />
 
             {/* kept for future auth-related CTA wiring */}
-            <div className="sr-only" data-can-register={canRegister ? '1' : '0'} />
+            <div
+                className="sr-only"
+                data-can-register={canRegister ? '1' : '0'}
+            />
         </>
     );
 }
-

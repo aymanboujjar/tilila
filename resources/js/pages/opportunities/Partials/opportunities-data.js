@@ -18,8 +18,8 @@ export const OPPORTUNITIES = [
         posted: { en: '2 days ago', fr: 'Il y a 2 jours', ar: 'قبل يومين' },
         views: 45,
         excerpt: {
-            en: "We are looking for a female expert in renewable energies to participate in our evening news segment discussing Morocco’s new solar infrastructure projects.",
-            fr: "Nous recherchons une experte en énergies renouvelables pour participer à notre journal du soir حول مشاريع البنية التحتية الشمسية الجديدة بالمغرب.",
+            en: 'We are looking for a female expert in renewable energies to participate in our evening news segment discussing Morocco’s new solar infrastructure projects.',
+            fr: 'Nous recherchons une experte en énergies renouvelables pour participer à notre journal du soir حول مشاريع البنية التحتية الشمسية الجديدة بالمغرب.',
             ar: 'نبحث عن خبيرة في الطاقات المتجددة للمشاركة في فقرة الأخبار المسائية لمناقشة مشاريع البنية التحتية الشمسية الجديدة في المغرب.',
         },
     },
@@ -32,7 +32,11 @@ export const OPPORTUNITIES = [
             fr: 'Sommet Women in Tech Africa 2023',
             ar: 'قمة Women in Tech Africa 2023',
         },
-        org: { en: 'TechAfrica Initiative', fr: 'Initiative TechAfrica', ar: 'مبادرة TechAfrica' },
+        org: {
+            en: 'TechAfrica Initiative',
+            fr: 'Initiative TechAfrica',
+            ar: 'مبادرة TechAfrica',
+        },
         location: {
             en: 'Marrakesh, Morocco',
             fr: 'Marrakech, Maroc',
@@ -42,8 +46,8 @@ export const OPPORTUNITIES = [
         posted: { en: '1 week ago', fr: 'Il y a 1 semaine', ar: 'قبل أسبوع' },
         views: 109,
         excerpt: {
-            en: "Seeking panelists for our “Future of AI” session. We are specifically looking for women leaders in AI development and ethics to share their insights.",
-            fr: "Nous recherchons des panélistes pour notre session « Futur de l’IA ». Nous cherchons خاصةً des femmes leaders en développement et éthique de l’IA pour partager leurs perspectives.",
+            en: 'Seeking panelists for our “Future of AI” session. We are specifically looking for women leaders in AI development and ethics to share their insights.',
+            fr: 'Nous recherchons des panélistes pour notre session « Futur de l’IA ». Nous cherchons خاصةً des femmes leaders en développement et éthique de l’IA pour partager leurs perspectives.',
             ar: 'نبحث عن متحدثات لجلستنا «مستقبل الذكاء الاصطناعي». نركز على القيادات النسائية في تطوير الذكاء الاصطناعي وأخلاقياته لمشاركة خبراتهن.',
         },
     },
@@ -57,7 +61,7 @@ export const OPPORTUNITIES = [
             ar: 'منحة بحثية: التكافؤ بين الجنسين في المناطق القروية',
         },
         org: {
-            en: "Foundation for Women’s Rights",
+            en: 'Foundation for Women’s Rights',
             fr: 'Fondation pour les droits des femmes',
             ar: 'مؤسسة حقوق المرأة',
         },
@@ -84,7 +88,11 @@ export const OPPORTUNITIES = [
             fr: 'Programme de résidence artistique 2024',
             ar: 'برنامج إقامة فنية 2024',
         },
-        org: { en: 'Atlas Cultural Center', fr: 'Centre culturel Atlas', ar: 'مركز أطلس الثقافي' },
+        org: {
+            en: 'Atlas Cultural Center',
+            fr: 'Centre culturel Atlas',
+            ar: 'مركز أطلس الثقافي',
+        },
         location: {
             en: 'Tangier, Morocco',
             fr: 'Tanger, Maroc',
@@ -100,4 +108,3 @@ export const OPPORTUNITIES = [
         },
     },
 ];
-

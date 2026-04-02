@@ -1,7 +1,11 @@
 export const OPPORTUNITY_DETAILS = {
     'women-media-leadership-program-2024': {
         badge: { en: 'Fellowship', fr: 'Bourse', ar: 'زمالة' },
-        meta: { en: 'Posted 2 days ago', fr: 'Publié il y a 2 jours', ar: 'نُشر قبل يومين' },
+        meta: {
+            en: 'Posted 2 days ago',
+            fr: 'Publié il y a 2 jours',
+            ar: 'نُشر قبل يومين',
+        },
         title: {
             en: 'Women in Media Leadership Program 2024',
             fr: 'Programme Femmes et leadership dans les médias 2024',
@@ -39,13 +43,29 @@ export const OPPORTUNITY_DETAILS = {
                 ar: 'الدار البيضاء وحضور هجين',
             },
             duration: { en: '6 Months', fr: '6 mois', ar: '6 أشهر' },
-            language: { en: 'French / English', fr: 'Français / anglais', ar: 'الفرنسية / الإنجليزية' },
-            cost: { en: 'Fully Funded', fr: 'Entièrement financé', ar: 'ممول بالكامل' },
+            language: {
+                en: 'French / English',
+                fr: 'Français / anglais',
+                ar: 'الفرنسية / الإنجليزية',
+            },
+            cost: {
+                en: 'Fully Funded',
+                fr: 'Entièrement financé',
+                ar: 'ممول بالكامل',
+            },
         },
         relatedThemes: [
             { en: 'Journalism', fr: 'Journalisme', ar: 'الصحافة' },
-            { en: 'Women Leadership', fr: 'Leadership féminin', ar: 'القيادة النسائية' },
-            { en: 'Digital Media', fr: 'Médias numériques', ar: 'الإعلام الرقمي' },
+            {
+                en: 'Women Leadership',
+                fr: 'Leadership féminin',
+                ar: 'القيادة النسائية',
+            },
+            {
+                en: 'Digital Media',
+                fr: 'Médias numériques',
+                ar: 'الإعلام الرقمي',
+            },
             { en: 'Mentorship', fr: 'Mentorat', ar: 'الإرشاد' },
         ],
         eligibility: [
@@ -76,12 +96,20 @@ export const OPPORTUNITY_DETAILS = {
                 fr: 'Date limite de candidature',
                 ar: 'آخر موعد للتقديم',
             },
-            dateLabel: { en: 'November 15, 2024', fr: '15 نوفمبر 2024', ar: '15 نوفمبر 2024' },
+            dateLabel: {
+                en: 'November 15, 2024',
+                fr: '15 نوفمبر 2024',
+                ar: '15 نوفمبر 2024',
+            },
         },
         howToApply: [
             {
                 step: 1,
-                title: { en: 'Prepare Documents', fr: 'Préparer les documents', ar: 'تحضير الوثائق' },
+                title: {
+                    en: 'Prepare Documents',
+                    fr: 'Préparer les documents',
+                    ar: 'تحضير الوثائق',
+                },
                 text: {
                     en: 'Upload your updated CV, a cover letter (max 500 words), and two samples of your work.',
                     fr: 'Téléversez votre CV à jour, une lettre de motivation (max 500 mots) et deux échantillons de votre travail.',
@@ -135,4 +163,3 @@ export const OPPORTUNITY_DETAILS = {
         ],
     },
 };
-

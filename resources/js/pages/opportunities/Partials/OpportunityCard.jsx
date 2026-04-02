@@ -6,7 +6,8 @@ import { useTranslation } from '@/contexts/TranslationContext';
 function TypeLabel({ type }) {
     const { t } = useTranslation();
     if (type === 'media_call') return t('opportunities.filters.mediaCall');
-    if (type === 'panel_discussion') return t('opportunities.filters.panelDiscussion');
+    if (type === 'panel_discussion')
+        return t('opportunities.filters.panelDiscussion');
     if (type === 'grant') return t('opportunities.filters.grant');
     if (type === 'residency') return t('opportunities.filters.residency');
     return t('opportunities.card.fallbackType');
@@ -45,7 +46,11 @@ export default function OpportunityCard({ item }) {
     const { locale, t } = useTranslation();
 
     const resolvedOrg =
-        locale === 'ar' ? item.org?.ar : locale === 'fr' ? item.org?.fr : item.org?.en;
+        locale === 'ar'
+            ? item.org?.ar
+            : locale === 'fr'
+              ? item.org?.fr
+              : item.org?.en;
     const resolvedLocation =
         locale === 'ar'
             ? item.location?.ar
@@ -80,7 +85,11 @@ export default function OpportunityCard({ item }) {
                     </div>
 
                     <h3 className="mt-2 text-base font-extrabold text-foreground">
-                        <TransText en={item.title?.en} fr={item.title?.fr} ar={item.title?.ar} />
+                        <TransText
+                            en={item.title?.en}
+                            fr={item.title?.fr}
+                            ar={item.title?.ar}
+                        />
                     </h3>
 
                     <div className="mt-1 text-sm text-muted-foreground">
@@ -117,7 +126,11 @@ export default function OpportunityCard({ item }) {
                             href={`/opportunities/${item.id}`}
                             className="inline-flex items-center gap-2 text-sm font-semibold text-beta-blue hover:underline"
                         >
-                            <TransText en="Apply Now" fr="Postuler" ar="قدّم الآن" />{' '}
+                            <TransText
+                                en="Apply Now"
+                                fr="Postuler"
+                                ar="قدّم الآن"
+                            />{' '}
                             <span aria-hidden="true">→</span>
                         </Link>
                     </div>
@@ -126,4 +139,3 @@ export default function OpportunityCard({ item }) {
         </article>
     );
 }
-

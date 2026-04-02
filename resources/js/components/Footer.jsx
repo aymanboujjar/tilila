@@ -5,15 +5,40 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
 const platformLinks = [
-    { en: 'Find an Expert', fr: 'Trouver une experte', ar: 'اعثر على خبيرة', href: '/experts' },
-    { en: 'Join as Media', fr: 'Rejoindre en tant que média', ar: 'انضم كوسيلة إعلام', href: register() },
-    { en: 'Our Partners', fr: 'Nos partenaires', ar: 'شركاؤنا', href: '/about' },
+    {
+        en: 'Find an Expert',
+        fr: 'Trouver une experte',
+        ar: 'اعثر على خبيرة',
+        href: '/experts',
+    },
+    {
+        en: 'Join as Media',
+        fr: 'Rejoindre en tant que média',
+        ar: 'انضم كوسيلة إعلام',
+        href: register(),
+    },
+    {
+        en: 'Our Partners',
+        fr: 'Nos partenaires',
+        ar: 'شركاؤنا',
+        href: '/about',
+    },
 ];
 
 const initiativesLinks = [
     { en: 'Events', fr: 'Événements', ar: 'الفعاليات', href: '/events' },
-    { en: 'Opportunities', fr: 'Opportunités', ar: 'الفرص', href: '/opportunities' },
-    { en: 'Governance', fr: 'Gouvernance', ar: 'الحوكمة', href: '/gouvernance' },
+    {
+        en: 'Opportunities',
+        fr: 'Opportunités',
+        ar: 'الفرص',
+        href: '/opportunities',
+    },
+    {
+        en: 'Governance',
+        fr: 'Gouvernance',
+        ar: 'الحوكمة',
+        href: '/gouvernance',
+    },
 ];
 
 export default function Footer() {
@@ -69,7 +94,11 @@ export default function Footer() {
 
                     <div className="md:col-span-2 md:col-start-6">
                         <h3 className="text-sm font-semibold text-tblack">
-                            <TransText en="Platform" fr="Plateforme" ar="المنصة" />
+                            <TransText
+                                en="Platform"
+                                fr="Plateforme"
+                                ar="المنصة"
+                            />
                         </h3>
                         <ul className="mt-4 space-y-3 text-sm text-tgray">
                             {platformLinks.map((item) => (
@@ -78,7 +107,11 @@ export default function Footer() {
                                         href={item.href}
                                         className="transition-colors hover:text-tblack"
                                     >
-                                        <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                        <TransText
+                                            en={item.en}
+                                            fr={item.fr}
+                                            ar={item.ar}
+                                        />
                                     </Link>
                                 </li>
                             ))}
@@ -87,7 +120,11 @@ export default function Footer() {
                                     href={login()}
                                     className="transition-colors hover:text-tblack"
                                 >
-                                    <TransText en="Login" fr="Connexion" ar="تسجيل الدخول" />
+                                    <TransText
+                                        en="Login"
+                                        fr="Connexion"
+                                        ar="تسجيل الدخول"
+                                    />
                                 </Link>
                             </li>
                         </ul>
@@ -95,7 +132,11 @@ export default function Footer() {
 
                     <div className="md:col-span-2">
                         <h3 className="text-sm font-semibold text-tblack">
-                            <TransText en="Initiatives" fr="Initiatives" ar="المبادرات" />
+                            <TransText
+                                en="Initiatives"
+                                fr="Initiatives"
+                                ar="المبادرات"
+                            />
                         </h3>
                         <ul className="mt-4 space-y-3 text-sm text-tgray">
                             {initiativesLinks.map((item) => (
@@ -104,7 +145,11 @@ export default function Footer() {
                                         href={item.href}
                                         className="transition-colors hover:text-tblack"
                                     >
-                                        <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                        <TransText
+                                            en={item.en}
+                                            fr={item.fr}
+                                            ar={item.ar}
+                                        />
                                     </Link>
                                 </li>
                             ))}
@@ -117,7 +162,11 @@ export default function Footer() {
                         </h3>
                         <ul className="mt-4 space-y-3 text-sm text-tgray">
                             <li>
-                                <TransText en="Casablanca, Morocco" fr="Casablanca, Maroc" ar="الدار البيضاء، المغرب" />
+                                <TransText
+                                    en="Casablanca, Morocco"
+                                    fr="Casablanca, Maroc"
+                                    ar="الدار البيضاء، المغرب"
+                                />
                             </li>
                             <li>
                                 <a

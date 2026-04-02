@@ -45,7 +45,7 @@ export default function FiltersBar({
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder={t('experts.searchPlaceholder')}
-                            className="w-full rounded-md border border-border bg-card py-2 pl-9 pr-3 text-sm text-foreground shadow-sm outline-none ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                            className="w-full rounded-md border border-border bg-card py-2 pr-3 pl-9 text-sm text-foreground shadow-sm ring-offset-background outline-none placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                         />
                     </div>
                     <button
@@ -61,31 +61,63 @@ export default function FiltersBar({
             <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                 <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
                     <Select
-                        label={<TransText en="Industry / Theme" fr="Secteur / Thème" ar="القطاع / الموضوع" />}
+                        label={
+                            <TransText
+                                en="Industry / Theme"
+                                fr="Secteur / Thème"
+                                ar="القطاع / الموضوع"
+                            />
+                        }
                         value={filters.industry}
                         onChange={(industry) =>
                             setFilters((f) => ({ ...f, industry }))
                         }
                         options={[
                             { value: 'all', label: t('experts.filters.all') },
-                            { value: 'economics', label: t('experts.filters.economics') },
-                            { value: 'technology', label: t('experts.filters.technology') },
-                            { value: 'health', label: t('experts.filters.health') },
-                            { value: 'legal', label: t('experts.filters.legal') },
+                            {
+                                value: 'economics',
+                                label: t('experts.filters.economics'),
+                            },
+                            {
+                                value: 'technology',
+                                label: t('experts.filters.technology'),
+                            },
+                            {
+                                value: 'health',
+                                label: t('experts.filters.health'),
+                            },
+                            {
+                                value: 'legal',
+                                label: t('experts.filters.legal'),
+                            },
                         ]}
                     />
                     <Select
                         label={<TransText en="Country" fr="Pays" ar="البلد" />}
                         value={filters.country}
-                        onChange={(country) => setFilters((f) => ({ ...f, country }))}
+                        onChange={(country) =>
+                            setFilters((f) => ({ ...f, country }))
+                        }
                         options={[
                             { value: 'all', label: t('experts.filters.all') },
-                            { value: 'ma', label: t('experts.filters.morocco') },
-                            { value: 'sn', label: t('experts.filters.senegal') },
+                            {
+                                value: 'ma',
+                                label: t('experts.filters.morocco'),
+                            },
+                            {
+                                value: 'sn',
+                                label: t('experts.filters.senegal'),
+                            },
                         ]}
                     />
                     <Select
-                        label={<TransText en="Languages" fr="Langues" ar="اللغات" />}
+                        label={
+                            <TransText
+                                en="Languages"
+                                fr="Langues"
+                                ar="اللغات"
+                            />
+                        }
                         value={filters.language}
                         onChange={(language) =>
                             setFilters((f) => ({ ...f, language }))
@@ -94,31 +126,58 @@ export default function FiltersBar({
                             { value: 'all', label: t('experts.filters.all') },
                             { value: 'ar', label: t('experts.filters.arabic') },
                             { value: 'fr', label: t('experts.filters.french') },
-                            { value: 'en', label: t('experts.filters.english') },
+                            {
+                                value: 'en',
+                                label: t('experts.filters.english'),
+                            },
                         ]}
                     />
                     <Select
-                        label={<TransText en="Availability" fr="Disponibilité" ar="التوفر" />}
+                        label={
+                            <TransText
+                                en="Availability"
+                                fr="Disponibilité"
+                                ar="التوفر"
+                            />
+                        }
                         value={filters.availability}
                         onChange={(availability) =>
                             setFilters((f) => ({ ...f, availability }))
                         }
                         options={[
                             { value: 'all', label: t('experts.filters.all') },
-                            { value: 'available', label: t('experts.filters.available') },
+                            {
+                                value: 'available',
+                                label: t('experts.filters.available'),
+                            },
                         ]}
                     />
                 </div>
 
                 <div className="flex flex-wrap items-center justify-between gap-3 lg:justify-end">
                     <Select
-                        label={<TransText en="Sort by:" fr="Trier par :" ar="ترتيب حسب:" />}
+                        label={
+                            <TransText
+                                en="Sort by:"
+                                fr="Trier par :"
+                                ar="ترتيب حسب:"
+                            />
+                        }
                         value={sort}
                         onChange={setSort}
                         options={[
-                            { value: 'relevance', label: t('experts.sort.relevance') },
-                            { value: 'name_asc', label: t('experts.sort.nameAsc') },
-                            { value: 'name_desc', label: t('experts.sort.nameDesc') },
+                            {
+                                value: 'relevance',
+                                label: t('experts.sort.relevance'),
+                            },
+                            {
+                                value: 'name_asc',
+                                label: t('experts.sort.nameAsc'),
+                            },
+                            {
+                                value: 'name_desc',
+                                label: t('experts.sort.nameDesc'),
+                            },
                         ]}
                     />
 
@@ -158,4 +217,3 @@ export default function FiltersBar({
         </div>
     );
 }
-

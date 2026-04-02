@@ -1,15 +1,8 @@
 import type { ReactNode } from 'react';
+import type { TranslationContextValue } from '@/types/translation';
 
-export type TranslateFn = (key: string) => string;
+export type { TranslationContextValue };
 
-export interface TranslationContextValue {
-    locale: string;
-    setLocale: (locale: string) => void;
-    t: TranslateFn;
-}
-
-export function TranslationProvider(props: {
-    children: ReactNode;
-}): ReactNode;
+export function TranslationProvider(props: { children: ReactNode }): ReactNode;
 
 export function useTranslation(): TranslationContextValue;

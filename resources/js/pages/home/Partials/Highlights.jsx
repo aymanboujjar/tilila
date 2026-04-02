@@ -68,7 +68,11 @@ export default function Highlights({ tropheeImageSrc, talkImageSrc }) {
                         href="#initiatives"
                         className="inline-flex w-fit items-center justify-center rounded-md border border-border bg-card px-4 py-2 text-sm font-semibold text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground"
                     >
-                        <TransText en="View All Initiatives" fr="Voir toutes les initiatives" ar="عرض جميع المبادرات" />
+                        <TransText
+                            en="View All Initiatives"
+                            fr="Voir toutes les initiatives"
+                            ar="عرض جميع المبادرات"
+                        />
                     </Link>
                 </div>
 
@@ -90,20 +94,36 @@ export default function Highlights({ tropheeImageSrc, talkImageSrc }) {
                                 <div className="absolute inset-0 bg-gradient-to-br from-tblack/75 via-tblack/40 to-transparent" />
                                 <div className="relative flex h-full w-full flex-col justify-end p-6">
                                     <div className="inline-flex w-fit items-center rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/20">
-                                        <TransText en={item.enTag} fr={item.frTag} ar={item.arTag} />
+                                        <TransText
+                                            en={item.enTag}
+                                            fr={item.frTag}
+                                            ar={item.arTag}
+                                        />
                                     </div>
                                     <div className="mt-3 text-xl font-extrabold text-white">
-                                        <TransText en={item.enTitle} fr={item.frTitle} ar={item.arTitle} />
+                                        <TransText
+                                            en={item.enTitle}
+                                            fr={item.frTitle}
+                                            ar={item.arTitle}
+                                        />
                                     </div>
                                     <div className="mt-2 max-w-md text-sm text-white/85">
-                                        <TransText en={item.enDescription} fr={item.frDescription} ar={item.arDescription} />
+                                        <TransText
+                                            en={item.enDescription}
+                                            fr={item.frDescription}
+                                            ar={item.arDescription}
+                                        />
                                     </div>
                                     <div className="mt-5">
                                         <Link
                                             href={item.href}
                                             className="inline-flex items-center gap-2 text-sm font-semibold text-white hover:underline"
                                         >
-                                            <TransText en={item.enCta} fr={item.frCta} ar={item.arCta} />
+                                            <TransText
+                                                en={item.enCta}
+                                                fr={item.frCta}
+                                                ar={item.arCta}
+                                            />
                                         </Link>
                                     </div>
                                 </div>

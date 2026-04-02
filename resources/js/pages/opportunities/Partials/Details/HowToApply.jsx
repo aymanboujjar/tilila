@@ -16,10 +16,18 @@ export default function HowToApply({ steps = [] }) {
                         </div>
                         <div>
                             <div className="text-sm font-extrabold text-foreground">
-                                <TransText en={s.title.en} fr={s.title.fr} ar={s.title.ar} />
+                                <TransText
+                                    en={s.title.en}
+                                    fr={s.title.fr}
+                                    ar={s.title.ar}
+                                />
                             </div>
                             <div className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                                <TransText en={s.text.en} fr={s.text.fr} ar={s.text.ar} />
+                                <TransText
+                                    en={s.text.en}
+                                    fr={s.text.fr}
+                                    ar={s.text.ar}
+                                />
                             </div>
                         </div>
                     </div>
@@ -28,4 +36,3 @@ export default function HowToApply({ steps = [] }) {
         </InfoCard>
     );
 }
-
