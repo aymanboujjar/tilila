@@ -28,6 +28,14 @@
     "headTitle": "Opportunités",
     "sortNewest": "Les plus récentes d’abord",
     "sortDeadlineSoonest": "Échéance la plus proche",
+    "status": {
+      "open": "Ouvert",
+      "closingSoon": "Bientôt clôturé",
+      "closed": "Fermé"
+    },
+    "card": {
+      "fallbackType": "Opportunité"
+    },
     "detail": {
       "fallbackHeadTitle": "Opportunité",
       "organizerFallback": "Les informations sur l’organisateur seront ajoutées bientôt.",

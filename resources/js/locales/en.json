@@ -28,6 +28,14 @@
     "headTitle": "Opportunities",
     "sortNewest": "Newest First",
     "sortDeadlineSoonest": "Deadline Soonest",
+    "status": {
+      "open": "Open",
+      "closingSoon": "Closing Soon",
+      "closed": "Closed"
+    },
+    "card": {
+      "fallbackType": "Opportunity"
+    },
     "detail": {
       "fallbackHeadTitle": "Opportunity",
       "organizerFallback": "Organizer information will be added soon.",

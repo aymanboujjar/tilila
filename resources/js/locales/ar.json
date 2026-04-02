@@ -28,6 +28,14 @@
     "headTitle": "الفرص",
     "sortNewest": "الأحدث أولاً",
     "sortDeadlineSoonest": "الأقرب موعدًا",
+    "status": {
+      "open": "مفتوحة",
+      "closingSoon": "توشك على الإغلاق",
+      "closed": "مغلقة"
+    },
+    "card": {
+      "fallbackType": "فرصة"
+    },
     "detail": {
       "fallbackHeadTitle": "فرصة",
       "organizerFallback": "سيتم إضافة معلومات الجهة المنظمة قريبًا.",
