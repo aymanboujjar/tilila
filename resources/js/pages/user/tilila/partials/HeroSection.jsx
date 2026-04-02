@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import TransText from "@/components/TransText";
 
 const stats = [
     {
@@ -38,7 +39,7 @@ export default function HeroSection() {
                             }}
                         >
                             <span style={{ fontSize: 9 }}>✦</span>
-                            SINCE 2018
+                            <TransText en="Since 2018" fr="Depuis 2018" ar="منذ 2018" />
                         </div>
 
                         {/* Heading */}
@@ -67,7 +68,11 @@ export default function HeroSection() {
                                 className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
                                 style={{ background: "var(--color-gold)", color: "var(--color-tblack)" }}
                             >
-                                Discover 2024 Winners
+                                <TransText
+                                    en="Discover 2024 Winners"
+                                    fr="Découvrir les lauréats 2024"
+                                    ar="اكتشف فائزات 2024"
+                                />
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </button>
                             <button
@@ -80,7 +85,7 @@ export default function HeroSection() {
                                 onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.13)")}
                                 onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
                             >
-                                Participate
+                                <TransText en="Participate" fr="Participer" ar="شارك" />
                             </button>
                         </div>
                     </div>
@@ -124,14 +129,17 @@ export default function HeroSection() {
                                         className="text-xs font-bold tracking-widest"
                                         style={{ color: "var(--color-gold)", marginBottom: 6 }}
                                     >
-                                        THE MISSION
+                                        <TransText en="THE MISSION" fr="LA MISSION" ar="الرسالة" />
                                     </p>
                                     <p
                                         className="text-sm font-medium italic leading-relaxed"
                                         style={{ color: "rgba(255,255,255,0.80)" }}
                                     >
-                                        "Advertising has the power to shape minds. Let's make sure
-                                        it shapes a world of equality."
+                                        <TransText
+                                            en="“Advertising has the power to shape minds. Let's make sure it shapes a world of equality.”"
+                                            fr="« La publicité a le pouvoir de façonner les esprits. Assurons-nous qu’elle façonne un monde d’égalité. »"
+                                            ar="« للإعلان قوة في تشكيل العقول. فلنحرص أن يُسهم في تشكيل عالم من المساواة. »"
+                                        />
                                     </p>
                                 </div>
                             </div>
