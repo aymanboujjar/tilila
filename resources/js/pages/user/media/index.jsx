@@ -36,11 +36,16 @@ export default function MediaIndex() {
         <>
             <Head title={t('media.headTitle')} />
 
-            <div className="bg-background">
-                <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-                    <FeaturedHero />
+            <div>
+                <div className="bg-beta-white py-8">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <FeaturedHero />
+                    </div>
+                </div>
 
-                    <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
+                <div className="bg-twhite py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
                         <div className="lg:col-span-8">
                             <MediaTabs
                                 tabs={TABS}
@@ -70,6 +75,7 @@ export default function MediaIndex() {
                             <SidebarExpertSpotlight />
                             <SidebarResources />
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

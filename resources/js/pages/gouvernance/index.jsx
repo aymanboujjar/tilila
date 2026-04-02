@@ -24,8 +24,9 @@ export default function GouvernanceIndex() {
         <>
             <Head title={t('gouvernance.headTitle')} />
 
-            <div className="bg-background">
-                <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <div>
+                <div className="bg-beta-white py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                     <header className="mx-auto max-w-4xl text-center">
                         <div className="text-xs font-extrabold uppercase tracking-wide text-beta-blue">
                             <TransText
@@ -56,8 +57,12 @@ export default function GouvernanceIndex() {
                             />
                         </p>
                     </header>
+                    </div>
+                </div>
 
-                    <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
+                <div className="bg-twhite py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
                         <div className="lg:col-span-4 xl:col-span-3">
                             <GovernanceSidebar
                                 sections={sections}
@@ -163,6 +168,7 @@ export default function GouvernanceIndex() {
                                 }}
                             />
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

@@ -185,8 +185,9 @@ export default function ExpertsIndex() {
         <>
             <Head title={t('experts.headTitle')} />
 
-            <div className="bg-background">
-                <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <div>
+                <div className="bg-beta-white py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                     <header className="mx-auto max-w-3xl text-center">
                         <TransText
                             tag="h1"
@@ -203,8 +204,12 @@ export default function ExpertsIndex() {
                             ar="اكتشف وتواصل مع خبيرات رائدات في المغرب وإفريقيا."
                         />
                     </header>
+                    </div>
+                </div>
 
-                    <div className="mx-auto mt-8 max-w-5xl">
+                <div className="bg-twhite py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-5xl">
                         <FiltersBar
                             query={query}
                             setQuery={setQuery}
@@ -316,6 +321,7 @@ export default function ExpertsIndex() {
                                 12
                             </button>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>

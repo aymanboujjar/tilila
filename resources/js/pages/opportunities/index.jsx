@@ -121,8 +121,9 @@ export default function OpportunitiesIndex() {
         <>
             <Head title={t('opportunities.headTitle')} />
 
-            <div className="bg-background">
-                <div className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+            <div>
+                <div className="bg-beta-white py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                     <header className="max-w-3xl">
                         <TransText
                             tag="h1"
@@ -139,8 +140,12 @@ export default function OpportunitiesIndex() {
                             ar="اكتشفي المنح وفرص الإعلام والحوارات والبرامج الإقامية المصممة للخبيرات. تواصلي، ساهمي، ووسّعي أثرَك."
                         />
                     </header>
+                    </div>
+                </div>
 
-                    <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
+                <div className="bg-twhite py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div className="mt-0 grid grid-cols-1 gap-6 lg:grid-cols-12">
                         <div className="lg:col-span-4 xl:col-span-3">
                             <FiltersSidebar
                                 filters={filters}
@@ -222,6 +227,7 @@ export default function OpportunitiesIndex() {
                                 })}
                             </div>
                         </div>
+                    </div>
                     </div>
                 </div>
             </div>
