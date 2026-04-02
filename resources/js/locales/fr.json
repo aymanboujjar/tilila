@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "tililab": "Tililab",
+    "tilila": "Tilila",
+    "governance": "Gouvernance",
+    "experts": "Experts",
+    "events": "Événements",
+    "opportunities": "Opportunités",
+    "dashboard": "Tableau de bord",
+    "login": "Connexion",
+    "register": "S’inscrire"
+  },
+  "common": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "close": "Fermer",
+    "language": "Langue"
+  },
+  "tilila": {
+    "hero": {
+      "since": "Depuis 2018",
+      "title": "Trophée Tilila",
+      "description": "Célébrer les campagnes publicitaires qui brisent les stéréotypes et défendent l’égalité des genres. Une célébration de la créativité engagée pour la diversité au Maroc et en Afrique.",
+      "ctaPrimary": "Découvrir les lauréats 2024",
+      "ctaSecondary": "Participer",
+      "missionLabel": "La mission",
+      "missionQuote": "\"La publicité a le pouvoir de façonner les esprits. Assurons-nous qu’elle façonne un monde d’égalité.\""
+    }
+  },
+  "welcome": "Bienvenue dans l’application"
+}
