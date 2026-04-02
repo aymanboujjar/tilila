@@ -1,6 +1,16 @@
 import React, { useMemo, useState } from 'react';
+import TransText from '@/components/TransText';
+import { useTranslation } from '@/contexts/TranslationContext';
 
-const WEEKDAY_LABELS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const WEEKDAY_LABELS = [
+    { en: 'Sun', fr: 'Dim', ar: 'أحد' },
+    { en: 'Mon', fr: 'Lun', ar: 'اثن' },
+    { en: 'Tue', fr: 'Mar', ar: 'ثلا' },
+    { en: 'Wed', fr: 'Mer', ar: 'أرب' },
+    { en: 'Thu', fr: 'Jeu', ar: 'خمي' },
+    { en: 'Fri', fr: 'Ven', ar: 'جمع' },
+    { en: 'Sat', fr: 'Sam', ar: 'سبت' },
+];
 
 function pad2(n) {
     return String(n).padStart(2, '0');
@@ -20,7 +30,10 @@ function addMonths(date, delta) {
 
 function monthLabel(date) {
     try {
-        return date.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+        return date.toLocaleDateString(undefined, {
+            month: 'long',
+            year: 'numeric',
+        });
     } catch {
         return `${date.getFullYear()}-${pad2(date.getMonth() + 1)}`;
     }
@@ -48,6 +61,7 @@ function Calendar({
     setSelectedDayIso,
     daysWithEvents,
 }) {
+    const { t } = useTranslation();
     const grid = useMemo(() => {
         const first = startOfMonth(monthDate);
         const firstWeekday = first.getDay();
@@ -73,14 +87,16 @@ function Calendar({
     return (
         <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
             <div className="flex items-center justify-between gap-3">
-                <div className="text-sm font-extrabold text-foreground">{grid.month}</div>
+                <div className="text-sm font-extrabold text-foreground">
+                    {grid.month}
+                </div>
 
                 <div className="flex items-center gap-2">
                     <button
                         type="button"
                         onClick={() => setMonthDate((d) => addMonths(d, -1))}
                         className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-background text-muted-foreground ring-1 ring-border hover:text-foreground"
-                        aria-label="Previous month"
+                        aria-label={t('events.calendar.prevMonthAria')}
                     >
                         ‹
                     </button>
@@ -88,7 +104,7 @@ function Calendar({
                         type="button"
                         onClick={() => setMonthDate((d) => addMonths(d, 1))}
                         className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-background text-muted-foreground ring-1 ring-border hover:text-foreground"
-                        aria-label="Next month"
+                        aria-label={t('events.calendar.nextMonthAria')}
                     >
                         ›
                     </button>
@@ -97,8 +113,8 @@ function Calendar({
 
             <div className="mt-4 grid grid-cols-7 gap-1 text-[11px] font-semibold text-muted-foreground">
                 {WEEKDAY_LABELS.map((w) => (
-                    <div key={w} className="py-1 text-center">
-                        {w}
+                    <div key={w.en} className="py-1 text-center">
+                        <TransText en={w.en} fr={w.fr} ar={w.ar} />
                     </div>
                 ))}
             </div>
@@ -113,7 +129,9 @@ function Calendar({
                             key={d.iso}
                             type="button"
                             onClick={() =>
-                                setSelectedDayIso((cur) => (cur === d.iso ? null : d.iso))
+                                setSelectedDayIso((cur) =>
+                                    cur === d.iso ? null : d.iso,
+                                )
                             }
                             disabled={isDisabled}
                             className={[
@@ -124,9 +142,13 @@ function Calendar({
                                 isSelected
                                     ? 'bg-beta-blue text-white hover:bg-beta-blue'
                                     : 'bg-transparent',
-                                d.isToday && !isSelected ? 'ring-1 ring-beta-blue/30' : '',
+                                d.isToday && !isSelected
+                                    ? 'ring-1 ring-beta-blue/30'
+                                    : '',
                             ].join(' ')}
-                            aria-label={`Select ${d.iso}`}
+                            aria-label={(
+                                t('events.calendar.selectDayAria') ?? ''
+                            ).replace('{date}', d.iso)}
                             aria-pressed={isSelected}
                         >
                             {d.day}
@@ -134,7 +156,9 @@ function Calendar({
                                 <span
                                     className={[
                                         'absolute bottom-1 left-1/2 h-1.5 w-1.5 -translate-x-1/2 rounded-full',
-                                        isSelected ? 'bg-white' : 'bg-beta-blue',
+                                        isSelected
+                                            ? 'bg-white'
+                                            : 'bg-beta-blue',
                                     ].join(' ')}
                                     aria-hidden="true"
                                 />
@@ -150,7 +174,11 @@ function Calendar({
                     onClick={() => setSelectedDayIso(null)}
                     className="text-xs font-semibold text-muted-foreground hover:text-foreground hover:underline"
                 >
-                    Clear date
+                    <TransText
+                        en="Clear date"
+                        fr="Effacer la date"
+                        ar="مسح التاريخ"
+                    />
                 </button>
                 <button
                     type="button"
@@ -161,7 +189,7 @@ function Calendar({
                     }}
                     className="text-xs font-semibold text-beta-blue hover:underline"
                 >
-                    Today
+                    <TransText en="Today" fr="Aujourd’hui" ar="اليوم" />
                 </button>
             </div>
         </div>
@@ -175,6 +203,7 @@ export default function EventsSidebar({
     setSelectedDayIso,
     events = [],
 }) {
+    const { t } = useTranslation();
     const initialMonth = useMemo(() => startOfMonth(new Date()), []);
     const [monthDate, setMonthDate] = useState(initialMonth);
 
@@ -197,14 +226,14 @@ export default function EventsSidebar({
             />
 
             <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-                <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
-                    Categories
+                <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
+                    <TransText en="Categories" fr="Catégories" ar="الفئات" />
                 </div>
 
                 <div className="mt-4 space-y-3">
                     <CategoryCheckbox
                         id="cat-talk"
-                        label="TiliTalks"
+                        label={t('events.categories.talk')}
                         checked={Boolean(categories?.talk)}
                         onChange={(checked) =>
                             setCategories((c) => ({ ...c, talk: checked }))
@@ -212,7 +241,7 @@ export default function EventsSidebar({
                     />
                     <CategoryCheckbox
                         id="cat-webinar"
-                        label="Webinars"
+                        label={t('events.categories.webinar')}
                         checked={Boolean(categories?.webinar)}
                         onChange={(checked) =>
                             setCategories((c) => ({ ...c, webinar: checked }))
@@ -220,7 +249,7 @@ export default function EventsSidebar({
                     />
                     <CategoryCheckbox
                         id="cat-workshop"
-                        label="Workshops"
+                        label={t('events.categories.workshop')}
                         checked={Boolean(categories?.workshop)}
                         onChange={(checked) =>
                             setCategories((c) => ({ ...c, workshop: checked }))
@@ -231,4 +260,3 @@ export default function EventsSidebar({
         </div>
     );
 }
-

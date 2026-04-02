@@ -17,7 +17,11 @@ export default function ContactSection() {
                         <TransText en="CONTACT" fr="CONTACT" ar="تواصل" />
                     </div>
                     <h2 className="mt-3 text-2xl font-semibold text-tblack">
-                        <TransText en="Contact Us" fr="Nous contacter" ar="اتصل بنا" />
+                        <TransText
+                            en="Contact Us"
+                            fr="Nous contacter"
+                            ar="اتصل بنا"
+                        />
                     </h2>
                     <p className="mt-3 text-sm leading-6 text-tgray">
                         <TransText
@@ -34,7 +38,11 @@ export default function ContactSection() {
                             </span>
                             <div>
                                 <div className="font-semibold text-tblack">
-                                    <TransText en="Headquarters" fr="Siège" ar="المقر" />
+                                    <TransText
+                                        en="Headquarters"
+                                        fr="Siège"
+                                        ar="المقر"
+                                    />
                                 </div>
                                 <div>Casablanca, Morocco</div>
                             </div>
@@ -46,7 +54,11 @@ export default function ContactSection() {
                             </span>
                             <div>
                                 <div className="font-semibold text-tblack">
-                                    <TransText en="Email Us" fr="Écrivez-nous" ar="راسلنا" />
+                                    <TransText
+                                        en="Email Us"
+                                        fr="Écrivez-nous"
+                                        ar="راسلنا"
+                                    />
                                 </div>
                                 <a
                                     className="hover:text-tblack"
@@ -63,7 +75,11 @@ export default function ContactSection() {
                             </span>
                             <div>
                                 <div className="font-semibold text-tblack">
-                                    <TransText en="Call Us" fr="Appelez-nous" ar="اتصل بنا" />
+                                    <TransText
+                                        en="Call Us"
+                                        fr="Appelez-nous"
+                                        ar="اتصل بنا"
+                                    />
                                 </div>
                                 <a
                                     className="hover:text-tblack"
@@ -83,7 +99,11 @@ export default function ContactSection() {
                     >
                         <div className="flex items-center justify-between gap-4">
                             <h3 className="text-base font-semibold text-tblack">
-                                <TransText en="Send an Inquiry" fr="Envoyer une demande" ar="إرسال استفسار" />
+                                <TransText
+                                    en="Send an Inquiry"
+                                    fr="Envoyer une demande"
+                                    ar="إرسال استفسار"
+                                />
                             </h3>
                             <span className="text-xs font-medium text-tgray">
                                 <TransText
@@ -97,11 +117,17 @@ export default function ContactSection() {
                         <div className="mt-6 grid gap-4 sm:grid-cols-2">
                             <label className="grid gap-2 text-sm">
                                 <span className="font-medium text-tblack">
-                                    <TransText en="Full Name" fr="Nom complet" ar="الاسم الكامل" />
+                                    <TransText
+                                        en="Full Name"
+                                        fr="Nom complet"
+                                        ar="الاسم الكامل"
+                                    />
                                 </span>
                                 <input
-                                    className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:outline-none focus:ring-2 focus:ring-beta-blue/30"
-                                    placeholder={t('contact.form.namePlaceholder')}
+                                    className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:ring-2 focus:ring-beta-blue/30 focus:outline-none"
+                                    placeholder={t(
+                                        'contact.form.namePlaceholder',
+                                    )}
                                     name="fullName"
                                     autoComplete="name"
                                 />
@@ -109,11 +135,17 @@ export default function ContactSection() {
 
                             <label className="grid gap-2 text-sm">
                                 <span className="font-medium text-tblack">
-                                    <TransText en="Email" fr="E-mail" ar="البريد الإلكتروني" />
+                                    <TransText
+                                        en="Email"
+                                        fr="E-mail"
+                                        ar="البريد الإلكتروني"
+                                    />
                                 </span>
                                 <input
-                                    className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:outline-none focus:ring-2 focus:ring-beta-blue/30"
-                                    placeholder={t('contact.form.emailPlaceholder')}
+                                    className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:ring-2 focus:ring-beta-blue/30 focus:outline-none"
+                                    placeholder={t(
+                                        'contact.form.emailPlaceholder',
+                                    )}
                                     type="email"
                                     name="email"
                                     autoComplete="email"
@@ -122,22 +154,34 @@ export default function ContactSection() {
 
                             <label className="grid gap-2 text-sm sm:col-span-2">
                                 <span className="font-medium text-tblack">
-                                    <TransText en="Subject" fr="Objet" ar="الموضوع" />
+                                    <TransText
+                                        en="Subject"
+                                        fr="Objet"
+                                        ar="الموضوع"
+                                    />
                                 </span>
                                 <input
-                                    className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:outline-none focus:ring-2 focus:ring-beta-blue/30"
-                                    placeholder={t('contact.form.subjectPlaceholder')}
+                                    className="h-11 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:ring-2 focus:ring-beta-blue/30 focus:outline-none"
+                                    placeholder={t(
+                                        'contact.form.subjectPlaceholder',
+                                    )}
                                     name="subject"
                                 />
                             </label>
 
                             <label className="grid gap-2 text-sm sm:col-span-2">
                                 <span className="font-medium text-tblack">
-                                    <TransText en="Message" fr="Message" ar="الرسالة" />
+                                    <TransText
+                                        en="Message"
+                                        fr="Message"
+                                        ar="الرسالة"
+                                    />
                                 </span>
                                 <textarea
-                                    className="min-h-32 resize-y rounded-xl border border-border bg-background px-4 py-3 text-sm text-tblack placeholder:text-tgray focus:outline-none focus:ring-2 focus:ring-beta-blue/30"
-                                    placeholder={t('contact.form.messagePlaceholder')}
+                                    className="min-h-32 resize-y rounded-xl border border-border bg-background px-4 py-3 text-sm text-tblack placeholder:text-tgray focus:ring-2 focus:ring-beta-blue/30 focus:outline-none"
+                                    placeholder={t(
+                                        'contact.form.messagePlaceholder',
+                                    )}
                                     name="message"
                                 />
                             </label>
@@ -149,7 +193,11 @@ export default function ContactSection() {
                                 className="inline-flex items-center gap-2 rounded-full bg-beta-blue px-6 py-2.5 text-sm font-semibold text-twhite transition-opacity hover:opacity-90"
                             >
                                 <Send className="size-4" />
-                                <TransText en="Send Inquiry" fr="Envoyer" ar="إرسال" />
+                                <TransText
+                                    en="Send Inquiry"
+                                    fr="Envoyer"
+                                    ar="إرسال"
+                                />
                             </button>
                         </div>
                     </form>
@@ -158,4 +206,3 @@ export default function ContactSection() {
         </section>
     );
 }
-

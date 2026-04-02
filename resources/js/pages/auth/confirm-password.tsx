@@ -29,7 +29,9 @@ export default function ConfirmPassword() {
                             <PasswordInput
                                 id="password"
                                 name="password"
-                                placeholder={t('auth.common.passwordPlaceholder')}
+                                placeholder={t(
+                                    'auth.common.passwordPlaceholder',
+                                )}
                                 autoComplete="current-password"
                                 autoFocus
                             />

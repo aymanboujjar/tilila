@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 
 import en from '@/locales/en.json';
 import fr from '@/locales/fr.json';
@@ -13,7 +19,8 @@ function resolveDotNotationKey(dictionary, key) {
     if (!key || typeof key !== 'string') return undefined;
 
     return key.split('.').reduce((currentValue, pathSegment) => {
-        if (currentValue == null || typeof currentValue !== 'object') return undefined;
+        if (currentValue == null || typeof currentValue !== 'object')
+            return undefined;
         return currentValue[pathSegment];
     }, dictionary);
 }
@@ -66,7 +73,10 @@ export function TranslationProvider({ children }) {
         return typeof resolved === 'string' ? resolved : key;
     };
 
-    const value = useMemo(() => ({ locale, setLocale, t }), [locale, dictionaries]);
+    const value = useMemo(
+        () => ({ locale, setLocale, t }),
+        [locale, dictionaries],
+    );
 
     return (
         <TranslationContext.Provider value={value}>
@@ -78,7 +88,9 @@ export function TranslationProvider({ children }) {
 export function useTranslation() {
     const contextValue = useContext(TranslationContext);
     if (!contextValue) {
-        throw new Error('useTranslation must be used within TranslationProvider');
+        throw new Error(
+            'useTranslation must be used within TranslationProvider',
+        );
     }
     return contextValue;
 }

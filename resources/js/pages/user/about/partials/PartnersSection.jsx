@@ -49,10 +49,18 @@ export default function PartnersSection() {
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
                 <div>
                     <div className="text-xs font-semibold tracking-widest text-tgray">
-                        <TransText en="PARTNERSHIP" fr="PARTENARIAT" ar="الشراكة" />
+                        <TransText
+                            en="PARTNERSHIP"
+                            fr="PARTENARIAT"
+                            ar="الشراكة"
+                        />
                     </div>
                     <h2 className="mt-3 text-2xl font-semibold text-tblack">
-                        <TransText en="Institutional Partners" fr="Partenaires institutionnels" ar="شركاء مؤسساتيون" />
+                        <TransText
+                            en="Institutional Partners"
+                            fr="Partenaires institutionnels"
+                            ar="شركاء مؤسساتيون"
+                        />
                     </h2>
                     <p className="mt-3 max-w-2xl text-sm leading-6 text-tgray">
                         <TransText
@@ -67,7 +75,11 @@ export default function PartnersSection() {
                     href="/#partners"
                     className="text-sm font-semibold text-beta-blue hover:underline"
                 >
-                    <TransText en="Become a Partner" fr="Devenir partenaire" ar="كن شريكًا" />
+                    <TransText
+                        en="Become a Partner"
+                        fr="Devenir partenaire"
+                        ar="كن شريكًا"
+                    />
                 </a>
             </div>
 
@@ -94,4 +106,3 @@ export default function PartnersSection() {
         </section>
     );
 }
-

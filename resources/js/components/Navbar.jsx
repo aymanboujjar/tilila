@@ -6,11 +6,33 @@ import LanguageSwitcher from '@/components/LanguageSwitcher';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 
+const navItems = [
+    { en: 'About', fr: 'À propos', ar: 'حول', href: '/about' },
+    { en: 'Tililab', fr: 'Tililab', ar: 'تيليلاب', href: '/tililab' },
+    { en: 'Tilila', fr: 'Tilila', ar: 'تيليلا', href: '/tilila' },
+    {
+        en: 'Governance',
+        fr: 'Gouvernance',
+        ar: 'الحوكمة',
+        href: '/gouvernance',
+    },
+    { en: 'Experts', fr: 'Experts', ar: 'الخبراء', href: '/experts' },
+    { en: 'Events', fr: 'Événements', ar: 'الفعاليات', href: '/events' },
+    {
+        en: 'Opportunities',
+        fr: 'Opportunités',
+        ar: 'الفرص',
+        href: '/opportunities',
+    },
+    { en: 'Media', fr: 'Média', ar: 'الوسائط', href: '/media' },
+];
+
 export default function Navbar() {
     const { auth } = usePage().props;
     const currentPath = (usePage().url || '/').split('?')[0] || '/';
     const [mobileOpen, setMobileOpen] = useState(false);
     const headerRef = useRef(null);
+    const mobileMenuRef = useRef(null);
 
     const navItems = [
         { label: 'Home', href: home() },
@@ -44,20 +66,44 @@ export default function Navbar() {
             }
         };
 
-        const onPointerDown = (e) => {
-            if (
-                headerRef.current &&
-                !headerRef.current.contains(e.target)
-            ) {
-                setMobileOpen(false);
-            }
-        };
-
         document.addEventListener('keydown', onKeyDown);
-        document.addEventListener('mousedown', onPointerDown);
         return () => {
             document.removeEventListener('keydown', onKeyDown);
-            document.removeEventListener('mousedown', onPointerDown);
+        };
+    }, [mobileOpen]);
+
+    useEffect(() => {
+        if (!mobileOpen) {
+            return undefined;
+        }
+
+        const onPointerDown = (event) => {
+            const menuElement = mobileMenuRef.current;
+            if (!menuElement) {
+                return;
+            }
+
+            if (menuElement.contains(event.target)) {
+                return;
+            }
+
+            setMobileOpen(false);
+        };
+
+        document.addEventListener('pointerdown', onPointerDown, true);
+        return () => {
+            document.removeEventListener('pointerdown', onPointerDown, true);
+        };
+    }, [mobileOpen]);
+
+    useEffect(() => {
+        if (!mobileOpen) return undefined;
+
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+
+        return () => {
+            document.body.style.overflow = previousOverflow;
         };
     }, [mobileOpen]);
 
@@ -112,27 +158,16 @@ export default function Navbar() {
                 </nav>
 
                 <div className="ml-auto flex items-center gap-3">
-                    <LanguageSwitcher />
+                    <LanguageSwitcher className="hidden md:flex" />
                     {auth?.user ? (
-                        <Link
-                            href={dashboard()}
-                            className={authButtonClass}
-                        >
-                            <TransText en="Dashboard" fr="Tableau de bord" ar="لوحة التحكم" />
+                        <Link href={dashboard()} className={authButtonClass}>
+                            <TransText
+                                en="Dashboard"
+                                fr="Tableau de bord"
+                                ar="لوحة التحكم"
+                            />
                         </Link>
-                    ) : (
-                        <>
-                            <Link href={login()} className={authButtonClass}>
-                                <TransText en="Login" fr="Connexion" ar="تسجيل الدخول" />
-                            </Link>
-                            <Link
-                                href={register()}
-                                className={registerButtonClass}
-                            >
-                                <TransText en="Register" fr="S’inscrire" ar="إنشاء حساب" />
-                            </Link>
-                        </>
-                    )}
+                    ) : null}
                 </div>
 
                 <div className="ml-auto flex md:hidden">
@@ -142,7 +177,9 @@ export default function Navbar() {
                         aria-expanded={mobileOpen}
                         aria-controls="mobile-nav-menu"
                         aria-label={
-                            mobileOpen ? t('nav.mobileCloseMenuAria') : t('nav.mobileOpenMenuAria')
+                            mobileOpen
+                                ? t('nav.mobileCloseMenuAria')
+                                : t('nav.mobileOpenMenuAria')
                         }
                         onClick={() => setMobileOpen((open) => !open)}
                     >
@@ -156,55 +193,85 @@ export default function Navbar() {
             </div>
 
             {mobileOpen ? (
-                <div
-                    id="mobile-nav-menu"
-                    className="border-t border-border bg-background/95 shadow-lg md:hidden"
-                >
-                    <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3">
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.en}
-                                href={item.href}
-                                className={[
-                                    'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                                    isActiveHref(item.href)
-                                        ? 'bg-alpha-blue/30 text-beta-blue'
-                                        : 'text-tgray hover:bg-alpha-blue/30 hover:text-tblack',
-                                ].join(' ')}
-                                onClick={closeMobile}
-                            >
-                                <TransText en={item.en} fr={item.fr} ar={item.ar} />
-                            </Link>
-                        ))}
-                        <div className="my-2 border-t border-border" />
-                        {auth?.user ? (
-                            <Link
-                                href={dashboard()}
-                                className={`${authButtonClass} justify-center`}
-                                onClick={closeMobile}
-                            >
-                                <TransText en="Dashboard" fr="Tableau de bord" ar="لوحة التحكم" />
-                            </Link>
-                        ) : (
-                            <div className="flex flex-col gap-2 pb-1">
+                <>
+                    <div
+                        className="fixed inset-0 z-40 bg-tblack/10 md:hidden"
+                        onClick={closeMobile}
+                        aria-hidden="true"
+                    />
+                    <div
+                        id="mobile-nav-menu"
+                        ref={mobileMenuRef}
+                        className="fixed inset-x-0 top-0 z-50 bg-background md:hidden"
+                    >
+                        <div className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background">
+                            <div className="mx-auto flex h-16 max-w-7xl items-center justify-end px-4">
+                                <button
+                                    type="button"
+                                    className="inline-flex h-10 w-10 items-center justify-center rounded-full text-tblack transition-colors hover:bg-alpha-blue/40"
+                                    aria-label={t('nav.mobileCloseMenuAria')}
+                                    onClick={closeMobile}
+                                >
+                                    <X className="h-6 w-6" strokeWidth={2} />
+                                </button>
+                            </div>
+                        </div>
+                        <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 pt-20 pb-3">
+                            <div className="pb-2">
+                                <LanguageSwitcher className="w-fit" />
+                            </div>
+                            {navItems.map((item) => (
                                 <Link
-                                    href={login()}
+                                    key={item.en}
+                                    href={item.href}
+                                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-tgray transition-colors hover:bg-alpha-blue/30 hover:text-tblack"
+                                    onClick={closeMobile}
+                                >
+                                    <TransText
+                                        en={item.en}
+                                        fr={item.fr}
+                                        ar={item.ar}
+                                    />
+                                </Link>
+                            ))}
+                            <div className="my-2 border-t border-border" />
+                            {auth?.user ? (
+                                <Link
+                                    href={dashboard()}
                                     className={`${authButtonClass} justify-center`}
                                     onClick={closeMobile}
                                 >
-                                    <TransText en="Login" fr="Connexion" ar="تسجيل الدخول" />
+                                    <TransText
+                                        en="Dashboard"
+                                        fr="Tableau de bord"
+                                        ar="لوحة التحكم"
+                                    />
                                 </Link>
-                                <Link
+                            ) : (
+                                <div className="flex flex-col gap-2 pb-1">
+                                    <Link
+                                        href={login()}
+                                        className={`${authButtonClass} justify-center`}
+                                        onClick={closeMobile}
+                                    >
+                                        <TransText
+                                            en="Login"
+                                            fr="Connexion"
+                                            ar="تسجيل الدخول"
+                                        />
+                                    </Link>
+                                    {/* <Link
                                     href={register()}
                                     className={`${registerButtonClass} justify-center`}
                                     onClick={closeMobile}
                                 >
                                     <TransText en="Register" fr="S’inscrire" ar="إنشاء حساب" />
-                                </Link>
-                            </div>
-                        )}
-                    </nav>
-                </div>
+                                </Link> */}
+                                </div>
+                            )}
+                        </nav>
+                    </div>
+                </>
             ) : null}
         </header>
     );

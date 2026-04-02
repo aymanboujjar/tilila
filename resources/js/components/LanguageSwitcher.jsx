@@ -9,11 +9,16 @@ const languages = [
     { id: 'ar', label: 'AR' },
 ];
 
-export default function LanguageSwitcher() {
+export default function LanguageSwitcher({ className = '' }) {
     const { locale, setLocale } = useTranslation();
 
     return (
-        <div className="flex items-center gap-1 rounded-full bg-alpha-blue p-1">
+        <div
+            className={[
+                'flex items-center gap-1 rounded-full bg-alpha-blue p-1',
+                className,
+            ].join(' ')}
+        >
             {languages.map((language) => {
                 const isActive = locale === language.id;
 
@@ -38,4 +43,3 @@ export default function LanguageSwitcher() {
         </div>
     );
 }
-

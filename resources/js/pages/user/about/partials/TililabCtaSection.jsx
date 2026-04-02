@@ -31,14 +31,22 @@ export default function TililabCtaSection() {
                                 href="/tililab"
                                 className="inline-flex items-center gap-2 rounded-full bg-beta-blue px-6 py-2.5 text-sm font-semibold text-twhite transition-opacity hover:opacity-90"
                             >
-                                <TransText en="Visit Tililab" fr="Visiter Tililab" ar="زيارة تيليلاب" />
+                                <TransText
+                                    en="Visit Tililab"
+                                    fr="Visiter Tililab"
+                                    ar="زيارة تيليلاب"
+                                />
                                 <ArrowRight className="size-4" />
                             </Link>
                             <a
                                 href="/tililab#key-dates"
                                 className="inline-flex items-center justify-center rounded-full bg-background px-6 py-2.5 text-sm font-semibold text-tblack transition-colors hover:bg-secondary"
                             >
-                                <TransText en="See key dates" fr="Voir les dates clés" ar="عرض التواريخ الرئيسية" />
+                                <TransText
+                                    en="See key dates"
+                                    fr="Voir les dates clés"
+                                    ar="عرض التواريخ الرئيسية"
+                                />
                             </a>
                         </div>
                     </div>
@@ -67,7 +75,11 @@ export default function TililabCtaSection() {
                                 </div>
                                 <div className="rounded-2xl border border-border bg-background px-5 py-4">
                                     <div className="text-xs font-semibold tracking-widest text-tgray">
-                                        <TransText en="WHAT" fr="QUOI" ar="ماذا" />
+                                        <TransText
+                                            en="WHAT"
+                                            fr="QUOI"
+                                            ar="ماذا"
+                                        />
                                     </div>
                                     <div className="mt-1 text-sm font-semibold text-tblack">
                                         <TransText
@@ -92,4 +104,3 @@ export default function TililabCtaSection() {
         </section>
     );
 }
-
