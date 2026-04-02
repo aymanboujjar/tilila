@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { home, login, register, dashboard } from '@/routes';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 export default function Navbar() {
     const { auth } = usePage().props;
@@ -108,7 +109,8 @@ export default function Navbar() {
                     ))}
                 </nav>
 
-                <div className="ml-auto hidden items-center gap-3 md:flex">
+                <div className="ml-auto flex items-center gap-3">
+                    <LanguageSwitcher />
                     {auth?.user ? (
                         <Link
                             href={dashboard()}

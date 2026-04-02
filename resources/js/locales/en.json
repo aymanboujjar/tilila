@@ -1,0 +1,34 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "tililab": "Tililab",
+    "tilila": "Tilila",
+    "governance": "Governance",
+    "experts": "Experts",
+    "events": "Events",
+    "opportunities": "Opportunities",
+    "dashboard": "Dashboard",
+    "login": "Login",
+    "register": "Register"
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "close": "Close",
+    "language": "Language"
+  },
+  "tilila": {
+    "hero": {
+      "since": "Since 2018",
+      "title": "Trophée Tilila",
+      "description": "Honoring advertising campaigns that break stereotypes and champion gender equality. A celebration of creativity committed to diversity in Morocco and Africa.",
+      "ctaPrimary": "Discover 2024 Winners",
+      "ctaSecondary": "Participate",
+      "missionLabel": "The Mission",
+      "missionQuote": "\"Advertising has the power to shape minds. Let's make sure it shapes a world of equality.\""
+    }
+  },
+  "welcome": "Welcome to the app"
+}
