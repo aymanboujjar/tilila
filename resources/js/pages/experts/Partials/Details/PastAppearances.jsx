@@ -13,7 +13,10 @@ export default function PastAppearances({ items = [] }) {
                         ar="الظهورات السابقة"
                     />
                 </h2>
-                <Link href="#" className="text-xs font-semibold text-beta-blue hover:underline">
+                <Link
+                    href="#"
+                    className="text-xs font-semibold text-beta-blue hover:underline"
+                >
                     <TransText en="View All" fr="Tout voir" ar="عرض الكل" />
                 </Link>
             </div>
@@ -34,19 +37,27 @@ export default function PastAppearances({ items = [] }) {
                                 />
                             ) : null}
                             <div className="absolute inset-0 bg-gradient-to-t from-tblack/65 via-tblack/15 to-transparent" />
-                            <div className="absolute left-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white ring-1 ring-white/25 backdrop-blur">
+                            <div className="absolute top-3 left-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white ring-1 ring-white/25 backdrop-blur">
                                 ▶
                             </div>
-                            <div className="absolute bottom-3 right-3 rounded-md bg-tblack/70 px-2 py-1 text-xs font-semibold text-white">
+                            <div className="absolute right-3 bottom-3 rounded-md bg-tblack/70 px-2 py-1 text-xs font-semibold text-white">
                                 {x.duration}
                             </div>
                         </div>
                         <div className="p-4">
                             <div className="text-sm font-extrabold text-foreground">
-                                <TransText en={x.title.en} fr={x.title.fr} ar={x.title.ar} />
+                                <TransText
+                                    en={x.title.en}
+                                    fr={x.title.fr}
+                                    ar={x.title.ar}
+                                />
                             </div>
                             <div className="mt-1 text-xs text-muted-foreground">
-                                <TransText en={x.meta.en} fr={x.meta.fr} ar={x.meta.ar} />
+                                <TransText
+                                    en={x.meta.en}
+                                    fr={x.meta.fr}
+                                    ar={x.meta.ar}
+                                />
                             </div>
                         </div>
                     </div>
@@ -55,4 +66,3 @@ export default function PastAppearances({ items = [] }) {
         </section>
     );
 }
-

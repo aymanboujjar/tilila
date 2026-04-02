@@ -36,39 +36,49 @@ export default function MediaIndex() {
         <>
             <Head title={t('media.headTitle')} />
 
-            <div className="bg-background">
-                <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-                    <FeaturedHero />
+            <div>
+                <div className="bg-beta-white py-8">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <FeaturedHero />
+                    </div>
+                </div>
 
-                    <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
-                        <div className="lg:col-span-8">
-                            <MediaTabs
-                                tabs={TABS}
-                                activeTabId={activeTabId}
-                                setActiveTabId={setActiveTabId}
-                            />
+                <div className="bg-twhite py-10">
+                    <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                        <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+                            <div className="lg:col-span-8">
+                                <MediaTabs
+                                    tabs={TABS}
+                                    activeTabId={activeTabId}
+                                    setActiveTabId={setActiveTabId}
+                                />
 
-                            <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
-                                {items.map((item) => (
-                                    <MediaCard key={item.id} item={item} locale={locale} />
-                                ))}
+                                <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                    {items.map((item) => (
+                                        <MediaCard
+                                            key={item.id}
+                                            item={item}
+                                            locale={locale}
+                                        />
+                                    ))}
+                                </div>
+
+                                <div className="mt-10 flex justify-center">
+                                    <button
+                                        type="button"
+                                        className="rounded-md border border-border bg-card px-5 py-2.5 text-sm font-semibold text-muted-foreground shadow-sm hover:text-foreground"
+                                    >
+                                        {t('media.actions.loadMore')}
+                                    </button>
+                                </div>
                             </div>
 
-                            <div className="mt-10 flex justify-center">
-                                <button
-                                    type="button"
-                                    className="rounded-md border border-border bg-card px-5 py-2.5 text-sm font-semibold text-muted-foreground shadow-sm hover:text-foreground"
-                                >
-                                    {t('media.actions.loadMore')}
-                                </button>
+                            <div className="space-y-6 lg:col-span-4">
+                                <SidebarNewsletter />
+                                <SidebarTrendingTopics />
+                                <SidebarExpertSpotlight />
+                                <SidebarResources />
                             </div>
-                        </div>
-
-                        <div className="space-y-6 lg:col-span-4">
-                            <SidebarNewsletter />
-                            <SidebarTrendingTopics />
-                            <SidebarExpertSpotlight />
-                            <SidebarResources />
                         </div>
                     </div>
                 </div>
@@ -78,4 +88,3 @@ export default function MediaIndex() {
 }
 
 MediaIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
-

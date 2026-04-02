@@ -1,4 +1,4 @@
-import { Form, Head, setLayoutProps } from '@inertiajs/react';
+import { Form, Head, Link, setLayoutProps } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
@@ -8,11 +8,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { register } from '@/routes';
-import { store } from '@/routes/login';
+import { home, register as registerRoute } from '@/routes';
+import { store as loginForm } from '@/routes/login';
 import { request } from '@/routes/password';
+import type { TranslationContextValue } from '@/types/translation';
 
-type Props = {
+type LoginPageProps = {
     status?: string;
     canResetPassword: boolean;
     canRegister: boolean;
@@ -22,8 +23,8 @@ export default function Login({
     status,
     canResetPassword,
     canRegister,
-}: Props) {
-    const { t } = useTranslation();
+}: LoginPageProps) {
+    const { t } = useTranslation() as TranslationContextValue;
 
     setLayoutProps({
         title: t('auth.login.layoutTitle'),
@@ -34,94 +35,128 @@ export default function Login({
         <>
             <Head title={t('auth.login.headTitle')} />
 
-            <Form
-                {...store.form()}
-                resetOnSuccess={['password']}
-                className="flex flex-col gap-6"
-            >
-                {({ processing, errors }) => (
-                    <>
-                        <div className="grid gap-6">
-                            <div className="grid gap-2">
-                                <Label htmlFor="email">
-                                    {t('auth.login.emailLabel')}
-                                </Label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    name="email"
-                                    required
-                                    autoFocus
-                                    tabIndex={1}
-                                    autoComplete="email"
-                                    placeholder={t('auth.common.emailPlaceholder')}
-                                />
-                                <InputError message={errors.email} />
-                            </div>
+            <div className="flex flex-col gap-6 text-tblack">
+                <Link
+                    href={home()}
+                    className="flex justify-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-beta-blue/40 focus-visible:ring-offset-2"
+                >
+                    <img
+                        src="/assets/logo.webp"
+                        alt="Tilila"
+                        className="h-11 w-auto max-w-[220px] object-contain"
+                        loading="eager"
+                        decoding="async"
+                    />
+                </Link>
 
-                            <div className="grid gap-2">
-                                <div className="flex items-center">
-                                    <Label htmlFor="password">
-                                        {t('auth.common.passwordLabel')}
+                <Form
+                    {...loginForm.form()}
+                    resetOnSuccess={['password']}
+                    className="flex flex-col gap-6"
+                >
+                    {({ processing, errors }) => (
+                        <>
+                            <div className="grid gap-6">
+                                <div className="grid gap-2">
+                                    <Label
+                                        htmlFor="email"
+                                        className="text-tblack"
+                                    >
+                                        {t('auth.login.emailLabel')}
                                     </Label>
-                                    {canResetPassword && (
-                                        <TextLink
-                                            href={request()}
-                                            className="ml-auto text-sm"
-                                            tabIndex={5}
-                                        >
-                                            {t('auth.login.forgotPassword')}
-                                        </TextLink>
-                                    )}
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        name="email"
+                                        required
+                                        autoFocus
+                                        tabIndex={1}
+                                        autoComplete="email"
+                                        placeholder={t(
+                                            'auth.common.emailPlaceholder',
+                                        )}
+                                        className="border-border bg-twhite text-tblack placeholder:text-tgray focus-visible:border-beta-blue focus-visible:ring-beta-blue/25"
+                                    />
+                                    <InputError message={errors.email} />
                                 </div>
-                                <PasswordInput
-                                    id="password"
-                                    name="password"
-                                    required
-                                    tabIndex={2}
-                                    autoComplete="current-password"
-                                    placeholder={t('auth.common.passwordPlaceholder')}
-                                />
-                                <InputError message={errors.password} />
+
+                                <div className="grid gap-2">
+                                    <div className="flex items-center">
+                                        <Label
+                                            htmlFor="password"
+                                            className="text-tblack"
+                                        >
+                                            {t('auth.common.passwordLabel')}
+                                        </Label>
+                                        {canResetPassword && (
+                                            <TextLink
+                                                href={request()}
+                                                className="ml-auto text-sm font-semibold text-beta-blue decoration-beta-blue/30 hover:text-beta-blue hover:decoration-beta-blue"
+                                                tabIndex={5}
+                                            >
+                                                {t('auth.login.forgotPassword')}
+                                            </TextLink>
+                                        )}
+                                    </div>
+                                    <PasswordInput
+                                        id="password"
+                                        name="password"
+                                        required
+                                        tabIndex={2}
+                                        autoComplete="current-password"
+                                        placeholder={t(
+                                            'auth.common.passwordPlaceholder',
+                                        )}
+                                        className="border-border bg-twhite text-tblack placeholder:text-tgray focus-visible:border-beta-blue focus-visible:ring-beta-blue/25"
+                                    />
+                                    <InputError message={errors.password} />
+                                </div>
+
+                                <div className="flex items-center gap-3">
+                                    <Checkbox
+                                        id="remember"
+                                        name="remember"
+                                        tabIndex={3}
+                                    />
+                                    <Label
+                                        htmlFor="remember"
+                                        className="text-sm text-tgray"
+                                    >
+                                        {t('auth.login.rememberMe')}
+                                    </Label>
+                                </div>
+
+                                <Button
+                                    type="submit"
+                                    className="mt-2 w-full rounded-full bg-beta-blue text-sm font-semibold text-twhite shadow-sm transition hover:bg-beta-blue/90 focus-visible:ring-2 focus-visible:ring-beta-blue/40 focus-visible:ring-offset-2"
+                                    tabIndex={4}
+                                    disabled={processing}
+                                    data-test="login-button"
+                                >
+                                    {processing && <Spinner />}
+                                    {t('auth.login.submit')}
+                                </Button>
                             </div>
 
-                            <div className="flex items-center space-x-3">
-                                <Checkbox
-                                    id="remember"
-                                    name="remember"
-                                    tabIndex={3}
-                                />
-                                <Label htmlFor="remember">
-                                    {t('auth.login.rememberMe')}
-                                </Label>
-                            </div>
-
-                            <Button
-                                type="submit"
-                                className="mt-4 w-full"
-                                tabIndex={4}
-                                disabled={processing}
-                                data-test="login-button"
-                            >
-                                {processing && <Spinner />}
-                                {t('auth.login.submit')}
-                            </Button>
-                        </div>
-
-                        {canRegister && (
-                            <div className="text-center text-sm text-muted-foreground">
-                                {t('auth.login.noAccount')}{' '}
-                                <TextLink href={register()} tabIndex={5}>
-                                    {t('auth.login.signUp')}
-                                </TextLink>
-                            </div>
-                        )}
-                    </>
-                )}
-            </Form>
+                            {canRegister && (
+                                <div className="text-center text-sm text-tgray">
+                                    {t('auth.login.noAccount')}{' '}
+                                    <TextLink
+                                        href={registerRoute()}
+                                        tabIndex={5}
+                                        className="font-semibold text-beta-blue decoration-beta-blue/30 hover:text-beta-blue hover:decoration-beta-blue"
+                                    >
+                                        {t('auth.login.signUp')}
+                                    </TextLink>
+                                </div>
+                            )}
+                        </>
+                    )}
+                </Form>
+            </div>
 
             {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
+                <div className="mt-4 rounded-lg border border-border bg-beta-green px-4 py-3 text-center text-sm font-medium text-alpha-green">
                     {status}
                 </div>
             )}

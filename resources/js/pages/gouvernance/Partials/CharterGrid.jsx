@@ -4,7 +4,9 @@ import TransText from '@/components/TransText';
 export default function CharterGrid({ title, items = [] }) {
     return (
         <section id="charter">
-            <div className="text-base font-extrabold text-foreground">{title}</div>
+            <div className="text-base font-extrabold text-foreground">
+                {title}
+            </div>
 
             <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
                 {items.map((it) => (
@@ -32,4 +34,3 @@ export default function CharterGrid({ title, items = [] }) {
         </section>
     );
 }
-

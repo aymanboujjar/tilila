@@ -158,3 +158,8 @@
         @apply bg-background text-foreground;
     }
 }
+
+*::selection {
+    background-color: var(--color-beta-blue);
+    color: var(--color-alpha-blue);
+}

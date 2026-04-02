@@ -5,7 +5,12 @@ export const GOVERNANCE_SECTIONS = [
         frLabel: 'Diversité & inclusion',
         arLabel: 'التنوع والشمول',
     },
-    { id: 'policy', enLabel: 'Policy', frLabel: 'Politique', arLabel: 'السياسة' },
+    {
+        id: 'policy',
+        enLabel: 'Policy',
+        frLabel: 'Politique',
+        arLabel: 'السياسة',
+    },
     {
         id: 'charter',
         enLabel: 'Governance Charter',
@@ -126,4 +131,3 @@ export const STEERING_COMMITTEE = [
         avatarTone: 'from-beta-purple via-beta-pink/20 to-beta-yellow/30',
     },
 ];
-

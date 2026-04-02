@@ -81,7 +81,11 @@ export default function AudienceCards() {
                                 <div className="h-4 w-4 rounded bg-beta-blue/30" />
                             </div>
                             <h3 className="mt-4 text-lg font-bold text-foreground">
-                                <TransText en={card.enTitle} fr={card.frTitle} ar={card.arTitle} />
+                                <TransText
+                                    en={card.enTitle}
+                                    fr={card.frTitle}
+                                    ar={card.arTitle}
+                                />
                             </h3>
                             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                                 <TransText
@@ -95,7 +99,11 @@ export default function AudienceCards() {
                                     href={card.href}
                                     className="inline-flex items-center gap-2 text-sm font-semibold text-beta-blue hover:underline"
                                 >
-                                    <TransText en={card.enCta} fr={card.frCta} ar={card.arCta} />{' '}
+                                    <TransText
+                                        en={card.enCta}
+                                        fr={card.frCta}
+                                        ar={card.arCta}
+                                    />{' '}
                                     <span aria-hidden="true">+</span>
                                 </Link>
                             </div>

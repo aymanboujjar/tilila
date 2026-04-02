@@ -2,7 +2,11 @@ export const EVENTS = [
     {
         id: 'tilitalk-women-leading-tech-innovation',
         type: 'talk',
-        badge: { en: 'Next event', fr: 'Prochain événement', ar: 'الفعالية القادمة' },
+        badge: {
+            en: 'Next event',
+            fr: 'Prochain événement',
+            ar: 'الفعالية القادمة',
+        },
         dateIso: '2026-04-12',
         dateTimeIso: '2026-04-12T18:00:00+01:00',
         startTime: '18:00',
@@ -53,7 +57,11 @@ export const EVENTS = [
         },
         location: { en: 'Zoom', fr: 'Zoom', ar: 'زووم' },
         isOnline: true,
-        categoryLabel: { en: 'Webinars', fr: 'Webinaires', ar: 'ندوات عبر الإنترنت' },
+        categoryLabel: {
+            en: 'Webinars',
+            fr: 'Webinaires',
+            ar: 'ندوات عبر الإنترنت',
+        },
         imageSrc: null,
         cta: {
             label: { en: 'Register', fr: 'S’inscrire', ar: 'سجّل' },
@@ -89,7 +97,11 @@ export const EVENTS = [
         categoryLabel: { en: 'Workshops', fr: 'Ateliers', ar: 'ورشات' },
         imageSrc: null,
         cta: {
-            label: { en: 'Waitlist', fr: 'Liste d’attente', ar: 'قائمة الانتظار' },
+            label: {
+                en: 'Waitlist',
+                fr: 'Liste d’attente',
+                ar: 'قائمة الانتظار',
+            },
             kind: 'muted',
             href: '#',
         },
@@ -97,7 +109,11 @@ export const EVENTS = [
     {
         id: 'replay-financial-inclusion-for-women-entrepreneurs',
         type: 'webinar',
-        badge: { en: 'Replay available', fr: 'Replay disponible', ar: 'الإعادة متاحة' },
+        badge: {
+            en: 'Replay available',
+            fr: 'Replay disponible',
+            ar: 'الإعادة متاحة',
+        },
         dateIso: '2025-09-28',
         dateTimeIso: '2025-09-28T16:00:00+01:00',
         startTime: '16:00',
@@ -122,10 +138,13 @@ export const EVENTS = [
         },
         imageSrc: null,
         cta: {
-            label: { en: 'Watch replay', fr: 'Voir le replay', ar: 'شاهد الإعادة' },
+            label: {
+                en: 'Watch replay',
+                fr: 'Voir le replay',
+                ar: 'شاهد الإعادة',
+            },
             kind: 'ghost',
             href: '#',
         },
     },
 ];
-

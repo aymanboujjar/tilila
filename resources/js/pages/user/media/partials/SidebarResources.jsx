@@ -23,7 +23,7 @@ const RESOURCES = [
 export default function SidebarResources() {
     return (
         <aside className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-            <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+            <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
                 <TransText en="Resources" fr="Ressources" ar="الموارد" />
             </div>
 
@@ -41,4 +41,3 @@ export default function SidebarResources() {
         </aside>
     );
 }
-

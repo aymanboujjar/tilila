@@ -32,8 +32,12 @@ const TOPICS = [
 export default function SidebarTrendingTopics() {
     return (
         <aside className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-            <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
-                <TransText en="Trending topics" fr="Sujets tendance" ar="مواضيع رائجة" />
+            <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
+                <TransText
+                    en="Trending topics"
+                    fr="Sujets tendance"
+                    ar="مواضيع رائجة"
+                />
             </div>
 
             <div className="mt-4 space-y-3">
@@ -47,7 +51,11 @@ export default function SidebarTrendingTopics() {
                             <TransText en={t.en} fr={t.fr} ar={t.ar} />
                         </div>
                         <div className="text-xs font-semibold text-muted-foreground">
-                            <TransText en={t.metaEn} fr={t.metaFr} ar={t.metaAr} />
+                            <TransText
+                                en={t.metaEn}
+                                fr={t.metaFr}
+                                ar={t.metaAr}
+                            />
                         </div>
                     </button>
                 ))}
@@ -55,4 +63,3 @@ export default function SidebarTrendingTopics() {
         </aside>
     );
 }
-

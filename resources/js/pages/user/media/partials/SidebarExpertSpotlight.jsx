@@ -25,7 +25,11 @@ export default function SidebarExpertSpotlight() {
     };
 
     const resolvedName =
-        locale === 'ar' ? expert.name.ar : locale === 'fr' ? expert.name.fr : expert.name.en;
+        locale === 'ar'
+            ? expert.name.ar
+            : locale === 'fr'
+              ? expert.name.fr
+              : expert.name.en;
     const resolvedLocation =
         locale === 'ar'
             ? expert.location.ar
@@ -36,10 +40,17 @@ export default function SidebarExpertSpotlight() {
     return (
         <aside className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
             <div className="flex items-center justify-between gap-3">
-                <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
-                    <TransText en="Expert spotlight" fr="Experte à la une" ar="خبيرة مميزة" />
+                <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
+                    <TransText
+                        en="Expert spotlight"
+                        fr="Experte à la une"
+                        ar="خبيرة مميزة"
+                    />
                 </div>
-                <button type="button" className="text-xs font-semibold text-beta-blue hover:underline">
+                <button
+                    type="button"
+                    className="text-xs font-semibold text-beta-blue hover:underline"
+                >
                     {t('media.actions.viewAllExperts')}
                 </button>
             </div>
@@ -54,7 +65,11 @@ export default function SidebarExpertSpotlight() {
                             {resolvedName}
                         </div>
                         <div className="mt-1 text-xs text-muted-foreground">
-                            <TransText en={expert.title.en} fr={expert.title.fr} ar={expert.title.ar} />
+                            <TransText
+                                en={expert.title.en}
+                                fr={expert.title.fr}
+                                ar={expert.title.ar}
+                            />
                             {' • '}
                             {resolvedLocation}
                         </div>
@@ -65,10 +80,13 @@ export default function SidebarExpertSpotlight() {
                     type="button"
                     className="mt-4 inline-flex w-full items-center justify-center rounded-md bg-beta-blue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90"
                 >
-                    <TransText en="Consult Profile" fr="Consulter le profil" ar="عرض الملف" />
+                    <TransText
+                        en="Consult Profile"
+                        fr="Consulter le profil"
+                        ar="عرض الملف"
+                    />
                 </button>
             </div>
         </aside>
     );
 }
-

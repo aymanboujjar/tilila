@@ -8,7 +8,8 @@ const keyDates = [
         frTitle: 'Ouverture des candidatures',
         arTitle: 'فتح باب التقديم',
         enDescription: 'Submit your application via the form and guidelines.',
-        frDescription: 'Soumettez votre candidature via le formulaire et les directives.',
+        frDescription:
+            'Soumettez votre candidature via le formulaire et les directives.',
         arDescription: 'قدّم طلبك عبر الاستمارة والإرشادات.',
     },
     {
@@ -17,7 +18,8 @@ const keyDates = [
         frTitle: 'Phase de sélection',
         arTitle: 'مرحلة الاختيار',
         enDescription: 'Shortlisted teams are invited to the mentorship track.',
-        frDescription: 'Les équipes présélectionnées sont invitées à rejoindre le parcours de mentorat.',
+        frDescription:
+            'Les équipes présélectionnées sont invitées à rejoindre le parcours de mentorat.',
         arDescription: 'تتم دعوة الفرق المختارة إلى مسار الإرشاد.',
     },
     {
@@ -48,7 +50,11 @@ export default function KeyDatesSection() {
                     <CalendarDays className="size-4" />
                 </span>
                 <span>
-                    <TransText en="Key Dates" fr="Dates clés" ar="التواريخ الرئيسية" />
+                    <TransText
+                        en="Key Dates"
+                        fr="Dates clés"
+                        ar="التواريخ الرئيسية"
+                    />
                 </span>
             </div>
 
@@ -61,10 +67,18 @@ export default function KeyDatesSection() {
                                 {item.date}
                             </div>
                             <div className="mt-1 text-sm font-semibold text-tblack">
-                                <TransText en={item.enTitle} fr={item.frTitle} ar={item.arTitle} />
+                                <TransText
+                                    en={item.enTitle}
+                                    fr={item.frTitle}
+                                    ar={item.arTitle}
+                                />
                             </div>
                             <div className="mt-1 text-sm leading-6 text-tgray">
-                                <TransText en={item.enDescription} fr={item.frDescription} ar={item.arDescription} />
+                                <TransText
+                                    en={item.enDescription}
+                                    fr={item.frDescription}
+                                    ar={item.arDescription}
+                                />
                             </div>
                         </div>
                     </div>
@@ -76,7 +90,11 @@ export default function KeyDatesSection() {
                     href="/#apply"
                     className="inline-flex w-full items-center justify-center rounded-full bg-beta-blue px-6 py-2.5 text-sm font-semibold text-twhite transition-opacity hover:opacity-90"
                 >
-                    <TransText en="Apply for this Edition" fr="Postuler pour cette édition" ar="قدّم لهذه الدورة" />
+                    <TransText
+                        en="Apply for this Edition"
+                        fr="Postuler pour cette édition"
+                        ar="قدّم لهذه الدورة"
+                    />
                 </a>
                 <div className="mt-2 text-center text-xs text-tgray">
                     <TransText
@@ -89,4 +107,3 @@ export default function KeyDatesSection() {
         </div>
     );
 }
-

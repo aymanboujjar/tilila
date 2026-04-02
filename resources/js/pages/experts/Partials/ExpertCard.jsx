@@ -24,15 +24,17 @@ export default function ExpertCard({ expert, view = 'grid' }) {
 
                 <button
                     type="button"
-                    className="absolute right-3 top-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-sm ring-1 ring-border backdrop-blur hover:text-foreground"
+                    className="absolute top-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-sm ring-1 ring-border backdrop-blur hover:text-foreground"
                     aria-label={t('experts.actions.addToFavoritesAria')}
                 >
                     <span className="text-lg leading-none">♡</span>
                 </button>
 
                 {expert.badge ? (
-                    <div className="absolute left-3 top-3 rounded-full bg-beta-green px-2.5 py-1 text-xs font-semibold text-alpha-green ring-1 ring-border">
-                        {(t('experts.filters.available') ?? expert.badge).toUpperCase()}
+                    <div className="absolute top-3 left-3 rounded-full bg-beta-green px-2.5 py-1 text-xs font-semibold text-alpha-green ring-1 ring-border">
+                        {(
+                            t('experts.filters.available') ?? expert.badge
+                        ).toUpperCase()}
                     </div>
                 ) : null}
             </div>
@@ -89,4 +91,3 @@ export default function ExpertCard({ expert, view = 'grid' }) {
         </div>
     );
 }
-

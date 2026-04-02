@@ -37,7 +37,9 @@ function Stepper({ activeStepId }) {
                                             'grid h-9 w-9 place-items-center rounded-full text-sm font-extrabold ring-1',
                                             circleClassName,
                                         ].join(' ')}
-                                        aria-current={isActive ? 'step' : undefined}
+                                        aria-current={
+                                            isActive ? 'step' : undefined
+                                        }
                                     >
                                         {step.number}
                                     </div>
@@ -148,7 +150,9 @@ function Card({ title, icon, children }) {
                 <div className="grid h-8 w-8 place-items-center rounded-md bg-alpha-blue text-beta-blue ring-1 ring-border">
                     <span aria-hidden="true">{icon}</span>
                 </div>
-                <div className="text-sm font-extrabold text-foreground">{title}</div>
+                <div className="text-sm font-extrabold text-foreground">
+                    {title}
+                </div>
             </div>
             <div className="mt-4">{children}</div>
         </div>
@@ -226,24 +230,55 @@ export default function FormOFInscription() {
 
                         <form className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
                             <Field
-                                label={<TransText en="First Name" fr="Prénom" ar="الاسم الأول" />}
+                                label={
+                                    <TransText
+                                        en="First Name"
+                                        fr="Prénom"
+                                        ar="الاسم الأول"
+                                    />
+                                }
                                 required
                             >
-                                <Input placeholder={t('tililaConnect.form.firstNamePlaceholder')} />
+                                <Input
+                                    placeholder={t(
+                                        'tililaConnect.form.firstNamePlaceholder',
+                                    )}
+                                />
                             </Field>
                             <Field
-                                label={<TransText en="Last Name" fr="Nom" ar="اسم العائلة" />}
+                                label={
+                                    <TransText
+                                        en="Last Name"
+                                        fr="Nom"
+                                        ar="اسم العائلة"
+                                    />
+                                }
                                 required
                             >
-                                <Input placeholder={t('tililaConnect.form.lastNamePlaceholder')} />
+                                <Input
+                                    placeholder={t(
+                                        'tililaConnect.form.lastNamePlaceholder',
+                                    )}
+                                />
                             </Field>
 
                             <div className="sm:col-span-2">
                                 <Field
-                                    label={<TransText en="Professional Email" fr="E-mail professionnel" ar="البريد المهني" />}
+                                    label={
+                                        <TransText
+                                            en="Professional Email"
+                                            fr="E-mail professionnel"
+                                            ar="البريد المهني"
+                                        />
+                                    }
                                     required
                                 >
-                                    <Input placeholder={t('tililaConnect.form.emailPlaceholder')} type="email" />
+                                    <Input
+                                        placeholder={t(
+                                            'tililaConnect.form.emailPlaceholder',
+                                        )}
+                                        type="email"
+                                    />
                                     <div className="mt-2 text-xs text-muted-foreground">
                                         <TransText
                                             en="We’ll never send spam using your professional email address."
@@ -256,41 +291,95 @@ export default function FormOFInscription() {
 
                             <div className="sm:col-span-2">
                                 <Field
-                                    label={<TransText en="Phone Number" fr="Numéro de téléphone" ar="رقم الهاتف" />}
+                                    label={
+                                        <TransText
+                                            en="Phone Number"
+                                            fr="Numéro de téléphone"
+                                            ar="رقم الهاتف"
+                                        />
+                                    }
                                 >
-                                    <Input placeholder={t('tililaConnect.form.phonePlaceholder')} />
+                                    <Input
+                                        placeholder={t(
+                                            'tililaConnect.form.phonePlaceholder',
+                                        )}
+                                    />
                                 </Field>
                             </div>
 
-                            <div className="sm:col-span-2 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                            <div className="grid grid-cols-1 gap-5 sm:col-span-2 sm:grid-cols-2">
                                 <Field
-                                    label={<TransText en="Current Job Title" fr="Poste actuel" ar="المسمى الوظيفي الحالي" />}
+                                    label={
+                                        <TransText
+                                            en="Current Job Title"
+                                            fr="Poste actuel"
+                                            ar="المسمى الوظيفي الحالي"
+                                        />
+                                    }
                                     required
                                 >
-                                    <Input placeholder={t('tililaConnect.form.jobTitlePlaceholder')} />
+                                    <Input
+                                        placeholder={t(
+                                            'tililaConnect.form.jobTitlePlaceholder',
+                                        )}
+                                    />
                                 </Field>
                                 <Field
-                                    label={<TransText en="Organization / Company" fr="Organisation / Entreprise" ar="المنظمة / الشركة" />}
+                                    label={
+                                        <TransText
+                                            en="Organization / Company"
+                                            fr="Organisation / Entreprise"
+                                            ar="المنظمة / الشركة"
+                                        />
+                                    }
                                     required
                                 >
-                                    <Input placeholder={t('tililaConnect.form.organizationPlaceholder')} />
+                                    <Input
+                                        placeholder={t(
+                                            'tililaConnect.form.organizationPlaceholder',
+                                        )}
+                                    />
                                 </Field>
                             </div>
 
-                            <Field label={<TransText en="City" fr="Ville" ar="المدينة" />} required>
+                            <Field
+                                label={
+                                    <TransText
+                                        en="City"
+                                        fr="Ville"
+                                        ar="المدينة"
+                                    />
+                                }
+                                required
+                            >
                                 <Select defaultValue="">
                                     {cityOptions.map((opt) => (
-                                        <option key={opt.value} value={opt.value}>
+                                        <option
+                                            key={opt.value}
+                                            value={opt.value}
+                                        >
                                             {t(opt.key)}
                                         </option>
                                     ))}
                                 </Select>
                             </Field>
 
-                            <Field label={<TransText en="Country" fr="Pays" ar="البلد" />} required>
+                            <Field
+                                label={
+                                    <TransText
+                                        en="Country"
+                                        fr="Pays"
+                                        ar="البلد"
+                                    />
+                                }
+                                required
+                            >
                                 <Select defaultValue="ma">
                                     {countryOptions.map((opt) => (
-                                        <option key={opt.value} value={opt.value}>
+                                        <option
+                                            key={opt.value}
+                                            value={opt.value}
+                                        >
                                             {t(opt.key)}
                                         </option>
                                     ))}
@@ -299,10 +388,18 @@ export default function FormOFInscription() {
 
                             <div className="sm:col-span-2">
                                 <Field
-                                    label={<TransText en="Short Biography" fr="Courte biographie" ar="نبذة قصيرة" />}
+                                    label={
+                                        <TransText
+                                            en="Short Biography"
+                                            fr="Courte biographie"
+                                            ar="نبذة قصيرة"
+                                        />
+                                    }
                                 >
                                     <Textarea
-                                        placeholder={t('tililaConnect.form.bioPlaceholder')}
+                                        placeholder={t(
+                                            'tililaConnect.form.bioPlaceholder',
+                                        )}
                                         maxLength={300}
                                     />
                                     <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
@@ -350,12 +447,16 @@ export default function FormOFInscription() {
                                 </div>
                             </div>
 
-                            <div className="sm:col-span-2 mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="mt-2 flex flex-col-reverse gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
                                 <button
                                     type="button"
                                     className="inline-flex items-center justify-center rounded-md border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground shadow-sm hover:bg-secondary"
                                 >
-                                    <TransText en="Cancel" fr="Annuler" ar="إلغاء" />
+                                    <TransText
+                                        en="Cancel"
+                                        fr="Annuler"
+                                        ar="إلغاء"
+                                    />
                                 </button>
                                 <button
                                     type="button"
@@ -374,12 +475,21 @@ export default function FormOFInscription() {
 
                 <div className="space-y-6 lg:col-span-4">
                     <Card
-                        title={<TransText en="New Member FAQ" fr="FAQ nouveaux membres" ar="أسئلة شائعة للمشتركين الجدد" />}
+                        title={
+                            <TransText
+                                en="New Member FAQ"
+                                fr="FAQ nouveaux membres"
+                                ar="أسئلة شائعة للمشتركين الجدد"
+                            />
+                        }
                         icon="❓"
                     >
                         <div className="space-y-3 text-sm">
                             <div className="flex items-start gap-2">
-                                <span className="mt-1 text-beta-blue" aria-hidden="true">
+                                <span
+                                    className="mt-1 text-beta-blue"
+                                    aria-hidden="true"
+                                >
                                     •
                                 </span>
                                 <div>
@@ -401,7 +511,10 @@ export default function FormOFInscription() {
                             </div>
 
                             <div className="flex items-start gap-2">
-                                <span className="mt-1 text-beta-blue" aria-hidden="true">
+                                <span
+                                    className="mt-1 text-beta-blue"
+                                    aria-hidden="true"
+                                >
                                     •
                                 </span>
                                 <div>
@@ -423,7 +536,10 @@ export default function FormOFInscription() {
                             </div>
 
                             <div className="flex items-start gap-2">
-                                <span className="mt-1 text-beta-blue" aria-hidden="true">
+                                <span
+                                    className="mt-1 text-beta-blue"
+                                    aria-hidden="true"
+                                >
                                     •
                                 </span>
                                 <div>
@@ -447,7 +563,13 @@ export default function FormOFInscription() {
                     </Card>
 
                     <Card
-                        title={<TransText en="Code of Conduct" fr="Code de conduite" ar="مدونة السلوك" />}
+                        title={
+                            <TransText
+                                en="Code of Conduct"
+                                fr="Code de conduite"
+                                ar="مدونة السلوك"
+                            />
+                        }
                         icon="🛡"
                     >
                         <p className="text-xs leading-relaxed text-muted-foreground">
@@ -477,11 +599,18 @@ export default function FormOFInscription() {
                                 },
                             ].map((item) => (
                                 <li key={item.en} className="flex gap-2">
-                                    <span className="mt-0.5 text-beta-blue" aria-hidden="true">
+                                    <span
+                                        className="mt-0.5 text-beta-blue"
+                                        aria-hidden="true"
+                                    >
                                         ✓
                                     </span>
                                     <span>
-                                        <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                        <TransText
+                                            en={item.en}
+                                            fr={item.fr}
+                                            ar={item.ar}
+                                        />
                                     </span>
                                 </li>
                             ))}
@@ -516,4 +645,3 @@ export default function FormOFInscription() {
         </section>
     );
 }
-

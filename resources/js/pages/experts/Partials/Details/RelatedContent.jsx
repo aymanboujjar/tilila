@@ -21,7 +21,11 @@ export default function RelatedContent({ items = [] }) {
                         <div className="mt-0.5 h-9 w-9 shrink-0 rounded-lg bg-alpha-blue text-beta-blue ring-1 ring-border" />
                         <div className="min-w-0">
                             <div className="text-sm font-extrabold text-foreground">
-                                <TransText en={x.title.en} fr={x.title.fr} ar={x.title.ar} />
+                                <TransText
+                                    en={x.title.en}
+                                    fr={x.title.fr}
+                                    ar={x.title.ar}
+                                />
                             </div>
                             <div className="mt-1 text-sm leading-relaxed text-muted-foreground">
                                 <TransText
@@ -31,7 +35,11 @@ export default function RelatedContent({ items = [] }) {
                                 />
                             </div>
                             <div className="mt-2 text-xs font-semibold text-muted-foreground">
-                                <TransText en={x.meta.en} fr={x.meta.fr} ar={x.meta.ar} />
+                                <TransText
+                                    en={x.meta.en}
+                                    fr={x.meta.fr}
+                                    ar={x.meta.ar}
+                                />
                             </div>
                         </div>
                     </div>
@@ -40,4 +48,3 @@ export default function RelatedContent({ items = [] }) {
         </section>
     );
 }
-

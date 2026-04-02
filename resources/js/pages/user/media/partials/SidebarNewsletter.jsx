@@ -9,7 +9,11 @@ export default function SidebarNewsletter() {
     return (
         <aside className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
             <div className="text-sm font-extrabold text-foreground">
-                <TransText en="Stay informed" fr="Restez informée" ar="ابقَ على اطلاع" />
+                <TransText
+                    en="Stay informed"
+                    fr="Restez informée"
+                    ar="ابقَ على اطلاع"
+                />
             </div>
             <div className="mt-2 text-xs leading-relaxed text-muted-foreground">
                 <TransText
@@ -43,4 +47,3 @@ export default function SidebarNewsletter() {
         </aside>
     );
 }
-

@@ -72,9 +72,17 @@ export default function CommitteeSection() {
                             </div>
                             <div className="mt-1 text-xs font-medium text-tgray">
                                 {member.role === 'Chair' ? (
-                                    <TransText en="Chair" fr="Présidente" ar="الرئيسة" />
+                                    <TransText
+                                        en="Chair"
+                                        fr="Présidente"
+                                        ar="الرئيسة"
+                                    />
                                 ) : (
-                                    <TransText en="Member" fr="Membre" ar="عضوة" />
+                                    <TransText
+                                        en="Member"
+                                        fr="Membre"
+                                        ar="عضوة"
+                                    />
                                 )}
                             </div>
                         </div>
@@ -84,4 +92,3 @@ export default function CommitteeSection() {
         </section>
     );
 }
-

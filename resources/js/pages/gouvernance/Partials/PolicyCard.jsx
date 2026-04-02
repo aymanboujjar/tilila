@@ -4,7 +4,9 @@ import TransText from '@/components/TransText';
 function StatCard({ value, label }) {
     return (
         <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-            <div className="text-3xl font-extrabold text-beta-blue">{value}</div>
+            <div className="text-3xl font-extrabold text-beta-blue">
+                {value}
+            </div>
             <div className="mt-2 text-xs font-semibold text-muted-foreground">
                 {label}
             </div>
@@ -12,16 +14,13 @@ function StatCard({ value, label }) {
     );
 }
 
-export default function PolicyCard({
-    title,
-    subtitle,
-    highlights = [],
-    stat,
-}) {
+export default function PolicyCard({ title, subtitle, highlights = [], stat }) {
     return (
         <section className="grid grid-cols-1 gap-4 lg:grid-cols-12">
             <div className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border lg:col-span-8">
-                <div className="text-sm font-extrabold text-foreground">{title}</div>
+                <div className="text-sm font-extrabold text-foreground">
+                    {title}
+                </div>
                 {subtitle ? (
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                         {subtitle}
@@ -43,9 +42,11 @@ export default function PolicyCard({
             </div>
 
             <div className="lg:col-span-4">
-                <StatCard value={stat?.value ?? '—'} label={stat?.label ?? ''} />
+                <StatCard
+                    value={stat?.value ?? '—'}
+                    label={stat?.label ?? ''}
+                />
             </div>
         </section>
     );
 }
-

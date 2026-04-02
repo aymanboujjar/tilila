@@ -1,8 +1,18 @@
 import TransText from '@/components/TransText';
 
 const stats = [
-    { value: '2018', en: 'Year founded', fr: 'Année de création', ar: 'سنة التأسيس' },
-    { value: '1000+', en: 'Experts onboard', fr: 'Expertes intégrées', ar: 'خبيرات منضمات' },
+    {
+        value: '2018',
+        en: 'Year founded',
+        fr: 'Année de création',
+        ar: 'سنة التأسيس',
+    },
+    {
+        value: '1000+',
+        en: 'Experts onboard',
+        fr: 'Expertes intégrées',
+        ar: 'خبيرات منضمات',
+    },
 ];
 
 export default function MissionSection() {
@@ -68,7 +78,11 @@ export default function MissionSection() {
                                     {item.value}
                                 </div>
                                 <div className="mt-1 text-xs font-medium text-tgray">
-                                    <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                    <TransText
+                                        en={item.en}
+                                        fr={item.fr}
+                                        ar={item.ar}
+                                    />
                                 </div>
                             </div>
                         ))}
@@ -78,4 +92,3 @@ export default function MissionSection() {
         </section>
     );
 }
-

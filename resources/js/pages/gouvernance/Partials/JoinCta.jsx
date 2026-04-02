@@ -2,7 +2,12 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 
-export default function JoinCta({ title, description, primaryCta, secondaryCta }) {
+export default function JoinCta({
+    title,
+    description,
+    primaryCta,
+    secondaryCta,
+}) {
     return (
         <section className="overflow-hidden rounded-2xl bg-beta-blue shadow-sm ring-1 ring-border">
             <div className="px-6 py-10 sm:px-10">
@@ -41,4 +46,3 @@ export default function JoinCta({ title, description, primaryCta, secondaryCta }
         </section>
     );
 }
-

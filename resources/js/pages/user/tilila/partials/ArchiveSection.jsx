@@ -46,7 +46,7 @@ const editions = [
 
 export default function ArchiveSection() {
     return (
-        <section id="archive" className="mx-auto max-w-7xl px-4 pb-12 pt-10">
+        <section id="archive" className="mx-auto max-w-7xl px-4 pt-10 pb-12">
             <div className="text-center">
                 <h2 className="text-3xl font-semibold tracking-tight text-tblack sm:text-4xl">
                     <TransText
@@ -99,14 +99,22 @@ export default function ArchiveSection() {
                                     className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                 >
                                     <Trophy className="size-4 text-tgray" />
-                                    <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
+                                    <TransText
+                                        en="Winners"
+                                        fr="Lauréats"
+                                        ar="الفائزون"
+                                    />
                                 </a>
                                 <a
                                     href="/tilila"
                                     className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                 >
                                     <Gavel className="size-4 text-tgray" />
-                                    <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
+                                    <TransText
+                                        en="Jury"
+                                        fr="Jury"
+                                        ar="لجنة التحكيم"
+                                    />
                                 </a>
                                 {edition.hasGallery ? (
                                     <a
@@ -114,7 +122,11 @@ export default function ArchiveSection() {
                                         className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                     >
                                         <GalleryHorizontal className="size-4 text-tgray" />
-                                        <TransText en="Gallery" fr="Galerie" ar="المعرض" />
+                                        <TransText
+                                            en="Gallery"
+                                            fr="Galerie"
+                                            ar="المعرض"
+                                        />
                                     </a>
                                 ) : null}
                             </div>
@@ -138,4 +150,3 @@ export default function ArchiveSection() {
         </section>
     );
 }
-

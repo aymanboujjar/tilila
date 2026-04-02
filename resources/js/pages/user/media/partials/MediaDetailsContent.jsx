@@ -3,13 +3,20 @@ import React from 'react';
 import TransText from '@/components/TransText';
 
 export default function MediaDetailsContent({ item, locale }) {
-    const resolvedMeta = locale === 'ar' ? item.meta.ar : locale === 'fr' ? item.meta.fr : item.meta.en;
+    const resolvedMeta =
+        locale === 'ar'
+            ? item.meta.ar
+            : locale === 'fr'
+              ? item.meta.fr
+              : item.meta.en;
 
     return (
         <article className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border sm:p-8">
-            <div className="text-xs font-semibold text-muted-foreground">{resolvedMeta}</div>
+            <div className="text-xs font-semibold text-muted-foreground">
+                {resolvedMeta}
+            </div>
 
-            <div className="prose prose-sm mt-6 max-w-none text-foreground prose-headings:font-extrabold prose-headings:text-foreground prose-p:text-muted-foreground">
+            <div className="prose prose-sm prose-headings:font-extrabold prose-headings:text-foreground prose-p:text-muted-foreground mt-6 max-w-none text-foreground">
                 <h2>
                     <TransText
                         en="Key takeaways"
@@ -69,4 +76,3 @@ export default function MediaDetailsContent({ item, locale }) {
         </article>
     );
 }
-

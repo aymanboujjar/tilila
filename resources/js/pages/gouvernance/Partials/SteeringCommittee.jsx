@@ -17,7 +17,9 @@ export default function SteeringCommittee({ title, ctaLabel, items = [] }) {
     return (
         <section id="committee">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <div className="text-base font-extrabold text-foreground">{title}</div>
+                <div className="text-base font-extrabold text-foreground">
+                    {title}
+                </div>
                 {ctaLabel ? (
                     <a
                         href="#"
@@ -42,14 +44,26 @@ export default function SteeringCommittee({ title, ctaLabel, items = [] }) {
                                         {m.name}
                                     </div>
                                     <span className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground">
-                                        <TransText en={m.enRole} fr={m.frRole} ar={m.arRole} />
+                                        <TransText
+                                            en={m.enRole}
+                                            fr={m.frRole}
+                                            ar={m.arRole}
+                                        />
                                     </span>
                                 </div>
                                 <div className="mt-1 text-xs font-semibold text-muted-foreground">
-                                    <TransText en={m.enOrg} fr={m.frOrg} ar={m.arOrg} />
+                                    <TransText
+                                        en={m.enOrg}
+                                        fr={m.frOrg}
+                                        ar={m.arOrg}
+                                    />
                                 </div>
                                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                                    <TransText en={m.enBio} fr={m.frBio} ar={m.arBio} />
+                                    <TransText
+                                        en={m.enBio}
+                                        fr={m.frBio}
+                                        ar={m.arBio}
+                                    />
                                 </p>
                             </div>
                         </div>
@@ -59,4 +73,3 @@ export default function SteeringCommittee({ title, ctaLabel, items = [] }) {
         </section>
     );
 }
-

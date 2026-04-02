@@ -42,7 +42,11 @@ export default function EventsTabs({ activeTab, setActiveTab, counts }) {
                 count={counts?.upcoming}
                 ariaLabel={t('events.tabs.upcomingAria')}
             >
-                <TransText en="Upcoming Events" fr="Événements à venir" ar="الفعاليات القادمة" />
+                <TransText
+                    en="Upcoming Events"
+                    fr="Événements à venir"
+                    ar="الفعاليات القادمة"
+                />
             </TabButton>
             <TabButton
                 isActive={activeTab === 'past'}
@@ -59,4 +63,3 @@ export default function EventsTabs({ activeTab, setActiveTab, counts }) {
         </div>
     );
 }
-

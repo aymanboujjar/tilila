@@ -41,7 +41,11 @@ export default function FiltersSidebar({ filters, setFilters, onReset }) {
                     onClick={onReset}
                     className="text-xs font-semibold text-beta-blue hover:underline"
                 >
-                    <TransText en="Reset All" fr="Réinitialiser" ar="إعادة ضبط الكل" />
+                    <TransText
+                        en="Reset All"
+                        fr="Réinitialiser"
+                        ar="إعادة ضبط الكل"
+                    />
                 </button>
             </div>
 
@@ -49,37 +53,58 @@ export default function FiltersSidebar({ filters, setFilters, onReset }) {
                 <Section title={<TransText en="TYPE" fr="TYPE" ar="النوع" />}>
                     <Radio
                         checked={filters.type === 'all'}
-                        onChange={() => setFilters((f) => ({ ...f, type: 'all' }))}
+                        onChange={() =>
+                            setFilters((f) => ({ ...f, type: 'all' }))
+                        }
                         label={t('opportunities.filters.allTypes')}
                     />
                     <Radio
                         checked={filters.type === 'panel_discussion'}
                         onChange={() =>
-                            setFilters((f) => ({ ...f, type: 'panel_discussion' }))
+                            setFilters((f) => ({
+                                ...f,
+                                type: 'panel_discussion',
+                            }))
                         }
                         label={t('opportunities.filters.panelDiscussion')}
                     />
                     <Radio
                         checked={filters.type === 'media_call'}
-                        onChange={() => setFilters((f) => ({ ...f, type: 'media_call' }))}
+                        onChange={() =>
+                            setFilters((f) => ({ ...f, type: 'media_call' }))
+                        }
                         label={t('opportunities.filters.mediaCall')}
                     />
                     <Radio
                         checked={filters.type === 'grant'}
-                        onChange={() => setFilters((f) => ({ ...f, type: 'grant' }))}
+                        onChange={() =>
+                            setFilters((f) => ({ ...f, type: 'grant' }))
+                        }
                         label={t('opportunities.filters.grant')}
                     />
                     <Radio
                         checked={filters.type === 'residency'}
-                        onChange={() => setFilters((f) => ({ ...f, type: 'residency' }))}
+                        onChange={() =>
+                            setFilters((f) => ({ ...f, type: 'residency' }))
+                        }
                         label={t('opportunities.filters.residency')}
                     />
                 </Section>
 
-                <Section title={<TransText en="DEADLINE" fr="DATE LIMITE" ar="الموعد النهائي" />}>
+                <Section
+                    title={
+                        <TransText
+                            en="DEADLINE"
+                            fr="DATE LIMITE"
+                            ar="الموعد النهائي"
+                        />
+                    }
+                >
                     <Radio
                         checked={filters.deadline === 'any'}
-                        onChange={() => setFilters((f) => ({ ...f, deadline: 'any' }))}
+                        onChange={() =>
+                            setFilters((f) => ({ ...f, deadline: 'any' }))
+                        }
                         label={t('opportunities.filters.deadlineAny')}
                     />
                     <Radio
@@ -92,25 +117,43 @@ export default function FiltersSidebar({ filters, setFilters, onReset }) {
                     <Radio
                         checked={filters.deadline === 'this_month'}
                         onChange={() =>
-                            setFilters((f) => ({ ...f, deadline: 'this_month' }))
+                            setFilters((f) => ({
+                                ...f,
+                                deadline: 'this_month',
+                            }))
                         }
                         label={t('opportunities.filters.deadlineThisMonth')}
                     />
                 </Section>
 
-                <Section title={<TransText en="REGION" fr="RÉGION" ar="المنطقة" />}>
+                <Section
+                    title={<TransText en="REGION" fr="RÉGION" ar="المنطقة" />}
+                >
                     <select
                         value={filters.region}
                         onChange={(e) =>
-                            setFilters((f) => ({ ...f, region: e.target.value }))
+                            setFilters((f) => ({
+                                ...f,
+                                region: e.target.value,
+                            }))
                         }
                         className="w-full rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none"
                     >
-                        <option value="all">{t('opportunities.filters.regionAll')}</option>
-                        <option value="casablanca">{t('opportunities.filters.regionCasablanca')}</option>
-                        <option value="rabat">{t('opportunities.filters.regionRabat')}</option>
-                        <option value="marrakesh">{t('opportunities.filters.regionMarrakesh')}</option>
-                        <option value="tangier">{t('opportunities.filters.regionTangier')}</option>
+                        <option value="all">
+                            {t('opportunities.filters.regionAll')}
+                        </option>
+                        <option value="casablanca">
+                            {t('opportunities.filters.regionCasablanca')}
+                        </option>
+                        <option value="rabat">
+                            {t('opportunities.filters.regionRabat')}
+                        </option>
+                        <option value="marrakesh">
+                            {t('opportunities.filters.regionMarrakesh')}
+                        </option>
+                        <option value="tangier">
+                            {t('opportunities.filters.regionTangier')}
+                        </option>
                     </select>
                 </Section>
 
@@ -119,7 +162,11 @@ export default function FiltersSidebar({ filters, setFilters, onReset }) {
                         <div className="mt-0.5 h-9 w-9 rounded-lg bg-beta-blue/20 text-beta-blue ring-1 ring-border" />
                         <div className="min-w-0">
                             <div className="text-sm font-extrabold text-foreground">
-                                <TransText en="Stay Updated" fr="Restez informé" ar="ابقَ على اطلاع" />
+                                <TransText
+                                    en="Stay Updated"
+                                    fr="Restez informé"
+                                    ar="ابقَ على اطلاع"
+                                />
                             </div>
                             <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
                                 <TransText
@@ -141,4 +188,3 @@ export default function FiltersSidebar({ filters, setFilters, onReset }) {
         </aside>
     );
 }
-

@@ -18,7 +18,11 @@ export const MEDIA_ITEMS = [
             fr: 'Lecture 10 min • Casablanca',
             ar: 'قراءة 10 دقائق • الدار البيضاء',
         },
-        cta: { en: 'Watch replay →', fr: 'Voir le replay →', ar: 'شاهد الإعادة →' },
+        cta: {
+            en: 'Watch replay →',
+            fr: 'Voir le replay →',
+            ar: 'شاهد الإعادة →',
+        },
         imageSrc:
             'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
     },
@@ -36,15 +40,27 @@ export const MEDIA_ITEMS = [
             fr: 'Notre rapport annuel met en lumière les tendances de parité et la visibilité des expertes.',
             ar: 'يسلط تقريرنا السنوي الضوء على اتجاهات التوازن الجندري وظهور الخبيرات عبر المنصات.',
         },
-        meta: { en: 'Report • 6 min', fr: 'Rapport • 6 min', ar: 'تقرير • 6 دقائق' },
-        cta: { en: 'Read report →', fr: 'Lire le rapport →', ar: 'اقرأ التقرير →' },
+        meta: {
+            en: 'Report • 6 min',
+            fr: 'Rapport • 6 min',
+            ar: 'تقرير • 6 دقائق',
+        },
+        cta: {
+            en: 'Read report →',
+            fr: 'Lire le rapport →',
+            ar: 'اقرأ التقرير →',
+        },
         imageSrc:
             'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80',
     },
     {
         id: 'why-manels-are-bad',
         categoryId: 'diversityInsights',
-        badge: { en: 'Diversity Insight', fr: 'Insight diversité', ar: 'رؤية حول التنوع' },
+        badge: {
+            en: 'Diversity Insight',
+            fr: 'Insight diversité',
+            ar: 'رؤية حول التنوع',
+        },
         title: {
             en: 'Why “Manels” Are Bad for Business',
             fr: 'Pourquoi les “manels” nuisent aux organisations',
@@ -55,8 +71,16 @@ export const MEDIA_ITEMS = [
             fr: 'Les panels 100% masculins réduisent la crédibilité et la confiance—voici quoi faire à la place.',
             ar: 'اللوحات التي تضم رجالًا فقط تقلل المصداقية وتفوت المواهب وتضعف الثقة—وهذه بدائل عملية.',
         },
-        meta: { en: 'Insight • 4 min', fr: 'Insight • 4 min', ar: 'رؤية • 4 دقائق' },
-        cta: { en: 'Read insight →', fr: 'Lire l’insight →', ar: 'اقرأ الرؤية →' },
+        meta: {
+            en: 'Insight • 4 min',
+            fr: 'Insight • 4 min',
+            ar: 'رؤية • 4 دقائق',
+        },
+        cta: {
+            en: 'Read insight →',
+            fr: 'Lire l’insight →',
+            ar: 'اقرأ الرؤية →',
+        },
         imageSrc:
             'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
     },
@@ -74,10 +98,13 @@ export const MEDIA_ITEMS = [
             fr: 'Écoutez des expertes qui construisent des solutions d’avenir à travers l’Afrique.',
             ar: 'استمع إلى خبيرات يطوّرن حلولًا للمستقبل في أنحاء إفريقيا.',
         },
-        meta: { en: 'Video • 12 min', fr: 'Vidéo • 12 min', ar: 'فيديو • 12 دقيقة' },
+        meta: {
+            en: 'Video • 12 min',
+            fr: 'Vidéo • 12 min',
+            ar: 'فيديو • 12 دقيقة',
+        },
         cta: { en: 'Watch episode →', fr: 'Regarder →', ar: 'شاهد الحلقة →' },
         imageSrc:
             'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
     },
 ];
-

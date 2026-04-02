@@ -8,7 +8,7 @@ export default function GovernanceSidebar({
 }) {
     return (
         <aside className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-            <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+            <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
                 <TransText en="Governance" fr="Gouvernance" ar="الحوكمة" />
             </div>
 
@@ -29,7 +29,11 @@ export default function GovernanceSidebar({
                             ].join(' ')}
                         >
                             <span>
-                                <TransText en={s.enLabel} fr={s.frLabel} ar={s.arLabel} />
+                                <TransText
+                                    en={s.enLabel}
+                                    fr={s.frLabel}
+                                    ar={s.arLabel}
+                                />
                             </span>
                             <span aria-hidden="true">›</span>
                         </button>
@@ -38,7 +42,7 @@ export default function GovernanceSidebar({
             </nav>
 
             <div className="mt-4 rounded-xl bg-background p-4 ring-1 ring-border">
-                <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
                     <TransText en="Resources" fr="Ressources" ar="الموارد" />
                 </div>
                 <div className="mt-2 space-y-2 text-sm">
@@ -46,17 +50,24 @@ export default function GovernanceSidebar({
                         href="#"
                         className="block font-semibold text-beta-blue hover:underline"
                     >
-                        <TransText en="Download policy" fr="Télécharger la politique" ar="تنزيل السياسة" />
+                        <TransText
+                            en="Download policy"
+                            fr="Télécharger la politique"
+                            ar="تنزيل السياسة"
+                        />
                     </a>
                     <a
                         href="#"
                         className="block font-semibold text-beta-blue hover:underline"
                     >
-                        <TransText en="Contact committee" fr="Contacter le comité" ar="تواصل مع اللجنة" />
+                        <TransText
+                            en="Contact committee"
+                            fr="Contacter le comité"
+                            ar="تواصل مع اللجنة"
+                        />
                     </a>
                 </div>
             </div>
         </aside>
     );
 }
-
