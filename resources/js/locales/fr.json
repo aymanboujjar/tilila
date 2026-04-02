@@ -304,5 +304,15 @@
       "countrySenegal": "Sénégal"
     }
   },
+  "media": {
+    "headTitle": "Médias",
+    "actions": {
+      "loadMore": "Charger plus de médias",
+      "viewAllExperts": "Tout voir"
+    },
+    "newsletter": {
+      "emailPlaceholder": "Entrez votre e-mail"
+    }
+  },
   "welcome": "Bienvenue dans l’application"
 }

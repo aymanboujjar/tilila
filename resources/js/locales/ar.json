@@ -304,5 +304,15 @@
       "countrySenegal": "السنغال"
     }
   },
+  "media": {
+    "headTitle": "الإعلام",
+    "actions": {
+      "loadMore": "تحميل المزيد",
+      "viewAllExperts": "عرض الكل"
+    },
+    "newsletter": {
+      "emailPlaceholder": "أدخل بريدك الإلكتروني"
+    }
+  },
   "welcome": "مرحباً بك في التطبيق"
 }

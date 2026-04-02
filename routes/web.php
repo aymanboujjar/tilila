@@ -24,6 +24,9 @@ Route::get('/tilila', function () {
 Route::get('/tilila/form', function () {
     return Inertia::render('user/tilila/partials/FormOFInscription');
 });
+Route::get('/media', function () {
+    return Inertia::render('user/media/index');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');

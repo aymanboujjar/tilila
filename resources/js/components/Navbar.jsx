@@ -14,6 +14,7 @@ const navItems = [
     { en: 'Experts', fr: 'Experts', ar: 'الخبراء', href: '/experts' },
     { en: 'Events', fr: 'Événements', ar: 'الفعاليات', href: '/events' },
     { en: 'Opportunities', fr: 'Opportunités', ar: 'الفرص', href: '/opportunities' },
+    { en: 'Media', fr: 'Média', ar: 'الوسائط', href: '/media' },
 ];
 
 export default function Navbar() {
