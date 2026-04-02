@@ -22,6 +22,7 @@ export default function Navbar() {
     const { t } = useTranslation();
     const [mobileOpen, setMobileOpen] = useState(false);
     const headerRef = useRef(null);
+    const mobileMenuRef = useRef(null);
 
     useEffect(() => {
         if (!mobileOpen) {
@@ -37,6 +38,30 @@ export default function Navbar() {
         document.addEventListener('keydown', onKeyDown);
         return () => {
             document.removeEventListener('keydown', onKeyDown);
+        };
+    }, [mobileOpen]);
+
+    useEffect(() => {
+        if (!mobileOpen) {
+            return undefined;
+        }
+
+        const onPointerDown = (event) => {
+            const menuElement = mobileMenuRef.current;
+            if (!menuElement) {
+                return;
+            }
+
+            if (menuElement.contains(event.target)) {
+                return;
+            }
+
+            setMobileOpen(false);
+        };
+
+        document.addEventListener('pointerdown', onPointerDown, true);
+        return () => {
+            document.removeEventListener('pointerdown', onPointerDown, true);
         };
     }, [mobileOpen]);
 
@@ -122,12 +147,13 @@ export default function Navbar() {
             {mobileOpen ? (
                 <>
                     <div
-                        className="fixed inset-0 z-40 bg-tblack/45 backdrop-blur-sm md:hidden"
+                        className="fixed inset-0 z-40 bg-tblack/10 md:hidden"
                         onClick={closeMobile}
                         aria-hidden="true"
                     />
                     <div
                         id="mobile-nav-menu"
+                        ref={mobileMenuRef}
                         className="fixed inset-x-0 top-0 z-50 bg-background md:hidden"
                     >
                         <div className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background">
