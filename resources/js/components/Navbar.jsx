@@ -3,20 +3,32 @@ import { Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { home, login, register, dashboard } from '@/routes';
 
-const navItems = [
-    { label: 'About', href: '/about' },
-    { label: 'Tililab', href: '/tililab' },
-    { label: 'Tilila', href: '/tilila' },
-    { label: 'Gouvernance', href: '/gouvernance' },
-    { label: 'Experts', href: '/experts' },
-    { label: 'Events', href: '/events' },
-    { label: 'Opportunities', href: '/opportunities' },
-];
-
 export default function Navbar() {
     const { auth } = usePage().props;
+    const currentPath = (usePage().url || '/').split('?')[0] || '/';
     const [mobileOpen, setMobileOpen] = useState(false);
     const headerRef = useRef(null);
+
+    const navItems = [
+        { label: 'Home', href: home() },
+        { label: 'About', href: '/about' },
+        { label: 'Tililab', href: '/tililab' },
+        { label: 'Tilila', href: '/tilila' },
+        { label: 'Gouvernance', href: '/gouvernance' },
+        { label: 'Experts', href: '/experts' },
+        { label: 'Events', href: '/events' },
+        { label: 'Opportunities', href: '/opportunities' },
+    ];
+
+    const normalizePath = (path) => {
+        if (!path) return '/';
+        const base = String(path).split('?')[0];
+        if (base.length > 1 && base.endsWith('/')) return base.slice(0, -1);
+        return base || '/';
+    };
+
+    const isActiveHref = (href) =>
+        normalizePath(currentPath) === normalizePath(href);
 
     useEffect(() => {
         if (!mobileOpen) {
@@ -78,9 +90,20 @@ export default function Navbar() {
                         <Link
                             key={item.label}
                             href={item.href}
-                            className="text-sm font-medium text-tgray transition-colors hover:text-tblack"
+                            className={[
+                                'relative text-sm font-medium transition-colors',
+                                isActiveHref(item.href)
+                                    ? 'text-beta-blue'
+                                    : 'text-tgray hover:text-tblack',
+                            ].join(' ')}
                         >
                             {item.label}
+                            {isActiveHref(item.href) ? (
+                                <span
+                                    aria-hidden="true"
+                                    className="absolute -bottom-2 left-0 h-0.5 w-full rounded-full bg-beta-blue"
+                                />
+                            ) : null}
                         </Link>
                     ))}
                 </nav>
@@ -136,7 +159,12 @@ export default function Navbar() {
                             <Link
                                 key={item.label}
                                 href={item.href}
-                                className="rounded-lg px-3 py-2.5 text-sm font-medium text-tgray transition-colors hover:bg-alpha-blue/30 hover:text-tblack"
+                                className={[
+                                    'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                                    isActiveHref(item.href)
+                                        ? 'bg-alpha-blue/30 text-beta-blue'
+                                        : 'text-tgray hover:bg-alpha-blue/30 hover:text-tblack',
+                                ].join(' ')}
                                 onClick={closeMobile}
                             >
                                 {item.label}

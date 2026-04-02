@@ -50,9 +50,15 @@ function Badge({ children, tone = 'blue' }) {
     );
 }
 
-function CtaButton({ cta }) {
+function CtaButton({ cta, eventId }) {
     const label = cta?.label ?? 'View';
-    const href = cta?.href ?? '#';
+    const rawHref = cta?.href;
+    const href =
+        rawHref && rawHref !== '#'
+            ? rawHref
+            : eventId
+              ? `/events/${eventId}`
+              : '#';
     const kind = cta?.kind ?? 'secondary';
 
     const cls =
@@ -168,7 +174,7 @@ export default function EventCard({ event, activeTab }) {
                             {event?.categoryLabel ? (
                                 <Badge tone="muted">{event.categoryLabel}</Badge>
                             ) : null}
-                            <CtaButton cta={event?.cta} />
+                            <CtaButton cta={event?.cta} eventId={event?.id} />
                         </div>
                     </div>
                 </div>

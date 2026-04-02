@@ -7,6 +7,7 @@ import InfoCard from '@/pages/opportunities/Partials/Details/InfoCard';
 import Eligibility from '@/pages/opportunities/Partials/Details/Eligibility';
 import DeadlineCard from '@/pages/opportunities/Partials/Details/DeadlineCard';
 import HowToApply from '@/pages/opportunities/Partials/Details/HowToApply';
+import ApplyNowModal from '@/pages/opportunities/Partials/ApplyNowModal';
 
 function Pill({ children, variant = 'secondary' }) {
     const className =
@@ -42,6 +43,7 @@ export default function OpportunityDetails({ id }) {
     );
 
     const [saved, setSaved] = useState(false);
+    const [applyOpen, setApplyOpen] = useState(false);
 
     return (
         <>
@@ -91,6 +93,7 @@ export default function OpportunityDetails({ id }) {
                                     <div className="flex flex-col gap-2">
                                         <button
                                             type="button"
+                                            onClick={() => setApplyOpen(true)}
                                             className="inline-flex items-center justify-center rounded-md bg-beta-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                                         >
                                             Apply Now
@@ -150,7 +153,15 @@ export default function OpportunityDetails({ id }) {
                         <div className="space-y-6 lg:col-span-4">
                             <InfoCard title="Organizer">
                                 <div className="flex items-start gap-3">
-                                    <div className="mt-0.5 h-10 w-10 rounded-xl bg-alpha-blue text-beta-blue ring-1 ring-border" />
+                                    <div className="mt-0.5 h-10 w-20 overflow-hidden rounded-xl bg-card ring-1 ring-border">
+                                        <img
+                                            src="/assets/organizer-logo.png"
+                                            alt="Organizer logo"
+                                            className="h-full w-full object-cover"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    </div>
                                     <div>
                                         <div className="text-sm font-extrabold text-foreground">
                                             {details?.organizer?.name ?? base.org}
@@ -232,6 +243,12 @@ export default function OpportunityDetails({ id }) {
                     </div>
                 </div>
             </div>
+
+            <ApplyNowModal
+                isOpen={applyOpen}
+                onClose={() => setApplyOpen(false)}
+                opportunityTitle={details?.title ?? base?.title}
+            />
         </>
     );
 }
