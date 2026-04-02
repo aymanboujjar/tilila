@@ -21,11 +21,14 @@ Route::get('/tililab', function () {
 Route::get('/tilila', function () {
     return Inertia::render('user/tilila/index');
 });
+Route::get('/tilila/form', function () {
+    return Inertia::render('user/tilila/partials/FormOFInscription');
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
 });
 
-require __DIR__ . '/events.php';
-require __DIR__ . '/gouvernance.php';
-require __DIR__ . '/settings.php';
+require __DIR__.'/events.php';
+require __DIR__.'/gouvernance.php';
+require __DIR__.'/settings.php';

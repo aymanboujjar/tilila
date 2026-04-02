@@ -286,5 +286,23 @@
       "andOnline": "و عبر الإنترنت"
     }
   },
+  "tililaConnect": {
+    "form": {
+      "firstNamePlaceholder": "سارة",
+      "lastNamePlaceholder": "أحمد",
+      "emailPlaceholder": "name@organization.com",
+      "phonePlaceholder": "+212 6 00 00 00 00",
+      "jobTitlePlaceholder": "مثال: باحثة أولى",
+      "organizationPlaceholder": "مثال: جامعة الدار البيضاء",
+      "bioPlaceholder": "صِف بإيجاز خلفيتك المهنية ومجالات اهتمامك…",
+      "citySelect": "اختر المدينة",
+      "cityCasablanca": "الدار البيضاء",
+      "cityRabat": "الرباط",
+      "cityTangier": "طنجة",
+      "cityMarrakesh": "مراكش",
+      "countryMorocco": "المغرب",
+      "countrySenegal": "السنغال"
+    }
+  },
   "welcome": "مرحباً بك في التطبيق"
 }

@@ -286,5 +286,23 @@
       "andOnline": "& En ligne"
     }
   },
+  "tililaConnect": {
+    "form": {
+      "firstNamePlaceholder": "Jane",
+      "lastNamePlaceholder": "Doe",
+      "emailPlaceholder": "jane.doe@organisation.com",
+      "phonePlaceholder": "+212 6 00 00 00 00",
+      "jobTitlePlaceholder": "ex. : Chercheuse senior",
+      "organizationPlaceholder": "ex. : Université de Casablanca",
+      "bioPlaceholder": "Décrivez brièvement votre parcours professionnel et vos domaines d’intérêt…",
+      "citySelect": "Sélectionner une ville",
+      "cityCasablanca": "Casablanca",
+      "cityRabat": "Rabat",
+      "cityTangier": "Tanger",
+      "cityMarrakesh": "Marrakech",
+      "countryMorocco": "Maroc",
+      "countrySenegal": "Sénégal"
+    }
+  },
   "welcome": "Bienvenue dans l’application"
 }

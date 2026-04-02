@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import TransText from "@/components/TransText";
+import { Link } from "@inertiajs/react";
 
 const stats = [
     {
@@ -108,7 +109,9 @@ export default function HeroSection() {
                                 onMouseEnter={e => (e.currentTarget.style.background = "rgba(255,255,255,0.13)")}
                                 onMouseLeave={e => (e.currentTarget.style.background = "rgba(255,255,255,0.07)")}
                             >
-                                <TransText en="Participate" fr="Participer" ar="شارك" />
+                                <Link href="/tilila/form">
+                                    <TransText en="Participate" fr="Participer" ar="شارك" />
+                                </Link>
                             </button>
                         </div>
                     </div>
