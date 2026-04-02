@@ -3,6 +3,8 @@ import { Menu, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { home, login, register, dashboard } from '@/routes';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
+import TransText from '@/components/TransText';
+import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function Navbar() {
     const { auth } = usePage().props;
@@ -89,7 +91,7 @@ export default function Navbar() {
                 <nav className="hidden flex-1 items-center justify-center gap-8 md:flex">
                     {navItems.map((item) => (
                         <Link
-                            key={item.label}
+                            key={item.en}
                             href={item.href}
                             className={[
                                 'relative text-sm font-medium transition-colors',
@@ -116,18 +118,18 @@ export default function Navbar() {
                             href={dashboard()}
                             className={authButtonClass}
                         >
-                            Dashboard
+                            <TransText en="Dashboard" fr="Tableau de bord" ar="لوحة التحكم" />
                         </Link>
                     ) : (
                         <>
                             <Link href={login()} className={authButtonClass}>
-                                Login
+                                <TransText en="Login" fr="Connexion" ar="تسجيل الدخول" />
                             </Link>
                             <Link
                                 href={register()}
                                 className={registerButtonClass}
                             >
-                                Register
+                                <TransText en="Register" fr="S’inscrire" ar="إنشاء حساب" />
                             </Link>
                         </>
                     )}
@@ -139,7 +141,9 @@ export default function Navbar() {
                         className="inline-flex h-10 w-10 items-center justify-center rounded-full text-tblack transition-colors hover:bg-alpha-blue/40"
                         aria-expanded={mobileOpen}
                         aria-controls="mobile-nav-menu"
-                        aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                        aria-label={
+                            mobileOpen ? t('nav.mobileCloseMenuAria') : t('nav.mobileOpenMenuAria')
+                        }
                         onClick={() => setMobileOpen((open) => !open)}
                     >
                         {mobileOpen ? (
@@ -159,7 +163,7 @@ export default function Navbar() {
                     <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 py-3">
                         {navItems.map((item) => (
                             <Link
-                                key={item.label}
+                                key={item.en}
                                 href={item.href}
                                 className={[
                                     'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
@@ -169,7 +173,7 @@ export default function Navbar() {
                                 ].join(' ')}
                                 onClick={closeMobile}
                             >
-                                {item.label}
+                                <TransText en={item.en} fr={item.fr} ar={item.ar} />
                             </Link>
                         ))}
                         <div className="my-2 border-t border-border" />
@@ -179,7 +183,7 @@ export default function Navbar() {
                                 className={`${authButtonClass} justify-center`}
                                 onClick={closeMobile}
                             >
-                                Dashboard
+                                <TransText en="Dashboard" fr="Tableau de bord" ar="لوحة التحكم" />
                             </Link>
                         ) : (
                             <div className="flex flex-col gap-2 pb-1">
@@ -188,14 +192,14 @@ export default function Navbar() {
                                     className={`${authButtonClass} justify-center`}
                                     onClick={closeMobile}
                                 >
-                                    Login
+                                    <TransText en="Login" fr="Connexion" ar="تسجيل الدخول" />
                                 </Link>
                                 <Link
                                     href={register()}
                                     className={`${registerButtonClass} justify-center`}
                                     onClick={closeMobile}
                                 >
-                                    Register
+                                    <TransText en="Register" fr="S’inscrire" ar="إنشاء حساب" />
                                 </Link>
                             </div>
                         )}
