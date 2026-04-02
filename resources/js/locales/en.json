@@ -253,5 +253,29 @@
   "gouvernance": {
     "headTitle": "Governance"
   },
+  "events": {
+    "headTitle": "Events",
+    "tabs": {
+      "upcomingAria": "Upcoming events",
+      "pastAria": "Past events and replays"
+    },
+    "calendar": {
+      "prevMonthAria": "Previous month",
+      "nextMonthAria": "Next month",
+      "selectDayAria": "Select {date}"
+    },
+    "categories": {
+      "talk": "TiliTalks",
+      "webinar": "Webinars",
+      "workshop": "Workshops"
+    },
+    "actions": {
+      "view": "View"
+    },
+    "labels": {
+      "event": "Event",
+      "andOnline": "& Online"
+    }
+  },
   "welcome": "Welcome to the app"
 }

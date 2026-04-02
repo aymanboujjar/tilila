@@ -253,5 +253,29 @@
   "gouvernance": {
     "headTitle": "الحوكمة"
   },
+  "events": {
+    "headTitle": "الفعاليات",
+    "tabs": {
+      "upcomingAria": "الفعاليات القادمة",
+      "pastAria": "الفعاليات الماضية والإعادات"
+    },
+    "calendar": {
+      "prevMonthAria": "الشهر السابق",
+      "nextMonthAria": "الشهر التالي",
+      "selectDayAria": "اختر {date}"
+    },
+    "categories": {
+      "talk": "TiliTalks",
+      "webinar": "ندوات عبر الإنترنت",
+      "workshop": "ورشات"
+    },
+    "actions": {
+      "view": "عرض"
+    },
+    "labels": {
+      "event": "فعالية",
+      "andOnline": "و عبر الإنترنت"
+    }
+  },
   "welcome": "مرحباً بك في التطبيق"
 }
