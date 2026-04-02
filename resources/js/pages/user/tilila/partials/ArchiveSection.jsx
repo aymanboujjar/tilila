@@ -68,11 +68,11 @@ export default function ArchiveSection() {
                 <div className="space-y-4">
                     {editions.map((edition) => (
                         <div
-                            key={`${edition.year}-${edition.edition}`}
-                            className="flex flex-col gap-4 rounded-2xl bg-beta-white px-6 py-6 sm:flex-row sm:items-center sm:justify-between"
+                            key={`${edition.year}-${edition.enEdition}`}
+                            className="flex flex-col gap-4 rounded-2xl bg-beta-white px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6"
                         >
-                            <div className="flex items-center gap-6">
-                                <div className="text-4xl font-semibold tracking-tight text-tblack/10 sm:text-5xl">
+                            <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-6">
+                                <div className="text-3xl font-semibold tracking-tight text-tblack/10 sm:text-5xl">
                                     {edition.year}
                                 </div>
                                 <div>
@@ -96,14 +96,14 @@ export default function ArchiveSection() {
                             <div className="flex flex-wrap items-center gap-3 sm:justify-end">
                                 <a
                                     href="/tilila"
-                                    className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                 >
                                     <Trophy className="size-4 text-tgray" />
                                     <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
                                 </a>
                                 <a
                                     href="/tilila"
-                                    className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary"
+                                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                 >
                                     <Gavel className="size-4 text-tgray" />
                                     <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
@@ -111,7 +111,7 @@ export default function ArchiveSection() {
                                 {edition.hasGallery ? (
                                     <a
                                         href="/tilila"
-                                        className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary"
+                                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                     >
                                         <GalleryHorizontal className="size-4 text-tgray" />
                                         <TransText en="Gallery" fr="Galerie" ar="المعرض" />

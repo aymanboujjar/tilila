@@ -36,9 +36,10 @@ const stats = [
 
 export default function HeroSection() {
     return (
-        <section className="relative w-full  sm:pb-28">
+        <section className="relative w-full pb-10 sm:pb-28">
             {/* ── Dark hero panel ── */}
-            <div className="relative h-[85vh] overflow-hidden"
+            <div
+                className="relative min-h-[85vh] overflow-hidden sm:h-[85vh]"
                 style={{ background: "linear-gradient(135deg, var(--color-tblack) 0%, #111827 60%, #1a2035 100%)" }}
             >
                 {/* Gold glow blob */}
@@ -47,7 +48,7 @@ export default function HeroSection() {
                     style={{ background: "radial-gradient(circle, rgba(194,157,87,0.12) 0%, transparent 70%)" }}
                 />
 
-                <div className="mx-auto grid max-w-7xl gap-10 px-4 pb-28 pt-10 sm:px-10 sm:pb-32 sm:pt-14 lg:grid-cols-12 lg:items-center">
+                <div className="mx-auto grid max-w-7xl gap-10 px-4 pb-10 pt-10 sm:px-10 sm:pb-32 sm:pt-14 lg:grid-cols-12 lg:items-center">
 
                     {/* ── Left: text ── */}
                     <div className="lg:col-span-7">
@@ -66,7 +67,7 @@ export default function HeroSection() {
 
                         {/* Heading */}
                         <h1
-                            className="mt-6 text-5xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
+                            className="mt-6 text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl"
                             style={{ fontFamily: "'Playfair Display', serif", color: "var(--color-twhite)", lineHeight: 1.05 }}
                         >
                             Trophée
@@ -87,9 +88,9 @@ export default function HeroSection() {
                         </p>
 
                         {/* CTA buttons */}
-                        <div className="mt-7 flex flex-wrap items-center gap-3">
+                        <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                             <button
-                                className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90"
+                                className="inline-flex w-full items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition-opacity hover:opacity-90 sm:w-auto"
                                 style={{ background: "var(--color-gold)", color: "var(--color-tblack)" }}
                             >
                                 <TransText
@@ -100,7 +101,7 @@ export default function HeroSection() {
                                 <ArrowRight className="ml-2 h-4 w-4" />
                             </button>
                             <button
-                                className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition-colors"
+                                className="inline-flex w-full items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold transition-colors sm:w-auto"
                                 style={{
                                     background: "rgba(255,255,255,0.07)",
                                     border: "0.5px solid rgba(255,255,255,0.22)",
@@ -176,7 +177,7 @@ export default function HeroSection() {
             </div>
 
             {/* ── Stats bar — floats over the bottom edge ── */}
-            <div className="pointer-events-none absolute inset-x-0 bottom-6">
+            <div className="pointer-events-none relative mt-8 sm:absolute sm:inset-x-0 sm:bottom-6 sm:mt-0">
                 <div className="pointer-events-auto mx-auto max-w-7xl px-4 sm:px-10">
                     <div
                         className="rounded-2xl shadow-xl"
@@ -207,18 +208,15 @@ export default function HeroSection() {
 
                             {/* Metrics */}
                             <div
-                                className="grid gap-6 sm:grid-cols-3 lg:col-span-7 lg:pl-6"
-                                style={{ borderLeft: "0.5px solid #e5e7eb" }}
+                                className="grid gap-6 sm:grid-cols-3 lg:col-span-7 lg:border-l lg:border-border lg:pl-6"
                             >
                                 {stats.slice(1).map((item, i) => (
                                     <div
-                                        key={item.label}
-                                        className="text-center sm:text-left lg:px-6"
-                                        style={
-                                            i < 2
-                                                ? { borderRight: "0.5px solid #e5e7eb" }
-                                                : {}
-                                        }
+                                        key={`${item.value}-${item.enLabel}`}
+                                        className={[
+                                            'text-center sm:text-left lg:px-6',
+                                            i < 2 ? 'lg:border-r lg:border-border' : '',
+                                        ].join(' ')}
                                     >
                                         <div
                                             className="text-3xl font-bold tracking-tight sm:text-4xl"
