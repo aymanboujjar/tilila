@@ -105,6 +105,87 @@
         }
     },
     "contact": {
+        "page": {
+            "headTitle": "Contact",
+            "hero": {
+                "eyebrow": "CONNECT WITH TILILA",
+                "title": "Let's start a conversation.",
+                "description": "Whether you want to partner, ask a question, or share a story, our team is ready to help."
+            },
+            "responseCards": {
+                "general": {
+                    "label": "General replies",
+                    "value": "1-2 business days"
+                },
+                "partnerships": {
+                    "label": "Partnerships",
+                    "value": "Same week follow-up"
+                },
+                "location": {
+                    "label": "Location",
+                    "value": "Casablanca, Morocco"
+                }
+            },
+            "sectionContact": {
+                "eyebrow": "CONTACT",
+                "title": "Get in touch with our team",
+                "description": "Reach out for partnerships, media inquiries, event coordination, or general questions. We respond as quickly as possible with the right person on our side."
+            },
+            "details": {
+                "headquarters": {
+                    "title": "Headquarters",
+                    "line1": "Km 7.3, Route de Rabat, Ain Sebaa",
+                    "line2": "Casablanca 20250, Morocco"
+                },
+                "email": {
+                    "title": "Email",
+                    "value": "contact@tilila.ma"
+                },
+                "phone": {
+                    "title": "Phone",
+                    "value": "+212 5 22 00 00 00"
+                }
+            },
+            "officeHours": {
+                "title": "Office hours",
+                "description": "Monday to Friday, 9:00 to 18:00. For urgent requests, please include a clear subject line so we can route your message faster."
+            },
+            "actions": {
+                "linkedin": "LinkedIn",
+                "emailUs": "Email us"
+            },
+            "form": {
+                "title": "Send us a message",
+                "description": "Fill out the form below and our team will get back to you within 24-48 hours.",
+                "badge": "Direct response",
+                "fields": {
+                    "firstNameLabel": "First name",
+                    "firstNamePlaceholder": "John",
+                    "lastNameLabel": "Last name",
+                    "lastNamePlaceholder": "Doe",
+                    "emailLabel": "Email",
+                    "emailPlaceholder": "john.doe@example.com",
+                    "organizationLabel": "Organization",
+                    "organizationPlaceholder": "Company name",
+                    "subjectLabel": "Subject",
+                    "subjectPlaceholder": "How can we help?",
+                    "messageLabel": "Message",
+                    "messagePlaceholder": "Tell us a bit more about your request..."
+                },
+                "legal": "By sending this form, you agree to be contacted by the TILILA team.",
+                "submit": "Submit message"
+            },
+            "location": {
+                "eyebrow": "FIND US",
+                "title": "Casablanca headquarters",
+                "description": "Our office is based in Ain Sebaa, with easy access from the Rabat route and the main business districts in Casablanca.",
+                "mapTitle": "TILILA HQ",
+                "mapBadge": "Digital platform offices",
+                "channelsTitle": "Response channels",
+                "nextStepTitle": "Next step",
+                "nextStepDescription": "Share your objective and we will route the message to the right team member."
+            }
+        },
         "form": {
             "namePlaceholder": "Your name",
             "emailPlaceholder": "name@company.com",

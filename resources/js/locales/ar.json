@@ -105,6 +105,87 @@
         }
     },
     "contact": {
+        "page": {
+            "headTitle": "اتصل بنا",
+            "hero": {
+                "eyebrow": "تواصل مع تيليلا",
+                "title": "لنبدأ محادثة.",
+                "description": "سواء كنت تبحث عن شراكة، أو لديك سؤال، أو ترغب في مشاركة قصة، فريقنا جاهز لمساعدتك."
+            },
+            "responseCards": {
+                "general": {
+                    "label": "الردود العامة",
+                    "value": "من يوم إلى يومي عمل"
+                },
+                "partnerships": {
+                    "label": "الشراكات",
+                    "value": "متابعة خلال نفس الأسبوع"
+                },
+                "location": {
+                    "label": "الموقع",
+                    "value": "الدار البيضاء، المغرب"
+                }
+            },
+            "sectionContact": {
+                "eyebrow": "اتصل بنا",
+                "title": "تواصل مع فريقنا",
+                "description": "تواصل معنا بخصوص الشراكات، والاستفسارات الإعلامية، وتنسيق الفعاليات، أو أي أسئلة عامة. نحرص على الرد بسرعة وتحويل طلبك إلى الشخص المناسب."
+            },
+            "details": {
+                "headquarters": {
+                    "title": "المقر الرئيسي",
+                    "line1": "كم 7.3، طريق الرباط، عين السبع",
+                    "line2": "الدار البيضاء 20250، المغرب"
+                },
+                "email": {
+                    "title": "البريد الإلكتروني",
+                    "value": "contact@tilila.ma"
+                },
+                "phone": {
+                    "title": "الهاتف",
+                    "value": "+212 5 22 00 00 00"
+                }
+            },
+            "officeHours": {
+                "title": "ساعات العمل",
+                "description": "من الاثنين إلى الجمعة، من 09:00 إلى 18:00. في الطلبات المستعجلة، يرجى كتابة موضوع واضح لتسريع تحويل رسالتك."
+            },
+            "actions": {
+                "linkedin": "لينكدإن",
+                "emailUs": "راسلنا"
+            },
+            "form": {
+                "title": "أرسل لنا رسالة",
+                "description": "املأ النموذج أدناه وسيرد عليك فريقنا خلال 24 إلى 48 ساعة.",
+                "badge": "رد مباشر",
+                "fields": {
+                    "firstNameLabel": "الاسم الشخصي",
+                    "firstNamePlaceholder": "محمد",
+                    "lastNameLabel": "الاسم العائلي",
+                    "lastNamePlaceholder": "العلمي",
+                    "emailLabel": "البريد الإلكتروني",
+                    "emailPlaceholder": "john.doe@example.com",
+                    "organizationLabel": "الجهة / المؤسسة",
+                    "organizationPlaceholder": "اسم المؤسسة",
+                    "subjectLabel": "الموضوع",
+                    "subjectPlaceholder": "كيف يمكننا مساعدتك؟",
+                    "messageLabel": "الرسالة",
+                    "messagePlaceholder": "أخبرنا أكثر عن طلبك..."
+                },
+                "legal": "بإرسال هذا النموذج، فإنك توافق على أن يتواصل معك فريق تيليلا.",
+                "submit": "إرسال الرسالة"
+            },
+            "location": {
+                "eyebrow": "موقعنا",
+                "title": "المقر في الدار البيضاء",
+                "description": "يقع مكتبنا في عين السبع مع وصول سهل من طريق الرباط ومن المناطق الرئيسية للأعمال في الدار البيضاء.",
+                "mapTitle": "مقر تيليلا",
+                "mapBadge": "مكاتب المنصة الرقمية",
+                "channelsTitle": "قنوات التواصل",
+                "nextStepTitle": "الخطوة التالية",
+                "nextStepDescription": "شاركنا هدفك وسنوجّه رسالتك إلى عضو الفريق المناسب."
+            }
+        },
         "form": {
             "namePlaceholder": "اسمك",
             "emailPlaceholder": "name@company.com",
