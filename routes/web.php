@@ -27,6 +27,11 @@ Route::get('/tilila/form', function () {
 Route::get('/media', function () {
     return Inertia::render('user/media/index');
 });
+Route::get('/media/{id}', function (string $id) {
+    return Inertia::render('user/media/[id]', [
+        'id' => $id,
+    ]);
+});
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from '@inertiajs/react';
 
 import TransText from '@/components/TransText';
 
@@ -12,6 +13,7 @@ export default function MediaCard({ item, locale }) {
 
     return (
         <article className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-border">
+            <Link href={`/media/${item.id}`} className="block focus:outline-none focus-visible:ring-2 focus-visible:ring-beta-blue">
             <div className="relative">
                 <img
                     src={item.imageSrc}
@@ -21,7 +23,7 @@ export default function MediaCard({ item, locale }) {
                     decoding="async"
                     referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-tblack/55 via-tblack/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-tblack/55 via-tblack/10 to-transparent" />
                 <div className="absolute left-4 top-4 rounded-full bg-background/90 px-3 py-1 text-[11px] font-extrabold text-foreground shadow-sm ring-1 ring-border backdrop-blur">
                     {resolvedBadge}
                 </div>
@@ -41,14 +43,12 @@ export default function MediaCard({ item, locale }) {
 
                 <div className="mt-4 flex items-center justify-between gap-3 text-xs">
                     <div className="text-muted-foreground">{resolvedMeta}</div>
-                    <button
-                        type="button"
-                        className="font-semibold text-beta-blue hover:underline"
-                    >
+                    <span className="font-semibold text-beta-blue hover:underline">
                         {resolvedCta}
-                    </button>
+                    </span>
                 </div>
             </div>
+            </Link>
         </article>
     );
 }
