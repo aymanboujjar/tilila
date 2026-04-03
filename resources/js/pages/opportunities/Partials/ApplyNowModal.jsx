@@ -6,6 +6,8 @@ import {
     DialogHeader,
     DialogTitle,
 } from '@/components/ui/dialog';
+import { useTranslation } from '@/contexts/TranslationContext';
+import { pickLocalized } from '@/lib/pickLocalized';
 
 function Field({ label, children, htmlFor, hint }) {
     return (
@@ -86,6 +88,7 @@ export default function ApplyNowModal({
     onClose,
     opportunityTitle,
 }) {
+    const { locale, t } = useTranslation();
     const formId = useId();
     const fullNameId = `${formId}-full-name`;
     const emailId = `${formId}-email`;
@@ -112,6 +115,10 @@ export default function ApplyNowModal({
 
     const canSubmit = agreedCharter && agreedPrivacy;
 
+    const modalTitle =
+        pickLocalized(opportunityTitle, locale) ||
+        t('opportunities.detail.fallbackHeadTitle');
+
     return (
         <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
             <DialogContent className="max-h-[85vh] overflow-y-auto p-0 sm:max-w-5xl">
@@ -121,7 +128,7 @@ export default function ApplyNowModal({
                             Application Form
                         </div>
                         <DialogTitle className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
-                            {opportunityTitle ?? 'Submit your application'}
+                            {modalTitle}
                         </DialogTitle>
                         <DialogDescription className="max-w-3xl text-sm leading-relaxed text-muted-foreground">
                             Complete the form below to apply. All fields should be

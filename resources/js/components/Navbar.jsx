@@ -1,49 +1,53 @@
 import { Link, usePage } from '@inertiajs/react';
 import { Menu, X } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { home, login, register, dashboard } from '@/routes';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 
-const navItems = [
-    { en: 'About', fr: 'À propos', ar: 'حول', href: '/about' },
-    { en: 'Tililab', fr: 'Tililab', ar: 'تيليلاب', href: '/tililab' },
-    { en: 'Tilila', fr: 'Tilila', ar: 'تيليلا', href: '/tilila' },
-    {
-        en: 'Governance',
-        fr: 'Gouvernance',
-        ar: 'الحوكمة',
-        href: '/gouvernance',
-    },
-    { en: 'Experts', fr: 'Experts', ar: 'الخبراء', href: '/experts' },
-    { en: 'Events', fr: 'Événements', ar: 'الفعاليات', href: '/events' },
-    {
-        en: 'Opportunities',
-        fr: 'Opportunités',
-        ar: 'الفرص',
-        href: '/opportunities',
-    },
-    { en: 'Media', fr: 'Média', ar: 'الوسائط', href: '/media' },
-];
-
 export default function Navbar() {
     const { auth } = usePage().props;
+    const { t } = useTranslation();
     const currentPath = (usePage().url || '/').split('?')[0] || '/';
     const [mobileOpen, setMobileOpen] = useState(false);
     const headerRef = useRef(null);
     const mobileMenuRef = useRef(null);
 
-    const navItems = [
-        { label: 'Home', href: home() },
-        { label: 'About', href: '/about' },
-        { label: 'Tililab', href: '/tililab' },
-        { label: 'Tilila', href: '/tilila' },
-        { label: 'Gouvernance', href: '/gouvernance' },
-        { label: 'Experts', href: '/experts' },
-        { label: 'Events', href: '/events' },
-        { label: 'Opportunities', href: '/opportunities' },
-    ];
+    const navItems = useMemo(
+        () => [
+            {
+                en: 'Home',
+                fr: 'Accueil',
+                ar: 'الرئيسية',
+                href: home(),
+            },
+            { en: 'About', fr: 'À propos', ar: 'حول', href: '/about' },
+            { en: 'Tililab', fr: 'Tililab', ar: 'تيليلاب', href: '/tililab' },
+            { en: 'Tilila', fr: 'Tilila', ar: 'تيليلا', href: '/tilila' },
+            {
+                en: 'Governance',
+                fr: 'Gouvernance',
+                ar: 'الحوكمة',
+                href: '/gouvernance',
+            },
+            { en: 'Experts', fr: 'Experts', ar: 'الخبراء', href: '/experts' },
+            {
+                en: 'Events',
+                fr: 'Événements',
+                ar: 'الفعاليات',
+                href: '/events',
+            },
+            {
+                en: 'Opportunities',
+                fr: 'Opportunités',
+                ar: 'الفرص',
+                href: '/opportunities',
+            },
+            { en: 'Media', fr: 'Média', ar: 'الوسائط', href: '/media' },
+        ],
+        [],
+    );
 
     const normalizePath = (path) => {
         if (!path) return '/';
@@ -137,7 +141,7 @@ export default function Navbar() {
                 <nav className="hidden flex-1 items-center justify-center gap-8 md:flex">
                     {navItems.map((item) => (
                         <Link
-                            key={item.en}
+                            key={item.href}
                             href={item.href}
                             className={[
                                 'relative text-sm font-medium transition-colors',
@@ -146,7 +150,11 @@ export default function Navbar() {
                                     : 'text-tgray hover:text-tblack',
                             ].join(' ')}
                         >
-                            {item.label}
+                            <TransText
+                                en={item.en}
+                                fr={item.fr}
+                                ar={item.ar}
+                            />
                             {isActiveHref(item.href) ? (
                                 <span
                                     aria-hidden="true"
@@ -222,7 +230,7 @@ export default function Navbar() {
                             </div>
                             {navItems.map((item) => (
                                 <Link
-                                    key={item.en}
+                                    key={item.href}
                                     href={item.href}
                                     className="rounded-lg px-3 py-2.5 text-sm font-medium text-tgray transition-colors hover:bg-alpha-blue/30 hover:text-tblack"
                                     onClick={closeMobile}

@@ -52,7 +52,7 @@ function Badge({ children, tone = 'blue' }) {
     );
 }
 
-function CtaButton({ cta }) {
+function CtaButton({ cta, eventId }) {
     const { locale, t } = useTranslation();
     const label =
         locale === 'ar'
@@ -60,7 +60,14 @@ function CtaButton({ cta }) {
             : locale === 'fr'
               ? cta?.label?.fr
               : (cta?.label?.en ?? t('events.actions.view'));
-    const href = cta?.href ?? '#';
+    const rawHref = cta?.href;
+    const href =
+        // rawHref && rawHref !== '#'
+        //     ? rawHref
+        //     : eventId
+        //       ? `/events/${eventId}`
+        //       : '#';
+        "events/tilitalk-women-leading-tech-innovation";
     const kind = cta?.kind ?? 'secondary';
 
     const cls =
