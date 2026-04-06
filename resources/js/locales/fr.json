@@ -105,6 +105,87 @@
         }
     },
     "contact": {
+        "page": {
+            "headTitle": "Contact",
+            "hero": {
+                "eyebrow": "CONTACTER TILILA",
+                "title": "Entamons la conversation.",
+                "description": "Que vous souhaitiez nouer un partenariat, poser une question ou partager une histoire, notre équipe est prête à vous répondre."
+            },
+            "responseCards": {
+                "general": {
+                    "label": "Réponse générale",
+                    "value": "1 à 2 jours ouvrés"
+                },
+                "partnerships": {
+                    "label": "Partenariats",
+                    "value": "Suivi dans la semaine"
+                },
+                "location": {
+                    "label": "Localisation",
+                    "value": "Casablanca, Maroc"
+                }
+            },
+            "sectionContact": {
+                "eyebrow": "CONTACT",
+                "title": "Prenez contact avec notre équipe",
+                "description": "Contactez-nous pour des partenariats, des demandes médias, la coordination d'événements ou toute question générale. Nous répondons rapidement en orientant votre demande vers la bonne personne."
+            },
+            "details": {
+                "headquarters": {
+                    "title": "Siège",
+                    "line1": "Km 7.3, Route de Rabat, Ain Sebaa",
+                    "line2": "Casablanca 20250, Maroc"
+                },
+                "email": {
+                    "title": "E-mail",
+                    "value": "contact@tilila.ma"
+                },
+                "phone": {
+                    "title": "Téléphone",
+                    "value": "+212 5 22 00 00 00"
+                }
+            },
+            "officeHours": {
+                "title": "Heures d'ouverture",
+                "description": "Du lundi au vendredi, de 9h00 à 18h00. Pour les demandes urgentes, merci d'indiquer un objet clair afin d'accélérer le traitement."
+            },
+            "actions": {
+                "linkedin": "LinkedIn",
+                "emailUs": "Nous écrire"
+            },
+            "form": {
+                "title": "Envoyez-nous un message",
+                "description": "Remplissez le formulaire ci-dessous et notre équipe vous répondra sous 24 à 48 heures.",
+                "badge": "Réponse directe",
+                "fields": {
+                    "firstNameLabel": "Prénom",
+                    "firstNamePlaceholder": "John",
+                    "lastNameLabel": "Nom",
+                    "lastNamePlaceholder": "Doe",
+                    "emailLabel": "E-mail",
+                    "emailPlaceholder": "john.doe@example.com",
+                    "organizationLabel": "Organisation",
+                    "organizationPlaceholder": "Nom de l'entreprise",
+                    "subjectLabel": "Objet",
+                    "subjectPlaceholder": "Comment pouvons-nous vous aider ?",
+                    "messageLabel": "Message",
+                    "messagePlaceholder": "Parlez-nous un peu plus de votre demande..."
+                },
+                "legal": "En envoyant ce formulaire, vous acceptez d'être recontacté(e) par l'équipe TILILA.",
+                "submit": "Envoyer le message"
+            },
+            "location": {
+                "eyebrow": "NOUS TROUVER",
+                "title": "Siège de Casablanca",
+                "description": "Nos bureaux sont situés à Ain Sebaa, avec un accès simple depuis la route de Rabat et les principaux quartiers d'affaires de Casablanca.",
+                "mapTitle": "SIÈGE TILILA",
+                "mapBadge": "Bureaux de la plateforme digitale",
+                "channelsTitle": "Canaux de réponse",
+                "nextStepTitle": "Étape suivante",
+                "nextStepDescription": "Partagez votre objectif et nous orienterons votre message vers le membre d'équipe concerné."
+            }
+        },
         "form": {
             "namePlaceholder": "Votre nom",
             "emailPlaceholder": "nom@entreprise.com",
