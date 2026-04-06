@@ -75,14 +75,14 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
 
     return (
         <Card>
-            <CardHeader>
+            <CardHeader className="px-5 sm:px-8">
                 <CardTitle>Public profile content</CardTitle>
                 <CardDescription>
                     Headline tags, biography, quote, and sections below match
                     what visitors see on the expert detail page.
                 </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-10">
+            <CardContent className="space-y-10 px-5 sm:px-8">
                 {/* Headline tags */}
                 <section className="space-y-3">
                     <div className="flex flex-wrap items-center justify-between gap-2">

@@ -136,7 +136,7 @@ function SidebarProvider({
           } as React.CSSProperties
         }
         className={cn(
-          "group/sidebar-wrapper bg-muted flex min-h-svh w-full",
+          "group/sidebar-wrapper bg-muted flex min-h-svh w-full gap-3 md:gap-5",
           className
         )}
         {...props}

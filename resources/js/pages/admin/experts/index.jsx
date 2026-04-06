@@ -47,8 +47,8 @@ export default function AdminExpertsIndex({ experts, filters }) {
         <>
             <Head title="Expert Management" />
 
-            <div className="flex flex-col gap-8">
-                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 lg:flex-row lg:items-start lg:justify-between">
+            <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
                         <p className="text-tgray text-sm font-medium">
                             Experts Directory
@@ -84,7 +84,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
 
                 <form
                     onSubmit={submitSearch}
-                    className="flex flex-col gap-3 lg:flex-row lg:items-center lg:gap-3"
+                    className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-4"
                 >
                     <div className="relative min-w-0 flex-1">
                         <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
@@ -124,23 +124,23 @@ export default function AdminExpertsIndex({ experts, filters }) {
                     </div>
                 </form>
 
-                <div className="border-border/70 overflow-hidden rounded-xl border bg-card shadow-sm">
+                <div className="border-border/70 overflow-hidden rounded-xl border bg-card p-4 shadow-sm sm:p-6">
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="text-tgray w-[32%] uppercase">
+                                <TableHead className="text-tgray w-[32%] py-3 uppercase sm:px-3">
                                     Expert name
                                 </TableHead>
-                                <TableHead className="text-tgray uppercase">
+                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
                                     Status
                                 </TableHead>
-                                <TableHead className="text-tgray uppercase">
+                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
                                     Expertise
                                 </TableHead>
-                                <TableHead className="text-tgray uppercase">
+                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
                                     Last activity
                                 </TableHead>
-                                <TableHead className="text-tgray text-right uppercase">
+                                <TableHead className="text-tgray py-3 text-right uppercase sm:px-3">
                                     Actions
                                 </TableHead>
                             </TableRow>
@@ -150,7 +150,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                 <TableRow>
                                     <TableCell
                                         colSpan={5}
-                                        className="text-tgray py-10 text-center text-sm"
+                                        className="text-tgray px-4 py-14 text-center text-sm sm:px-6"
                                     >
                                         No experts yet. Add one to get started.
                                     </TableCell>
@@ -158,7 +158,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                             ) : (
                                 data.map((expert) => (
                                     <TableRow key={expert.id}>
-                                        <TableCell>
+                                        <TableCell className="py-4 sm:px-3">
                                             <div className="flex items-center gap-3">
                                                 <div className="bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
                                                     {(expert.name?.en ?? '?')
@@ -178,7 +178,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                 </div>
                                             </div>
                                         </TableCell>
-                                        <TableCell>
+                                        <TableCell className="py-4 sm:px-3">
                                             <span
                                                 className={cn(
                                                     'inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize',
@@ -190,7 +190,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                 {expert.status}
                                             </span>
                                         </TableCell>
-                                        <TableCell className="text-tgray max-w-xs">
+                                        <TableCell className="text-tgray max-w-xs py-4 sm:px-3">
                                             <div className="flex flex-wrap gap-1">
                                                 {(expert.industries ?? [])
                                                     .slice(0, 3)
@@ -205,14 +205,14 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                     ))}
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-tgray text-sm">
+                                        <TableCell className="text-tgray py-4 text-sm sm:px-3">
                                             {expert.updated_at
                                                 ? new Date(
                                                       expert.updated_at,
                                                   ).toLocaleString()
                                                 : '—'}
                                         </TableCell>
-                                        <TableCell className="text-right">
+                                        <TableCell className="py-4 text-right sm:px-3">
                                             <Button
                                                 asChild
                                                 variant="ghost"
