@@ -120,7 +120,12 @@
         }
     },
     "home": {
-        "headTitle": "Tilila"
+        "headTitle": "Tilila",
+        "heroCarouselAria": "Featured site sections",
+        "heroCarouselPrev": "Previous slide",
+        "heroCarouselNext": "Next slide",
+        "heroCarouselDots": "Slides",
+        "heroCarouselGoTo": "Go to slide"
     },
     "about": {
         "headTitle": "About"

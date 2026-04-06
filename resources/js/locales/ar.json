@@ -120,7 +120,12 @@
         }
     },
     "home": {
-        "headTitle": "تيليلا"
+        "headTitle": "تيليلا",
+        "heroCarouselAria": "أقسام الموقع البارزة",
+        "heroCarouselPrev": "الشريحة السابقة",
+        "heroCarouselNext": "الشريحة التالية",
+        "heroCarouselDots": "الشرائح",
+        "heroCarouselGoTo": "الانتقال إلى الشريحة"
     },
     "about": {
         "headTitle": "حول"
