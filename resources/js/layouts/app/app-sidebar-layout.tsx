@@ -2,24 +2,25 @@ import { usePage } from '@inertiajs/react';
 import { AppContent } from '@/components/app-content';
 import { AppShell } from '@/components/app-shell';
 import { AppSidebar } from '@/components/app-sidebar';
-import { AppSidebarHeader } from '@/components/app-sidebar-header';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import type { AppLayoutProps } from '@/types';
 
-export default function AppSidebarLayout({
-    children,
-    breadcrumbs = [],
-}: AppLayoutProps) {
+export default function AppSidebarLayout({ children }: AppLayoutProps) {
     const { auth } = usePage().props;
-    const isAdmin = auth?.user?.role === 'admin';
+    const isAuthenticated = Boolean(auth?.user);
 
     return (
-        <AppShell variant={isAdmin ? 'sidebar' : 'header'}>
-            {isAdmin && <AppSidebar />}
+        <AppShell variant={isAuthenticated ? 'sidebar' : 'header'}>
+            {isAuthenticated && <AppSidebar />}
             <AppContent
-                variant={isAdmin ? 'sidebar' : 'header'}
+                variant={isAuthenticated ? 'sidebar' : 'header'}
                 className="overflow-x-hidden"
             >
-                {isAdmin && <AppSidebarHeader breadcrumbs={breadcrumbs} />}
+                {isAuthenticated && (
+                    <div className="border-border/60 flex h-12 shrink-0 items-center border-b bg-muted px-3 lg:hidden">
+                        <SidebarTrigger className="-ml-1" />
+                    </div>
+                )}
                 {children}
             </AppContent>
         </AppShell>

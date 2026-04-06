@@ -1,63 +1,171 @@
 import { Link } from '@inertiajs/react';
-import { BookOpen, FolderGit2, LayoutGrid } from 'lucide-react';
-import AppLogo from '@/components/app-logo';
-import { NavFooter } from '@/components/nav-footer';
-import { NavMain } from '@/components/nav-main';
+import {
+    BarChart3,
+    Calendar,
+    FileText,
+    Globe2,
+    LayoutGrid,
+    Megaphone,
+    Settings,
+    Users,
+} from 'lucide-react';
+
 import { NavUser } from '@/components/nav-user';
 import {
     Sidebar,
     SidebarContent,
     SidebarFooter,
+    SidebarGroup,
+    SidebarGroupLabel,
     SidebarHeader,
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { useCurrentUrl } from '@/hooks/use-current-url';
 import { dashboard } from '@/routes';
+import { home } from '@/routes';
+import { index as eventsIndex } from '@/routes/events';
+import { index as expertsIndex } from '@/routes/experts';
+import { index as gouvernanceIndex } from '@/routes/gouvernance';
+import { index as opportunitiesIndex } from '@/routes/opportunities';
+import { edit as profileEdit } from '@/routes/profile';
 import type { NavItem } from '@/types';
 
-const mainNavItems: NavItem[] = [
+const dashboardItem: NavItem = {
+    title: 'Dashboard',
+    href: dashboard.url(),
+    icon: LayoutGrid,
+};
+
+const moduleItems: NavItem[] = [
     {
-        title: 'Dashboard',
-        href: dashboard(),
-        icon: LayoutGrid,
+        title: 'Experts',
+        href: expertsIndex.url(),
+        icon: Users,
+    },
+    {
+        title: 'Content',
+        href: '/media',
+        icon: FileText,
+    },
+    {
+        title: 'Opportunities',
+        href: opportunitiesIndex.url(),
+        icon: Megaphone,
+    },
+    {
+        title: 'Events',
+        href: eventsIndex.url(),
+        icon: Calendar,
+    },
+    {
+        title: 'Community',
+        href: home.url(),
+        icon: Globe2,
     },
 ];
 
-const footerNavItems: NavItem[] = [
+const strategicItems: NavItem[] = [
     {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: FolderGit2,
+        title: 'Analytics',
+        href: gouvernanceIndex.url(),
+        icon: BarChart3,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        title: 'Settings',
+        href: profileEdit.url(),
+        icon: Settings,
     },
 ];
 
-export function AppSidebar() {
+function SidebarNavLinks({ items }: { items: NavItem[] }) {
+    const { isCurrentUrl } = useCurrentUrl();
+
     return (
-        <Sidebar collapsible="icon" variant="inset">
-            <SidebarHeader>
-                <SidebarMenu>
-                    <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
-                                <AppLogo />
+        <SidebarMenu>
+            {items.map((item) => {
+                const Icon = item.icon;
+
+                return (
+                    <SidebarMenuItem key={item.title}>
+                        <SidebarMenuButton
+                            asChild
+                            isActive={isCurrentUrl(item.href)}
+                            tooltip={{ children: item.title }}
+                        >
+                            <Link href={item.href} prefetch>
+                                {Icon && <Icon />}
+                                <span>{item.title}</span>
                             </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
-                </SidebarMenu>
+                );
+            })}
+        </SidebarMenu>
+    );
+}
+
+export function AppSidebar() {
+    const { isCurrentUrl } = useCurrentUrl();
+    const DashboardIcon = dashboardItem.icon;
+
+    return (
+        <Sidebar collapsible="icon" variant="sidebar">
+            <SidebarHeader className="gap-3 border-b border-sidebar-border p-4">
+                <Link
+                    href={dashboard.url()}
+                    prefetch
+                    className="flex items-start gap-3 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
+                >
+                    <span className="bg-beta-blue/20 flex size-10 shrink-0 items-center justify-center rounded-lg">
+                        <img
+                            src="/assets/logo.webp"
+                            alt=""
+                            className="size-7 object-contain"
+                        />
+                    </span>
+                    <span className="group-data-[collapsible=icon]:hidden grid min-w-0 flex-1 text-left leading-tight">
+                        <span className="text-twhite truncate text-sm font-bold tracking-tight">
+                            TILILA Impact
+                        </span>
+                        <span className="text-sidebar-foreground/60 mt-0.5 truncate text-xs font-medium">
+                            Strategic Pilotage
+                        </span>
+                    </span>
+                </Link>
             </SidebarHeader>
 
-            <SidebarContent>
-                <NavMain items={mainNavItems} />
+            <SidebarContent className="gap-0 px-2 py-4">
+                <SidebarGroup className="py-0">
+                    <SidebarMenu>
+                        <SidebarMenuItem>
+                            <SidebarMenuButton
+                                asChild
+                                isActive={isCurrentUrl(dashboardItem.href)}
+                                tooltip={{ children: dashboardItem.title }}
+                            >
+                                <Link href={dashboardItem.href} prefetch>
+                                    {DashboardIcon ? <DashboardIcon /> : null}
+                                    <span>{dashboardItem.title}</span>
+                                </Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    </SidebarMenu>
+                </SidebarGroup>
+
+                <SidebarGroup className="mt-4 py-0">
+                    <SidebarGroupLabel>Modules</SidebarGroupLabel>
+                    <SidebarNavLinks items={moduleItems} />
+                </SidebarGroup>
+
+                <SidebarGroup className="mt-4 py-0">
+                    <SidebarGroupLabel>Strategic</SidebarGroupLabel>
+                    <SidebarNavLinks items={strategicItems} />
+                </SidebarGroup>
             </SidebarContent>
 
-            <SidebarFooter>
-                <NavFooter items={footerNavItems} className="mt-auto" />
+            <SidebarFooter className="border-t border-sidebar-border bg-sidebar-accent/50 p-2">
                 <NavUser />
             </SidebarFooter>
         </Sidebar>
