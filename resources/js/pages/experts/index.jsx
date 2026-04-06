@@ -13,7 +13,7 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
     const [view, setView] = useState('grid');
     const [filters, setFilters] = useState({
         industry: 'all',
-        country: 'ma',
+        country: 'all',
         language: 'all',
         availability: 'all',
     });
@@ -111,7 +111,7 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
                         .map((x) => x.en)
                         .join(' ')
                         .toLowerCase();
-                    const location = (e.location?.en ?? '').toLowerCase();
+                    const location = (e.location ?? '').toLowerCase();
                     const haystack = [
                         nameEn,
                         nameFr,

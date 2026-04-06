@@ -1,6 +1,6 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
@@ -15,34 +15,32 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
-import { buildExpertPayload } from '@/pages/admin/experts/Partials/buildExpertPayload';
-import { emptyDetails } from '@/pages/admin/experts/Partials/expertDetailsDefaults';
-import ExpertPublicProfileDetails from '@/pages/admin/experts/Partials/ExpertPublicProfileDetails';
+import { buildExpertPayload } from '@/pages/admin/experts/partials/buildExpertPayload';
+import { emptyDetails } from '@/pages/admin/experts/partials/expertDetailsDefaults';
+import ExpertPublicProfileDetails from '@/pages/admin/experts/partials/ExpertPublicProfileDetails';
 import { store } from '@/routes/admin/experts';
-
-const defaultGradient =
-    'from-beta-green via-alpha-green/25 to-beta-blue/35';
 
 const STEPS = [
     {
         id: 1,
         title: 'Identity',
-        short: 'Slug & names',
+        short: 'Names & title',
         description:
-            'URL slug and how the expert appears on the directory and profile.',
+            'How the expert appears on the directory and profile (English is required).',
     },
     {
         id: 2,
         title: 'Classification',
         short: 'Filters & card',
         description:
-            'Country, status, industries, languages, location, and card styling.',
+            'Country, status, industries, languages, location, and badge.',
     },
     {
         id: 3,
         title: 'Contact & media',
         short: 'Email & photo',
-        description: 'Contact email and optional avatar image URL.',
+        description:
+            'Contact email and optional profile image (JPEG, PNG, WebP, or GIF).',
     },
     {
         id: 4,
@@ -59,32 +57,65 @@ export default function AdminExpertsCreate({ statuses = [] }) {
     const [step, setStep] = useState(1);
     const [stepError, setStepError] = useState('');
 
-    const { data, setData, post, processing, errors, transform } = useForm({
-        slug: '',
+    const { data, setData, errors, setError, clearErrors } = useForm({
         name: { en: '', fr: '', ar: '' },
         title: { en: '', fr: '', ar: '' },
-        location: { en: '', fr: '', ar: '' },
-        country: 'ma',
+        location: '',
+        country: 'Morocco',
         industriesStr: 'economics',
         languagesStr: 'en, fr',
-        gradient: defaultGradient,
         badge: '',
         status: 'draft',
         email: '',
-        avatar: '',
+        profile_image: null,
         details: emptyDetails(),
     });
 
-    transform((form) => buildExpertPayload(form));
+    const [processing, setProcessing] = useState(false);
+
+    const [avatarPreviewUrl, setAvatarPreviewUrl] = useState(null);
+    const avatarBlobRef = useRef(null);
+    const avatarFileInputRef = useRef(null);
+
+    useEffect(
+        () => () => {
+            if (avatarBlobRef.current) {
+                URL.revokeObjectURL(avatarBlobRef.current);
+                avatarBlobRef.current = null;
+            }
+        },
+        [],
+    );
+
+    const handleAvatarFileChange = (e) => {
+        const file = e.target.files?.[0] ?? null;
+        if (avatarBlobRef.current) {
+            URL.revokeObjectURL(avatarBlobRef.current);
+            avatarBlobRef.current = null;
+        }
+        setData('profile_image', file);
+        if (file) {
+            avatarBlobRef.current = URL.createObjectURL(file);
+            setAvatarPreviewUrl(avatarBlobRef.current);
+        } else {
+            setAvatarPreviewUrl(null);
+        }
+    };
+
+    const clearAvatarFile = () => {
+        if (avatarFileInputRef.current) {
+            avatarFileInputRef.current.value = '';
+        }
+        if (avatarBlobRef.current) {
+            URL.revokeObjectURL(avatarBlobRef.current);
+            avatarBlobRef.current = null;
+        }
+        setData('profile_image', null);
+        setAvatarPreviewUrl(null);
+    };
 
     const validateStep = (currentStep) => {
         if (currentStep === 1) {
-            if (!data.slug.trim()) {
-                return 'Please enter a URL slug.';
-            }
-            if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(data.slug.trim())) {
-                return 'Slug must be lowercase letters, numbers, and hyphens only.';
-            }
             if (!data.name.en?.trim()) {
                 return 'English name is required.';
             }
@@ -94,7 +125,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
         }
         if (currentStep === 2) {
             if (!data.country?.trim()) {
-                return 'Country code is required.';
+                return 'Country is required.';
             }
         }
         return null;
@@ -139,7 +170,36 @@ export default function AdminExpertsCreate({ statuses = [] }) {
             setStep(err ? 1 : 2);
             return;
         }
-        post(store.url(), { preserveScroll: true });
+        clearErrors();
+        router.post(store.url(), buildExpertPayload(data), {
+            preserveScroll: true,
+            forceFormData: true,
+            onStart: () => setProcessing(true),
+            onFinish: () => setProcessing(false),
+            onError: (serverErrors) => {
+                setError(serverErrors);
+                const keys = Object.keys(serverErrors ?? {});
+                const has = (prefix) =>
+                    keys.some((k) => k === prefix || k.startsWith(`${prefix}.`));
+
+                const step1 =
+                    has('name') || has('title') || has('tags');
+                const step2 =
+                    has('country') ||
+                    has('status') ||
+                    has('industries') ||
+                    has('languages') ||
+                    has('location') ||
+                    has('badge');
+                const step3 =
+                    has('email') ||
+                    has('profile_image') ||
+                    has('remove_image');
+
+                setStep(step1 ? 1 : step2 ? 2 : step3 ? 3 : 4);
+                setStepError('Please fix the highlighted fields.');
+            },
+        });
     };
 
     const current = STEPS[step - 1];
@@ -159,7 +219,6 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                         </h1>
                         <p className="text-tgray mt-1 max-w-2xl text-sm">
                             Work through each step. You can go back anytime.
-                            Slug must stay unique and URL-safe.
                         </p>
                     </div>
                     <Button asChild variant="outline">
@@ -242,19 +301,6 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                             {step === 1 ? (
                                 <CardContent className="space-y-4 px-5 sm:px-8">
                                 <div className="grid gap-4 sm:grid-cols-2">
-                                    <div className="space-y-2 sm:col-span-2">
-                                        <Label htmlFor="slug">Slug</Label>
-                                        <Input
-                                            id="slug"
-                                            value={data.slug}
-                                            onChange={(e) =>
-                                                setData('slug', e.target.value)
-                                            }
-                                            placeholder="amina-benali"
-                                            autoComplete="off"
-                                        />
-                                        <InputError message={errors.slug} />
-                                    </div>
                                     {['en', 'fr', 'ar'].map((lang) => (
                                         <div key={lang} className="space-y-2">
                                             <Label htmlFor={`name-${lang}`}>
@@ -310,7 +356,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                 <div className="grid gap-4 sm:grid-cols-2">
                                     <div className="space-y-2">
                                         <Label htmlFor="country">
-                                            Country code
+                                            Country
                                         </Label>
                                         <Input
                                             id="country"
@@ -321,8 +367,8 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                                     e.target.value,
                                                 )
                                             }
-                                            placeholder="ma"
-                                            maxLength={4}
+                                            placeholder="Morocco"
+                                            maxLength={255}
                                         />
                                         <InputError message={errors.country} />
                                     </div>
@@ -387,47 +433,24 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                             message={errors.languages}
                                         />
                                     </div>
-                                    {['en', 'fr', 'ar'].map((lang) => (
-                                        <div key={lang} className="space-y-2">
-                                            <Label
-                                                htmlFor={`location-${lang}`}
-                                            >
-                                                Location ({lang.toUpperCase()})
-                                            </Label>
-                                            <Input
-                                                id={`location-${lang}`}
-                                                value={data.location[lang]}
-                                                onChange={(e) =>
-                                                    setData('location', {
-                                                        ...data.location,
-                                                        [lang]: e.target.value,
-                                                    })
-                                                }
-                                            />
-                                            <InputError
-                                                message={
-                                                    errors[
-                                                        `location.${lang}`
-                                                    ]
-                                                }
-                                            />
-                                        </div>
-                                    ))}
                                     <div className="space-y-2 sm:col-span-2">
-                                        <Label htmlFor="gradient">
-                                            Card gradient (Tailwind classes)
+                                        <Label htmlFor="location">
+                                            Location
                                         </Label>
                                         <Input
-                                            id="gradient"
-                                            value={data.gradient}
+                                            id="location"
+                                            value={data.location}
                                             onChange={(e) =>
                                                 setData(
-                                                    'gradient',
+                                                    'location',
                                                     e.target.value,
                                                 )
                                             }
+                                            placeholder="City, region"
                                         />
-                                        <InputError message={errors.gradient} />
+                                        <InputError
+                                            message={errors.location}
+                                        />
                                     </div>
                                     <div className="space-y-2">
                                         <Label htmlFor="badge">Badge</Label>
@@ -463,22 +486,56 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                         />
                                         <InputError message={errors.email} />
                                     </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="avatar">
-                                            Avatar URL
+                                    <div className="space-y-2 sm:col-span-2">
+                                        <Label htmlFor="profile_image">
+                                            Profile image
                                         </Label>
-                                        <Input
-                                            id="avatar"
-                                            value={data.avatar}
-                                            onChange={(e) =>
-                                                setData(
-                                                    'avatar',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            placeholder="https://..."
-                                        />
-                                        <InputError message={errors.avatar} />
+                                        <div className="flex flex-wrap items-start gap-4">
+                                            {avatarPreviewUrl ? (
+                                                <div className="border-border bg-muted relative size-24 shrink-0 overflow-hidden rounded-full border">
+                                                    <img
+                                                        src={avatarPreviewUrl}
+                                                        alt=""
+                                                        className="size-full object-cover"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="border-border bg-muted text-muted-foreground flex size-24 shrink-0 items-center justify-center rounded-full border text-xs">
+                                                    No image
+                                                </div>
+                                            )}
+                                            <div className="flex min-w-0 flex-1 flex-col gap-2">
+                                                <input
+                                                    ref={avatarFileInputRef}
+                                                    id="profile_image"
+                                                    name="profile_image"
+                                                    type="file"
+                                                    accept="image/jpeg,image/png,image/webp,image/gif"
+                                                    className={cn(
+                                                        'border-input bg-background ring-offset-background focus-visible:ring-ring file:text-foreground flex h-10 w-full max-w-md cursor-pointer rounded-md border px-3 py-1.5 text-sm shadow-xs file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                                    )}
+                                                    onChange={handleAvatarFileChange}
+                                                />
+                                                {avatarPreviewUrl ? (
+                                                    <Button
+                                                        type="button"
+                                                        variant="outline"
+                                                        size="sm"
+                                                        className="w-fit"
+                                                        onClick={clearAvatarFile}
+                                                    >
+                                                        Remove image
+                                                    </Button>
+                                                ) : null}
+                                                <p className="text-muted-foreground text-xs">
+                                                    Max 5&nbsp;MB. JPEG, PNG,
+                                                    WebP, or GIF.
+                                                </p>
+                                                <InputError
+                                                    message={errors.profile_image}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </CardContent>

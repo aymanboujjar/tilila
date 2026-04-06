@@ -12,7 +12,7 @@ class ExpertController extends Controller
     {
         $experts = Expert::query()
             ->where('status', 'published')
-            ->orderBy('slug')
+            ->orderBy('id')
             ->get()
             ->map(fn (Expert $e) => $e->toDirectoryArray());
 

@@ -8,7 +8,7 @@ import Eligibility from '@/pages/opportunities/Partials/Details/Eligibility';
 import DeadlineCard from '@/pages/opportunities/Partials/Details/DeadlineCard';
 import HowToApply from '@/pages/opportunities/Partials/Details/HowToApply';
 import ApplyNowModal from '@/pages/opportunities/Partials/ApplyNowModal';
-import { useTranslation } from '@/contexts/TranslationContext';
+// import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
 function Pill({ children, variant = 'secondary' }) {

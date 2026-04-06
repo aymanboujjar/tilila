@@ -16,12 +16,7 @@ export default function ExpertCard({ expert, view = 'grid' }) {
     return (
         <div className="rounded-2xl bg-card shadow-sm ring-1 ring-border">
             <div className="relative">
-                <div
-                    className={[
-                        'h-32 w-full rounded-t-2xl bg-gradient-to-br',
-                        expert.gradient,
-                    ].join(' ')}
-                />
+                <div className="h-32 w-full rounded-t-2xl bg-muted" />
 
                 <button
                     type="button"
@@ -75,11 +70,7 @@ export default function ExpertCard({ expert, view = 'grid' }) {
                     ].join(' ')}
                 >
                     <div className="text-xs text-muted-foreground">
-                        {locale === 'ar'
-                            ? expert.location?.ar
-                            : locale === 'fr'
-                              ? expert.location?.fr
-                              : expert.location?.en}
+                        {expert.location ?? ''}
                     </div>
                     <Link
                         href={show.url(expert.id)}

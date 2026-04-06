@@ -1,14 +1,22 @@
 /**
  * Maps admin form state (comma-separated lists) to API payload.
+ * Profile image is sent as `profile_image` (not `image`) so Laravel/PHP
+ * do not confuse the upload with the `image` validation rule or DB column.
+ * `remove_image` clears the stored image on edit.
  *
  * @param {Record<string, unknown>} data
  * @returns {Record<string, unknown>}
  */
 export function buildExpertPayload(data) {
-    const { industriesStr, languagesStr, ...rest } = data;
+    const {
+        industriesStr,
+        languagesStr,
+        remove_image,
+        profile_image,
+        ...rest
+    } = data;
 
-    return {
-        slug: typeof rest.slug === 'string' ? rest.slug.trim() : rest.slug,
+    const payload = {
         name: rest.name,
         title: rest.title,
         location: rest.location,
@@ -21,7 +29,6 @@ export function buildExpertPayload(data) {
             .split(',')
             .map((s) => s.trim())
             .filter(Boolean),
-        gradient: rest.gradient,
         badge:
             typeof rest.badge === 'string' && rest.badge.trim() !== ''
                 ? rest.badge.trim()
@@ -31,10 +38,18 @@ export function buildExpertPayload(data) {
             typeof rest.email === 'string' && rest.email.trim() !== ''
                 ? rest.email.trim()
                 : null,
-        avatar:
-            typeof rest.avatar === 'string' && rest.avatar.trim() !== ''
-                ? rest.avatar.trim()
-                : null,
         details: rest.details ?? {},
     };
+
+    if (
+        profile_image instanceof File ||
+        (profile_image instanceof Blob && profile_image.size > 0)
+    ) {
+        payload.profile_image = profile_image;
+    }
+    if (remove_image === true) {
+        payload.remove_image = true;
+    }
+
+    return payload;
 }

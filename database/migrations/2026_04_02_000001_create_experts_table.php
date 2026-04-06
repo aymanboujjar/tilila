@@ -14,15 +14,14 @@ return new class extends Migration
             $table->json('name');
             $table->json('title');
             $table->json('tags')->nullable();
-            $table->json('location')->nullable();
-            $table->string('country', 4)->default('ma');
+            $table->text('location')->nullable();
+            $table->string('country', 255)->default('Morocco');
             $table->json('industries')->nullable();
             $table->json('languages')->nullable();
-            $table->string('gradient')->nullable();
             $table->string('badge')->nullable();
             $table->string('status')->default('draft');
             $table->string('email')->nullable();
-            $table->string('avatar')->nullable();
+            $table->string('image')->nullable();
             $table->json('details')->nullable();
             $table->timestamp('last_activity_at')->nullable();
             $table->timestamps();

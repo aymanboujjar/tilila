@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Expert extends Model
 {
@@ -15,14 +17,25 @@ class Expert extends Model
         'country',
         'industries',
         'languages',
-        'gradient',
         'badge',
         'status',
         'email',
-        'avatar',
+        'image',
         'details',
         'last_activity_at',
     ];
+
+    /**
+     * Storage path is internal; public consumers use `image_url`.
+     *
+     * @var list<string>
+     */
+    protected $hidden = ['image'];
+
+    /**
+     * @var list<string>
+     */
+    protected $appends = ['image_url'];
 
     /**
      * @return array<string, string>
@@ -33,7 +46,6 @@ class Expert extends Model
             'name' => 'array',
             'title' => 'array',
             'tags' => 'array',
-            'location' => 'array',
             'industries' => 'array',
             'languages' => 'array',
             'details' => 'array',
@@ -47,6 +59,55 @@ class Expert extends Model
     }
 
     /**
+     * Single-line location for directory / cards (legacy JSON rows are normalized).
+     */
+    protected function locationPlain(): string
+    {
+        $v = $this->location;
+
+        if ($v === null || $v === '') {
+            return '';
+        }
+
+        if (is_string($v)) {
+            return $v;
+        }
+
+        if (is_array($v)) {
+            return (string) ($v['en'] ?? $v['fr'] ?? $v['ar'] ?? '');
+        }
+
+        return '';
+    }
+
+    /**
+     * Public URL for the stored profile image (`image` = relative path on the public disk).
+     */
+    protected function imageUrl(): Attribute
+    {
+        return Attribute::make(
+            get: function (): ?string {
+                $path = $this->attributes['image'] ?? null;
+                if (! is_string($path) || $path === '' || ! Storage::disk('public')->exists($path)) {
+                    return null;
+                }
+
+                return Storage::disk('public')->url($path);
+            }
+        );
+    }
+
+    protected static function booted(): void
+    {
+        static::deleting(function (Expert $expert): void {
+            $path = $expert->getAttributes()['image'] ?? null;
+            if (is_string($path) && $path !== '') {
+                Storage::disk('public')->delete($path);
+            }
+        });
+    }
+
+    /**
      * Shape expected by public React experts directory.
      *
      * @return array<string, mixed>
@@ -55,17 +116,15 @@ class Expert extends Model
     {
         return [
             'id' => $this->id,
-            'slug' => $this->slug,
             'name' => $this->name,
             'title' => $this->title,
             'tags' => $this->tags ?? [],
-            'location' => $this->location ?? ['en' => '', 'fr' => '', 'ar' => ''],
+            'location' => $this->locationPlain(),
             'country' => $this->country,
             'industries' => $this->industries ?? [],
             'languages' => $this->languages ?? [],
-            'gradient' => $this->gradient ?? 'from-beta-green via-alpha-green/25 to-beta-blue/35',
             'badge' => $this->badge,
-            'avatar' => $this->avatar,
+            'image' => $this->image_url,
             'email' => $this->email,
         ];
     }

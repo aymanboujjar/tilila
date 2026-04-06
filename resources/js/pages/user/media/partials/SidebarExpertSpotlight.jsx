@@ -17,11 +17,7 @@ export default function SidebarExpertSpotlight() {
             fr: 'Scientifique de l’environnement',
             ar: 'عالِمة بيئة',
         },
-        location: {
-            en: 'Marrakesh, MA',
-            fr: 'Marrakech, MA',
-            ar: 'مراكش، المغرب',
-        },
+        location: 'Marrakesh, Morocco',
     };
 
     const resolvedName =
@@ -30,13 +26,6 @@ export default function SidebarExpertSpotlight() {
             : locale === 'fr'
               ? expert.name.fr
               : expert.name.en;
-    const resolvedLocation =
-        locale === 'ar'
-            ? expert.location.ar
-            : locale === 'fr'
-              ? expert.location.fr
-              : expert.location.en;
-
     return (
         <aside className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
             <div className="flex items-center justify-between gap-3">
@@ -71,7 +60,7 @@ export default function SidebarExpertSpotlight() {
                                 ar={expert.title.ar}
                             />
                             {' • '}
-                            {resolvedLocation}
+                            {expert.location}
                         </div>
                     </div>
                 </div>

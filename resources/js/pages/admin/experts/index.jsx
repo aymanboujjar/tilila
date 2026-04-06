@@ -160,14 +160,22 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                     <TableRow key={expert.id}>
                                         <TableCell className="py-4 sm:px-3">
                                             <div className="flex items-center gap-3">
-                                                <div className="bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
-                                                    {(expert.name?.en ?? '?')
-                                                        .split(' ')
-                                                        .map((w) => w[0])
-                                                        .join('')
-                                                        .slice(0, 2)
-                                                        .toUpperCase()}
-                                                </div>
+                                                {expert.image_url ? (
+                                                    <img
+                                                        src={expert.image_url}
+                                                        alt=""
+                                                        className="border-border size-10 shrink-0 rounded-full border object-cover"
+                                                    />
+                                                ) : (
+                                                    <div className="bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
+                                                        {(expert.name?.en ?? '?')
+                                                            .split(' ')
+                                                            .map((w) => w[0])
+                                                            .join('')
+                                                            .slice(0, 2)
+                                                            .toUpperCase()}
+                                                    </div>
+                                                )}
                                                 <div className="min-w-0">
                                                     <div className="text-tblack font-semibold">
                                                         {expert.name?.en}

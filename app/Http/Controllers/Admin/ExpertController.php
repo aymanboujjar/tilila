@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Expert;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -18,10 +20,11 @@ class ExpertController extends Controller
 
         if ($search = trim((string) $request->query('search', ''))) {
             $like = '%'.$search.'%';
-            $query->where(function ($q) use ($like, $search) {
-                $q->where('slug', 'like', $like)
-                    ->orWhere('email', 'like', $like)
-                    ->orWhere('status', 'like', $like);
+            $query->where(function ($q) use ($like) {
+                $q->where('email', 'like', $like)
+                    ->orWhere('status', 'like', $like)
+                    ->orWhere('country', 'like', $like)
+                    ->orWhere('location', 'like', $like);
 
                 foreach (['en', 'fr', 'ar'] as $loc) {
                     $q->orWhere("name->{$loc}", 'like', $like);
@@ -53,7 +56,15 @@ class ExpertController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        Expert::query()->create($this->validated($request));
+        $data = $this->validated($request);
+
+        $data['slug'] = $this->uniqueSlugFromName($data['name']['en']);
+
+        if ($request->hasFile('profile_image')) {
+            $data = array_merge($data, $this->storeProfileImageFromUpload($request->file('profile_image')));
+        }
+
+        Expert::create($data);
 
         return redirect()->route('admin.experts.index')
             ->with('success', 'Expert created.');
@@ -69,7 +80,30 @@ class ExpertController extends Controller
 
     public function update(Request $request, Expert $expert): RedirectResponse
     {
-        $expert->update($this->validated($request, $expert));
+        $data = $this->validated($request, $expert);
+
+        if (($data['name']['en'] ?? '') !== ($expert->name['en'] ?? '')) {
+            $data['slug'] = $this->uniqueSlugFromName($data['name']['en'], $expert->id);
+        }
+
+        $removeImage = (bool) ($data['remove_image'] ?? false);
+        unset($data['remove_image']);
+
+        if ($request->hasFile('profile_image')) {
+            if ($expert->image) {
+                Storage::disk('public')->delete($expert->image);
+            }
+            $data = array_merge($data, $this->storeProfileImageFromUpload($request->file('profile_image')));
+        } elseif ($removeImage) {
+            if ($expert->image) {
+                Storage::disk('public')->delete($expert->image);
+            }
+            $data['image'] = null;
+        } else {
+            unset($data['image']);
+        }
+
+        $expert->update($data);
 
         return redirect()->route('admin.experts.index')
             ->with('success', 'Expert updated.');
@@ -90,19 +124,17 @@ class ExpertController extends Controller
     {
         return [
             'id' => $expert->id,
-            'slug' => $expert->slug,
             'name' => $expert->name,
             'title' => $expert->title,
             'tags' => $expert->tags ?? [],
-            'location' => $expert->location ?? ['en' => '', 'fr' => '', 'ar' => ''],
+            'location' => $this->normalizeLocationForForm($expert->location),
             'country' => $expert->country,
             'industries' => $expert->industries ?? [],
             'languages' => $expert->languages ?? [],
-            'gradient' => $expert->gradient ?? '',
             'badge' => $expert->badge,
             'status' => $expert->status,
             'email' => $expert->email,
-            'avatar' => $expert->avatar,
+            'image_url' => $expert->image_url,
             'details' => $this->normalizeDetailsForForm($expert->details),
         ];
     }
@@ -154,22 +186,58 @@ class ExpertController extends Controller
     }
 
     /**
+     * Persist file on the public disk; DB stores only the relative path in `image`.
+     *
+     * @return array{image: string}
+     */
+    private function storeProfileImageFromUpload(UploadedFile $file): array
+    {
+        return [
+            'image' => $file->store('experts', 'public'),
+        ];
+    }
+
+    private function normalizeLocationForForm(mixed $location): string
+    {
+        if (is_string($location)) {
+            return $location;
+        }
+
+        if (is_array($location)) {
+            return (string) ($location['en'] ?? $location['fr'] ?? $location['ar'] ?? '');
+        }
+
+        return '';
+    }
+
+    private function uniqueSlugFromName(string $englishName, ?int $ignoreId = null): string
+    {
+        $base = Str::slug($englishName);
+        if ($base === '') {
+            $base = 'expert';
+        }
+
+        $slug = $base;
+        $n = 1;
+
+        while (
+            Expert::query()
+                ->when($ignoreId !== null, fn ($q) => $q->where('id', '!=', $ignoreId))
+                ->where('slug', $slug)
+                ->exists()
+        ) {
+            $slug = $base.'-'.$n++;
+        }
+
+        return $slug;
+    }
+
+    /**
      * @return array<string, mixed>
      */
     private function validated(Request $request, ?Expert $expert = null): array
     {
-        $slugRules = [
-            'required',
-            'string',
-            'max:255',
-            'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/',
-        ];
-        $slugRules[] = $expert
-            ? Rule::unique('experts', 'slug')->ignore($expert->id)
-            : Rule::unique('experts', 'slug');
-
         $validated = $request->validate([
-            'slug' => $slugRules,
             'name' => 'required|array',
             'name.en' => 'required|string|max:255',
             'name.fr' => 'nullable|string|max:255',
@@ -179,34 +247,32 @@ class ExpertController extends Controller
             'title.fr' => 'nullable|string|max:500',
             'title.ar' => 'nullable|string|max:500',
             'tags' => 'nullable|array',
-            'location' => 'nullable|array',
-            'country' => 'required|string|max:4',
+            'location' => 'nullable|string|max:512',
+            'country' => 'required|string|max:255',
             'industries' => 'nullable|array',
             'industries.*' => 'string|max:64',
             'languages' => 'nullable|array',
             'languages.*' => 'string|max:8',
-            'gradient' => 'nullable|string|max:255',
             'badge' => 'nullable|string|max:64',
             'status' => 'required|in:draft,pending,published,suspended',
             'email' => 'nullable|email|max:255',
-            'avatar' => 'nullable|string|max:500',
+            'remove_image' => 'sometimes|boolean',
             'details' => 'nullable|array',
         ]);
 
-        if (empty($validated['tags'])) {
-            $validated['tags'] = [];
-        }
-        if (empty($validated['location'])) {
-            $validated['location'] = ['en' => '', 'fr' => '', 'ar' => ''];
-        }
-        if (empty($validated['industries'])) {
-            $validated['industries'] = [];
-        }
-        if (empty($validated['languages'])) {
-            $validated['languages'] = [];
+        if ($request->hasFile('profile_image')) {
+            $request->validate([
+                'profile_image' => ['required', 'file', 'max:5120', 'mimes:jpeg,png,webp,gif'],
+            ]);
         }
 
-        if (empty($validated['tags']) && ! empty($validated['industries'])) {
+        // Optional keys are omitted from $validated when absent — avoid undefined index (PHP 8+).
+        $validated['tags'] = $validated['tags'] ?? [];
+        $validated['location'] = $validated['location'] ?? null;
+        $validated['industries'] = $validated['industries'] ?? [];
+        $validated['languages'] = $validated['languages'] ?? [];
+
+        if ($validated['tags'] === [] && $validated['industries'] !== []) {
             $validated['tags'] = array_map(static function (string $ind) {
                 $label = ucfirst(str_replace('-', ' ', $ind));
 

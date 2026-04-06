@@ -28,15 +28,10 @@ export default function ProfileSidebar({ expert, details }) {
         <aside className="space-y-4">
             <div className="rounded-2xl bg-card shadow-sm ring-1 ring-border">
                 <div className="relative">
-                    <div
-                        className={[
-                            'relative h-28 w-full overflow-hidden rounded-t-2xl bg-gradient-to-br',
-                            expert.gradient,
-                        ].join(' ')}
-                    >
-                        {expert.avatar ? (
+                    <div className="relative h-28 w-full overflow-hidden rounded-t-2xl bg-muted">
+                        {expert.image ? (
                             <img
-                                src={expert.avatar}
+                                src={expert.image}
                                 alt=""
                                 className="absolute inset-0 h-full w-full object-cover"
                             />

@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 
-import { emptyTri } from '@/pages/admin/experts/Partials/expertDetailsDefaults';
+import { emptyTri } from '@/pages/admin/experts/partials/expertDetailsDefaults';
 
 const textareaClass = cn(
     'border-input placeholder:text-muted-foreground flex min-h-[72px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none',

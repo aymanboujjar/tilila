@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Expert;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class ExpertSeeder extends Seeder
 {
@@ -26,6 +27,12 @@ class ExpertSeeder extends Seeder
             'articles' => [],
         ];
 
+        // Minimal valid 1×1 PNG used as a placeholder profile image per expert.
+        $placeholderPng = base64_decode(
+            'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==',
+            true
+        );
+
         $rows = [
             [
                 'slug' => 'sarah-amiami',
@@ -35,15 +42,13 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Economics', 'fr' => 'Économie', 'ar' => 'الاقتصاد'],
                     ['en' => 'Finance', 'fr' => 'Finance', 'ar' => 'المالية'],
                 ],
-                'location' => ['en' => 'Casablanca, MA', 'fr' => 'Casablanca, MA', 'ar' => 'الدار البيضاء، المغرب'],
-                'country' => 'ma',
+                'location' => 'Casablanca, Morocco',
+                'country' => 'Morocco',
                 'industries' => ['economics'],
                 'languages' => ['fr', 'en', 'ar'],
-                'gradient' => 'from-beta-green via-alpha-green/25 to-beta-blue/35',
                 'badge' => null,
                 'status' => 'published',
                 'email' => 'sarah.amiami@example.org',
-                'avatar' => null,
                 'last_activity_at' => now()->subHours(2),
             ],
             [
@@ -54,15 +59,13 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Technology', 'fr' => 'Technologie', 'ar' => 'التكنولوجيا'],
                     ['en' => 'AI', 'fr' => 'IA', 'ar' => 'الذكاء الاصطناعي'],
                 ],
-                'location' => ['en' => 'Rabat, MA', 'fr' => 'Rabat, MA', 'ar' => 'الرباط، المغرب'],
-                'country' => 'ma',
+                'location' => 'Rabat, Morocco',
+                'country' => 'Morocco',
                 'industries' => ['technology'],
                 'languages' => ['fr', 'en'],
-                'gradient' => 'from-beta-yellow via-gold/25 to-beta-pink/25',
                 'badge' => null,
                 'status' => 'published',
                 'email' => 'yasmine.benjiloun@example.org',
-                'avatar' => null,
                 'last_activity_at' => now()->subDay(),
             ],
             [
@@ -73,15 +76,13 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Climate', 'fr' => 'Climat', 'ar' => 'المناخ'],
                     ['en' => 'Sustainability', 'fr' => 'Durabilité', 'ar' => 'الاستدامة'],
                 ],
-                'location' => ['en' => 'Marrakesh, MA', 'fr' => 'Marrakech, MA', 'ar' => 'مراكش، المغرب'],
-                'country' => 'ma',
+                'location' => 'Marrakesh, Morocco',
+                'country' => 'Morocco',
                 'industries' => ['health'],
                 'languages' => ['fr', 'en', 'ar'],
-                'gradient' => 'from-beta-green via-beta-blue/25 to-alpha-blue',
                 'badge' => 'Available',
                 'status' => 'published',
                 'email' => 'fatima.elidrissi@example.org',
-                'avatar' => null,
                 'last_activity_at' => now()->subMinutes(30),
             ],
             [
@@ -92,15 +93,13 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Legal', 'fr' => 'Droit', 'ar' => 'القانون'],
                     ['en' => 'Human Rights', 'fr' => 'Droits humains', 'ar' => 'حقوق الإنسان'],
                 ],
-                'location' => ['en' => 'Casablanca, MA', 'fr' => 'Casablanca, MA', 'ar' => 'الدار البيضاء، المغرب'],
-                'country' => 'ma',
+                'location' => 'Casablanca, Morocco',
+                'country' => 'Morocco',
                 'industries' => ['legal'],
                 'languages' => ['fr', 'ar'],
-                'gradient' => 'from-beta-pink via-gold/20 to-beta-yellow/30',
                 'badge' => null,
                 'status' => 'published',
                 'email' => 'khadija.oukacha@example.org',
-                'avatar' => null,
                 'last_activity_at' => now()->subDays(3),
             ],
             [
@@ -111,15 +110,13 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Media', 'fr' => 'Médias', 'ar' => 'الإعلام'],
                     ['en' => 'Literature', 'fr' => 'Littérature', 'ar' => 'الأدب'],
                 ],
-                'location' => ['en' => 'Tangier, MA', 'fr' => 'Tanger, MA', 'ar' => 'طنجة، المغرب'],
-                'country' => 'ma',
+                'location' => 'Tangier, Morocco',
+                'country' => 'Morocco',
                 'industries' => ['technology'],
                 'languages' => ['fr', 'ar'],
-                'gradient' => 'from-alpha-blue via-beta-blue/25 to-beta-green/30',
                 'badge' => null,
                 'status' => 'published',
                 'email' => 'nadia.tazi@example.org',
-                'avatar' => null,
                 'last_activity_at' => now()->subWeek(),
             ],
             [
@@ -130,15 +127,13 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Health', 'fr' => 'Santé', 'ar' => 'الصحة'],
                     ['en' => 'Policy', 'fr' => 'Politiques publiques', 'ar' => 'السياسات العامة'],
                 ],
-                'location' => ['en' => 'Dakar, SN', 'fr' => 'Dakar, SN', 'ar' => 'دكار، السنغال'],
-                'country' => 'sn',
+                'location' => 'Dakar, Senegal',
+                'country' => 'Senegal',
                 'industries' => ['health'],
                 'languages' => ['fr', 'en'],
-                'gradient' => 'from-beta-yellow via-beta-green/25 to-alpha-blue',
                 'badge' => 'Available',
                 'status' => 'published',
                 'email' => 'amira.kone@example.org',
-                'avatar' => null,
                 'last_activity_at' => now(),
             ],
             [
@@ -149,15 +144,13 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Urbanism', 'fr' => 'Urbanisme', 'ar' => 'العمران'],
                     ['en' => 'Design', 'fr' => 'Design', 'ar' => 'التصميم'],
                 ],
-                'location' => ['en' => 'Fes, MA', 'fr' => 'Fès, MA', 'ar' => 'فاس، المغرب'],
-                'country' => 'ma',
+                'location' => 'Fes, Morocco',
+                'country' => 'Morocco',
                 'industries' => ['economics'],
                 'languages' => ['fr', 'ar'],
-                'gradient' => 'from-beta-green via-alpha-blue/25 to-beta-purple/25',
                 'badge' => null,
                 'status' => 'published',
                 'email' => 'salma.bennani@example.org',
-                'avatar' => null,
                 'last_activity_at' => now()->subHours(5),
             ],
             [
@@ -168,18 +161,23 @@ class ExpertSeeder extends Seeder
                     ['en' => 'Politics', 'fr' => 'Politique', 'ar' => 'السياسة'],
                     ['en' => 'Governance', 'fr' => 'Gouvernance', 'ar' => 'الحوكمة'],
                 ],
-                'location' => ['en' => 'Rabat, MA', 'fr' => 'Rabat, MA', 'ar' => 'الرباط، المغرب'],
-                'country' => 'ma',
+                'location' => 'Rabat, Morocco',
+                'country' => 'Morocco',
                 'industries' => ['legal'],
                 'languages' => ['fr', 'en', 'ar'],
-                'gradient' => 'from-beta-yellow via-beta-pink/25 to-gold/25',
                 'badge' => null,
                 'status' => 'published',
                 'email' => 'leila.chadid@example.org',
-                'avatar' => null,
                 'last_activity_at' => now()->subHours(12),
             ],
         ];
+
+        foreach ($rows as &$row) {
+            $path = 'experts/'.$row['slug'].'-avatar.png';
+            Storage::disk('public')->put($path, $placeholderPng);
+            $row['image'] = $path;
+        }
+        unset($row);
 
         foreach ($rows as $row) {
             $slug = $row['slug'];
