@@ -13,6 +13,15 @@ export default function ProfessionalJourney({ items = [] }) {
             </h2>
 
             <div className="mt-5 space-y-5">
+                {items.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                        <TransText
+                            en="No media or professional milestones have been added yet."
+                            fr="Aucun jalon médiatique ou professionnel n’a encore été ajouté."
+                            ar="لم تُضف بعد أي محطات إعلامية أو مهنية."
+                        />
+                    </p>
+                ) : null}
                 {items.map((it) => (
                     <div
                         key={`${it.year}-${it.role.en}`}

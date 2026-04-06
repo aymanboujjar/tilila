@@ -26,7 +26,7 @@ class ExpertController extends Controller
         abort_unless($expert->isPublished(), 404);
 
         return Inertia::render('experts/[id]', [
-            'id' => $expert->slug,
+            'id' => $expert->id,
             'expert' => $expert->toDirectoryArray(),
             'details' => $expert->details ?? $this->emptyDetails(),
         ]);

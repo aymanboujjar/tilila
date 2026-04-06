@@ -18,6 +18,15 @@ export default function AreasOfExpertise({ items = [] }) {
             </div>
 
             <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
+                {items.length === 0 ? (
+                    <p className="text-sm text-muted-foreground md:col-span-2">
+                        <TransText
+                            en="No areas of expertise have been listed yet."
+                            fr="Aucun domaine d’expertise n’a encore été renseigné."
+                            ar="لم يتم إدراج مجالات الخبرة بعد."
+                        />
+                    </p>
+                ) : null}
                 {items.map((x) => (
                     <div
                         key={x.title.en}

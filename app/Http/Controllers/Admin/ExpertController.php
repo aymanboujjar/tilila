@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Expert;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -104,8 +103,54 @@ class ExpertController extends Controller
             'status' => $expert->status,
             'email' => $expert->email,
             'avatar' => $expert->avatar,
-            'details' => $expert->details,
+            'details' => $this->normalizeDetailsForForm($expert->details),
         ];
+    }
+
+    /**
+     * @param  array<string, mixed>|null  $details
+     * @return array<string, mixed>
+     */
+    private function normalizeDetailsForForm(?array $details): array
+    {
+        $base = [
+            'headlineTags' => [],
+            'bio' => [],
+            'quote' => ['en' => '', 'fr' => '', 'ar' => ''],
+            'expertise' => [],
+            'journey' => [],
+            'appearances' => [],
+            'articles' => [],
+        ];
+
+        if (! is_array($details)) {
+            return $base;
+        }
+
+        $base['headlineTags'] = is_array($details['headlineTags'] ?? null)
+            ? $details['headlineTags']
+            : [];
+        $base['bio'] = is_array($details['bio'] ?? null)
+            ? $details['bio']
+            : [];
+        $base['quote'] = array_merge(
+            $base['quote'],
+            is_array($details['quote'] ?? null) ? $details['quote'] : []
+        );
+        $base['expertise'] = is_array($details['expertise'] ?? null)
+            ? $details['expertise']
+            : [];
+        $base['journey'] = is_array($details['journey'] ?? null)
+            ? $details['journey']
+            : [];
+        $base['appearances'] = is_array($details['appearances'] ?? null)
+            ? $details['appearances']
+            : [];
+        $base['articles'] = is_array($details['articles'] ?? null)
+            ? $details['articles']
+            : [];
+
+        return $base;
     }
 
     /**
@@ -168,6 +213,8 @@ class ExpertController extends Controller
                 return ['en' => $label, 'fr' => $label, 'ar' => $label];
             }, $validated['industries']);
         }
+
+        $validated['details'] = $this->normalizeDetailsForForm($validated['details'] ?? null);
 
         return $validated;
     }

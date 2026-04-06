@@ -14,6 +14,8 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { buildExpertPayload } from '@/pages/admin/experts/Partials/buildExpertPayload';
+import { normalizeDetails } from '@/pages/admin/experts/Partials/expertDetailsDefaults';
+import ExpertPublicProfileDetails from '@/pages/admin/experts/Partials/ExpertPublicProfileDetails';
 import { update } from '@/routes/admin/experts';
 
 const defaultGradient =
@@ -33,7 +35,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
         status: expert.status ?? 'draft',
         email: expert.email ?? '',
         avatar: expert.avatar ?? '',
-        details: expert.details ?? {},
+        details: normalizeDetails(expert.details),
     });
 
     transform((form) => buildExpertPayload(form));
@@ -63,7 +65,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                     <div className="flex flex-wrap gap-2">
                         {expert.status === 'published' ? (
                             <Button asChild variant="outline">
-                                <Link href={`/experts/${expert.slug}`}>
+                                <Link href={`/experts/${expert.id}`}>
                                     View public profile
                                 </Link>
                             </Button>
@@ -295,6 +297,11 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                             </div>
                         </CardContent>
                     </Card>
+
+                    <ExpertPublicProfileDetails
+                        details={data.details}
+                        onChange={(next) => setData('details', next)}
+                    />
 
                     <div className="flex flex-wrap gap-2">
                         <Button

@@ -9,10 +9,12 @@ class ExpertSeeder extends Seeder
 {
     public function run(): void
     {
-        $amiraPath = database_path('data/amira_details.json');
-        $amiraDetails = file_exists($amiraPath)
-            ? json_decode((string) file_get_contents($amiraPath), true)
-            : [];
+        $detailsPath = database_path('data/experts_details.json');
+        $detailsBySlug = [];
+        if (is_readable($detailsPath)) {
+            $decoded = json_decode((string) file_get_contents($detailsPath), true);
+            $detailsBySlug = is_array($decoded) ? $decoded : [];
+        }
 
         $emptyDetails = [
             'headlineTags' => [],
@@ -40,9 +42,8 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-beta-green via-alpha-green/25 to-beta-blue/35',
                 'badge' => null,
                 'status' => 'published',
-                'email' => null,
+                'email' => 'sarah.amiami@example.org',
                 'avatar' => null,
-                'details' => $emptyDetails,
                 'last_activity_at' => now()->subHours(2),
             ],
             [
@@ -60,9 +61,8 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-beta-yellow via-gold/25 to-beta-pink/25',
                 'badge' => null,
                 'status' => 'published',
-                'email' => null,
+                'email' => 'yasmine.benjiloun@example.org',
                 'avatar' => null,
-                'details' => $emptyDetails,
                 'last_activity_at' => now()->subDay(),
             ],
             [
@@ -80,9 +80,8 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-beta-green via-beta-blue/25 to-alpha-blue',
                 'badge' => 'Available',
                 'status' => 'published',
-                'email' => null,
+                'email' => 'fatima.elidrissi@example.org',
                 'avatar' => null,
-                'details' => $emptyDetails,
                 'last_activity_at' => now()->subMinutes(30),
             ],
             [
@@ -100,9 +99,8 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-beta-pink via-gold/20 to-beta-yellow/30',
                 'badge' => null,
                 'status' => 'published',
-                'email' => null,
+                'email' => 'khadija.oukacha@example.org',
                 'avatar' => null,
-                'details' => $emptyDetails,
                 'last_activity_at' => now()->subDays(3),
             ],
             [
@@ -120,9 +118,8 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-alpha-blue via-beta-blue/25 to-beta-green/30',
                 'badge' => null,
                 'status' => 'published',
-                'email' => null,
+                'email' => 'nadia.tazi@example.org',
                 'avatar' => null,
-                'details' => $emptyDetails,
                 'last_activity_at' => now()->subWeek(),
             ],
             [
@@ -140,9 +137,8 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-beta-yellow via-beta-green/25 to-alpha-blue',
                 'badge' => 'Available',
                 'status' => 'published',
-                'email' => null,
+                'email' => 'amira.kone@example.org',
                 'avatar' => null,
-                'details' => is_array($amiraDetails) && $amiraDetails !== [] ? $amiraDetails : $emptyDetails,
                 'last_activity_at' => now(),
             ],
             [
@@ -160,9 +156,8 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-beta-green via-alpha-blue/25 to-beta-purple/25',
                 'badge' => null,
                 'status' => 'published',
-                'email' => null,
+                'email' => 'salma.bennani@example.org',
                 'avatar' => null,
-                'details' => $emptyDetails,
                 'last_activity_at' => now()->subHours(5),
             ],
             [
@@ -180,16 +175,18 @@ class ExpertSeeder extends Seeder
                 'gradient' => 'from-beta-yellow via-beta-pink/25 to-gold/25',
                 'badge' => null,
                 'status' => 'published',
-                'email' => null,
+                'email' => 'leila.chadid@example.org',
                 'avatar' => null,
-                'details' => $emptyDetails,
                 'last_activity_at' => now()->subHours(12),
             ],
         ];
 
         foreach ($rows as $row) {
+            $slug = $row['slug'];
+            $row['details'] = $detailsBySlug[$slug] ?? $emptyDetails;
+
             Expert::query()->updateOrCreate(
-                ['slug' => $row['slug']],
+                ['slug' => $slug],
                 $row
             );
         }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
+import { show } from '@/routes/experts';
 
 export default function ExpertCard({ expert, view = 'grid' }) {
     const { locale, t } = useTranslation();
@@ -81,7 +82,7 @@ export default function ExpertCard({ expert, view = 'grid' }) {
                               : expert.location?.en}
                     </div>
                     <Link
-                        href={`/experts/${expert.id}`}
+                        href={show.url(expert.id)}
                         className="text-sm font-semibold text-beta-blue hover:underline"
                     >
                         {t('experts.actions.viewProfile')}

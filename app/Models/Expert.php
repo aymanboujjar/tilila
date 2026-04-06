@@ -54,7 +54,8 @@ class Expert extends Model
     public function toDirectoryArray(): array
     {
         return [
-            'id' => $this->slug,
+            'id' => $this->id,
+            'slug' => $this->slug,
             'name' => $this->name,
             'title' => $this->title,
             'tags' => $this->tags ?? [],
@@ -64,6 +65,8 @@ class Expert extends Model
             'languages' => $this->languages ?? [],
             'gradient' => $this->gradient ?? 'from-beta-green via-alpha-green/25 to-beta-blue/35',
             'badge' => $this->badge,
+            'avatar' => $this->avatar,
+            'email' => $this->email,
         ];
     }
 }

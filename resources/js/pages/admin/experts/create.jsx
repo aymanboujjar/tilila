@@ -14,6 +14,8 @@ import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
 import { buildExpertPayload } from '@/pages/admin/experts/Partials/buildExpertPayload';
+import { emptyDetails } from '@/pages/admin/experts/Partials/expertDetailsDefaults';
+import ExpertPublicProfileDetails from '@/pages/admin/experts/Partials/ExpertPublicProfileDetails';
 import { store } from '@/routes/admin/experts';
 
 const defaultGradient =
@@ -33,7 +35,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
         status: 'draft',
         email: '',
         avatar: '',
-        details: {},
+        details: emptyDetails(),
     });
 
     transform((form) => buildExpertPayload(form));
@@ -295,6 +297,11 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                             </div>
                         </CardContent>
                     </Card>
+
+                    <ExpertPublicProfileDetails
+                        details={data.details}
+                        onChange={(next) => setData('details', next)}
+                    />
 
                     <div className="flex flex-wrap gap-2">
                         <Button

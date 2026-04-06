@@ -82,15 +82,25 @@ export default function ExpertDetails({ expert, details: detailsProp }) {
                                 </p>
 
                                 <div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
-                                    {(details?.bio ?? []).map((p) => (
-                                        <p key={p.en}>
+                                    {(details?.bio ?? []).length > 0 ? (
+                                        (details.bio ?? []).map((p) => (
+                                            <p key={p.en}>
+                                                <TransText
+                                                    en={p.en}
+                                                    fr={p.fr}
+                                                    ar={p.ar}
+                                                />
+                                            </p>
+                                        ))
+                                    ) : (
+                                        <p>
                                             <TransText
-                                                en={p.en}
-                                                fr={p.fr}
-                                                ar={p.ar}
+                                                en="Biography and highlights will appear here when added for this expert."
+                                                fr="La biographie et les points forts apparaîtront ici lorsqu’ils seront ajoutés pour cette experte."
+                                                ar="ستظهر السيرة الذاتية والنقاط البارزة هنا عند إضافتها لهذه الخبيرة."
                                             />
                                         </p>
-                                    ))}
+                                    )}
                                 </div>
                             </header>
 

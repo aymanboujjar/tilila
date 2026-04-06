@@ -30,10 +30,18 @@ export default function ProfileSidebar({ expert, details }) {
                 <div className="relative">
                     <div
                         className={[
-                            'h-28 w-full rounded-t-2xl bg-gradient-to-br',
+                            'relative h-28 w-full overflow-hidden rounded-t-2xl bg-gradient-to-br',
                             expert.gradient,
                         ].join(' ')}
-                    />
+                    >
+                        {expert.avatar ? (
+                            <img
+                                src={expert.avatar}
+                                alt=""
+                                className="absolute inset-0 h-full w-full object-cover"
+                            />
+                        ) : null}
+                    </div>
                     {expert.badge ? (
                         <div className="absolute top-4 left-4 rounded-full bg-beta-green px-2.5 py-1 text-xs font-semibold text-alpha-green ring-1 ring-border">
                             {expert.badge.toUpperCase()}
@@ -90,21 +98,39 @@ export default function ProfileSidebar({ expert, details }) {
                         </IconButton>
                     </div>
 
-                    <button
-                        type="button"
-                        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-beta-blue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                    >
-                        <span aria-hidden="true">✉</span>
-                        <TransText
-                            en="Contact Expert"
-                            fr="Contacter l’experte"
-                            ar="تواصل مع الخبيرة"
-                        />
-                    </button>
+                    {expert.email ? (
+                        <a
+                            href={`mailto:${expert.email}`}
+                            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-md bg-beta-blue px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                        >
+                            <span aria-hidden="true">✉</span>
+                            <TransText
+                                en="Contact Expert"
+                                fr="Contacter l’experte"
+                                ar="تواصل مع الخبيرة"
+                            />
+                        </a>
+                    ) : (
+                        <button
+                            type="button"
+                            disabled
+                            className="mt-5 inline-flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-md bg-muted px-4 py-2.5 text-sm font-semibold text-muted-foreground opacity-80"
+                        >
+                            <span aria-hidden="true">✉</span>
+                            <TransText
+                                en="Contact Expert"
+                                fr="Contacter l’experte"
+                                ar="تواصل مع الخبيرة"
+                            />
+                        </button>
+                    )}
                 </div>
             </div>
 
-            {details?.quote ? (
+            {details?.quote &&
+            (details.quote.en ||
+                details.quote.fr ||
+                details.quote.ar) ? (
                 <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
                     <div className="text-2xl font-extrabold text-beta-blue">
                         “

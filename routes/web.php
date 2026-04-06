@@ -10,7 +10,7 @@ Route::inertia('/', 'home/index', [
 ])->name('home');
 
 Route::get('/experts', [ExpertController::class, 'index'])->name('experts.index');
-Route::get('/experts/{expert:slug}', [ExpertController::class, 'show'])->name('experts.show');
+Route::get('/experts/{expert}', [ExpertController::class, 'show'])->name('experts.show');
 Route::inertia('/opportunities', 'opportunities/index')->name('opportunities.index');
 Route::inertia('/opportunities/{id}', 'opportunities/[id]')->name('opportunities.show');
 Route::get('/about', function () {

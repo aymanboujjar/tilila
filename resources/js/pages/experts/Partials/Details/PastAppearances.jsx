@@ -13,15 +13,30 @@ export default function PastAppearances({ items = [] }) {
                         ar="الظهورات السابقة"
                     />
                 </h2>
-                <Link
-                    href="#"
-                    className="text-xs font-semibold text-beta-blue hover:underline"
-                >
-                    <TransText en="View All" fr="Tout voir" ar="عرض الكل" />
-                </Link>
+                {items.length > 0 ? (
+                    <Link
+                        href="#"
+                        className="text-xs font-semibold text-beta-blue hover:underline"
+                    >
+                        <TransText
+                            en="View All"
+                            fr="Tout voir"
+                            ar="عرض الكل"
+                        />
+                    </Link>
+                ) : null}
             </div>
 
             <div className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2">
+                {items.length === 0 ? (
+                    <p className="text-sm text-muted-foreground md:col-span-2">
+                        <TransText
+                            en="No past appearances are listed yet."
+                            fr="Aucune apparition passée n’est encore répertoriée."
+                            ar="لا توجد ظهورات سابقة مدرجة بعد."
+                        />
+                    </p>
+                ) : null}
                 {items.map((x) => (
                     <div
                         key={x.title.en}

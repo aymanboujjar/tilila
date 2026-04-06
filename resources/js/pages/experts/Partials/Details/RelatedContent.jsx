@@ -13,6 +13,15 @@ export default function RelatedContent({ items = [] }) {
             </h2>
 
             <div className="mt-5 space-y-3">
+                {items.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                        <TransText
+                            en="No published articles or related content yet."
+                            fr="Aucun article publié ou contenu associé pour le moment."
+                            ar="لا توجد مقالات منشورة أو محتوى ذو صلة بعد."
+                        />
+                    </p>
+                ) : null}
                 {items.map((x) => (
                     <div
                         key={x.title.en}
