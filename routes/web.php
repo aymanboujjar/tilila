@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExpertController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -8,8 +9,8 @@ Route::inertia('/', 'home/index', [
     'canRegister' => Features::enabled(Features::registration()),
 ])->name('home');
 
-Route::inertia('/experts', 'experts/index')->name('experts.index');
-Route::inertia('/experts/{id}', 'experts/[id]')->name('experts.show');
+Route::get('/experts', [ExpertController::class, 'index'])->name('experts.index');
+Route::get('/experts/{expert:slug}', [ExpertController::class, 'show'])->name('experts.show');
 Route::inertia('/opportunities', 'opportunities/index')->name('opportunities.index');
 Route::inertia('/opportunities/{id}', 'opportunities/[id]')->name('opportunities.show');
 Route::get('/about', function () {
@@ -35,6 +36,10 @@ Route::get('/media/{id}', function (string $id) {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        require __DIR__.'/admin.php';
+    });
 });
 
 require __DIR__.'/events.php';

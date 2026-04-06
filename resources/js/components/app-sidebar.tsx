@@ -26,7 +26,7 @@ import { useCurrentUrl } from '@/hooks/use-current-url';
 import { dashboard } from '@/routes';
 import { home } from '@/routes';
 import { index as eventsIndex } from '@/routes/events';
-import { index as expertsIndex } from '@/routes/experts';
+import { index as adminExpertsIndex } from '@/routes/admin/experts';
 import { index as gouvernanceIndex } from '@/routes/gouvernance';
 import { index as opportunitiesIndex } from '@/routes/opportunities';
 import { edit as profileEdit } from '@/routes/profile';
@@ -41,7 +41,7 @@ const dashboardItem: NavItem = {
 const moduleItems: NavItem[] = [
     {
         title: 'Experts',
-        href: expertsIndex.url(),
+        href: adminExpertsIndex.url(),
         icon: Users,
     },
     {

@@ -1,0 +1,28 @@
+{
+    "headlineTags": [
+        {"en": "Technology", "fr": "Technologie", "ar": "التكنولوجيا"},
+        {"en": "Agritech", "fr": "Agritech", "ar": "التقنيات الزراعية"},
+        {"en": "Strategy", "fr": "Stratégie", "ar": "الاستراتيجية"}
+    ],
+    "bio": [
+        {
+            "en": "Dr. Amira Kone is making space in Africa. With over 15 years of experience bridging the gap between academic research and industrial applications, she has developed multiple government-backed digital transformation strategies.",
+            "fr": "Dr Amira Kone ouvre la voie en Afrique. Avec plus de 15 ans d'expérience à faire le lien entre la recherche académique et les applications industrielles, elle a développé plusieurs stratégies de transformation digitale soutenues par des programmes publics.",
+            "ar": "تفتح الدكتورة أميرة كوني آفاقًا جديدة في إفريقيا."
+        },
+        {
+            "en": "She holds a Ph.D. in Computer Science from Mohammed V University of Engineering and has been a mentor and speaker focused on sustainable growth in AI.",
+            "fr": "Titulaire d'un doctorat en informatique de l'École Mohammadia d'ingénieurs, elle est mentor et conférencière.",
+            "ar": "تحمل دكتوراه في علوم الحاسوب من المدرسة المحمدية للمهندسين."
+        }
+    ],
+    "quote": {
+        "en": "My mission is to leverage technology for sustainable development in African agriculture.",
+        "fr": "Ma mission est de mettre la technologie au service du développement durable de l'agriculture africaine.",
+        "ar": "رسالتي هي توظيف التكنولوجيا من أجل التنمية المستدامة للزراعة الإفريقية."
+    },
+    "expertise": [],
+    "journey": [],
+    "appearances": [],
+    "articles": []
+}

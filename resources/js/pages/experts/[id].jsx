@@ -1,8 +1,6 @@
-import React, { useMemo } from 'react';
-import { Head, Link, usePage } from '@inertiajs/react';
+import React from 'react';
+import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import { EXPERTS } from '@/pages/experts/Partials/expert-data';
-import { EXPERT_DETAILS } from '@/pages/experts/Partials/expert-details-data';
 import ProfileSidebar from '@/pages/experts/Partials/Details/ProfileSidebar';
 import AreasOfExpertise from '@/pages/experts/Partials/Details/AreasOfExpertise';
 import ProfessionalJourney from '@/pages/experts/Partials/Details/ProfessionalJourney';
@@ -11,26 +9,16 @@ import RelatedContent from '@/pages/experts/Partials/Details/RelatedContent';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
-export default function ExpertDetails({ id }) {
-    const pageProps = usePage().props;
-    const expertId = id ?? pageProps?.id;
+export default function ExpertDetails({ expert, details: detailsProp }) {
     const { locale, t } = useTranslation();
+    const details = detailsProp ?? {};
 
-    const expert = useMemo(
-        () => EXPERTS.find((e) => e.id === expertId) ?? EXPERTS[0],
-        [expertId],
-    );
     const resolvedName =
         locale === 'ar'
             ? expert?.name?.ar
             : locale === 'fr'
               ? expert?.name?.fr
               : expert?.name?.en;
-
-    const details = useMemo(
-        () => EXPERT_DETAILS[expertId] ?? EXPERT_DETAILS['amira-kone'],
-        [expertId],
-    );
 
     return (
         <>
@@ -68,15 +56,15 @@ export default function ExpertDetails({ id }) {
                         <div className="space-y-6 lg:col-span-8">
                             <header className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border">
                                 <div className="flex flex-wrap gap-2">
-                                    {(details?.headlineTags ?? []).map((t) => (
+                                    {(details?.headlineTags ?? []).map((tag) => (
                                         <span
-                                            key={t.en}
+                                            key={tag.en}
                                             className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground"
                                         >
                                             <TransText
-                                                en={t.en}
-                                                fr={t.fr}
-                                                ar={t.ar}
+                                                en={tag.en}
+                                                fr={tag.fr}
+                                                ar={tag.ar}
                                             />
                                         </span>
                                     ))}
@@ -87,9 +75,9 @@ export default function ExpertDetails({ id }) {
                                 </h1>
                                 <p className="mt-2 text-sm font-semibold text-muted-foreground">
                                     <TransText
-                                        en="AI Researcher & Chief Strategy Officer at Agritech Solutions"
-                                        fr="Chercheuse en IA & directrice de la stratégie chez Agritech Solutions"
-                                        ar="باحثة في الذكاء الاصطناعي ومديرة الاستراتيجية لدى Agritech Solutions"
+                                        en={expert?.title?.en ?? ''}
+                                        fr={expert?.title?.fr ?? ''}
+                                        ar={expert?.title?.ar ?? ''}
                                     />
                                 </p>
 

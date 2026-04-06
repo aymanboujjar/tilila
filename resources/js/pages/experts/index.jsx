@@ -3,11 +3,10 @@ import { Head } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import FiltersBar from '@/pages/experts/Partials/FiltersBar';
 import ExpertCard from '@/pages/experts/Partials/ExpertCard';
-import { EXPERTS } from '@/pages/experts/Partials/expert-data';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
-export default function ExpertsIndex() {
+export default function ExpertsIndex({ experts: expertsProp = [] }) {
     const { locale, t } = useTranslation();
     const [query, setQuery] = useState('');
     const [sort, setSort] = useState('relevance');
@@ -83,7 +82,7 @@ export default function ExpertsIndex() {
 
     const experts = useMemo(() => {
         const q = query.trim().toLowerCase();
-        let list = EXPERTS;
+        let list = expertsProp;
 
         if (filters.industry !== 'all') {
             list = list.filter((e) =>
@@ -192,6 +191,7 @@ export default function ExpertsIndex() {
         locale,
         query,
         sort,
+        expertsProp,
     ]);
 
     return (
