@@ -174,6 +174,26 @@ class OpportunityController extends Controller
         ]);
     }
 
+    public function show(Opportunity $opportunity): Response
+    {
+        $opportunity->load([
+            'applications' => fn ($q) => $q->latest()->limit(500),
+        ]);
+
+        $total = (int) ($opportunity->applications_count ?? $opportunity->applications?->count() ?? 0);
+
+        return Inertia::render('admin/opportunities/show', [
+            'opportunity' => $opportunity,
+            'stats' => [
+                'total' => $total,
+                'pending' => $total,
+                'shortlisted' => 0,
+                'selected' => 0,
+                'rejected' => 0,
+            ],
+        ]);
+    }
+
     public function update(Request $request, Opportunity $opportunity): RedirectResponse
     {
         $data = $this->validated($request, $opportunity);

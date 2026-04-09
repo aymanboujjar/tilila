@@ -9,5 +9,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('experts', ExpertController::class)->except(['show']);
 
     Route::get('opportunities/export.csv', [OpportunityController::class, 'exportCsv'])->name('opportunities.export');
-    Route::resource('opportunities', OpportunityController::class)->except(['show']);
+    Route::resource('opportunities', OpportunityController::class);
 });

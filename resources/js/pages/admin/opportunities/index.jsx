@@ -232,7 +232,7 @@ export default function AdminOpportunitiesIndex({
                                     <TableRow key={opp.id}>
                                         <TableCell className="py-4 sm:px-3">
                                             <Link
-                                                href={`/admin/opportunities/${opportunityRouteKey(opp)}/edit`}
+                                                href={`/admin/opportunities/${opportunityRouteKey(opp)}`}
                                                 className="group block"
                                             >
                                                 <div className="text-tblack font-semibold group-hover:underline">
