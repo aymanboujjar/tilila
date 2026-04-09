@@ -66,9 +66,16 @@ export default function AdminExpertsIndex({ experts, filters }) {
                             type="button"
                             variant="outline"
                             className="gap-2"
+                            onClick={() => {
+                                const params = new URLSearchParams();
+                                if (search?.trim()) params.set('search', search.trim());
+                                if (filters?.status) params.set('status', filters.status);
+                                const qs = params.toString();
+                                window.location.href = `/admin/experts/export.csv${qs ? `?${qs}` : ''}`;
+                            }}
                         >
                             <Download className="size-4" />
-                            Export
+                            Export CSV
                         </Button>
                         <Button
                             asChild

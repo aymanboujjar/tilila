@@ -11,9 +11,81 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class ExpertController extends Controller
 {
+    public function exportCsv(Request $request): StreamedResponse
+    {
+        $query = Expert::query()->orderByDesc('updated_at');
+
+        if ($search = trim((string) $request->query('search', ''))) {
+            $like = '%'.$search.'%';
+            $query->where(function ($q) use ($like) {
+                $q->where('email', 'like', $like)
+                    ->orWhere('status', 'like', $like)
+                    ->orWhere('country', 'like', $like)
+                    ->orWhere('location', 'like', $like);
+
+                foreach (['en', 'fr', 'ar'] as $loc) {
+                    $q->orWhere("name->{$loc}", 'like', $like);
+                }
+            });
+        }
+
+        if ($status = $request->query('status')) {
+            $query->where('status', $status);
+        }
+
+        $filename = 'experts-'.now()->format('Ymd-His').'.csv';
+
+        return response()->streamDownload(function () use ($query): void {
+            $out = fopen('php://output', 'w');
+            if ($out === false) {
+                return;
+            }
+
+            // Excel-friendly UTF-8 BOM
+            fwrite($out, "\xEF\xBB\xBF");
+
+            // Many Excel locales expect `;` as delimiter.
+            $delimiter = ';';
+
+            fputcsv($out, [
+                'id',
+                'name_en',
+                'title_en',
+                'email',
+                'status',
+                'country',
+                'location',
+                'industries',
+            ], $delimiter);
+
+            $query->chunkById(200, function ($rows) use ($out, $delimiter): void {
+                foreach ($rows as $expert) {
+                    /** @var \App\Models\Expert $expert */
+                    $industries = is_array($expert->industries) ? implode('|', $expert->industries) : '';
+
+                    fputcsv($out, [
+                        $expert->id,
+                        (string) ($expert->name['en'] ?? ''),
+                        (string) ($expert->title['en'] ?? ''),
+                        (string) ($expert->email ?? ''),
+                        (string) ($expert->status ?? ''),
+                        (string) ($expert->country ?? ''),
+                        is_string($expert->location) ? $expert->location : '',
+                        $industries,
+                    ], $delimiter);
+                }
+            });
+
+            fclose($out);
+        }, $filename, [
+            'Content-Type' => 'text/csv; charset=UTF-8',
+        ]);
+    }
+
     public function index(Request $request): Response
     {
         $query = Expert::query()->orderByDesc('updated_at');
