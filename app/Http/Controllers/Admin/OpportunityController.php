@@ -163,6 +163,10 @@ class OpportunityController extends Controller
 
     public function edit(Opportunity $opportunity): Response
     {
+        $opportunity->load([
+            'applications' => fn ($q) => $q->latest()->limit(200),
+        ]);
+
         return Inertia::render('admin/opportunities/edit', [
             'opportunity' => $opportunity,
             'types' => $this->types(),

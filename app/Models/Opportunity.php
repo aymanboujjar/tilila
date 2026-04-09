@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Opportunity extends Model
 {
@@ -40,6 +41,11 @@ class Opportunity extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function applications(): HasMany
+    {
+        return $this->hasMany(OpportunityApplication::class);
     }
 }
 

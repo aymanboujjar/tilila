@@ -8,6 +8,15 @@ import {
 } from '@/components/ui/dialog';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { pickLocalized } from '@/lib/pickLocalized';
+import { useForm } from '@inertiajs/react';
+
+function formatFileSize(bytes) {
+    if (typeof bytes !== 'number' || Number.isNaN(bytes)) return '';
+    if (bytes < 1024) return `${bytes} B`;
+    const kb = bytes / 1024;
+    if (kb < 1024) return `${kb.toFixed(1)} KB`;
+    return `${(kb / 1024).toFixed(1)} MB`;
+}
 
 function Field({ label, children, htmlFor, hint }) {
     return (
@@ -26,7 +35,15 @@ function Field({ label, children, htmlFor, hint }) {
     );
 }
 
-function Input({ id, name, type = 'text', placeholder, autoComplete }) {
+function Input({
+    id,
+    name,
+    type = 'text',
+    placeholder,
+    autoComplete,
+    value,
+    onChange,
+}) {
     return (
         <input
             id={id}
@@ -34,24 +51,28 @@ function Input({ id, name, type = 'text', placeholder, autoComplete }) {
             type={type}
             placeholder={placeholder}
             autoComplete={autoComplete}
+            value={value}
+            onChange={onChange}
             className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         />
     );
 }
 
-function Textarea({ id, name, placeholder, rows = 4 }) {
+function Textarea({ id, name, placeholder, rows = 4, value, onChange }) {
     return (
         <textarea
             id={id}
             name={name}
             placeholder={placeholder}
             rows={rows}
+            value={value}
+            onChange={onChange}
             className="w-full resize-none rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         />
     );
 }
 
-function UploadBox({ id, name, title, subtitle }) {
+function UploadBox({ id, name, title, subtitle, onFile }) {
     return (
         <label
             htmlFor={id}
@@ -62,8 +83,37 @@ function UploadBox({ id, name, title, subtitle }) {
             </div>
             <div className="text-sm font-extrabold text-foreground">{title}</div>
             <div className="text-xs text-muted-foreground">{subtitle}</div>
-            <input id={id} name={name} type="file" className="sr-only" />
+            <input
+                id={id}
+                name={name}
+                type="file"
+                className="sr-only"
+                onChange={(e) => onFile?.(e.target.files?.[0] ?? null)}
+            />
         </label>
+    );
+}
+
+function FilePreview({ file, onClear }) {
+    if (!file) return null;
+    return (
+        <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 text-left shadow-sm">
+            <div className="min-w-0">
+                <div className="truncate text-sm font-semibold text-foreground">
+                    {file.name}
+                </div>
+                <div className="mt-0.5 text-xs text-muted-foreground">
+                    {file.type || 'file'} • {formatFileSize(file.size)}
+                </div>
+            </div>
+            <button
+                type="button"
+                onClick={onClear}
+                className="shrink-0 rounded-md border border-border bg-background px-3 py-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground"
+            >
+                Remove
+            </button>
+        </div>
     );
 }
 
@@ -87,6 +137,7 @@ export default function ApplyNowModal({
     isOpen,
     onClose,
     opportunityTitle,
+    opportunitySlug,
 }) {
     const { locale, t } = useTranslation();
     const formId = useId();
@@ -115,6 +166,21 @@ export default function ApplyNowModal({
 
     const canSubmit = agreedCharter && agreedPrivacy;
 
+    const { data, setData, post, processing, errors, reset, clearErrors } =
+        useForm({
+            full_name: '',
+            email: '',
+            phone: '',
+            country: '',
+            current_role: '',
+            organization: '',
+            years_experience: experienceOptions[0]?.value ?? '',
+            motivation: '',
+            resume: null,
+            portfolio_link: '',
+            locale,
+        });
+
     const modalTitle =
         pickLocalized(opportunityTitle, locale) ||
         t('opportunities.detail.fallbackHeadTitle');
@@ -142,7 +208,19 @@ export default function ApplyNowModal({
                     onSubmit={(e) => {
                         e.preventDefault();
                         if (!canSubmit) return;
-                        onClose();
+                        if (!opportunitySlug) return;
+                        clearErrors();
+                        post(`/opportunities/${encodeURIComponent(opportunitySlug)}/apply`, {
+                            forceFormData: true,
+                            preserveScroll: true,
+                            onSuccess: () => {
+                                reset();
+                                setExperience(experienceOptions[0]?.value);
+                                setAgreedCharter(false);
+                                setAgreedPrivacy(false);
+                                onClose();
+                            },
+                        });
                     }}
                 >
                     <SectionCard
@@ -156,7 +234,12 @@ export default function ApplyNowModal({
                                     name="full_name"
                                     placeholder="Your full name"
                                     autoComplete="name"
+                                    value={data.full_name}
+                                    onChange={(e) => setData('full_name', e.target.value)}
                                 />
+                                {errors.full_name ? (
+                                    <div className="text-xs text-alpha-danger">{errors.full_name}</div>
+                                ) : null}
                             </Field>
                             <Field label="Email Address" htmlFor={emailId}>
                                 <Input
@@ -165,7 +248,12 @@ export default function ApplyNowModal({
                                     type="email"
                                     placeholder="name@example.com"
                                     autoComplete="email"
+                                    value={data.email}
+                                    onChange={(e) => setData('email', e.target.value)}
                                 />
+                                {errors.email ? (
+                                    <div className="text-xs text-alpha-danger">{errors.email}</div>
+                                ) : null}
                             </Field>
                             <Field label="Phone Number" htmlFor={phoneId}>
                                 <Input
@@ -174,6 +262,8 @@ export default function ApplyNowModal({
                                     type="tel"
                                     placeholder="+212 6xx xxx xxx"
                                     autoComplete="tel"
+                                    value={data.phone}
+                                    onChange={(e) => setData('phone', e.target.value)}
                                 />
                             </Field>
                             <Field label="Country of Residence" htmlFor={countryId}>
@@ -181,7 +271,8 @@ export default function ApplyNowModal({
                                     id={countryId}
                                     name="country"
                                     className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                                    defaultValue=""
+                                    value={data.country}
+                                    onChange={(e) => setData('country', e.target.value)}
                                 >
                                     <option value="" disabled>
                                         Select Country
@@ -207,6 +298,8 @@ export default function ApplyNowModal({
                                     name="current_role"
                                     placeholder="e.g., Senior Journalist"
                                     autoComplete="organization-title"
+                                    value={data.current_role}
+                                    onChange={(e) => setData('current_role', e.target.value)}
                                 />
                             </Field>
                             <Field label="Organization" htmlFor={orgId}>
@@ -215,6 +308,8 @@ export default function ApplyNowModal({
                                     name="organization"
                                     placeholder="e.g., Independent Media Hub"
                                     autoComplete="organization"
+                                    value={data.organization}
+                                    onChange={(e) => setData('organization', e.target.value)}
                                 />
                             </Field>
                         </div>
@@ -230,7 +325,10 @@ export default function ApplyNowModal({
                                         <button
                                             key={option.value}
                                             type="button"
-                                            onClick={() => setExperience(option.value)}
+                                            onClick={() => {
+                                                setExperience(option.value);
+                                                setData('years_experience', option.value);
+                                            }}
                                             className={[
                                                 'rounded-xl border px-4 py-3 text-sm font-semibold shadow-sm transition',
                                                 selected
@@ -244,11 +342,6 @@ export default function ApplyNowModal({
                                     );
                                 })}
                             </div>
-                            <input
-                                type="hidden"
-                                name="years_experience"
-                                value={experience ?? ''}
-                            />
                         </div>
                     </SectionCard>
 
@@ -265,6 +358,8 @@ export default function ApplyNowModal({
                                 name="motivation"
                                 rows={5}
                                 placeholder="Describe your career goals and how this program aligns with your vision for the future of media..."
+                                value={data.motivation}
+                                onChange={(e) => setData('motivation', e.target.value)}
                             />
                         </Field>
                     </SectionCard>
@@ -274,18 +369,47 @@ export default function ApplyNowModal({
                         description="Upload evidence of your work and your professional journey."
                     >
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <UploadBox
-                                id={resumeId}
-                                name="resume"
-                                title="Upload CV/Resume"
-                                subtitle="PDF format (Max 5MB)"
-                            />
-                            <UploadBox
-                                id={portfolioId}
-                                name="portfolio"
-                                title="Upload Portfolio"
-                                subtitle="Links or PDF (Max 10MB)"
-                            />
+                            <div>
+                                <UploadBox
+                                    id={resumeId}
+                                    name="resume"
+                                    title="Upload CV/Resume"
+                                    subtitle="PDF/DOC (Max 5MB)"
+                                    onFile={(file) => setData('resume', file)}
+                                />
+                                <FilePreview
+                                    file={data.resume}
+                                    onClear={() => setData('resume', null)}
+                                />
+                                {errors.resume ? (
+                                    <div className="mt-2 text-xs text-alpha-danger">
+                                        {errors.resume}
+                                    </div>
+                                ) : null}
+                            </div>
+
+                            <Field
+                                label="Portfolio link"
+                                htmlFor={portfolioId}
+                                hint="Paste a public URL (Drive, Notion, website, etc.)"
+                            >
+                                <Input
+                                    id={portfolioId}
+                                    name="portfolio_link"
+                                    type="url"
+                                    placeholder="https://…"
+                                    autoComplete="url"
+                                    value={data.portfolio_link}
+                                    onChange={(e) =>
+                                        setData('portfolio_link', e.target.value)
+                                    }
+                                />
+                                {errors.portfolio_link ? (
+                                    <div className="text-xs text-alpha-danger">
+                                        {errors.portfolio_link}
+                                    </div>
+                                ) : null}
+                            </Field>
                         </div>
                     </SectionCard>
 
@@ -329,15 +453,15 @@ export default function ApplyNowModal({
                         <div className="mt-6 flex justify-end">
                             <button
                                 type="submit"
-                                disabled={!canSubmit}
+                                disabled={!canSubmit || processing}
                                 className={[
                                     'inline-flex items-center justify-center rounded-md px-6 py-2.5 text-sm font-semibold shadow-sm transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring',
-                                    canSubmit
+                                    canSubmit && !processing
                                         ? 'bg-beta-blue text-white hover:opacity-90'
                                         : 'cursor-not-allowed bg-muted text-muted-foreground',
                                 ].join(' ')}
                             >
-                                Submit Application
+                                {processing ? 'Submitting…' : 'Submit Application'}
                             </button>
                         </div>
                     </div>

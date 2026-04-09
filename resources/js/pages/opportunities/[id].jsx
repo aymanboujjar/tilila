@@ -383,6 +383,7 @@ export default function OpportunityDetails({ opportunity }) {
                 isOpen={applyOpen}
                 onClose={() => setApplyOpen(false)}
                 opportunityTitle={details?.title ?? base?.title}
+                opportunitySlug={base?.slug ?? base?.id}
             />
         </>
     );

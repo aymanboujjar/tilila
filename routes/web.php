@@ -14,6 +14,7 @@ Route::get('/experts', [ExpertController::class, 'index'])->name('experts.index'
 Route::get('/experts/{expert}', [ExpertController::class, 'show'])->name('experts.show');
 Route::get('/opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
 Route::get('/opportunities/{opportunity}', [OpportunityController::class, 'show'])->name('opportunities.show');
+Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class, 'apply'])->name('opportunities.apply');
 Route::get('/about', function () {
     return Inertia::render('user/about/index');
 });

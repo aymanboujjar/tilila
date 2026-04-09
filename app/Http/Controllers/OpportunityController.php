@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Opportunity;
+use App\Models\OpportunityApplication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -29,6 +31,71 @@ class OpportunityController extends Controller
         return Inertia::render('opportunities/[id]', [
             'opportunity' => $this->toDetailsItem($opportunity),
         ]);
+    }
+
+    public function apply(Request $request, Opportunity $opportunity)
+    {
+        // dd($request->all());
+        $data = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'nullable|string|max:64',
+            'country' => 'nullable|string|max:32',
+            'current_role' => 'nullable|string|max:255',
+            'organization' => 'nullable|string|max:255',
+            'years_experience' => 'nullable|string|max:32',
+            'motivation' => 'nullable|string|max:5000',
+            'locale' => 'nullable|string|max:8',
+            'resume' => 'nullable|file|mimes:pdf,doc,docx|max:5120',
+            'portfolio_link' => 'nullable|url|max:2048',
+        ]);
+
+        $resumePath = null;
+        if ($request->hasFile('resume')) {
+            $resumePath = $request->file('resume')->store('opportunity-applications/resume', 'public');
+        }
+
+        DB::transaction(function () use ($request, $opportunity, $data, $resumePath): void {
+            /** @var \App\Models\Opportunity $locked */
+            $locked = Opportunity::query()->whereKey($opportunity->id)->lockForUpdate()->firstOrFail();
+
+            if ($locked->applications_limit !== null && $locked->applications_limit <= 0) {
+                abort(422, 'Applications are closed for this opportunity.');
+            }
+
+            OpportunityApplication::create([
+                'opportunity_id' => $locked->id,
+                'full_name' => $data['full_name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'] ?? null,
+                'country' => $data['country'] ?? null,
+                'current_role' => $data['current_role'] ?? null,
+                'organization' => $data['organization'] ?? null,
+                'years_experience' => $data['years_experience'] ?? null,
+                'motivation' => $data['motivation'] ?? null,
+                'resume_path' => $resumePath,
+                'portfolio_link' => $data['portfolio_link'] ?? null,
+                'locale' => $data['locale'] ?? null,
+                'ip' => $request->ip(),
+                'user_agent' => substr((string) $request->userAgent(), 0, 1000),
+            ]);
+
+            $updates = [
+                'applications_count' => (int) ($locked->applications_count ?? 0) + 1,
+            ];
+
+            if ($locked->applications_limit !== null) {
+                $nextLimit = max(0, (int) $locked->applications_limit - 1);
+                $updates['applications_limit'] = $nextLimit;
+                if ($nextLimit === 0) {
+                    $updates['status'] = 'filled';
+                }
+            }
+
+            $locked->update($updates);
+        });
+
+        return back()->with('success', 'Application submitted.');
     }
 
     /**
