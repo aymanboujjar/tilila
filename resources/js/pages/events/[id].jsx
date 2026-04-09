@@ -14,6 +14,7 @@ export default function EventDetails({ event, details }) {
     const { locale } = useTranslation();
     const base = event ?? {};
     const [registerOpen, setRegisterOpen] = React.useState(false);
+    const canRegister = base?.status === 'upcoming';
 
     const hero = details?.hero ?? {};
     const resolve = (v) =>
@@ -80,6 +81,7 @@ export default function EventDetails({ event, details }) {
                             title={title}
                             subtitle={subtitle}
                             imageSrc={heroImageSrc}
+                            showRegister={canRegister}
                             onRegister={() => setRegisterOpen(true)}
                         />
                     </div>
@@ -129,15 +131,17 @@ export default function EventDetails({ event, details }) {
                     </div>
                 </div>
 
-                <RegistrationCard
-                    isOpen={registerOpen}
-                    onClose={() => setRegisterOpen(false)}
-                    eventId={base?.id}
-                    badge={resolve(details?.registration?.badge)}
-                    title={resolve(details?.registration?.title)}
-                    description={resolve(details?.registration?.description)}
-                    submitLabel={resolve(details?.registration?.submitLabel)}
-                />
+                {canRegister ? (
+                    <RegistrationCard
+                        isOpen={registerOpen}
+                        onClose={() => setRegisterOpen(false)}
+                        eventId={base?.id}
+                        badge={resolve(details?.registration?.badge)}
+                        title={resolve(details?.registration?.title)}
+                        description={resolve(details?.registration?.description)}
+                        submitLabel={resolve(details?.registration?.submitLabel)}
+                    />
+                ) : null}
             </div>
         </>
     );
