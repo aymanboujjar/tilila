@@ -136,6 +136,8 @@ function TriLangTextareas({ idPrefix, label, value, onChange }) {
 }
 
 export default function EventForm({
+    mode = 'create',
+    existingMedia = [],
     data,
     setData,
     errors,
@@ -146,6 +148,9 @@ export default function EventForm({
     processing = false,
     onSubmit,
 }) {
+    const canManageGallery =
+        mode === 'edit' &&
+        (data.status === 'finished' || data.status === 'archived');
     const [speakerModalOpen, setSpeakerModalOpen] = React.useState(false);
     const [partnerModalOpen, setPartnerModalOpen] = React.useState(false);
     const [speakerDraft, setSpeakerDraft] = React.useState({
@@ -165,6 +170,13 @@ export default function EventForm({
     });
     const [editingSpeakerIndex, setEditingSpeakerIndex] = React.useState(null);
     const [editingPartnerIndex, setEditingPartnerIndex] = React.useState(null);
+
+    const [agendaModalOpen, setAgendaModalOpen] = React.useState(false);
+    const [agendaDraft, setAgendaDraft] = React.useState({
+        time: '',
+        label: '',
+    });
+    const [editingAgendaIndex, setEditingAgendaIndex] = React.useState(null);
 
     const [speakerPreviewUrl, setSpeakerPreviewUrl] = React.useState(null);
     React.useEffect(() => {
@@ -191,6 +203,19 @@ export default function EventForm({
 
         return () => URL.revokeObjectURL(url);
     }, [partnerDraft.logo]);
+
+    const [coverPreviewUrl, setCoverPreviewUrl] = React.useState(null);
+    React.useEffect(() => {
+        if (!data.cover_image) {
+            setCoverPreviewUrl(null);
+
+            return;
+        }
+        const url = URL.createObjectURL(data.cover_image);
+        setCoverPreviewUrl(url);
+
+        return () => URL.revokeObjectURL(url);
+    }, [data.cover_image]);
 
     return (
         <form onSubmit={onSubmit} className="space-y-6">
@@ -276,74 +301,340 @@ export default function EventForm({
                             </Card>
 
                             <Card className="border-border/70 bg-background shadow-none">
-                                <CardHeader className="px-5 sm:px-6">
-                                    <CardTitle className="text-base">
-                                        Media & Archives
-                                    </CardTitle>
+                                <CardHeader className="flex flex-col gap-3 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                                    <CardTitle className="text-base">Agenda</CardTitle>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => {
+                                            setEditingAgendaIndex(null);
+                                            setAgendaDraft({ time: '', label: '' });
+                                            setAgendaModalOpen(true);
+                                        }}
+                                    >
+                                        Add item
+                                    </Button>
                                 </CardHeader>
-                                <CardContent className="px-5 sm:px-6">
-                                    <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-8">
-                                        <div className="text-center text-sm text-muted-foreground">
-                                            Upload files or drag and drop
+                                <CardContent className="space-y-4 px-5 sm:px-6">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="agenda-section-title">
+                                            Section title
+                                        </Label>
+                                        <Input
+                                            id="agenda-section-title"
+                                            value={data.agenda?.title ?? 'Agenda'}
+                                            onChange={(e) =>
+                                                setData('agenda', {
+                                                    ...data.agenda,
+                                                    title: e.target.value,
+                                                    items:
+                                                        data.agenda?.items ?? [],
+                                                })
+                                            }
+                                            placeholder="Agenda"
+                                        />
+                                    </div>
+                                    {(data.agenda?.items ?? []).length === 0 ? (
+                                        <div className="rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
+                                            No agenda items yet. Add times and
+                                            session titles for the public event
+                                            page.
                                         </div>
-                                        <div className="mt-4 flex justify-center">
-                                            <label className="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground">
-                                                Choose files
-                                                <input
-                                                    type="file"
-                                                    multiple
-                                                    className="sr-only"
-                                                    onChange={(e) =>
-                                                        setData(
-                                                            'media_files',
-                                                            Array.from(
-                                                                e.target.files ??
-                                                                    [],
-                                                            ),
-                                                        )
-                                                    }
-                                                />
-                                            </label>
-                                        </div>
-
-                                        {(data.media_files ?? []).length ? (
-                                            <div className="mt-5 space-y-2 text-sm">
-                                                {(data.media_files ?? []).map(
-                                                    (f, idx) => (
-                                                        <div
-                                                            key={`${f.name}-${idx}`}
-                                                            className="flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-4 py-2"
-                                                        >
-                                                            <div className="min-w-0 truncate text-muted-foreground">
-                                                                {f.name}
-                                                            </div>
+                                    ) : (
+                                        <div className="space-y-2">
+                                            {(data.agenda.items ?? []).map(
+                                                (row, idx) => (
+                                                    <div
+                                                        key={`${row.time}-${idx}`}
+                                                        className="flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3"
+                                                    >
+                                                        <div className="flex min-w-0 flex-1 items-baseline gap-3">
+                                                            <span className="w-14 shrink-0 text-xs font-extrabold text-muted-foreground tabular-nums">
+                                                                {row.time || '—'}
+                                                            </span>
+                                                            <span className="truncate text-sm font-semibold text-foreground">
+                                                                {row.label}
+                                                            </span>
+                                                        </div>
+                                                        <div className="flex shrink-0 items-center gap-3">
+                                                            <button
+                                                                type="button"
+                                                                className="text-xs font-semibold text-beta-blue hover:underline"
+                                                                onClick={() => {
+                                                                    setEditingAgendaIndex(
+                                                                        idx,
+                                                                    );
+                                                                    setAgendaDraft({
+                                                                        time:
+                                                                            row.time ??
+                                                                            '',
+                                                                        label:
+                                                                            row.label ??
+                                                                            '',
+                                                                    });
+                                                                    setAgendaModalOpen(
+                                                                        true,
+                                                                    );
+                                                                }}
+                                                            >
+                                                                Edit
+                                                            </button>
                                                             <button
                                                                 type="button"
                                                                 className="text-xs font-semibold text-alpha-danger hover:underline"
-                                                                onClick={() =>
-                                                                    setData(
-                                                                        'media_files',
-                                                                        (data.media_files ??
-                                                                            []).filter(
-                                                                            (_, i) =>
+                                                                onClick={() => {
+                                                                    const next =
+                                                                        (
+                                                                            data.agenda
+                                                                                ?.items ??
+                                                                            []
+                                                                        ).filter(
+                                                                            (
+                                                                                _,
+                                                                                i,
+                                                                            ) =>
                                                                                 i !==
                                                                                 idx,
-                                                                        ),
-                                                                    )
-                                                                }
+                                                                        );
+                                                                    setData(
+                                                                        'agenda',
+                                                                        {
+                                                                            title:
+                                                                                data
+                                                                                    .agenda
+                                                                                    ?.title ??
+                                                                                'Agenda',
+                                                                            items:
+                                                                                next,
+                                                                        },
+                                                                    );
+                                                                }}
                                                             >
                                                                 Remove
                                                             </button>
                                                         </div>
-                                                    ),
-                                                )}
-                                            </div>
-                                        ) : null}
-
-                                        <InputError message={errors.media_files} />
-                                    </div>
+                                                    </div>
+                                                ),
+                                            )}
+                                        </div>
+                                    )}
+                                    <InputError
+                                        message={errors['agenda.items']}
+                                    />
                                 </CardContent>
                             </Card>
+
+                            <Card className="border-border/70 bg-background shadow-none">
+                                <CardHeader className="px-5 sm:px-6">
+                                    <CardTitle className="text-base">
+                                        Main event image
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-4 px-5 sm:px-6">
+                                    <p className="text-sm text-muted-foreground">
+                                        Used on the public event page (hero and
+                                        listings) for{' '}
+                                        <span className="font-semibold text-foreground">
+                                            all
+                                        </span>{' '}
+                                        statuses — separate from the photo
+                                        gallery.
+                                    </p>
+                                    <Input
+                                        type="file"
+                                        accept="image/*"
+                                        className="cursor-pointer"
+                                        onChange={(e) => {
+                                            const f = e.target.files?.[0] ?? null;
+                                            if (f) {
+                                                setData('cover_image', f);
+                                                setData('cover_image_path', null);
+                                                setData('cover_image_url', null);
+                                            }
+                                        }}
+                                    />
+                                    {(coverPreviewUrl || data.cover_image_url) && (
+                                        <div className="overflow-hidden rounded-xl border border-border bg-muted/30">
+                                            <img
+                                                src={
+                                                    coverPreviewUrl ??
+                                                    data.cover_image_url ??
+                                                    ''
+                                                }
+                                                alt=""
+                                                className="max-h-52 w-full object-cover"
+                                            />
+                                        </div>
+                                    )}
+                                    <InputError message={errors.cover_image} />
+                                </CardContent>
+                            </Card>
+
+                            {mode === 'edit' ? (
+                                <Card className="border-border/70 bg-background shadow-none">
+                                    <CardHeader className="px-5 sm:px-6">
+                                        <CardTitle className="text-base">
+                                            Replay &amp; photo gallery
+                                        </CardTitle>
+                                    </CardHeader>
+                                    <CardContent className="space-y-4 px-5 sm:px-6">
+                                        {canManageGallery ? (
+                                            <>
+                                                <div className="space-y-2 rounded-xl border border-border bg-card/60 px-4 py-4">
+                                                    <Label htmlFor="replay_video_url">
+                                                        YouTube replay
+                                                    </Label>
+                                                    <Input
+                                                        id="replay_video_url"
+                                                        type="url"
+                                                        value={
+                                                            data.replay_video_url ??
+                                                            ''
+                                                        }
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                'replay_video_url',
+                                                                e.target.value,
+                                                            )
+                                                        }
+                                                        placeholder="https://www.youtube.com/watch?v=… or https://youtu.be/…"
+                                                    />
+                                                    <p className="text-xs text-muted-foreground">
+                                                        Paste a regular YouTube link;
+                                                        it will embed on the public
+                                                        event page.
+                                                    </p>
+                                                    <InputError
+                                                        message={
+                                                            errors.replay_video_url
+                                                        }
+                                                    />
+                                                </div>
+                                                <p className="text-sm text-muted-foreground">
+                                                    Add photos after the event is
+                                                    finished or archived. New files
+                                                    are appended when you save.
+                                                </p>
+                                                {existingMedia.length > 0 ? (
+                                                    <div>
+                                                        <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                                                            Current photos (
+                                                            {existingMedia.length})
+                                                        </div>
+                                                        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4">
+                                                            {existingMedia.map(
+                                                                (m) => (
+                                                                    <div
+                                                                        key={m.id}
+                                                                        className="aspect-square overflow-hidden rounded-lg bg-muted ring-1 ring-border"
+                                                                    >
+                                                                        {m.url ? (
+                                                                            <img
+                                                                                src={
+                                                                                    m.url
+                                                                                }
+                                                                                alt=""
+                                                                                className="h-full w-full object-cover"
+                                                                            />
+                                                                        ) : null}
+                                                                    </div>
+                                                                ),
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                ) : null}
+                                                <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-8">
+                                                    <div className="text-center text-sm text-muted-foreground">
+                                                        Add images to the gallery
+                                                    </div>
+                                                    <div className="mt-4 flex justify-center">
+                                                        <label className="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground">
+                                                            Choose files
+                                                            <input
+                                                                type="file"
+                                                                multiple
+                                                                className="sr-only"
+                                                                onChange={(e) =>
+                                                                    setData(
+                                                                        'media_files',
+                                                                        Array.from(
+                                                                            e.target
+                                                                                .files ??
+                                                                                [],
+                                                                        ),
+                                                                    )
+                                                                }
+                                                            />
+                                                        </label>
+                                                    </div>
+
+                                                    {(data.media_files ?? [])
+                                                        .length ? (
+                                                        <div className="mt-5 space-y-2 text-sm">
+                                                            {(
+                                                                data.media_files ??
+                                                                []
+                                                            ).map((f, idx) => (
+                                                                <div
+                                                                    key={`${f.name}-${idx}`}
+                                                                    className="flex items-center justify-between gap-3 rounded-xl border border-border bg-background px-4 py-2"
+                                                                >
+                                                                    <div className="min-w-0 truncate text-muted-foreground">
+                                                                        {f.name}
+                                                                    </div>
+                                                                    <button
+                                                                        type="button"
+                                                                        className="text-xs font-semibold text-alpha-danger hover:underline"
+                                                                        onClick={() =>
+                                                                            setData(
+                                                                                'media_files',
+                                                                                (
+                                                                                    data.media_files ??
+                                                                                    []
+                                                                                ).filter(
+                                                                                    (
+                                                                                        _,
+                                                                                        i,
+                                                                                    ) =>
+                                                                                        i !==
+                                                                                        idx,
+                                                                                ),
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        Remove
+                                                                    </button>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : null}
+
+                                                    <InputError
+                                                        message={
+                                                            errors.media_files
+                                                        }
+                                                    />
+                                                </div>
+                                            </>
+                                        ) : (
+                                            <p className="text-sm text-muted-foreground">
+                                                YouTube replay and the photo gallery
+                                                are available only when status is{' '}
+                                                <span className="font-semibold text-foreground">
+                                                    Finished
+                                                </span>{' '}
+                                                or{' '}
+                                                <span className="font-semibold text-foreground">
+                                                    Archived
+                                                </span>
+                                                . Change status in the sidebar,
+                                                save, then return here.
+                                            </p>
+                                        )}
+                                    </CardContent>
+                                </Card>
+                            ) : null}
                         </CardContent>
                     </Card>
                 </div>
@@ -359,9 +650,16 @@ export default function EventForm({
                                 <select
                                     id="status"
                                     value={data.status}
-                                    onChange={(e) =>
-                                        setData('status', e.target.value)
-                                    }
+                                    onChange={(e) => {
+                                        const next = e.target.value;
+                                        setData('status', next);
+                                        if (
+                                            next !== 'finished' &&
+                                            next !== 'archived'
+                                        ) {
+                                            setData('media_files', []);
+                                        }
+                                    }}
                                     className={cn(
                                         'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
@@ -895,6 +1193,98 @@ export default function EventForm({
                                     }
                                     setData('partners', next);
                                     setPartnerModalOpen(false);
+                                }}
+                            >
+                                Save
+                            </Button>
+                        </div>
+                    </div>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog
+                open={agendaModalOpen}
+                onOpenChange={(open) => !open && setAgendaModalOpen(false)}
+            >
+                <DialogContent className="sm:max-w-lg">
+                    <DialogHeader className="text-left">
+                        <DialogTitle>
+                            {editingAgendaIndex === null
+                                ? 'Add agenda item'
+                                : 'Edit agenda item'}
+                        </DialogTitle>
+                        <DialogDescription>
+                            Time (e.g. 18:00) and session title as shown on the
+                            public event page.
+                        </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                        <div className="space-y-2">
+                            <Label>Time</Label>
+                            <Input
+                                type="time"
+                                value={agendaDraft.time ?? ''}
+                                onChange={(e) =>
+                                    setAgendaDraft((d) => ({
+                                        ...d,
+                                        time: e.target.value,
+                                    }))
+                                }
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Title *</Label>
+                            <Input
+                                value={agendaDraft.label}
+                                onChange={(e) =>
+                                    setAgendaDraft((d) => ({
+                                        ...d,
+                                        label: e.target.value,
+                                    }))
+                                }
+                                placeholder="e.g. Opening remarks"
+                            />
+                        </div>
+                        <div className="flex justify-end gap-2 pt-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() => setAgendaModalOpen(false)}
+                            >
+                                Cancel
+                            </Button>
+                            <Button
+                                type="button"
+                                className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                onClick={() => {
+                                    const label = (
+                                        agendaDraft.label ?? ''
+                                    ).trim();
+                                    if (!label) return;
+                                    const time = (agendaDraft.time ?? '').trim();
+                                    const displayTime =
+                                        time.length >= 5
+                                            ? time.slice(0, 5)
+                                            : time;
+                                    const items = [
+                                        ...(data.agenda?.items ?? []),
+                                    ];
+                                    const row = {
+                                        time: displayTime,
+                                        label,
+                                    };
+                                    if (editingAgendaIndex === null) {
+                                        items.push(row);
+                                    } else {
+                                        items[editingAgendaIndex] = row;
+                                    }
+                                    setData('agenda', {
+                                        title:
+                                            (data.agenda?.title ?? '').trim() ||
+                                            'Agenda',
+                                        items,
+                                    });
+                                    setAgendaModalOpen(false);
                                 }}
                             >
                                 Save

@@ -198,12 +198,54 @@ function Calendar({
     );
 }
 
+function statusLabelNode(status) {
+    switch (status) {
+        case 'upcoming':
+            return (
+                <TransText
+                    en="Upcoming"
+                    fr="À venir"
+                    ar="قادمة"
+                />
+            );
+        case 'live':
+            return (
+                <TransText en="Live" fr="En direct" ar="مباشر" />
+            );
+        case 'finished':
+            return (
+                <TransText
+                    en="Finished"
+                    fr="Terminé"
+                    ar="منتهية"
+                />
+            );
+        case 'archived':
+            return (
+                <TransText
+                    en="Archived"
+                    fr="Archivé"
+                    ar="مؤرشفة"
+                />
+            );
+        default:
+            return (
+                <span className="capitalize">
+                    {String(status).replace(/-/g, ' ')}
+                </span>
+            );
+    }
+}
+
 export default function EventsSidebar({
     categories,
     setCategories,
     selectedDayIso,
     setSelectedDayIso,
     events = [],
+    eventStatuses = ['upcoming', 'live', 'finished', 'archived'],
+    statusFilters = {},
+    setStatusFilters,
 }) {
     const { t } = useTranslation();
     const initialMonth = useMemo(() => startOfMonth(new Date()), []);
@@ -226,6 +268,37 @@ export default function EventsSidebar({
                 setSelectedDayIso={setSelectedDayIso}
                 daysWithEvents={daysWithEvents}
             />
+
+            <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
+                <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
+                    <TransText en="Status" fr="Statut" ar="الحالة" />
+                </div>
+                <div className="mt-4 space-y-3">
+                    {(eventStatuses ?? []).map((status) => (
+                        <label
+                            key={status}
+                            className="flex items-center gap-3 text-sm text-muted-foreground"
+                            htmlFor={`evt-status-${status}`}
+                        >
+                            <input
+                                id={`evt-status-${status}`}
+                                type="checkbox"
+                                checked={Boolean(statusFilters?.[status])}
+                                onChange={(e) =>
+                                    setStatusFilters?.((f) => ({
+                                        ...f,
+                                        [status]: e.target.checked,
+                                    }))
+                                }
+                                className="h-4 w-4 rounded border-border text-beta-blue focus:ring-ring"
+                            />
+                            <span className="font-semibold text-foreground">
+                                {statusLabelNode(status)}
+                            </span>
+                        </label>
+                    ))}
+                </div>
+            </div>
 
             <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
                 <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">

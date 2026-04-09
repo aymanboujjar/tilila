@@ -25,9 +25,14 @@ export default function AdminEventsCreate({
         date: '',
         time: '',
         timezone: 'GMT+1',
+        cover_image_path: null,
+        cover_image_url: null,
+        cover_image: null,
+        media_files: [],
         speakers: [],
         partners: [],
-        media_files: [],
+        replay_video_url: '',
+        agenda: { title: 'Agenda', items: [] },
     });
 
     const [processing, setProcessing] = useState(false);
@@ -68,6 +73,7 @@ export default function AdminEventsCreate({
                 </div>
 
                 <EventForm
+                    mode="create"
                     data={data}
                     setData={setData}
                     errors={errors}

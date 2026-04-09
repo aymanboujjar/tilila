@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 
 class Event extends Model
 {
@@ -18,9 +19,14 @@ class Event extends Model
         'date',
         'time',
         'timezone',
+        'cover_image_path',
+        'replay_video_url',
+        'agenda',
         'list_payload',
         'details_payload',
     ];
+
+    protected $appends = ['cover_image_url'];
 
     /**
      * @return array<string, string>
@@ -34,12 +40,22 @@ class Event extends Model
             'date' => 'date:Y-m-d',
             'list_payload' => 'array',
             'details_payload' => 'array',
+            'agenda' => 'array',
         ];
     }
 
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function getCoverImageUrlAttribute(): ?string
+    {
+        if (! $this->cover_image_path) {
+            return null;
+        }
+
+        return Storage::url($this->cover_image_path);
     }
 
     public function participants(): HasMany

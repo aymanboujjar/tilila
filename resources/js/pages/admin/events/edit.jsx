@@ -26,6 +26,10 @@ export default function AdminEventsEdit({
         date: event.date ?? '',
         time: event.time ?? '',
         timezone: event.timezone ?? 'GMT+1',
+        cover_image_path: event.cover_image_path ?? null,
+        cover_image_url: event.cover_image_url ?? null,
+        cover_image: null,
+        media_files: [],
         speakers: (event.speakers ?? []).map((s) => ({
             full_name: s.full_name ?? '',
             role: s.role ?? '',
@@ -39,7 +43,25 @@ export default function AdminEventsEdit({
             logo_path: p.logo_path ?? null,
             logo_url: p.logo_url ?? null,
         })),
-        media_files: [],
+        replay_video_url: event.replay_video_url ?? '',
+        agenda:
+            event.agenda &&
+            typeof event.agenda === 'object' &&
+            !Array.isArray(event.agenda)
+                ? {
+                      title:
+                          typeof event.agenda.title === 'string' &&
+                          event.agenda.title.trim() !== ''
+                              ? event.agenda.title
+                              : 'Agenda',
+                      items: Array.isArray(event.agenda.items)
+                          ? event.agenda.items.map((row) => ({
+                                time: row?.time ?? '',
+                                label: row?.label ?? '',
+                            }))
+                          : [],
+                  }
+                : { title: 'Agenda', items: [] },
     });
 
     const [processing, setProcessing] = useState(false);
@@ -85,6 +107,8 @@ export default function AdminEventsEdit({
                 </div>
 
                 <EventForm
+                    mode="edit"
+                    existingMedia={event.media ?? []}
                     data={data}
                     setData={setData}
                     errors={errors}

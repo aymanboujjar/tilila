@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\EventParticipant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -13,40 +14,18 @@ class EventController extends Controller
     public function index(Request $request): Response
     {
         $events = Event::query()
-            ->orderByDesc('updated_at')
-            ->limit(200)
+            ->where('visibility', 'public')
+            ->where('status', '!=', 'draft')
+            ->orderByRaw('CASE WHEN date IS NULL THEN 1 ELSE 0 END')
+            ->orderBy('date')
+            ->orderBy('time')
+            ->orderByDesc('id')
             ->get()
-            ->map(function (Event $e) {
-                // Prefer the saved mock payload shape used by the frontend components.
-                if (is_array($e->list_payload) && ($e->list_payload['id'] ?? null)) {
-                    return [
-                        ...$e->list_payload,
-                        // Public routes use numeric IDs: /events/{id}
-                        'id' => $e->id,
-                    ];
-                }
-
-                return [
-                    'id' => $e->id,
-                    'type' => $e->type,
-                    'badge' => null,
-                    'dateIso' => $e->date?->format('Y-m-d'),
-                    'dateTimeIso' => null,
-                    'startTime' => $e->time ? substr((string) $e->time, 0, 5) : null,
-                    'endTime' => null,
-                    'tzLabel' => $e->timezone,
-                    'title' => $e->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
-                    'excerpt' => $e->description ?? ['en' => '', 'fr' => '', 'ar' => ''],
-                    'location' => $e->location ?? ['en' => '', 'fr' => '', 'ar' => ''],
-                    'isOnline' => false,
-                    'categoryLabel' => null,
-                    'imageSrc' => null,
-                    'cta' => ['label' => ['en' => 'View', 'fr' => 'Voir', 'ar' => 'عرض'], 'kind' => 'secondary', 'href' => '#'],
-                ];
-            });
+            ->map(fn (Event $e) => $this->publicIndexPayload($e));
 
         return Inertia::render('events/index', [
             'events' => $events,
+            'eventStatuses' => ['upcoming', 'live', 'finished', 'archived'],
         ]);
     }
 
@@ -98,33 +77,93 @@ class EventController extends Controller
     private function publicListPayloadForShow(Event $event): array
     {
         if (is_array($event->list_payload) && $event->list_payload !== []) {
-            return [
+            $payload = [
                 ...$event->list_payload,
                 'id' => $event->id,
             ];
+        } else {
+            $payload = [
+                'id' => $event->id,
+                'type' => $event->type,
+                'badge' => null,
+                'dateIso' => $event->date?->format('Y-m-d'),
+                'dateTimeIso' => null,
+                'startTime' => $event->time ? substr((string) $event->time, 0, 5) : null,
+                'endTime' => null,
+                'tzLabel' => $event->timezone,
+                'title' => $event->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'excerpt' => $event->description ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'location' => $event->location ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'isOnline' => false,
+                'categoryLabel' => null,
+                'imageSrc' => null,
+                'cta' => [
+                    'label' => ['en' => 'View', 'fr' => 'Voir', 'ar' => 'عرض'],
+                    'kind' => 'secondary',
+                    'href' => '#',
+                ],
+            ];
         }
 
-        return [
-            'id' => $event->id,
-            'type' => $event->type,
-            'badge' => null,
-            'dateIso' => $event->date?->format('Y-m-d'),
-            'dateTimeIso' => null,
-            'startTime' => $event->time ? substr((string) $event->time, 0, 5) : null,
-            'endTime' => null,
-            'tzLabel' => $event->timezone,
-            'title' => $event->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
-            'excerpt' => $event->description ?? ['en' => '', 'fr' => '', 'ar' => ''],
-            'location' => $event->location ?? ['en' => '', 'fr' => '', 'ar' => ''],
-            'isOnline' => false,
-            'categoryLabel' => null,
-            'imageSrc' => null,
-            'cta' => [
-                'label' => ['en' => 'View', 'fr' => 'Voir', 'ar' => 'عرض'],
-                'kind' => 'secondary',
-                'href' => '#',
-            ],
-        ];
+        if (is_string($event->cover_image_path) && $event->cover_image_path !== '') {
+            $payload['imageSrc'] = Storage::url($event->cover_image_path);
+        }
+
+        $payload['status'] = $event->status;
+        $payload['dateTimeIso'] = $payload['dateTimeIso'] ?? $this->publicEventDateTimeIso($event);
+
+        return $payload;
+    }
+
+    private function publicEventDateTimeIso(Event $event): ?string
+    {
+        if (! $event->date) {
+            return null;
+        }
+
+        $t = $event->time ? substr((string) $event->time, 0, 5) : '12:00';
+
+        return $event->date->format('Y-m-d').'T'.$t.':00';
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private function publicIndexPayload(Event $event): array
+    {
+        if (is_array($event->list_payload) && ($event->list_payload['id'] ?? null)) {
+            $row = [
+                ...$event->list_payload,
+                'id' => $event->id,
+            ];
+        } else {
+            $row = [
+                'id' => $event->id,
+                'type' => $event->type,
+                'badge' => null,
+                'dateIso' => $event->date?->format('Y-m-d'),
+                'dateTimeIso' => null,
+                'startTime' => $event->time ? substr((string) $event->time, 0, 5) : null,
+                'endTime' => null,
+                'tzLabel' => $event->timezone,
+                'title' => $event->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'excerpt' => $event->description ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'location' => $event->location ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'isOnline' => false,
+                'categoryLabel' => null,
+                'imageSrc' => null,
+                'cta' => ['label' => ['en' => 'View', 'fr' => 'Voir', 'ar' => 'عرض'], 'kind' => 'secondary', 'href' => '#'],
+            ];
+        }
+
+        if (is_string($event->cover_image_path) && $event->cover_image_path !== '') {
+            $row['imageSrc'] = Storage::url($event->cover_image_path);
+        }
+
+        $row['status'] = $event->status;
+        $row['dateTimeIso'] = $row['dateTimeIso'] ?? $this->publicEventDateTimeIso($event);
+
+        return $row;
     }
 
     /**
@@ -150,11 +189,19 @@ class EventController extends Controller
         if ($event->partners->isNotEmpty()) {
             $merged['partners'] = $this->partnersForPublicDetails($event);
         }
-        if ($event->media->isNotEmpty()) {
+        if ($event->media->isNotEmpty() && $this->eventAllowsReplayAndGallery($event)) {
             $merged['gallery'] = $this->galleryForPublicDetails($event);
         }
 
-        return $merged;
+        if (($replay = $this->buildReplayPayload($event)) !== null) {
+            $merged['replay'] = $replay;
+        }
+
+        if ($this->eventHasAgendaItems($event)) {
+            $merged['agenda'] = $this->agendaForPublicDetails($event);
+        }
+
+        return $this->stripFinishedEventExtras($event, $merged);
     }
 
     /**
@@ -177,7 +224,7 @@ class EventController extends Controller
             }
         }
 
-        return [
+        $payload = [
             'hero' => [
                 'badge' => null,
                 'dateLabel' => $this->formatPublicEventDateLabel($event),
@@ -190,10 +237,7 @@ class EventController extends Controller
                 'paragraphs' => $paragraphs,
             ],
             'speakers' => $this->speakersForPublicDetails($event),
-            'agenda' => [
-                'title' => 'Agenda',
-                'items' => [],
-            ],
+            'agenda' => $this->agendaForPublicDetails($event),
             'partners' => $this->partnersForPublicDetails($event),
             'gallery' => $this->galleryForPublicDetails($event),
             'registration' => [
@@ -203,6 +247,119 @@ class EventController extends Controller
                 'submitLabel' => 'Complete Registration',
             ],
         ];
+
+        if (($replay = $this->buildReplayPayload($event)) !== null) {
+            $payload['replay'] = $replay;
+        }
+
+        return $this->stripFinishedEventExtras($event, $payload);
+    }
+
+    private function eventAllowsReplayAndGallery(Event $event): bool
+    {
+        return in_array($event->status, ['finished', 'archived'], true);
+    }
+
+    /**
+     * @return array{title: string, items: list<array{time: string, label: string}>}
+     */
+    private function agendaForPublicDetails(Event $event): array
+    {
+        $a = $event->agenda;
+        if (! is_array($a)) {
+            return ['title' => 'Agenda', 'items' => []];
+        }
+
+        $title = isset($a['title']) && is_string($a['title']) && trim($a['title']) !== ''
+            ? trim($a['title'])
+            : 'Agenda';
+
+        $items = [];
+        foreach ($a['items'] ?? [] as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+            $time = trim((string) ($row['time'] ?? ''));
+            $label = trim((string) ($row['label'] ?? ''));
+            if ($label === '') {
+                continue;
+            }
+            $items[] = [
+                'time' => $time === '' ? '—' : $time,
+                'label' => $label,
+            ];
+        }
+
+        return ['title' => $title, 'items' => $items];
+    }
+
+    private function eventHasAgendaItems(Event $event): bool
+    {
+        return count($this->agendaForPublicDetails($event)['items']) > 0;
+    }
+
+    /**
+     * @return array<string, mixed>|null
+     */
+    private function buildReplayPayload(Event $event): ?array
+    {
+        if (! $this->eventAllowsReplayAndGallery($event)) {
+            return null;
+        }
+
+        $raw = trim((string) ($event->replay_video_url ?? ''));
+        if ($raw === '') {
+            return null;
+        }
+
+        $embed = $this->normalizeYoutubeEmbedUrl($raw);
+        if ($embed === null) {
+            return null;
+        }
+
+        return [
+            'title' => 'Event Replay',
+            'videoTitle' => 'Replay',
+            'durationLabel' => '',
+            'embedUrl' => $embed,
+        ];
+    }
+
+    private function normalizeYoutubeEmbedUrl(string $url): ?string
+    {
+        $url = trim($url);
+        if ($url === '') {
+            return null;
+        }
+
+        if (preg_match('#youtube(?:-nocookie)?\.com/embed/([a-zA-Z0-9_-]+)#', $url, $m)) {
+            return 'https://www.youtube.com/embed/'.$m[1];
+        }
+
+        if (preg_match('#(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/shorts/)([a-zA-Z0-9_-]+)#', $url, $m)) {
+            return 'https://www.youtube.com/embed/'.$m[1];
+        }
+
+        return null;
+    }
+
+    /**
+     * @param  array<string, mixed>  $details
+     * @return array<string, mixed>
+     */
+    private function stripFinishedEventExtras(Event $event, array $details): array
+    {
+        if ($this->eventAllowsReplayAndGallery($event)) {
+            return $details;
+        }
+
+        $details['gallery'] = [
+            'title' => is_array($details['gallery'] ?? null) ? ($details['gallery']['title'] ?? 'Photo Gallery') : 'Photo Gallery',
+            'items' => [],
+        ];
+        unset($details['replay']);
+
+        return $details;
     }
 
     private function formatPublicEventDateLabel(Event $event): ?string

@@ -82,6 +82,12 @@ class EventController extends Controller
 
         /** @var Event $event */
         $event = DB::transaction(function () use ($request, $data, $speakers, $partners): Event {
+            if ($request->hasFile('cover_image')) {
+                $data['cover_image_path'] = $request->file('cover_image')->store('event-covers', 'public');
+            } else {
+                $data['cover_image_path'] = $data['cover_image_path'] ?? null;
+            }
+
             $event = Event::create($data);
 
             $this->replaceEventSpeakers(
@@ -96,22 +102,6 @@ class EventController extends Controller
                 is_array($partners) ? $partners : [],
                 new Collection,
             );
-
-            if ($request->hasFile('media_files')) {
-                foreach ((array) $request->file('media_files') as $idx => $file) {
-                    if (! $file) {
-                        continue;
-                    }
-                    $path = $file->store('event-media', 'public');
-                    $event->media()->create([
-                        'path' => $path,
-                        'original_name' => $file->getClientOriginalName(),
-                        'mime' => $file->getClientMimeType(),
-                        'size' => $file->getSize(),
-                        'sort' => (int) $idx,
-                    ]);
-                }
-            }
 
             return $event;
         });
@@ -179,6 +169,15 @@ class EventController extends Controller
         $partners = $request->input('partners', []);
 
         DB::transaction(function () use ($request, $event, $data, $speakers, $partners): void {
+            if ($request->hasFile('cover_image')) {
+                if (is_string($event->cover_image_path) && $event->cover_image_path !== '') {
+                    Storage::disk('public')->delete($event->cover_image_path);
+                }
+                $data['cover_image_path'] = $request->file('cover_image')->store('event-covers', 'public');
+            } elseif (! array_key_exists('cover_image_path', $data) || $data['cover_image_path'] === null || $data['cover_image_path'] === '') {
+                $data['cover_image_path'] = $event->cover_image_path;
+            }
+
             $event->update($data);
 
             $prevSpeakers = $event->speakers()->get();
@@ -197,7 +196,10 @@ class EventController extends Controller
                 $prevPartners,
             );
 
-            if ($request->hasFile('media_files')) {
+            $allowsGallery = in_array($data['status'], ['finished', 'archived'], true);
+
+            if ($allowsGallery && $request->hasFile('media_files')) {
+                $sortBase = (int) $event->media()->max('sort') + 1;
                 foreach ((array) $request->file('media_files') as $idx => $file) {
                     if (! $file) {
                         continue;
@@ -208,7 +210,7 @@ class EventController extends Controller
                         'original_name' => $file->getClientOriginalName(),
                         'mime' => $file->getClientMimeType(),
                         'size' => $file->getSize(),
-                        'sort' => (int) $idx,
+                        'sort' => $sortBase + (int) $idx,
                     ]);
                 }
             }
@@ -223,6 +225,9 @@ class EventController extends Controller
     public function destroy(Event $event): RedirectResponse
     {
         $event->load(['media', 'speakers', 'partners']);
+        if (is_string($event->cover_image_path) && $event->cover_image_path !== '') {
+            Storage::disk('public')->delete($event->cover_image_path);
+        }
         foreach ($event->media as $m) {
             if (is_string($m->path) && $m->path !== '') {
                 Storage::disk('public')->delete($m->path);
@@ -291,6 +296,14 @@ class EventController extends Controller
             'date' => 'nullable|date',
             'time' => 'nullable|date_format:H:i',
             'timezone' => 'nullable|string|max:16',
+            'cover_image' => 'nullable|image|max:8192',
+            'cover_image_path' => 'nullable|string|max:500',
+            'replay_video_url' => 'nullable|string|max:2048',
+            'agenda' => 'nullable|array',
+            'agenda.title' => 'nullable|string|max:255',
+            'agenda.items' => 'nullable|array',
+            'agenda.items.*.time' => 'nullable|string|max:32',
+            'agenda.items.*.label' => 'nullable|string|max:500',
             'speakers' => 'nullable|array',
             'speakers.*.full_name' => 'nullable|string|max:255',
             'speakers.*.role' => 'nullable|string|max:255',
@@ -310,7 +323,52 @@ class EventController extends Controller
         $validated['description'] = $validated['description'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
         $validated['timezone'] = $validated['timezone'] ?? ($event?->timezone ?? 'GMT+1');
 
+        unset($validated['cover_image']);
+
+        $validated['agenda'] = $this->normalizeAgendaInput($validated['agenda'] ?? null);
+
         return $validated;
+    }
+
+    /**
+     * @param  array<string, mixed>|null  $agenda
+     * @return array{title: string, items: list<array{time: string, label: string}>}|null
+     */
+    private function normalizeAgendaInput(?array $agenda): ?array
+    {
+        if (! is_array($agenda)) {
+            return null;
+        }
+
+        $title = trim((string) ($agenda['title'] ?? ''));
+        if ($title === '') {
+            $title = 'Agenda';
+        }
+
+        $items = [];
+        $rawItems = $agenda['items'] ?? [];
+        if (is_array($rawItems)) {
+            foreach ($rawItems as $row) {
+                if (! is_array($row)) {
+                    continue;
+                }
+                $time = trim((string) ($row['time'] ?? ''));
+                $label = trim((string) ($row['label'] ?? ''));
+                if ($label === '') {
+                    continue;
+                }
+                $items[] = [
+                    'time' => $time === '' ? '—' : $time,
+                    'label' => $label,
+                ];
+            }
+        }
+
+        if ($items === []) {
+            return null;
+        }
+
+        return ['title' => $title, 'items' => $items];
     }
 
     private function uniqueSlugFromEnglishTitle(string $englishTitle, ?int $ignoreId = null): string
