@@ -15,10 +15,70 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
-import { buildExpertPayload } from '@/pages/admin/experts/partials/buildExpertPayload';
-import { emptyDetails } from '@/pages/admin/experts/partials/expertDetailsDefaults';
 import ExpertPublicProfileDetails from '@/pages/admin/experts/partials/ExpertPublicProfileDetails';
 import { store } from '@/routes/admin/experts';
+
+function emptyDetails() {
+    return {
+        headlineTags: [],
+        bio: [],
+        quote: { en: '', fr: '', ar: '' },
+        expertise: [],
+        journey: [],
+        appearances: [],
+        articles: [],
+    };
+}
+
+/**
+ * @param {Record<string, unknown>} data
+ */
+function buildExpertPayload(data) {
+    const {
+        industriesStr,
+        languagesStr,
+        remove_image,
+        profile_image,
+        ...rest
+    } = data;
+
+    const payload = {
+        name: rest.name,
+        title: rest.title,
+        location: rest.location,
+        country: rest.country,
+        industries: String(industriesStr ?? '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        languages: String(languagesStr ?? '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        badge:
+            typeof rest.badge === 'string' && rest.badge.trim() !== ''
+                ? rest.badge.trim()
+                : null,
+        status: rest.status,
+        email:
+            typeof rest.email === 'string' && rest.email.trim() !== ''
+                ? rest.email.trim()
+                : null,
+        details: rest.details ?? {},
+    };
+
+    if (
+        profile_image instanceof File ||
+        (profile_image instanceof Blob && profile_image.size > 0)
+    ) {
+        payload.profile_image = profile_image;
+    }
+    if (remove_image === true) {
+        payload.remove_image = true;
+    }
+
+    return payload;
+}
 
 const STEPS = [
     {

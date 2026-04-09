@@ -92,7 +92,9 @@ class Expert extends Model
                     return null;
                 }
 
-                return Storage::disk('public')->url($path);
+                $path = str_replace('\\', '/', $path);
+
+                return '/storage/'.ltrim($path, '/');
             }
         );
     }

@@ -15,10 +15,95 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import AppLayout from '@/layouts/app-layout';
 import { cn } from '@/lib/utils';
-import { buildExpertPayload } from '@/pages/admin/experts/partials/buildExpertPayload';
-import { normalizeDetails } from '@/pages/admin/experts/partials/expertDetailsDefaults';
 import ExpertPublicProfileDetails from '@/pages/admin/experts/partials/ExpertPublicProfileDetails';
 import { update } from '@/routes/admin/experts';
+
+function emptyDetails() {
+    return {
+        headlineTags: [],
+        bio: [],
+        quote: { en: '', fr: '', ar: '' },
+        expertise: [],
+        journey: [],
+        appearances: [],
+        articles: [],
+    };
+}
+
+/**
+ * @param {unknown} raw
+ */
+function normalizeDetails(raw) {
+    const e = emptyDetails();
+    if (!raw || typeof raw !== 'object') {
+        return e;
+    }
+    const d = /** @type {Record<string, unknown>} */ (raw);
+    return {
+        headlineTags: Array.isArray(d.headlineTags)
+            ? d.headlineTags
+            : e.headlineTags,
+        bio: Array.isArray(d.bio) ? d.bio : e.bio,
+        quote:
+            d.quote && typeof d.quote === 'object'
+                ? { ...e.quote, ...d.quote }
+                : e.quote,
+        expertise: Array.isArray(d.expertise) ? d.expertise : e.expertise,
+        journey: Array.isArray(d.journey) ? d.journey : e.journey,
+        appearances: Array.isArray(d.appearances) ? d.appearances : e.appearances,
+        articles: Array.isArray(d.articles) ? d.articles : e.articles,
+    };
+}
+
+/**
+ * @param {Record<string, unknown>} data
+ */
+function buildExpertPayload(data) {
+    const {
+        industriesStr,
+        languagesStr,
+        remove_image,
+        profile_image,
+        ...rest
+    } = data;
+
+    const payload = {
+        name: rest.name,
+        title: rest.title,
+        location: rest.location,
+        country: rest.country,
+        industries: String(industriesStr ?? '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        languages: String(languagesStr ?? '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        badge:
+            typeof rest.badge === 'string' && rest.badge.trim() !== ''
+                ? rest.badge.trim()
+                : null,
+        status: rest.status,
+        email:
+            typeof rest.email === 'string' && rest.email.trim() !== ''
+                ? rest.email.trim()
+                : null,
+        details: rest.details ?? {},
+    };
+
+    if (
+        profile_image instanceof File ||
+        (profile_image instanceof Blob && profile_image.size > 0)
+    ) {
+        payload.profile_image = profile_image;
+    }
+    if (remove_image === true) {
+        payload.remove_image = true;
+    }
+
+    return payload;
+}
 
 const STEPS = [
     {

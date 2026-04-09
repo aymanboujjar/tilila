@@ -159,7 +159,10 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                 data.map((expert) => (
                                     <TableRow key={expert.id}>
                                         <TableCell className="py-4 sm:px-3">
-                                            <div className="flex items-center gap-3">
+                                            <Link
+                                                href={`/admin/experts/${expert.id}/edit`}
+                                                className="group flex items-center gap-3"
+                                            >
                                                 {expert.image_url ? (
                                                     <img
                                                         src={expert.image_url}
@@ -177,14 +180,14 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                     </div>
                                                 )}
                                                 <div className="min-w-0">
-                                                    <div className="text-tblack font-semibold">
+                                                    <div className="text-tblack font-semibold group-hover:underline">
                                                         {expert.name?.en}
                                                     </div>
                                                     <div className="text-tgray truncate text-xs">
                                                         {expert.title?.en}
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </Link>
                                         </TableCell>
                                         <TableCell className="py-4 sm:px-3">
                                             <span
