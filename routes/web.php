@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExpertController;
+use App\Http\Controllers\OpportunityController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -11,8 +12,8 @@ Route::inertia('/', 'home/index', [
 
 Route::get('/experts', [ExpertController::class, 'index'])->name('experts.index');
 Route::get('/experts/{expert}', [ExpertController::class, 'show'])->name('experts.show');
-Route::inertia('/opportunities', 'opportunities/index')->name('opportunities.index');
-Route::inertia('/opportunities/{id}', 'opportunities/[id]')->name('opportunities.show');
+Route::get('/opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
+Route::get('/opportunities/{opportunity}', [OpportunityController::class, 'show'])->name('opportunities.show');
 Route::get('/about', function () {
     return Inertia::render('user/about/index');
 });

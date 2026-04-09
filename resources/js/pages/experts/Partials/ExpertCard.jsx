@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
-import { useTranslation } from '@/contexts/TranslationContext';
+// import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 import { show } from '@/routes/experts';
 

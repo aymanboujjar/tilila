@@ -1,14 +1,12 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import { OPPORTUNITIES } from '@/pages/opportunities/Partials/opportunities-data';
-import { OPPORTUNITY_DETAILS } from '@/pages/opportunities/Partials/opportunity-details-data';
 import InfoCard from '@/pages/opportunities/Partials/Details/InfoCard';
 import Eligibility from '@/pages/opportunities/Partials/Details/Eligibility';
 import DeadlineCard from '@/pages/opportunities/Partials/Details/DeadlineCard';
 import HowToApply from '@/pages/opportunities/Partials/Details/HowToApply';
 import ApplyNowModal from '@/pages/opportunities/Partials/ApplyNowModal';
-// import { useTranslation } from '@/contexts/TranslationContext';
+import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
 function Pill({ children, variant = 'secondary' }) {
@@ -28,27 +26,14 @@ function Pill({ children, variant = 'secondary' }) {
     );
 }
 
-export default function OpportunityDetails({ id }) {
+export default function OpportunityDetails({ opportunity }) {
     const { locale, t } = useTranslation();
-    const pageProps = usePage().props;
-    const opportunityId = id ?? pageProps?.id;
 
     const resolve = (value) =>
         locale === 'ar' ? value?.ar : locale === 'fr' ? value?.fr : value?.en;
 
-    const base = useMemo(
-        () =>
-            OPPORTUNITIES.find((x) => x.id === opportunityId) ??
-            OPPORTUNITIES[0],
-        [opportunityId],
-    );
-
-    const details = useMemo(
-        () =>
-            OPPORTUNITY_DETAILS[opportunityId] ??
-            OPPORTUNITY_DETAILS['women-media-leadership-program-2024'],
-        [opportunityId],
-    );
+    const base = opportunity ?? {};
+    const details = opportunity?.details ?? {};
 
     const [saved, setSaved] = useState(false);
     const [applyOpen, setApplyOpen] = useState(false);
@@ -85,7 +70,7 @@ export default function OpportunityDetails({ id }) {
                         </Link>
                         <span aria-hidden="true">›</span>
                         <span className="font-semibold text-foreground">
-                            {resolve(details?.title) ?? resolve(base.title)}
+                            {resolve(details?.title) ?? resolve(base?.title)}
                         </span>
                     </nav>
 
@@ -101,7 +86,7 @@ export default function OpportunityDetails({ id }) {
                                     <span className="text-muted-foreground">
                                         {resolve(details?.meta) ??
                                             `${t('opportunities.card.postedPrefix')} ${
-                                                resolve(base.posted) ?? ''
+                                                resolve(base?.posted) ?? ''
                                             }`}
                                     </span>
                                 </div>
@@ -110,11 +95,11 @@ export default function OpportunityDetails({ id }) {
                                     <div>
                                         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
                                             {resolve(details?.title) ??
-                                                resolve(base.title)}
+                                                resolve(base?.title)}
                                         </h1>
                                         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                                             {resolve(details?.description) ??
-                                                resolve(base.excerpt)}
+                                                resolve(base?.excerpt)}
                                         </p>
                                     </div>
 
@@ -180,19 +165,19 @@ export default function OpportunityDetails({ id }) {
                                                         resolve(
                                                             details?.description,
                                                         ) ??
-                                                        resolve(base.excerpt)
+                                                        resolve(base?.excerpt)
                                                     }
                                                     fr={
                                                         resolve(
                                                             details?.description,
                                                         ) ??
-                                                        resolve(base.excerpt)
+                                                        resolve(base?.excerpt)
                                                     }
                                                     ar={
                                                         resolve(
                                                             details?.description,
                                                         ) ??
-                                                        resolve(base.excerpt)
+                                                        resolve(base?.excerpt)
                                                     }
                                                 />
                                             </p>
