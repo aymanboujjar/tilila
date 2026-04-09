@@ -26,6 +26,20 @@ export default function AdminEventsEdit({
         date: event.date ?? '',
         time: event.time ?? '',
         timezone: event.timezone ?? 'GMT+1',
+        speakers: (event.speakers ?? []).map((s) => ({
+            full_name: s.full_name ?? '',
+            role: s.role ?? '',
+            email: s.email ?? '',
+            photo_path: s.photo_path ?? null,
+            photo_url: s.photo_url ?? null,
+        })),
+        partners: (event.partners ?? []).map((p) => ({
+            name: p.name ?? '',
+            url: p.url ?? '',
+            logo_path: p.logo_path ?? null,
+            logo_url: p.logo_url ?? null,
+        })),
+        media_files: [],
     });
 
     const [processing, setProcessing] = useState(false);
@@ -37,6 +51,7 @@ export default function AdminEventsEdit({
             `/admin/events/${encodeURIComponent(event.slug ?? '')}`,
             { ...data, _method: 'put' },
             {
+                forceFormData: true,
                 preserveScroll: true,
                 onStart: () => setProcessing(true),
                 onFinish: () => setProcessing(false),

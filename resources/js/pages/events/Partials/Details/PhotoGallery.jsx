@@ -1,6 +1,18 @@
 import React from 'react';
 
-function Tile({ label, isMore }) {
+function Tile({ label, isMore, src }) {
+    if (src && !isMore) {
+        return (
+            <div className="relative aspect-square overflow-hidden rounded-2xl bg-muted ring-1 ring-border">
+                <img
+                    src={src}
+                    alt={label}
+                    className="h-full w-full object-cover"
+                />
+            </div>
+        );
+    }
+
     return (
         <div
             className={[
@@ -32,9 +44,16 @@ export default function PhotoGallery({ title = 'Photo Gallery', items = [] }) {
                 {title}
             </div>
             <div className="grid grid-cols-3 gap-4">
-                {items.map((img) => (
-                    <div key={img.label} className="aspect-square">
-                        <Tile label={img.label} isMore={Boolean(img.isMore)} />
+                {items.map((img, idx) => (
+                    <div
+                        key={img.src ?? `${img.label}-${idx}`}
+                        className="aspect-square"
+                    >
+                        <Tile
+                            label={img.label}
+                            isMore={Boolean(img.isMore)}
+                            src={img.src}
+                        />
                     </div>
                 ))}
             </div>

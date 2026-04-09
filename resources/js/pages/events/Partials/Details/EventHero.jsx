@@ -15,10 +15,21 @@ export default function EventHero({
     title,
     subtitle,
     onRegister,
+    imageSrc,
 }) {
     return (
-        <header className="overflow-hidden rounded-2xl bg-gradient-to-b from-tblack via-[#0f172a] to-[#0b1220] shadow-sm ring-1 ring-border">
-            <div className="px-6 py-10 sm:px-10 sm:py-12">
+        <header className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-tblack via-[#0f172a] to-[#0b1220] shadow-sm ring-1 ring-border">
+            {imageSrc ? (
+                <>
+                    <img
+                        src={imageSrc}
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-cover opacity-35"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-tblack/92 via-[#0f172a]/88 to-[#0b1220]/95" />
+                </>
+            ) : null}
+            <div className="relative px-6 py-10 sm:px-10 sm:py-12">
                 <div className="flex flex-wrap items-center gap-2 text-xs">
                     {badge ? <Pill>{badge}</Pill> : null}
                     <div className="font-semibold text-white/80">

@@ -46,4 +46,19 @@ class Event extends Model
     {
         return $this->hasMany(EventParticipant::class);
     }
+
+    public function partners(): HasMany
+    {
+        return $this->hasMany(EventPartner::class);
+    }
+
+    public function media(): HasMany
+    {
+        return $this->hasMany(EventMedia::class);
+    }
+
+    public function speakers(): HasMany
+    {
+        return $this->hasMany(EventSpeaker::class)->orderBy('sort');
+    }
 }

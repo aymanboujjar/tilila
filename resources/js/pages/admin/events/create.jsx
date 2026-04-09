@@ -25,6 +25,9 @@ export default function AdminEventsCreate({
         date: '',
         time: '',
         timezone: 'GMT+1',
+        speakers: [],
+        partners: [],
+        media_files: [],
     });
 
     const [processing, setProcessing] = useState(false);
@@ -33,6 +36,7 @@ export default function AdminEventsCreate({
         e.preventDefault();
         clearErrors();
         router.post('/admin/events', data, {
+            forceFormData: true,
             preserveScroll: true,
             onStart: () => setProcessing(true),
             onFinish: () => setProcessing(false),
