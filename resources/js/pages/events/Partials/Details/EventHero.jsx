@@ -14,8 +14,7 @@ export default function EventHero({
     locationLabel,
     title,
     subtitle,
-    onWatchReplay,
-    onShare,
+    onRegister,
 }) {
     return (
         <header className="overflow-hidden rounded-2xl bg-gradient-to-b from-tblack via-[#0f172a] to-[#0b1220] shadow-sm ring-1 ring-border">
@@ -39,17 +38,10 @@ export default function EventHero({
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                     <button
                         type="button"
-                        onClick={onWatchReplay}
+                        onClick={onRegister}
                         className="inline-flex items-center justify-center rounded-md bg-beta-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                     >
-                        Watch Replay
-                    </button>
-                    <button
-                        type="button"
-                        onClick={onShare}
-                        className="inline-flex items-center justify-center rounded-md bg-white/5 px-5 py-2.5 text-sm font-semibold text-white ring-1 ring-white/15 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                    >
-                        Share Event
+                        Register to the event
                     </button>
                 </div>
             </div>

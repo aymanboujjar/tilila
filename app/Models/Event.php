@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Event extends Model
+{
+    protected $fillable = [
+        'slug',
+        'type',
+        'status',
+        'visibility',
+        'title',
+        'location',
+        'description',
+        'date',
+        'time',
+        'timezone',
+        'list_payload',
+        'details_payload',
+    ];
+
+    /**
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'title' => 'array',
+            'location' => 'array',
+            'description' => 'array',
+            'date' => 'date:Y-m-d',
+            'list_payload' => 'array',
+            'details_payload' => 'array',
+        ];
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    public function participants(): HasMany
+    {
+        return $this->hasMany(EventParticipant::class);
+    }
+}

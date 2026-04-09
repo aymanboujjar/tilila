@@ -1,0 +1,83 @@
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { ChevronLeft } from 'lucide-react';
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import AppLayout from '@/layouts/app-layout';
+import EventForm from '@/pages/admin/events/partials/EventForm';
+
+function emptyTri() {
+    return { en: '', fr: '', ar: '' };
+}
+
+export default function AdminEventsCreate({
+    types = [],
+    statuses = [],
+    visibilities = [],
+}) {
+    const { data, setData, errors, setError, clearErrors } = useForm({
+        type: types[0] ?? 'tilitalk',
+        status: statuses[0] ?? 'draft',
+        visibility: visibilities[0] ?? 'public',
+        title: emptyTri(),
+        location: emptyTri(),
+        description: emptyTri(),
+        date: '',
+        time: '',
+        timezone: 'GMT+1',
+    });
+
+    const [processing, setProcessing] = useState(false);
+
+    const submit = (e) => {
+        e.preventDefault();
+        clearErrors();
+        router.post('/admin/events', data, {
+            preserveScroll: true,
+            onStart: () => setProcessing(true),
+            onFinish: () => setProcessing(false),
+            onError: (serverErrors) => setError(serverErrors),
+        });
+    };
+
+    return (
+        <>
+            <Head title="Create event" />
+
+            <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <p className="text-tgray text-sm font-medium">Events</p>
+                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                            Create New Event
+                        </h1>
+                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                            Add a new event to the agenda.
+                        </p>
+                    </div>
+                    <Button asChild variant="outline">
+                        <Link href="/admin/events" className="gap-2">
+                            <ChevronLeft className="size-4" />
+                            Back to list
+                        </Link>
+                    </Button>
+                </div>
+
+                <EventForm
+                    data={data}
+                    setData={setData}
+                    errors={errors}
+                    types={types}
+                    statuses={statuses}
+                    visibilities={visibilities}
+                    submitLabel="Publish Event"
+                    processing={processing}
+                    onSubmit={submit}
+                />
+            </div>
+        </>
+    );
+}
+
+AdminEventsCreate.layout = (page) => <AppLayout>{page}</AppLayout>;
+

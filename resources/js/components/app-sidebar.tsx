@@ -50,12 +50,12 @@ const moduleItems: NavItem[] = [
     },
     {
         title: 'Opportunities',
-        href: opportunitiesIndex.url(),
+        href: '/admin/opportunities',
         icon: Megaphone,
     },
     {
         title: 'Events',
-        href: eventsIndex.url(),
+        href: "/admin/events",
         icon: Calendar,
     },
     {

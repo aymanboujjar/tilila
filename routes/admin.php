@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ExpertController;
+use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\OpportunityController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,4 +11,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('opportunities/export.csv', [OpportunityController::class, 'exportCsv'])->name('opportunities.export');
     Route::resource('opportunities', OpportunityController::class);
+
+    Route::resource('events', EventController::class);
 });

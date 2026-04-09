@@ -3,10 +3,12 @@ import { Link } from '@inertiajs/react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
-function formatDateLabel(iso) {
+function formatDateLabel(iso, appLocale) {
     try {
+        const tag =
+            appLocale === 'ar' ? 'ar' : appLocale === 'fr' ? 'fr-FR' : 'en-US';
         const d = new Date(iso);
-        return d.toLocaleDateString(undefined, {
+        return d.toLocaleDateString(tag, {
             month: 'short',
             day: '2-digit',
             year: 'numeric',
@@ -16,17 +18,21 @@ function formatDateLabel(iso) {
     }
 }
 
-function monthShort(iso) {
+function monthShort(iso, appLocale) {
     try {
-        return new Date(iso).toLocaleDateString(undefined, { month: 'short' });
+        const tag =
+            appLocale === 'ar' ? 'ar' : appLocale === 'fr' ? 'fr-FR' : 'en-US';
+        return new Date(iso).toLocaleDateString(tag, { month: 'short' });
     } catch {
         return '';
     }
 }
 
-function day2(iso) {
+function day2(iso, appLocale) {
     try {
-        return new Date(iso).toLocaleDateString(undefined, { day: '2-digit' });
+        const tag =
+            appLocale === 'ar' ? 'ar' : appLocale === 'fr' ? 'fr-FR' : 'en-US';
+        return new Date(iso).toLocaleDateString(tag, { day: '2-digit' });
     } catch {
         return '';
     }
@@ -62,12 +68,11 @@ function CtaButton({ cta, eventId }) {
               : (cta?.label?.en ?? t('events.actions.view'));
     const rawHref = cta?.href;
     const href =
-        // rawHref && rawHref !== '#'
-        //     ? rawHref
-        //     : eventId
-        //       ? `/events/${eventId}`
-        //       : '#';
-        "events/tilitalk-women-leading-tech-innovation";
+        rawHref && rawHref !== '#'
+            ? rawHref
+            : eventId
+              ? `/events/${eventId}`
+              : '#';
     const kind = cta?.kind ?? 'secondary';
 
     const cls =
@@ -95,11 +100,17 @@ function CtaButton({ cta, eventId }) {
 export default function EventCard({ event, activeTab }) {
     const { locale, t } = useTranslation();
     const dateLabel = useMemo(
-        () => formatDateLabel(event?.dateIso ?? ''),
-        [event],
+        () => formatDateLabel(event?.dateIso ?? '', locale),
+        [event, locale],
     );
-    const leftMonth = useMemo(() => monthShort(event?.dateIso ?? ''), [event]);
-    const leftDay = useMemo(() => day2(event?.dateIso ?? ''), [event]);
+    const leftMonth = useMemo(
+        () => monthShort(event?.dateIso ?? '', locale),
+        [event, locale],
+    );
+    const leftDay = useMemo(
+        () => day2(event?.dateIso ?? '', locale),
+        [event, locale],
+    );
 
     const isFeatured = Boolean(event?.imageSrc);
     const showLeftDate = !isFeatured;

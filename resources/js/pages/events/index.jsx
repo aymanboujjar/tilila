@@ -4,7 +4,6 @@ import AppLayout from '@/layouts/app-layout';
 import EventsTabs from '@/pages/events/Partials/EventsTabs';
 import EventsSidebar from '@/pages/events/Partials/EventsSidebar';
 import EventCard from '@/pages/events/Partials/EventCard';
-import { EVENTS } from '@/pages/events/Partials/events-data';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
@@ -14,7 +13,7 @@ function isPastEvent(event) {
     return ts < Date.now();
 }
 
-export default function EventsIndex() {
+export default function EventsIndex({ events = [] }) {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('upcoming'); // upcoming | past
     const [selectedDayIso, setSelectedDayIso] = useState(null);
@@ -25,14 +24,14 @@ export default function EventsIndex() {
     });
 
     const counts = useMemo(() => {
-        const all = EVENTS ?? [];
+        const all = events ?? [];
         const upcoming = all.filter((e) => !isPastEvent(e)).length;
         const past = all.filter((e) => isPastEvent(e)).length;
         return { upcoming, past };
-    }, []);
+    }, [events]);
 
     const filteredEvents = useMemo(() => {
-        const all = EVENTS ?? [];
+        const all = events ?? [];
 
         let list = all.filter((e) => {
             const type = e?.type ?? 'talk';
@@ -55,7 +54,7 @@ export default function EventsIndex() {
         });
 
         return list;
-    }, [activeTab, categories, selectedDayIso]);
+    }, [activeTab, categories, events, selectedDayIso]);
 
     return (
         <>
@@ -100,7 +99,7 @@ export default function EventsIndex() {
                                     setCategories={setCategories}
                                     selectedDayIso={selectedDayIso}
                                     setSelectedDayIso={setSelectedDayIso}
-                                    events={EVENTS}
+                                    events={events}
                                 />
                             </div>
 

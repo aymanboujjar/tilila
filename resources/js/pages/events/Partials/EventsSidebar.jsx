@@ -28,9 +28,11 @@ function addMonths(date, delta) {
     return new Date(date.getFullYear(), date.getMonth() + delta, 1);
 }
 
-function monthLabel(date) {
+function monthLabel(date, locale) {
     try {
-        return date.toLocaleDateString(undefined, {
+        const tag =
+            locale === 'ar' ? 'ar' : locale === 'fr' ? 'fr-FR' : 'en-US';
+        return date.toLocaleDateString(tag, {
             month: 'long',
             year: 'numeric',
         });
@@ -61,7 +63,7 @@ function Calendar({
     setSelectedDayIso,
     daysWithEvents,
 }) {
-    const { t } = useTranslation();
+    const { locale, t } = useTranslation();
     const grid = useMemo(() => {
         const first = startOfMonth(monthDate);
         const firstWeekday = first.getDay();
@@ -81,8 +83,8 @@ function Calendar({
             };
         });
 
-        return { days, month: monthLabel(monthDate) };
-    }, [daysWithEvents, monthDate]);
+        return { days, month: monthLabel(monthDate, locale) };
+    }, [daysWithEvents, locale, monthDate]);
 
     return (
         <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">

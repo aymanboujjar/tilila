@@ -1,8 +1,7 @@
-import React, { useMemo } from 'react';
-import { Head, Link, usePage } from '@inertiajs/react';
+import React from 'react';
+import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import { EVENTS } from '@/pages/events/Partials/events-data';
-import { EVENT_DETAILS } from '@/pages/events/Partials/event-details-data';
+import { useTranslation } from '@/contexts/TranslationContext';
 import EventHero from '@/pages/events/Partials/Details/EventHero';
 import EventReplay from '@/pages/events/Partials/Details/EventReplay';
 import SpeakersCard from '@/pages/events/Partials/Details/SpeakersCard';
@@ -11,22 +10,25 @@ import PartnersCard from '@/pages/events/Partials/Details/PartnersCard';
 import PhotoGallery from '@/pages/events/Partials/Details/PhotoGallery';
 import RegistrationCard from '@/pages/events/Partials/Details/RegistrationCard';
 
-export default function EventDetails({ id }) {
-    const pageProps = usePage().props;
-    const eventId = id ?? pageProps?.id;
-
-    const base = useMemo(
-        () => EVENTS.find((e) => e.id === eventId) ?? EVENTS[0],
-        [eventId],
-    );
-
-    const details = useMemo(
-        () => EVENT_DETAILS[eventId] ?? EVENT_DETAILS[EVENTS?.[0]?.id],
-        [eventId],
-    );
+export default function EventDetails({ event, details }) {
+    const { locale } = useTranslation();
+    const base = event ?? {};
+    const [registerOpen, setRegisterOpen] = React.useState(false);
 
     const hero = details?.hero ?? {};
-    const title = hero?.title ?? base?.title ?? 'Event';
+    const resolve = (v) =>
+        typeof v === 'string'
+            ? v
+            : locale === 'ar'
+              ? v?.ar
+              : locale === 'fr'
+                ? v?.fr
+                : v?.en;
+
+    const title = hero?.title ?? resolve(base?.title) ?? 'Event';
+    const locationLabel = hero?.locationLabel ?? resolve(base?.location) ?? '';
+    const subtitle = hero?.subtitle ?? resolve(base?.excerpt) ?? '';
+    const badgeLabel = hero?.badge ?? resolve(base?.badge) ?? '';
 
     return (
         <>
@@ -51,29 +53,22 @@ export default function EventDetails({ id }) {
 
                     <div className="mt-6">
                         <EventHero
-                            badge={hero?.badge ?? base?.badge}
+                            badge={badgeLabel}
                             dateLabel={hero?.dateLabel}
-                            locationLabel={hero?.locationLabel ?? base?.location}
+                            locationLabel={locationLabel}
                             title={title}
-                            subtitle={hero?.subtitle ?? base?.excerpt}
-                            onWatchReplay={() => {
-                                document
-                                    .getElementById('replay')
-                                    ?.scrollIntoView({ behavior: 'smooth' });
-                            }}
-                            onShare={() => {
-                                document
-                                    .getElementById('share')
-                                    ?.scrollIntoView({ behavior: 'smooth' });
-                            }}
+                            subtitle={subtitle}
+                            onRegister={() => setRegisterOpen(true)}
                         />
                     </div>
 
                     <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
                         <div className="space-y-8 lg:col-span-8">
-                            <div id="replay">
-                                <EventReplay {...(details?.replay ?? {})} />
-                            </div>
+                            {details?.replay ? (
+                                <div id="replay">
+                                    <EventReplay {...(details?.replay ?? {})} />
+                                </div>
+                            ) : null}
 
                             <section className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border">
                                 <div className="text-sm font-extrabold text-foreground">
@@ -97,8 +92,12 @@ export default function EventDetails({ id }) {
                     </div>
                 </div>
 
-                <div id="share" />
-                <RegistrationCard {...(details?.registration ?? {})} />
+                <RegistrationCard
+                    isOpen={registerOpen}
+                    onClose={() => setRegisterOpen(false)}
+                    eventId={base?.id}
+                    {...(details?.registration ?? {})}
+                />
             </div>
         </>
     );
