@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Expert;
 use App\Models\MediaItem;
 use Illuminate\Database\Seeder;
 
@@ -24,8 +25,8 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Découvrez comment l’intelligence émotionnelle transforme le leadership dans les médias et المؤسسات.',
                     'ar' => 'اكتشف كيف يُعيد الذكاء العاطفي تشكيل القيادة في الإعلام والمؤسسات.',
                 ],
-                'meta' => ['en' => '10 min read • Casablanca', 'fr' => 'Lecture 10 min • Casablanca', 'ar' => 'قراءة 10 دقائق • الدار البيضاء'],
-                'cta' => ['en' => 'Watch replay →', 'fr' => 'Voir le replay →', 'ar' => 'شاهد الإعادة →'],
+                'reading_label' => ['en' => '10 min read', 'fr' => 'Lecture 10 min', 'ar' => 'قراءة 10 دقائق'],
+                'location_label' => ['en' => 'Casablanca', 'fr' => 'Casablanca', 'ar' => 'الدار البيضاء'],
                 'image_path' => 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
             ],
             [
@@ -42,8 +43,8 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Notre rapport annuel met en lumière les tendances de parité et la visibilité des expertes.',
                     'ar' => 'يسلط تقريرنا السنوي الضوء على اتجاهات التوازن الجندري وظهور الخبيرات عبر المنصات.',
                 ],
-                'meta' => ['en' => 'Report • 6 min', 'fr' => 'Rapport • 6 min', 'ar' => 'تقرير • 6 دقائق'],
-                'cta' => ['en' => 'Read report →', 'fr' => 'Lire le rapport →', 'ar' => 'اقرأ التقرير →'],
+                'reading_label' => ['en' => 'Report • 6 min', 'fr' => 'Rapport • 6 min', 'ar' => 'تقرير • 6 دقائق'],
+                'location_label' => ['en' => '', 'fr' => '', 'ar' => ''],
                 'image_path' => 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80',
             ],
             [
@@ -60,8 +61,8 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Les panels 100% masculins réduisent la crédibilité et la confiance—voici quoi faire à la place.',
                     'ar' => 'اللوحات التي تضم رجالًا فقط تقلل المصداقية وتفوت المواهب وتضعف الثقة—وهذه بدائل عملية.',
                 ],
-                'meta' => ['en' => 'Insight • 4 min', 'fr' => 'Insight • 4 min', 'ar' => 'رؤية • 4 دقائق'],
-                'cta' => ['en' => 'Read insight →', 'fr' => 'Lire l’insight →', 'ar' => 'اقرأ الرؤية →'],
+                'reading_label' => ['en' => 'Insight • 4 min', 'fr' => 'Insight • 4 min', 'ar' => 'رؤية • 4 دقائق'],
+                'location_label' => ['en' => '', 'fr' => '', 'ar' => ''],
                 'image_path' => 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
             ],
             [
@@ -78,22 +79,67 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Écoutez des expertes qui construisent des solutions d’avenir à travers l’Afrique.',
                     'ar' => 'استمع إلى خبيرات يطوّرن حلولًا للمستقبل في أنحاء إفريقيا.',
                 ],
-                'meta' => ['en' => 'Video • 12 min', 'fr' => 'Vidéo • 12 min', 'ar' => 'فيديو • 12 دقيقة'],
-                'cta' => ['en' => 'Watch episode →', 'fr' => 'Regarder →', 'ar' => 'شاهد الحلقة →'],
+                'reading_label' => ['en' => 'Video • 12 min', 'fr' => 'Vidéo • 12 min', 'ar' => 'فيديو • 12 دقيقة'],
+                'location_label' => ['en' => '', 'fr' => '', 'ar' => ''],
                 'image_path' => 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
             ],
         ];
 
-        foreach ($items as $row) {
+        $sidebarForDetail = [
+            'trending_topics' => [
+                [
+                    'title' => ['en' => 'Women in STEM', 'fr' => 'Femmes en STEM', 'ar' => 'النساء في STEM'],
+                    'tag' => ['en' => 'April 2026', 'fr' => 'Avril 2026', 'ar' => 'أبريل 2026'],
+                ],
+                [
+                    'title' => ['en' => 'Media parity', 'fr' => 'Parité dans les médias', 'ar' => 'التكافؤ في الإعلام'],
+                    'tag' => ['en' => 'Trending', 'fr' => 'Tendance', 'ar' => 'الأكثر تداولًا'],
+                ],
+                [
+                    'title' => ['en' => 'Mentorship', 'fr' => 'Mentorat', 'ar' => 'الإرشاد'],
+                    'tag' => ['en' => 'New', 'fr' => 'Nouveau', 'ar' => 'جديد'],
+                ],
+            ],
+            'resource_links' => [
+                [
+                    'label' => ['en' => 'Media kit (PDF)', 'fr' => 'Kit média (PDF)', 'ar' => 'حقيبة الإعلام (PDF)'],
+                    'url' => null,
+                ],
+                [
+                    'label' => ['en' => 'Tilila charter', 'fr' => 'Charte Tilila', 'ar' => 'ميثاق تيليلا'],
+                    'url' => null,
+                ],
+                [
+                    'label' => ['en' => 'Press contacts', 'fr' => 'Contacts presse', 'ar' => 'جهات اتصال الصحافة'],
+                    'url' => null,
+                ],
+            ],
+        ];
+
+        $featuredExpertId = Expert::query()
+            ->where('status', 'published')
+            ->orderBy('id')
+            ->value('id');
+
+        foreach ($items as $idx => $row) {
+            $payload = [
+                ...$row,
+                'cta' => MediaItem::defaultCta(),
+                'status' => 'published',
+                'visibility' => 'public',
+            ];
+
+            if ($idx === 0) {
+                $payload = array_merge($payload, $sidebarForDetail);
+                if ($featuredExpertId !== null) {
+                    $payload['featured_expert_id'] = (int) $featuredExpertId;
+                }
+            }
+
             MediaItem::query()->updateOrCreate(
                 ['slug' => $row['slug']],
-                [
-                    ...$row,
-                    'status' => 'published',
-                    'visibility' => 'public',
-                ],
+                $payload,
             );
         }
     }
 }
-

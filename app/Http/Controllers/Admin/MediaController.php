@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Expert;
 use App\Models\MediaItem;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -166,6 +167,7 @@ class MediaController extends Controller
             'categories' => $this->categories(),
             'statuses' => $this->statuses(),
             'visibilities' => $this->visibilities(),
+            'experts' => $this->expertOptions(),
         ]);
     }
 
@@ -173,6 +175,7 @@ class MediaController extends Controller
     {
         $data = $this->validated($request);
         $data['slug'] = $this->uniqueSlugFromEnglishTitle($data['title']['en']);
+        $data['cta'] = MediaItem::defaultCta();
 
         if ($request->hasFile('image')) {
             $data['image_path'] = $request->file('image')->store('media-items', 'public');
@@ -200,12 +203,14 @@ class MediaController extends Controller
             'categories' => $this->categories(),
             'statuses' => $this->statuses(),
             'visibilities' => $this->visibilities(),
+            'experts' => $this->expertOptions(),
         ]);
     }
 
     public function update(Request $request, MediaItem $medium): RedirectResponse
     {
         $data = $this->validated($request, $medium);
+        $data['cta'] = MediaItem::defaultCta();
 
         if (($data['title']['en'] ?? '') !== ($medium->title['en'] ?? '')) {
             $data['slug'] = $this->uniqueSlugFromEnglishTitle($data['title']['en'], $medium->id);
@@ -238,8 +243,34 @@ class MediaController extends Controller
     /**
      * @return array<string, mixed>
      */
+    /**
+     * @return list<array{id: int, label: string, status: string}>
+     */
+    private function expertOptions(): array
+    {
+        return Expert::query()
+            ->orderBy('id')
+            ->get(['id', 'name', 'status'])
+            ->map(static function (Expert $e): array {
+                $name = $e->name;
+
+                return [
+                    'id' => (int) $e->id,
+                    'label' => (string) (
+                        (is_array($name) ? ($name['en'] ?? $name['fr'] ?? $name['ar'] ?? '') : '')
+                    ) ?: ('Expert #'.$e->id),
+                    'status' => (string) $e->status,
+                ];
+            })
+            ->all();
+    }
+
     private function validated(Request $request, ?MediaItem $item = null): array
     {
+        if ($request->has('featured_expert_id') && $request->input('featured_expert_id') === '') {
+            $request->merge(['featured_expert_id' => null]);
+        }
+
         $validated = $request->validate([
             'category_id' => 'required|string|max:64',
             'status' => 'required|string|max:32',
@@ -256,26 +287,108 @@ class MediaController extends Controller
             'excerpt.en' => 'nullable|string|max:2000',
             'excerpt.fr' => 'nullable|string|max:2000',
             'excerpt.ar' => 'nullable|string|max:2000',
-            'meta' => 'nullable|array',
-            'meta.en' => 'nullable|string|max:255',
-            'meta.fr' => 'nullable|string|max:255',
-            'meta.ar' => 'nullable|string|max:255',
-            'cta' => 'nullable|array',
-            'cta.en' => 'nullable|string|max:255',
-            'cta.fr' => 'nullable|string|max:255',
-            'cta.ar' => 'nullable|string|max:255',
+            'reading_label' => 'nullable|array',
+            'reading_label.en' => 'nullable|string|max:255',
+            'reading_label.fr' => 'nullable|string|max:255',
+            'reading_label.ar' => 'nullable|string|max:255',
+            'location_label' => 'nullable|array',
+            'location_label.en' => 'nullable|string|max:255',
+            'location_label.fr' => 'nullable|string|max:255',
+            'location_label.ar' => 'nullable|string|max:255',
+            'featured_expert_id' => 'nullable|integer|exists:experts,id',
+            'trending_topics' => 'nullable|array',
+            'trending_topics.*.title' => 'nullable|array',
+            'trending_topics.*.title.en' => 'nullable|string|max:255',
+            'trending_topics.*.title.fr' => 'nullable|string|max:255',
+            'trending_topics.*.title.ar' => 'nullable|string|max:255',
+            'trending_topics.*.tag' => 'nullable|array',
+            'trending_topics.*.tag.en' => 'nullable|string|max:255',
+            'trending_topics.*.tag.fr' => 'nullable|string|max:255',
+            'trending_topics.*.tag.ar' => 'nullable|string|max:255',
+            'resource_links' => 'nullable|array',
+            'resource_links.*.label' => 'nullable|array',
+            'resource_links.*.label.en' => 'nullable|string|max:255',
+            'resource_links.*.label.fr' => 'nullable|string|max:255',
+            'resource_links.*.label.ar' => 'nullable|string|max:255',
+            'resource_links.*.url' => 'nullable|string|max:2048',
             'image' => 'nullable|image|max:8192',
             'image_path' => 'nullable|string|max:500',
         ]);
 
         $validated['badge'] = $validated['badge'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
         $validated['excerpt'] = $validated['excerpt'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
-        $validated['meta'] = $validated['meta'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
-        $validated['cta'] = $validated['cta'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
+        $validated['reading_label'] = $validated['reading_label'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
+        $validated['location_label'] = $validated['location_label'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
+        $validated['trending_topics'] = $this->normalizeTopics($validated['trending_topics'] ?? []);
+        $validated['resource_links'] = $this->normalizeLinks($validated['resource_links'] ?? []);
 
         unset($validated['image']);
 
         return $validated;
+    }
+
+    /**
+     * @param  list<array<string, mixed>>  $rows
+     * @return list<array{title: array{en: string, fr: string, ar: string}, tag: array{en: string, fr: string, ar: string}}>
+     */
+    private function normalizeTopics(array $rows): array
+    {
+        $out = [];
+        foreach ($rows as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+            $title = $row['title'] ?? [];
+            $tag = $row['tag'] ?? [];
+            $tEn = trim((string) ($title['en'] ?? ''));
+            if ($tEn === '') {
+                continue;
+            }
+            $out[] = [
+                'title' => [
+                    'en' => $tEn,
+                    'fr' => trim((string) ($title['fr'] ?? '')),
+                    'ar' => trim((string) ($title['ar'] ?? '')),
+                ],
+                'tag' => [
+                    'en' => trim((string) ($tag['en'] ?? '')),
+                    'fr' => trim((string) ($tag['fr'] ?? '')),
+                    'ar' => trim((string) ($tag['ar'] ?? '')),
+                ],
+            ];
+        }
+
+        return $out;
+    }
+
+    /**
+     * @param  list<array<string, mixed>>  $rows
+     * @return list<array{label: array{en: string, fr: string, ar: string}, url: string|null}>
+     */
+    private function normalizeLinks(array $rows): array
+    {
+        $out = [];
+        foreach ($rows as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+            $label = $row['label'] ?? [];
+            $en = trim((string) ($label['en'] ?? ''));
+            if ($en === '') {
+                continue;
+            }
+            $url = trim((string) ($row['url'] ?? ''));
+            $out[] = [
+                'label' => [
+                    'en' => $en,
+                    'fr' => trim((string) ($label['fr'] ?? '')),
+                    'ar' => trim((string) ($label['ar'] ?? '')),
+                ],
+                'url' => $url === '' ? null : $url,
+            ];
+        }
+
+        return $out;
     }
 
     private function uniqueSlugFromEnglishTitle(string $englishTitle, ?int $ignoreId = null): string
@@ -300,4 +413,3 @@ class MediaController extends Controller
         return $slug;
     }
 }
-

@@ -16,7 +16,7 @@ import RelatedMedia from '@/pages/user/media/partials/RelatedMedia';
 export default function MediaDetails() {
     const { t, locale } = useTranslation();
     // `item` and `relatedItems` are provided by the server (SQLite).
-    const { item, relatedItems = [] } = usePage().props;
+    const { item, relatedItems = [], sidebar = null } = usePage().props;
 
     return (
         <>
@@ -63,9 +63,17 @@ export default function MediaDetails() {
 
                                 <div className="space-y-6 lg:col-span-4">
                                     <SidebarNewsletter />
-                                    <SidebarTrendingTopics />
-                                    <SidebarExpertSpotlight />
-                                    <SidebarResources />
+                                    <SidebarTrendingTopics
+                                        topics={sidebar?.trendingTopics}
+                                    />
+                                    <SidebarExpertSpotlight
+                                        expertSpotlight={
+                                            sidebar?.expertSpotlight ?? null
+                                        }
+                                    />
+                                    <SidebarResources
+                                        links={sidebar?.resourceLinks}
+                                    />
                                 </div>
                             </div>
 

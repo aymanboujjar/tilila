@@ -14,6 +14,7 @@ export default function AdminMediaCreate({
     categories = [],
     statuses = [],
     visibilities = [],
+    experts = [],
 }) {
     const { data, setData, errors, setError, clearErrors } = useForm({
         category_id: categories[0] ?? 'interviews',
@@ -22,8 +23,11 @@ export default function AdminMediaCreate({
         badge: emptyTri(),
         title: emptyTri(),
         excerpt: emptyTri(),
-        meta: emptyTri(),
-        cta: emptyTri(),
+        reading_label: emptyTri(),
+        location_label: emptyTri(),
+        featured_expert_id: '',
+        trending_topics: [{ title: emptyTri(), tag: emptyTri() }],
+        resource_links: [{ label: emptyTri(), url: '' }],
         image_path: null,
         image_url: null,
         image: null,
@@ -71,6 +75,7 @@ export default function AdminMediaCreate({
                     data={data}
                     setData={setData}
                     errors={errors}
+                    experts={experts}
                     categories={categories}
                     statuses={statuses}
                     visibilities={visibilities}

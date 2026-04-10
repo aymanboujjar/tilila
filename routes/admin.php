@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\EventController;
+use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\MediaController;
+use App\Http\Controllers\Admin\MediaSidebarController;
 use App\Http\Controllers\Admin\OpportunityController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('events', EventController::class);
 
     Route::get('media/export.csv', [MediaController::class, 'exportCsv'])->name('media.export');
+    Route::get('media/sidebar/edit', [MediaSidebarController::class, 'edit'])->name('media.sidebar.edit');
+    Route::put('media/sidebar', [MediaSidebarController::class, 'update'])->name('media.sidebar.update');
     Route::resource('media', MediaController::class);
 });

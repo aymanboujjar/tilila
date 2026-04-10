@@ -21,7 +21,7 @@ const TABS = [
     { id: 'expertProfiles' },
 ];
 
-export default function MediaIndex({ items: allItems = [] }) {
+export default function MediaIndex({ items: allItems = [], sidebar = null }) {
     const { locale, t } = useTranslation();
     const [activeTabId, setActiveTabId] = useState('all');
 
@@ -73,9 +73,17 @@ export default function MediaIndex({ items: allItems = [] }) {
 
                             <div className="space-y-6 lg:col-span-4">
                                 <SidebarNewsletter />
-                                <SidebarTrendingTopics />
-                                <SidebarExpertSpotlight />
-                                <SidebarResources />
+                                <SidebarTrendingTopics
+                                    topics={sidebar?.trendingTopics}
+                                />
+                                <SidebarExpertSpotlight
+                                    expertSpotlight={
+                                        sidebar?.expertSpotlight ?? null
+                                    }
+                                />
+                                <SidebarResources
+                                    links={sidebar?.resourceLinks}
+                                />
                             </div>
                         </div>
                     </div>

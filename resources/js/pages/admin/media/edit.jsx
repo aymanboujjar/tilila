@@ -16,7 +16,19 @@ export default function AdminMediaEdit({
     categories = [],
     statuses = [],
     visibilities = [],
+    experts = [],
 }) {
+    const topics =
+        Array.isArray(item.trending_topics) &&
+        item.trending_topics.length > 0
+            ? item.trending_topics
+            : [{ title: emptyTri(), tag: emptyTri() }];
+    const links =
+        Array.isArray(item.resource_links) &&
+        item.resource_links.length > 0
+            ? item.resource_links
+            : [{ label: emptyTri(), url: '' }];
+
     const { data, setData, errors, setError, clearErrors } = useForm({
         category_id: item.category_id ?? (categories[0] ?? 'interviews'),
         status: item.status ?? (statuses[0] ?? 'draft'),
@@ -24,8 +36,23 @@ export default function AdminMediaEdit({
         badge: { ...emptyTri(), ...(item.badge ?? {}) },
         title: { ...emptyTri(), ...(item.title ?? {}) },
         excerpt: { ...emptyTri(), ...(item.excerpt ?? {}) },
-        meta: { ...emptyTri(), ...(item.meta ?? {}) },
-        cta: { ...emptyTri(), ...(item.cta ?? {}) },
+        reading_label: {
+            ...emptyTri(),
+            ...(item.reading_label ?? {}),
+        },
+        location_label: {
+            ...emptyTri(),
+            ...(item.location_label ?? {}),
+        },
+        featured_expert_id: item.featured_expert_id ?? '',
+        trending_topics: topics.map((t) => ({
+            title: { ...emptyTri(), ...(t.title ?? {}) },
+            tag: { ...emptyTri(), ...(t.tag ?? {}) },
+        })),
+        resource_links: links.map((r) => ({
+            label: { ...emptyTri(), ...(r.label ?? {}) },
+            url: r.url ?? '',
+        })),
         image_path: item.image_path ?? null,
         image_url: item.image_url ?? null,
         image: null,
@@ -81,6 +108,7 @@ export default function AdminMediaEdit({
                     data={data}
                     setData={setData}
                     errors={errors}
+                    experts={experts}
                     categories={categories}
                     statuses={statuses}
                     visibilities={visibilities}

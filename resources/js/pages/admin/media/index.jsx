@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Download, Plus, Search } from 'lucide-react';
+import { Download, LayoutList, Plus, Search } from 'lucide-react';
 import { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -69,11 +69,20 @@ export default function AdminMediaIndex({
                             Media Management
                         </h1>
                         <p className="text-tgray mt-1 max-w-2xl text-sm">
-                            Manage articles, replays, and resources.
+                            Manage articles, replays, and resources. Sidebar
+                            topics, links, and expert spotlight can be set per
+                            item on create/edit; the global sidebar applies to
+                            the media list and as a fallback on detail pages.
                         </p>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
+                        <Button asChild variant="outline" className="gap-2">
+                            <Link href="/admin/media/sidebar/edit">
+                                <LayoutList className="size-4" />
+                                Media page sidebar
+                            </Link>
+                        </Button>
                         <Button
                             type="button"
                             variant="outline"

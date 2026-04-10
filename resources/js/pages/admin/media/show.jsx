@@ -135,19 +135,55 @@ export default function AdminMediaShow({ item }) {
                                 </div>
                                 <div>
                                     <div className="text-sm font-semibold text-foreground">
-                                        Meta line
+                                        Reading / duration
                                     </div>
                                     <div className="mt-2">
-                                        <Tri value={item.meta} />
+                                        <Tri value={item.reading_label} />
                                     </div>
                                 </div>
                                 <div>
                                     <div className="text-sm font-semibold text-foreground">
-                                        CTA label
+                                        Location
                                     </div>
                                     <div className="mt-2">
-                                        <Tri value={item.cta} />
+                                        <Tri value={item.location_label} />
                                     </div>
+                                </div>
+                                <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-sm text-muted-foreground">
+                                    Public card line combines reading · location.
+                                    CTA is always the default replay labels.
+                                </div>
+                            </CardContent>
+                        </Card>
+
+                        <Card>
+                            <CardHeader className="px-5 sm:px-8">
+                                <CardTitle>Page sidebar (detail)</CardTitle>
+                            </CardHeader>
+                            <CardContent className="space-y-4 px-5 sm:px-8">
+                                <div className="flex items-center justify-between gap-4">
+                                    <div className="text-sm text-muted-foreground">
+                                        Featured expert ID
+                                    </div>
+                                    <div className="text-sm font-semibold text-foreground">
+                                        {item.featured_expert_id ?? '—'}
+                                    </div>
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                    Trending topics:{' '}
+                                    <span className="font-semibold text-foreground">
+                                        {Array.isArray(item.trending_topics)
+                                            ? item.trending_topics.length
+                                            : 0}
+                                    </span>
+                                </div>
+                                <div className="text-sm text-muted-foreground">
+                                    Resource links:{' '}
+                                    <span className="font-semibold text-foreground">
+                                        {Array.isArray(item.resource_links)
+                                            ? item.resource_links.length
+                                            : 0}
+                                    </span>
                                 </div>
                             </CardContent>
                         </Card>

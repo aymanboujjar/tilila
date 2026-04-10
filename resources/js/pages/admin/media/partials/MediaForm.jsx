@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { Plus, Trash2 } from 'lucide-react';
+
 import InputError from '@/components/input-error';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -54,11 +56,16 @@ function TriLangTextareas({ idPrefix, label, value, onChange }) {
     );
 }
 
+function emptyTri() {
+    return { en: '', fr: '', ar: '' };
+}
+
 export default function MediaForm({
     mode = 'create',
     data,
     setData,
     errors,
+    experts = [],
     categories = [],
     statuses = [],
     visibilities = [],
@@ -122,28 +129,326 @@ export default function MediaForm({
                                 </CardContent>
                             </Card>
 
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                <div className="space-y-2">
-                                    <Label>Meta</Label>
+                            <Card className="border-border/70 bg-background shadow-none">
+                                <CardHeader className="px-5 sm:px-6">
+                                    <CardTitle className="text-base">
+                                        Reading &amp; location
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-5 px-5 sm:px-6">
                                     <TriLangInputs
-                                        idPrefix="meta"
-                                        label="Meta line"
-                                        value={data.meta}
+                                        idPrefix="reading_label"
+                                        label="Reading / duration line"
+                                        value={data.reading_label}
                                         onChange={(next) =>
-                                            setData('meta', next)
+                                            setData('reading_label', next)
                                         }
                                     />
-                                </div>
-                                <div className="space-y-2">
-                                    <Label>CTA</Label>
+                                    <p className="text-xs text-muted-foreground">
+                                        e.g. &quot;10 min read&quot;, &quot;Video • 12 min&quot;
+                                    </p>
                                     <TriLangInputs
-                                        idPrefix="cta"
-                                        label="CTA label"
-                                        value={data.cta}
-                                        onChange={(next) => setData('cta', next)}
+                                        idPrefix="location_label"
+                                        label="Location (optional)"
+                                        value={data.location_label}
+                                        onChange={(next) =>
+                                            setData('location_label', next)
+                                        }
                                     />
-                                </div>
-                            </div>
+                                    <p className="text-xs text-muted-foreground">
+                                        Shown after a middle dot (·) when both
+                                        fields are set. Leave empty if not needed.
+                                    </p>
+                                    <div className="rounded-lg border border-dashed border-border bg-muted/20 px-4 py-3 text-xs text-muted-foreground">
+                                        Card CTA is fixed for all items:{' '}
+                                        <span className="font-semibold text-foreground">
+                                            Watch replay →
+                                        </span>{' '}
+                                        / FR / AR (not editable here).
+                                    </div>
+                                </CardContent>
+                            </Card>
+
+                            <Card className="border-border/70 bg-background shadow-none">
+                                <CardHeader className="px-5 sm:px-6">
+                                    <CardTitle className="text-base">
+                                        Page sidebar (this media)
+                                    </CardTitle>
+                                </CardHeader>
+                                <CardContent className="space-y-6 px-5 sm:px-6">
+                                    <p className="text-xs text-muted-foreground">
+                                        Used on the public detail page for this item. If you
+                                        leave all topic or resource rows empty, the site uses
+                                        the global media sidebar (
+                                        <span className="font-medium text-foreground">
+                                            Media page sidebar
+                                        </span>
+                                        ).
+                                    </p>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="featured_expert_id">
+                                            Featured expert (spotlight)
+                                        </Label>
+                                        <select
+                                            id="featured_expert_id"
+                                            value={
+                                                data.featured_expert_id !== null &&
+                                                data.featured_expert_id !==
+                                                    undefined &&
+                                                data.featured_expert_id !== ''
+                                                    ? String(data.featured_expert_id)
+                                                    : ''
+                                            }
+                                            onChange={(e) =>
+                                                setData(
+                                                    'featured_expert_id',
+                                                    e.target.value === ''
+                                                        ? ''
+                                                        : Number(e.target.value),
+                                                )
+                                            }
+                                            className={cn(
+                                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                            )}
+                                        >
+                                            <option value="">None</option>
+                                            {experts.map((ex) => (
+                                                <option key={ex.id} value={ex.id}>
+                                                    {ex.label}
+                                                    {ex.status !== 'published'
+                                                        ? ` (${ex.status})`
+                                                        : ''}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <InputError
+                                            message={errors.featured_expert_id}
+                                        />
+                                    </div>
+
+                                    <div className="space-y-4 border-t border-border pt-5">
+                                        <div className="flex flex-wrap items-center justify-between gap-2">
+                                            <span className="text-sm font-semibold">
+                                                Trending topics
+                                            </span>
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                className="gap-1"
+                                                onClick={() =>
+                                                    setData('trending_topics', [
+                                                        ...data.trending_topics,
+                                                        {
+                                                            title: emptyTri(),
+                                                            tag: emptyTri(),
+                                                        },
+                                                    ])
+                                                }
+                                            >
+                                                <Plus className="size-4" />
+                                                Add topic
+                                            </Button>
+                                        </div>
+                                        {(data.trending_topics ?? []).map(
+                                            (row, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="space-y-4 rounded-xl border border-border bg-card/50 p-4"
+                                                >
+                                                    <div className="flex items-center justify-between gap-2">
+                                                        <span className="text-xs font-extrabold uppercase text-muted-foreground">
+                                                            Topic {idx + 1}
+                                                        </span>
+                                                        <button
+                                                            type="button"
+                                                            className={cn(
+                                                                'inline-flex items-center gap-1 text-xs font-semibold text-destructive hover:underline',
+                                                                (data.trending_topics
+                                                                    ?.length ?? 0) <= 1
+                                                                    ? 'pointer-events-none opacity-40'
+                                                                    : '',
+                                                            )}
+                                                            onClick={() =>
+                                                                setData(
+                                                                    'trending_topics',
+                                                                    data.trending_topics.filter(
+                                                                        (_, i) =>
+                                                                            i !== idx,
+                                                                    ),
+                                                                )
+                                                            }
+                                                        >
+                                                            <Trash2 className="size-3.5" />
+                                                            Remove
+                                                        </button>
+                                                    </div>
+                                                    <TriLangInputs
+                                                        idPrefix={`topic-${idx}-title`}
+                                                        label="Title"
+                                                        value={
+                                                            row.title ?? emptyTri()
+                                                        }
+                                                        onChange={(next) => {
+                                                            const nextRows = [
+                                                                ...data.trending_topics,
+                                                            ];
+                                                            nextRows[idx] = {
+                                                                ...row,
+                                                                title: next,
+                                                            };
+                                                            setData(
+                                                                'trending_topics',
+                                                                nextRows,
+                                                            );
+                                                        }}
+                                                    />
+                                                    <InputError
+                                                        message={
+                                                            errors[
+                                                                `trending_topics.${idx}.title.en`
+                                                            ]
+                                                        }
+                                                    />
+                                                    <TriLangInputs
+                                                        idPrefix={`topic-${idx}-tag`}
+                                                        label="Right label (date, badge…)"
+                                                        value={row.tag ?? emptyTri()}
+                                                        onChange={(next) => {
+                                                            const nextRows = [
+                                                                ...data.trending_topics,
+                                                            ];
+                                                            nextRows[idx] = {
+                                                                ...row,
+                                                                tag: next,
+                                                            };
+                                                            setData(
+                                                                'trending_topics',
+                                                                nextRows,
+                                                            );
+                                                        }}
+                                                    />
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
+
+                                    <div className="space-y-4 border-t border-border pt-5">
+                                        <div className="flex flex-wrap items-center justify-between gap-2">
+                                            <span className="text-sm font-semibold">
+                                                Resources
+                                            </span>
+                                            <Button
+                                                type="button"
+                                                variant="outline"
+                                                size="sm"
+                                                className="gap-1"
+                                                onClick={() =>
+                                                    setData('resource_links', [
+                                                        ...data.resource_links,
+                                                        {
+                                                            label: emptyTri(),
+                                                            url: '',
+                                                        },
+                                                    ])
+                                                }
+                                            >
+                                                <Plus className="size-4" />
+                                                Add link
+                                            </Button>
+                                        </div>
+                                        {(data.resource_links ?? []).map(
+                                            (row, idx) => (
+                                                <div
+                                                    key={idx}
+                                                    className="space-y-4 rounded-xl border border-border bg-card/50 p-4"
+                                                >
+                                                    <div className="flex items-center justify-between gap-2">
+                                                        <span className="text-xs font-extrabold uppercase text-muted-foreground">
+                                                            Link {idx + 1}
+                                                        </span>
+                                                        <button
+                                                            type="button"
+                                                            className={cn(
+                                                                'inline-flex items-center gap-1 text-xs font-semibold text-destructive hover:underline',
+                                                                (data.resource_links
+                                                                    ?.length ?? 0) <= 1
+                                                                    ? 'pointer-events-none opacity-40'
+                                                                    : '',
+                                                            )}
+                                                            onClick={() =>
+                                                                setData(
+                                                                    'resource_links',
+                                                                    data.resource_links.filter(
+                                                                        (_, i) =>
+                                                                            i !== idx,
+                                                                    ),
+                                                                )
+                                                            }
+                                                        >
+                                                            <Trash2 className="size-3.5" />
+                                                            Remove
+                                                        </button>
+                                                    </div>
+                                                    <TriLangInputs
+                                                        idPrefix={`link-${idx}-label`}
+                                                        label="Label"
+                                                        value={
+                                                            row.label ?? emptyTri()
+                                                        }
+                                                        onChange={(next) => {
+                                                            const nextRows = [
+                                                                ...data.resource_links,
+                                                            ];
+                                                            nextRows[idx] = {
+                                                                ...row,
+                                                                label: next,
+                                                            };
+                                                            setData(
+                                                                'resource_links',
+                                                                nextRows,
+                                                            );
+                                                        }}
+                                                    />
+                                                    <InputError
+                                                        message={
+                                                            errors[
+                                                                `resource_links.${idx}.label.en`
+                                                            ]
+                                                        }
+                                                    />
+                                                    <div className="space-y-2">
+                                                        <Label
+                                                            htmlFor={`link-${idx}-url`}
+                                                        >
+                                                            URL (optional)
+                                                        </Label>
+                                                        <Input
+                                                            id={`link-${idx}-url`}
+                                                            type="url"
+                                                            value={row.url ?? ''}
+                                                            onChange={(e) => {
+                                                                const nextRows = [
+                                                                    ...data.resource_links,
+                                                                ];
+                                                                nextRows[idx] = {
+                                                                    ...row,
+                                                                    url: e.target.value,
+                                                                };
+                                                                setData(
+                                                                    'resource_links',
+                                                                    nextRows,
+                                                                );
+                                                            }}
+                                                            placeholder="https://…"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ),
+                                        )}
+                                    </div>
+                                </CardContent>
+                            </Card>
 
                             <Card className="border-border/70 bg-background shadow-none">
                                 <CardHeader className="px-5 sm:px-6">
