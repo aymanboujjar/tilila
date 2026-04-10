@@ -58,11 +58,11 @@ const moduleItems: NavItem[] = [
         href: "/admin/events",
         icon: Calendar,
     },
-    {
-        title: 'Community',
-        href: home.url(),
-        icon: Globe2,
-    },
+    // {
+    //     title: 'Community',
+    //     href: home.url(),
+    //     icon: Globe2,
+    // },
 ];
 
 const strategicItems: NavItem[] = [

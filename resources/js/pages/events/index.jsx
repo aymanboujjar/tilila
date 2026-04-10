@@ -73,6 +73,11 @@ export default function EventsIndex({ events = [], eventStatuses = [] }) {
         );
 
         list = [...list].sort((a, b) => {
+            const aLive = (a?.status ?? '') === 'live';
+            const bLive = (b?.status ?? '') === 'live';
+            if (aLive !== bLive) {
+                return aLive ? -1 : 1;
+            }
             const at = new Date(a?.dateTimeIso ?? '').getTime();
             const bt = new Date(b?.dateTimeIso ?? '').getTime();
             return wantsPast ? bt - at : at - bt;

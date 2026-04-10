@@ -58,6 +58,24 @@ function Badge({ children, tone = 'blue' }) {
     );
 }
 
+function LiveIndicator({ locale }) {
+    const label =
+        locale === 'ar' ? 'مباشر' : locale === 'fr' ? 'EN DIRECT' : 'LIVE';
+    return (
+        <div
+            className="inline-flex items-center gap-2 rounded-full bg-red-600 px-3 py-1 text-xs font-extrabold tracking-wide text-white uppercase shadow-sm ring-1 ring-red-800/30"
+            role="status"
+            aria-live="polite"
+        >
+            <span className="relative flex h-2 w-2 shrink-0">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-200 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+            </span>
+            {label}
+        </div>
+    );
+}
+
 function CtaButton({ cta, eventId }) {
     const { locale, t } = useTranslation();
     const label =
@@ -124,8 +142,17 @@ export default function EventCard({ event, activeTab }) {
         event?.isOnline ? t('events.labels.andOnline') : null,
     ].filter(Boolean);
 
+    const isLive = (event?.status ?? '') === 'live';
+
     return (
-        <article className="overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-border">
+        <article
+            className={[
+                'overflow-hidden rounded-2xl bg-card shadow-sm ring-1',
+                isLive
+                    ? 'ring-2 ring-red-500/70 shadow-md shadow-red-500/10'
+                    : 'ring-border',
+            ].join(' ')}
+        >
             <div className="grid grid-cols-1 gap-0 md:grid-cols-12">
                 {isFeatured ? (
                     <div className="md:col-span-5">
@@ -147,6 +174,11 @@ export default function EventCard({ event, activeTab }) {
                                             t('events.labels.event'))}
                                 </Badge>
                             </div>
+                            {isLive ? (
+                                <div className="absolute top-4 right-4">
+                                    <LiveIndicator locale={locale} />
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                 ) : null}
@@ -160,6 +192,9 @@ export default function EventCard({ event, activeTab }) {
                     <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0">
                             <div className="flex flex-wrap items-center gap-2">
+                                {isLive && !isFeatured ? (
+                                    <LiveIndicator locale={locale} />
+                                ) : null}
                                 {!isFeatured && event?.badge ? (
                                     <Badge
                                         tone={
