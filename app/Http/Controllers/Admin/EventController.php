@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
+use App\Support\YoutubeVideo;
 use App\Models\EventPartner;
 use App\Models\EventSpeaker;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -299,6 +301,7 @@ class EventController extends Controller
             'cover_image' => 'nullable|image|max:8192',
             'cover_image_path' => 'nullable|string|max:500',
             'replay_video_url' => 'nullable|string|max:2048',
+            'live_video_url' => 'nullable|string|max:2048',
             'agenda' => 'nullable|array',
             'agenda.title' => 'nullable|string|max:255',
             'agenda.items' => 'nullable|array',
@@ -326,6 +329,14 @@ class EventController extends Controller
         unset($validated['cover_image']);
 
         $validated['agenda'] = $this->normalizeAgendaInput($validated['agenda'] ?? null);
+
+        $liveUrl = trim((string) ($validated['live_video_url'] ?? ''));
+        if ($liveUrl !== '' && YoutubeVideo::embedUrlFromInput($liveUrl) === null) {
+            throw ValidationException::withMessages([
+                'live_video_url' => 'Enter a valid YouTube link (watch URL, youtu.be, or embed).',
+            ]);
+        }
+        $validated['live_video_url'] = $liveUrl === '' ? null : $liveUrl;
 
         return $validated;
     }

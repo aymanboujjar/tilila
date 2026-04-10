@@ -21,6 +21,7 @@ class Event extends Model
         'timezone',
         'cover_image_path',
         'replay_video_url',
+        'live_video_url',
         'agenda',
         'list_payload',
         'details_payload',

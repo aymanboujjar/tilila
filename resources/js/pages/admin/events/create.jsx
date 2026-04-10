@@ -32,6 +32,7 @@ export default function AdminEventsCreate({
         speakers: [],
         partners: [],
         replay_video_url: '',
+        live_video_url: '',
         agenda: { title: 'Agenda', items: [] },
     });
 

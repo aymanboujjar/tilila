@@ -673,6 +673,38 @@ export default function EventForm({
                                 <InputError message={errors.status} />
                             </div>
 
+                            {data.status === 'live' ? (
+                                <div className="space-y-2 rounded-xl border border-border bg-card/60 p-4">
+                                    <Label htmlFor="live_video_url">
+                                        YouTube live link
+                                    </Label>
+                                    <Input
+                                        id="live_video_url"
+                                        type="url"
+                                        value={data.live_video_url ?? ''}
+                                        onChange={(e) =>
+                                            setData(
+                                                'live_video_url',
+                                                e.target.value,
+                                            )
+                                        }
+                                        placeholder="https://www.youtube.com/watch?v=… or https://youtu.be/…"
+                                    />
+                                    <p className="text-xs text-muted-foreground">
+                                        Shown on the public event page while
+                                        status is{' '}
+                                        <span className="font-semibold text-foreground">
+                                            Live
+                                        </span>
+                                        . Same formats as replay (watch, shorts,
+                                        youtu.be).
+                                    </p>
+                                    <InputError
+                                        message={errors.live_video_url}
+                                    />
+                                </div>
+                            ) : null}
+
                             <div className="space-y-2">
                                 <Label htmlFor="visibility">Visibility</Label>
                                 <select

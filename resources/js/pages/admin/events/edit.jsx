@@ -44,6 +44,7 @@ export default function AdminEventsEdit({
             logo_url: p.logo_url ?? null,
         })),
         replay_video_url: event.replay_video_url ?? '',
+        live_video_url: event.live_video_url ?? '',
         agenda:
             event.agenda &&
             typeof event.agenda === 'object' &&

@@ -88,6 +88,11 @@ export default function EventDetails({ event, details }) {
 
                     <div className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
                         <div className="space-y-8 lg:col-span-8">
+                            {details?.live ? (
+                                <div id="live">
+                                    <EventReplay {...(details?.live ?? {})} />
+                                </div>
+                            ) : null}
                             {details?.replay ? (
                                 <div id="replay">
                                     <EventReplay {...(details?.replay ?? {})} />

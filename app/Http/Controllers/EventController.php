@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\EventParticipant;
+use App\Support\YoutubeVideo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -312,7 +313,7 @@ class EventController extends Controller
             return null;
         }
 
-        $embed = $this->normalizeYoutubeEmbedUrl($raw);
+        $embed = YoutubeVideo::embedUrlFromInput($raw);
         if ($embed === null) {
             return null;
         }
@@ -322,25 +323,36 @@ class EventController extends Controller
             'videoTitle' => 'Replay',
             'durationLabel' => '',
             'embedUrl' => $embed,
+            'mode' => 'replay',
         ];
     }
 
-    private function normalizeYoutubeEmbedUrl(string $url): ?string
+    /**
+     * @return array<string, mixed>|null
+     */
+    private function buildLivePayload(Event $event): ?array
     {
-        $url = trim($url);
-        if ($url === '') {
+        if ($event->status !== 'live') {
             return null;
         }
 
-        if (preg_match('#youtube(?:-nocookie)?\.com/embed/([a-zA-Z0-9_-]+)#', $url, $m)) {
-            return 'https://www.youtube.com/embed/'.$m[1];
+        $raw = trim((string) ($event->live_video_url ?? ''));
+        if ($raw === '') {
+            return null;
         }
 
-        if (preg_match('#(?:youtube\.com/watch\?v=|youtu\.be/|youtube\.com/shorts/)([a-zA-Z0-9_-]+)#', $url, $m)) {
-            return 'https://www.youtube.com/embed/'.$m[1];
+        $embed = YoutubeVideo::embedUrlFromInput($raw);
+        if ($embed === null) {
+            return null;
         }
 
-        return null;
+        return [
+            'title' => 'Live stream',
+            'videoTitle' => 'Watch live',
+            'durationLabel' => '',
+            'embedUrl' => $embed,
+            'mode' => 'live',
+        ];
     }
 
     /**
@@ -349,15 +361,18 @@ class EventController extends Controller
      */
     private function stripFinishedEventExtras(Event $event, array $details): array
     {
-        if ($this->eventAllowsReplayAndGallery($event)) {
-            return $details;
+        if (! $this->eventAllowsReplayAndGallery($event)) {
+            $details['gallery'] = [
+                'title' => is_array($details['gallery'] ?? null) ? ($details['gallery']['title'] ?? 'Photo Gallery') : 'Photo Gallery',
+                'items' => [],
+            ];
+            unset($details['replay']);
         }
 
-        $details['gallery'] = [
-            'title' => is_array($details['gallery'] ?? null) ? ($details['gallery']['title'] ?? 'Photo Gallery') : 'Photo Gallery',
-            'items' => [],
-        ];
-        unset($details['replay']);
+        unset($details['live']);
+        if (($live = $this->buildLivePayload($event)) !== null) {
+            $details['live'] = $live;
+        }
 
         return $details;
     }
