@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExpertController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OpportunityController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,14 +28,8 @@ Route::get('/tilila', function () {
 Route::get('/tilila/form', function () {
     return Inertia::render('user/tilila/partials/FormOFInscription');
 });
-Route::get('/media', function () {
-    return Inertia::render('user/media/index');
-});
-Route::get('/media/{id}', function (string $id) {
-    return Inertia::render('user/media/[id]', [
-        'id' => $id,
-    ]);
-});
+Route::get('/media', [MediaController::class, 'index'])->name('media.index');
+Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::inertia('dashboard', 'dashboard')->name('dashboard');

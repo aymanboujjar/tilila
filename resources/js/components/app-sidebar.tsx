@@ -44,8 +44,8 @@ const moduleItems: NavItem[] = [
         icon: Users,
     },
     {
-        title: 'Content',
-        href: '/media',
+        title: 'Media',
+        href: '/admin/media',
         icon: FileText,
     },
     {

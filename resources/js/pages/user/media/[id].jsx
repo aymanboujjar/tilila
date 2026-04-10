@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 import AppLayout from '@/layouts/app-layout';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { MEDIA_ITEMS } from '@/pages/user/media/mediaItems';
 
 import SidebarNewsletter from '@/pages/user/media/partials/SidebarNewsletter';
 import SidebarTrendingTopics from '@/pages/user/media/partials/SidebarTrendingTopics';
@@ -16,9 +15,8 @@ import RelatedMedia from '@/pages/user/media/partials/RelatedMedia';
 
 export default function MediaDetails() {
     const { t, locale } = useTranslation();
-    const { id } = usePage().props;
-
-    const item = useMemo(() => MEDIA_ITEMS.find((x) => x.id === id), [id]);
+    // `item` and `relatedItems` are provided by the server (SQLite).
+    const { item, relatedItems = [] } = usePage().props;
 
     return (
         <>
@@ -72,7 +70,7 @@ export default function MediaDetails() {
                             </div>
 
                             <RelatedMedia
-                                items={MEDIA_ITEMS}
+                                items={relatedItems}
                                 currentId={item.id}
                                 locale={locale}
                             />
