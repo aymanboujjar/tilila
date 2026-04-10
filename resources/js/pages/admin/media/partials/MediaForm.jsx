@@ -117,7 +117,7 @@ export default function MediaForm({
                                         Excerpt
                                     </CardTitle>
                                 </CardHeader>
-                                <CardContent className="px-5 sm:px-6">
+                                <CardContent className="space-y-4 px-5 sm:px-6">
                                     <TriLangTextareas
                                         idPrefix="excerpt"
                                         label="Short description"
@@ -126,39 +126,6 @@ export default function MediaForm({
                                             setData('excerpt', next)
                                         }
                                     />
-                                </CardContent>
-                            </Card>
-
-                            <Card className="border-border/70 bg-background shadow-none">
-                                <CardHeader className="px-5 sm:px-6">
-                                    <CardTitle className="text-base">
-                                        Reading &amp; location
-                                    </CardTitle>
-                                </CardHeader>
-                                <CardContent className="space-y-5 px-5 sm:px-6">
-                                    <TriLangInputs
-                                        idPrefix="reading_label"
-                                        label="Reading / duration line"
-                                        value={data.reading_label}
-                                        onChange={(next) =>
-                                            setData('reading_label', next)
-                                        }
-                                    />
-                                    <p className="text-xs text-muted-foreground">
-                                        e.g. &quot;10 min read&quot;, &quot;Video • 12 min&quot;
-                                    </p>
-                                    <TriLangInputs
-                                        idPrefix="location_label"
-                                        label="Location (optional)"
-                                        value={data.location_label}
-                                        onChange={(next) =>
-                                            setData('location_label', next)
-                                        }
-                                    />
-                                    <p className="text-xs text-muted-foreground">
-                                        Shown after a middle dot (·) when both
-                                        fields are set. Leave empty if not needed.
-                                    </p>
                                     <div className="rounded-lg border border-dashed border-border bg-muted/20 px-4 py-3 text-xs text-muted-foreground">
                                         Card CTA is fixed for all items:{' '}
                                         <span className="font-semibold text-foreground">

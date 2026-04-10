@@ -122,25 +122,12 @@ class MediaController extends Controller
      */
     private function composedMeta(MediaItem $m): array
     {
-        $read = is_array($m->reading_label) ? $m->reading_label : [];
-        $loc = is_array($m->location_label) ? $m->location_label : [];
-        $fallback = is_array($m->meta) ? $m->meta : [];
+        $meta = is_array($m->meta) ? $m->meta : [];
 
-        $out = ['en' => '', 'fr' => '', 'ar' => ''];
-        foreach (['en', 'fr', 'ar'] as $lang) {
-            $r = trim((string) ($read[$lang] ?? ''));
-            $l = trim((string) ($loc[$lang] ?? ''));
-            if ($r !== '' && $l !== '') {
-                $out[$lang] = $r.' · '.$l;
-            } elseif ($r !== '') {
-                $out[$lang] = $r;
-            } elseif ($l !== '') {
-                $out[$lang] = $l;
-            } else {
-                $out[$lang] = trim((string) ($fallback[$lang] ?? ''));
-            }
-        }
-
-        return $out;
+        return [
+            'en' => trim((string) ($meta['en'] ?? '')),
+            'fr' => trim((string) ($meta['fr'] ?? '')),
+            'ar' => trim((string) ($meta['ar'] ?? '')),
+        ];
     }
 }

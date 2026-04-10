@@ -287,14 +287,6 @@ class MediaController extends Controller
             'excerpt.en' => 'nullable|string|max:2000',
             'excerpt.fr' => 'nullable|string|max:2000',
             'excerpt.ar' => 'nullable|string|max:2000',
-            'reading_label' => 'nullable|array',
-            'reading_label.en' => 'nullable|string|max:255',
-            'reading_label.fr' => 'nullable|string|max:255',
-            'reading_label.ar' => 'nullable|string|max:255',
-            'location_label' => 'nullable|array',
-            'location_label.en' => 'nullable|string|max:255',
-            'location_label.fr' => 'nullable|string|max:255',
-            'location_label.ar' => 'nullable|string|max:255',
             'featured_expert_id' => 'nullable|integer|exists:experts,id',
             'trending_topics' => 'nullable|array',
             'trending_topics.*.title' => 'nullable|array',
@@ -317,8 +309,6 @@ class MediaController extends Controller
 
         $validated['badge'] = $validated['badge'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
         $validated['excerpt'] = $validated['excerpt'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
-        $validated['reading_label'] = $validated['reading_label'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
-        $validated['location_label'] = $validated['location_label'] ?? ['en' => '', 'fr' => '', 'ar' => ''];
         $validated['trending_topics'] = $this->normalizeTopics($validated['trending_topics'] ?? []);
         $validated['resource_links'] = $this->normalizeLinks($validated['resource_links'] ?? []);
 

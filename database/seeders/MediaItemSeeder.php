@@ -25,8 +25,11 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Découvrez comment l’intelligence émotionnelle transforme le leadership dans les médias et المؤسسات.',
                     'ar' => 'اكتشف كيف يُعيد الذكاء العاطفي تشكيل القيادة في الإعلام والمؤسسات.',
                 ],
-                'reading_label' => ['en' => '10 min read', 'fr' => 'Lecture 10 min', 'ar' => 'قراءة 10 دقائق'],
-                'location_label' => ['en' => 'Casablanca', 'fr' => 'Casablanca', 'ar' => 'الدار البيضاء'],
+                'meta' => [
+                    'en' => '10 min read · Casablanca',
+                    'fr' => 'Lecture 10 min · Casablanca',
+                    'ar' => 'قراءة 10 دقائق · الدار البيضاء',
+                ],
                 'image_path' => 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
             ],
             [
@@ -43,8 +46,11 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Notre rapport annuel met en lumière les tendances de parité et la visibilité des expertes.',
                     'ar' => 'يسلط تقريرنا السنوي الضوء على اتجاهات التوازن الجندري وظهور الخبيرات عبر المنصات.',
                 ],
-                'reading_label' => ['en' => 'Report • 6 min', 'fr' => 'Rapport • 6 min', 'ar' => 'تقرير • 6 دقائق'],
-                'location_label' => ['en' => '', 'fr' => '', 'ar' => ''],
+                'meta' => [
+                    'en' => 'Report • 6 min',
+                    'fr' => 'Rapport • 6 min',
+                    'ar' => 'تقرير • 6 دقائق',
+                ],
                 'image_path' => 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80',
             ],
             [
@@ -61,8 +67,11 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Les panels 100% masculins réduisent la crédibilité et la confiance—voici quoi faire à la place.',
                     'ar' => 'اللوحات التي تضم رجالًا فقط تقلل المصداقية وتفوت المواهب وتضعف الثقة—وهذه بدائل عملية.',
                 ],
-                'reading_label' => ['en' => 'Insight • 4 min', 'fr' => 'Insight • 4 min', 'ar' => 'رؤية • 4 دقائق'],
-                'location_label' => ['en' => '', 'fr' => '', 'ar' => ''],
+                'meta' => [
+                    'en' => 'Insight • 4 min',
+                    'fr' => 'Insight • 4 min',
+                    'ar' => 'رؤية • 4 دقائق',
+                ],
                 'image_path' => 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
             ],
             [
@@ -79,8 +88,11 @@ class MediaItemSeeder extends Seeder
                     'fr' => 'Écoutez des expertes qui construisent des solutions d’avenir à travers l’Afrique.',
                     'ar' => 'استمع إلى خبيرات يطوّرن حلولًا للمستقبل في أنحاء إفريقيا.',
                 ],
-                'reading_label' => ['en' => 'Video • 12 min', 'fr' => 'Vidéo • 12 min', 'ar' => 'فيديو • 12 دقيقة'],
-                'location_label' => ['en' => '', 'fr' => '', 'ar' => ''],
+                'meta' => [
+                    'en' => 'Video • 12 min',
+                    'fr' => 'Vidéo • 12 min',
+                    'ar' => 'فيديو • 12 دقيقة',
+                ],
                 'image_path' => 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
             ],
         ];

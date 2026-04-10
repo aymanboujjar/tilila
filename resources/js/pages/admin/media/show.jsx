@@ -133,25 +133,10 @@ export default function AdminMediaShow({ item }) {
                                         <Tri value={item.excerpt} />
                                     </div>
                                 </div>
-                                <div>
-                                    <div className="text-sm font-semibold text-foreground">
-                                        Reading / duration
-                                    </div>
-                                    <div className="mt-2">
-                                        <Tri value={item.reading_label} />
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="text-sm font-semibold text-foreground">
-                                        Location
-                                    </div>
-                                    <div className="mt-2">
-                                        <Tri value={item.location_label} />
-                                    </div>
-                                </div>
                                 <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-sm text-muted-foreground">
-                                    Public card line combines reading · location.
-                                    CTA is always the default replay labels.
+                                    Public cards use the fixed replay CTA (EN / FR /
+                                    AR). A secondary meta line appears only when the
+                                    item has meta text saved in the database.
                                 </div>
                             </CardContent>
                         </Card>

@@ -23,8 +23,6 @@ export default function AdminMediaCreate({
         badge: emptyTri(),
         title: emptyTri(),
         excerpt: emptyTri(),
-        reading_label: emptyTri(),
-        location_label: emptyTri(),
         featured_expert_id: '',
         trending_topics: [{ title: emptyTri(), tag: emptyTri() }],
         resource_links: [{ label: emptyTri(), url: '' }],

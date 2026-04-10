@@ -36,14 +36,6 @@ export default function AdminMediaEdit({
         badge: { ...emptyTri(), ...(item.badge ?? {}) },
         title: { ...emptyTri(), ...(item.title ?? {}) },
         excerpt: { ...emptyTri(), ...(item.excerpt ?? {}) },
-        reading_label: {
-            ...emptyTri(),
-            ...(item.reading_label ?? {}),
-        },
-        location_label: {
-            ...emptyTri(),
-            ...(item.location_label ?? {}),
-        },
         featured_expert_id: item.featured_expert_id ?? '',
         trending_topics: topics.map((t) => ({
             title: { ...emptyTri(), ...(t.title ?? {}) },

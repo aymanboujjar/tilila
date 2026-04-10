@@ -1,6 +1,7 @@
 import React from 'react';
 
 import TransText from '@/components/TransText';
+import { cn } from '@/lib/utils';
 
 export default function MediaDetailsContent({ item, locale }) {
     const resolvedMeta =
@@ -12,11 +13,18 @@ export default function MediaDetailsContent({ item, locale }) {
 
     return (
         <article className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border sm:p-8">
-            <div className="text-xs font-semibold text-muted-foreground">
-                {resolvedMeta}
-            </div>
+            {resolvedMeta ? (
+                <div className="text-xs font-semibold text-muted-foreground">
+                    {resolvedMeta}
+                </div>
+            ) : null}
 
-            <div className="prose prose-sm prose-headings:font-extrabold prose-headings:text-foreground prose-p:text-muted-foreground mt-6 max-w-none text-foreground">
+            <div
+                className={cn(
+                    'prose prose-sm prose-headings:font-extrabold prose-headings:text-foreground prose-p:text-muted-foreground max-w-none text-foreground',
+                    resolvedMeta ? 'mt-6' : '',
+                )}
+            >
                 <h2>
                     <TransText
                         en="Key takeaways"
