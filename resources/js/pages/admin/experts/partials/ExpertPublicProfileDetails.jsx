@@ -234,6 +234,49 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                     />
                 </section>
 
+                {/* Social links (sidebar icons) */}
+                <section className="space-y-3">
+                    <h3 className="text-sm font-semibold">
+                        Social profiles (sidebar)
+                    </h3>
+                    <p className="text-muted-foreground text-xs">
+                        Full URLs for LinkedIn, X (Twitter), and Instagram.
+                        Contact email is set in the main expert fields on this
+                        form.
+                    </p>
+                    <div className="grid gap-4 sm:grid-cols-1">
+                        {(
+                            [
+                                ['linkedin', 'LinkedIn URL'],
+                                ['twitter', 'X (Twitter) URL'],
+                                ['instagram', 'Instagram URL'],
+                            ]
+                        ).map(([key, label]) => (
+                            <div key={key} className="space-y-1.5">
+                                <Label className="text-xs font-medium">
+                                    {label}
+                                </Label>
+                                <Input
+                                    placeholder="https://…"
+                                    value={d.socials?.[key] ?? ''}
+                                    onChange={(e) =>
+                                        patch({
+                                            socials: {
+                                                ...(d.socials ?? {
+                                                    linkedin: '',
+                                                    twitter: '',
+                                                    instagram: '',
+                                                }),
+                                                [key]: e.target.value,
+                                            },
+                                        })
+                                    }
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </section>
+
                 {/* Expertise */}
                 <section className="space-y-3">
                     <div className="flex flex-wrap items-center justify-between gap-2">
@@ -342,6 +385,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                             year: new Date().getFullYear(),
                                             role: emptyTri(),
                                             description: emptyTri(),
+                                            imageSrc: '',
                                         },
                                     ],
                                 })
@@ -406,6 +450,23 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                         patch({ journey: list });
                                     }}
                                 />
+                                <div className="space-y-1.5">
+                                    <Label className="text-xs font-medium">
+                                        Image URL (round photo in timeline)
+                                    </Label>
+                                    <Input
+                                        placeholder="https://… (optional)"
+                                        value={item.imageSrc ?? ''}
+                                        onChange={(e) => {
+                                            const list = [...(d.journey ?? [])];
+                                            list[i] = {
+                                                ...list[i],
+                                                imageSrc: e.target.value,
+                                            };
+                                            patch({ journey: list });
+                                        }}
+                                    />
+                                </div>
                                 <TriLangTextareas
                                     label="Description"
                                     value={
@@ -433,7 +494,8 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                 Past appearances
                             </h3>
                             <p className="text-muted-foreground text-xs">
-                                Video cards (thumbnail optional).
+                                YouTube URL embeds a mini player; use thumbnail
+                                when there is no video or as extra art.
                             </p>
                         </div>
                         <Button
@@ -450,6 +512,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                             meta: emptyTri(),
                                             duration: '',
                                             thumbnailSrc: '',
+                                            videoUrl: '',
                                         },
                                     ],
                                 })
@@ -501,6 +564,23 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                         patch({ appearances: list });
                                     }}
                                 />
+                                <div className="space-y-1.5">
+                                    <Label className="text-xs">
+                                        YouTube video URL (embed)
+                                    </Label>
+                                    <Input
+                                        placeholder="https://www.youtube.com/watch?v=… or youtu.be/…"
+                                        value={item.videoUrl ?? ''}
+                                        onChange={(e) => {
+                                            const list = [...(d.appearances ?? [])];
+                                            list[i] = {
+                                                ...list[i],
+                                                videoUrl: e.target.value,
+                                            };
+                                            patch({ appearances: list });
+                                        }}
+                                    />
+                                </div>
                                 <div className="grid gap-3 sm:grid-cols-2">
                                     <div className="space-y-1.5">
                                         <Label className="text-xs">
@@ -522,7 +602,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                     </div>
                                     <div className="space-y-1.5">
                                         <Label className="text-xs">
-                                            Thumbnail URL
+                                            Thumbnail URL (optional)
                                         </Label>
                                         <Input
                                             placeholder="https://…"

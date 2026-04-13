@@ -10,17 +10,22 @@ class ExpertSeeder extends Seeder
 {
     public function run(): void
     {
-        $detailsPath = database_path('data/experts_details.json');
+        $detailsFile = database_path('seeders/data/expert_details_by_slug.php');
         $detailsBySlug = [];
-        if (is_readable($detailsPath)) {
-            $decoded = json_decode((string) file_get_contents($detailsPath), true);
-            $detailsBySlug = is_array($decoded) ? $decoded : [];
+        if (is_file($detailsFile)) {
+            $loaded = require $detailsFile;
+            $detailsBySlug = is_array($loaded) ? $loaded : [];
         }
 
         $emptyDetails = [
             'headlineTags' => [],
             'bio' => [],
             'quote' => ['en' => '', 'fr' => '', 'ar' => ''],
+            'socials' => [
+                'linkedin' => '',
+                'twitter' => '',
+                'instagram' => '',
+            ],
             'expertise' => [],
             'journey' => [],
             'appearances' => [],

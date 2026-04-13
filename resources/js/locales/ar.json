@@ -76,7 +76,9 @@
             "viewProfile": "عرض الملف",
             "linkedinAria": "لينكدإن",
             "twitterAria": "تويتر / X",
-            "websiteAria": "الموقع الإلكتروني"
+            "websiteAria": "الموقع الإلكتروني",
+            "instagramAria": "إنستغرام",
+            "emailAria": "البريد الإلكتروني"
         },
         "detail": {
             "fallbackHeadTitle": "خبيرة"

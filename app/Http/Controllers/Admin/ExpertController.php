@@ -64,7 +64,7 @@ class ExpertController extends Controller
 
             $query->chunkById(200, function ($rows) use ($out, $delimiter): void {
                 foreach ($rows as $expert) {
-                    /** @var \App\Models\Expert $expert */
+                    /** @var Expert $expert */
                     $industries = is_array($expert->industries) ? implode('|', $expert->industries) : '';
 
                     fputcsv($out, [
@@ -221,6 +221,11 @@ class ExpertController extends Controller
             'headlineTags' => [],
             'bio' => [],
             'quote' => ['en' => '', 'fr' => '', 'ar' => ''],
+            'socials' => [
+                'linkedin' => '',
+                'twitter' => '',
+                'instagram' => '',
+            ],
             'expertise' => [],
             'journey' => [],
             'appearances' => [],
@@ -241,6 +246,12 @@ class ExpertController extends Controller
             $base['quote'],
             is_array($details['quote'] ?? null) ? $details['quote'] : []
         );
+        $socialIn = is_array($details['socials'] ?? null) ? $details['socials'] : [];
+        $base['socials'] = [
+            'linkedin' => trim((string) ($socialIn['linkedin'] ?? '')),
+            'twitter' => trim((string) ($socialIn['twitter'] ?? '')),
+            'instagram' => trim((string) ($socialIn['instagram'] ?? '')),
+        ];
         $base['expertise'] = is_array($details['expertise'] ?? null)
             ? $details['expertise']
             : [];

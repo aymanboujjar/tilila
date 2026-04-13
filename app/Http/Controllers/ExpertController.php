@@ -25,10 +25,20 @@ class ExpertController extends Controller
     {
         abort_unless($expert->isPublished(), 404);
 
+        $defaults = $this->emptyDetails();
+        $incoming = is_array($expert->details) ? $expert->details : [];
+        $details = array_merge($defaults, $incoming);
+        if (is_array($incoming['quote'] ?? null)) {
+            $details['quote'] = array_merge($defaults['quote'], $incoming['quote']);
+        }
+        if (is_array($incoming['socials'] ?? null)) {
+            $details['socials'] = array_merge($defaults['socials'], $incoming['socials']);
+        }
+
         return Inertia::render('experts/[id]', [
             'id' => $expert->id,
             'expert' => $expert->toDirectoryArray(),
-            'details' => $expert->details ?? $this->emptyDetails(),
+            'details' => $details,
         ]);
     }
 
@@ -41,6 +51,11 @@ class ExpertController extends Controller
             'headlineTags' => [],
             'bio' => [],
             'quote' => ['en' => '', 'fr' => '', 'ar' => ''],
+            'socials' => [
+                'linkedin' => '',
+                'twitter' => '',
+                'instagram' => '',
+            ],
             'expertise' => [],
             'journey' => [],
             'appearances' => [],

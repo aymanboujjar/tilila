@@ -23,6 +23,7 @@ function emptyDetails() {
         headlineTags: [],
         bio: [],
         quote: { en: '', fr: '', ar: '' },
+        socials: { linkedin: '', twitter: '', instagram: '' },
         expertise: [],
         journey: [],
         appearances: [],

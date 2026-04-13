@@ -76,7 +76,9 @@
             "viewProfile": "View Profile",
             "linkedinAria": "LinkedIn",
             "twitterAria": "Twitter / X",
-            "websiteAria": "Website"
+            "websiteAria": "Website",
+            "instagramAria": "Instagram",
+            "emailAria": "Email"
         },
         "detail": {
             "fallbackHeadTitle": "Expert"

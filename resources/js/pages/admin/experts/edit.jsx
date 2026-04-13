@@ -23,6 +23,7 @@ function emptyDetails() {
         headlineTags: [],
         bio: [],
         quote: { en: '', fr: '', ar: '' },
+        socials: { linkedin: '', twitter: '', instagram: '' },
         expertise: [],
         journey: [],
         appearances: [],
@@ -39,6 +40,10 @@ function normalizeDetails(raw) {
         return e;
     }
     const d = /** @type {Record<string, unknown>} */ (raw);
+    const socialsIn =
+        d.socials && typeof d.socials === 'object'
+            ? /** @type {Record<string, string>} */ (d.socials)
+            : {};
     return {
         headlineTags: Array.isArray(d.headlineTags)
             ? d.headlineTags
@@ -48,6 +53,12 @@ function normalizeDetails(raw) {
             d.quote && typeof d.quote === 'object'
                 ? { ...e.quote, ...d.quote }
                 : e.quote,
+        socials: {
+            ...e.socials,
+            linkedin: socialsIn.linkedin ?? e.socials.linkedin,
+            twitter: socialsIn.twitter ?? e.socials.twitter,
+            instagram: socialsIn.instagram ?? e.socials.instagram,
+        },
         expertise: Array.isArray(d.expertise) ? d.expertise : e.expertise,
         journey: Array.isArray(d.journey) ? d.journey : e.journey,
         appearances: Array.isArray(d.appearances) ? d.appearances : e.appearances,
