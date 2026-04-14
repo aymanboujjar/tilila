@@ -1,5 +1,5 @@
 import { ArrowRight } from 'lucide-react';
-import { usePage } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 
@@ -19,6 +19,7 @@ export default function FeaturedLaureatesSection() {
     const edition = firstEditionWithWinners(editions);
     const winners = Array.isArray(edition?.winners) ? edition.winners : [];
     const featured = winners.slice(0, 3);
+    const detailsUrl = edition?.id ? `/tilila/editions/${edition.id}` : '/tilila#archive';
 
     return (
         <section id="featured" className="mx-auto max-w-7xl px-4 pt-8 pb-10">
@@ -35,8 +36,8 @@ export default function FeaturedLaureatesSection() {
                         />
                     </h2>
                 </div>
-                <a
-                    href="/tilila#archive"
+                <Link
+                    href={detailsUrl}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-beta-blue hover:opacity-80"
                 >
                     <span>
@@ -47,7 +48,7 @@ export default function FeaturedLaureatesSection() {
                         />
                     </span>{' '}
                     <ArrowRight className="size-4" />
-                </a>
+                </Link>
             </div>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-3">
@@ -72,39 +73,40 @@ export default function FeaturedLaureatesSection() {
                                   : person?.full_name;
 
                         return (
-                    <article
-                        key={`${person?.full_name ?? 'winner'}-${idx}`}
-                        className="overflow-hidden rounded-3xl border border-border bg-background shadow-sm"
-                    >
-                        <div className="relative">
-                            {imageUrl ? (
-                                <img
-                                    src={imageUrl}
-                                    alt={title ?? ''}
-                                    className="aspect-4/3 w-full object-cover"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                            ) : (
-                                <div className="aspect-4/3 w-full bg-muted" />
-                            )}
-                            <span className="absolute top-4 left-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
-                                {edition?.year ?? ''}
-                            </span>
-                        </div>
-                        <div className="p-5">
-                            <h3 className="text-sm font-semibold text-tblack">
-                                {person?.full_name ?? '—'}
-                            </h3>
-                            <p className="mt-2 text-sm leading-6 text-tgray">
-                                <TransText
-                                    en={person?.bio?.en ?? ''}
-                                    fr={person?.bio?.fr ?? ''}
-                                    ar={person?.bio?.ar ?? ''}
-                                />
-                            </p>
-                        </div>
-                    </article>
+                            <Link
+                                key={`${person?.full_name ?? 'winner'}-${idx}`}
+                                href={detailsUrl}
+                                className="block overflow-hidden rounded-3xl border border-border bg-background shadow-sm transition hover:shadow-md"
+                            >
+                                <div className="relative">
+                                    {imageUrl ? (
+                                        <img
+                                            src={imageUrl}
+                                            alt={title ?? ''}
+                                            className="aspect-4/3 w-full object-cover"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    ) : (
+                                        <div className="aspect-4/3 w-full bg-muted" />
+                                    )}
+                                    <span className="absolute top-4 left-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
+                                        {edition?.year ?? ''}
+                                    </span>
+                                </div>
+                                <div className="p-5">
+                                    <h3 className="text-sm font-semibold text-tblack">
+                                        {person?.full_name ?? '—'}
+                                    </h3>
+                                    <p className="mt-2 text-sm leading-6 text-tgray">
+                                        <TransText
+                                            en={person?.bio?.en ?? ''}
+                                            fr={person?.bio?.fr ?? ''}
+                                            ar={person?.bio?.ar ?? ''}
+                                        />
+                                    </p>
+                                </div>
+                            </Link>
                         );
                     })
                 )}

@@ -1,6 +1,7 @@
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { useEffect, useMemo, useState } from 'react';
 
 function TriInputs({ label, value, onChange, errors, placeholderBase }) {
     return (
@@ -73,6 +74,94 @@ function TriTextareas({ label, value, onChange, placeholderBase }) {
     );
 }
 
+function useFilePreview(file) {
+    const [url, setUrl] = useState('');
+
+    useEffect(() => {
+        if (!(file instanceof File)) {
+            setUrl('');
+            return;
+        }
+
+        const next = URL.createObjectURL(file);
+        setUrl(next);
+        return () => URL.revokeObjectURL(next);
+    }, [file]);
+
+    return url;
+}
+
+function PersonRow({ peopleKey, idx, person, updateRow, removeRow }) {
+    const existingSrc = person?.photo_path ? `/storage/${person.photo_path}` : '';
+    const previewUrl = useFilePreview(person?.photo ?? null);
+    const src = previewUrl || existingSrc || '';
+
+    return (
+        <div
+            key={`${peopleKey}-${idx}`}
+            className="rounded-xl border border-border bg-background p-4"
+        >
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex items-start gap-4">
+                    <div className="size-16 overflow-hidden rounded-lg border border-border bg-muted">
+                        {src ? (
+                            <img
+                                src={src}
+                                alt=""
+                                className="h-full w-full object-cover"
+                            />
+                        ) : null}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                        <div className="text-sm font-semibold text-foreground">
+                            Full name
+                        </div>
+                        <Input
+                            className="mt-2"
+                            value={person?.full_name ?? ''}
+                            onChange={(e) => updateRow(idx, { full_name: e.target.value })}
+                            placeholder="Full name"
+                        />
+
+                        <div className="mt-4 text-sm font-semibold text-foreground">
+                            Photo
+                        </div>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            className="mt-2 block w-full text-sm"
+                            onChange={(e) =>
+                                updateRow(idx, {
+                                    photo: e.target.files?.[0] ?? null,
+                                })
+                            }
+                        />
+                        <input type="hidden" value={person?.photo_path ?? ''} readOnly />
+                    </div>
+                </div>
+
+                <Button
+                    type="button"
+                    variant="ghost"
+                    className="text-alpha-danger"
+                    onClick={() => removeRow(idx)}
+                >
+                    Remove
+                </Button>
+            </div>
+
+            <div className="mt-5">
+                <TriTextareas
+                    label="Mini bio"
+                    value={person?.bio ?? { en: '', fr: '', ar: '' }}
+                    onChange={(v) => updateRow(idx, { bio: v })}
+                    placeholderBase="Short bio"
+                />
+            </div>
+        </div>
+    );
+}
+
 function PeopleSection({ title, peopleKey, data, setData }) {
     const rows = Array.isArray(data?.[peopleKey]) ? data[peopleKey] : [];
 
@@ -120,88 +209,60 @@ function PeopleSection({ title, peopleKey, data, setData }) {
                 </div>
             ) : (
                 <div className="mt-5 space-y-4">
-                    {rows.map((p, idx) => {
-                        const existingSrc = p?.photo_path ? `/storage/${p.photo_path}` : '';
-                        const src = existingSrc || '';
-
-                        return (
-                            <div
-                                key={`${peopleKey}-${idx}`}
-                                className="rounded-xl border border-border bg-background p-4"
-                            >
-                                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                                    <div className="flex items-start gap-4">
-                                        <div className="size-16 overflow-hidden rounded-lg border border-border bg-muted">
-                                            {src ? (
-                                                <img
-                                                    src={src}
-                                                    alt=""
-                                                    className="h-full w-full object-cover"
-                                                />
-                                            ) : null}
-                                        </div>
-                                        <div className="min-w-0 flex-1">
-                                            <div className="text-sm font-semibold text-foreground">
-                                                Full name
-                                            </div>
-                                            <Input
-                                                className="mt-2"
-                                                value={p?.full_name ?? ''}
-                                                onChange={(e) =>
-                                                    updateRow(idx, { full_name: e.target.value })
-                                                }
-                                                placeholder="Full name"
-                                            />
-
-                                            <div className="mt-4 text-sm font-semibold text-foreground">
-                                                Photo
-                                            </div>
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                className="mt-2 block w-full text-sm"
-                                                onChange={(e) =>
-                                                    updateRow(idx, {
-                                                        photo: e.target.files?.[0] ?? null,
-                                                    })
-                                                }
-                                            />
-                                            <input
-                                                type="hidden"
-                                                value={p?.photo_path ?? ''}
-                                                readOnly
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <Button
-                                        type="button"
-                                        variant="ghost"
-                                        className="text-alpha-danger"
-                                        onClick={() => removeRow(idx)}
-                                    >
-                                        Remove
-                                    </Button>
-                                </div>
-
-                                <div className="mt-5">
-                                    <TriTextareas
-                                        label="Mini bio"
-                                        value={p?.bio ?? { en: '', fr: '', ar: '' }}
-                                        onChange={(v) => updateRow(idx, { bio: v })}
-                                        placeholderBase="Short bio"
-                                    />
-                                </div>
-                            </div>
-                        );
-                    })}
+                    {rows.map((p, idx) => (
+                        <PersonRow
+                            key={`${peopleKey}-${idx}`}
+                            peopleKey={peopleKey}
+                            idx={idx}
+                            person={p}
+                            updateRow={updateRow}
+                            removeRow={removeRow}
+                        />
+                    ))}
                 </div>
             )}
         </div>
     );
 }
 
+function GalleryFileThumb({ file, onRemove }) {
+    const url = useFilePreview(file);
+    const label = useMemo(() => (file instanceof File ? file.name : ''), [file]);
+
+    if (!(file instanceof File)) return null;
+
+    return (
+        <div className="relative overflow-hidden rounded-lg border border-border bg-background shadow-sm">
+            <div className="aspect-4/3 bg-muted">
+                {url ? (
+                    <img
+                        src={url}
+                        alt=""
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                ) : null}
+            </div>
+            <div className="px-2 py-1 text-[11px] text-muted-foreground truncate">
+                {label}
+            </div>
+            <button
+                type="button"
+                onClick={onRemove}
+                className="absolute top-2 right-2 rounded-md bg-background/90 px-2 py-1 text-xs font-semibold text-alpha-danger shadow-sm hover:bg-background"
+            >
+                Remove
+            </button>
+        </div>
+    );
+}
+
 export default function EditionForm({ data, setData, errors, mode, onSubmit, processing }) {
+    const selectedGalleryFiles = Array.isArray(data?.gallery_images_files)
+        ? data.gallery_images_files.filter((f) => f instanceof File)
+        : [];
+
     return (
         <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 lg:grid-cols-12">
             <div className="lg:col-span-8 space-y-6">
@@ -283,6 +344,26 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                             </div>
                         ) : null}
                     </div>
+
+                    {selectedGalleryFiles.length > 0 ? (
+                        <div className="mt-5">
+                            <div className="text-xs font-semibold text-muted-foreground">
+                                Selected (not saved yet)
+                            </div>
+                            <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                                {selectedGalleryFiles.map((file, idx) => (
+                                    <GalleryFileThumb
+                                        key={`${file.name}-${file.size}-${idx}`}
+                                        file={file}
+                                        onRemove={() => {
+                                            const next = selectedGalleryFiles.filter((_, i) => i !== idx);
+                                            setData('gallery_images_files', next);
+                                        }}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    ) : null}
 
                     {Array.isArray(data.gallery_images) && data.gallery_images.length > 0 ? (
                         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">

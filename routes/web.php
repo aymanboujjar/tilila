@@ -5,6 +5,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\TililabInscriptionController;
 use App\Http\Controllers\TililaParticipationController;
+use App\Models\TililabEdition;
 use App\Models\TililaEdition;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -23,7 +24,15 @@ Route::get('/about', function () {
     return Inertia::render('user/about/index');
 });
 Route::get('/tililab', function () {
-    return Inertia::render('user/tililab/index');
+    $editions = TililabEdition::query()
+        ->orderByDesc('year')
+        ->orderBy('sort')
+        ->orderByDesc('id')
+        ->get();
+
+    return Inertia::render('user/tililab/index', [
+        'editions' => $editions,
+    ]);
 });
 Route::get('/tilila', function () {
     $editions = TililaEdition::query()
@@ -34,6 +43,12 @@ Route::get('/tilila', function () {
 
     return Inertia::render('user/tilila/index', [
         'editions' => $editions,
+    ]);
+});
+
+Route::get('/tilila/editions/{edition}', function (TililaEdition $edition) {
+    return Inertia::render('user/tilila/edition', [
+        'edition' => $edition,
     ]);
 });
 
@@ -51,6 +66,12 @@ Route::get('/tilila/editions/{edition}/winners', function (TililaEdition $editio
 
 Route::get('/tilila/editions/{edition}/jury', function (TililaEdition $edition) {
     return Inertia::render('user/tilila/jury', [
+        'edition' => $edition,
+    ]);
+});
+
+Route::get('/tililab/editions/{edition}', function (TililabEdition $edition) {
+    return Inertia::render('user/tililab/edition', [
         'edition' => $edition,
     ]);
 });

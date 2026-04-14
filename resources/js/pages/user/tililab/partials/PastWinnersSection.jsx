@@ -3,79 +3,34 @@ import { useEffect, useMemo, useState } from 'react';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 
-const winners = [
-    {
-        year: '2022',
-        enYearLabel: '2022 Winner',
-        frYearLabel: 'Lauréat 2022',
-        arYearLabel: 'فائز 2022',
-        enTitle: 'Equal Voices',
-        frTitle: 'Voix égales',
-        arTitle: 'أصوات متساوية',
-        enDescription:
-            'A campaign exploring gender bias in media and proposing inclusive storytelling tools.',
-        frDescription:
-            'Une campagne explorant les biais de genre dans les médias et proposant des outils de narration inclusive.',
-        arDescription:
-            'حملة تستكشف التحيز القائم على النوع في الإعلام وتقترح أدوات لسردٍ شامل.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
-    },
-    {
-        year: '2021',
-        enYearLabel: '2021 Winner',
-        frYearLabel: 'Lauréat 2021',
-        arYearLabel: 'فائز 2021',
-        enTitle: 'Breaking the Mold',
-        frTitle: 'Briser les codes',
-        arTitle: 'كسر القوالب',
-        enDescription:
-            'A visual identity and content kit challenging stereotypes in product advertising.',
-        frDescription:
-            'Une identité visuelle et un kit de contenus qui remettent en question les stéréotypes dans la publicité produit.',
-        arDescription:
-            'هوية بصرية وحزمة محتوى تتحدى الصور النمطية في إعلانات المنتجات.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
-    },
-    {
-        year: '2020',
-        enYearLabel: '2020 Winner',
-        frYearLabel: 'Lauréat 2020',
-        arYearLabel: 'فائز 2020',
-        enTitle: 'Faces of Morocco',
-        frTitle: 'Visages du Maroc',
-        arTitle: 'وجوه المغرب',
-        enDescription:
-            'A documentary-style creative concept celebrating diversity of voices and professions.',
-        frDescription:
-            'Un concept créatif de style documentaire célébrant la diversité des voix et des métiers.',
-        arDescription: 'تصور إبداعي بأسلوب وثائقي يحتفي بتنوع الأصوات والمهن.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
-    },
-    {
-        year: '2019',
-        enYearLabel: '2019 Winner',
-        frYearLabel: 'Lauréat 2019',
-        arYearLabel: 'فائز 2019',
-        enTitle: 'New Horizons',
-        frTitle: 'Nouveaux horizons',
-        arTitle: 'آفاق جديدة',
-        enDescription:
-            'A concept reframing gender roles through everyday stories and visuals.',
-        frDescription:
-            'Un concept qui recompose les rôles de genre à travers des récits et des visuels du quotidien.',
-        arDescription: 'تصور يعيد صياغة أدوار النوع من خلال قصص وصور يومية.',
-        imageUrl:
-            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80',
-    },
-];
+function normalizeEdition(raw) {
+    if (!raw) return null;
+    const galleryImages = Array.isArray(raw.gallery_images) ? raw.gallery_images : [];
+    const winners = Array.isArray(raw.winners) ? raw.winners : [];
+    const primaryWinner = winners[0] ?? null;
 
-export default function PastWinnersSection() {
+    const cover =
+        (galleryImages[0] ? `/storage/${galleryImages[0]}` : '') ||
+        (primaryWinner?.photo_path ? `/storage/${primaryWinner.photo_path}` : '');
+
+    return {
+        id: raw.id,
+        year: String(raw.year ?? ''),
+        edition_label: raw.edition_label ?? { en: '', fr: '', ar: '' },
+        theme: raw.theme ?? { en: '', fr: '', ar: '' },
+        cover,
+        details_url: raw.id ? `/tililab/editions/${raw.id}` : '/tililab',
+    };
+}
+
+export default function PastWinnersSection({ editions = [] }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [cardsPerView, setCardsPerView] = useState(3);
     const { locale, t } = useTranslation();
+
+    const winners = Array.isArray(editions)
+        ? editions.map(normalizeEdition).filter(Boolean)
+        : [];
 
     useEffect(() => {
         const updateCardsPerView = () => {
@@ -129,16 +84,16 @@ export default function PastWinnersSection() {
                 <div>
                     <div className="text-xs font-semibold tracking-widest text-tgray">
                         <TransText
-                            en="PAST WINNERS"
-                            fr="LAURÉATS PRÉCÉDENTS"
-                            ar="الفائزون السابقون"
+                            en="PAST Edtions"
+                            fr="Editions PRÉCÉDENTS"
+                            ar="الدورة  السابقة"
                         />
                     </div>
                     <h2 className="mt-3 text-2xl font-semibold text-tblack">
                         <TransText
-                            en="Past Winners"
-                            fr="Lauréats précédents"
-                            ar="الفائزون السابقون"
+                            en="Past Edtions"
+                            fr="Editions précédents"
+                            ar="الدورة  السابقة"
                         />
                     </h2>
                     <p className="mt-3 max-w-2xl text-sm leading-6 text-tgray">
@@ -174,30 +129,28 @@ export default function PastWinnersSection() {
 
             <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {visibleWinners.map((winner) => (
-                    <article
+                    <a
+                        href={winner.details_url}
                         key={`${winner.year}-${winner._carouselIndex}`}
                         className="overflow-hidden rounded-2xl border border-border bg-background"
                     >
                         <div className="relative">
-                            <img
-                                src={winner.imageUrl}
-                                alt={
-                                    locale === 'ar'
-                                        ? winner.arTitle
-                                        : locale === 'fr'
-                                          ? winner.frTitle
-                                          : winner.enTitle
-                                }
-                                className="aspect-4/3 w-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                                referrerPolicy="no-referrer"
-                            />
+                            {winner.cover ? (
+                                <img
+                                    src={winner.cover}
+                                    alt=""
+                                    className="aspect-4/3 w-full object-cover"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            ) : (
+                                <div className="aspect-4/3 w-full bg-muted" />
+                            )}
                             <span className="absolute top-4 left-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
                                 <TransText
-                                    en={winner.enYearLabel}
-                                    fr={winner.frYearLabel}
-                                    ar={winner.arYearLabel}
+                                    en={`${winner.year} Winner`}
+                                    fr={`Lauréat ${winner.year}`}
+                                    ar={`فائز ${winner.year}`}
                                 />
                             </span>
                         </div>
@@ -205,20 +158,20 @@ export default function PastWinnersSection() {
                         <div className="p-5">
                             <h3 className="text-sm font-semibold text-tblack">
                                 <TransText
-                                    en={winner.enTitle}
-                                    fr={winner.frTitle}
-                                    ar={winner.arTitle}
+                                    en={winner.edition_label?.en ?? ''}
+                                    fr={winner.edition_label?.fr ?? ''}
+                                    ar={winner.edition_label?.ar ?? ''}
                                 />
                             </h3>
                             <p className="mt-2 text-sm leading-6 text-tgray">
                                 <TransText
-                                    en={winner.enDescription}
-                                    fr={winner.frDescription}
-                                    ar={winner.arDescription}
+                                    en={winner.theme?.en ?? ''}
+                                    fr={winner.theme?.fr ?? ''}
+                                    ar={winner.theme?.ar ?? ''}
                                 />
                             </p>
                         </div>
-                    </article>
+                    </a>
                 ))}
             </div>
         </section>
