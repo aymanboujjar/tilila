@@ -7,6 +7,7 @@ import {
     LayoutGrid,
     Megaphone,
     Settings,
+    Trophy,
     Users,
 } from 'lucide-react';
 
@@ -42,6 +43,11 @@ const moduleItems: NavItem[] = [
         title: 'Experts',
         href: '/admin/experts',
         icon: Users,
+    },
+    {
+        title: 'Tilila Editions',
+        href: '/admin/tilila/editions',
+        icon: Trophy,
     },
     {
         title: 'Tililab Participants',

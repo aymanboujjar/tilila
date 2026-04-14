@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import ArchiveSection from '@/pages/user/tilila/partials/ArchiveSection';
 import CtaSection from '@/pages/user/tilila/partials/CtaSection';
@@ -7,6 +7,8 @@ import HeroSection from '@/pages/user/tilila/partials/HeroSection';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function TililaIndex() {
+    const { editions } = usePage().props;
+    // `editions` is provided by the /tilila route (Inertia props)
     return (
         <>
             <TililaHead />
@@ -18,7 +20,7 @@ export default function TililaIndex() {
                     <FeaturedLaureatesSection />
                 </div>
                 <div className="bg-beta-white py-10">
-                    <ArchiveSection />
+                    <ArchiveSection editions={editions ?? []} />
                 </div>
                 <div className="bg-twhite py-10">
                     <CtaSection />

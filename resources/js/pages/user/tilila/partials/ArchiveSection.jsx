@@ -1,50 +1,31 @@
 import { GalleryHorizontal, Gavel, Trophy } from 'lucide-react';
 import TransText from '@/components/TransText';
 
-const editions = [
-    {
-        year: '2023',
-        enEdition: '5th Edition',
-        frEdition: '5e édition',
-        arEdition: 'الدورة الخامسة',
-        enTheme: 'Digital Inclusion',
-        frTheme: 'Inclusion numérique',
-        arTheme: 'الإدماج الرقمي',
-        hasGallery: true,
-    },
-    {
-        year: '2022',
-        enEdition: '4th Edition',
-        frEdition: '4e édition',
-        arEdition: 'الدورة الرابعة',
-        enTheme: 'Authenticity in Storytelling',
-        frTheme: 'Authenticité dans le récit',
-        arTheme: 'المصداقية في السرد',
-        hasGallery: true,
-    },
-    {
-        year: '2021',
-        enEdition: '3rd Edition',
-        frEdition: '3e édition',
-        arEdition: 'الدورة الثالثة',
-        enTheme: 'Resilience & Representation',
-        frTheme: 'Résilience & représentation',
-        arTheme: 'الصمود والتمثيل',
-        hasGallery: false,
-    },
-    {
-        year: '2020',
-        enEdition: '2nd Edition',
-        frEdition: '2e édition',
-        arEdition: 'الدورة الثانية',
-        enTheme: 'Parity in Crisis',
-        frTheme: 'Parité en temps de crise',
-        arTheme: 'التكافؤ في الأزمات',
-        hasGallery: false,
-    },
-];
+function normalizeEdition(raw) {
+    if (!raw) return null;
+    return {
+        id: raw.id ?? `${raw.year ?? ''}-${raw.sort ?? ''}`,
+        year: String(raw.year ?? ''),
+        edition_label: raw.edition_label ?? { en: '', fr: '', ar: '' },
+        theme: raw.theme ?? { en: '', fr: '', ar: '' },
+        winners_url:
+            raw.winners_url ??
+            (raw.id ? `/tilila/editions/${raw.id}/winners` : '/tilila'),
+        jury_url:
+            raw.jury_url ?? (raw.id ? `/tilila/editions/${raw.id}/jury` : '/tilila'),
+        gallery_url:
+            raw.gallery_url ??
+            (raw.id ? `/tilila/editions/${raw.id}/gallery` : '/tilila'),
+        gallery_images: Array.isArray(raw.gallery_images) ? raw.gallery_images : [],
+        has_gallery: Boolean(raw.has_gallery) || (Array.isArray(raw.gallery_images) && raw.gallery_images.length > 0),
+    };
+}
 
-export default function ArchiveSection() {
+export default function ArchiveSection({ editions = [] }) {
+    const rows = Array.isArray(editions)
+        ? editions.map(normalizeEdition).filter(Boolean)
+        : [];
+
     return (
         <section id="archive" className="mx-auto max-w-7xl px-4 pt-10 pb-12">
             <div className="text-center">
@@ -66,9 +47,9 @@ export default function ArchiveSection() {
 
             <div className="mt-10 rounded-2xl bg-background/60 p-4 sm:p-6">
                 <div className="space-y-4">
-                    {editions.map((edition) => (
+                    {rows.map((edition) => (
                         <div
-                            key={`${edition.year}-${edition.enEdition}`}
+                            key={edition.id}
                             className="flex flex-col gap-4 rounded-2xl bg-beta-white px-4 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-6"
                         >
                             <div className="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-6">
@@ -78,16 +59,16 @@ export default function ArchiveSection() {
                                 <div>
                                     <div className="text-lg font-semibold text-tblack">
                                         <TransText
-                                            en={edition.enEdition}
-                                            fr={edition.frEdition}
-                                            ar={edition.arEdition}
+                                            en={edition.edition_label?.en ?? ''}
+                                            fr={edition.edition_label?.fr ?? ''}
+                                            ar={edition.edition_label?.ar ?? ''}
                                         />
                                     </div>
                                     <div className="text-sm text-tgray">
                                         <TransText
-                                            en={`Theme: “${edition.enTheme}”`}
-                                            fr={`Thème : « ${edition.frTheme} »`}
-                                            ar={`الموضوع: « ${edition.arTheme} »`}
+                                            en={`Theme: “${edition.theme?.en ?? ''}”`}
+                                            fr={`Thème : « ${edition.theme?.fr ?? ''} »`}
+                                            ar={`الموضوع: « ${edition.theme?.ar ?? ''} »`}
                                         />
                                     </div>
                                 </div>
@@ -95,7 +76,7 @@ export default function ArchiveSection() {
 
                             <div className="flex flex-wrap items-center gap-3 sm:justify-end">
                                 <a
-                                    href="/tilila"
+                                    href={edition.winners_url || '/tilila'}
                                     className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                 >
                                     <Trophy className="size-4 text-tgray" />
@@ -106,7 +87,7 @@ export default function ArchiveSection() {
                                     />
                                 </a>
                                 <a
-                                    href="/tilila"
+                                    href={edition.jury_url || '/tilila'}
                                     className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                 >
                                     <Gavel className="size-4 text-tgray" />
@@ -116,9 +97,9 @@ export default function ArchiveSection() {
                                         ar="لجنة التحكيم"
                                     />
                                 </a>
-                                {edition.hasGallery ? (
+                                {edition.has_gallery ? (
                                     <a
-                                        href="/tilila"
+                                        href={edition.gallery_url || '/tilila'}
                                         className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack transition-colors hover:bg-secondary sm:w-auto"
                                     >
                                         <GalleryHorizontal className="size-4 text-tgray" />

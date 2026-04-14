@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaSidebarController;
 use App\Http\Controllers\Admin\OpportunityController;
+use App\Http\Controllers\Admin\TililaEditionController;
 use App\Http\Controllers\Admin\TililabAnalyticsController;
 use App\Http\Controllers\Admin\TililabParticipantController;
 use Illuminate\Support\Facades\Route;
@@ -29,4 +30,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('tililab/participants/{participant}', [TililabParticipantController::class, 'destroy'])->name('tililab.participants.destroy');
 
     Route::get('tililab/analytics', [TililabAnalyticsController::class, 'index'])->name('tililab.analytics.index');
+
+    Route::resource('tilila/editions', TililaEditionController::class)
+        ->except(['show']);
 });

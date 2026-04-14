@@ -4,6 +4,7 @@ use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\TililabInscriptionController;
+use App\Models\TililaEdition;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -24,7 +25,33 @@ Route::get('/tililab', function () {
     return Inertia::render('user/tililab/index');
 });
 Route::get('/tilila', function () {
-    return Inertia::render('user/tilila/index');
+    $editions = TililaEdition::query()
+        ->orderByDesc('year')
+        ->orderBy('sort')
+        ->orderByDesc('id')
+        ->get();
+
+    return Inertia::render('user/tilila/index', [
+        'editions' => $editions,
+    ]);
+});
+
+Route::get('/tilila/editions/{edition}/gallery', function (TililaEdition $edition) {
+    return Inertia::render('user/tilila/gallery', [
+        'edition' => $edition,
+    ]);
+});
+
+Route::get('/tilila/editions/{edition}/winners', function (TililaEdition $edition) {
+    return Inertia::render('user/tilila/winners', [
+        'edition' => $edition,
+    ]);
+});
+
+Route::get('/tilila/editions/{edition}/jury', function (TililaEdition $edition) {
+    return Inertia::render('user/tilila/jury', [
+        'edition' => $edition,
+    ]);
 });
 Route::get('/tililab/form', function () {
     return Inertia::render('user/tililab/partials/FormOFInscription');
