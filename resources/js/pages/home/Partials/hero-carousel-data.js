@@ -38,13 +38,13 @@ export const HERO_CAROUSEL_SLIDES = [
             fr: 'Trouver une experte',
             ar: 'اعثر على خبيرة',
         },
-        primaryHref: '#experts',
+        primaryHref: '/experts',
         secondaryCta: {
             en: 'Join Tilila Connect',
             fr: 'Rejoindre Tilila Connect',
             ar: 'انضم إلى Tilila Connect',
         },
-        secondaryHref: '#connect',
+        secondaryHref: '/about',
         cardKicker: {
             en: 'Voices of change',
             fr: 'Voix du changement',
@@ -139,8 +139,12 @@ export const HERO_CAROUSEL_SLIDES = [
             ar: 'استكشف تيليلاب',
         },
         primaryHref: '/tililab',
-        secondaryCta: null,
-        secondaryHref: null,
+        secondaryCta: {
+            en: 'Apply now',
+            fr: 'Postuler',
+            ar: 'قدّم الآن',
+        },
+        secondaryHref: '/tililab/form',
         cardKicker: {
             en: 'Call for creatives',
             fr: 'Appel aux créateurs',
@@ -187,8 +191,12 @@ export const HERO_CAROUSEL_SLIDES = [
             ar: 'اكتشف تيليلا',
         },
         primaryHref: '/tilila',
-        secondaryCta: null,
-        secondaryHref: null,
+        secondaryCta: {
+            en: 'Participate',
+            fr: 'Participer',
+            ar: 'شارك',
+        },
+        secondaryHref: '/tilila',
         cardKicker: {
             en: 'Creativity with purpose',
             fr: 'Créativité engagée',

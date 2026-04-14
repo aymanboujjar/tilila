@@ -4,49 +4,49 @@ import TransText from '@/components/TransText';
 
 const AUDIENCES = [
     {
-        enTitle: 'For Media',
-        frTitle: 'Pour les médias',
-        arTitle: 'للإعلام',
+        enTitle: 'Tililab',
+        frTitle: 'Tililab',
+        arTitle: 'تيليلاب',
         enDescription:
-            'Access a representative database of experts and amplify diverse voices for your reports.',
+            'Apply to the program and explore past editions and winners.',
         frDescription:
-            'Accédez à une base d’expertes représentative et mettez en avant des voix diverses dans vos reportages.',
+            'Postulez au programme et explorez les éditions précédentes et lauréats.',
         arDescription:
-            'استفد من قاعدة بيانات ممثلة للخبيرات وابرز أصواتًا متنوعة في تقاريرك.',
-        enCta: 'See our Database',
-        frCta: 'Voir la base',
-        arCta: 'عرض القاعدة',
-        href: '#media',
+            'قدّم للبرنامج واستكشف الدورات السابقة والفائزين.',
+        enCta: 'Apply now',
+        frCta: 'Postuler',
+        arCta: 'قدّم الآن',
+        href: '/tililab/form',
     },
     {
-        enTitle: 'For Experts',
-        frTitle: 'Pour les expertes',
-        arTitle: 'للخبيرات',
+        enTitle: 'Trophée Tilila',
+        frTitle: 'Trophée Tilila',
+        arTitle: 'جائزة تيليلا',
         enDescription:
-            'Get visibility, join a network of peers, and find new opportunities to share your expertise.',
+            'Participate and discover editions, winners, jury and gallery.',
         frDescription:
-            'Gagnez en visibilité, rejoignez un réseau de pairs et découvrez de nouvelles opportunités pour partager votre expertise.',
+            'Participez et découvrez les éditions, lauréats, jury et galerie.',
         arDescription:
-            'احصلي على مزيد من الظهور، وانضمي إلى شبكة من الزميلات، واعثري على فرص جديدة لمشاركة خبرتك.',
-        enCta: 'Create Profile',
-        frCta: 'Créer un profil',
-        arCta: 'إنشاء ملف',
-        href: '#experts',
+            'شارك واكتشف الدورات والفائزين ولجنة التحكيم والمعرض.',
+        enCta: 'Participate',
+        frCta: 'Participer',
+        arCta: 'شارك',
+        href: '/tilila',
     },
     {
-        enTitle: 'For Partners',
-        frTitle: 'Pour les partenaires',
-        arTitle: 'للشركاء',
+        enTitle: 'Partners',
+        frTitle: 'Partenaires',
+        arTitle: 'الشركاء',
         enDescription:
-            'Support community initiatives, promote inclusion, and accelerate the impact of Tilila’s mission.',
+            'See our institutional and media partners supporting the mission.',
         frDescription:
-            'Soutenez des initiatives communautaires, encouragez l’inclusion et accélérez l’impact de la mission de Tilila.',
+            'Découvrez nos partenaires institutionnels et médias qui soutiennent la mission.',
         arDescription:
-            'ادعم المبادرات المجتمعية، وعزز الشمول، وساهم في تسريع أثر رسالة تيليلا.',
-        enCta: 'Become a Partner',
-        frCta: 'Devenir partenaire',
-        arCta: 'كن شريكًا',
-        href: '#partners',
+            'اطّلع على شركائنا المؤسسيين والإعلاميين الداعمين للرسالة.',
+        enCta: 'View partners',
+        frCta: 'Voir les partenaires',
+        arCta: 'عرض الشركاء',
+        href: '/about#partners',
     },
 ];
 
@@ -57,16 +57,16 @@ export default function AudienceCards() {
                 <div className="mx-auto max-w-2xl text-center">
                     <h2 className="text-3xl font-extrabold tracking-tight text-foreground">
                         <TransText
-                            en="Your Path to Connection"
-                            fr="Votre chemin vers la connexion"
-                            ar="طريقك نحو التواصل"
+                            en="Explore Tilila & Tililab"
+                            fr="Explorer Tilila & Tililab"
+                            ar="استكشف تيليلا و تيليلاب"
                         />
                     </h2>
                     <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                         <TransText
-                            en="Whether you’re looking for expertise, visibility, or supporting our cause, there is a place for you at Tilila."
-                            fr="Que vous recherchiez de l’expertise, de la visibilité ou que vous souhaitiez soutenir notre cause, il y a une place pour vous chez Tilila."
-                            ar="سواء كنت تبحث عن خبرة أو عن مزيد من الظهور أو ترغب في دعم قضيتنا، فهناك مكان لك في تيليلا."
+                            en="Apply, participate, and discover the editions and partners behind the movement."
+                            fr="Postulez, participez, et découvrez les éditions et partenaires derrière le mouvement."
+                            ar="قدّم، شارك، واكتشف الدورات والشركاء وراء المبادرة."
                         />
                     </p>
                 </div>
