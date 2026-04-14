@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TililaParticipant;
+use App\Models\TililabParticipant;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -26,7 +26,7 @@ class TililabInscriptionController extends Controller
             'original_video_link' => ['required', 'url', 'max:2048'],
         ]);
 
-        TililaParticipant::query()->create([
+        TililabParticipant::query()->create([
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
