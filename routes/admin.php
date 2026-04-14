@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\MediaSidebarController;
 use App\Http\Controllers\Admin\OpportunityController;
 use App\Http\Controllers\Admin\TililaContestParticipantController;
 use App\Http\Controllers\Admin\TililaEditionController;
+use App\Http\Controllers\Admin\TililabEditionController;
 use App\Http\Controllers\Admin\TililabAnalyticsController;
 use App\Http\Controllers\Admin\TililabParticipantController;
 use Illuminate\Support\Facades\Route;
@@ -33,7 +34,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('tililab/analytics', [TililabAnalyticsController::class, 'index'])->name('tililab.analytics.index');
 
     Route::resource('tilila/editions', TililaEditionController::class)
-        ->except(['show']);
+        ->except(['show'])
+        ->names('tilila.editions');
+
+    Route::resource('tililab/editions', TililabEditionController::class)
+        ->except(['show'])
+        ->names('tililab.editions');
 
     Route::get('tilila/participants/export.csv', [TililaContestParticipantController::class, 'exportCsv'])
         ->name('tilila.participants.export');

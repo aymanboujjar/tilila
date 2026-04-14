@@ -45,6 +45,11 @@ const moduleItems: NavItem[] = [
         icon: Users,
     },
     {
+        title: 'Tililab Editions',
+        href: '/admin/tililab/editions',
+        icon: Trophy,
+    },
+    {
         title: 'Tilila Editions',
         href: '/admin/tilila/editions',
         icon: Trophy,

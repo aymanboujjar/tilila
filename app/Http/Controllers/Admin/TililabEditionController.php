@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\TililaEdition;
+use App\Models\TililabEdition;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -11,11 +11,11 @@ use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class TililaEditionController extends Controller
+class TililabEditionController extends Controller
 {
     public function index(Request $request): Response
     {
-        $query = TililaEdition::query()->orderByDesc('year')->orderBy('sort')->orderByDesc('id');
+        $query = TililabEdition::query()->orderByDesc('year')->orderBy('sort')->orderByDesc('id');
 
         if ($search = trim((string) $request->query('search', ''))) {
             $like = '%'.$search.'%';
@@ -33,7 +33,7 @@ class TililaEditionController extends Controller
             });
         }
 
-        return Inertia::render('admin/tilila/editions/index', [
+        return Inertia::render('admin/tililab/editions/index', [
             'editions' => $query->paginate(15)->withQueryString(),
             'filters' => [
                 'search' => $request->query('search', ''),
@@ -43,33 +43,33 @@ class TililaEditionController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('admin/tilila/editions/create');
+        return Inertia::render('admin/tililab/editions/create');
     }
 
     public function store(Request $request): RedirectResponse
     {
         $data = $this->validated($request);
-        $data['sort'] = (int) (TililaEdition::query()->max('sort') ?? 0) + 1;
+        $data['sort'] = (int) (TililabEdition::query()->max('sort') ?? 0) + 1;
 
-        $edition = TililaEdition::query()->create($data);
+        $edition = TililabEdition::query()->create($data);
 
-        $edition->winners = $this->applyPeopleUploads($request, 'winners', 'tilila-editions/winners', []);
-        $edition->jury = $this->applyPeopleUploads($request, 'jury', 'tilila-editions/jury', []);
+        $edition->winners = $this->applyPeopleUploads($request, 'winners', 'tililab-editions/winners', []);
+        $edition->jury = $this->applyPeopleUploads($request, 'jury', 'tililab-editions/jury', []);
         $edition->save();
 
         $this->applyGalleryUploads($request, $edition, []);
 
-        return redirect()->route('admin.tilila.editions.index')->with('success', 'Edition created.');
+        return redirect()->route('admin.tililab.editions.index')->with('success', 'Edition created.');
     }
 
-    public function edit(TililaEdition $edition): Response
+    public function edit(TililabEdition $edition): Response
     {
-        return Inertia::render('admin/tilila/editions/edit', [
+        return Inertia::render('admin/tililab/editions/edit', [
             'edition' => $edition,
         ]);
     }
 
-    public function update(Request $request, TililaEdition $edition): RedirectResponse
+    public function update(Request $request, TililabEdition $edition): RedirectResponse
     {
         $data = $this->validated($request);
         $edition->update($data);
@@ -80,13 +80,13 @@ class TililaEditionController extends Controller
         $edition->winners = $this->applyPeopleUploads(
             $request,
             'winners',
-            'tilila-editions/winners',
+            'tililab-editions/winners',
             $existingWinners,
         );
         $edition->jury = $this->applyPeopleUploads(
             $request,
             'jury',
-            'tilila-editions/jury',
+            'tililab-editions/jury',
             $existingJury,
         );
         $edition->save();
@@ -94,10 +94,10 @@ class TililaEditionController extends Controller
         $existing = is_array($edition->gallery_images) ? $edition->gallery_images : [];
         $this->applyGalleryUploads($request, $edition, $existing);
 
-        return redirect()->route('admin.tilila.editions.index')->with('success', 'Edition updated.');
+        return redirect()->route('admin.tililab.editions.index')->with('success', 'Edition updated.');
     }
 
-    public function destroy(TililaEdition $edition): RedirectResponse
+    public function destroy(TililabEdition $edition): RedirectResponse
     {
         $winners = is_array($edition->winners) ? $edition->winners : [];
         foreach ($winners as $row) {
@@ -126,9 +126,10 @@ class TililaEditionController extends Controller
                 Storage::disk('public')->delete($path);
             }
         }
+
         $edition->delete();
 
-        return redirect()->route('admin.tilila.editions.index')->with('success', 'Edition deleted.');
+        return redirect()->route('admin.tililab.editions.index')->with('success', 'Edition deleted.');
     }
 
     /**
@@ -175,7 +176,6 @@ class TililaEditionController extends Controller
             ]);
         }
 
-        // Optional multiple photos for winners/jury rows.
         if ($request->hasFile('winners')) {
             $request->validate([
                 'winners' => ['array'],
@@ -199,7 +199,6 @@ class TililaEditionController extends Controller
         $data['jury_url'] = ($data['jury_url'] ?? null) ?: null;
         $data['gallery_url'] = ($data['gallery_url'] ?? null) ?: null;
 
-        // Checkbox can be absent in requests.
         $data['has_gallery'] = (bool) ($data['has_gallery'] ?? false);
 
         return $data;
@@ -208,7 +207,7 @@ class TililaEditionController extends Controller
     /**
      * @param  list<string>  $existing
      */
-    private function applyGalleryUploads(Request $request, TililaEdition $edition, array $existing): void
+    private function applyGalleryUploads(Request $request, TililabEdition $edition, array $existing): void
     {
         $toRemove = $request->input('remove_gallery_images', []);
         $toRemove = is_array($toRemove) ? array_values(array_filter($toRemove, 'is_string')) : [];
@@ -235,7 +234,7 @@ class TililaEditionController extends Controller
                 if (! $file->isValid()) {
                     continue;
                 }
-                $new[] = $file->store('tilila-editions/gallery', 'public');
+                $new[] = $file->store('tililab-editions/gallery', 'public');
             }
         }
 
@@ -258,57 +257,68 @@ class TililaEditionController extends Controller
         $incoming = $request->input($key, []);
         $incoming = is_array($incoming) ? array_values($incoming) : [];
 
-        $keepPaths = [];
-        $rows = [];
+        $existingByPath = [];
+        foreach ($existing as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+            $path = $row['photo_path'] ?? null;
+            if (is_string($path) && $path !== '') {
+                $existingByPath[$path] = $row;
+            }
+        }
 
-        foreach (array_values($incoming) as $idx => $row) {
+        $files = $request->file($key);
+        $files = is_array($files) ? $files : [];
+
+        $next = [];
+        foreach ($incoming as $idx => $row) {
             if (! is_array($row)) {
                 continue;
             }
 
-            $fullName = trim((string) ($row['full_name'] ?? ''));
-            if ($fullName === '') {
-                continue;
+            $bio = $row['bio'] ?? [];
+            $bio = is_array($bio) ? $bio : [];
+
+            $photoPath = is_string($row['photo_path'] ?? null) ? (string) $row['photo_path'] : null;
+
+            $photoFile = null;
+            if (isset($files[$idx]) && is_array($files[$idx]) && ($files[$idx]['photo'] ?? null) instanceof UploadedFile) {
+                $photoFile = $files[$idx]['photo'];
             }
 
-            $bioIn = is_array($row['bio'] ?? null) ? $row['bio'] : [];
-            $bio = [
-                'en' => trim((string) ($bioIn['en'] ?? '')),
-                'fr' => trim((string) ($bioIn['fr'] ?? '')),
-                'ar' => trim((string) ($bioIn['ar'] ?? '')),
-            ];
-
-            $photoPath = null;
-            $file = $request->file("$key.$idx.photo");
-            if ($file instanceof UploadedFile && $file->isValid()) {
-                $photoPath = $file->store($storageDir, 'public');
-            } elseif (! empty($row['photo_path']) && is_string($row['photo_path'])) {
-                $photoPath = $row['photo_path'];
+            if ($photoFile instanceof UploadedFile && $photoFile->isValid()) {
+                if (is_string($photoPath) && $photoPath !== '') {
+                    Storage::disk('public')->delete($photoPath);
+                }
+                $photoPath = $photoFile->store($storageDir, 'public');
+            } elseif (is_string($photoPath) && $photoPath !== '' && ! array_key_exists($photoPath, $existingByPath)) {
+                // If the client sent a photo_path that doesn't exist in our previous state, drop it.
+                $photoPath = null;
             }
 
-            if (is_string($photoPath) && $photoPath !== '') {
-                $keepPaths[] = $photoPath;
-            }
-
-            $rows[] = [
-                'full_name' => $fullName,
-                'bio' => $bio,
+            $next[] = [
+                'full_name' => is_string($row['full_name'] ?? null) ? (string) $row['full_name'] : '',
+                'bio' => array_merge(['en' => '', 'fr' => '', 'ar' => ''], $bio),
                 'photo_path' => $photoPath,
             ];
         }
 
-        // Delete old photos that are no longer referenced.
-        foreach ($existing as $oldRow) {
-            if (! is_array($oldRow)) {
-                continue;
+        // Cleanup: remove photos that were present before but no longer referenced.
+        $keptPaths = [];
+        foreach ($next as $row) {
+            $path = $row['photo_path'] ?? null;
+            if (is_string($path) && $path !== '') {
+                $keptPaths[$path] = true;
             }
-            $oldPath = $oldRow['photo_path'] ?? null;
-            if (is_string($oldPath) && $oldPath !== '' && ! in_array($oldPath, $keepPaths, true)) {
-                Storage::disk('public')->delete($oldPath);
+        }
+        foreach ($existingByPath as $path => $row) {
+            if (! isset($keptPaths[$path])) {
+                Storage::disk('public')->delete($path);
             }
         }
 
-        return $rows;
+        return $next;
     }
 }
 
