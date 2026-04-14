@@ -1,0 +1,59 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Mail\TililaParticipationReceipt;
+use App\Models\TililaContestParticipant;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Throwable;
+
+class TililaParticipationController extends Controller
+{
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'first_name' => ['required', 'string', 'max:120'],
+            'last_name' => ['required', 'string', 'max:120'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:64'],
+            'job_title' => ['nullable', 'string', 'max:255'],
+            'organization' => ['nullable', 'string', 'max:255'],
+            'city' => ['nullable', 'string', 'max:64'],
+            'country' => ['nullable', 'string', 'max:16'],
+            'submission_title' => ['nullable', 'string', 'max:255'],
+            'submission_description' => ['nullable', 'string', 'max:5000'],
+            'submission_link' => ['nullable', 'url', 'max:2048'],
+            'accepted_rules' => ['accepted'],
+            'locale' => ['nullable', 'string', 'max:8'],
+        ]);
+
+        /** @var TililaContestParticipant $participant */
+        $participant = TililaContestParticipant::query()->create([
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
+            'job_title' => $data['job_title'] ?? null,
+            'organization' => $data['organization'] ?? null,
+            'city' => $data['city'] ?? null,
+            'country' => $data['country'] ?? null,
+            'submission_title' => $data['submission_title'] ?? null,
+            'submission_description' => $data['submission_description'] ?? null,
+            'submission_link' => $data['submission_link'] ?? null,
+            'accepted_rules' => true,
+            'locale' => $data['locale'] ?? null,
+            'ip' => $request->ip(),
+            'user_agent' => substr((string) $request->userAgent(), 0, 1000),
+        ]);
+
+        try {
+            Mail::to($participant->email)->send(new TililaParticipationReceipt($participant));
+        } catch (Throwable $e) {
+            report($e);
+        }
+
+        return back()->with('success', 'Participation submitted.');
+    }
+}
+

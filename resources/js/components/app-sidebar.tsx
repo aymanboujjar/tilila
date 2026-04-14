@@ -50,15 +50,20 @@ const moduleItems: NavItem[] = [
         icon: Trophy,
     },
     {
+        title: 'Tilila Submissions',
+        href: '/admin/tilila/participants',
+        icon: Users,
+    },
+    {
         title: 'Tililab Participants',
         href: '/admin/tililab/participants',
         icon: Users,
     },
-    {
-        title: 'Media',
-        href: '/admin/media',
-        icon: FileText,
-    },
+    // {
+    //     title: 'Media',
+    //     href: '/admin/media',
+    //     icon: FileText,
+    // },
     {
         title: 'Opportunities',
         href: '/admin/opportunities',
@@ -77,11 +82,11 @@ const moduleItems: NavItem[] = [
 ];
 
 const strategicItems: NavItem[] = [
-    {
-        title: 'Tililab Analytics',
-        href: '/admin/tililab/analytics',
-        icon: BarChart3,
-    },
+    // {
+    //     title: 'Tililab Analytics',
+    //     href: '/admin/tililab/analytics',
+    //     icon: BarChart3,
+    // },
     {
         title: 'Settings',
         href: profileEdit.url(),

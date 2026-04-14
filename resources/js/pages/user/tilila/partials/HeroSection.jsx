@@ -1,6 +1,5 @@
 import { ArrowRight } from 'lucide-react';
 import TransText from '@/components/TransText';
-import { Link } from '@inertiajs/react';
 
 const stats = [
     {
@@ -34,7 +33,7 @@ const stats = [
     },
 ];
 
-export default function HeroSection() {
+export default function HeroSection({ onParticipate }) {
     return (
         <section className="relative w-full pb-10 sm:pb-28">
             {/* ── Dark hero panel ── */}
@@ -133,14 +132,14 @@ export default function HeroSection() {
                                     (e.currentTarget.style.background =
                                         'rgba(255,255,255,0.07)')
                                 }
+                                type="button"
+                                onClick={() => onParticipate?.()}
                             >
-                                <Link href="/tilila/form">
-                                    <TransText
-                                        en="Participate"
-                                        fr="Participer"
-                                        ar="شارك"
-                                    />
-                                </Link>
+                                <TransText
+                                    en="Participate"
+                                    fr="Participer"
+                                    ar="شارك"
+                                />
                             </button>
                         </div>
                     </div>

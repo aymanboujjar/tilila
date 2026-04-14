@@ -25,12 +25,12 @@ export default function Navbar() {
             { en: 'About', fr: 'À propos', ar: 'حول', href: '/about' },
             { en: 'Tililab', fr: 'Tililab', ar: 'تيليلاب', href: '/tililab' },
             { en: 'Tilila', fr: 'Tilila', ar: 'تيليلا', href: '/tilila' },
-            {
-                en: 'Governance',
-                fr: 'Gouvernance',
-                ar: 'الحوكمة',
-                href: '/gouvernance',
-            },
+            // {
+            //     en: 'Governance',
+            //     fr: 'Gouvernance',
+            //     ar: 'الحوكمة',
+            //     href: '/gouvernance',
+            // },
             { en: 'Experts', fr: 'Experts', ar: 'الخبراء', href: '/experts' },
             {
                 en: 'Events',
@@ -44,7 +44,7 @@ export default function Navbar() {
                 ar: 'الفرص',
                 href: '/opportunities',
             },
-            { en: 'Media', fr: 'Média', ar: 'الوسائط', href: '/media' },
+            // { en: 'Media', fr: 'Média', ar: 'الوسائط', href: '/media' },
         ],
         [],
     );

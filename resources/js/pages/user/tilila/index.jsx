@@ -4,17 +4,20 @@ import ArchiveSection from '@/pages/user/tilila/partials/ArchiveSection';
 import CtaSection from '@/pages/user/tilila/partials/CtaSection';
 import FeaturedLaureatesSection from '@/pages/user/tilila/partials/FeaturedLaureatesSection';
 import HeroSection from '@/pages/user/tilila/partials/HeroSection';
+import ParticipateModal from '@/pages/user/tilila/partials/ParticipateModal';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useState } from 'react';
 
 export default function TililaIndex() {
     const { editions } = usePage().props;
+    const [participateOpen, setParticipateOpen] = useState(false);
     // `editions` is provided by the /tilila route (Inertia props)
     return (
         <>
             <TililaHead />
             <div>
                 <div className="pb-8">
-                    <HeroSection />
+                    <HeroSection onParticipate={() => setParticipateOpen(true)} />
                 </div>
                 <div className="bg-twhite px-8 py-10">
                     <FeaturedLaureatesSection />
@@ -26,6 +29,8 @@ export default function TililaIndex() {
                     <CtaSection />
                 </div>
             </div>
+
+            <ParticipateModal open={participateOpen} onOpenChange={setParticipateOpen} />
         </>
     );
 }

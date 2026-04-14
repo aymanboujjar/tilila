@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaSidebarController;
 use App\Http\Controllers\Admin\OpportunityController;
+use App\Http\Controllers\Admin\TililaContestParticipantController;
 use App\Http\Controllers\Admin\TililaEditionController;
 use App\Http\Controllers\Admin\TililabAnalyticsController;
 use App\Http\Controllers\Admin\TililabParticipantController;
@@ -33,4 +34,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('tilila/editions', TililaEditionController::class)
         ->except(['show']);
+
+    Route::get('tilila/participants/export.csv', [TililaContestParticipantController::class, 'exportCsv'])
+        ->name('tilila.participants.export');
+    Route::get('tilila/participants', [TililaContestParticipantController::class, 'index'])
+        ->name('tilila.participants.index');
+    Route::get('tilila/participants/{participant}', [TililaContestParticipantController::class, 'show'])
+        ->name('tilila.participants.show');
+    Route::delete('tilila/participants/{participant}', [TililaContestParticipantController::class, 'destroy'])
+        ->name('tilila.participants.destroy');
 });

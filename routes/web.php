@@ -4,6 +4,7 @@ use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\TililabInscriptionController;
+use App\Http\Controllers\TililaParticipationController;
 use App\Models\TililaEdition;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -53,6 +54,8 @@ Route::get('/tilila/editions/{edition}/jury', function (TililaEdition $edition) 
         'edition' => $edition,
     ]);
 });
+
+Route::post('/tilila/participate', [TililaParticipationController::class, 'store'])->name('tilila.participate.store');
 Route::get('/tililab/form', function () {
     return Inertia::render('user/tililab/partials/FormOFInscription');
 });
