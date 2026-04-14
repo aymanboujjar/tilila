@@ -30,7 +30,7 @@ export default function Register() {
                     <img
                         src="/assets/logo.webp"
                         alt="Tilila"
-                        className="h-11 w-auto max-w-[220px] object-contain"
+                        className="h-11 w-auto max-w-55 object-contain"
                         loading="eager"
                         decoding="async"
                     />

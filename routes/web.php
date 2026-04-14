@@ -47,6 +47,9 @@ Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class,
 Route::get('/about', function () {
     return Inertia::render('user/about/index');
 });
+Route::get('/contact', function () {
+    return Inertia::render('contact/index');
+})->name('contact');
 Route::get('/tililab', function () {
     $editions = TililabEdition::query()
         ->orderByDesc('year')
