@@ -1,9 +1,6 @@
 import { Link } from '@inertiajs/react';
 import {
-    BarChart3,
     Calendar,
-    FileText,
-    Globe2,
     LayoutGrid,
     Megaphone,
     Settings,
@@ -25,10 +22,6 @@ import {
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { dashboard } from '@/routes';
-import { home } from '@/routes';
-import { index as eventsIndex } from '@/routes/events';
-import { index as gouvernanceIndex } from '@/routes/gouvernance';
-import { index as opportunitiesIndex } from '@/routes/opportunities';
 import { edit as profileEdit } from '@/routes/profile';
 import type { NavItem } from '@/types';
 
