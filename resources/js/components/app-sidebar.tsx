@@ -44,6 +44,11 @@ const moduleItems: NavItem[] = [
         icon: Users,
     },
     {
+        title: 'Tililab Participants',
+        href: '/admin/tililab/participants',
+        icon: Users,
+    },
+    {
         title: 'Media',
         href: '/admin/media',
         icon: FileText,
@@ -67,8 +72,8 @@ const moduleItems: NavItem[] = [
 
 const strategicItems: NavItem[] = [
     {
-        title: 'Analytics',
-        href: gouvernanceIndex.url(),
+        title: 'Tililab Analytics',
+        href: '/admin/tililab/analytics',
         icon: BarChart3,
     },
     {
