@@ -12,8 +12,6 @@ import SidebarTrendingTopics from '@/pages/user/media/partials/SidebarTrendingTo
 import SidebarExpertSpotlight from '@/pages/user/media/partials/SidebarExpertSpotlight';
 import SidebarResources from '@/pages/user/media/partials/SidebarResources';
 
-import { MEDIA_ITEMS } from '@/pages/user/media/mediaItems';
-
 const TABS = [
     { id: 'all' },
     { id: 'interviews' },
@@ -23,14 +21,14 @@ const TABS = [
     { id: 'expertProfiles' },
 ];
 
-export default function MediaIndex() {
+export default function MediaIndex({ items: allItems = [], sidebar = null }) {
     const { locale, t } = useTranslation();
     const [activeTabId, setActiveTabId] = useState('all');
 
     const items = useMemo(() => {
-        if (activeTabId === 'all') return MEDIA_ITEMS;
-        return MEDIA_ITEMS.filter((x) => x.categoryId === activeTabId);
-    }, [activeTabId]);
+        if (activeTabId === 'all') return allItems;
+        return allItems.filter((x) => x.categoryId === activeTabId);
+    }, [activeTabId, allItems]);
 
     return (
         <>
@@ -75,9 +73,17 @@ export default function MediaIndex() {
 
                             <div className="space-y-6 lg:col-span-4">
                                 <SidebarNewsletter />
-                                <SidebarTrendingTopics />
-                                <SidebarExpertSpotlight />
-                                <SidebarResources />
+                                <SidebarTrendingTopics
+                                    topics={sidebar?.trendingTopics}
+                                />
+                                <SidebarExpertSpotlight
+                                    expertSpotlight={
+                                        sidebar?.expertSpotlight ?? null
+                                    }
+                                />
+                                <SidebarResources
+                                    links={sidebar?.resourceLinks}
+                                />
                             </div>
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import GuidelinesSection from '@/pages/user/tililab/partials/GuidelinesSection';
 import HeroSection from '@/pages/user/tililab/partials/HeroSection';
@@ -8,6 +8,7 @@ import PastWinnersSection from '@/pages/user/tililab/partials/PastWinnersSection
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function TililabIndex() {
+    const { editions } = usePage().props;
     return (
         <>
             <TililabHead />
@@ -31,7 +32,7 @@ export default function TililabIndex() {
                 </div>
 
                 <div className="bg-beta-white py-8">
-                    <PastWinnersSection />
+                    <PastWinnersSection editions={editions ?? []} />
                 </div>
             </div>
         </>

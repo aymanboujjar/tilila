@@ -1,0 +1,94 @@
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { ChevronLeft } from 'lucide-react';
+import { useEffect, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import AppLayout from '@/layouts/app-layout';
+import EditionForm from '@/pages/admin/tilila/editions/partials/EditionForm';
+
+function emptyTri() {
+    return { en: '', fr: '', ar: '' };
+}
+
+export default function AdminTililaEditionsEdit({ edition }) {
+    const { data, setData, errors, setError, clearErrors } = useForm({
+        year: edition?.year ?? '',
+        edition_label: edition?.edition_label ?? emptyTri(),
+        theme: edition?.theme ?? emptyTri(),
+        winners: edition?.winners ?? [],
+        jury: edition?.jury ?? [],
+        gallery_images: edition?.gallery_images ?? [],
+        gallery_images_files: [],
+        remove_gallery_images: [],
+        has_gallery: Boolean(edition?.has_gallery),
+    });
+
+    const [processing, setProcessing] = useState(false);
+
+    useEffect(() => {
+        // In case Inertia swaps props without remount
+        if (!edition) return;
+        setData({
+            year: edition.year ?? '',
+            edition_label: edition.edition_label ?? emptyTri(),
+            theme: edition.theme ?? emptyTri(),
+            winners: edition.winners ?? [],
+            jury: edition.jury ?? [],
+            gallery_images: edition.gallery_images ?? [],
+            gallery_images_files: [],
+            remove_gallery_images: [],
+            has_gallery: Boolean(edition.has_gallery),
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [edition?.id]);
+
+    const submit = (e) => {
+        e.preventDefault();
+        clearErrors();
+        router.put(`/admin/tilila/editions/${edition.id}`, data, {
+            forceFormData: true,
+            preserveScroll: true,
+            onStart: () => setProcessing(true),
+            onFinish: () => setProcessing(false),
+            onError: (serverErrors) => setError(serverErrors),
+        });
+    };
+
+    return (
+        <>
+            <Head title={`Edit Tilila edition ${edition?.year ?? ''}`} />
+
+            <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <p className="text-tgray text-sm font-medium">Trophée Tilila</p>
+                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                            Edit Edition
+                        </h1>
+                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                            Update the edition displayed in the archive.
+                        </p>
+                    </div>
+                    <Button asChild variant="outline">
+                        <Link href="/admin/tilila/editions" className="gap-2">
+                            <ChevronLeft className="size-4" />
+                            Back to list
+                        </Link>
+                    </Button>
+                </div>
+
+                <EditionForm
+                    mode="edit"
+                    data={data}
+                    setData={setData}
+                    errors={errors}
+                    onSubmit={submit}
+                    processing={processing}
+                />
+            </div>
+        </>
+    );
+}
+
+AdminTililaEditionsEdit.layout = (page) => <AppLayout>{page}</AppLayout>;
+

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
+import { show } from '@/routes/experts';
 
 export default function ExpertCard({ expert, view = 'grid' }) {
     const { locale, t } = useTranslation();
@@ -12,26 +13,33 @@ export default function ExpertCard({ expert, view = 'grid' }) {
               ? expert.name?.fr
               : expert.name?.en;
 
+    const imageSrc = expert.image ?? expert.image_url ?? null;
+
     return (
         <div className="rounded-2xl bg-card shadow-sm ring-1 ring-border">
             <div className="relative">
-                <div
-                    className={[
-                        'h-32 w-full rounded-t-2xl bg-gradient-to-br',
-                        expert.gradient,
-                    ].join(' ')}
-                />
+                <div className="relative h-32 w-full overflow-hidden rounded-t-2xl bg-muted">
+                    {imageSrc ? (
+                        <img
+                            src={imageSrc}
+                            alt=""
+                            className="absolute inset-0 h-full w-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                        />
+                    ) : null}
+                </div>
 
                 <button
                     type="button"
-                    className="absolute top-3 right-3 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-sm ring-1 ring-border backdrop-blur hover:text-foreground"
+                    className="absolute top-3 right-3 z-10 inline-flex h-8 w-8 items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-sm ring-1 ring-border backdrop-blur hover:text-foreground"
                     aria-label={t('experts.actions.addToFavoritesAria')}
                 >
                     <span className="text-lg leading-none">♡</span>
                 </button>
 
                 {expert.badge ? (
-                    <div className="absolute top-3 left-3 rounded-full bg-beta-green px-2.5 py-1 text-xs font-semibold text-alpha-green ring-1 ring-border">
+                    <div className="absolute top-3 left-3 z-10 rounded-full bg-beta-green px-2.5 py-1 text-xs font-semibold text-alpha-green ring-1 ring-border">
                         {(
                             t('experts.filters.available') ?? expert.badge
                         ).toUpperCase()}
@@ -74,14 +82,10 @@ export default function ExpertCard({ expert, view = 'grid' }) {
                     ].join(' ')}
                 >
                     <div className="text-xs text-muted-foreground">
-                        {locale === 'ar'
-                            ? expert.location?.ar
-                            : locale === 'fr'
-                              ? expert.location?.fr
-                              : expert.location?.en}
+                        {expert.location ?? ''}
                     </div>
                     <Link
-                        href={`/experts/${expert.id}`}
+                        href={show.url(expert.id)}
                         className="text-sm font-semibold text-beta-blue hover:underline"
                     >
                         {t('experts.actions.viewProfile')}

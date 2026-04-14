@@ -3,16 +3,23 @@ import { Head } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import FiltersSidebar from '@/pages/opportunities/Partials/FiltersSidebar';
 import OpportunityCard from '@/pages/opportunities/Partials/OpportunityCard';
-import { OPPORTUNITIES } from '@/pages/opportunities/Partials/opportunities-data';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
-function formatDate(iso) {
+/** Must not use `undefined` locale — Node SSR vs browser defaults differ and break hydration. */
+function formatDate(iso, appLocale) {
+    if (!iso || typeof iso !== 'string') return '';
+    const [y, m, d] = iso.split('-').map((n) => parseInt(n, 10));
+    if (!y || !m || !d) return iso;
+    const date = new Date(Date.UTC(y, m - 1, d));
+    const tag =
+        appLocale === 'ar' ? 'ar' : appLocale === 'fr' ? 'fr-FR' : 'en-US';
     try {
-        return new Date(iso).toLocaleDateString(undefined, {
+        return date.toLocaleDateString(tag, {
             month: 'short',
-            day: '2-digit',
+            day: 'numeric',
             year: 'numeric',
+            timeZone: 'UTC',
         });
     } catch {
         return iso;
@@ -26,7 +33,7 @@ function daysUntil(iso) {
     return Math.ceil((t - now) / (1000 * 60 * 60 * 24));
 }
 
-export default function OpportunitiesIndex() {
+export default function OpportunitiesIndex({ opportunities = [] }) {
     const { locale, t } = useTranslation();
     const [query, setQuery] = useState('');
     const [sort, setSort] = useState('newest');
@@ -42,9 +49,9 @@ export default function OpportunitiesIndex() {
     const filtered = useMemo(() => {
         const q = query.trim().toLowerCase();
 
-        let list = OPPORTUNITIES.map((x) => ({
+        let list = opportunities.map((x) => ({
             ...x,
-            deadlineLabel: formatDate(x.deadline),
+            deadlineLabel: formatDate(x.deadline, locale),
             deadlineDays: daysUntil(x.deadline),
         }));
 
@@ -105,7 +112,15 @@ export default function OpportunitiesIndex() {
         }
 
         return list;
-    }, [filters.deadline, filters.region, filters.type, query, sort]);
+    }, [
+        filters.deadline,
+        filters.region,
+        filters.type,
+        locale,
+        opportunities,
+        query,
+        sort,
+    ]);
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
     const currentPage = Math.min(page, totalPages);

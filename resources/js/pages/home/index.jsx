@@ -6,7 +6,12 @@ import AudienceCards from '@/pages/home/Partials/AudienceCards';
 import Highlights from '@/pages/home/Partials/Highlights';
 import { useTranslation } from '@/contexts/TranslationContext';
 
-export default function HomeIndex({ canRegister = true }) {
+export default function HomeIndex({
+    canRegister = true,
+    tililaEdition = null,
+    tililabEdition = null,
+    stats = null,
+}) {
     const { t } = useTranslation();
     const heroImageSrc = '/assets/hero.png';
     const tropheeImageSrc = '/assets/trophee.png';
@@ -23,11 +28,13 @@ export default function HomeIndex({ canRegister = true }) {
             </Head>
 
             <Hero imageSrc={heroImageSrc} />
-            <ImpactStats />
+            <ImpactStats stats={stats} />
             <AudienceCards />
             <Highlights
                 tropheeImageSrc={tropheeImageSrc}
                 talkImageSrc={talkImageSrc}
+                tililaEdition={tililaEdition}
+                tililabEdition={tililabEdition}
             />
 
             {/* kept for future auth-related CTA wiring */}

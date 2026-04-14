@@ -76,7 +76,9 @@
             "viewProfile": "View Profile",
             "linkedinAria": "LinkedIn",
             "twitterAria": "Twitter / X",
-            "websiteAria": "Website"
+            "websiteAria": "Website",
+            "instagramAria": "Instagram",
+            "emailAria": "Email"
         },
         "detail": {
             "fallbackHeadTitle": "Expert"
@@ -201,7 +203,12 @@
         }
     },
     "home": {
-        "headTitle": "Tilila"
+        "headTitle": "Tilila",
+        "heroCarouselAria": "Featured site sections",
+        "heroCarouselPrev": "Previous slide",
+        "heroCarouselNext": "Next slide",
+        "heroCarouselDots": "Slides",
+        "heroCarouselGoTo": "Go to slide"
     },
     "about": {
         "headTitle": "About"

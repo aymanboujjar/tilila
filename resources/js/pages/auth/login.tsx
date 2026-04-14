@@ -90,7 +90,7 @@ export default function Login({
                                         </Label>
                                         {canResetPassword && (
                                             <TextLink
-                                                href={request()}
+                                                href={request.url()}
                                                 className="ml-auto text-sm font-semibold text-beta-blue decoration-beta-blue/30 hover:text-beta-blue hover:decoration-beta-blue"
                                                 tabIndex={5}
                                             >

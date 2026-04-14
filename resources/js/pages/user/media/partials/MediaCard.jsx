@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 
 import TransText from '@/components/TransText';
+import { cn } from '@/lib/utils';
 
 export default function MediaCard({ item, locale }) {
     const resolvedBadge =
@@ -60,10 +61,17 @@ export default function MediaCard({ item, locale }) {
                         />
                     </p>
 
-                    <div className="mt-4 flex items-center justify-between gap-3 text-xs">
-                        <div className="text-muted-foreground">
-                            {resolvedMeta}
-                        </div>
+                    <div
+                        className={cn(
+                            'mt-4 flex items-center gap-3 text-xs',
+                            resolvedMeta ? 'justify-between' : 'justify-end',
+                        )}
+                    >
+                        {resolvedMeta ? (
+                            <div className="text-muted-foreground">
+                                {resolvedMeta}
+                            </div>
+                        ) : null}
                         <span className="font-semibold text-beta-blue hover:underline">
                             {resolvedCta}
                         </span>

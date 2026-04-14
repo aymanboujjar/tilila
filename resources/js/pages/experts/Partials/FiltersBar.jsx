@@ -101,11 +101,11 @@ export default function FiltersBar({
                         options={[
                             { value: 'all', label: t('experts.filters.all') },
                             {
-                                value: 'ma',
+                                value: 'Morocco',
                                 label: t('experts.filters.morocco'),
                             },
                             {
-                                value: 'sn',
+                                value: 'Senegal',
                                 label: t('experts.filters.senegal'),
                             },
                         ]}

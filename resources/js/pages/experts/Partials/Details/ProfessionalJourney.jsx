@@ -13,13 +13,37 @@ export default function ProfessionalJourney({ items = [] }) {
             </h2>
 
             <div className="mt-5 space-y-5">
-                {items.map((it) => (
+                {items.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                        <TransText
+                            en="No media or professional milestones have been added yet."
+                            fr="Aucun jalon médiatique ou professionnel n’a encore été ajouté."
+                            ar="لم تُضف بعد أي محطات إعلامية أو مهنية."
+                        />
+                    </p>
+                ) : null}
+                {items.map((it, idx) => (
                     <div
-                        key={`${it.year}-${it.role.en}`}
-                        className="flex gap-3"
+                        key={`${it.year}-${it.role?.en ?? ''}-${idx}`}
+                        className="flex gap-4"
                     >
-                        <div className="mt-1 h-8 w-8 shrink-0 rounded-full bg-alpha-blue text-beta-blue ring-1 ring-border" />
-                        <div>
+                        <div className="mt-0.5 shrink-0">
+                            {it.imageSrc ? (
+                                <img
+                                    src={it.imageSrc}
+                                    alt=""
+                                    className="h-14 w-14 rounded-full object-cover ring-2 ring-border shadow-sm"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            ) : (
+                                <div
+                                    className="h-14 w-14 rounded-full bg-alpha-blue/90 text-beta-blue ring-2 ring-border"
+                                    aria-hidden
+                                />
+                            )}
+                        </div>
+                        <div className="min-w-0">
                             <div className="text-xs font-semibold text-muted-foreground">
                                 <TransText
                                     en={`${it.year} • Press`}

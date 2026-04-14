@@ -1,0 +1,663 @@
+import { Head, Link, router, useForm } from '@inertiajs/react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+
+import InputError from '@/components/input-error';
+import { Button } from '@/components/ui/button';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import AppLayout from '@/layouts/app-layout';
+import { cn } from '@/lib/utils';
+import ExpertPublicProfileDetails from '@/pages/admin/experts/partials/ExpertPublicProfileDetails';
+import { store } from '@/routes/admin/experts';
+
+function emptyDetails() {
+    return {
+        headlineTags: [],
+        bio: [],
+        quote: { en: '', fr: '', ar: '' },
+        socials: { linkedin: '', twitter: '', instagram: '' },
+        expertise: [],
+        journey: [],
+        appearances: [],
+        articles: [],
+    };
+}
+
+/**
+ * @param {Record<string, unknown>} data
+ */
+function buildExpertPayload(data) {
+    const {
+        industriesStr,
+        languagesStr,
+        remove_image,
+        profile_image,
+        ...rest
+    } = data;
+
+    const payload = {
+        name: rest.name,
+        title: rest.title,
+        location: rest.location,
+        country: rest.country,
+        industries: String(industriesStr ?? '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        languages: String(languagesStr ?? '')
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean),
+        badge:
+            typeof rest.badge === 'string' && rest.badge.trim() !== ''
+                ? rest.badge.trim()
+                : null,
+        status: rest.status,
+        email:
+            typeof rest.email === 'string' && rest.email.trim() !== ''
+                ? rest.email.trim()
+                : null,
+        details: rest.details ?? {},
+    };
+
+    if (
+        profile_image instanceof File ||
+        (profile_image instanceof Blob && profile_image.size > 0)
+    ) {
+        payload.profile_image = profile_image;
+    }
+    if (remove_image === true) {
+        payload.remove_image = true;
+    }
+
+    return payload;
+}
+
+const STEPS = [
+    {
+        id: 1,
+        title: 'Identity',
+        short: 'Names & title',
+        description:
+            'How the expert appears on the directory and profile (English is required).',
+    },
+    {
+        id: 2,
+        title: 'Classification',
+        short: 'Filters & card',
+        description:
+            'Country, status, industries, languages, location, and badge.',
+    },
+    {
+        id: 3,
+        title: 'Contact & media',
+        short: 'Email & photo',
+        description:
+            'Contact email and optional profile image (JPEG, PNG, WebP, or GIF).',
+    },
+    {
+        id: 4,
+        title: 'Public profile',
+        short: 'Bio & sections',
+        description:
+            'Headline tags, biography, quote, expertise, journey, appearances, and articles.',
+    },
+];
+
+const TOTAL_STEPS = STEPS.length;
+
+export default function AdminExpertsCreate({ statuses = [] }) {
+    const [step, setStep] = useState(1);
+    const [stepError, setStepError] = useState('');
+
+    const { data, setData, errors, setError, clearErrors } = useForm({
+        name: { en: '', fr: '', ar: '' },
+        title: { en: '', fr: '', ar: '' },
+        location: '',
+        country: 'Morocco',
+        industriesStr: 'economics',
+        languagesStr: 'en, fr',
+        badge: '',
+        status: 'draft',
+        email: '',
+        profile_image: null,
+        details: emptyDetails(),
+    });
+
+    const [processing, setProcessing] = useState(false);
+
+    const [avatarPreviewUrl, setAvatarPreviewUrl] = useState(null);
+    const avatarBlobRef = useRef(null);
+    const avatarFileInputRef = useRef(null);
+
+    useEffect(
+        () => () => {
+            if (avatarBlobRef.current) {
+                URL.revokeObjectURL(avatarBlobRef.current);
+                avatarBlobRef.current = null;
+            }
+        },
+        [],
+    );
+
+    const handleAvatarFileChange = (e) => {
+        const file = e.target.files?.[0] ?? null;
+        if (avatarBlobRef.current) {
+            URL.revokeObjectURL(avatarBlobRef.current);
+            avatarBlobRef.current = null;
+        }
+        setData('profile_image', file);
+        if (file) {
+            avatarBlobRef.current = URL.createObjectURL(file);
+            setAvatarPreviewUrl(avatarBlobRef.current);
+        } else {
+            setAvatarPreviewUrl(null);
+        }
+    };
+
+    const clearAvatarFile = () => {
+        if (avatarFileInputRef.current) {
+            avatarFileInputRef.current.value = '';
+        }
+        if (avatarBlobRef.current) {
+            URL.revokeObjectURL(avatarBlobRef.current);
+            avatarBlobRef.current = null;
+        }
+        setData('profile_image', null);
+        setAvatarPreviewUrl(null);
+    };
+
+    const validateStep = (currentStep) => {
+        if (currentStep === 1) {
+            if (!data.name.en?.trim()) {
+                return 'English name is required.';
+            }
+            if (!data.title.en?.trim()) {
+                return 'English title is required.';
+            }
+        }
+        if (currentStep === 2) {
+            if (!data.country?.trim()) {
+                return 'Country is required.';
+            }
+        }
+        return null;
+    };
+
+    const goNext = () => {
+        setStepError('');
+        const err = validateStep(step);
+        if (err) {
+            setStepError(err);
+            return;
+        }
+        setStep((s) => Math.min(TOTAL_STEPS, s + 1));
+    };
+
+    const goBack = () => {
+        setStepError('');
+        setStep((s) => Math.max(1, s - 1));
+    };
+
+    const goToStep = (target) => {
+        if (target < 1 || target > TOTAL_STEPS) {
+            return;
+        }
+        setStepError('');
+        if (target > step) {
+            const err = validateStep(step);
+            if (err) {
+                setStepError(err);
+                return;
+            }
+        }
+        setStep(target);
+    };
+
+    const submit = (e) => {
+        e.preventDefault();
+        const err = validateStep(1);
+        const err2 = validateStep(2);
+        if (err || err2) {
+            setStepError(err || err2);
+            setStep(err ? 1 : 2);
+            return;
+        }
+        clearErrors();
+        router.post(store.url(), buildExpertPayload(data), {
+            preserveScroll: true,
+            forceFormData: true,
+            onStart: () => setProcessing(true),
+            onFinish: () => setProcessing(false),
+            onError: (serverErrors) => {
+                setError(serverErrors);
+                const keys = Object.keys(serverErrors ?? {});
+                const has = (prefix) =>
+                    keys.some((k) => k === prefix || k.startsWith(`${prefix}.`));
+
+                const step1 =
+                    has('name') || has('title') || has('tags');
+                const step2 =
+                    has('country') ||
+                    has('status') ||
+                    has('industries') ||
+                    has('languages') ||
+                    has('location') ||
+                    has('badge');
+                const step3 =
+                    has('email') ||
+                    has('profile_image') ||
+                    has('remove_image');
+
+                setStep(step1 ? 1 : step2 ? 2 : step3 ? 3 : 4);
+                setStepError('Please fix the highlighted fields.');
+            },
+        });
+    };
+
+    const current = STEPS[step - 1];
+
+    return (
+        <>
+            <Head title="Add expert" />
+
+            <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                    <div>
+                        <p className="text-tgray text-sm font-medium">
+                            Experts Directory
+                        </p>
+                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                            Add expert
+                        </h1>
+                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                            Work through each step. You can go back anytime.
+                        </p>
+                    </div>
+                    <Button asChild variant="outline">
+                        <Link href="/admin/experts">Back to list</Link>
+                    </Button>
+                </div>
+
+                {/* Step indicator */}
+                <nav aria-label="Steps" className="w-full">
+                    <ol className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2">
+                        {STEPS.map((s, index) => {
+                            const isActive = step === s.id;
+                            const isDone = step > s.id;
+                            return (
+                                <li key={s.id} className="flex min-w-0 flex-1 items-center gap-2">
+                                    {index > 0 ? (
+                                        <div
+                                            className="bg-border mx-1 hidden h-px w-4 shrink-0 sm:block"
+                                            aria-hidden
+                                        />
+                                    ) : null}
+                                    <button
+                                        type="button"
+                                        onClick={() => goToStep(s.id)}
+                                        className={cn(
+                                            'flex min-w-0 flex-1 items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors sm:min-w-[140px]',
+                                            isActive &&
+                                                'border-beta-blue bg-beta-blue/10 ring-beta-blue/30 ring-2',
+                                            !isActive &&
+                                                !isDone &&
+                                                'border-border bg-card hover:bg-muted/60',
+                                            isDone &&
+                                                !isActive &&
+                                                'border-alpha-green/40 bg-beta-green/30 hover:bg-beta-green/50',
+                                        )}
+                                    >
+                                        <span
+                                            className={cn(
+                                                'flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold',
+                                                isActive &&
+                                                    'bg-beta-blue text-twhite',
+                                                isDone &&
+                                                    !isActive &&
+                                                    'bg-alpha-green text-twhite',
+                                                !isActive &&
+                                                    !isDone &&
+                                                    'bg-muted text-muted-foreground',
+                                            )}
+                                        >
+                                            {isDone ? '✓' : s.id}
+                                        </span>
+                                        <span className="min-w-0">
+                                            <span className="text-tblack block truncate text-sm font-semibold">
+                                                {s.title}
+                                            </span>
+                                            <span className="text-tgray block truncate text-xs">
+                                                {s.short}
+                                            </span>
+                                        </span>
+                                    </button>
+                                </li>
+                            );
+                        })}
+                    </ol>
+                </nav>
+
+                <form onSubmit={submit} className="space-y-6">
+                    {step < 4 ? (
+                        <Card>
+                            <CardHeader className="px-5 sm:px-8">
+                                <p className="text-beta-blue mb-1 text-xs font-semibold uppercase tracking-wide">
+                                    Step {step} of {TOTAL_STEPS}
+                                </p>
+                                <CardTitle>{current.title}</CardTitle>
+                                <CardDescription>
+                                    {current.description}
+                                </CardDescription>
+                            </CardHeader>
+
+                            {step === 1 ? (
+                                <CardContent className="space-y-4 px-5 sm:px-8">
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    {['en', 'fr', 'ar'].map((lang) => (
+                                        <div key={lang} className="space-y-2">
+                                            <Label htmlFor={`name-${lang}`}>
+                                                Name ({lang.toUpperCase()})
+                                                {lang === 'en' ? ' *' : ''}
+                                            </Label>
+                                            <Input
+                                                id={`name-${lang}`}
+                                                value={data.name[lang]}
+                                                onChange={(e) =>
+                                                    setData('name', {
+                                                        ...data.name,
+                                                        [lang]: e.target.value,
+                                                    })
+                                                }
+                                            />
+                                            <InputError
+                                                message={
+                                                    errors[`name.${lang}`]
+                                                }
+                                            />
+                                        </div>
+                                    ))}
+                                    {['en', 'fr', 'ar'].map((lang) => (
+                                        <div key={lang} className="space-y-2">
+                                            <Label htmlFor={`title-${lang}`}>
+                                                Title ({lang.toUpperCase()})
+                                                {lang === 'en' ? ' *' : ''}
+                                            </Label>
+                                            <Input
+                                                id={`title-${lang}`}
+                                                value={data.title[lang]}
+                                                onChange={(e) =>
+                                                    setData('title', {
+                                                        ...data.title,
+                                                        [lang]: e.target.value,
+                                                    })
+                                                }
+                                            />
+                                            <InputError
+                                                message={
+                                                    errors[`title.${lang}`]
+                                                }
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </CardContent>
+                        ) : null}
+
+                        {step === 2 ? (
+                            <CardContent className="space-y-4 px-5 sm:px-8">
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="country">
+                                            Country
+                                        </Label>
+                                        <Input
+                                            id="country"
+                                            value={data.country}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'country',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="Morocco"
+                                            maxLength={255}
+                                        />
+                                        <InputError message={errors.country} />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="status">Status</Label>
+                                        <select
+                                            id="status"
+                                            value={data.status}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'status',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            className={cn(
+                                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                            )}
+                                        >
+                                            {statuses.map((st) => (
+                                                <option key={st} value={st}>
+                                                    {st}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <InputError message={errors.status} />
+                                    </div>
+                                    <div className="space-y-2 sm:col-span-2">
+                                        <Label htmlFor="industriesStr">
+                                            Industries (comma-separated)
+                                        </Label>
+                                        <Input
+                                            id="industriesStr"
+                                            value={data.industriesStr}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'industriesStr',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="economics, technology"
+                                        />
+                                        <InputError
+                                            message={errors.industries}
+                                        />
+                                    </div>
+                                    <div className="space-y-2 sm:col-span-2">
+                                        <Label htmlFor="languagesStr">
+                                            Languages (comma-separated)
+                                        </Label>
+                                        <Input
+                                            id="languagesStr"
+                                            value={data.languagesStr}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'languagesStr',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="en, fr, ar"
+                                        />
+                                        <InputError
+                                            message={errors.languages}
+                                        />
+                                    </div>
+                                    <div className="space-y-2 sm:col-span-2">
+                                        <Label htmlFor="location">
+                                            Location
+                                        </Label>
+                                        <Input
+                                            id="location"
+                                            value={data.location}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'location',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="City, region"
+                                        />
+                                        <InputError
+                                            message={errors.location}
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <Label htmlFor="badge">Badge</Label>
+                                        <Input
+                                            id="badge"
+                                            value={data.badge}
+                                            onChange={(e) =>
+                                                setData(
+                                                    'badge',
+                                                    e.target.value,
+                                                )
+                                            }
+                                            placeholder="Available"
+                                        />
+                                        <InputError message={errors.badge} />
+                                    </div>
+                                </div>
+                            </CardContent>
+                        ) : null}
+
+                        {step === 3 ? (
+                            <CardContent className="space-y-4 px-5 sm:px-8">
+                                <div className="grid gap-4 sm:grid-cols-2">
+                                    <div className="space-y-2">
+                                        <Label htmlFor="email">Email</Label>
+                                        <Input
+                                            id="email"
+                                            type="email"
+                                            value={data.email}
+                                            onChange={(e) =>
+                                                setData('email', e.target.value)
+                                            }
+                                        />
+                                        <InputError message={errors.email} />
+                                    </div>
+                                    <div className="space-y-2 sm:col-span-2">
+                                        <Label htmlFor="profile_image">
+                                            Profile image
+                                        </Label>
+                                        <div className="flex flex-wrap items-start gap-4">
+                                            {avatarPreviewUrl ? (
+                                                <div className="border-border bg-muted relative size-24 shrink-0 overflow-hidden rounded-full border">
+                                                    <img
+                                                        src={avatarPreviewUrl}
+                                                        alt=""
+                                                        className="size-full object-cover"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                <div className="border-border bg-muted text-muted-foreground flex size-24 shrink-0 items-center justify-center rounded-full border text-xs">
+                                                    No image
+                                                </div>
+                                            )}
+                                            <div className="flex min-w-0 flex-1 flex-col gap-2">
+                                                <input
+                                                    ref={avatarFileInputRef}
+                                                    id="profile_image"
+                                                    name="profile_image"
+                                                    type="file"
+                                                    accept="image/jpeg,image/png,image/webp,image/gif"
+                                                    className={cn(
+                                                        'border-input bg-background ring-offset-background focus-visible:ring-ring file:text-foreground flex h-10 w-full max-w-md cursor-pointer rounded-md border px-3 py-1.5 text-sm shadow-xs file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                                    )}
+                                                    onChange={handleAvatarFileChange}
+                                                />
+                                                {avatarPreviewUrl ? (
+                                                    <Button
+                                                        type="button"
+                                                        variant="outline"
+                                                        size="sm"
+                                                        className="w-fit"
+                                                        onClick={clearAvatarFile}
+                                                    >
+                                                        Remove image
+                                                    </Button>
+                                                ) : null}
+                                                <p className="text-muted-foreground text-xs">
+                                                    Max 5&nbsp;MB. JPEG, PNG,
+                                                    WebP, or GIF.
+                                                </p>
+                                                <InputError
+                                                    message={errors.profile_image}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </CardContent>
+                            ) : null}
+                        </Card>
+                    ) : (
+                        <ExpertPublicProfileDetails
+                            details={data.details}
+                            onChange={(next) => setData('details', next)}
+                        />
+                    )}
+
+                    {stepError ? (
+                        <p
+                            className="text-destructive text-sm font-medium"
+                            role="alert"
+                        >
+                            {stepError}
+                        </p>
+                    ) : null}
+
+                    <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/60 pt-6">
+                        <Button asChild variant="outline" type="button">
+                            <Link href="/admin/experts">Cancel</Link>
+                        </Button>
+                        <div className="flex flex-wrap items-center gap-2">
+                            {step > 1 ? (
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={goBack}
+                                    className="gap-1"
+                                >
+                                    <ChevronLeft className="size-4" />
+                                    Back
+                                </Button>
+                            ) : null}
+                            {step < TOTAL_STEPS ? (
+                                <Button
+                                    type="button"
+                                    onClick={goNext}
+                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-1"
+                                >
+                                    Next
+                                    <ChevronRight className="size-4" />
+                                </Button>
+                            ) : (
+                                <Button
+                                    type="submit"
+                                    disabled={processing}
+                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                >
+                                    {processing ? 'Saving…' : 'Create expert'}
+                                </Button>
+                            )}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </>
+    );
+}
+
+AdminExpertsCreate.layout = (page) => <AppLayout>{page}</AppLayout>;

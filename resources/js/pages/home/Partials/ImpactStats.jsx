@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import TransText from '@/components/TransText';
 
-const STATS = [
-    {
-        value: '500+',
-        en: 'Experts registered',
-        fr: 'Expertes inscrites',
-        ar: 'خبيرات مسجلات',
-    },
-    {
-        value: '50+',
-        en: 'Media partners',
-        fr: 'Partenaires médias',
-        ar: 'شركاء إعلاميون',
-    },
-    {
-        value: '120+',
-        en: 'Events hosted',
-        fr: 'Événements organisés',
-        ar: 'فعاليات نُظِّمت',
-    },
-];
+export default function ImpactStats({ stats }) {
+    const items = useMemo(() => {
+        const s = stats || {};
+        const toNum = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : 0);
+        return [
+            {
+                value: String(toNum(s.tilila_editions)),
+                en: 'Tilila editions',
+                fr: 'Éditions Tilila',
+                ar: 'دورات تيليلا',
+            },
+            {
+                value: String(toNum(s.tililab_editions)),
+                en: 'Tililab editions',
+                fr: 'Éditions Tililab',
+                ar: 'دورات تيليلاب',
+            },
+            {
+                value: String(toNum(s.tililab_participants)),
+                en: 'Tililab participants',
+                fr: 'Participants Tililab',
+                ar: 'مشاركات/مشاركون تيليلاب',
+            },
+            {
+                value: String(toNum(s.tilila_submissions)),
+                en: 'Tilila submissions',
+                fr: 'Participations Tilila',
+                ar: 'مشاركات تيليلا',
+            },
+        ];
+    }, [stats]);
 
-export default function ImpactStats() {
     return (
         <section className="bg-beta-blue text-white">
             <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -37,18 +47,18 @@ export default function ImpactStats() {
                         </div>
                         <div className="mt-1 text-xs opacity-90">
                             <TransText
-                                en="Growing a community of visibility."
-                                fr="Construire une communauté visible."
-                                ar="نبني مجتمعًا أكثر حضورًا."
+                                en="Live data from your editions and submissions."
+                                fr="Données en direct depuis vos éditions et participations."
+                                ar="بيانات مباشرة من الدورات والمشاركات."
                             />
                         </div>
                     </div>
 
                     <div className="md:col-span-3">
-                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                            {STATS.map((stat) => (
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                            {items.map((stat, idx) => (
                                 <div
-                                    key={stat.label}
+                                    key={`${stat.en}-${idx}`}
                                     className="rounded-xl bg-white/10 px-5 py-4 ring-1 ring-white/15"
                                 >
                                     <div className="text-2xl font-extrabold tracking-tight">

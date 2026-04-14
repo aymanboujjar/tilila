@@ -3,18 +3,17 @@ import { Head } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import FiltersBar from '@/pages/experts/Partials/FiltersBar';
 import ExpertCard from '@/pages/experts/Partials/ExpertCard';
-import { EXPERTS } from '@/pages/experts/Partials/expert-data';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
-export default function ExpertsIndex() {
+export default function ExpertsIndex({ experts: expertsProp = [] }) {
     const { locale, t } = useTranslation();
     const [query, setQuery] = useState('');
     const [sort, setSort] = useState('relevance');
     const [view, setView] = useState('grid');
     const [filters, setFilters] = useState({
         industry: 'all',
-        country: 'ma',
+        country: 'all',
         language: 'all',
         availability: 'all',
     });
@@ -83,7 +82,7 @@ export default function ExpertsIndex() {
 
     const experts = useMemo(() => {
         const q = query.trim().toLowerCase();
-        let list = EXPERTS;
+        let list = expertsProp;
 
         if (filters.industry !== 'all') {
             list = list.filter((e) =>
@@ -112,7 +111,7 @@ export default function ExpertsIndex() {
                         .map((x) => x.en)
                         .join(' ')
                         .toLowerCase();
-                    const location = (e.location?.en ?? '').toLowerCase();
+                    const location = (e.location ?? '').toLowerCase();
                     const haystack = [
                         nameEn,
                         nameFr,
@@ -192,6 +191,7 @@ export default function ExpertsIndex() {
         locale,
         query,
         sort,
+        expertsProp,
     ]);
 
     return (

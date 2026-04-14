@@ -76,7 +76,9 @@
             "viewProfile": "عرض الملف",
             "linkedinAria": "لينكدإن",
             "twitterAria": "تويتر / X",
-            "websiteAria": "الموقع الإلكتروني"
+            "websiteAria": "الموقع الإلكتروني",
+            "instagramAria": "إنستغرام",
+            "emailAria": "البريد الإلكتروني"
         },
         "detail": {
             "fallbackHeadTitle": "خبيرة"
@@ -201,7 +203,12 @@
         }
     },
     "home": {
-        "headTitle": "تيليلا"
+        "headTitle": "تيليلا",
+        "heroCarouselAria": "أقسام الموقع البارزة",
+        "heroCarouselPrev": "الشريحة السابقة",
+        "heroCarouselNext": "الشريحة التالية",
+        "heroCarouselDots": "الشرائح",
+        "heroCarouselGoTo": "الانتقال إلى الشريحة"
     },
     "about": {
         "headTitle": "حول"

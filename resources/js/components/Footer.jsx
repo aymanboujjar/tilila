@@ -6,39 +6,35 @@ import TransText from '@/components/TransText';
 
 const platformLinks = [
     {
-        en: 'Find an Expert',
-        fr: 'Trouver une experte',
-        ar: 'اعثر على خبيرة',
-        href: '/experts',
+        en: 'Tililab',
+        fr: 'Tililab',
+        ar: 'تيليلاب',
+        href: '/tililab',
     },
     {
-        en: 'Join as Media',
-        fr: 'Rejoindre en tant que média',
-        ar: 'انضم كوسيلة إعلام',
-        href: register(),
+        en: 'Apply to Tililab',
+        fr: 'Postuler à Tililab',
+        ar: 'قدّم إلى تيليلاب',
+        href: '/tililab/form',
     },
     {
-        en: 'Our Partners',
-        fr: 'Nos partenaires',
-        ar: 'شركاؤنا',
-        href: '/about',
+        en: 'Partners',
+        fr: 'Partenaires',
+        ar: 'الشركاء',
+        href: '/about#partners',
+    },
+    {
+        en: 'Tilila Editions',
+        fr: 'Éditions Tilila',
+        ar: 'دورات تيليلا',
+        href: '/tilila#archive',
     },
 ];
 
 const initiativesLinks = [
-    { en: 'Events', fr: 'Événements', ar: 'الفعاليات', href: '/events' },
-    {
-        en: 'Opportunities',
-        fr: 'Opportunités',
-        ar: 'الفرص',
-        href: '/opportunities',
-    },
-    {
-        en: 'Governance',
-        fr: 'Gouvernance',
-        ar: 'الحوكمة',
-        href: '/gouvernance',
-    },
+    { en: 'Tililab', fr: 'Tililab', ar: 'تيليلاب', href: '/tililab' },
+    { en: 'Tilila', fr: 'Tilila', ar: 'تيليلا', href: '/tilila' },
+    { en: 'Opportunities', fr: 'Opportunités', ar: 'الفرص', href: '/opportunities' },
 ];
 
 export default function Footer() {
@@ -61,9 +57,9 @@ export default function Footer() {
 
                         <p className="mt-5 max-w-xs text-sm leading-6 text-tgray">
                             <TransText
-                                en="An initiative committed to parity and diversity in media. Empowering voices, changing narratives."
-                                fr="Une initiative engagée pour la parité et la diversité dans les médias. Donner de la voix, changer les récits."
-                                ar="مبادرة ملتزمة بالمساواة والتنوع في الإعلام. تمكين الأصوات وتغيير السرديات."
+                                en="Tilila Connect highlights women experts and builds inclusive narratives through Tilila & Tililab editions."
+                                fr="Tilila Connect valorise les expertes et construit des récits inclusifs via Tilila et Tililab."
+                                ar="تُبرز Tilila Connect الخبيرات وتبني سرديات شاملة عبر تيليلا وتيليلاب."
                             />
                         </p>
 
@@ -191,9 +187,9 @@ export default function Footer() {
                 <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-xs text-tgray md:flex-row md:items-center md:justify-between">
                     <span>
                         <TransText
-                            en="© 2023 Tilila. All rights reserved."
-                            fr="© 2023 Tilila. Tous droits réservés."
-                            ar="© 2023 تيليلا. جميع الحقوق محفوظة."
+                            en="© 2026 Tilila. All rights reserved."
+                            fr="© 2026 Tilila. Tous droits réservés."
+                            ar="© 2026 تيليلا. جميع الحقوق محفوظة."
                         />
                     </span>
                     <span>

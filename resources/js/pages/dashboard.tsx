@@ -1,36 +1,40 @@
-import { Head } from '@inertiajs/react';
-import { PlaceholderPattern } from '@/components/ui/placeholder-pattern';
+import { Head, setLayoutProps } from '@inertiajs/react';
+
+import { DashboardPageHeader } from '@/pages/dashboard/Partials/DashboardPageHeader';
+import { DashboardRightColumn } from '@/pages/dashboard/Partials/DashboardRightColumn';
+import { ImpactOverviewChart } from '@/pages/dashboard/Partials/ImpactOverviewChart';
+import { RecentImpactActivities } from '@/pages/dashboard/Partials/RecentImpactActivities';
+import { StrategicOverviewKpis } from '@/pages/dashboard/Partials/StrategicOverviewKpis';
 import { dashboard } from '@/routes';
 
 export default function Dashboard() {
+    setLayoutProps({
+        breadcrumbs: [
+            {
+                title: 'Dashboard',
+                href: dashboard.url(),
+            },
+        ],
+    });
+
     return (
         <>
-            <Head title="Dashboard" />
-            <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
-                <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+            <Head title="Global Impact Dashboard" />
+
+            <div className="bg-beta-white/50 flex min-h-full flex-1 flex-col gap-8 p-4 md:p-6 lg:p-8">
+                <DashboardPageHeader />
+
+                <div className="grid flex-1 gap-8 xl:grid-cols-[minmax(0,1fr)_min(100%,320px)] xl:items-start xl:gap-10">
+                    <div className="flex min-w-0 flex-col gap-8">
+                        <StrategicOverviewKpis />
+                        <ImpactOverviewChart />
+                        <RecentImpactActivities />
                     </div>
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                    <div className="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                        <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                    </div>
-                </div>
-                <div className="relative min-h-[100vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-                    <PlaceholderPattern className="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
+                    <aside className="min-w-0 xl:sticky xl:top-20">
+                        <DashboardRightColumn />
+                    </aside>
                 </div>
             </div>
         </>
     );
 }
-
-Dashboard.layout = {
-    breadcrumbs: [
-        {
-            title: 'Dashboard',
-            href: dashboard(),
-        },
-    ],
-};

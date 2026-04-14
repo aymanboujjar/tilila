@@ -1,12 +1,11 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import { OPPORTUNITIES } from '@/pages/opportunities/Partials/opportunities-data';
-import { OPPORTUNITY_DETAILS } from '@/pages/opportunities/Partials/opportunity-details-data';
 import InfoCard from '@/pages/opportunities/Partials/Details/InfoCard';
 import Eligibility from '@/pages/opportunities/Partials/Details/Eligibility';
 import DeadlineCard from '@/pages/opportunities/Partials/Details/DeadlineCard';
 import HowToApply from '@/pages/opportunities/Partials/Details/HowToApply';
+import ApplyNowModal from '@/pages/opportunities/Partials/ApplyNowModal';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
@@ -27,29 +26,17 @@ function Pill({ children, variant = 'secondary' }) {
     );
 }
 
-export default function OpportunityDetails({ id }) {
+export default function OpportunityDetails({ opportunity }) {
     const { locale, t } = useTranslation();
-    const pageProps = usePage().props;
-    const opportunityId = id ?? pageProps?.id;
 
     const resolve = (value) =>
         locale === 'ar' ? value?.ar : locale === 'fr' ? value?.fr : value?.en;
 
-    const base = useMemo(
-        () =>
-            OPPORTUNITIES.find((x) => x.id === opportunityId) ??
-            OPPORTUNITIES[0],
-        [opportunityId],
-    );
-
-    const details = useMemo(
-        () =>
-            OPPORTUNITY_DETAILS[opportunityId] ??
-            OPPORTUNITY_DETAILS['women-media-leadership-program-2024'],
-        [opportunityId],
-    );
+    const base = opportunity ?? {};
+    const details = opportunity?.details ?? {};
 
     const [saved, setSaved] = useState(false);
+    const [applyOpen, setApplyOpen] = useState(false);
 
     return (
         <>
@@ -83,7 +70,7 @@ export default function OpportunityDetails({ id }) {
                         </Link>
                         <span aria-hidden="true">›</span>
                         <span className="font-semibold text-foreground">
-                            {resolve(details?.title) ?? resolve(base.title)}
+                            {resolve(details?.title) ?? resolve(base?.title)}
                         </span>
                     </nav>
 
@@ -99,7 +86,7 @@ export default function OpportunityDetails({ id }) {
                                     <span className="text-muted-foreground">
                                         {resolve(details?.meta) ??
                                             `${t('opportunities.card.postedPrefix')} ${
-                                                resolve(base.posted) ?? ''
+                                                resolve(base?.posted) ?? ''
                                             }`}
                                     </span>
                                 </div>
@@ -108,17 +95,18 @@ export default function OpportunityDetails({ id }) {
                                     <div>
                                         <h1 className="text-3xl font-extrabold tracking-tight text-foreground">
                                             {resolve(details?.title) ??
-                                                resolve(base.title)}
+                                                resolve(base?.title)}
                                         </h1>
                                         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                                             {resolve(details?.description) ??
-                                                resolve(base.excerpt)}
+                                                resolve(base?.excerpt)}
                                         </p>
                                     </div>
 
                                     <div className="flex flex-col gap-2">
                                         <button
                                             type="button"
+                                            onClick={() => setApplyOpen(true)}
                                             className="inline-flex items-center justify-center rounded-md bg-beta-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                                         >
                                             <TransText
@@ -177,19 +165,19 @@ export default function OpportunityDetails({ id }) {
                                                         resolve(
                                                             details?.description,
                                                         ) ??
-                                                        resolve(base.excerpt)
+                                                        resolve(base?.excerpt)
                                                     }
                                                     fr={
                                                         resolve(
                                                             details?.description,
                                                         ) ??
-                                                        resolve(base.excerpt)
+                                                        resolve(base?.excerpt)
                                                     }
                                                     ar={
                                                         resolve(
                                                             details?.description,
                                                         ) ??
-                                                        resolve(base.excerpt)
+                                                        resolve(base?.excerpt)
                                                     }
                                                 />
                                             </p>
@@ -246,7 +234,15 @@ export default function OpportunityDetails({ id }) {
                                 )}
                             >
                                 <div className="flex items-start gap-3">
-                                    <div className="mt-0.5 h-10 w-10 rounded-xl bg-alpha-blue text-beta-blue ring-1 ring-border" />
+                                    <div className="mt-0.5 h-10 w-20 overflow-hidden rounded-xl bg-card ring-1 ring-border">
+                                        <img
+                                            src="/assets/organizer-logo.png"
+                                            alt="Organizer logo"
+                                            className="h-full w-full object-cover"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    </div>
                                     <div>
                                         <div className="text-sm font-extrabold text-foreground">
                                             {resolve(
@@ -382,6 +378,13 @@ export default function OpportunityDetails({ id }) {
                     </div>
                 </div>
             </div>
+
+            <ApplyNowModal
+                isOpen={applyOpen}
+                onClose={() => setApplyOpen(false)}
+                opportunityTitle={details?.title ?? base?.title}
+                opportunitySlug={base?.slug ?? base?.id}
+            />
         </>
     );
 }

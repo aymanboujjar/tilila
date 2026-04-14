@@ -2,7 +2,13 @@ import React from 'react';
 import { Link } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 
-export default function Highlights({ tropheeImageSrc, talkImageSrc }) {
+function editionDetailsUrl(base, edition) {
+    const id = edition?.id;
+    if (!id) return base;
+    return `${base}/editions/${id}`;
+}
+
+export default function Highlights({ tropheeImageSrc, talkImageSrc, tililaEdition, tililabEdition }) {
     const highlights = [
         {
             enTag: 'Award',
@@ -12,34 +18,50 @@ export default function Highlights({ tropheeImageSrc, talkImageSrc }) {
             frTitle: 'Trophée Tilila',
             arTitle: 'جائزة تيليلا',
             enDescription:
-                'Celebrating remarkable women experts and their contributions across fields.',
+                'Discover editions, winners, jury, and gallery — managed dynamically from our archive.',
             frDescription:
-                'Célébrer des expertes remarquables et leurs contributions dans divers domaines.',
+                'Découvrez les éditions, lauréats, jury et galerie — gérés dynamiquement depuis l’archive.',
             arDescription:
-                'الاحتفاء بخبيرات متميزات ومساهماتهن عبر مجالات متعددة.',
-            enCta: 'Learn More',
-            frCta: 'En savoir plus',
-            arCta: 'اعرف المزيد',
-            href: '#trophee',
+                'اكتشف الدورات والفائزين ولجنة التحكيم والمعرض — تتم إدارتها ديناميكياً من الأرشيف.',
+            enCta: 'View edition details',
+            frCta: 'Voir les détails',
+            arCta: 'عرض التفاصيل',
+            href: editionDetailsUrl('/tilila', tililaEdition),
             imageSrc: tropheeImageSrc,
         },
         {
-            enTag: 'Upcoming Event',
-            frTag: 'Événement à venir',
-            arTag: 'فعالية قادمة',
-            enTitle: 'TilTalk: Women in Tech',
-            frTitle: 'TilTalk : Femmes dans la tech',
-            arTitle: 'TilTalk: نساء في التكنولوجيا',
+            enTag: 'Program',
+            frTag: 'Programme',
+            arTag: 'برنامج',
+            enTitle: 'Tililab',
+            frTitle: 'Tililab',
+            arTitle: 'تيليلاب',
             enDescription:
-                'Join our next dialogue highlighting women leaders shaping innovation.',
+                'Apply to Tililab and explore past editions & winners curated from the database.',
             frDescription:
-                'Rejoignez notre prochain échange mettant en lumière des femmes leaders qui façonnent l’innovation.',
+                'Postulez à Tililab et explorez les éditions précédentes et lauréats depuis la base de données.',
             arDescription:
-                'انضم إلى حوارنا القادم لتسليط الضوء على قائدات يساهمن في تشكيل الابتكار.',
-            enCta: 'Register Now',
-            frCta: 'S’inscrire',
-            arCta: 'سجّل الآن',
-            href: '#tiltalk',
+                'قدّم إلى تيليلاب واستكشف الدورات السابقة والفائزين من قاعدة البيانات.',
+            enCta: 'Apply now',
+            frCta: 'Postuler',
+            arCta: 'قدّم الآن',
+            href: '/tililab/form',
+            imageSrc: talkImageSrc,
+        },
+        {
+            enTag: 'Editions',
+            frTag: 'Éditions',
+            arTag: 'الدورات',
+            enTitle: 'Tililab Editions',
+            frTitle: 'Éditions Tililab',
+            arTitle: 'دورات تيليلاب',
+            enDescription: 'Browse editions and open the details page (winners, jury, gallery).',
+            frDescription: 'Parcourez les éditions et ouvrez la page de détails (lauréats, jury, galerie).',
+            arDescription: 'تصفّح الدورات وافتح صفحة التفاصيل (الفائزون، لجنة التحكيم، المعرض).',
+            enCta: 'View edition details',
+            frCta: 'Voir les détails',
+            arCta: 'عرض التفاصيل',
+            href: editionDetailsUrl('/tililab', tililabEdition),
             imageSrc: talkImageSrc,
         },
     ];
@@ -76,13 +98,13 @@ export default function Highlights({ tropheeImageSrc, talkImageSrc }) {
                     </Link>
                 </div>
 
-                <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+                <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
                     {highlights.map((item) => (
                         <div
                             key={item.enTitle}
                             className="relative overflow-hidden rounded-2xl bg-card shadow-sm ring-1 ring-border"
                         >
-                            <div className="relative aspect-[16/9] w-full bg-gradient-to-br from-muted to-secondary">
+                            <div className="relative aspect-video w-full bg-linear-to-br from-muted to-secondary">
                                 {item.imageSrc ? (
                                     <img
                                         src={item.imageSrc}
@@ -91,7 +113,7 @@ export default function Highlights({ tropheeImageSrc, talkImageSrc }) {
                                         loading="lazy"
                                     />
                                 ) : null}
-                                <div className="absolute inset-0 bg-gradient-to-br from-tblack/75 via-tblack/40 to-transparent" />
+                                <div className="absolute inset-0 bg-linear-to-br from-tblack/75 via-tblack/40 to-transparent" />
                                 <div className="relative flex h-full w-full flex-col justify-end p-6">
                                     <div className="inline-flex w-fit items-center rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-white ring-1 ring-white/20">
                                         <TransText

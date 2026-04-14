@@ -12,9 +12,9 @@ export default function AppLayout({
     children: React.ReactNode;
 }) {
     const { auth } = usePage().props as { auth?: { user?: { role?: string } } };
-    const isAdmin = auth?.user?.role === 'admin';
+    const isAuthenticated = Boolean(auth?.user);
 
-    if (!isAdmin) {
+    if (!isAuthenticated) {
         return (
             <div className="flex min-h-screen flex-col bg-background">
                 <Navbar />
@@ -25,12 +25,8 @@ export default function AppLayout({
     }
 
     return (
-        <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <AppLayoutTemplate breadcrumbs={breadcrumbs}>
-                {children}
-            </AppLayoutTemplate>
-            <Footer />
-        </div>
+        <AppLayoutTemplate breadcrumbs={breadcrumbs}>
+            {children}
+        </AppLayoutTemplate>
     );
 }

@@ -4,7 +4,6 @@ import AppLayout from '@/layouts/app-layout';
 import EventsTabs from '@/pages/events/Partials/EventsTabs';
 import EventsSidebar from '@/pages/events/Partials/EventsSidebar';
 import EventCard from '@/pages/events/Partials/EventCard';
-import { EVENTS } from '@/pages/events/Partials/events-data';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
@@ -14,7 +13,16 @@ function isPastEvent(event) {
     return ts < Date.now();
 }
 
-export default function EventsIndex() {
+/** Map DB types (e.g. tilitalk) to sidebar category keys (talk | webinar | workshop). */
+function categoryKeyForFilter(type) {
+    const t = type ?? 'talk';
+    if (t === 'webinar') return 'webinar';
+    if (t === 'workshop') return 'workshop';
+    if (t === 'tilitalk' || t === 'trophy' || t === 'other') return 'talk';
+    return t;
+}
+
+export default function EventsIndex({ events = [], eventStatuses = [] }) {
     const { t } = useTranslation();
     const [activeTab, setActiveTab] = useState('upcoming'); // upcoming | past
     const [selectedDayIso, setSelectedDayIso] = useState(null);
@@ -24,19 +32,35 @@ export default function EventsIndex() {
         workshop: true,
     });
 
+    const [statusFilters, setStatusFilters] = useState(() =>
+        Object.fromEntries(
+            (eventStatuses?.length ? eventStatuses : [
+                'upcoming',
+                'live',
+                'finished',
+                'archived',
+            ]).map((s) => [s, true]),
+        ),
+    );
+
     const counts = useMemo(() => {
-        const all = EVENTS ?? [];
+        const all = events ?? [];
         const upcoming = all.filter((e) => !isPastEvent(e)).length;
         const past = all.filter((e) => isPastEvent(e)).length;
         return { upcoming, past };
-    }, []);
+    }, [events]);
 
     const filteredEvents = useMemo(() => {
-        const all = EVENTS ?? [];
+        const all = events ?? [];
 
         let list = all.filter((e) => {
-            const type = e?.type ?? 'talk';
-            return Boolean(categories[type]);
+            const cat = categoryKeyForFilter(e?.type);
+            return Boolean(categories[cat]);
+        });
+
+        list = list.filter((e) => {
+            const st = e?.status ?? 'upcoming';
+            return statusFilters[st] !== false;
         });
 
         if (selectedDayIso) {
@@ -49,13 +73,18 @@ export default function EventsIndex() {
         );
 
         list = [...list].sort((a, b) => {
+            const aLive = (a?.status ?? '') === 'live';
+            const bLive = (b?.status ?? '') === 'live';
+            if (aLive !== bLive) {
+                return aLive ? -1 : 1;
+            }
             const at = new Date(a?.dateTimeIso ?? '').getTime();
             const bt = new Date(b?.dateTimeIso ?? '').getTime();
             return wantsPast ? bt - at : at - bt;
         });
 
         return list;
-    }, [activeTab, categories, selectedDayIso]);
+    }, [activeTab, categories, events, selectedDayIso, statusFilters]);
 
     return (
         <>
@@ -100,7 +129,19 @@ export default function EventsIndex() {
                                     setCategories={setCategories}
                                     selectedDayIso={selectedDayIso}
                                     setSelectedDayIso={setSelectedDayIso}
-                                    events={EVENTS}
+                                    events={events}
+                                    eventStatuses={
+                                        eventStatuses?.length
+                                            ? eventStatuses
+                                            : [
+                                                  'upcoming',
+                                                  'live',
+                                                  'finished',
+                                                  'archived',
+                                              ]
+                                    }
+                                    statusFilters={statusFilters}
+                                    setStatusFilters={setStatusFilters}
                                 />
                             </div>
 
@@ -126,9 +167,9 @@ export default function EventsIndex() {
                                         </div>
                                         <div className="mt-2 text-sm text-muted-foreground">
                                             <TransText
-                                                en="Try changing your categories or selecting a different date."
-                                                fr="Essayez de modifier les catégories ou de sélectionner une autre date."
-                                                ar="جرّب تغيير الفئات أو اختيار تاريخ مختلف."
+                                                en="Try adjusting categories, status filters, or the selected date."
+                                                fr="Essayez de modifier les catégories, les statuts ou la date sélectionnée."
+                                                ar="جرّب تعديل الفئات أو حالات الفعالية أو التاريخ المحدد."
                                             />
                                         </div>
                                     </div>
