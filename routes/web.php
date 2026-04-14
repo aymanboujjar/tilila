@@ -3,6 +3,7 @@
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\TililabInscriptionController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -25,9 +26,10 @@ Route::get('/tililab', function () {
 Route::get('/tilila', function () {
     return Inertia::render('user/tilila/index');
 });
-Route::get('/tilila/form', function () {
-    return Inertia::render('user/tilila/partials/FormOFInscription');
+Route::get('/tililab/form', function () {
+    return Inertia::render('user/tililab/partials/FormOFInscription');
 });
+Route::post('/tililab/form', [TililabInscriptionController::class, 'store'])->name('tililab.form.store');
 Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
 

@@ -1,7 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useId, useMemo, useState } from 'react';
 
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { useForm } from '@inertiajs/react';
 
 const STEPS = [
     { id: 'profile', number: 1 },
@@ -160,36 +161,72 @@ function Card({ title, icon, children }) {
 }
 
 export default function FormOFInscription() {
-    const { t } = useTranslation();
-    const [activeStepId] = useState('profile');
+    const { locale, t } = useTranslation();
+    const [activeStepId, setActiveStepId] = useState('profile');
+    const [submitted, setSubmitted] = useState(false);
+    const formId = useId();
 
     const cityOptions = useMemo(
         () => [
-            { value: '', key: 'tililaConnect.form.citySelect' },
-            { value: 'casablanca', key: 'tililaConnect.form.cityCasablanca' },
-            { value: 'rabat', key: 'tililaConnect.form.cityRabat' },
-            { value: 'tangier', key: 'tililaConnect.form.cityTangier' },
-            { value: 'marrakesh', key: 'tililaConnect.form.cityMarrakesh' },
+            { value: '', key: 'Select' },
+            { value: 'casablanca', key: 'Casablanca' },
+            { value: 'rabat', key: 'Rabat' },
+            { value: 'tangier', key: 'Tangier' },
+            { value: 'marrakesh', key: 'Marrakesh' },
         ],
         [],
     );
 
     const countryOptions = useMemo(
         () => [
-            { value: 'ma', key: 'tililaConnect.form.countryMorocco' },
-            { value: 'sn', key: 'tililaConnect.form.countrySenegal' },
+            { value: 'ma', key: 'Morocco' },
+            { value: 'sn', key: 'Senegal' },
         ],
         [],
     );
+
+    const {
+        data,
+        setData,
+        post,
+        processing,
+        errors,
+        clearErrors,
+        reset,
+    } = useForm({
+        first_name: '',
+        last_name: '',
+        email: '',
+        phone: '',
+        job_title: '',
+        organization: '',
+        city: '',
+        country: 'ma',
+        bio: '',
+        original_video_link: '',
+        locale,
+    });
+
+    const bioCount = (data.bio ?? '').length;
+    const canContinueProfile =
+        data.first_name.trim() !== '' &&
+        data.last_name.trim() !== '' &&
+        data.email.trim() !== '' &&
+        data.job_title.trim() !== '' &&
+        data.organization.trim() !== '' &&
+        (data.city ?? '') !== '' &&
+        (data.country ?? '') !== '';
+
+    const canSubmitExpertise = (data.original_video_link ?? '').trim() !== '';
 
     return (
         <section className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
             <div className="mx-auto max-w-4xl text-center">
                 <h2 className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
                     <TransText
-                        en="Join Tilila Connect"
-                        fr="Rejoindre Tilila Connect"
-                        ar="انضم إلى Tilila Connect"
+                        en="Join Tililab Connect"
+                        fr="Rejoindre Tililab Connect"
+                        ar="انضم إلى Tililab Connect"
                     />
                 </h2>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
@@ -206,270 +243,545 @@ export default function FormOFInscription() {
             <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-12">
                 <div className="lg:col-span-8">
                     <div className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border">
-                        <div className="flex items-center gap-2">
-                            <div className="grid h-9 w-9 place-items-center rounded-md bg-alpha-blue text-beta-blue ring-1 ring-border">
-                                <span aria-hidden="true">👤</span>
-                            </div>
-                            <div>
-                                <div className="text-base font-extrabold text-foreground">
-                                    <TransText
-                                        en="Personal & Professional Profile"
-                                        fr="Profil personnel & professionnel"
-                                        ar="الملف الشخصي والمهني"
-                                    />
-                                </div>
-                                <div className="mt-1 text-xs text-muted-foreground">
-                                    <TransText
-                                        en="We only use this information to match you with relevant opportunities."
-                                        fr="Nous utilisons ces informations uniquement pour vous associer à des opportunités pertinentes."
-                                        ar="نستخدم هذه المعلومات فقط لربطك بالفرص المناسبة."
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        <form className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
-                            <Field
-                                label={
-                                    <TransText
-                                        en="First Name"
-                                        fr="Prénom"
-                                        ar="الاسم الأول"
-                                    />
-                                }
-                                required
-                            >
-                                <Input
-                                    placeholder={t(
-                                        'tililaConnect.form.firstNamePlaceholder',
-                                    )}
-                                />
-                            </Field>
-                            <Field
-                                label={
-                                    <TransText
-                                        en="Last Name"
-                                        fr="Nom"
-                                        ar="اسم العائلة"
-                                    />
-                                }
-                                required
-                            >
-                                <Input
-                                    placeholder={t(
-                                        'tililaConnect.form.lastNamePlaceholder',
-                                    )}
-                                />
-                            </Field>
-
-                            <div className="sm:col-span-2">
-                                <Field
-                                    label={
-                                        <TransText
-                                            en="Professional Email"
-                                            fr="E-mail professionnel"
-                                            ar="البريد المهني"
-                                        />
-                                    }
-                                    required
-                                >
-                                    <Input
-                                        placeholder={t(
-                                            'tililaConnect.form.emailPlaceholder',
-                                        )}
-                                        type="email"
-                                    />
-                                    <div className="mt-2 text-xs text-muted-foreground">
-                                        <TransText
-                                            en="We’ll never send spam using your professional email address."
-                                            fr="Nous n’enverrons jamais de spam via votre e-mail professionnel."
-                                            ar="لن نرسل بريدًا عشوائيًا إلى بريدك المهني."
-                                        />
+                        {activeStepId === 'profile' ? (
+                            <>
+                                <div className="flex items-center gap-2">
+                                    <div className="grid h-9 w-9 place-items-center rounded-md bg-alpha-blue text-beta-blue ring-1 ring-border">
+                                        <span aria-hidden="true">👤</span>
                                     </div>
-                                </Field>
-                            </div>
-
-                            <div className="sm:col-span-2">
-                                <Field
-                                    label={
-                                        <TransText
-                                            en="Phone Number"
-                                            fr="Numéro de téléphone"
-                                            ar="رقم الهاتف"
-                                        />
-                                    }
-                                >
-                                    <Input
-                                        placeholder={t(
-                                            'tililaConnect.form.phonePlaceholder',
-                                        )}
-                                    />
-                                </Field>
-                            </div>
-
-                            <div className="grid grid-cols-1 gap-5 sm:col-span-2 sm:grid-cols-2">
-                                <Field
-                                    label={
-                                        <TransText
-                                            en="Current Job Title"
-                                            fr="Poste actuel"
-                                            ar="المسمى الوظيفي الحالي"
-                                        />
-                                    }
-                                    required
-                                >
-                                    <Input
-                                        placeholder={t(
-                                            'tililaConnect.form.jobTitlePlaceholder',
-                                        )}
-                                    />
-                                </Field>
-                                <Field
-                                    label={
-                                        <TransText
-                                            en="Organization / Company"
-                                            fr="Organisation / Entreprise"
-                                            ar="المنظمة / الشركة"
-                                        />
-                                    }
-                                    required
-                                >
-                                    <Input
-                                        placeholder={t(
-                                            'tililaConnect.form.organizationPlaceholder',
-                                        )}
-                                    />
-                                </Field>
-                            </div>
-
-                            <Field
-                                label={
-                                    <TransText
-                                        en="City"
-                                        fr="Ville"
-                                        ar="المدينة"
-                                    />
-                                }
-                                required
-                            >
-                                <Select defaultValue="">
-                                    {cityOptions.map((opt) => (
-                                        <option
-                                            key={opt.value}
-                                            value={opt.value}
-                                        >
-                                            {t(opt.key)}
-                                        </option>
-                                    ))}
-                                </Select>
-                            </Field>
-
-                            <Field
-                                label={
-                                    <TransText
-                                        en="Country"
-                                        fr="Pays"
-                                        ar="البلد"
-                                    />
-                                }
-                                required
-                            >
-                                <Select defaultValue="ma">
-                                    {countryOptions.map((opt) => (
-                                        <option
-                                            key={opt.value}
-                                            value={opt.value}
-                                        >
-                                            {t(opt.key)}
-                                        </option>
-                                    ))}
-                                </Select>
-                            </Field>
-
-                            <div className="sm:col-span-2">
-                                <Field
-                                    label={
-                                        <TransText
-                                            en="Short Biography"
-                                            fr="Courte biographie"
-                                            ar="نبذة قصيرة"
-                                        />
-                                    }
-                                >
-                                    <Textarea
-                                        placeholder={t(
-                                            'tililaConnect.form.bioPlaceholder',
-                                        )}
-                                        maxLength={300}
-                                    />
-                                    <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
-                                        <TransText
-                                            en="Briefly describe your background and areas of interest."
-                                            fr="Décrivez brièvement votre parcours et vos centres d’intérêt."
-                                            ar="صِف باختصار خلفيتك ومجالات اهتمامك."
-                                        />
-                                        <span>0/300</span>
-                                    </div>
-                                </Field>
-                            </div>
-
-                            <div className="sm:col-span-2">
-                                <div className="text-sm font-semibold text-foreground">
-                                    <TransText
-                                        en="Profile Picture"
-                                        fr="Photo de profil"
-                                        ar="الصورة الشخصية"
-                                    />
-                                </div>
-                                <div className="mt-3 flex flex-col gap-4 rounded-xl bg-background p-4 ring-1 ring-border sm:flex-row sm:items-center sm:justify-between">
-                                    <div className="flex items-center gap-3">
-                                        <div className="grid h-10 w-10 place-items-center rounded-xl bg-secondary text-muted-foreground ring-1 ring-border">
-                                            <span aria-hidden="true">📷</span>
-                                        </div>
-                                        <div className="text-xs text-muted-foreground">
+                                    <div>
+                                        <div className="text-base font-extrabold text-foreground">
                                             <TransText
-                                                en="JPG, PNG, or WEBP. Max 2MB."
-                                                fr="JPG, PNG ou WEBP. 2 Mo max."
-                                                ar="JPG أو PNG أو WEBP. حد أقصى 2MB."
+                                                en="Personal & Professional Profile"
+                                                fr="Profil personnel & professionnel"
+                                                ar="الملف الشخصي والمهني"
+                                            />
+                                        </div>
+                                        <div className="mt-1 text-xs text-muted-foreground">
+                                            <TransText
+                                                en="We only use this information to match you with relevant opportunities."
+                                                fr="Nous utilisons ces informations uniquement pour vous associer à des opportunités pertinentes."
+                                                ar="نستخدم هذه المعلومات فقط لربطك بالفرص المناسبة."
                                             />
                                         </div>
                                     </div>
-                                    <button
-                                        type="button"
-                                        className="inline-flex items-center justify-center rounded-md bg-beta-blue px-4 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-90"
-                                    >
-                                        <TransText
-                                            en="Upload Photo"
-                                            fr="Téléverser une photo"
-                                            ar="رفع صورة"
-                                        />
-                                    </button>
                                 </div>
-                            </div>
 
-                            <div className="mt-2 flex flex-col-reverse gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+                                <form className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
+                                    <Field
+                                        label={
+                                            <TransText
+                                                en="First Name"
+                                                fr="Prénom"
+                                                ar="الاسم الأول"
+                                            />
+                                        }
+                                        required
+                                    >
+                                        <Input
+                                            id={`${formId}-first-name`}
+                                            value={data.first_name}
+                                            onChange={(e) =>
+                                                setData('first_name', e.target.value)
+                                            }
+                                            placeholder={t(
+                                                'firstNamePlaceholder',
+                                            )}
+                                            autoComplete="given-name"
+                                        />
+                                        {errors.first_name ? (
+                                            <div className="text-xs text-alpha-danger">
+                                                {errors.first_name}
+                                            </div>
+                                        ) : null}
+                                    </Field>
+                                    <Field
+                                        label={
+                                            <TransText
+                                                en="Last Name"
+                                                fr="Nom"
+                                                ar="اسم العائلة"
+                                            />
+                                        }
+                                        required
+                                    >
+                                        <Input
+                                            id={`${formId}-last-name`}
+                                            value={data.last_name}
+                                            onChange={(e) =>
+                                                setData('last_name', e.target.value)
+                                            }
+                                            placeholder={t(
+                                                'lastNamePlaceholder',
+                                            )}
+                                            autoComplete="family-name"
+                                        />
+                                        {errors.last_name ? (
+                                            <div className="text-xs text-alpha-danger">
+                                                {errors.last_name}
+                                            </div>
+                                        ) : null}
+                                    </Field>
+
+                                    <div className="sm:col-span-2">
+                                        <Field
+                                            label={
+                                                <TransText
+                                                    en="Professional Email"
+                                                    fr="E-mail professionnel"
+                                                    ar="البريد المهني"
+                                                />
+                                            }
+                                            required
+                                        >
+                                            <Input
+                                                id={`${formId}-email`}
+                                                value={data.email}
+                                                onChange={(e) =>
+                                                    setData('email', e.target.value)
+                                                }
+                                                placeholder={t(
+                                                    'emailPlaceholder',
+                                                )}
+                                                type="email"
+                                                autoComplete="email"
+                                            />
+                                            {errors.email ? (
+                                                <div className="text-xs text-alpha-danger">
+                                                    {errors.email}
+                                                </div>
+                                            ) : null}
+                                            <div className="mt-2 text-xs text-muted-foreground">
+                                                <TransText
+                                                    en="We’ll never send spam using your professional email address."
+                                                    fr="Nous n’enverrons jamais de spam via votre e-mail professionnel."
+                                                    ar="لن نرسل بريدًا عشوائيًا إلى بريدك المهني."
+                                                />
+                                            </div>
+                                        </Field>
+                                    </div>
+
+                                    <div className="sm:col-span-2">
+                                        <Field
+                                            label={
+                                                <TransText
+                                                    en="Phone Number"
+                                                    fr="Numéro de téléphone"
+                                                    ar="رقم الهاتف"
+                                                />
+                                            }
+                                        >
+                                            <Input
+                                                id={`${formId}-phone`}
+                                                value={data.phone}
+                                                onChange={(e) =>
+                                                    setData('phone', e.target.value)
+                                                }
+                                                placeholder={t(
+                                                    'phonePlaceholder',
+                                                )}
+                                                autoComplete="tel"
+                                            />
+                                            {errors.phone ? (
+                                                <div className="text-xs text-alpha-danger">
+                                                    {errors.phone}
+                                                </div>
+                                            ) : null}
+                                        </Field>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 gap-5 sm:col-span-2 sm:grid-cols-2">
+                                        <Field
+                                            label={
+                                                <TransText
+                                                    en="Current Job Title"
+                                                    fr="Poste actuel"
+                                                    ar="المسمى الوظيفي الحالي"
+                                                />
+                                            }
+                                            required
+                                        >
+                                            <Input
+                                                id={`${formId}-job-title`}
+                                                value={data.job_title}
+                                                onChange={(e) =>
+                                                    setData('job_title', e.target.value)
+                                                }
+                                                placeholder={t(
+                                                    'jobTitlePlaceholder',
+                                                )}
+                                                autoComplete="organization-title"
+                                            />
+                                            {errors.job_title ? (
+                                                <div className="text-xs text-alpha-danger">
+                                                    {errors.job_title}
+                                                </div>
+                                            ) : null}
+                                        </Field>
+                                        <Field
+                                            label={
+                                                <TransText
+                                                    en="Organization / Company"
+                                                    fr="Organisation / Entreprise"
+                                                    ar="المنظمة / الشركة"
+                                                />
+                                            }
+                                            required
+                                        >
+                                            <Input
+                                                id={`${formId}-org`}
+                                                value={data.organization}
+                                                onChange={(e) =>
+                                                    setData('organization', e.target.value)
+                                                }
+                                                placeholder={t(
+                                                    'organizationPlaceholder',
+                                                )}
+                                                autoComplete="organization"
+                                            />
+                                            {errors.organization ? (
+                                                <div className="text-xs text-alpha-danger">
+                                                    {errors.organization}
+                                                </div>
+                                            ) : null}
+                                        </Field>
+                                    </div>
+
+                                    <Field
+                                        label={
+                                            <TransText
+                                                en="City"
+                                                fr="Ville"
+                                                ar="المدينة"
+                                            />
+                                        }
+                                        required
+                                    >
+                                        <Select
+                                            value={data.city}
+                                            onChange={(e) => setData('city', e.target.value)}
+                                        >
+                                            {cityOptions.map((opt) => (
+                                                <option key={opt.value} value={opt.value}>
+                                                    {t(opt.key)}
+                                                </option>
+                                            ))}
+                                        </Select>
+                                        {errors.city ? (
+                                            <div className="text-xs text-alpha-danger">
+                                                {errors.city}
+                                            </div>
+                                        ) : null}
+                                    </Field>
+
+                                    <Field
+                                        label={
+                                            <TransText
+                                                en="Country"
+                                                fr="Pays"
+                                                ar="البلد"
+                                            />
+                                        }
+                                        required
+                                    >
+                                        <Select
+                                            value={data.country}
+                                            onChange={(e) =>
+                                                setData('country', e.target.value)
+                                            }
+                                        >
+                                            {countryOptions.map((opt) => (
+                                                <option key={opt.value} value={opt.value}>
+                                                    {t(opt.key)}
+                                                </option>
+                                            ))}
+                                        </Select>
+                                        {errors.country ? (
+                                            <div className="text-xs text-alpha-danger">
+                                                {errors.country}
+                                            </div>
+                                        ) : null}
+                                    </Field>
+
+                                    <div className="sm:col-span-2">
+                                        <Field
+                                            label={
+                                                <TransText
+                                                    en="Short Biography"
+                                                    fr="Courte biographie"
+                                                    ar="نبذة قصيرة"
+                                                />
+                                            }
+                                        >
+                                            <Textarea
+                                                value={data.bio}
+                                                onChange={(e) => setData('bio', e.target.value)}
+                                                placeholder={t(
+                                                    'bioPlaceholder',
+                                                )}
+                                                maxLength={300}
+                                            />
+                                            {errors.bio ? (
+                                                <div className="text-xs text-alpha-danger">
+                                                    {errors.bio}
+                                                </div>
+                                            ) : null}
+                                            <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
+                                                <TransText
+                                                    en="Briefly describe your background and areas of interest."
+                                                    fr="Décrivez brièvement votre parcours et vos centres d’intérêt."
+                                                    ar="صِف باختصار خلفيتك ومجالات اهتمامك."
+                                                />
+                                                <span>{bioCount}/300</span>
+                                            </div>
+                                        </Field>
+                                    </div>
+
+                                    <div className="mt-2 flex flex-col-reverse gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                clearErrors();
+                                                reset();
+                                                setSubmitted(false);
+                                                setActiveStepId('profile');
+                                            }}
+                                            className="inline-flex items-center justify-center rounded-md border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground shadow-sm hover:bg-secondary"
+                                        >
+                                            <TransText
+                                                en="Reset"
+                                                fr="Réinitialiser"
+                                                ar="إعادة ضبط"
+                                            />
+                                        </button>
+                                        <button
+                                            type="button"
+                                            disabled={!canContinueProfile}
+                                            onClick={() => {
+                                                clearErrors();
+                                                setActiveStepId('expertise');
+                                            }}
+                                            className={[
+                                                'inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold shadow-sm',
+                                                canContinueProfile
+                                                    ? 'bg-beta-blue text-white hover:opacity-90'
+                                                    : 'cursor-not-allowed bg-muted text-muted-foreground',
+                                            ].join(' ')}
+                                        >
+                                            <TransText
+                                                en="Continue to Expertise"
+                                                fr="Continuer vers l’expertise"
+                                                ar="المتابعة إلى الخبرة"
+                                            />
+                                        </button>
+                                    </div>
+                                </form>
+                            </>
+                        ) : activeStepId === 'expertise' ? (
+                            <>
+                                <div className="flex items-center gap-2">
+                                    <div className="grid h-9 w-9 place-items-center rounded-md bg-alpha-blue text-beta-blue ring-1 ring-border">
+                                        <span aria-hidden="true">🎬</span>
+                                    </div>
+                                    <div>
+                                        <div className="text-base font-extrabold text-foreground">
+                                            <TransText
+                                                en="Expertise"
+                                                fr="Expertise"
+                                                ar="الخبرة"
+                                            />
+                                        </div>
+                                        <div className="mt-1 text-xs text-muted-foreground">
+                                            <TransText
+                                                en="Upload an original video created by the candidate."
+                                                fr="Uploader une vidéo originale réalisée par le/la candidat(e)."
+                                                ar="ارفعي فيديو أصلي من إعداد المرشحة."
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form
+                                    className="mt-6 space-y-5"
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        if (!canSubmitExpertise) return;
+                                        clearErrors();
+                                        post('/tililab/form', {
+                                            preserveScroll: true,
+                                            onSuccess: () => {
+                                                setSubmitted(true);
+                                                setActiveStepId('review');
+                                            },
+                                        });
+                                    }}
+                                >
+                                    <div className="rounded-xl bg-background p-4 ring-1 ring-border">
+                                        <Field
+                                            label={
+                                                <TransText
+                                                    en="Original video link"
+                                                    fr="Lien de la vidéo originale"
+                                                    ar="رابط الفيديو الأصلي"
+                                                />
+                                            }
+                                            required
+                                        >
+                                            <Input
+                                                id={`${formId}-original-video-link`}
+                                                value={data.original_video_link}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'original_video_link',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="https://swisstransfer.com/…"
+                                                type="url"
+                                                inputMode="url"
+                                                autoComplete="url"
+                                            />
+                                            <div className="mt-2 text-xs text-muted-foreground">
+                                                <TransText
+                                                    en="Paste a link (SwissTransfer, Google Drive, WeTransfer, Dropbox, etc.). We don’t upload or store videos on our server."
+                                                    fr="Collez un lien (SwissTransfer, Google Drive, WeTransfer, Dropbox, etc.). Nous ne téléversons ni ne stockons de vidéos sur notre serveur."
+                                                    ar="الصقي رابطًا (SwissTransfer أو Google Drive أو WeTransfer أو Dropbox...). نحن لا نرفع أو نخزن الفيديوهات على خادمنا."
+                                                />
+                                            </div>
+                                        </Field>
+
+                                        {errors.original_video_link ? (
+                                            <div className="mt-2 text-xs text-alpha-danger">
+                                                {errors.original_video_link}
+                                            </div>
+                                        ) : null}
+                                    </div>
+
+                                    <div className="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                clearErrors();
+                                                setActiveStepId('profile');
+                                            }}
+                                            className="inline-flex items-center justify-center rounded-md border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground shadow-sm hover:bg-secondary"
+                                        >
+                                            <TransText
+                                                en="Back"
+                                                fr="Retour"
+                                                ar="رجوع"
+                                            />
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            disabled={!canSubmitExpertise || processing}
+                                            className={[
+                                                'inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold text-white shadow-sm',
+                                                canSubmitExpertise && !processing
+                                                    ? 'bg-beta-blue hover:opacity-90'
+                                                    : 'cursor-not-allowed bg-muted text-muted-foreground',
+                                            ].join(' ')}
+                                        >
+                                            <TransText
+                                                en={processing ? 'Submitting…' : 'Continue to Review'}
+                                                fr={processing ? 'Envoi…' : 'Continuer vers la vérification'}
+                                                ar={processing ? 'جارٍ الإرسال…' : 'المتابعة إلى المراجعة'}
+                                            />
+                                        </button>
+                                    </div>
+                                </form>
+                            </>
+                        ) : (
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-2">
+                                    <div className="grid h-9 w-9 place-items-center rounded-md bg-alpha-blue text-beta-blue ring-1 ring-border">
+                                        <span aria-hidden="true">✅</span>
+                                    </div>
+                                    <div>
+                                        <div className="text-base font-extrabold text-foreground">
+                                            <TransText
+                                                en="Review"
+                                                fr="Vérification"
+                                                ar="مراجعة"
+                                            />
+                                        </div>
+                                        <div className="mt-1 text-xs text-muted-foreground">
+                                            <TransText
+                                                en="Your inscription has been submitted."
+                                                fr="Votre inscription a été envoyée."
+                                                ar="تم إرسال تسجيلك."
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="rounded-xl bg-background p-4 ring-1 ring-border">
+                                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm">
+                                        <div className="font-semibold text-muted-foreground">
+                                            <TransText en="Name" fr="Nom" ar="الاسم" />
+                                            <div className="mt-1 font-extrabold text-foreground">
+                                                {data.first_name} {data.last_name}
+                                            </div>
+                                        </div>
+                                        <div className="font-semibold text-muted-foreground">
+                                            <TransText en="Email" fr="E-mail" ar="البريد" />
+                                            <div className="mt-1 font-extrabold text-foreground">
+                                                {data.email}
+                                            </div>
+                                        </div>
+                                        <div className="font-semibold text-muted-foreground">
+                                            <TransText
+                                                en="Organization"
+                                                fr="Organisation"
+                                                ar="المنظمة"
+                                            />
+                                            <div className="mt-1 font-extrabold text-foreground">
+                                                {data.organization}
+                                            </div>
+                                        </div>
+                                        <div className="font-semibold text-muted-foreground">
+                                            <TransText
+                                                en="Video"
+                                                fr="Vidéo"
+                                                ar="الفيديو"
+                                            />
+                                            <div className="mt-1 font-extrabold text-foreground">
+                                                {submitted ? (
+                                                    <TransText
+                                                        en="Uploaded"
+                                                        fr="Téléversée"
+                                                        ar="تم الرفع"
+                                                    />
+                                                ) : (
+                                                    <TransText
+                                                        en="Pending"
+                                                        fr="En attente"
+                                                        ar="قيد الانتظار"
+                                                    />
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <button
                                     type="button"
+                                    onClick={() => {
+                                        clearErrors();
+                                        reset();
+                                        setSubmitted(false);
+                                        setActiveStepId('profile');
+                                    }}
                                     className="inline-flex items-center justify-center rounded-md border border-border bg-background px-5 py-2.5 text-sm font-semibold text-foreground shadow-sm hover:bg-secondary"
                                 >
                                     <TransText
-                                        en="Cancel"
-                                        fr="Annuler"
-                                        ar="إلغاء"
-                                    />
-                                </button>
-                                <button
-                                    type="button"
-                                    className="inline-flex items-center justify-center rounded-md bg-beta-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90"
-                                >
-                                    <TransText
-                                        en="Continue to Expertise"
-                                        fr="Continuer vers l’expertise"
-                                        ar="المتابعة إلى الخبرة"
+                                        en="Start a new inscription"
+                                        fr="Faire une nouvelle inscription"
+                                        ar="بدء تسجيل جديد"
                                     />
                                 </button>
                             </div>
-                        </form>
+                        )}
                     </div>
                 </div>
 
@@ -495,8 +807,8 @@ export default function FormOFInscription() {
                                 <div>
                                     <div className="font-semibold text-foreground">
                                         <TransText
-                                            en="Who can join Tilila?"
-                                            fr="Qui peut rejoindre Tilila ?"
+                                            en="Who can join Tililab?"
+                                            fr="Qui peut rejoindre Tililab ?"
                                             ar="من يمكنه الانضمام إلى تيليلا؟"
                                         />
                                     </div>
@@ -527,9 +839,9 @@ export default function FormOFInscription() {
                                     </div>
                                     <div className="mt-1 text-xs leading-relaxed text-muted-foreground">
                                         <TransText
-                                            en="Yes. Tilila Connect is a community initiative."
-                                            fr="Oui. Tilila Connect est une initiative communautaire."
-                                            ar="نعم. Tilila Connect مبادرة مجتمعية."
+                                            en="Yes. Tililab Connect is a community initiative."
+                                            fr="Oui. Tililab Connect est une initiative communautaire."
+                                            ar="نعم. Tililab Connect مبادرة مجتمعية."
                                         />
                                     </div>
                                 </div>
@@ -574,9 +886,9 @@ export default function FormOFInscription() {
                     >
                         <p className="text-xs leading-relaxed text-muted-foreground">
                             <TransText
-                                en="Tilila Connect is a professional community based on mutual respect and integrity."
-                                fr="Tilila Connect est une communauté professionnelle fondée sur le respect mutuel et l’intégrité."
-                                ar="Tilila Connect مجتمع مهني قائم على الاحترام المتبادل والنزاهة."
+                                en="Tililab Connect is a professional community based on mutual respect and integrity."
+                                fr="Tililab Connect est une communauté professionnelle fondée sur le respect mutuel et l’intégrité."
+                                ar="Tililab Connect مجتمع مهني قائم على الاحترام المتبادل والنزاهة."
                             />
                         </p>
 
@@ -636,7 +948,7 @@ export default function FormOFInscription() {
                                 />
                             </div>
                             <div className="mt-1 text-sm font-extrabold text-foreground">
-                                support@tilila.ma
+                                support@Tililab.ma
                             </div>
                         </div>
                     </Card>
