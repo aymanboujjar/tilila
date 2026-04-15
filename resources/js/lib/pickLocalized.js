@@ -3,12 +3,12 @@
  */
 export function pickLocalized(value, locale) {
     if (value == null) {
-return '';
-}
+        return '';
+    }
 
     if (typeof value === 'string') {
-return value;
-}
+        return value;
+    }
 
     if (typeof value === 'object') {
         if (locale === 'ar') {

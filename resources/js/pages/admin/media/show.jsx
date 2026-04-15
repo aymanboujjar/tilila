@@ -24,8 +24,11 @@ function Tri({ value }) {
     return (
         <div className="grid gap-3 sm:grid-cols-3">
             {['en', 'fr', 'ar'].map((lang) => (
-                <div key={lang} className="rounded-xl border border-border bg-card px-4 py-3">
-                    <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                <div
+                    key={lang}
+                    className="rounded-xl border border-border bg-card px-4 py-3"
+                >
+                    <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
                         {lang}
                     </div>
                     <div className="mt-1 text-sm text-foreground">
@@ -43,13 +46,13 @@ export default function AdminMediaShow({ item }) {
             <Head title={item?.title?.en ?? 'Media item'} />
 
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
-                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-start sm:justify-between sm:pb-8">
                     <div>
-                        <p className="text-tgray text-sm font-medium">Media</p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <p className="text-sm font-medium text-tgray">Media</p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             {item?.title?.en ?? item?.slug ?? 'Media item'}
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Review details and manage publishing.
                         </p>
                     </div>
@@ -134,9 +137,10 @@ export default function AdminMediaShow({ item }) {
                                     </div>
                                 </div>
                                 <div className="rounded-lg border border-border bg-muted/20 px-4 py-3 text-sm text-muted-foreground">
-                                    Public cards use the fixed replay CTA (EN / FR /
-                                    AR). A secondary meta line appears only when the
-                                    item has meta text saved in the database.
+                                    Public cards use the fixed replay CTA (EN /
+                                    FR / AR). A secondary meta line appears only
+                                    when the item has meta text saved in the
+                                    database.
                                 </div>
                             </CardContent>
                         </Card>
@@ -216,7 +220,9 @@ export default function AdminMediaShow({ item }) {
                                     </div>
                                     <div className="text-sm font-semibold text-foreground">
                                         {item.updated_at
-                                            ? new Date(item.updated_at).toLocaleString()
+                                            ? new Date(
+                                                  item.updated_at,
+                                              ).toLocaleString()
                                             : '—'}
                                     </div>
                                 </div>
@@ -230,4 +236,3 @@ export default function AdminMediaShow({ item }) {
 }
 
 AdminMediaShow.layout = (page) => <AppLayout>{page}</AppLayout>;
-

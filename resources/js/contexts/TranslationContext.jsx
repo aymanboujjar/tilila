@@ -88,8 +88,9 @@ export function TranslationProvider({ children }) {
 export function useTranslation() {
     const contextValue = useContext(TranslationContext);
     if (!contextValue) {
-        throw new Error('useTranslation must be used within TranslationProvider');
+        throw new Error(
+            'useTranslation must be used within TranslationProvider',
+        );
     }
     return contextValue;
 }
-

@@ -22,4 +22,3 @@ export default function AgendaCard({ title = 'Agenda', items = [] }) {
         </SectionCard>
     );
 }
-

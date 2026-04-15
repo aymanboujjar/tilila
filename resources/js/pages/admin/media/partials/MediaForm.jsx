@@ -42,8 +42,8 @@ function TriLangTextareas({ idPrefix, label, value, onChange }) {
                     <textarea
                         id={`${idPrefix}-${lang}`}
                         className={cn(
-                            'border-input placeholder:text-muted-foreground flex min-h-[96px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none',
-                            'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+                            'flex min-h-[96px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground',
+                            'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
                         )}
                         value={value?.[lang] ?? ''}
                         onChange={(e) =>
@@ -144,9 +144,10 @@ export default function MediaForm({
                                 </CardHeader>
                                 <CardContent className="space-y-6 px-5 sm:px-6">
                                     <p className="text-xs text-muted-foreground">
-                                        Used on the public detail page for this item. If you
-                                        leave all topic or resource rows empty, the site uses
-                                        the global media sidebar (
+                                        Used on the public detail page for this
+                                        item. If you leave all topic or resource
+                                        rows empty, the site uses the global
+                                        media sidebar (
                                         <span className="font-medium text-foreground">
                                             Media page sidebar
                                         </span>
@@ -159,11 +160,14 @@ export default function MediaForm({
                                         <select
                                             id="featured_expert_id"
                                             value={
-                                                data.featured_expert_id !== null &&
+                                                data.featured_expert_id !==
+                                                    null &&
                                                 data.featured_expert_id !==
                                                     undefined &&
                                                 data.featured_expert_id !== ''
-                                                    ? String(data.featured_expert_id)
+                                                    ? String(
+                                                          data.featured_expert_id,
+                                                      )
                                                     : ''
                                             }
                                             onChange={(e) =>
@@ -171,16 +175,21 @@ export default function MediaForm({
                                                     'featured_expert_id',
                                                     e.target.value === ''
                                                         ? ''
-                                                        : Number(e.target.value),
+                                                        : Number(
+                                                              e.target.value,
+                                                          ),
                                                 )
                                             }
                                             className={cn(
-                                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                                'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                             )}
                                         >
                                             <option value="">None</option>
                                             {experts.map((ex) => (
-                                                <option key={ex.id} value={ex.id}>
+                                                <option
+                                                    key={ex.id}
+                                                    value={ex.id}
+                                                >
                                                     {ex.label}
                                                     {ex.status !== 'published'
                                                         ? ` (${ex.status})`
@@ -224,15 +233,17 @@ export default function MediaForm({
                                                     className="space-y-4 rounded-xl border border-border bg-card/50 p-4"
                                                 >
                                                     <div className="flex items-center justify-between gap-2">
-                                                        <span className="text-xs font-extrabold uppercase text-muted-foreground">
+                                                        <span className="text-xs font-extrabold text-muted-foreground uppercase">
                                                             Topic {idx + 1}
                                                         </span>
                                                         <button
                                                             type="button"
                                                             className={cn(
                                                                 'inline-flex items-center gap-1 text-xs font-semibold text-destructive hover:underline',
-                                                                (data.trending_topics
-                                                                    ?.length ?? 0) <= 1
+                                                                (data
+                                                                    .trending_topics
+                                                                    ?.length ??
+                                                                    0) <= 1
                                                                     ? 'pointer-events-none opacity-40'
                                                                     : '',
                                                             )}
@@ -240,8 +251,12 @@ export default function MediaForm({
                                                                 setData(
                                                                     'trending_topics',
                                                                     data.trending_topics.filter(
-                                                                        (_, i) =>
-                                                                            i !== idx,
+                                                                        (
+                                                                            _,
+                                                                            i,
+                                                                        ) =>
+                                                                            i !==
+                                                                            idx,
                                                                     ),
                                                                 )
                                                             }
@@ -254,7 +269,8 @@ export default function MediaForm({
                                                         idPrefix={`topic-${idx}-title`}
                                                         label="Title"
                                                         value={
-                                                            row.title ?? emptyTri()
+                                                            row.title ??
+                                                            emptyTri()
                                                         }
                                                         onChange={(next) => {
                                                             const nextRows = [
@@ -280,7 +296,10 @@ export default function MediaForm({
                                                     <TriLangInputs
                                                         idPrefix={`topic-${idx}-tag`}
                                                         label="Right label (date, badge…)"
-                                                        value={row.tag ?? emptyTri()}
+                                                        value={
+                                                            row.tag ??
+                                                            emptyTri()
+                                                        }
                                                         onChange={(next) => {
                                                             const nextRows = [
                                                                 ...data.trending_topics,
@@ -331,15 +350,17 @@ export default function MediaForm({
                                                     className="space-y-4 rounded-xl border border-border bg-card/50 p-4"
                                                 >
                                                     <div className="flex items-center justify-between gap-2">
-                                                        <span className="text-xs font-extrabold uppercase text-muted-foreground">
+                                                        <span className="text-xs font-extrabold text-muted-foreground uppercase">
                                                             Link {idx + 1}
                                                         </span>
                                                         <button
                                                             type="button"
                                                             className={cn(
                                                                 'inline-flex items-center gap-1 text-xs font-semibold text-destructive hover:underline',
-                                                                (data.resource_links
-                                                                    ?.length ?? 0) <= 1
+                                                                (data
+                                                                    .resource_links
+                                                                    ?.length ??
+                                                                    0) <= 1
                                                                     ? 'pointer-events-none opacity-40'
                                                                     : '',
                                                             )}
@@ -347,8 +368,12 @@ export default function MediaForm({
                                                                 setData(
                                                                     'resource_links',
                                                                     data.resource_links.filter(
-                                                                        (_, i) =>
-                                                                            i !== idx,
+                                                                        (
+                                                                            _,
+                                                                            i,
+                                                                        ) =>
+                                                                            i !==
+                                                                            idx,
                                                                     ),
                                                                 )
                                                             }
@@ -361,7 +386,8 @@ export default function MediaForm({
                                                         idPrefix={`link-${idx}-label`}
                                                         label="Label"
                                                         value={
-                                                            row.label ?? emptyTri()
+                                                            row.label ??
+                                                            emptyTri()
                                                         }
                                                         onChange={(next) => {
                                                             const nextRows = [
@@ -393,15 +419,21 @@ export default function MediaForm({
                                                         <Input
                                                             id={`link-${idx}-url`}
                                                             type="url"
-                                                            value={row.url ?? ''}
+                                                            value={
+                                                                row.url ?? ''
+                                                            }
                                                             onChange={(e) => {
-                                                                const nextRows = [
-                                                                    ...data.resource_links,
-                                                                ];
-                                                                nextRows[idx] = {
-                                                                    ...row,
-                                                                    url: e.target.value,
-                                                                };
+                                                                const nextRows =
+                                                                    [
+                                                                        ...data.resource_links,
+                                                                    ];
+                                                                nextRows[idx] =
+                                                                    {
+                                                                        ...row,
+                                                                        url: e
+                                                                            .target
+                                                                            .value,
+                                                                    };
                                                                 setData(
                                                                     'resource_links',
                                                                     nextRows,
@@ -473,7 +505,7 @@ export default function MediaForm({
                                         setData('category_id', e.target.value)
                                     }
                                     className={cn(
-                                        'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
                                 >
                                     {categories.map((c) => (
@@ -494,7 +526,7 @@ export default function MediaForm({
                                         setData('status', e.target.value)
                                     }
                                     className={cn(
-                                        'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
                                 >
                                     {statuses.map((s) => (
@@ -515,7 +547,7 @@ export default function MediaForm({
                                         setData('visibility', e.target.value)
                                     }
                                     className={cn(
-                                        'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
                                 >
                                     {visibilities.map((v) => (
@@ -531,7 +563,7 @@ export default function MediaForm({
                                 <Button
                                     type="submit"
                                     disabled={processing}
-                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                    className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 >
                                     {processing ? 'Saving…' : submitLabel}
                                 </Button>
@@ -555,4 +587,3 @@ export default function MediaForm({
         </form>
     );
 }
-

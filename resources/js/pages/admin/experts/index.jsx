@@ -34,10 +34,14 @@ export default function AdminExpertsIndex({ experts, filters }) {
 
     const submitSearch = (e) => {
         e.preventDefault();
-        router.get('/admin/experts', { search, status: filters?.status }, {
-            preserveState: true,
-            replace: true,
-        });
+        router.get(
+            '/admin/experts',
+            { search, status: filters?.status },
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
     };
 
     const data = experts?.data ?? [];
@@ -50,13 +54,13 @@ export default function AdminExpertsIndex({ experts, filters }) {
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                        <p className="text-tgray text-sm font-medium">
+                        <p className="text-sm font-medium text-tgray">
                             Experts Directory
                         </p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Expert Management
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Manage, verify, and track expert profiles for media
                             connections.
                         </p>
@@ -68,8 +72,10 @@ export default function AdminExpertsIndex({ experts, filters }) {
                             className="gap-2"
                             onClick={() => {
                                 const params = new URLSearchParams();
-                                if (search?.trim()) params.set('search', search.trim());
-                                if (filters?.status) params.set('status', filters.status);
+                                if (search?.trim())
+                                    params.set('search', search.trim());
+                                if (filters?.status)
+                                    params.set('status', filters.status);
                                 const qs = params.toString();
                                 window.location.href = `/admin/experts/export.csv${qs ? `?${qs}` : ''}`;
                             }}
@@ -79,7 +85,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                         </Button>
                         <Button
                             asChild
-                            className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-2"
+                            className="gap-2 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                         >
                             <Link href="/admin/experts/create">
                                 <Plus className="size-4" />
@@ -94,7 +100,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                     className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-4"
                 >
                     <div className="relative min-w-0 flex-1">
-                        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
@@ -131,23 +137,23 @@ export default function AdminExpertsIndex({ experts, filters }) {
                     </div>
                 </form>
 
-                <div className="border-border/70 overflow-hidden rounded-xl border bg-card p-4 shadow-sm sm:p-6">
+                <div className="overflow-hidden rounded-xl border border-border/70 bg-card p-4 shadow-sm sm:p-6">
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="text-tgray w-[32%] py-3 uppercase sm:px-3">
+                                <TableHead className="w-[32%] py-3 text-tgray uppercase sm:px-3">
                                     Expert name
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Status
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Expertise
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Last activity
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 text-right uppercase sm:px-3">
+                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">
                                     Actions
                                 </TableHead>
                             </TableRow>
@@ -157,7 +163,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                 <TableRow>
                                     <TableCell
                                         colSpan={5}
-                                        className="text-tgray px-4 py-14 text-center text-sm sm:px-6"
+                                        className="px-4 py-14 text-center text-sm text-tgray sm:px-6"
                                     >
                                         No experts yet. Add one to get started.
                                     </TableCell>
@@ -174,11 +180,14 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                     <img
                                                         src={expert.image_url}
                                                         alt=""
-                                                        className="border-border size-10 shrink-0 rounded-full border object-cover"
+                                                        className="size-10 shrink-0 rounded-full border border-border object-cover"
                                                     />
                                                 ) : (
-                                                    <div className="bg-muted text-muted-foreground flex size-10 shrink-0 items-center justify-center rounded-full text-xs font-semibold">
-                                                        {(expert.name?.en ?? '?')
+                                                    <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-muted text-xs font-semibold text-muted-foreground">
+                                                        {(
+                                                            expert.name?.en ??
+                                                            '?'
+                                                        )
                                                             .split(' ')
                                                             .map((w) => w[0])
                                                             .join('')
@@ -187,10 +196,10 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                     </div>
                                                 )}
                                                 <div className="min-w-0">
-                                                    <div className="text-tblack font-semibold group-hover:underline">
+                                                    <div className="font-semibold text-tblack group-hover:underline">
                                                         {expert.name?.en}
                                                     </div>
-                                                    <div className="text-tgray truncate text-xs">
+                                                    <div className="truncate text-xs text-tgray">
                                                         {expert.title?.en}
                                                     </div>
                                                 </div>
@@ -208,7 +217,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                 {expert.status}
                                             </span>
                                         </TableCell>
-                                        <TableCell className="text-tgray max-w-xs py-4 sm:px-3">
+                                        <TableCell className="max-w-xs py-4 text-tgray sm:px-3">
                                             <div className="flex flex-wrap gap-1">
                                                 {(expert.industries ?? [])
                                                     .slice(0, 3)
@@ -223,7 +232,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                                     ))}
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-tgray py-4 text-sm sm:px-3">
+                                        <TableCell className="py-4 text-sm text-tgray sm:px-3">
                                             {expert.updated_at
                                                 ? new Date(
                                                       expert.updated_at,
@@ -271,7 +280,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                 </div>
 
                 {experts && experts.last_page > 1 ? (
-                    <div className="text-tgray flex flex-col items-center justify-between gap-3 text-sm sm:flex-row">
+                    <div className="flex flex-col items-center justify-between gap-3 text-sm text-tgray sm:flex-row">
                         <p>
                             Showing {experts.from ?? 0} to {experts.to ?? 0} of{' '}
                             {experts.total} results
@@ -286,9 +295,9 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                         key={i}
                                         href={link.url}
                                         className={cn(
-                                            'border-border hover:bg-muted inline-flex min-w-9 items-center justify-center rounded-md border bg-card px-3 py-1.5 text-xs font-medium shadow-sm',
+                                            'inline-flex min-w-9 items-center justify-center rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium shadow-sm hover:bg-muted',
                                             link.active &&
-                                                'bg-beta-blue border-beta-blue text-twhite',
+                                                'border-beta-blue bg-beta-blue text-twhite',
                                         )}
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,
@@ -300,7 +309,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                         className={cn(
                                             'inline-flex min-w-9 items-center justify-center px-3 py-1.5 text-xs',
                                             link.active &&
-                                                'border-beta-blue text-beta-blue font-semibold',
+                                                'border-beta-blue font-semibold text-beta-blue',
                                         )}
                                         dangerouslySetInnerHTML={{
                                             __html: link.label,

@@ -19,11 +19,7 @@ export default function PastAppearances({ items = [] }) {
                         href="#"
                         className="text-xs font-semibold text-beta-blue hover:underline"
                     >
-                        <TransText
-                            en="View All"
-                            fr="Tout voir"
-                            ar="عرض الكل"
-                        />
+                        <TransText en="View All" fr="Tout voir" ar="عرض الكل" />
                     </Link>
                 ) : null}
             </div>

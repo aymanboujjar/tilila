@@ -201,33 +201,13 @@ function Calendar({
 function statusLabelNode(status) {
     switch (status) {
         case 'upcoming':
-            return (
-                <TransText
-                    en="Upcoming"
-                    fr="À venir"
-                    ar="قادمة"
-                />
-            );
+            return <TransText en="Upcoming" fr="À venir" ar="قادمة" />;
         case 'live':
-            return (
-                <TransText en="Live" fr="En direct" ar="مباشر" />
-            );
+            return <TransText en="Live" fr="En direct" ar="مباشر" />;
         case 'finished':
-            return (
-                <TransText
-                    en="Finished"
-                    fr="Terminé"
-                    ar="منتهية"
-                />
-            );
+            return <TransText en="Finished" fr="Terminé" ar="منتهية" />;
         case 'archived':
-            return (
-                <TransText
-                    en="Archived"
-                    fr="Archivé"
-                    ar="مؤرشفة"
-                />
-            );
+            return <TransText en="Archived" fr="Archivé" ar="مؤرشفة" />;
         default:
             return (
                 <span className="capitalize">

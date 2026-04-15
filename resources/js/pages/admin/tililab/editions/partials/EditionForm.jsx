@@ -9,36 +9,54 @@ function TriInputs({ label, value, onChange, errors, placeholderBase }) {
             <div className="text-sm font-semibold text-foreground">{label}</div>
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
                 <div>
-                    <div className="text-xs font-semibold text-muted-foreground">EN</div>
+                    <div className="text-xs font-semibold text-muted-foreground">
+                        EN
+                    </div>
                     <Input
                         value={value?.en ?? ''}
-                        onChange={(e) => onChange({ ...value, en: e.target.value })}
+                        onChange={(e) =>
+                            onChange({ ...value, en: e.target.value })
+                        }
                         placeholder={`${placeholderBase} (EN)`}
                     />
                     {errors?.en ? (
-                        <div className="mt-1 text-xs text-alpha-danger">{errors.en}</div>
+                        <div className="mt-1 text-xs text-alpha-danger">
+                            {errors.en}
+                        </div>
                     ) : null}
                 </div>
                 <div>
-                    <div className="text-xs font-semibold text-muted-foreground">FR</div>
+                    <div className="text-xs font-semibold text-muted-foreground">
+                        FR
+                    </div>
                     <Input
                         value={value?.fr ?? ''}
-                        onChange={(e) => onChange({ ...value, fr: e.target.value })}
+                        onChange={(e) =>
+                            onChange({ ...value, fr: e.target.value })
+                        }
                         placeholder={`${placeholderBase} (FR)`}
                     />
                     {errors?.fr ? (
-                        <div className="mt-1 text-xs text-alpha-danger">{errors.fr}</div>
+                        <div className="mt-1 text-xs text-alpha-danger">
+                            {errors.fr}
+                        </div>
                     ) : null}
                 </div>
                 <div>
-                    <div className="text-xs font-semibold text-muted-foreground">AR</div>
+                    <div className="text-xs font-semibold text-muted-foreground">
+                        AR
+                    </div>
                     <Input
                         value={value?.ar ?? ''}
-                        onChange={(e) => onChange({ ...value, ar: e.target.value })}
+                        onChange={(e) =>
+                            onChange({ ...value, ar: e.target.value })
+                        }
                         placeholder={`${placeholderBase} (AR)`}
                     />
                     {errors?.ar ? (
-                        <div className="mt-1 text-xs text-alpha-danger">{errors.ar}</div>
+                        <div className="mt-1 text-xs text-alpha-danger">
+                            {errors.ar}
+                        </div>
                     ) : null}
                 </div>
             </div>
@@ -58,11 +76,13 @@ function TriTextareas({ label, value, onChange, placeholderBase }) {
                         </div>
                         <textarea
                             className={cn(
-                                'border-input placeholder:text-muted-foreground mt-2 flex min-h-[96px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none',
-                                'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+                                'mt-2 flex min-h-[96px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground',
+                                'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
                             )}
                             value={value?.[lang] ?? ''}
-                            onChange={(e) => onChange({ ...value, [lang]: e.target.value })}
+                            onChange={(e) =>
+                                onChange({ ...value, [lang]: e.target.value })
+                            }
                             placeholder={`${placeholderBase} (${lang.toUpperCase()})`}
                         />
                     </div>
@@ -90,7 +110,9 @@ function useFilePreview(file) {
 }
 
 function PersonRow({ peopleKey, idx, person, updateRow, removeRow }) {
-    const existingSrc = person?.photo_path ? `/storage/${person.photo_path}` : '';
+    const existingSrc = person?.photo_path
+        ? `/storage/${person.photo_path}`
+        : '';
     const previewUrl = useFilePreview(person?.photo ?? null);
     const src = previewUrl || existingSrc || '';
 
@@ -114,7 +136,9 @@ function PersonRow({ peopleKey, idx, person, updateRow, removeRow }) {
                         <Input
                             className="mt-2"
                             value={person?.full_name ?? ''}
-                            onChange={(e) => updateRow(idx, { full_name: e.target.value })}
+                            onChange={(e) =>
+                                updateRow(idx, { full_name: e.target.value })
+                            }
                             placeholder="Full name"
                         />
 
@@ -131,7 +155,11 @@ function PersonRow({ peopleKey, idx, person, updateRow, removeRow }) {
                                 })
                             }
                         />
-                        <input type="hidden" value={person?.photo_path ?? ''} readOnly />
+                        <input
+                            type="hidden"
+                            value={person?.photo_path ?? ''}
+                            readOnly
+                        />
                     </div>
                 </div>
 
@@ -188,7 +216,9 @@ function PeopleSection({ title, peopleKey, data, setData }) {
         <div className="rounded-xl border border-border/70 bg-card p-5 shadow-sm sm:p-6">
             <div className="flex items-end justify-between gap-4">
                 <div>
-                    <div className="text-sm font-bold text-foreground">{title}</div>
+                    <div className="text-sm font-bold text-foreground">
+                        {title}
+                    </div>
                     <div className="mt-1 text-xs text-muted-foreground">
                         Add name, photo, and a short bio.
                     </div>
@@ -199,7 +229,9 @@ function PeopleSection({ title, peopleKey, data, setData }) {
             </div>
 
             {rows.length === 0 ? (
-                <div className="mt-4 text-sm text-muted-foreground">No items yet.</div>
+                <div className="mt-4 text-sm text-muted-foreground">
+                    No items yet.
+                </div>
             ) : (
                 <div className="mt-5 space-y-4">
                     {rows.map((p, idx) => (
@@ -220,7 +252,10 @@ function PeopleSection({ title, peopleKey, data, setData }) {
 
 function GalleryFileThumb({ file, onRemove }) {
     const url = useFilePreview(file);
-    const label = useMemo(() => (file instanceof File ? file.name : ''), [file]);
+    const label = useMemo(
+        () => (file instanceof File ? file.name : ''),
+        [file],
+    );
 
     if (!(file instanceof File)) return null;
 
@@ -237,7 +272,7 @@ function GalleryFileThumb({ file, onRemove }) {
                     />
                 ) : null}
             </div>
-            <div className="px-2 py-1 text-[11px] text-muted-foreground truncate">
+            <div className="truncate px-2 py-1 text-[11px] text-muted-foreground">
                 {label}
             </div>
             <button
@@ -251,22 +286,36 @@ function GalleryFileThumb({ file, onRemove }) {
     );
 }
 
-export default function EditionForm({ data, setData, errors, mode, onSubmit, processing }) {
+export default function EditionForm({
+    data,
+    setData,
+    errors,
+    mode,
+    onSubmit,
+    processing,
+}) {
     const selectedGalleryFiles = Array.isArray(data?.gallery_images_files)
         ? data.gallery_images_files.filter((f) => f instanceof File)
         : [];
 
     return (
-        <form onSubmit={onSubmit} className="grid grid-cols-1 gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-8 space-y-6">
+        <form
+            onSubmit={onSubmit}
+            className="grid grid-cols-1 gap-6 lg:grid-cols-12"
+        >
+            <div className="space-y-6 lg:col-span-8">
                 <div className="rounded-xl border border-border/70 bg-card p-5 shadow-sm sm:p-6">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <div className="text-sm font-semibold text-foreground">Year</div>
+                            <div className="text-sm font-semibold text-foreground">
+                                Year
+                            </div>
                             <div className="mt-2">
                                 <Input
                                     value={data.year}
-                                    onChange={(e) => setData('year', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('year', e.target.value)
+                                    }
                                     placeholder="2026"
                                 />
                                 {errors?.year ? (
@@ -281,7 +330,9 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                                 <input
                                     type="checkbox"
                                     checked={Boolean(data.has_gallery)}
-                                    onChange={(e) => setData('has_gallery', e.target.checked)}
+                                    onChange={(e) =>
+                                        setData('has_gallery', e.target.checked)
+                                    }
                                     className="size-4 rounded border-border"
                                 />
                                 Has gallery
@@ -308,15 +359,28 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                     </div>
                 </div>
 
-                <PeopleSection title="Winners" peopleKey="winners" data={data} setData={setData} />
-                <PeopleSection title="Jury" peopleKey="jury" data={data} setData={setData} />
+                <PeopleSection
+                    title="Winners"
+                    peopleKey="winners"
+                    data={data}
+                    setData={setData}
+                />
+                <PeopleSection
+                    title="Jury"
+                    peopleKey="jury"
+                    data={data}
+                    setData={setData}
+                />
 
                 <div className="rounded-xl border border-border/70 bg-card p-5 shadow-sm sm:p-6">
                     <div className="flex items-end justify-between gap-4">
                         <div>
-                            <div className="text-sm font-bold text-foreground">Gallery images</div>
+                            <div className="text-sm font-bold text-foreground">
+                                Gallery images
+                            </div>
                             <div className="mt-1 text-xs text-muted-foreground">
-                                Upload multiple images. Existing images can be removed below.
+                                Upload multiple images. Existing images can be
+                                removed below.
                             </div>
                         </div>
                     </div>
@@ -327,7 +391,10 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                             accept="image/*"
                             multiple
                             onChange={(e) =>
-                                setData('gallery_images_files', Array.from(e.target.files ?? []))
+                                setData(
+                                    'gallery_images_files',
+                                    Array.from(e.target.files ?? []),
+                                )
                             }
                             className="block w-full text-sm"
                         />
@@ -349,8 +416,14 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                                         key={`${file.name}-${file.size}-${idx}`}
                                         file={file}
                                         onRemove={() => {
-                                            const next = selectedGalleryFiles.filter((_, i) => i !== idx);
-                                            setData('gallery_images_files', next);
+                                            const next =
+                                                selectedGalleryFiles.filter(
+                                                    (_, i) => i !== idx,
+                                                );
+                                            setData(
+                                                'gallery_images_files',
+                                                next,
+                                            );
                                         }}
                                     />
                                 ))}
@@ -358,11 +431,14 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                         </div>
                     ) : null}
 
-                    {Array.isArray(data.gallery_images) && data.gallery_images.length > 0 ? (
+                    {Array.isArray(data.gallery_images) &&
+                    data.gallery_images.length > 0 ? (
                         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                             {data.gallery_images.map((path) => {
                                 const src = path ? `/storage/${path}` : '';
-                                const removeList = Array.isArray(data.remove_gallery_images)
+                                const removeList = Array.isArray(
+                                    data.remove_gallery_images,
+                                )
                                     ? data.remove_gallery_images
                                     : [];
                                 const isMarked = removeList.includes(path);
@@ -373,17 +449,26 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                                         key={path}
                                         onClick={() => {
                                             const next = isMarked
-                                                ? removeList.filter((p) => p !== path)
+                                                ? removeList.filter(
+                                                      (p) => p !== path,
+                                                  )
                                                 : [...removeList, path];
-                                            setData('remove_gallery_images', next);
+                                            setData(
+                                                'remove_gallery_images',
+                                                next,
+                                            );
                                         }}
                                         className={[
                                             'relative overflow-hidden rounded-lg border bg-background text-left shadow-sm',
                                             isMarked
-                                                ? 'border-alpha-danger ring-2 ring-alpha-danger/40 opacity-60'
+                                                ? 'border-alpha-danger opacity-60 ring-2 ring-alpha-danger/40'
                                                 : 'border-border hover:ring-2 hover:ring-border/60',
                                         ].join(' ')}
-                                        title={isMarked ? 'Click to keep' : 'Click to remove'}
+                                        title={
+                                            isMarked
+                                                ? 'Click to keep'
+                                                : 'Click to remove'
+                                        }
                                     >
                                         <div className="aspect-4/3 bg-muted">
                                             {src ? (
@@ -396,7 +481,7 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
                                                 />
                                             ) : null}
                                         </div>
-                                        <div className="px-2 py-1 text-[11px] text-muted-foreground truncate">
+                                        <div className="truncate px-2 py-1 text-[11px] text-muted-foreground">
                                             {path}
                                         </div>
                                     </button>
@@ -409,9 +494,12 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
 
             <div className="lg:col-span-4">
                 <div className="rounded-xl border border-border/70 bg-card p-5 shadow-sm sm:p-6">
-                    <div className="text-sm font-bold text-foreground">Save</div>
+                    <div className="text-sm font-bold text-foreground">
+                        Save
+                    </div>
                     <div className="mt-1 text-xs text-muted-foreground">
-                        Winners, jury, and gallery pages are generated automatically.
+                        Winners, jury, and gallery pages are generated
+                        automatically.
                     </div>
                     <div className="mt-6 flex items-center justify-end gap-2">
                         <Button type="submit" disabled={processing}>
@@ -429,4 +517,3 @@ export default function EditionForm({ data, setData, errors, mode, onSubmit, pro
         </form>
     );
 }
-

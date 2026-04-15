@@ -59,7 +59,10 @@ export default function EventDetails({ event, details }) {
             <div className="bg-background">
                 <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                     <nav className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Link href="/" className="hover:text-foreground hover:underline">
+                        <Link
+                            href="/"
+                            className="hover:text-foreground hover:underline"
+                        >
                             Home
                         </Link>
                         <span aria-hidden="true">›</span>
@@ -70,7 +73,9 @@ export default function EventDetails({ event, details }) {
                             Events
                         </Link>
                         <span aria-hidden="true">›</span>
-                        <span className="font-semibold text-foreground">{title}</span>
+                        <span className="font-semibold text-foreground">
+                            {title}
+                        </span>
                     </nav>
 
                     <div className="mt-6">
@@ -143,8 +148,12 @@ export default function EventDetails({ event, details }) {
                         eventId={base?.id}
                         badge={resolve(details?.registration?.badge)}
                         title={resolve(details?.registration?.title)}
-                        description={resolve(details?.registration?.description)}
-                        submitLabel={resolve(details?.registration?.submitLabel)}
+                        description={resolve(
+                            details?.registration?.description,
+                        )}
+                        submitLabel={resolve(
+                            details?.registration?.submitLabel,
+                        )}
                     />
                 ) : null}
             </div>
@@ -153,4 +162,3 @@ export default function EventDetails({ event, details }) {
 }
 
 EventDetails.layout = (page) => <AppLayout>{page}</AppLayout>;
-

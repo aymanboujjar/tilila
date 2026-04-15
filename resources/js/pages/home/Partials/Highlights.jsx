@@ -8,7 +8,12 @@ function editionDetailsUrl(base, edition) {
     return `${base}/editions/${id}`;
 }
 
-export default function Highlights({ tropheeImageSrc, talkImageSrc, tililaEdition, tililabEdition }) {
+export default function Highlights({
+    tropheeImageSrc,
+    talkImageSrc,
+    tililaEdition,
+    tililabEdition,
+}) {
     const highlights = [
         {
             enTag: 'Award',
@@ -55,9 +60,12 @@ export default function Highlights({ tropheeImageSrc, talkImageSrc, tililaEditio
             enTitle: 'Tililab Editions',
             frTitle: 'Éditions Tililab',
             arTitle: 'دورات تيليلاب',
-            enDescription: 'Browse editions and open the details page (winners, jury, gallery).',
-            frDescription: 'Parcourez les éditions et ouvrez la page de détails (lauréats, jury, galerie).',
-            arDescription: 'تصفّح الدورات وافتح صفحة التفاصيل (الفائزون، لجنة التحكيم، المعرض).',
+            enDescription:
+                'Browse editions and open the details page (winners, jury, gallery).',
+            frDescription:
+                'Parcourez les éditions et ouvrez la page de détails (lauréats, jury, galerie).',
+            arDescription:
+                'تصفّح الدورات وافتح صفحة التفاصيل (الفائزون، لجنة التحكيم، المعرض).',
             enCta: 'View edition details',
             frCta: 'Voir les détails',
             arCta: 'عرض التفاصيل',

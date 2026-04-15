@@ -5,13 +5,17 @@ import { useTranslation } from '@/contexts/TranslationContext';
 
 function normalizeEdition(raw) {
     if (!raw) return null;
-    const galleryImages = Array.isArray(raw.gallery_images) ? raw.gallery_images : [];
+    const galleryImages = Array.isArray(raw.gallery_images)
+        ? raw.gallery_images
+        : [];
     const winners = Array.isArray(raw.winners) ? raw.winners : [];
     const primaryWinner = winners[0] ?? null;
 
     const cover =
         (galleryImages[0] ? `/storage/${galleryImages[0]}` : '') ||
-        (primaryWinner?.photo_path ? `/storage/${primaryWinner.photo_path}` : '');
+        (primaryWinner?.photo_path
+            ? `/storage/${primaryWinner.photo_path}`
+            : '');
 
     return {
         id: raw.id,

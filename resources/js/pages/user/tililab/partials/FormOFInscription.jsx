@@ -185,27 +185,20 @@ export default function FormOFInscription() {
         [],
     );
 
-    const {
-        data,
-        setData,
-        post,
-        processing,
-        errors,
-        clearErrors,
-        reset,
-    } = useForm({
-        first_name: '',
-        last_name: '',
-        email: '',
-        phone: '',
-        job_title: '',
-        organization: '',
-        city: '',
-        country: 'ma',
-        bio: '',
-        original_video_link: '',
-        locale,
-    });
+    const { data, setData, post, processing, errors, clearErrors, reset } =
+        useForm({
+            first_name: '',
+            last_name: '',
+            email: '',
+            phone: '',
+            job_title: '',
+            organization: '',
+            city: '',
+            country: 'ma',
+            bio: '',
+            original_video_link: '',
+            locale,
+        });
 
     const bioCount = (data.bio ?? '').length;
     const canContinueProfile =
@@ -282,7 +275,10 @@ export default function FormOFInscription() {
                                             id={`${formId}-first-name`}
                                             value={data.first_name}
                                             onChange={(e) =>
-                                                setData('first_name', e.target.value)
+                                                setData(
+                                                    'first_name',
+                                                    e.target.value,
+                                                )
                                             }
                                             placeholder={t(
                                                 'firstNamePlaceholder',
@@ -309,7 +305,10 @@ export default function FormOFInscription() {
                                             id={`${formId}-last-name`}
                                             value={data.last_name}
                                             onChange={(e) =>
-                                                setData('last_name', e.target.value)
+                                                setData(
+                                                    'last_name',
+                                                    e.target.value,
+                                                )
                                             }
                                             placeholder={t(
                                                 'lastNamePlaceholder',
@@ -338,7 +337,10 @@ export default function FormOFInscription() {
                                                 id={`${formId}-email`}
                                                 value={data.email}
                                                 onChange={(e) =>
-                                                    setData('email', e.target.value)
+                                                    setData(
+                                                        'email',
+                                                        e.target.value,
+                                                    )
                                                 }
                                                 placeholder={t(
                                                     'emailPlaceholder',
@@ -375,7 +377,10 @@ export default function FormOFInscription() {
                                                 id={`${formId}-phone`}
                                                 value={data.phone}
                                                 onChange={(e) =>
-                                                    setData('phone', e.target.value)
+                                                    setData(
+                                                        'phone',
+                                                        e.target.value,
+                                                    )
                                                 }
                                                 placeholder={t(
                                                     'phonePlaceholder',
@@ -405,7 +410,10 @@ export default function FormOFInscription() {
                                                 id={`${formId}-job-title`}
                                                 value={data.job_title}
                                                 onChange={(e) =>
-                                                    setData('job_title', e.target.value)
+                                                    setData(
+                                                        'job_title',
+                                                        e.target.value,
+                                                    )
                                                 }
                                                 placeholder={t(
                                                     'jobTitlePlaceholder',
@@ -432,7 +440,10 @@ export default function FormOFInscription() {
                                                 id={`${formId}-org`}
                                                 value={data.organization}
                                                 onChange={(e) =>
-                                                    setData('organization', e.target.value)
+                                                    setData(
+                                                        'organization',
+                                                        e.target.value,
+                                                    )
                                                 }
                                                 placeholder={t(
                                                     'organizationPlaceholder',
@@ -459,10 +470,15 @@ export default function FormOFInscription() {
                                     >
                                         <Select
                                             value={data.city}
-                                            onChange={(e) => setData('city', e.target.value)}
+                                            onChange={(e) =>
+                                                setData('city', e.target.value)
+                                            }
                                         >
                                             {cityOptions.map((opt) => (
-                                                <option key={opt.value} value={opt.value}>
+                                                <option
+                                                    key={opt.value}
+                                                    value={opt.value}
+                                                >
                                                     {t(opt.key)}
                                                 </option>
                                             ))}
@@ -487,11 +503,17 @@ export default function FormOFInscription() {
                                         <Select
                                             value={data.country}
                                             onChange={(e) =>
-                                                setData('country', e.target.value)
+                                                setData(
+                                                    'country',
+                                                    e.target.value,
+                                                )
                                             }
                                         >
                                             {countryOptions.map((opt) => (
-                                                <option key={opt.value} value={opt.value}>
+                                                <option
+                                                    key={opt.value}
+                                                    value={opt.value}
+                                                >
                                                     {t(opt.key)}
                                                 </option>
                                             ))}
@@ -515,7 +537,12 @@ export default function FormOFInscription() {
                                         >
                                             <Textarea
                                                 value={data.bio}
-                                                onChange={(e) => setData('bio', e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'bio',
+                                                        e.target.value,
+                                                    )
+                                                }
                                                 placeholder={t(
                                                     'bioPlaceholder',
                                                 )}
@@ -674,18 +701,34 @@ export default function FormOFInscription() {
                                         </button>
                                         <button
                                             type="submit"
-                                            disabled={!canSubmitExpertise || processing}
+                                            disabled={
+                                                !canSubmitExpertise ||
+                                                processing
+                                            }
                                             className={[
                                                 'inline-flex items-center justify-center rounded-md px-5 py-2.5 text-sm font-semibold text-white shadow-sm',
-                                                canSubmitExpertise && !processing
+                                                canSubmitExpertise &&
+                                                !processing
                                                     ? 'bg-beta-blue hover:opacity-90'
                                                     : 'cursor-not-allowed bg-muted text-muted-foreground',
                                             ].join(' ')}
                                         >
                                             <TransText
-                                                en={processing ? 'Submitting…' : 'Continue to Review'}
-                                                fr={processing ? 'Envoi…' : 'Continuer vers la vérification'}
-                                                ar={processing ? 'جارٍ الإرسال…' : 'المتابعة إلى المراجعة'}
+                                                en={
+                                                    processing
+                                                        ? 'Submitting…'
+                                                        : 'Continue to Review'
+                                                }
+                                                fr={
+                                                    processing
+                                                        ? 'Envoi…'
+                                                        : 'Continuer vers la vérification'
+                                                }
+                                                ar={
+                                                    processing
+                                                        ? 'جارٍ الإرسال…'
+                                                        : 'المتابعة إلى المراجعة'
+                                                }
                                             />
                                         </button>
                                     </div>
@@ -716,15 +759,24 @@ export default function FormOFInscription() {
                                 </div>
 
                                 <div className="rounded-xl bg-background p-4 ring-1 ring-border">
-                                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 text-sm">
+                                    <div className="grid grid-cols-1 gap-3 text-sm sm:grid-cols-2">
                                         <div className="font-semibold text-muted-foreground">
-                                            <TransText en="Name" fr="Nom" ar="الاسم" />
+                                            <TransText
+                                                en="Name"
+                                                fr="Nom"
+                                                ar="الاسم"
+                                            />
                                             <div className="mt-1 font-extrabold text-foreground">
-                                                {data.first_name} {data.last_name}
+                                                {data.first_name}{' '}
+                                                {data.last_name}
                                             </div>
                                         </div>
                                         <div className="font-semibold text-muted-foreground">
-                                            <TransText en="Email" fr="E-mail" ar="البريد" />
+                                            <TransText
+                                                en="Email"
+                                                fr="E-mail"
+                                                ar="البريد"
+                                            />
                                             <div className="mt-1 font-extrabold text-foreground">
                                                 {data.email}
                                             </div>

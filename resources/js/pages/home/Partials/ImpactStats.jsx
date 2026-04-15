@@ -4,7 +4,8 @@ import TransText from '@/components/TransText';
 export default function ImpactStats({ stats }) {
     const items = useMemo(() => {
         const s = stats || {};
-        const toNum = (v) => (typeof v === 'number' && Number.isFinite(v) ? v : 0);
+        const toNum = (v) =>
+            typeof v === 'number' && Number.isFinite(v) ? v : 0;
         return [
             {
                 value: String(toNum(s.tilila_editions)),

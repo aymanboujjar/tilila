@@ -40,8 +40,8 @@ function TriLangTextareas({ idPrefix, label, value, onChange }) {
                     <textarea
                         id={`${idPrefix}-${lang}`}
                         className={cn(
-                            'border-input placeholder:text-muted-foreground flex min-h-[96px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none',
-                            'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+                            'flex min-h-[96px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground',
+                            'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
                         )}
                         value={value?.[lang] ?? ''}
                         onChange={(e) =>
@@ -92,7 +92,7 @@ export default function OpportunityForm({
                                             setData('type', e.target.value)
                                         }
                                         className={cn(
-                                            'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                            'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                         )}
                                     >
                                         {types.map((t) => (
@@ -120,7 +120,8 @@ export default function OpportunityForm({
                                         placeholder="e.g. Ministry of Culture"
                                     />
                                     <div className="text-xs text-muted-foreground">
-                                        (English — you can still fill FR/AR below)
+                                        (English — you can still fill FR/AR
+                                        below)
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +176,7 @@ export default function OpportunityForm({
                                         setData('status', e.target.value)
                                     }
                                     className={cn(
-                                        'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
                                 >
                                     {statuses.map((s) => (
@@ -262,7 +263,7 @@ export default function OpportunityForm({
                 <Button
                     type="submit"
                     disabled={processing}
-                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                    className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                 >
                     {processing ? 'Saving…' : submitLabel}
                 </Button>
@@ -270,4 +271,3 @@ export default function OpportunityForm({
         </form>
     );
 }
-

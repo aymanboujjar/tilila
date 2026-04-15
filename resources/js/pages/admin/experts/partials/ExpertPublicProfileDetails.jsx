@@ -17,8 +17,8 @@ function emptyTri() {
 }
 
 const textareaClass = cn(
-    'border-input placeholder:text-muted-foreground flex min-h-[72px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none',
-    'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+    'flex min-h-[72px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground',
+    'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
 );
 
 function TriLangInputs({ label, value, onChange }) {
@@ -92,7 +92,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                             <h3 className="text-sm font-semibold">
                                 Headline tags
                             </h3>
-                            <p className="text-muted-foreground text-xs">
+                            <p className="text-xs text-muted-foreground">
                                 Pills above the name on the detail page header.
                             </p>
                         </div>
@@ -118,14 +118,14 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                         {(d.headlineTags ?? []).map((tag, i) => (
                             <div
                                 key={i}
-                                className="border-border/70 space-y-2 rounded-lg border p-3"
+                                className="space-y-2 rounded-lg border border-border/70 p-3"
                             >
                                 <div className="flex justify-end">
                                     <Button
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        className="text-destructive size-8"
+                                        className="size-8 text-destructive"
                                         onClick={() =>
                                             patch({
                                                 headlineTags: (
@@ -161,7 +161,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                             <h3 className="text-sm font-semibold">
                                 Biography paragraphs
                             </h3>
-                            <p className="text-muted-foreground text-xs">
+                            <p className="text-xs text-muted-foreground">
                                 Each block is one paragraph in the intro card.
                             </p>
                         </div>
@@ -184,14 +184,14 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                         {(d.bio ?? []).map((p, i) => (
                             <div
                                 key={i}
-                                className="border-border/70 space-y-2 rounded-lg border p-3"
+                                className="space-y-2 rounded-lg border border-border/70 p-3"
                             >
                                 <div className="flex justify-end">
                                     <Button
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        className="text-destructive size-8"
+                                        className="size-8 text-destructive"
                                         onClick={() =>
                                             patch({
                                                 bio: (d.bio ?? []).filter(
@@ -222,7 +222,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                 {/* Quote */}
                 <section className="space-y-3">
                     <h3 className="text-sm font-semibold">Quote (sidebar)</h3>
-                    <p className="text-muted-foreground text-xs">
+                    <p className="text-xs text-muted-foreground">
                         Shown in the quote card when at least one language is
                         filled.
                     </p>
@@ -239,19 +239,17 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                     <h3 className="text-sm font-semibold">
                         Social profiles (sidebar)
                     </h3>
-                    <p className="text-muted-foreground text-xs">
+                    <p className="text-xs text-muted-foreground">
                         Full URLs for LinkedIn, X (Twitter), and Instagram.
                         Contact email is set in the main expert fields on this
                         form.
                     </p>
                     <div className="grid gap-4 sm:grid-cols-1">
-                        {(
-                            [
-                                ['linkedin', 'LinkedIn URL'],
-                                ['twitter', 'X (Twitter) URL'],
-                                ['instagram', 'Instagram URL'],
-                            ]
-                        ).map(([key, label]) => (
+                        {[
+                            ['linkedin', 'LinkedIn URL'],
+                            ['twitter', 'X (Twitter) URL'],
+                            ['instagram', 'Instagram URL'],
+                        ].map(([key, label]) => (
                             <div key={key} className="space-y-1.5">
                                 <Label className="text-xs font-medium">
                                     {label}
@@ -284,7 +282,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                             <h3 className="text-sm font-semibold">
                                 Areas of expertise
                             </h3>
-                            <p className="text-muted-foreground text-xs">
+                            <p className="text-xs text-muted-foreground">
                                 Cards under “Areas of Expertise”.
                             </p>
                         </div>
@@ -313,14 +311,14 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                         {(d.expertise ?? []).map((item, i) => (
                             <div
                                 key={i}
-                                className="border-border/70 space-y-4 rounded-lg border p-3"
+                                className="space-y-4 rounded-lg border border-border/70 p-3"
                             >
                                 <div className="flex justify-end">
                                     <Button
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        className="text-destructive size-8"
+                                        className="size-8 text-destructive"
                                         onClick={() =>
                                             patch({
                                                 expertise: (
@@ -344,9 +342,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                 />
                                 <TriLangTextareas
                                     label="Description"
-                                    value={
-                                        item.description ?? emptyTri()
-                                    }
+                                    value={item.description ?? emptyTri()}
                                     onChange={(next) => {
                                         const list = [...(d.expertise ?? [])];
                                         list[i] = {
@@ -368,7 +364,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                             <h3 className="text-sm font-semibold">
                                 Media & professional journey
                             </h3>
-                            <p className="text-muted-foreground text-xs">
+                            <p className="text-xs text-muted-foreground">
                                 Timeline items on the detail page.
                             </p>
                         </div>
@@ -399,7 +395,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                         {(d.journey ?? []).map((item, i) => (
                             <div
                                 key={i}
-                                className="border-border/70 space-y-4 rounded-lg border p-3"
+                                className="space-y-4 rounded-lg border border-border/70 p-3"
                             >
                                 <div className="flex flex-wrap items-center justify-between gap-2">
                                     <div className="space-y-1.5">
@@ -428,7 +424,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        className="text-destructive size-8"
+                                        className="size-8 text-destructive"
                                         onClick={() =>
                                             patch({
                                                 journey: (
@@ -469,9 +465,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                 </div>
                                 <TriLangTextareas
                                     label="Description"
-                                    value={
-                                        item.description ?? emptyTri()
-                                    }
+                                    value={item.description ?? emptyTri()}
                                     onChange={(next) => {
                                         const list = [...(d.journey ?? [])];
                                         list[i] = {
@@ -493,7 +487,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                             <h3 className="text-sm font-semibold">
                                 Past appearances
                             </h3>
-                            <p className="text-muted-foreground text-xs">
+                            <p className="text-xs text-muted-foreground">
                                 YouTube URL embeds a mini player; use thumbnail
                                 when there is no video or as extra art.
                             </p>
@@ -526,14 +520,14 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                         {(d.appearances ?? []).map((item, i) => (
                             <div
                                 key={i}
-                                className="border-border/70 space-y-4 rounded-lg border p-3"
+                                className="space-y-4 rounded-lg border border-border/70 p-3"
                             >
                                 <div className="flex justify-end">
                                     <Button
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        className="text-destructive size-8"
+                                        className="size-8 text-destructive"
                                         onClick={() =>
                                             patch({
                                                 appearances: (
@@ -572,7 +566,9 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                         placeholder="https://www.youtube.com/watch?v=… or youtu.be/…"
                                         value={item.videoUrl ?? ''}
                                         onChange={(e) => {
-                                            const list = [...(d.appearances ?? [])];
+                                            const list = [
+                                                ...(d.appearances ?? []),
+                                            ];
                                             list[i] = {
                                                 ...list[i],
                                                 videoUrl: e.target.value,
@@ -633,7 +629,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                             <h3 className="text-sm font-semibold">
                                 Published articles & related content
                             </h3>
-                            <p className="text-muted-foreground text-xs">
+                            <p className="text-xs text-muted-foreground">
                                 List items at the bottom of the profile.
                             </p>
                         </div>
@@ -663,14 +659,14 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                         {(d.articles ?? []).map((item, i) => (
                             <div
                                 key={i}
-                                className="border-border/70 space-y-4 rounded-lg border p-3"
+                                className="space-y-4 rounded-lg border border-border/70 p-3"
                             >
                                 <div className="flex justify-end">
                                     <Button
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        className="text-destructive size-8"
+                                        className="size-8 text-destructive"
                                         onClick={() =>
                                             patch({
                                                 articles: (
@@ -694,9 +690,7 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                                 />
                                 <TriLangTextareas
                                     label="Description"
-                                    value={
-                                        item.description ?? emptyTri()
-                                    }
+                                    value={item.description ?? emptyTri()}
                                     onChange={(next) => {
                                         const list = [...(d.articles ?? [])];
                                         list[i] = {

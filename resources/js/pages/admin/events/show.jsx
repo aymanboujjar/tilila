@@ -85,17 +85,25 @@ export default function AdminEventsShow({ event, stats }) {
                         </Button>
 
                         <div className="flex flex-wrap gap-2">
-                            <Button type="button" variant="outline" className="gap-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="gap-2"
+                            >
                                 <Printer className="size-4" />
                                 Print
                             </Button>
-                            <Button type="button" variant="outline" className="gap-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="gap-2"
+                            >
                                 <Download className="size-4" />
                                 Export List
                             </Button>
                             <Button
                                 asChild
-                                className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-2"
+                                className="gap-2 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                             >
                                 <Link
                                     href={`/admin/events/${encodeURIComponent(
@@ -116,7 +124,10 @@ export default function AdminEventsShow({ event, stats }) {
                                 {event.title?.en ?? 'Event'}
                             </span>
                             {event.status ? (
-                                <Badge variant="secondary" className="ml-2 font-normal">
+                                <Badge
+                                    variant="secondary"
+                                    className="ml-2 font-normal"
+                                >
                                     {event.status}
                                 </Badge>
                             ) : null}
@@ -125,8 +136,8 @@ export default function AdminEventsShow({ event, stats }) {
                             Registrations & Analytics
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Real-time overview of attendee statistics and registration
-                            data.
+                            Real-time overview of attendee statistics and
+                            registration data.
                         </p>
                     </div>
                 </div>
@@ -160,10 +171,12 @@ export default function AdminEventsShow({ event, stats }) {
                         <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
                             <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                                 <div className="relative w-full lg:max-w-xl">
-                                    <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                                    <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                                     <Input
                                         value={query}
-                                        onChange={(e) => setQuery(e.target.value)}
+                                        onChange={(e) =>
+                                            setQuery(e.target.value)
+                                        }
                                         placeholder="Search by name or email…"
                                         className="h-10 pl-10"
                                     />
@@ -190,7 +203,7 @@ export default function AdminEventsShow({ event, stats }) {
 
                             <div className="mt-5 overflow-x-auto">
                                 <table className="w-full min-w-[860px] border-collapse text-left text-sm">
-                                    <thead className="text-xs uppercase tracking-wide text-muted-foreground">
+                                    <thead className="text-xs tracking-wide text-muted-foreground uppercase">
                                         <tr className="border-b border-border">
                                             <th className="px-3 py-3">
                                                 Attendee name
@@ -302,11 +315,11 @@ export default function AdminEventsShow({ event, stats }) {
                                 </div>
                             </div>
                             <div className="mt-3 text-sm text-muted-foreground">
-                                Share the registration link and promote the event to
-                                increase sign-ups.
+                                Share the registration link and promote the
+                                event to increase sign-ups.
                             </div>
                             <div className="mt-4">
-                                <Button className="w-full bg-beta-blue hover:bg-beta-blue/90 text-twhite">
+                                <Button className="w-full bg-beta-blue text-twhite hover:bg-beta-blue/90">
                                     Boost attendance
                                 </Button>
                             </div>
@@ -319,4 +332,3 @@ export default function AdminEventsShow({ event, stats }) {
 }
 
 AdminEventsShow.layout = (page) => <AppLayout>{page}</AppLayout>;
-

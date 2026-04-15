@@ -10,8 +10,8 @@ export default function AuthSimpleLayout({
     return (
         <div className="relative min-h-svh overflow-hidden bg-beta-white">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,151,170,0.12),transparent_38%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.06),transparent_34%)]" />
-            <div className="absolute -right-24 top-20 h-72 w-72 rounded-full bg-alpha-blue/70 blur-3xl" />
-            <div className="absolute -left-24 bottom-0 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
+            <div className="absolute top-20 -right-24 h-72 w-72 rounded-full bg-alpha-blue/70 blur-3xl" />
+            <div className="absolute bottom-0 -left-24 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
 
             <div className="relative mx-auto grid min-h-svh max-w-7xl lg:grid-cols-[1.1fr_0.9fr]">
                 <div className="hidden flex-col justify-between px-6 py-8 lg:flex lg:px-8 xl:px-12">
@@ -38,7 +38,7 @@ export default function AuthSimpleLayout({
 
                         <div className="mt-10 grid gap-4 sm:grid-cols-3">
                             <div className="rounded-2xl border border-border bg-background/90 p-4 shadow-sm backdrop-blur">
-                                <div className="text-xs font-semibold uppercase tracking-[0.25em] text-tgray">
+                                <div className="text-xs font-semibold tracking-[0.25em] text-tgray uppercase">
                                     Secure access
                                 </div>
                                 <p className="mt-2 text-sm leading-6 text-tblack">
@@ -47,7 +47,7 @@ export default function AuthSimpleLayout({
                                 </p>
                             </div>
                             <div className="rounded-2xl border border-border bg-background/90 p-4 shadow-sm backdrop-blur">
-                                <div className="text-xs font-semibold uppercase tracking-[0.25em] text-tgray">
+                                <div className="text-xs font-semibold tracking-[0.25em] text-tgray uppercase">
                                     Fast response
                                 </div>
                                 <p className="mt-2 text-sm leading-6 text-tblack">
@@ -56,7 +56,7 @@ export default function AuthSimpleLayout({
                                 </p>
                             </div>
                             <div className="rounded-2xl border border-border bg-background/90 p-4 shadow-sm backdrop-blur">
-                                <div className="text-xs font-semibold uppercase tracking-[0.25em] text-tgray">
+                                <div className="text-xs font-semibold tracking-[0.25em] text-tgray uppercase">
                                     One platform
                                 </div>
                                 <p className="mt-2 text-sm leading-6 text-tblack">
@@ -81,7 +81,10 @@ export default function AuthSimpleLayout({
                 <div className="flex items-center justify-center px-4 py-8 sm:px-6 lg:px-8 xl:px-12">
                     <div className="w-full max-w-md rounded-3xl border border-border bg-background p-6 shadow-sm sm:p-8 lg:max-w-xl lg:p-10">
                         <div className="mb-8 flex flex-col items-center gap-4 text-center lg:hidden">
-                            <Link href={home()} className="inline-flex items-center">
+                            <Link
+                                href={home()}
+                                className="inline-flex items-center"
+                            >
                                 <img
                                     src="/assets/logo.webp"
                                     alt="Tilila"

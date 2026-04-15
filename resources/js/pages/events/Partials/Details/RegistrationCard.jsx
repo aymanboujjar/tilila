@@ -50,14 +50,14 @@ export default function RegistrationCard({
             }}
         >
             <DialogContent className="max-h-[90vh] gap-0 overflow-hidden rounded-2xl border border-border/60 p-0 shadow-2xl sm:max-w-[min(100%,26rem)]">
-                <div className="relative overflow-hidden bg-linear-to-br from-beta-blue/12 via-background to-alpha-blue/8 px-6 pb-5 pt-7 pr-14 sm:px-8 sm:pb-6 sm:pt-8">
+                <div className="relative overflow-hidden bg-linear-to-br from-beta-blue/12 via-background to-alpha-blue/8 px-6 pt-7 pr-14 pb-5 sm:px-8 sm:pt-8 sm:pb-6">
                     <div
-                        className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-beta-blue/10 blur-2xl"
+                        className="pointer-events-none absolute -top-12 -right-12 h-40 w-40 rounded-full bg-beta-blue/10 blur-2xl"
                         aria-hidden
                     />
                     <DialogHeader className="relative space-y-3 text-left">
                         {badge ? (
-                            <div className="inline-flex w-fit items-center rounded-full border border-beta-blue/25 bg-background/80 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.08em] text-beta-blue backdrop-blur-sm">
+                            <div className="inline-flex w-fit items-center rounded-full border border-beta-blue/25 bg-background/80 px-3 py-1 text-[11px] font-bold tracking-[0.08em] text-beta-blue uppercase backdrop-blur-sm">
                                 {badge}
                             </div>
                         ) : null}
@@ -190,7 +190,7 @@ export default function RegistrationCard({
                                         setAgreed(e.target.checked)
                                     }
                                 />
-                                <span className="text-muted-foreground leading-snug">
+                                <span className="leading-snug text-muted-foreground">
                                     I agree to be contacted about this event and
                                     accept the{' '}
                                     <span className="font-semibold text-beta-blue">

@@ -11,8 +11,7 @@ const AUDIENCES = [
             'Apply to the program and explore past editions and winners.',
         frDescription:
             'Postulez au programme et explorez les éditions précédentes et lauréats.',
-        arDescription:
-            'قدّم للبرنامج واستكشف الدورات السابقة والفائزين.',
+        arDescription: 'قدّم للبرنامج واستكشف الدورات السابقة والفائزين.',
         enCta: 'Apply now',
         frCta: 'Postuler',
         arCta: 'قدّم الآن',
@@ -26,8 +25,7 @@ const AUDIENCES = [
             'Participate and discover editions, winners, jury and gallery.',
         frDescription:
             'Participez et découvrez les éditions, lauréats, jury et galerie.',
-        arDescription:
-            'شارك واكتشف الدورات والفائزين ولجنة التحكيم والمعرض.',
+        arDescription: 'شارك واكتشف الدورات والفائزين ولجنة التحكيم والمعرض.',
         enCta: 'Participate',
         frCta: 'Participer',
         arCta: 'شارك',

@@ -1,12 +1,5 @@
 import { Head } from '@inertiajs/react';
-import {
-    ArrowRight,
-    Clock3,
-    Mail,
-    MapPin,
-    Phone,
-    Send,
-} from 'lucide-react';
+import { ArrowRight, Clock3, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import AppLayout from '@/layouts/app-layout';
 
@@ -62,7 +55,7 @@ function ContactPage() {
             <div className="bg-background">
                 <section className="relative overflow-hidden bg-beta-white">
                     <div className="absolute inset-0">
-                        <div className="absolute -right-24 top-0 h-72 w-72 rounded-full bg-alpha-blue/70 blur-3xl" />
+                        <div className="absolute top-0 -right-24 h-72 w-72 rounded-full bg-alpha-blue/70 blur-3xl" />
                         <div className="absolute -bottom-28 left-0 h-72 w-72 rounded-full bg-secondary/25 blur-3xl" />
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,151,170,0.12),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.06),transparent_35%)]" />
                     </div>
@@ -86,7 +79,7 @@ function ContactPage() {
                                     key={card.label}
                                     className="rounded-2xl border border-border bg-background/90 p-5 shadow-sm backdrop-blur"
                                 >
-                                    <div className="text-xs font-semibold uppercase tracking-[0.25em] text-tgray">
+                                    <div className="text-xs font-semibold tracking-[0.25em] text-tgray uppercase">
                                         {card.label}
                                     </div>
                                     <div className="mt-3 text-lg font-semibold text-tblack">
@@ -109,7 +102,9 @@ function ContactPage() {
                                     {t('contact.page.sectionContact.title')}
                                 </h2>
                                 <p className="mt-4 max-w-xl text-sm leading-6 text-tgray sm:text-base">
-                                    {t('contact.page.sectionContact.description')}
+                                    {t(
+                                        'contact.page.sectionContact.description',
+                                    )}
                                 </p>
 
                                 <div className="mt-8 space-y-4">
@@ -125,11 +120,13 @@ function ContactPage() {
                                                         {item.title}
                                                     </div>
                                                     <div className="mt-1 text-sm leading-6 text-tgray">
-                                                        {item.body.map((line) => (
-                                                            <div key={line}>
-                                                                {line}
-                                                            </div>
-                                                        ))}
+                                                        {item.body.map(
+                                                            (line) => (
+                                                                <div key={line}>
+                                                                    {line}
+                                                                </div>
+                                                            ),
+                                                        )}
                                                     </div>
                                                 </div>
                                             </div>
@@ -158,12 +155,16 @@ function ContactPage() {
                                 <div className="mt-8 rounded-3xl border border-border bg-alpha-blue p-6">
                                     <div className="flex items-center gap-3 text-beta-blue">
                                         <Clock3 className="size-5" />
-                                        <span className="text-xs font-semibold uppercase tracking-[0.25em]">
-                                            {t('contact.page.officeHours.title')}
+                                        <span className="text-xs font-semibold tracking-[0.25em] uppercase">
+                                            {t(
+                                                'contact.page.officeHours.title',
+                                            )}
                                         </span>
                                     </div>
                                     <p className="mt-4 max-w-md text-sm leading-6 text-tgray">
-                                        {t('contact.page.officeHours.description')}
+                                        {t(
+                                            'contact.page.officeHours.description',
+                                        )}
                                     </p>
                                 </div>
 
@@ -193,36 +194,49 @@ function ContactPage() {
                                                 {t('contact.page.form.title')}
                                             </h2>
                                             <p className="mt-2 text-sm leading-6 text-tgray">
-                                                {t('contact.page.form.description')}
+                                                {t(
+                                                    'contact.page.form.description',
+                                                )}
                                             </p>
                                         </div>
-                                        <div className="rounded-full bg-alpha-blue px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-beta-blue">
+                                        <div className="rounded-full bg-alpha-blue px-4 py-2 text-xs font-semibold tracking-[0.25em] text-beta-blue uppercase">
                                             {t('contact.page.form.badge')}
                                         </div>
                                     </div>
 
-                                    <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                                    <form
+                                        onSubmit={handleSubmit}
+                                        className="mt-8 space-y-6"
+                                    >
                                         <div className="grid gap-6 md:grid-cols-2">
                                             <label className="grid gap-2 text-sm">
                                                 <span className="font-semibold text-tblack">
-                                                    {t('contact.page.form.fields.firstNameLabel')}
+                                                    {t(
+                                                        'contact.page.form.fields.firstNameLabel',
+                                                    )}
                                                 </span>
                                                 <input
-                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/15"
+                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/15 focus:outline-none"
                                                     name="firstName"
-                                                    placeholder={t('contact.page.form.fields.firstNamePlaceholder')}
+                                                    placeholder={t(
+                                                        'contact.page.form.fields.firstNamePlaceholder',
+                                                    )}
                                                     autoComplete="given-name"
                                                 />
                                             </label>
 
                                             <label className="grid gap-2 text-sm">
                                                 <span className="font-semibold text-tblack">
-                                                    {t('contact.page.form.fields.lastNameLabel')}
+                                                    {t(
+                                                        'contact.page.form.fields.lastNameLabel',
+                                                    )}
                                                 </span>
                                                 <input
-                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/15"
+                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/15 focus:outline-none"
                                                     name="lastName"
-                                                    placeholder={t('contact.page.form.fields.lastNamePlaceholder')}
+                                                    placeholder={t(
+                                                        'contact.page.form.fields.lastNamePlaceholder',
+                                                    )}
                                                     autoComplete="family-name"
                                                 />
                                             </label>
@@ -231,48 +245,64 @@ function ContactPage() {
                                         <div className="grid gap-6 md:grid-cols-2">
                                             <label className="grid gap-2 text-sm">
                                                 <span className="font-semibold text-tblack">
-                                                    {t('contact.page.form.fields.emailLabel')}
+                                                    {t(
+                                                        'contact.page.form.fields.emailLabel',
+                                                    )}
                                                 </span>
                                                 <input
-                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/15"
+                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/15 focus:outline-none"
                                                     name="email"
                                                     type="email"
-                                                    placeholder={t('contact.page.form.fields.emailPlaceholder')}
+                                                    placeholder={t(
+                                                        'contact.page.form.fields.emailPlaceholder',
+                                                    )}
                                                     autoComplete="email"
                                                 />
                                             </label>
 
                                             <label className="grid gap-2 text-sm">
                                                 <span className="font-semibold text-tblack">
-                                                    {t('contact.page.form.fields.organizationLabel')}
+                                                    {t(
+                                                        'contact.page.form.fields.organizationLabel',
+                                                    )}
                                                 </span>
                                                 <input
-                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/15"
+                                                    className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/15 focus:outline-none"
                                                     name="organization"
-                                                    placeholder={t('contact.page.form.fields.organizationPlaceholder')}
+                                                    placeholder={t(
+                                                        'contact.page.form.fields.organizationPlaceholder',
+                                                    )}
                                                 />
                                             </label>
                                         </div>
 
                                         <label className="grid gap-2 text-sm">
                                             <span className="font-semibold text-tblack">
-                                                {t('contact.page.form.fields.subjectLabel')}
+                                                {t(
+                                                    'contact.page.form.fields.subjectLabel',
+                                                )}
                                             </span>
                                             <input
-                                                className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/15"
+                                                className="h-12 rounded-xl border border-border bg-background px-4 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/15 focus:outline-none"
                                                 name="subject"
-                                                placeholder={t('contact.page.form.fields.subjectPlaceholder')}
+                                                placeholder={t(
+                                                    'contact.page.form.fields.subjectPlaceholder',
+                                                )}
                                             />
                                         </label>
 
                                         <label className="grid gap-2 text-sm">
                                             <span className="font-semibold text-tblack">
-                                                {t('contact.page.form.fields.messageLabel')}
+                                                {t(
+                                                    'contact.page.form.fields.messageLabel',
+                                                )}
                                             </span>
                                             <textarea
-                                                className="min-h-40 rounded-xl border border-border bg-background px-4 py-3 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/15"
+                                                className="min-h-40 rounded-xl border border-border bg-background px-4 py-3 text-sm text-tblack placeholder:text-tgray focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/15 focus:outline-none"
                                                 name="message"
-                                                placeholder={t('contact.page.form.fields.messagePlaceholder')}
+                                                placeholder={t(
+                                                    'contact.page.form.fields.messagePlaceholder',
+                                                )}
                                             />
                                         </label>
 
@@ -317,40 +347,62 @@ function ContactPage() {
                                         <div className="rounded-2xl border border-border bg-beta-white p-6">
                                             <div className="flex items-center gap-3 text-tblack">
                                                 <MapPin className="size-5 text-beta-blue" />
-                                                <span className="text-sm font-semibold uppercase tracking-[0.25em] text-tgray">
-                                                    {t('contact.page.location.mapTitle')}
+                                                <span className="text-sm font-semibold tracking-[0.25em] text-tgray uppercase">
+                                                    {t(
+                                                        'contact.page.location.mapTitle',
+                                                    )}
                                                 </span>
                                             </div>
                                             <div className="mt-6 rounded-2xl border border-dashed border-border bg-background p-6">
                                                 <div className="text-sm font-semibold text-tblack">
-                                                    {t('contact.page.details.headquarters.line1')}
+                                                    {t(
+                                                        'contact.page.details.headquarters.line1',
+                                                    )}
                                                 </div>
                                                 <div className="mt-2 text-sm leading-6 text-tgray">
-                                                    {t('contact.page.details.headquarters.line2')}
+                                                    {t(
+                                                        'contact.page.details.headquarters.line2',
+                                                    )}
                                                 </div>
                                                 <div className="mt-4 inline-flex items-center rounded-full bg-alpha-blue px-4 py-2 text-xs font-semibold text-beta-blue">
-                                                    {t('contact.page.location.mapBadge')}
+                                                    {t(
+                                                        'contact.page.location.mapBadge',
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div className="grid gap-4 content-start">
+                                        <div className="grid content-start gap-4">
                                             <div className="rounded-2xl border border-border bg-beta-white p-5">
-                                                <div className="text-xs font-semibold uppercase tracking-[0.25em] text-tgray">
-                                                    {t('contact.page.location.channelsTitle')}
+                                                <div className="text-xs font-semibold tracking-[0.25em] text-tgray uppercase">
+                                                    {t(
+                                                        'contact.page.location.channelsTitle',
+                                                    )}
                                                 </div>
                                                 <div className="mt-3 space-y-3 text-sm text-tblack">
-                                                    <div>{t('contact.page.details.email.value')}</div>
-                                                    <div>{t('contact.page.details.phone.value')}</div>
+                                                    <div>
+                                                        {t(
+                                                            'contact.page.details.email.value',
+                                                        )}
+                                                    </div>
+                                                    <div>
+                                                        {t(
+                                                            'contact.page.details.phone.value',
+                                                        )}
+                                                    </div>
                                                 </div>
                                             </div>
 
                                             <div className="rounded-2xl border border-border bg-alpha-blue p-5">
-                                                <div className="text-xs font-semibold uppercase tracking-[0.25em] text-beta-blue">
-                                                    {t('contact.page.location.nextStepTitle')}
+                                                <div className="text-xs font-semibold tracking-[0.25em] text-beta-blue uppercase">
+                                                    {t(
+                                                        'contact.page.location.nextStepTitle',
+                                                    )}
                                                 </div>
                                                 <p className="mt-3 text-sm leading-6 text-tgray">
-                                                    {t('contact.page.location.nextStepDescription')}
+                                                    {t(
+                                                        'contact.page.location.nextStepDescription',
+                                                    )}
                                                 </p>
                                             </div>
                                         </div>

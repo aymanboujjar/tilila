@@ -6,7 +6,9 @@ import { useTranslation } from '@/contexts/TranslationContext';
 function firstEditionWithWinners(editions) {
     if (!Array.isArray(editions)) return null;
     return (
-        editions.find((e) => Array.isArray(e?.winners) && e.winners.length > 0) ||
+        editions.find(
+            (e) => Array.isArray(e?.winners) && e.winners.length > 0,
+        ) ||
         editions[0] ||
         null
     );
@@ -19,7 +21,9 @@ export default function FeaturedLaureatesSection() {
     const edition = firstEditionWithWinners(editions);
     const winners = Array.isArray(edition?.winners) ? edition.winners : [];
     const featured = winners.slice(0, 3);
-    const detailsUrl = edition?.id ? `/tilila/editions/${edition.id}` : '/tilila#archive';
+    const detailsUrl = edition?.id
+        ? `/tilila/editions/${edition.id}`
+        : '/tilila#archive';
 
     return (
         <section id="featured" className="mx-auto max-w-7xl px-4 pt-8 pb-10">

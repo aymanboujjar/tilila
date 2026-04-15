@@ -11,12 +11,18 @@ function PeopleGrid({ title, people }) {
             <h2 className="text-xl font-semibold text-tblack">{title}</h2>
             {rows.length === 0 ? (
                 <div className="mt-4 rounded-2xl border border-border bg-beta-white p-10 text-center text-sm text-tgray">
-                    <TransText en="No entries yet." fr="Aucune entrée pour le moment." ar="لا توجد إدخالات بعد." />
+                    <TransText
+                        en="No entries yet."
+                        fr="Aucune entrée pour le moment."
+                        ar="لا توجد إدخالات بعد."
+                    />
                 </div>
             ) : (
                 <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {rows.map((p, idx) => {
-                        const img = p?.photo_path ? `/storage/${p.photo_path}` : '';
+                        const img = p?.photo_path
+                            ? `/storage/${p.photo_path}`
+                            : '';
                         return (
                             <div
                                 key={`${p?.full_name ?? 'person'}-${idx}`}
@@ -107,7 +113,9 @@ export default function TililabEditionDetails() {
     const { edition } = usePage().props;
     const winners = Array.isArray(edition?.winners) ? edition.winners : [];
     const jury = Array.isArray(edition?.jury) ? edition.jury : [];
-    const images = Array.isArray(edition?.gallery_images) ? edition.gallery_images : [];
+    const images = Array.isArray(edition?.gallery_images)
+        ? edition.gallery_images
+        : [];
 
     return (
         <>
@@ -150,25 +158,45 @@ export default function TililabEditionDetails() {
                             <ChevronLeft className="size-4 text-tgray" />
                             <TransText en="Back" fr="Retour" ar="رجوع" />
                         </Link>
-                        <div className="hidden sm:flex items-center gap-2">
+                        <div className="hidden items-center gap-2 sm:flex">
                             <span className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack">
                                 <Trophy className="size-4 text-tgray" />
-                                <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
+                                <TransText
+                                    en="Winners"
+                                    fr="Lauréats"
+                                    ar="الفائزون"
+                                />
                             </span>
                             <span className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack">
                                 <Gavel className="size-4 text-tgray" />
-                                <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
+                                <TransText
+                                    en="Jury"
+                                    fr="Jury"
+                                    ar="لجنة التحكيم"
+                                />
                             </span>
                             <span className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack">
                                 <GalleryHorizontal className="size-4 text-tgray" />
-                                <TransText en="Gallery" fr="Galerie" ar="المعرض" />
+                                <TransText
+                                    en="Gallery"
+                                    fr="Galerie"
+                                    ar="المعرض"
+                                />
                             </span>
                         </div>
                     </div>
                 </div>
 
-                <PeopleGrid title={<TransText en="Winners" fr="Lauréats" ar="الفائزون" />} people={winners} />
-                <PeopleGrid title={<TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />} people={jury} />
+                <PeopleGrid
+                    title={
+                        <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
+                    }
+                    people={winners}
+                />
+                <PeopleGrid
+                    title={<TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />}
+                    people={jury}
+                />
                 <GalleryGrid images={images} />
             </section>
         </>
@@ -176,4 +204,3 @@ export default function TililabEditionDetails() {
 }
 
 TililabEditionDetails.layout = (page) => <AppLayout>{page}</AppLayout>;
-

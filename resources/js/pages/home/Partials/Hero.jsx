@@ -8,10 +8,16 @@ import { HERO_CAROUSEL_SLIDES } from '@/pages/home/Partials/hero-carousel-data';
 const AUTOPLAY_MS = 4000;
 
 function pickLocalizedTriple(obj, locale) {
-    return (locale === 'ar' ? obj.ar : locale === 'fr' ? obj.fr : obj.en) ?? obj.en ?? '';
+    return (
+        (locale === 'ar' ? obj.ar : locale === 'fr' ? obj.fr : obj.en) ??
+        obj.en ??
+        ''
+    );
 }
 
-export default function Hero({ imageSrc: fallbackImageSrc = '/assets/hero.png' }) {
+export default function Hero({
+    imageSrc: fallbackImageSrc = '/assets/hero.png',
+}) {
     const { t, locale } = useTranslation();
     const [index, setIndex] = useState(0);
     const slideCount = HERO_CAROUSEL_SLIDES.length;
@@ -25,7 +31,8 @@ export default function Hero({ imageSrc: fallbackImageSrc = '/assets/hero.png' }
     }, []);
 
     useEffect(() => {
-        if (typeof window === 'undefined' || slideCountRef.current <= 0) return undefined;
+        if (typeof window === 'undefined' || slideCountRef.current <= 0)
+            return undefined;
         const id = window.setInterval(() => {
             setIndex((i) => {
                 const n = slideCountRef.current;
@@ -66,12 +73,17 @@ export default function Hero({ imageSrc: fallbackImageSrc = '/assets/hero.png' }
                     className="focus-within:outline-none"
                 >
                     <div className="overflow-hidden rounded-3xl border border-border shadow-[0_24px_60px_-12px_rgba(15,23,42,0.25)] ring-1 ring-tblack/10">
-                        <div className="flex h-1 w-full gap-px bg-tblack/30" aria-hidden>
+                        <div
+                            className="flex h-1 w-full gap-px bg-tblack/30"
+                            aria-hidden
+                        >
                             {HERO_CAROUSEL_SLIDES.map((s, i) => (
                                 <div
                                     key={s.key}
                                     className={`h-full flex-1 transition-colors duration-300 ${
-                                        i === safeIndex ? 'bg-beta-blue' : 'bg-twhite/20'
+                                        i === safeIndex
+                                            ? 'bg-beta-blue'
+                                            : 'bg-twhite/20'
                                     }`}
                                 />
                             ))}
@@ -99,26 +111,29 @@ export default function Hero({ imageSrc: fallbackImageSrc = '/assets/hero.png' }
                             />
                             {slide.imageTint ? (
                                 <div
-                                    className={`pointer-events-none absolute inset-0 bg-linear-to-br ${slide.imageTint} to-transparent mix-blend-soft-light opacity-35`}
+                                    className={`pointer-events-none absolute inset-0 bg-linear-to-br ${slide.imageTint} to-transparent opacity-35 mix-blend-soft-light`}
                                     aria-hidden
                                 />
                             ) : null}
 
                             <div className="absolute end-4 top-4 z-20 sm:end-6 sm:top-5">
-                                <span className="rounded-full bg-tblack/55 px-2.5 py-1 font-mono text-[0.65rem] font-medium tabular-nums text-twhite/90 backdrop-blur-sm sm:text-[0.7rem]">
+                                <span className="rounded-full bg-tblack/55 px-2.5 py-1 font-mono text-[0.65rem] font-medium text-twhite/90 tabular-nums backdrop-blur-sm sm:text-[0.7rem]">
                                     {slideLabel}
                                 </span>
                             </div>
 
                             <div className="relative z-10 flex min-h-[inherit] flex-col justify-end">
-                                <div className="px-5 pb-10 pt-8 text-start sm:px-8 sm:pb-12 sm:pt-10 lg:px-12 lg:pb-14">
+                                <div className="px-5 pt-8 pb-10 text-start sm:px-8 sm:pt-10 sm:pb-12 lg:px-12 lg:pb-14">
                                     <div className="mb-4 flex flex-wrap items-center gap-2 sm:mb-5 sm:gap-3">
                                         <TransText
                                             tag="p"
                                             className="text-[0.65rem] font-bold tracking-[0.2em] text-alpha-blue uppercase"
                                             {...slide.cardKicker}
                                         />
-                                        <span className="text-twhite/35" aria-hidden>
+                                        <span
+                                            className="text-twhite/35"
+                                            aria-hidden
+                                        >
                                             ·
                                         </span>
                                         <span className="inline-flex items-center gap-1.5 rounded-full border border-twhite/25 bg-tblack/40 px-2.5 py-1 text-xs font-semibold text-twhite backdrop-blur-sm">
@@ -131,7 +146,7 @@ export default function Hero({ imageSrc: fallbackImageSrc = '/assets/hero.png' }
                                     </div>
 
                                     <div key={slide.key} className="max-w-4xl">
-                                        <h1 className="text-balance text-2xl font-bold tracking-tight text-twhite sm:text-3xl lg:text-4xl lg:leading-tight xl:text-[2.75rem]">
+                                        <h1 className="text-2xl font-bold tracking-tight text-balance text-twhite sm:text-3xl lg:text-4xl lg:leading-tight xl:text-[2.75rem]">
                                             <TransText {...slide.titleBefore} />{' '}
                                             <TransText
                                                 className="text-beta-blue"
@@ -151,7 +166,9 @@ export default function Hero({ imageSrc: fallbackImageSrc = '/assets/hero.png' }
                                                     href={slide.primaryHref}
                                                     className="inline-flex h-12 items-center justify-center gap-1.5 rounded-full bg-beta-blue px-8 text-sm font-semibold text-twhite shadow-lg shadow-tblack/30 transition hover:opacity-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-twhite sm:text-[0.9375rem]"
                                                 >
-                                                    <TransText {...slide.primaryCta} />
+                                                    <TransText
+                                                        {...slide.primaryCta}
+                                                    />
                                                     <ChevronRight
                                                         className="size-4 rtl:rotate-180"
                                                         strokeWidth={2.25}
@@ -159,12 +176,15 @@ export default function Hero({ imageSrc: fallbackImageSrc = '/assets/hero.png' }
                                                     />
                                                 </Link>
                                             ) : null}
-                                            {slide.secondaryCta && slide.secondaryHref ? (
+                                            {slide.secondaryCta &&
+                                            slide.secondaryHref ? (
                                                 <Link
                                                     href={slide.secondaryHref}
                                                     className="inline-flex h-12 items-center justify-center rounded-full border-2 border-twhite/45 bg-twhite/10 px-8 text-sm font-semibold text-twhite backdrop-blur-sm transition hover:border-twhite hover:bg-twhite/20 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-twhite"
                                                 >
-                                                    <TransText {...slide.secondaryCta} />
+                                                    <TransText
+                                                        {...slide.secondaryCta}
+                                                    />
                                                 </Link>
                                             ) : null}
                                         </div>

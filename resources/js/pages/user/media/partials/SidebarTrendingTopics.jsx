@@ -4,7 +4,11 @@ import TransText from '@/components/TransText';
 
 const FALLBACK_TOPICS = [
     {
-        title: { en: 'Women in STEM', fr: 'Femmes en STEM', ar: 'النساء في STEM' },
+        title: {
+            en: 'Women in STEM',
+            fr: 'Femmes en STEM',
+            ar: 'النساء في STEM',
+        },
         tag: { en: 'April 2026', fr: 'Avril 2026', ar: 'أبريل 2026' },
     },
     {

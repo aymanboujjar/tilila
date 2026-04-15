@@ -23,9 +23,9 @@ export default function EventReplay({
                         <iframe
                             src={embedUrl}
                             title={
-                            videoTitle ??
-                            (isLive ? 'Live stream' : 'Event replay')
-                        }
+                                videoTitle ??
+                                (isLive ? 'Live stream' : 'Event replay')
+                            }
                             className="h-full w-full border-0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowFullScreen
@@ -35,8 +35,10 @@ export default function EventReplay({
                             <div className="absolute inset-0 bg-linear-to-tr from-tblack/25 via-transparent to-transparent" />
                             <button
                                 type="button"
-                                className="absolute left-1/2 top-1/2 inline-flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-tblack shadow-sm ring-1 ring-border hover:bg-white"
-                                aria-label={isLive ? 'Play live stream' : 'Play replay'}
+                                className="absolute top-1/2 left-1/2 inline-flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-tblack shadow-sm ring-1 ring-border hover:bg-white"
+                                aria-label={
+                                    isLive ? 'Play live stream' : 'Play replay'
+                                }
                             >
                                 ▶
                             </button>
@@ -46,7 +48,7 @@ export default function EventReplay({
                                 </span>
                             </div>
                             {durationLabel ? (
-                                <div className="absolute bottom-3 right-3 text-[11px] font-semibold text-white/90">
+                                <div className="absolute right-3 bottom-3 text-[11px] font-semibold text-white/90">
                                     {durationLabel}
                                 </div>
                             ) : null}
@@ -55,8 +57,7 @@ export default function EventReplay({
                 </div>
                 <div className="px-5 py-4">
                     <div className="text-sm font-extrabold text-foreground">
-                        {videoTitle ??
-                            (isLive ? 'Live stream' : 'Replay')}
+                        {videoTitle ?? (isLive ? 'Live stream' : 'Replay')}
                     </div>
                     <div className="mt-1 text-xs text-muted-foreground">
                         {embedUrl

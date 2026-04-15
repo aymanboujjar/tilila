@@ -56,18 +56,20 @@ export default function ExpertDetails({ expert, details: detailsProp }) {
                         <div className="space-y-6 lg:col-span-8">
                             <header className="rounded-2xl bg-card p-6 shadow-sm ring-1 ring-border">
                                 <div className="flex flex-wrap gap-2">
-                                    {(details?.headlineTags ?? []).map((tag) => (
-                                        <span
-                                            key={tag.en}
-                                            className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground"
-                                        >
-                                            <TransText
-                                                en={tag.en}
-                                                fr={tag.fr}
-                                                ar={tag.ar}
-                                            />
-                                        </span>
-                                    ))}
+                                    {(details?.headlineTags ?? []).map(
+                                        (tag) => (
+                                            <span
+                                                key={tag.en}
+                                                className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold text-secondary-foreground"
+                                            >
+                                                <TransText
+                                                    en={tag.en}
+                                                    fr={tag.fr}
+                                                    ar={tag.ar}
+                                                />
+                                            </span>
+                                        ),
+                                    )}
                                 </div>
 
                                 <h1 className="mt-4 text-3xl font-extrabold tracking-tight text-foreground">
