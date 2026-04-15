@@ -36,7 +36,7 @@ function PartnerRow({ name, url, logo }) {
                 href={url}
                 target="_blank"
                 rel="noreferrer"
-                className="block outline-none ring-offset-background focus-visible:ring-2 focus-visible:ring-ring"
+                className="block ring-offset-background outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
                 {content}
             </a>

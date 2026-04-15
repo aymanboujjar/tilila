@@ -19,13 +19,15 @@ function KpiCard({ icon: Icon, label, value }) {
         <div className="rounded-xl border border-border/70 bg-card p-5 shadow-sm">
             <div className="flex items-start justify-between gap-3">
                 <div>
-                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    <div className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                         {label}
                     </div>
-                    <div className="mt-2 text-3xl font-bold text-foreground">{value ?? 0}</div>
+                    <div className="mt-2 text-3xl font-bold text-foreground">
+                        {value ?? 0}
+                    </div>
                 </div>
                 {Icon ? (
-                    <div className="text-muted-foreground rounded-lg border border-border bg-muted p-2">
+                    <div className="rounded-lg border border-border bg-muted p-2 text-muted-foreground">
                         <Icon className="size-5" />
                     </div>
                 ) : null}
@@ -34,7 +36,11 @@ function KpiCard({ icon: Icon, label, value }) {
     );
 }
 
-export default function AdminTililabParticipantsIndex({ participants, filters, kpis }) {
+export default function AdminTililabParticipantsIndex({
+    participants,
+    filters,
+    kpis,
+}) {
     const [search, setSearch] = useState(filters?.search ?? '');
 
     const data = participants?.data ?? [];
@@ -56,13 +62,13 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                        <p className="text-tgray text-sm font-medium">
+                        <p className="text-sm font-medium text-tgray">
                             Tililab Connect
                         </p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Participant Management
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Review and manage Tililab participant inscriptions.
                             Videos are stored as external links.
                         </p>
@@ -75,7 +81,8 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                             className="gap-2"
                             onClick={() => {
                                 const params = new URLSearchParams();
-                                if (search?.trim()) params.set('search', search.trim());
+                                if (search?.trim())
+                                    params.set('search', search.trim());
                                 const qs = params.toString();
                                 window.location.href = `/admin/tililab/participants/export.csv${
                                     qs ? `?${qs}` : ''
@@ -94,9 +101,19 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <KpiCard icon={Users} label="Total participants" value={kpis?.total ?? 0} />
-                    <KpiCard label="New (last 7 days)" value={kpis?.last7Days ?? 0} />
-                    <KpiCard label="Current results" value={participants?.total ?? 0} />
+                    <KpiCard
+                        icon={Users}
+                        label="Total participants"
+                        value={kpis?.total ?? 0}
+                    />
+                    <KpiCard
+                        label="New (last 7 days)"
+                        value={kpis?.last7Days ?? 0}
+                    />
+                    <KpiCard
+                        label="Current results"
+                        value={participants?.total ?? 0}
+                    />
                 </div>
 
                 <form
@@ -104,7 +121,7 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                     className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-4"
                 >
                     <div className="relative min-w-0 flex-1">
-                        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
@@ -122,7 +139,9 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                             variant="outline"
                             onClick={() => {
                                 setSearch('');
-                                router.get('/admin/tililab/participants', { search: '' });
+                                router.get('/admin/tililab/participants', {
+                                    search: '',
+                                });
                             }}
                         >
                             Reset
@@ -130,23 +149,23 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                     </div>
                 </form>
 
-                <div className="border-border/70 overflow-hidden rounded-xl border bg-card shadow-sm">
+                <div className="overflow-hidden rounded-xl border border-border/70 bg-card shadow-sm">
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="text-tgray w-[32%] py-3 uppercase sm:px-3">
+                                <TableHead className="w-[32%] py-3 text-tgray uppercase sm:px-3">
                                     Participant
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Organization
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Country
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Submitted
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 text-right uppercase sm:px-3">
+                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">
                                     Actions
                                 </TableHead>
                             </TableRow>
@@ -156,7 +175,7 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                                 <TableRow>
                                     <TableCell
                                         colSpan={5}
-                                        className="text-tgray px-4 py-14 text-center text-sm sm:px-6"
+                                        className="px-4 py-14 text-center text-sm text-tgray sm:px-6"
                                     >
                                         No participants found.
                                     </TableCell>
@@ -166,7 +185,7 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                                     <TableRow key={p.id}>
                                         <TableCell className="py-4 sm:px-3">
                                             <div className="flex items-center gap-3">
-                                                <div className="bg-muted text-muted-foreground grid size-10 shrink-0 place-items-center rounded-full border border-border text-xs font-semibold">
+                                                <div className="grid size-10 shrink-0 place-items-center rounded-full border border-border bg-muted text-xs font-semibold text-muted-foreground">
                                                     {`${p.first_name ?? ''} ${p.last_name ?? ''}`
                                                         .trim()
                                                         .split(/\s+/)
@@ -177,10 +196,11 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                                                         .toUpperCase() || '—'}
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <div className="text-tblack truncate font-semibold">
-                                                        {p.first_name} {p.last_name}
+                                                    <div className="truncate font-semibold text-tblack">
+                                                        {p.first_name}{' '}
+                                                        {p.last_name}
                                                     </div>
-                                                    <div className="text-tgray truncate text-xs">
+                                                    <div className="truncate text-xs text-tgray">
                                                         {p.email ?? '—'}
                                                     </div>
                                                 </div>
@@ -194,18 +214,26 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                                                 {p.job_title ?? ''}
                                             </div>
                                         </TableCell>
-                                        <TableCell className="py-4 sm:px-3 text-sm text-foreground">
+                                        <TableCell className="py-4 text-sm text-foreground sm:px-3">
                                             {p.country ?? '—'}
                                         </TableCell>
-                                        <TableCell className="py-4 sm:px-3 text-sm text-foreground">
+                                        <TableCell className="py-4 text-sm text-foreground sm:px-3">
                                             {p.created_at
-                                                ? new Date(p.created_at).toLocaleString()
+                                                ? new Date(
+                                                      p.created_at,
+                                                  ).toLocaleString()
                                                 : '—'}
                                         </TableCell>
                                         <TableCell className="py-4 text-right sm:px-3">
                                             <div className="inline-flex items-center justify-end gap-2">
-                                                <Button asChild variant="outline" size="sm">
-                                                    <Link href={`/admin/tililab/participants/${p.id}`}>
+                                                <Button
+                                                    asChild
+                                                    variant="outline"
+                                                    size="sm"
+                                                >
+                                                    <Link
+                                                        href={`/admin/tililab/participants/${p.id}`}
+                                                    >
                                                         Details
                                                     </Link>
                                                 </Button>
@@ -240,7 +268,9 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                                                         ) {
                                                             router.delete(
                                                                 `/admin/tililab/participants/${p.id}`,
-                                                                { preserveScroll: true },
+                                                                {
+                                                                    preserveScroll: true,
+                                                                },
                                                             );
                                                         }
                                                     }}
@@ -257,24 +287,30 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                 </div>
 
                 {participants && participants.last_page > 1 ? (
-                    <div className="text-tgray flex flex-col items-center justify-between gap-3 text-sm sm:flex-row">
+                    <div className="flex flex-col items-center justify-between gap-3 text-sm text-tgray sm:flex-row">
                         <p>
-                            Showing {participants.from ?? 0} to {participants.to ?? 0}{' '}
-                            of {participants.total} results
+                            Showing {participants.from ?? 0} to{' '}
+                            {participants.to ?? 0} of {participants.total}{' '}
+                            results
                         </p>
-                        <nav className="flex flex-wrap items-center gap-1" aria-label="Pagination">
+                        <nav
+                            className="flex flex-wrap items-center gap-1"
+                            aria-label="Pagination"
+                        >
                             {links.map((link, i) =>
                                 link.url ? (
                                     <Link
                                         key={i}
                                         href={link.url}
                                         className={[
-                                            'border-border hover:bg-muted inline-flex min-w-9 items-center justify-center rounded-md border bg-card px-3 py-1.5 text-xs font-medium shadow-sm',
+                                            'inline-flex min-w-9 items-center justify-center rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium shadow-sm hover:bg-muted',
                                             link.active
-                                                ? 'bg-beta-blue border-beta-blue text-twhite'
+                                                ? 'border-beta-blue bg-beta-blue text-twhite'
                                                 : '',
                                         ].join(' ')}
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                     />
                                 ) : (
                                     <span
@@ -282,10 +318,12 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
                                         className={[
                                             'inline-flex min-w-9 items-center justify-center px-3 py-1.5 text-xs',
                                             link.active
-                                                ? 'border-beta-blue text-beta-blue font-semibold'
+                                                ? 'border-beta-blue font-semibold text-beta-blue'
                                                 : '',
                                         ].join(' ')}
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                     />
                                 ),
                             )}
@@ -298,4 +336,3 @@ export default function AdminTililabParticipantsIndex({ participants, filters, k
 }
 
 AdminTililabParticipantsIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
-

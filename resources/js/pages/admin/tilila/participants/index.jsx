@@ -19,13 +19,15 @@ function KpiCard({ icon: Icon, label, value }) {
         <div className="rounded-xl border border-border/70 bg-card p-5 shadow-sm">
             <div className="flex items-start justify-between gap-3">
                 <div>
-                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    <div className="text-xs font-semibold tracking-wide text-muted-foreground uppercase">
                         {label}
                     </div>
-                    <div className="mt-2 text-3xl font-bold text-foreground">{value ?? 0}</div>
+                    <div className="mt-2 text-3xl font-bold text-foreground">
+                        {value ?? 0}
+                    </div>
                 </div>
                 {Icon ? (
-                    <div className="text-muted-foreground rounded-lg border border-border bg-muted p-2">
+                    <div className="rounded-lg border border-border bg-muted p-2 text-muted-foreground">
                         <Icon className="size-5" />
                     </div>
                 ) : null}
@@ -34,14 +36,22 @@ function KpiCard({ icon: Icon, label, value }) {
     );
 }
 
-export default function AdminTililaSubmissionsIndex({ participants, filters, kpis }) {
+export default function AdminTililaSubmissionsIndex({
+    participants,
+    filters,
+    kpis,
+}) {
     const [search, setSearch] = useState(filters?.search ?? '');
     const data = participants?.data ?? [];
     const links = participants?.links ?? [];
 
     const submitSearch = (e) => {
         e.preventDefault();
-        router.get('/admin/tilila/participants', { search }, { preserveState: true, replace: true });
+        router.get(
+            '/admin/tilila/participants',
+            { search },
+            { preserveState: true, replace: true },
+        );
     };
 
     return (
@@ -51,12 +61,15 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                        <p className="text-tgray text-sm font-medium">Trophée Tilila</p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <p className="text-sm font-medium text-tgray">
+                            Trophée Tilila
+                        </p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Participation Submissions
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
-                            Manage participation forms submitted from the Tilila modal.
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
+                            Manage participation forms submitted from the Tilila
+                            modal.
                         </p>
                     </div>
 
@@ -67,7 +80,8 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                             className="gap-2"
                             onClick={() => {
                                 const params = new URLSearchParams();
-                                if (search?.trim()) params.set('search', search.trim());
+                                if (search?.trim())
+                                    params.set('search', search.trim());
                                 const qs = params.toString();
                                 window.location.href = `/admin/tilila/participants/export.csv${qs ? `?${qs}` : ''}`;
                             }}
@@ -82,14 +96,27 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                 </div>
 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <KpiCard icon={Users} label="Total submissions" value={kpis?.total ?? 0} />
-                    <KpiCard label="New (last 7 days)" value={kpis?.last7Days ?? 0} />
-                    <KpiCard label="Current results" value={participants?.total ?? 0} />
+                    <KpiCard
+                        icon={Users}
+                        label="Total submissions"
+                        value={kpis?.total ?? 0}
+                    />
+                    <KpiCard
+                        label="New (last 7 days)"
+                        value={kpis?.last7Days ?? 0}
+                    />
+                    <KpiCard
+                        label="Current results"
+                        value={participants?.total ?? 0}
+                    />
                 </div>
 
-                <form onSubmit={submitSearch} className="flex flex-col gap-4 lg:flex-row lg:items-center">
+                <form
+                    onSubmit={submitSearch}
+                    className="flex flex-col gap-4 lg:flex-row lg:items-center"
+                >
                     <div className="relative min-w-0 flex-1">
-                        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
@@ -107,7 +134,9 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                             variant="outline"
                             onClick={() => {
                                 setSearch('');
-                                router.get('/admin/tilila/participants', { search: '' });
+                                router.get('/admin/tilila/participants', {
+                                    search: '',
+                                });
                             }}
                         >
                             Reset
@@ -115,20 +144,20 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                     </div>
                 </form>
 
-                <div className="border-border/70 overflow-hidden rounded-xl border bg-card shadow-sm">
+                <div className="overflow-hidden rounded-xl border border-border/70 bg-card shadow-sm">
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="text-tgray w-[30%] py-3 uppercase sm:px-3">
+                                <TableHead className="w-[30%] py-3 text-tgray uppercase sm:px-3">
                                     Participant
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Submission
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Submitted
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 text-right uppercase sm:px-3">
+                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">
                                     Actions
                                 </TableHead>
                             </TableRow>
@@ -136,7 +165,10 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                         <TableBody>
                             {data.length === 0 ? (
                                 <TableRow>
-                                    <TableCell colSpan={4} className="py-14 text-center text-sm text-muted-foreground">
+                                    <TableCell
+                                        colSpan={4}
+                                        className="py-14 text-center text-sm text-muted-foreground"
+                                    >
                                         No submissions found.
                                     </TableCell>
                                 </TableRow>
@@ -161,13 +193,25 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                                                 {p.organization ?? ''}
                                             </div>
                                         </TableCell>
-                                        <TableCell className="py-4 sm:px-3 text-sm text-foreground">
-                                            {p.created_at ? new Date(p.created_at).toLocaleString() : '—'}
+                                        <TableCell className="py-4 text-sm text-foreground sm:px-3">
+                                            {p.created_at
+                                                ? new Date(
+                                                      p.created_at,
+                                                  ).toLocaleString()
+                                                : '—'}
                                         </TableCell>
-                                        <TableCell className="py-4 sm:px-3 text-right">
+                                        <TableCell className="py-4 text-right sm:px-3">
                                             <div className="inline-flex items-center justify-end gap-2">
-                                                <Button asChild size="sm" variant="outline">
-                                                    <Link href={`/admin/tilila/participants/${p.id}`}>Details</Link>
+                                                <Button
+                                                    asChild
+                                                    size="sm"
+                                                    variant="outline"
+                                                >
+                                                    <Link
+                                                        href={`/admin/tilila/participants/${p.id}`}
+                                                    >
+                                                        Details
+                                                    </Link>
                                                 </Button>
                                                 {p.submission_link ? (
                                                     <Button
@@ -176,7 +220,11 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                                                         variant="outline"
                                                         className="gap-2"
                                                         onClick={() =>
-                                                            window.open(p.submission_link, '_blank', 'noopener,noreferrer')
+                                                            window.open(
+                                                                p.submission_link,
+                                                                '_blank',
+                                                                'noopener,noreferrer',
+                                                            )
                                                         }
                                                     >
                                                         <ExternalLink className="size-4" />
@@ -189,8 +237,17 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                                                     variant="ghost"
                                                     className="text-alpha-danger"
                                                     onClick={() => {
-                                                        if (confirm('Delete this submission? This cannot be undone.')) {
-                                                            router.delete(`/admin/tilila/participants/${p.id}`, { preserveScroll: true });
+                                                        if (
+                                                            confirm(
+                                                                'Delete this submission? This cannot be undone.',
+                                                            )
+                                                        ) {
+                                                            router.delete(
+                                                                `/admin/tilila/participants/${p.id}`,
+                                                                {
+                                                                    preserveScroll: true,
+                                                                },
+                                                            );
                                                         }
                                                     }}
                                                 >
@@ -206,30 +263,43 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
                 </div>
 
                 {participants && participants.last_page > 1 ? (
-                    <div className="text-tgray flex flex-col items-center justify-between gap-3 text-sm sm:flex-row">
+                    <div className="flex flex-col items-center justify-between gap-3 text-sm text-tgray sm:flex-row">
                         <p>
-                            Showing {participants.from ?? 0} to {participants.to ?? 0} of {participants.total} results
+                            Showing {participants.from ?? 0} to{' '}
+                            {participants.to ?? 0} of {participants.total}{' '}
+                            results
                         </p>
-                        <nav className="flex flex-wrap items-center gap-1" aria-label="Pagination">
+                        <nav
+                            className="flex flex-wrap items-center gap-1"
+                            aria-label="Pagination"
+                        >
                             {links.map((link, i) =>
                                 link.url ? (
                                     <Link
                                         key={i}
                                         href={link.url}
                                         className={[
-                                            'border-border hover:bg-muted inline-flex min-w-9 items-center justify-center rounded-md border bg-card px-3 py-1.5 text-xs font-medium shadow-sm',
-                                            link.active ? 'bg-beta-blue border-beta-blue text-twhite' : '',
+                                            'inline-flex min-w-9 items-center justify-center rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium shadow-sm hover:bg-muted',
+                                            link.active
+                                                ? 'border-beta-blue bg-beta-blue text-twhite'
+                                                : '',
                                         ].join(' ')}
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                     />
                                 ) : (
                                     <span
                                         key={i}
                                         className={[
                                             'inline-flex min-w-9 items-center justify-center px-3 py-1.5 text-xs',
-                                            link.active ? 'border-beta-blue text-beta-blue font-semibold' : '',
+                                            link.active
+                                                ? 'border-beta-blue font-semibold text-beta-blue'
+                                                : '',
                                         ].join(' ')}
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                     />
                                 ),
                             )}
@@ -242,4 +312,3 @@ export default function AdminTililaSubmissionsIndex({ participants, filters, kpi
 }
 
 AdminTililaSubmissionsIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
-

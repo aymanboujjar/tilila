@@ -14,7 +14,10 @@ export default function AuthSidebarLayout({
     return (
         <AppShell variant="sidebar">
             <AuthSidebar />
-            <AppContent variant="sidebar" className="bg-beta-white overflow-x-hidden">
+            <AppContent
+                variant="sidebar"
+                className="overflow-x-hidden bg-beta-white"
+            >
                 <header className="flex h-14 shrink-0 items-center gap-2 border-b border-sidebar-border/50 px-4 lg:hidden">
                     <SidebarTrigger className="-ml-1" />
                 </header>
@@ -23,12 +26,12 @@ export default function AuthSidebarLayout({
                         {(title || description) && (
                             <div className="text-center">
                                 {title ? (
-                                    <h1 className="text-tblack text-2xl font-semibold tracking-tight">
+                                    <h1 className="text-2xl font-semibold tracking-tight text-tblack">
                                         {title}
                                     </h1>
                                 ) : null}
                                 {description ? (
-                                    <p className="text-tgray mt-2 text-sm leading-relaxed">
+                                    <p className="mt-2 text-sm leading-relaxed text-tgray">
                                         {description}
                                     </p>
                                 ) : null}

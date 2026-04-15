@@ -34,7 +34,12 @@ const platformLinks = [
 const initiativesLinks = [
     { en: 'Tililab', fr: 'Tililab', ar: 'تيليلاب', href: '/tililab' },
     { en: 'Tilila', fr: 'Tilila', ar: 'تيليلا', href: '/tilila' },
-    { en: 'Opportunities', fr: 'Opportunités', ar: 'الفرص', href: '/opportunities' },
+    {
+        en: 'Opportunities',
+        fr: 'Opportunités',
+        ar: 'الفرص',
+        href: '/opportunities',
+    },
 ];
 
 export default function Footer() {

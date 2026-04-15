@@ -64,11 +64,11 @@ export default function AdminMediaIndex({
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                        <p className="text-tgray text-sm font-medium">Media</p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <p className="text-sm font-medium text-tgray">Media</p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Media Management
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Manage articles, replays, and resources. Sidebar
                             topics, links, and expert spotlight can be set per
                             item on create/edit; the global sidebar applies to
@@ -96,7 +96,10 @@ export default function AdminMediaIndex({
                                 if (filters?.status)
                                     params.set('status', filters.status);
                                 if (filters?.visibility)
-                                    params.set('visibility', filters.visibility);
+                                    params.set(
+                                        'visibility',
+                                        filters.visibility,
+                                    );
                                 const qs = params.toString();
                                 window.location.href = `/admin/media/export.csv${
                                     qs ? `?${qs}` : ''
@@ -108,7 +111,7 @@ export default function AdminMediaIndex({
                         </Button>
                         <Button
                             asChild
-                            className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-2"
+                            className="gap-2 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                         >
                             <Link href="/admin/media/create">
                                 <Plus className="size-4" />
@@ -123,7 +126,7 @@ export default function AdminMediaIndex({
                     className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-4"
                 >
                     <div className="relative min-w-0 flex-1">
-                        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
@@ -149,7 +152,7 @@ export default function AdminMediaIndex({
                                 )
                             }
                             className={cn(
-                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                'flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                             )}
                         >
                             <option value="">All categories</option>
@@ -175,7 +178,7 @@ export default function AdminMediaIndex({
                                 )
                             }
                             className={cn(
-                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                'flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                             )}
                         >
                             <option value="">All statuses</option>
@@ -201,7 +204,7 @@ export default function AdminMediaIndex({
                                 )
                             }
                             className={cn(
-                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                'flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                             )}
                         >
                             <option value="">All visibilities</option>
@@ -218,23 +221,23 @@ export default function AdminMediaIndex({
                     </div>
                 </form>
 
-                <div className="border-border/70 overflow-hidden rounded-xl border bg-card p-4 shadow-sm sm:p-6">
+                <div className="overflow-hidden rounded-xl border border-border/70 bg-card p-4 shadow-sm sm:p-6">
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="text-tgray w-[42%] py-3 uppercase sm:px-3">
+                                <TableHead className="w-[42%] py-3 text-tgray uppercase sm:px-3">
                                     Title
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Category
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Visibility
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Status
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 text-right uppercase sm:px-3">
+                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">
                                     Action
                                 </TableHead>
                             </TableRow>
@@ -245,7 +248,7 @@ export default function AdminMediaIndex({
                                 <TableRow>
                                     <TableCell
                                         colSpan={5}
-                                        className="text-muted-foreground py-10 text-center"
+                                        className="py-10 text-center text-muted-foreground"
                                     >
                                         No media items found.
                                     </TableCell>
@@ -291,15 +294,21 @@ export default function AdminMediaIndex({
                                                 variant="outline"
                                                 className={cn(
                                                     'capitalize',
-                                                    statusBadgeClass(item.status),
+                                                    statusBadgeClass(
+                                                        item.status,
+                                                    ),
                                                 )}
                                             >
                                                 {item.status ?? '—'}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell className="sm:px-3 text-right">
+                                        <TableCell className="text-right sm:px-3">
                                             <div className="flex justify-end gap-2">
-                                                <Button asChild variant="outline" size="sm">
+                                                <Button
+                                                    asChild
+                                                    variant="outline"
+                                                    size="sm"
+                                                >
                                                     <Link
                                                         href={`/admin/media/${mediaRouteKey(item)}`}
                                                     >
@@ -327,4 +336,3 @@ export default function AdminMediaIndex({
 }
 
 AdminMediaIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
-

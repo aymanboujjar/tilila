@@ -45,14 +45,14 @@ export function UserInfo({
                 <span
                     className={
                         isSidebar
-                            ? 'text-twhite truncate font-medium'
+                            ? 'truncate font-medium text-twhite'
                             : 'truncate font-medium'
                     }
                 >
                     {user.name}
                 </span>
                 {isSidebar && roleLabel ? (
-                    <span className="text-sidebar-foreground/60 truncate text-xs">
+                    <span className="truncate text-xs text-sidebar-foreground/60">
                         {roleLabel}
                     </span>
                 ) : null}
@@ -60,8 +60,8 @@ export function UserInfo({
                     <span
                         className={
                             isSidebar
-                                ? 'text-sidebar-foreground/70 truncate text-xs'
-                                : 'text-muted-foreground truncate text-xs'
+                                ? 'truncate text-xs text-sidebar-foreground/70'
+                                : 'truncate text-xs text-muted-foreground'
                         }
                     >
                         {user.email}

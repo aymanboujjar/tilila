@@ -241,10 +241,11 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                 setError(serverErrors);
                 const keys = Object.keys(serverErrors ?? {});
                 const has = (prefix) =>
-                    keys.some((k) => k === prefix || k.startsWith(`${prefix}.`));
+                    keys.some(
+                        (k) => k === prefix || k.startsWith(`${prefix}.`),
+                    );
 
-                const step1 =
-                    has('name') || has('title') || has('tags');
+                const step1 = has('name') || has('title') || has('tags');
                 const step2 =
                     has('country') ||
                     has('status') ||
@@ -253,9 +254,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                     has('location') ||
                     has('badge');
                 const step3 =
-                    has('email') ||
-                    has('profile_image') ||
-                    has('remove_image');
+                    has('email') || has('profile_image') || has('remove_image');
 
                 setStep(step1 ? 1 : step2 ? 2 : step3 ? 3 : 4);
                 setStepError('Please fix the highlighted fields.');
@@ -270,15 +269,15 @@ export default function AdminExpertsCreate({ statuses = [] }) {
             <Head title="Add expert" />
 
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
-                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-start sm:justify-between sm:pb-8">
                     <div>
-                        <p className="text-tgray text-sm font-medium">
+                        <p className="text-sm font-medium text-tgray">
                             Experts Directory
                         </p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Add expert
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Work through each step. You can go back anytime.
                         </p>
                     </div>
@@ -294,10 +293,13 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                             const isActive = step === s.id;
                             const isDone = step > s.id;
                             return (
-                                <li key={s.id} className="flex min-w-0 flex-1 items-center gap-2">
+                                <li
+                                    key={s.id}
+                                    className="flex min-w-0 flex-1 items-center gap-2"
+                                >
                                     {index > 0 ? (
                                         <div
-                                            className="bg-border mx-1 hidden h-px w-4 shrink-0 sm:block"
+                                            className="mx-1 hidden h-px w-4 shrink-0 bg-border sm:block"
                                             aria-hidden
                                         />
                                     ) : null}
@@ -307,7 +309,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                         className={cn(
                                             'flex min-w-0 flex-1 items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors sm:min-w-[140px]',
                                             isActive &&
-                                                'border-beta-blue bg-beta-blue/10 ring-beta-blue/30 ring-2',
+                                                'border-beta-blue bg-beta-blue/10 ring-2 ring-beta-blue/30',
                                             !isActive &&
                                                 !isDone &&
                                                 'border-border bg-card hover:bg-muted/60',
@@ -332,10 +334,10 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                             {isDone ? '✓' : s.id}
                                         </span>
                                         <span className="min-w-0">
-                                            <span className="text-tblack block truncate text-sm font-semibold">
+                                            <span className="block truncate text-sm font-semibold text-tblack">
                                                 {s.title}
                                             </span>
-                                            <span className="text-tgray block truncate text-xs">
+                                            <span className="block truncate text-xs text-tgray">
                                                 {s.short}
                                             </span>
                                         </span>
@@ -350,7 +352,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                     {step < 4 ? (
                         <Card>
                             <CardHeader className="px-5 sm:px-8">
-                                <p className="text-beta-blue mb-1 text-xs font-semibold uppercase tracking-wide">
+                                <p className="mb-1 text-xs font-semibold tracking-wide text-beta-blue uppercase">
                                     Step {step} of {TOTAL_STEPS}
                                 </p>
                                 <CardTitle>{current.title}</CardTitle>
@@ -361,245 +363,276 @@ export default function AdminExpertsCreate({ statuses = [] }) {
 
                             {step === 1 ? (
                                 <CardContent className="space-y-4 px-5 sm:px-8">
-                                <div className="grid gap-4 sm:grid-cols-2">
-                                    {['en', 'fr', 'ar'].map((lang) => (
-                                        <div key={lang} className="space-y-2">
-                                            <Label htmlFor={`name-${lang}`}>
-                                                Name ({lang.toUpperCase()})
-                                                {lang === 'en' ? ' *' : ''}
+                                    <div className="grid gap-4 sm:grid-cols-2">
+                                        {['en', 'fr', 'ar'].map((lang) => (
+                                            <div
+                                                key={lang}
+                                                className="space-y-2"
+                                            >
+                                                <Label htmlFor={`name-${lang}`}>
+                                                    Name ({lang.toUpperCase()})
+                                                    {lang === 'en' ? ' *' : ''}
+                                                </Label>
+                                                <Input
+                                                    id={`name-${lang}`}
+                                                    value={data.name[lang]}
+                                                    onChange={(e) =>
+                                                        setData('name', {
+                                                            ...data.name,
+                                                            [lang]: e.target
+                                                                .value,
+                                                        })
+                                                    }
+                                                />
+                                                <InputError
+                                                    message={
+                                                        errors[`name.${lang}`]
+                                                    }
+                                                />
+                                            </div>
+                                        ))}
+                                        {['en', 'fr', 'ar'].map((lang) => (
+                                            <div
+                                                key={lang}
+                                                className="space-y-2"
+                                            >
+                                                <Label
+                                                    htmlFor={`title-${lang}`}
+                                                >
+                                                    Title ({lang.toUpperCase()})
+                                                    {lang === 'en' ? ' *' : ''}
+                                                </Label>
+                                                <Input
+                                                    id={`title-${lang}`}
+                                                    value={data.title[lang]}
+                                                    onChange={(e) =>
+                                                        setData('title', {
+                                                            ...data.title,
+                                                            [lang]: e.target
+                                                                .value,
+                                                        })
+                                                    }
+                                                />
+                                                <InputError
+                                                    message={
+                                                        errors[`title.${lang}`]
+                                                    }
+                                                />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </CardContent>
+                            ) : null}
+
+                            {step === 2 ? (
+                                <CardContent className="space-y-4 px-5 sm:px-8">
+                                    <div className="grid gap-4 sm:grid-cols-2">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="country">
+                                                Country
                                             </Label>
                                             <Input
-                                                id={`name-${lang}`}
-                                                value={data.name[lang]}
+                                                id="country"
+                                                value={data.country}
                                                 onChange={(e) =>
-                                                    setData('name', {
-                                                        ...data.name,
-                                                        [lang]: e.target.value,
-                                                    })
+                                                    setData(
+                                                        'country',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="Morocco"
+                                                maxLength={255}
+                                            />
+                                            <InputError
+                                                message={errors.country}
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="status">
+                                                Status
+                                            </Label>
+                                            <select
+                                                id="status"
+                                                value={data.status}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'status',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                className={cn(
+                                                    'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
+                                                )}
+                                            >
+                                                {statuses.map((st) => (
+                                                    <option key={st} value={st}>
+                                                        {st}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <InputError
+                                                message={errors.status}
+                                            />
+                                        </div>
+                                        <div className="space-y-2 sm:col-span-2">
+                                            <Label htmlFor="industriesStr">
+                                                Industries (comma-separated)
+                                            </Label>
+                                            <Input
+                                                id="industriesStr"
+                                                value={data.industriesStr}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'industriesStr',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="economics, technology"
+                                            />
+                                            <InputError
+                                                message={errors.industries}
+                                            />
+                                        </div>
+                                        <div className="space-y-2 sm:col-span-2">
+                                            <Label htmlFor="languagesStr">
+                                                Languages (comma-separated)
+                                            </Label>
+                                            <Input
+                                                id="languagesStr"
+                                                value={data.languagesStr}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'languagesStr',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="en, fr, ar"
+                                            />
+                                            <InputError
+                                                message={errors.languages}
+                                            />
+                                        </div>
+                                        <div className="space-y-2 sm:col-span-2">
+                                            <Label htmlFor="location">
+                                                Location
+                                            </Label>
+                                            <Input
+                                                id="location"
+                                                value={data.location}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'location',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="City, region"
+                                            />
+                                            <InputError
+                                                message={errors.location}
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="badge">Badge</Label>
+                                            <Input
+                                                id="badge"
+                                                value={data.badge}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'badge',
+                                                        e.target.value,
+                                                    )
+                                                }
+                                                placeholder="Available"
+                                            />
+                                            <InputError
+                                                message={errors.badge}
+                                            />
+                                        </div>
+                                    </div>
+                                </CardContent>
+                            ) : null}
+
+                            {step === 3 ? (
+                                <CardContent className="space-y-4 px-5 sm:px-8">
+                                    <div className="grid gap-4 sm:grid-cols-2">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="email">Email</Label>
+                                            <Input
+                                                id="email"
+                                                type="email"
+                                                value={data.email}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        'email',
+                                                        e.target.value,
+                                                    )
                                                 }
                                             />
                                             <InputError
-                                                message={
-                                                    errors[`name.${lang}`]
-                                                }
+                                                message={errors.email}
                                             />
                                         </div>
-                                    ))}
-                                    {['en', 'fr', 'ar'].map((lang) => (
-                                        <div key={lang} className="space-y-2">
-                                            <Label htmlFor={`title-${lang}`}>
-                                                Title ({lang.toUpperCase()})
-                                                {lang === 'en' ? ' *' : ''}
+                                        <div className="space-y-2 sm:col-span-2">
+                                            <Label htmlFor="profile_image">
+                                                Profile image
                                             </Label>
-                                            <Input
-                                                id={`title-${lang}`}
-                                                value={data.title[lang]}
-                                                onChange={(e) =>
-                                                    setData('title', {
-                                                        ...data.title,
-                                                        [lang]: e.target.value,
-                                                    })
-                                                }
-                                            />
-                                            <InputError
-                                                message={
-                                                    errors[`title.${lang}`]
-                                                }
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            </CardContent>
-                        ) : null}
-
-                        {step === 2 ? (
-                            <CardContent className="space-y-4 px-5 sm:px-8">
-                                <div className="grid gap-4 sm:grid-cols-2">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="country">
-                                            Country
-                                        </Label>
-                                        <Input
-                                            id="country"
-                                            value={data.country}
-                                            onChange={(e) =>
-                                                setData(
-                                                    'country',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            placeholder="Morocco"
-                                            maxLength={255}
-                                        />
-                                        <InputError message={errors.country} />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="status">Status</Label>
-                                        <select
-                                            id="status"
-                                            value={data.status}
-                                            onChange={(e) =>
-                                                setData(
-                                                    'status',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            className={cn(
-                                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-                                            )}
-                                        >
-                                            {statuses.map((st) => (
-                                                <option key={st} value={st}>
-                                                    {st}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <InputError message={errors.status} />
-                                    </div>
-                                    <div className="space-y-2 sm:col-span-2">
-                                        <Label htmlFor="industriesStr">
-                                            Industries (comma-separated)
-                                        </Label>
-                                        <Input
-                                            id="industriesStr"
-                                            value={data.industriesStr}
-                                            onChange={(e) =>
-                                                setData(
-                                                    'industriesStr',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            placeholder="economics, technology"
-                                        />
-                                        <InputError
-                                            message={errors.industries}
-                                        />
-                                    </div>
-                                    <div className="space-y-2 sm:col-span-2">
-                                        <Label htmlFor="languagesStr">
-                                            Languages (comma-separated)
-                                        </Label>
-                                        <Input
-                                            id="languagesStr"
-                                            value={data.languagesStr}
-                                            onChange={(e) =>
-                                                setData(
-                                                    'languagesStr',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            placeholder="en, fr, ar"
-                                        />
-                                        <InputError
-                                            message={errors.languages}
-                                        />
-                                    </div>
-                                    <div className="space-y-2 sm:col-span-2">
-                                        <Label htmlFor="location">
-                                            Location
-                                        </Label>
-                                        <Input
-                                            id="location"
-                                            value={data.location}
-                                            onChange={(e) =>
-                                                setData(
-                                                    'location',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            placeholder="City, region"
-                                        />
-                                        <InputError
-                                            message={errors.location}
-                                        />
-                                    </div>
-                                    <div className="space-y-2">
-                                        <Label htmlFor="badge">Badge</Label>
-                                        <Input
-                                            id="badge"
-                                            value={data.badge}
-                                            onChange={(e) =>
-                                                setData(
-                                                    'badge',
-                                                    e.target.value,
-                                                )
-                                            }
-                                            placeholder="Available"
-                                        />
-                                        <InputError message={errors.badge} />
-                                    </div>
-                                </div>
-                            </CardContent>
-                        ) : null}
-
-                        {step === 3 ? (
-                            <CardContent className="space-y-4 px-5 sm:px-8">
-                                <div className="grid gap-4 sm:grid-cols-2">
-                                    <div className="space-y-2">
-                                        <Label htmlFor="email">Email</Label>
-                                        <Input
-                                            id="email"
-                                            type="email"
-                                            value={data.email}
-                                            onChange={(e) =>
-                                                setData('email', e.target.value)
-                                            }
-                                        />
-                                        <InputError message={errors.email} />
-                                    </div>
-                                    <div className="space-y-2 sm:col-span-2">
-                                        <Label htmlFor="profile_image">
-                                            Profile image
-                                        </Label>
-                                        <div className="flex flex-wrap items-start gap-4">
-                                            {avatarPreviewUrl ? (
-                                                <div className="border-border bg-muted relative size-24 shrink-0 overflow-hidden rounded-full border">
-                                                    <img
-                                                        src={avatarPreviewUrl}
-                                                        alt=""
-                                                        className="size-full object-cover"
+                                            <div className="flex flex-wrap items-start gap-4">
+                                                {avatarPreviewUrl ? (
+                                                    <div className="relative size-24 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
+                                                        <img
+                                                            src={
+                                                                avatarPreviewUrl
+                                                            }
+                                                            alt=""
+                                                            className="size-full object-cover"
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div className="flex size-24 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-xs text-muted-foreground">
+                                                        No image
+                                                    </div>
+                                                )}
+                                                <div className="flex min-w-0 flex-1 flex-col gap-2">
+                                                    <input
+                                                        ref={avatarFileInputRef}
+                                                        id="profile_image"
+                                                        name="profile_image"
+                                                        type="file"
+                                                        accept="image/jpeg,image/png,image/webp,image/gif"
+                                                        className={cn(
+                                                            'flex h-10 w-full max-w-md cursor-pointer rounded-md border border-input bg-background px-3 py-1.5 text-sm shadow-xs ring-offset-background file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
+                                                        )}
+                                                        onChange={
+                                                            handleAvatarFileChange
+                                                        }
+                                                    />
+                                                    {avatarPreviewUrl ? (
+                                                        <Button
+                                                            type="button"
+                                                            variant="outline"
+                                                            size="sm"
+                                                            className="w-fit"
+                                                            onClick={
+                                                                clearAvatarFile
+                                                            }
+                                                        >
+                                                            Remove image
+                                                        </Button>
+                                                    ) : null}
+                                                    <p className="text-xs text-muted-foreground">
+                                                        Max 5&nbsp;MB. JPEG,
+                                                        PNG, WebP, or GIF.
+                                                    </p>
+                                                    <InputError
+                                                        message={
+                                                            errors.profile_image
+                                                        }
                                                     />
                                                 </div>
-                                            ) : (
-                                                <div className="border-border bg-muted text-muted-foreground flex size-24 shrink-0 items-center justify-center rounded-full border text-xs">
-                                                    No image
-                                                </div>
-                                            )}
-                                            <div className="flex min-w-0 flex-1 flex-col gap-2">
-                                                <input
-                                                    ref={avatarFileInputRef}
-                                                    id="profile_image"
-                                                    name="profile_image"
-                                                    type="file"
-                                                    accept="image/jpeg,image/png,image/webp,image/gif"
-                                                    className={cn(
-                                                        'border-input bg-background ring-offset-background focus-visible:ring-ring file:text-foreground flex h-10 w-full max-w-md cursor-pointer rounded-md border px-3 py-1.5 text-sm shadow-xs file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
-                                                    )}
-                                                    onChange={handleAvatarFileChange}
-                                                />
-                                                {avatarPreviewUrl ? (
-                                                    <Button
-                                                        type="button"
-                                                        variant="outline"
-                                                        size="sm"
-                                                        className="w-fit"
-                                                        onClick={clearAvatarFile}
-                                                    >
-                                                        Remove image
-                                                    </Button>
-                                                ) : null}
-                                                <p className="text-muted-foreground text-xs">
-                                                    Max 5&nbsp;MB. JPEG, PNG,
-                                                    WebP, or GIF.
-                                                </p>
-                                                <InputError
-                                                    message={errors.profile_image}
-                                                />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </CardContent>
+                                </CardContent>
                             ) : null}
                         </Card>
                     ) : (
@@ -611,7 +644,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
 
                     {stepError ? (
                         <p
-                            className="text-destructive text-sm font-medium"
+                            className="text-sm font-medium text-destructive"
                             role="alert"
                         >
                             {stepError}
@@ -638,7 +671,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                 <Button
                                     type="button"
                                     onClick={goNext}
-                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-1"
+                                    className="gap-1 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 >
                                     Next
                                     <ChevronRight className="size-4" />
@@ -647,7 +680,7 @@ export default function AdminExpertsCreate({ statuses = [] }) {
                                 <Button
                                     type="submit"
                                     disabled={processing}
-                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                    className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 >
                                     {processing ? 'Saving…' : 'Create expert'}
                                 </Button>

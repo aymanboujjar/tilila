@@ -30,8 +30,7 @@ const rows = [
     {
         activity: 'Annual Diversity Awards',
         module: 'Trophée',
-        moduleClass:
-            'border-alpha-yellow/40 bg-beta-yellow text-alpha-yellow',
+        moduleClass: 'border-alpha-yellow/40 bg-beta-yellow text-alpha-yellow',
         metric: '50 Nominees',
         date: 'Oct 21, 2023',
         status: 'In Progress' as const,
@@ -59,22 +58,22 @@ export function RecentImpactActivities() {
     return (
         <section className="space-y-4">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-                <h2 className="text-tblack text-lg font-semibold">
+                <h2 className="text-lg font-semibold text-tblack">
                     Recent Impact Activities
                 </h2>
                 <Button
                     type="button"
                     variant="link"
-                    className="text-beta-blue h-auto p-0"
+                    className="h-auto p-0 text-beta-blue"
                 >
                     View Full Log
                 </Button>
             </div>
-            <div className="border-border/70 overflow-hidden rounded-xl border bg-card shadow-sm">
+            <div className="overflow-hidden rounded-xl border border-border/70 bg-card shadow-sm">
                 <Table>
                     <TableHeader>
                         <TableRow className="hover:bg-transparent">
-                            <TableHead className="text-tgray w-[28%] uppercase">
+                            <TableHead className="w-[28%] text-tgray uppercase">
                                 Activity
                             </TableHead>
                             <TableHead className="text-tgray uppercase">
@@ -86,7 +85,7 @@ export function RecentImpactActivities() {
                             <TableHead className="text-tgray uppercase">
                                 Date
                             </TableHead>
-                            <TableHead className="text-tgray text-right uppercase">
+                            <TableHead className="text-right text-tgray uppercase">
                                 Status
                             </TableHead>
                         </TableRow>
@@ -94,7 +93,7 @@ export function RecentImpactActivities() {
                     <TableBody>
                         {rows.map((row) => (
                             <TableRow key={row.activity}>
-                                <TableCell className="text-tblack font-medium">
+                                <TableCell className="font-medium text-tblack">
                                     {row.activity}
                                 </TableCell>
                                 <TableCell>

@@ -150,11 +150,7 @@ export default function Navbar() {
                                     : 'text-tgray hover:text-tblack',
                             ].join(' ')}
                         >
-                            <TransText
-                                en={item.en}
-                                fr={item.fr}
-                                ar={item.ar}
-                            />
+                            <TransText en={item.en} fr={item.fr} ar={item.ar} />
                             {isActiveHref(item.href) ? (
                                 <span
                                     aria-hidden="true"

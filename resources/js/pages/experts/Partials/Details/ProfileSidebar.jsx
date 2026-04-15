@@ -94,10 +94,7 @@ export default function ProfileSidebar({ expert, details }) {
                             ))}
                     </div>
 
-                    {linkedin ||
-                    twitter ||
-                    instagram ||
-                    email ? (
+                    {linkedin || twitter || instagram || email ? (
                         <div className="mt-4 flex flex-wrap items-center gap-2">
                             {linkedin ? (
                                 <a
@@ -202,9 +199,7 @@ export default function ProfileSidebar({ expert, details }) {
             </div>
 
             {details?.quote &&
-            (details.quote.en ||
-                details.quote.fr ||
-                details.quote.ar) ? (
+            (details.quote.en || details.quote.fr || details.quote.ar) ? (
                 <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
                     <div className="text-2xl font-extrabold text-beta-blue">
                         “

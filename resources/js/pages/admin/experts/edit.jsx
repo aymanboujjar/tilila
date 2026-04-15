@@ -61,7 +61,9 @@ function normalizeDetails(raw) {
         },
         expertise: Array.isArray(d.expertise) ? d.expertise : e.expertise,
         journey: Array.isArray(d.journey) ? d.journey : e.journey,
-        appearances: Array.isArray(d.appearances) ? d.appearances : e.appearances,
+        appearances: Array.isArray(d.appearances)
+            ? d.appearances
+            : e.appearances,
         articles: Array.isArray(d.articles) ? d.articles : e.articles,
     };
 }
@@ -297,8 +299,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                             (k) => k === prefix || k.startsWith(`${prefix}.`),
                         );
 
-                    const step1 =
-                        has('name') || has('title') || has('tags');
+                    const step1 = has('name') || has('title') || has('tags');
                     const step2 =
                         has('country') ||
                         has('status') ||
@@ -325,15 +326,15 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
             <Head title={`Edit ${expert.name?.en ?? 'expert'}`} />
 
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
-                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-start sm:justify-between sm:pb-8">
                     <div>
-                        <p className="text-tgray text-sm font-medium">
+                        <p className="text-sm font-medium text-tgray">
                             Experts Directory
                         </p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Edit expert
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             {expert.name?.en} — work through each step. You can
                             go back anytime.
                         </p>
@@ -364,7 +365,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                 >
                                     {index > 0 ? (
                                         <div
-                                            className="bg-border mx-1 hidden h-px w-4 shrink-0 sm:block"
+                                            className="mx-1 hidden h-px w-4 shrink-0 bg-border sm:block"
                                             aria-hidden
                                         />
                                     ) : null}
@@ -374,7 +375,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                         className={cn(
                                             'flex min-w-0 flex-1 items-center gap-3 rounded-lg border px-3 py-2.5 text-left transition-colors sm:min-w-[140px]',
                                             isActive &&
-                                                'border-beta-blue bg-beta-blue/10 ring-beta-blue/30 ring-2',
+                                                'border-beta-blue bg-beta-blue/10 ring-2 ring-beta-blue/30',
                                             !isActive &&
                                                 !isDone &&
                                                 'border-border bg-card hover:bg-muted/60',
@@ -399,10 +400,10 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                             {isDone ? '✓' : s.id}
                                         </span>
                                         <span className="min-w-0">
-                                            <span className="text-tblack block truncate text-sm font-semibold">
+                                            <span className="block truncate text-sm font-semibold text-tblack">
                                                 {s.title}
                                             </span>
-                                            <span className="text-tgray block truncate text-xs">
+                                            <span className="block truncate text-xs text-tgray">
                                                 {s.short}
                                             </span>
                                         </span>
@@ -417,7 +418,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                     {step < 4 ? (
                         <Card>
                             <CardHeader className="px-5 sm:px-8">
-                                <p className="text-beta-blue mb-1 text-xs font-semibold uppercase tracking-wide">
+                                <p className="mb-1 text-xs font-semibold tracking-wide text-beta-blue uppercase">
                                     Step {step} of {TOTAL_STEPS}
                                 </p>
                                 <CardTitle>{current.title}</CardTitle>
@@ -430,7 +431,10 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                 <CardContent className="space-y-4 px-5 sm:px-8">
                                     <div className="grid gap-4 sm:grid-cols-2">
                                         {['en', 'fr', 'ar'].map((lang) => (
-                                            <div key={lang} className="space-y-2">
+                                            <div
+                                                key={lang}
+                                                className="space-y-2"
+                                            >
                                                 <Label htmlFor={`name-${lang}`}>
                                                     Name ({lang.toUpperCase()})
                                                     {lang === 'en' ? ' *' : ''}
@@ -454,7 +458,10 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                             </div>
                                         ))}
                                         {['en', 'fr', 'ar'].map((lang) => (
-                                            <div key={lang} className="space-y-2">
+                                            <div
+                                                key={lang}
+                                                className="space-y-2"
+                                            >
                                                 <Label
                                                     htmlFor={`title-${lang}`}
                                                 >
@@ -474,9 +481,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                 />
                                                 <InputError
                                                     message={
-                                                        errors[
-                                                            `title.${lang}`
-                                                        ]
+                                                        errors[`title.${lang}`]
                                                     }
                                                 />
                                             </div>
@@ -522,7 +527,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                     )
                                                 }
                                                 className={cn(
-                                                    'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                                    'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                                 )}
                                             >
                                                 {statuses.map((st) => (
@@ -605,7 +610,9 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                 }
                                                 placeholder="Available"
                                             />
-                                            <InputError message={errors.badge} />
+                                            <InputError
+                                                message={errors.badge}
+                                            />
                                         </div>
                                     </div>
                                 </CardContent>
@@ -627,7 +634,9 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                     )
                                                 }
                                             />
-                                            <InputError message={errors.email} />
+                                            <InputError
+                                                message={errors.email}
+                                            />
                                         </div>
                                         <div className="space-y-2 sm:col-span-2">
                                             <Label htmlFor="profile_image">
@@ -635,15 +644,17 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                             </Label>
                                             <div className="flex flex-wrap items-start gap-4">
                                                 {displayAvatarSrc ? (
-                                                    <div className="border-border bg-muted relative size-24 shrink-0 overflow-hidden rounded-full border">
+                                                    <div className="relative size-24 shrink-0 overflow-hidden rounded-full border border-border bg-muted">
                                                         <img
-                                                            src={displayAvatarSrc}
+                                                            src={
+                                                                displayAvatarSrc
+                                                            }
                                                             alt=""
                                                             className="size-full object-cover"
                                                         />
                                                     </div>
                                                 ) : (
-                                                    <div className="border-border bg-muted text-muted-foreground flex size-24 shrink-0 items-center justify-center rounded-full border text-xs">
+                                                    <div className="flex size-24 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-xs text-muted-foreground">
                                                         No image
                                                     </div>
                                                 )}
@@ -655,7 +666,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                         type="file"
                                                         accept="image/jpeg,image/png,image/webp,image/gif"
                                                         className={cn(
-                                                            'border-input bg-background ring-offset-background focus-visible:ring-ring file:text-foreground flex h-10 w-full max-w-md cursor-pointer rounded-md border px-3 py-1.5 text-sm shadow-xs file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                                            'flex h-10 w-full max-w-md cursor-pointer rounded-md border border-input bg-background px-3 py-1.5 text-sm shadow-xs ring-offset-background file:mr-3 file:rounded-md file:border-0 file:bg-secondary file:px-3 file:py-1.5 file:text-sm file:font-medium file:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                                         )}
                                                         onChange={
                                                             handleAvatarFileChange
@@ -665,11 +676,13 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                         <label className="flex cursor-pointer items-center gap-2 text-sm">
                                                             <input
                                                                 type="checkbox"
-                                                                className="border-input size-4 rounded"
+                                                                className="size-4 rounded border-input"
                                                                 checked={
                                                                     data.remove_image
                                                                 }
-                                                                onChange={(e) => {
+                                                                onChange={(
+                                                                    e,
+                                                                ) => {
                                                                     const checked =
                                                                         e.target
                                                                             .checked;
@@ -677,7 +690,9 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                                         'remove_image',
                                                                         checked,
                                                                     );
-                                                                    if (checked) {
+                                                                    if (
+                                                                        checked
+                                                                    ) {
                                                                         if (
                                                                             avatarFileInputRef.current
                                                                         ) {
@@ -703,8 +718,8 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                                     }
                                                                 }}
                                                             />
-                                                            Remove current profile
-                                                            photo
+                                                            Remove current
+                                                            profile photo
                                                         </label>
                                                     ) : null}
                                                     {data.profile_image instanceof
@@ -721,7 +736,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                                             Clear new image
                                                         </Button>
                                                     ) : null}
-                                                    <p className="text-muted-foreground text-xs">
+                                                    <p className="text-xs text-muted-foreground">
                                                         Max 5&nbsp;MB. JPEG,
                                                         PNG, WebP, or GIF.
                                                     </p>
@@ -746,7 +761,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
 
                     {stepError ? (
                         <p
-                            className="text-destructive text-sm font-medium"
+                            className="text-sm font-medium text-destructive"
                             role="alert"
                         >
                             {stepError}
@@ -773,7 +788,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                 <Button
                                     type="button"
                                     onClick={goNext}
-                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-1"
+                                    className="gap-1 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 >
                                     Next
                                     <ChevronRight className="size-4" />
@@ -782,7 +797,7 @@ export default function AdminExpertsEdit({ expert, statuses = [] }) {
                                 <Button
                                     type="submit"
                                     disabled={processing}
-                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                    className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 >
                                     {processing ? 'Saving…' : 'Save changes'}
                                 </Button>

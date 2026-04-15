@@ -69,13 +69,13 @@ export default function AdminOpportunitiesIndex({
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                        <p className="text-tgray text-sm font-medium">
+                        <p className="text-sm font-medium text-tgray">
                             Opportunities
                         </p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Opportunities Management
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Manage panels, media calls, and grants.
                         </p>
                     </div>
@@ -88,7 +88,8 @@ export default function AdminOpportunitiesIndex({
                                 const params = new URLSearchParams();
                                 if (search?.trim())
                                     params.set('search', search.trim());
-                                if (filters?.type) params.set('type', filters.type);
+                                if (filters?.type)
+                                    params.set('type', filters.type);
                                 if (filters?.status)
                                     params.set('status', filters.status);
                                 const qs = params.toString();
@@ -102,7 +103,7 @@ export default function AdminOpportunitiesIndex({
                         </Button>
                         <Button
                             asChild
-                            className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-2"
+                            className="gap-2 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                         >
                             <Link href="/admin/opportunities/create">
                                 <Plus className="size-4" />
@@ -117,7 +118,7 @@ export default function AdminOpportunitiesIndex({
                     className="flex flex-col gap-4 lg:flex-row lg:items-center lg:gap-4"
                 >
                     <div className="relative min-w-0 flex-1">
-                        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
@@ -142,7 +143,7 @@ export default function AdminOpportunitiesIndex({
                                 )
                             }
                             className={cn(
-                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                'flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                             )}
                         >
                             <option value="">All types</option>
@@ -167,7 +168,7 @@ export default function AdminOpportunitiesIndex({
                                 )
                             }
                             className={cn(
-                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                'flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                             )}
                         >
                             <option value="">All statuses</option>
@@ -181,36 +182,40 @@ export default function AdminOpportunitiesIndex({
                         <Button type="submit" variant="secondary">
                             Search
                         </Button>
-                        <Button type="button" variant="outline" className="gap-2">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="gap-2"
+                        >
                             <SlidersHorizontal className="size-4" />
                             More Filters
                         </Button>
                     </div>
                 </form>
 
-                <div className="border-border/70 overflow-hidden rounded-xl border bg-card p-4 shadow-sm sm:p-6">
+                <div className="overflow-hidden rounded-xl border border-border/70 bg-card p-4 shadow-sm sm:p-6">
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="text-tgray w-[40%] py-3 uppercase sm:px-3">
+                                <TableHead className="w-[40%] py-3 text-tgray uppercase sm:px-3">
                                     Title
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Type
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Organizer
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Deadline
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Applications
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Status
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 text-right uppercase sm:px-3">
+                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">
                                     Action
                                 </TableHead>
                             </TableRow>
@@ -221,7 +226,7 @@ export default function AdminOpportunitiesIndex({
                                 <TableRow>
                                     <TableCell
                                         colSpan={7}
-                                        className="text-tgray px-4 py-14 text-center text-sm sm:px-6"
+                                        className="px-4 py-14 text-center text-sm text-tgray sm:px-6"
                                     >
                                         No opportunities yet. Create one to get
                                         started.
@@ -235,10 +240,10 @@ export default function AdminOpportunitiesIndex({
                                                 href={`/admin/opportunities/${opportunityRouteKey(opp)}`}
                                                 className="group block"
                                             >
-                                                <div className="text-tblack font-semibold group-hover:underline">
+                                                <div className="font-semibold text-tblack group-hover:underline">
                                                     {opp.title?.en}
                                                 </div>
-                                                <div className="text-tgray mt-1 text-xs">
+                                                <div className="mt-1 text-xs text-tgray">
                                                     ID: {opp.slug}
                                                 </div>
                                             </Link>
@@ -251,13 +256,13 @@ export default function AdminOpportunitiesIndex({
                                                 {opp.type}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell className="text-tgray py-4 text-sm sm:px-3">
+                                        <TableCell className="py-4 text-sm text-tgray sm:px-3">
                                             {opp.org?.en ?? ''}
                                         </TableCell>
-                                        <TableCell className="text-tgray py-4 text-sm sm:px-3">
+                                        <TableCell className="py-4 text-sm text-tgray sm:px-3">
                                             {opp.deadline ?? ''}
                                         </TableCell>
-                                        <TableCell className="text-tgray py-4 text-sm sm:px-3">
+                                        <TableCell className="py-4 text-sm text-tgray sm:px-3">
                                             {opp.applications_limit
                                                 ? `${opp.applications_count} / ${opp.applications_limit}`
                                                 : `${opp.applications_count}`}
@@ -313,4 +318,3 @@ export default function AdminOpportunitiesIndex({
 }
 
 AdminOpportunitiesIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
-

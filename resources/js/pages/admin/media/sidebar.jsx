@@ -73,13 +73,13 @@ export default function AdminMediaSidebar({ settings }) {
             <Head title="Media page sidebar" />
 
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
-                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-start sm:justify-between sm:pb-8">
                     <div>
-                        <p className="text-tgray text-sm font-medium">Media</p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <p className="text-sm font-medium text-tgray">Media</p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Public media sidebar
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Default trending topics and resource links for the
                             /media listing (tri-lingual). Individual media items
                             can override these on their public detail pages.
@@ -120,7 +120,7 @@ export default function AdminMediaSidebar({ settings }) {
                                     className="space-y-4 rounded-xl border border-border bg-card/50 p-4"
                                 >
                                     <div className="flex items-center justify-between gap-2">
-                                        <span className="text-xs font-extrabold uppercase text-muted-foreground">
+                                        <span className="text-xs font-extrabold text-muted-foreground uppercase">
                                             Topic {idx + 1}
                                         </span>
                                         <button
@@ -156,11 +156,18 @@ export default function AdminMediaSidebar({ settings }) {
                                                 ...row,
                                                 title: next,
                                             };
-                                            setData('trending_topics', nextRows);
+                                            setData(
+                                                'trending_topics',
+                                                nextRows,
+                                            );
                                         }}
                                     />
                                     <InputError
-                                        message={errors[`trending_topics.${idx}.title.en`]}
+                                        message={
+                                            errors[
+                                                `trending_topics.${idx}.title.en`
+                                            ]
+                                        }
                                     />
                                     <LangInputs
                                         prefix={`topic-${idx}-tag`}
@@ -174,7 +181,10 @@ export default function AdminMediaSidebar({ settings }) {
                                                 ...row,
                                                 tag: next,
                                             };
-                                            setData('trending_topics', nextRows);
+                                            setData(
+                                                'trending_topics',
+                                                nextRows,
+                                            );
                                         }}
                                     />
                                 </div>
@@ -208,7 +218,7 @@ export default function AdminMediaSidebar({ settings }) {
                                     className="space-y-4 rounded-xl border border-border bg-card/50 p-4"
                                 >
                                     <div className="flex items-center justify-between gap-2">
-                                        <span className="text-xs font-extrabold uppercase text-muted-foreground">
+                                        <span className="text-xs font-extrabold text-muted-foreground uppercase">
                                             Link {idx + 1}
                                         </span>
                                         <button
@@ -248,7 +258,11 @@ export default function AdminMediaSidebar({ settings }) {
                                         }}
                                     />
                                     <InputError
-                                        message={errors[`resource_links.${idx}.label.en`]}
+                                        message={
+                                            errors[
+                                                `resource_links.${idx}.label.en`
+                                            ]
+                                        }
                                     />
                                     <div className="space-y-2">
                                         <Label htmlFor={`link-${idx}-url`}>
@@ -266,7 +280,10 @@ export default function AdminMediaSidebar({ settings }) {
                                                     ...row,
                                                     url: e.target.value,
                                                 };
-                                                setData('resource_links', nextRows);
+                                                setData(
+                                                    'resource_links',
+                                                    nextRows,
+                                                );
                                             }}
                                             placeholder="https://…"
                                         />
@@ -279,7 +296,7 @@ export default function AdminMediaSidebar({ settings }) {
                     <Button
                         type="submit"
                         disabled={processing}
-                        className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                        className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                     >
                         {processing ? 'Saving…' : 'Save sidebar'}
                     </Button>

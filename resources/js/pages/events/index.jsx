@@ -34,12 +34,10 @@ export default function EventsIndex({ events = [], eventStatuses = [] }) {
 
     const [statusFilters, setStatusFilters] = useState(() =>
         Object.fromEntries(
-            (eventStatuses?.length ? eventStatuses : [
-                'upcoming',
-                'live',
-                'finished',
-                'archived',
-            ]).map((s) => [s, true]),
+            (eventStatuses?.length
+                ? eventStatuses
+                : ['upcoming', 'live', 'finished', 'archived']
+            ).map((s) => [s, true]),
         ),
     );
 

@@ -17,9 +17,9 @@ export default function AdminEventsEdit({
     visibilities = [],
 }) {
     const { data, setData, errors, setError, clearErrors } = useForm({
-        type: event.type ?? (types[0] ?? 'tilitalk'),
-        status: event.status ?? (statuses[0] ?? 'draft'),
-        visibility: event.visibility ?? (visibilities[0] ?? 'public'),
+        type: event.type ?? types[0] ?? 'tilitalk',
+        status: event.status ?? statuses[0] ?? 'draft',
+        visibility: event.visibility ?? visibilities[0] ?? 'public',
         title: { ...emptyTri(), ...(event.title ?? {}) },
         location: { ...emptyTri(), ...(event.location ?? {}) },
         description: { ...emptyTri(), ...(event.description ?? {}) },
@@ -88,13 +88,13 @@ export default function AdminEventsEdit({
             <Head title={`Edit ${event.title?.en ?? 'event'}`} />
 
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
-                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-start sm:justify-between sm:pb-8">
                     <div>
-                        <p className="text-tgray text-sm font-medium">Events</p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <p className="text-sm font-medium text-tgray">Events</p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Edit event
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             {event.title?.en ?? 'Event'} — update the fields and
                             save.
                         </p>
@@ -126,4 +126,3 @@ export default function AdminEventsEdit({
 }
 
 AdminEventsEdit.layout = (page) => <AppLayout>{page}</AppLayout>;
-

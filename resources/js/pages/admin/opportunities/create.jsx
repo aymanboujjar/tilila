@@ -10,7 +10,10 @@ function emptyTri() {
     return { en: '', fr: '', ar: '' };
 }
 
-export default function AdminOpportunitiesCreate({ types = [], statuses = [] }) {
+export default function AdminOpportunitiesCreate({
+    types = [],
+    statuses = [],
+}) {
     const { data, setData, errors, setError, clearErrors } = useForm({
         type: types[0] ?? 'panel_discussion',
         status: statuses[0] ?? 'open',
@@ -41,15 +44,15 @@ export default function AdminOpportunitiesCreate({ types = [], statuses = [] }) 
             <Head title="Create opportunity" />
 
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-6 px-4 py-6 sm:gap-8 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
-                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 sm:flex-row sm:items-start sm:justify-between">
+                <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:flex-row sm:items-start sm:justify-between sm:pb-8">
                     <div>
-                        <p className="text-tgray text-sm font-medium">
+                        <p className="text-sm font-medium text-tgray">
                             Opportunities
                         </p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Create opportunity
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
                             Add a new opportunity to the directory.
                         </p>
                     </div>
@@ -77,4 +80,3 @@ export default function AdminOpportunitiesCreate({ types = [], statuses = [] }) 
 }
 
 AdminOpportunitiesCreate.layout = (page) => <AppLayout>{page}</AppLayout>;
-

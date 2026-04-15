@@ -52,8 +52,8 @@ const addNestedParams = (
 ) => {
     Object.entries(obj).forEach(([subKey, value]) => {
         if (value === undefined) {
-return;
-}
+            return;
+        }
 
         const paramKey = `${prefix}[${subKey}]`;
 

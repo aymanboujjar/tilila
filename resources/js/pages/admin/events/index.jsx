@@ -62,22 +62,27 @@ export default function AdminEventsIndex({
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                        <p className="text-tgray text-sm font-medium">Events</p>
-                        <h1 className="text-tblack text-2xl font-bold tracking-tight">
+                        <p className="text-sm font-medium text-tgray">Events</p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
                             Event Management
                         </h1>
-                        <p className="text-tgray mt-1 max-w-2xl text-sm">
-                            Manage TiliTalks, trophies, and development workshops.
+                        <p className="mt-1 max-w-2xl text-sm text-tgray">
+                            Manage TiliTalks, trophies, and development
+                            workshops.
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
-                        <Button type="button" variant="outline" className="gap-2">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="gap-2"
+                        >
                             <Download className="size-4" />
                             Export
                         </Button>
                         <Button
                             asChild
-                            className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-2"
+                            className="gap-2 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                         >
                             <Link href="/admin/events/create">
                                 <Plus className="size-4" />
@@ -92,7 +97,7 @@ export default function AdminEventsIndex({
                     className="flex flex-col gap-4 lg:flex-row lg:items-center"
                 >
                     <div className="relative min-w-0 flex-1">
-                        <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2" />
+                        <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
                             value={search}
                             onChange={(e) => setSearch(e.target.value)}
@@ -116,7 +121,7 @@ export default function AdminEventsIndex({
                                 )
                             }
                             className={cn(
-                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                'flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                             )}
                         >
                             <option value="">All Event Types</option>
@@ -141,7 +146,7 @@ export default function AdminEventsIndex({
                                 )
                             }
                             className={cn(
-                                'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                'flex h-10 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                             )}
                         >
                             <option value="">All Statuses</option>
@@ -158,26 +163,26 @@ export default function AdminEventsIndex({
                     </div>
                 </form>
 
-                <div className="border-border/70 overflow-hidden rounded-xl border bg-card p-4 shadow-sm sm:p-6">
+                <div className="overflow-hidden rounded-xl border border-border/70 bg-card p-4 shadow-sm sm:p-6">
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="text-tgray w-[40%] py-3 uppercase sm:px-3">
+                                <TableHead className="w-[40%] py-3 text-tgray uppercase sm:px-3">
                                     Event name
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Type
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Date & time
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Location
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 uppercase sm:px-3">
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
                                     Status
                                 </TableHead>
-                                <TableHead className="text-tgray py-3 text-right uppercase sm:px-3">
+                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">
                                     Action
                                 </TableHead>
                             </TableRow>
@@ -188,9 +193,10 @@ export default function AdminEventsIndex({
                                 <TableRow>
                                     <TableCell
                                         colSpan={6}
-                                        className="text-tgray px-4 py-14 text-center text-sm sm:px-6"
+                                        className="px-4 py-14 text-center text-sm text-tgray sm:px-6"
                                     >
-                                        No events yet. Create one to get started.
+                                        No events yet. Create one to get
+                                        started.
                                     </TableCell>
                                 </TableRow>
                             ) : (
@@ -201,10 +207,10 @@ export default function AdminEventsIndex({
                                                 href={`/admin/events/${eventRouteKey(ev)}`}
                                                 className="group block"
                                             >
-                                                <div className="text-tblack font-semibold group-hover:underline">
+                                                <div className="font-semibold text-tblack group-hover:underline">
                                                     {ev.title?.en ?? 'Event'}
                                                 </div>
-                                                <div className="text-tgray mt-1 text-xs">
+                                                <div className="mt-1 text-xs text-tgray">
                                                     Host: {ev.host ?? '—'}
                                                 </div>
                                             </Link>
@@ -217,14 +223,14 @@ export default function AdminEventsIndex({
                                                 {ev.type}
                                             </Badge>
                                         </TableCell>
-                                        <TableCell className="text-tgray py-4 text-sm sm:px-3">
+                                        <TableCell className="py-4 text-sm text-tgray sm:px-3">
                                             <div>{ev.date ?? ''}</div>
                                             <div className="text-xs">
                                                 {ev.time ?? ''}{' '}
                                                 {ev.timezone ?? 'GMT+1'}
                                             </div>
                                         </TableCell>
-                                        <TableCell className="text-tgray py-4 text-sm sm:px-3">
+                                        <TableCell className="py-4 text-sm text-tgray sm:px-3">
                                             {ev.location?.en ?? ''}
                                         </TableCell>
                                         <TableCell className="py-4 sm:px-3">
@@ -276,4 +282,3 @@ export default function AdminEventsIndex({
 }
 
 AdminEventsIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
-

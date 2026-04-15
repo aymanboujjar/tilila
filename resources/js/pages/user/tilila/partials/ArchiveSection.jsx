@@ -12,12 +12,18 @@ function normalizeEdition(raw) {
             raw.winners_url ??
             (raw.id ? `/tilila/editions/${raw.id}/winners` : '/tilila'),
         jury_url:
-            raw.jury_url ?? (raw.id ? `/tilila/editions/${raw.id}/jury` : '/tilila'),
+            raw.jury_url ??
+            (raw.id ? `/tilila/editions/${raw.id}/jury` : '/tilila'),
         gallery_url:
             raw.gallery_url ??
             (raw.id ? `/tilila/editions/${raw.id}/gallery` : '/tilila'),
-        gallery_images: Array.isArray(raw.gallery_images) ? raw.gallery_images : [],
-        has_gallery: Boolean(raw.has_gallery) || (Array.isArray(raw.gallery_images) && raw.gallery_images.length > 0),
+        gallery_images: Array.isArray(raw.gallery_images)
+            ? raw.gallery_images
+            : [],
+        has_gallery:
+            Boolean(raw.has_gallery) ||
+            (Array.isArray(raw.gallery_images) &&
+                raw.gallery_images.length > 0),
     };
 }
 

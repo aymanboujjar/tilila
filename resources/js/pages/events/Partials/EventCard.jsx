@@ -149,7 +149,7 @@ export default function EventCard({ event, activeTab }) {
             className={[
                 'overflow-hidden rounded-2xl bg-card shadow-sm ring-1',
                 isLive
-                    ? 'ring-2 ring-red-500/70 shadow-md shadow-red-500/10'
+                    ? 'shadow-md ring-2 shadow-red-500/10 ring-red-500/70'
                     : 'ring-border',
             ].join(' ')}
         >

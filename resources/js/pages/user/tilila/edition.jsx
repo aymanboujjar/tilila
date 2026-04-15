@@ -11,12 +11,18 @@ function PeopleGrid({ title, people }) {
             <h2 className="text-xl font-semibold text-tblack">{title}</h2>
             {rows.length === 0 ? (
                 <div className="mt-4 rounded-2xl border border-border bg-beta-white p-10 text-center text-sm text-tgray">
-                    <TransText en="No entries yet." fr="Aucune entrée pour le moment." ar="لا توجد إدخالات بعد." />
+                    <TransText
+                        en="No entries yet."
+                        fr="Aucune entrée pour le moment."
+                        ar="لا توجد إدخالات بعد."
+                    />
                 </div>
             ) : (
                 <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {rows.map((p, idx) => {
-                        const img = p?.photo_path ? `/storage/${p.photo_path}` : '';
+                        const img = p?.photo_path
+                            ? `/storage/${p.photo_path}`
+                            : '';
                         return (
                             <div
                                 key={`${p?.full_name ?? 'person'}-${idx}`}
@@ -107,7 +113,9 @@ export default function TililaEditionDetails() {
     const { edition } = usePage().props;
     const winners = Array.isArray(edition?.winners) ? edition.winners : [];
     const jury = Array.isArray(edition?.jury) ? edition.jury : [];
-    const images = Array.isArray(edition?.gallery_images) ? edition.gallery_images : [];
+    const images = Array.isArray(edition?.gallery_images)
+        ? edition.gallery_images
+        : [];
 
     return (
         <>
@@ -117,7 +125,11 @@ export default function TililaEditionDetails() {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <div className="text-xs font-semibold tracking-widest text-tgray">
-                            <TransText en="TROPHÉE TILILA" fr="TROPHÉE TILILA" ar="جائزة تيليلا" />
+                            <TransText
+                                en="TROPHÉE TILILA"
+                                fr="TROPHÉE TILILA"
+                                ar="جائزة تيليلا"
+                            />
                         </div>
                         <h1 className="mt-3 text-2xl font-semibold text-tblack sm:text-3xl">
                             <TransText
@@ -148,14 +160,22 @@ export default function TililaEditionDetails() {
                             className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack hover:bg-secondary"
                         >
                             <ChevronLeft className="size-4 text-tgray" />
-                            <TransText en="Back to archive" fr="Retour aux archives" ar="العودة للأرشيف" />
+                            <TransText
+                                en="Back to archive"
+                                fr="Retour aux archives"
+                                ar="العودة للأرشيف"
+                            />
                         </Link>
                         <Link
                             href={`/tilila/editions/${edition?.id}/winners`}
                             className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack hover:bg-secondary"
                         >
                             <Trophy className="size-4 text-tgray" />
-                            <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
+                            <TransText
+                                en="Winners"
+                                fr="Lauréats"
+                                ar="الفائزون"
+                            />
                         </Link>
                         <Link
                             href={`/tilila/editions/${edition?.id}/jury`}
@@ -174,8 +194,16 @@ export default function TililaEditionDetails() {
                     </div>
                 </div>
 
-                <PeopleGrid title={<TransText en="Winners" fr="Lauréats" ar="الفائزون" />} people={winners} />
-                <PeopleGrid title={<TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />} people={jury} />
+                <PeopleGrid
+                    title={
+                        <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
+                    }
+                    people={winners}
+                />
+                <PeopleGrid
+                    title={<TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />}
+                    people={jury}
+                />
                 <GalleryGrid images={images} />
             </section>
         </>
@@ -183,4 +211,3 @@ export default function TililaEditionDetails() {
 }
 
 TililaEditionDetails.layout = (page) => <AppLayout>{page}</AppLayout>;
-

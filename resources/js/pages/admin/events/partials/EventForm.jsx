@@ -121,8 +121,8 @@ function TriLangTextareas({ idPrefix, label, value, onChange }) {
                     <textarea
                         id={`${idPrefix}-${lang}`}
                         className={cn(
-                            'border-input placeholder:text-muted-foreground flex min-h-[120px] w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs outline-none',
-                            'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
+                            'flex min-h-[120px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-xs outline-none placeholder:text-muted-foreground',
+                            'focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
                         )}
                         value={value?.[lang] ?? ''}
                         onChange={(e) =>
@@ -302,14 +302,19 @@ export default function EventForm({
 
                             <Card className="border-border/70 bg-background shadow-none">
                                 <CardHeader className="flex flex-col gap-3 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-                                    <CardTitle className="text-base">Agenda</CardTitle>
+                                    <CardTitle className="text-base">
+                                        Agenda
+                                    </CardTitle>
                                     <Button
                                         type="button"
                                         variant="outline"
                                         size="sm"
                                         onClick={() => {
                                             setEditingAgendaIndex(null);
-                                            setAgendaDraft({ time: '', label: '' });
+                                            setAgendaDraft({
+                                                time: '',
+                                                label: '',
+                                            });
                                             setAgendaModalOpen(true);
                                         }}
                                     >
@@ -323,13 +328,16 @@ export default function EventForm({
                                         </Label>
                                         <Input
                                             id="agenda-section-title"
-                                            value={data.agenda?.title ?? 'Agenda'}
+                                            value={
+                                                data.agenda?.title ?? 'Agenda'
+                                            }
                                             onChange={(e) =>
                                                 setData('agenda', {
                                                     ...data.agenda,
                                                     title: e.target.value,
                                                     items:
-                                                        data.agenda?.items ?? [],
+                                                        data.agenda?.items ??
+                                                        [],
                                                 })
                                             }
                                             placeholder="Agenda"
@@ -351,7 +359,8 @@ export default function EventForm({
                                                     >
                                                         <div className="flex min-w-0 flex-1 items-baseline gap-3">
                                                             <span className="w-14 shrink-0 text-xs font-extrabold text-muted-foreground tabular-nums">
-                                                                {row.time || '—'}
+                                                                {row.time ||
+                                                                    '—'}
                                                             </span>
                                                             <span className="truncate text-sm font-semibold text-foreground">
                                                                 {row.label}
@@ -365,14 +374,16 @@ export default function EventForm({
                                                                     setEditingAgendaIndex(
                                                                         idx,
                                                                     );
-                                                                    setAgendaDraft({
-                                                                        time:
-                                                                            row.time ??
-                                                                            '',
-                                                                        label:
-                                                                            row.label ??
-                                                                            '',
-                                                                    });
+                                                                    setAgendaDraft(
+                                                                        {
+                                                                            time:
+                                                                                row.time ??
+                                                                                '',
+                                                                            label:
+                                                                                row.label ??
+                                                                                '',
+                                                                        },
+                                                                    );
                                                                     setAgendaModalOpen(
                                                                         true,
                                                                     );
@@ -386,7 +397,8 @@ export default function EventForm({
                                                                 onClick={() => {
                                                                     const next =
                                                                         (
-                                                                            data.agenda
+                                                                            data
+                                                                                .agenda
                                                                                 ?.items ??
                                                                             []
                                                                         ).filter(
@@ -405,8 +417,7 @@ export default function EventForm({
                                                                                     .agenda
                                                                                     ?.title ??
                                                                                 'Agenda',
-                                                                            items:
-                                                                                next,
+                                                                            items: next,
                                                                         },
                                                                     );
                                                                 }}
@@ -446,15 +457,23 @@ export default function EventForm({
                                         accept="image/*"
                                         className="cursor-pointer"
                                         onChange={(e) => {
-                                            const f = e.target.files?.[0] ?? null;
+                                            const f =
+                                                e.target.files?.[0] ?? null;
                                             if (f) {
                                                 setData('cover_image', f);
-                                                setData('cover_image_path', null);
-                                                setData('cover_image_url', null);
+                                                setData(
+                                                    'cover_image_path',
+                                                    null,
+                                                );
+                                                setData(
+                                                    'cover_image_url',
+                                                    null,
+                                                );
                                             }
                                         }}
                                     />
-                                    {(coverPreviewUrl || data.cover_image_url) && (
+                                    {(coverPreviewUrl ||
+                                        data.cover_image_url) && (
                                         <div className="overflow-hidden rounded-xl border border-border bg-muted/30">
                                             <img
                                                 src={
@@ -501,9 +520,9 @@ export default function EventForm({
                                                         placeholder="https://www.youtube.com/watch?v=… or https://youtu.be/…"
                                                     />
                                                     <p className="text-xs text-muted-foreground">
-                                                        Paste a regular YouTube link;
-                                                        it will embed on the public
-                                                        event page.
+                                                        Paste a regular YouTube
+                                                        link; it will embed on
+                                                        the public event page.
                                                     </p>
                                                     <InputError
                                                         message={
@@ -512,21 +531,27 @@ export default function EventForm({
                                                     />
                                                 </div>
                                                 <p className="text-sm text-muted-foreground">
-                                                    Add photos after the event is
-                                                    finished or archived. New files
-                                                    are appended when you save.
+                                                    Add photos after the event
+                                                    is finished or archived. New
+                                                    files are appended when you
+                                                    save.
                                                 </p>
                                                 {existingMedia.length > 0 ? (
                                                     <div>
-                                                        <div className="text-xs font-extrabold uppercase tracking-wide text-muted-foreground">
+                                                        <div className="text-xs font-extrabold tracking-wide text-muted-foreground uppercase">
                                                             Current photos (
-                                                            {existingMedia.length})
+                                                            {
+                                                                existingMedia.length
+                                                            }
+                                                            )
                                                         </div>
                                                         <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4">
                                                             {existingMedia.map(
                                                                 (m) => (
                                                                     <div
-                                                                        key={m.id}
+                                                                        key={
+                                                                            m.id
+                                                                        }
                                                                         className="aspect-square overflow-hidden rounded-lg bg-muted ring-1 ring-border"
                                                                     >
                                                                         {m.url ? (
@@ -546,7 +571,8 @@ export default function EventForm({
                                                 ) : null}
                                                 <div className="rounded-2xl border border-dashed border-border bg-card px-6 py-8">
                                                     <div className="text-center text-sm text-muted-foreground">
-                                                        Add images to the gallery
+                                                        Add images to the
+                                                        gallery
                                                     </div>
                                                     <div className="mt-4 flex justify-center">
                                                         <label className="inline-flex cursor-pointer items-center justify-center rounded-md border border-border bg-background px-4 py-2 text-sm font-semibold text-foreground shadow-sm hover:bg-accent hover:text-accent-foreground">
@@ -559,7 +585,8 @@ export default function EventForm({
                                                                     setData(
                                                                         'media_files',
                                                                         Array.from(
-                                                                            e.target
+                                                                            e
+                                                                                .target
                                                                                 .files ??
                                                                                 [],
                                                                         ),
@@ -619,8 +646,9 @@ export default function EventForm({
                                             </>
                                         ) : (
                                             <p className="text-sm text-muted-foreground">
-                                                YouTube replay and the photo gallery
-                                                are available only when status is{' '}
+                                                YouTube replay and the photo
+                                                gallery are available only when
+                                                status is{' '}
                                                 <span className="font-semibold text-foreground">
                                                     Finished
                                                 </span>{' '}
@@ -661,7 +689,7 @@ export default function EventForm({
                                         }
                                     }}
                                     className={cn(
-                                        'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
                                 >
                                     {statuses.map((s) => (
@@ -714,7 +742,7 @@ export default function EventForm({
                                         setData('visibility', e.target.value)
                                     }
                                     className={cn(
-                                        'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
                                 >
                                     {visibilities.map((v) => (
@@ -735,7 +763,7 @@ export default function EventForm({
                                         setData('type', e.target.value)
                                     }
                                     className={cn(
-                                        'border-input bg-background ring-offset-background focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-xs focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
+                                        'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs ring-offset-background focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none',
                                     )}
                                 >
                                     {types.map((t) => (
@@ -751,7 +779,7 @@ export default function EventForm({
                                 <Button
                                     type="submit"
                                     disabled={processing}
-                                    className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                    className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 >
                                     {processing ? 'Saving…' : submitLabel}
                                 </Button>
@@ -808,17 +836,16 @@ export default function EventForm({
                                         >
                                             <div className="flex min-w-0 items-center gap-3">
                                                 <div className="h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted ring-1 ring-border">
-                                                    <SpeakerListAvatar speaker={s} />
+                                                    <SpeakerListAvatar
+                                                        speaker={s}
+                                                    />
                                                 </div>
                                                 <div className="min-w-0">
                                                     <div className="truncate text-sm font-semibold text-foreground">
                                                         {s?.full_name ?? '—'}
                                                     </div>
                                                     <div className="truncate text-xs text-muted-foreground">
-                                                        {[
-                                                            s?.role,
-                                                            s?.email,
-                                                        ]
+                                                        {[s?.role, s?.email]
                                                             .filter(Boolean)
                                                             .join(' • ') || '—'}
                                                     </div>
@@ -829,13 +856,16 @@ export default function EventForm({
                                                     type="button"
                                                     className="text-xs font-semibold text-beta-blue hover:underline"
                                                     onClick={() => {
-                                                        setEditingSpeakerIndex(idx);
+                                                        setEditingSpeakerIndex(
+                                                            idx,
+                                                        );
                                                         setSpeakerDraft({
                                                             full_name:
                                                                 s?.full_name ??
                                                                 '',
                                                             role: s?.role ?? '',
-                                                            email: s?.email ?? '',
+                                                            email:
+                                                                s?.email ?? '',
                                                             photo: null,
                                                             photo_path:
                                                                 s?.photo_path ??
@@ -844,7 +874,9 @@ export default function EventForm({
                                                                 s?.photo_url ??
                                                                 null,
                                                         });
-                                                        setSpeakerModalOpen(true);
+                                                        setSpeakerModalOpen(
+                                                            true,
+                                                        );
                                                     }}
                                                 >
                                                     Edit
@@ -855,8 +887,10 @@ export default function EventForm({
                                                     onClick={() =>
                                                         setData(
                                                             'speakers',
-                                                            (data.speakers ??
-                                                                []).filter(
+                                                            (
+                                                                data.speakers ??
+                                                                []
+                                                            ).filter(
                                                                 (_, i) =>
                                                                     i !== idx,
                                                             ),
@@ -916,7 +950,9 @@ export default function EventForm({
                                         >
                                             <div className="flex min-w-0 items-center gap-3">
                                                 <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-muted ring-1 ring-border">
-                                                    <PartnerListLogo partner={p} />
+                                                    <PartnerListLogo
+                                                        partner={p}
+                                                    />
                                                 </div>
                                                 <div className="min-w-0">
                                                     <div className="truncate text-sm font-semibold text-foreground">
@@ -932,7 +968,9 @@ export default function EventForm({
                                                     type="button"
                                                     className="text-xs font-semibold text-beta-blue hover:underline"
                                                     onClick={() => {
-                                                        setEditingPartnerIndex(idx);
+                                                        setEditingPartnerIndex(
+                                                            idx,
+                                                        );
                                                         setPartnerDraft({
                                                             name: p?.name ?? '',
                                                             url: p?.url ?? '',
@@ -944,7 +982,9 @@ export default function EventForm({
                                                                 p?.logo_url ??
                                                                 null,
                                                         });
-                                                        setPartnerModalOpen(true);
+                                                        setPartnerModalOpen(
+                                                            true,
+                                                        );
                                                     }}
                                                 >
                                                     Edit
@@ -955,8 +995,10 @@ export default function EventForm({
                                                     onClick={() =>
                                                         setData(
                                                             'partners',
-                                                            (data.partners ??
-                                                                []).filter(
+                                                            (
+                                                                data.partners ??
+                                                                []
+                                                            ).filter(
                                                                 (_, i) =>
                                                                     i !== idx,
                                                             ),
@@ -1055,7 +1097,8 @@ export default function EventForm({
                                         }));
                                     }}
                                 />
-                                {(speakerPreviewUrl || speakerDraft.photo_url) && (
+                                {(speakerPreviewUrl ||
+                                    speakerDraft.photo_url) && (
                                     <div className="h-14 w-14 overflow-hidden rounded-full ring-1 ring-border">
                                         <img
                                             src={
@@ -1081,15 +1124,19 @@ export default function EventForm({
                             </Button>
                             <Button
                                 type="button"
-                                className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 onClick={() => {
-                                    const fullName = (speakerDraft.full_name ?? '').trim();
+                                    const fullName = (
+                                        speakerDraft.full_name ?? ''
+                                    ).trim();
                                     if (!fullName) return;
                                     const next = [...(data.speakers ?? [])];
                                     const payload = {
                                         full_name: fullName,
                                         role: (speakerDraft.role ?? '').trim(),
-                                        email: (speakerDraft.email ?? '').trim(),
+                                        email: (
+                                            speakerDraft.email ?? ''
+                                        ).trim(),
                                     };
                                     if (speakerDraft.photo) {
                                         payload.photo = speakerDraft.photo;
@@ -1177,7 +1224,8 @@ export default function EventForm({
                                         }));
                                     }}
                                 />
-                                {(partnerPreviewUrl || partnerDraft.logo_url) && (
+                                {(partnerPreviewUrl ||
+                                    partnerDraft.logo_url) && (
                                     <div className="flex h-14 w-24 items-center justify-center overflow-hidden rounded-lg border border-border bg-background">
                                         <img
                                             src={
@@ -1203,9 +1251,11 @@ export default function EventForm({
                             </Button>
                             <Button
                                 type="button"
-                                className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 onClick={() => {
-                                    const name = (partnerDraft.name ?? '').trim();
+                                    const name = (
+                                        partnerDraft.name ?? ''
+                                    ).trim();
                                     if (!name) return;
                                     const next = [...(data.partners ?? [])];
                                     const payload = {
@@ -1287,13 +1337,15 @@ export default function EventForm({
                             </Button>
                             <Button
                                 type="button"
-                                className="bg-beta-blue hover:bg-beta-blue/90 text-twhite"
+                                className="bg-beta-blue text-twhite hover:bg-beta-blue/90"
                                 onClick={() => {
                                     const label = (
                                         agendaDraft.label ?? ''
                                     ).trim();
                                     if (!label) return;
-                                    const time = (agendaDraft.time ?? '').trim();
+                                    const time = (
+                                        agendaDraft.time ?? ''
+                                    ).trim();
                                     const displayTime =
                                         time.length >= 5
                                             ? time.slice(0, 5)
@@ -1328,4 +1380,3 @@ export default function EventForm({
         </form>
     );
 }
-

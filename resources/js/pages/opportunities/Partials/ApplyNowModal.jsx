@@ -23,7 +23,7 @@ function Field({ label, children, htmlFor, hint }) {
         <div className="space-y-1.5">
             <label
                 htmlFor={htmlFor}
-                className="text-[11px] font-extrabold uppercase tracking-wide text-muted-foreground"
+                className="text-[11px] font-extrabold tracking-wide text-muted-foreground uppercase"
             >
                 {label}
             </label>
@@ -53,7 +53,7 @@ function Input({
             autoComplete={autoComplete}
             value={value}
             onChange={onChange}
-            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm transition outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         />
     );
 }
@@ -67,7 +67,7 @@ function Textarea({ id, name, placeholder, rows = 4, value, onChange }) {
             rows={rows}
             value={value}
             onChange={onChange}
-            className="w-full resize-none rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            className="w-full resize-none rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm transition outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         />
     );
 }
@@ -81,7 +81,9 @@ function UploadBox({ id, name, title, subtitle, onFile }) {
             <div className="rounded-full border border-border bg-muted px-3 py-1 text-xs font-semibold text-muted-foreground">
                 Upload
             </div>
-            <div className="text-sm font-extrabold text-foreground">{title}</div>
+            <div className="text-sm font-extrabold text-foreground">
+                {title}
+            </div>
             <div className="text-xs text-muted-foreground">{subtitle}</div>
             <input
                 id={id}
@@ -190,15 +192,15 @@ export default function ApplyNowModal({
             <DialogContent className="max-h-[85vh] overflow-y-auto p-0 sm:max-w-5xl">
                 <div className="border-b border-border bg-background px-6 py-5 sm:px-8">
                     <DialogHeader className="space-y-2 text-left">
-                        <div className="text-[11px] font-extrabold uppercase tracking-wide text-muted-foreground">
+                        <div className="text-[11px] font-extrabold tracking-wide text-muted-foreground uppercase">
                             Application Form
                         </div>
                         <DialogTitle className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
                             {modalTitle}
                         </DialogTitle>
                         <DialogDescription className="max-w-3xl text-sm leading-relaxed text-muted-foreground">
-                            Complete the form below to apply. All fields should be
-                            accurate and up to date.
+                            Complete the form below to apply. All fields should
+                            be accurate and up to date.
                         </DialogDescription>
                     </DialogHeader>
                 </div>
@@ -210,17 +212,20 @@ export default function ApplyNowModal({
                         if (!canSubmit) return;
                         if (!opportunitySlug) return;
                         clearErrors();
-                        post(`/opportunities/${encodeURIComponent(opportunitySlug)}/apply`, {
-                            forceFormData: true,
-                            preserveScroll: true,
-                            onSuccess: () => {
-                                reset();
-                                setExperience(experienceOptions[0]?.value);
-                                setAgreedCharter(false);
-                                setAgreedPrivacy(false);
-                                onClose();
+                        post(
+                            `/opportunities/${encodeURIComponent(opportunitySlug)}/apply`,
+                            {
+                                forceFormData: true,
+                                preserveScroll: true,
+                                onSuccess: () => {
+                                    reset();
+                                    setExperience(experienceOptions[0]?.value);
+                                    setAgreedCharter(false);
+                                    setAgreedPrivacy(false);
+                                    onClose();
+                                },
                             },
-                        });
+                        );
                     }}
                 >
                     <SectionCard
@@ -235,10 +240,14 @@ export default function ApplyNowModal({
                                     placeholder="Your full name"
                                     autoComplete="name"
                                     value={data.full_name}
-                                    onChange={(e) => setData('full_name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('full_name', e.target.value)
+                                    }
                                 />
                                 {errors.full_name ? (
-                                    <div className="text-xs text-alpha-danger">{errors.full_name}</div>
+                                    <div className="text-xs text-alpha-danger">
+                                        {errors.full_name}
+                                    </div>
                                 ) : null}
                             </Field>
                             <Field label="Email Address" htmlFor={emailId}>
@@ -249,10 +258,14 @@ export default function ApplyNowModal({
                                     placeholder="name@example.com"
                                     autoComplete="email"
                                     value={data.email}
-                                    onChange={(e) => setData('email', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('email', e.target.value)
+                                    }
                                 />
                                 {errors.email ? (
-                                    <div className="text-xs text-alpha-danger">{errors.email}</div>
+                                    <div className="text-xs text-alpha-danger">
+                                        {errors.email}
+                                    </div>
                                 ) : null}
                             </Field>
                             <Field label="Phone Number" htmlFor={phoneId}>
@@ -263,16 +276,23 @@ export default function ApplyNowModal({
                                     placeholder="+212 6xx xxx xxx"
                                     autoComplete="tel"
                                     value={data.phone}
-                                    onChange={(e) => setData('phone', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('phone', e.target.value)
+                                    }
                                 />
                             </Field>
-                            <Field label="Country of Residence" htmlFor={countryId}>
+                            <Field
+                                label="Country of Residence"
+                                htmlFor={countryId}
+                            >
                                 <select
                                     id={countryId}
                                     name="country"
-                                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+                                    className="w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm transition outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                                     value={data.country}
-                                    onChange={(e) => setData('country', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('country', e.target.value)
+                                    }
                                 >
                                     <option value="" disabled>
                                         Select Country
@@ -299,7 +319,9 @@ export default function ApplyNowModal({
                                     placeholder="e.g., Senior Journalist"
                                     autoComplete="organization-title"
                                     value={data.current_role}
-                                    onChange={(e) => setData('current_role', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('current_role', e.target.value)
+                                    }
                                 />
                             </Field>
                             <Field label="Organization" htmlFor={orgId}>
@@ -309,25 +331,31 @@ export default function ApplyNowModal({
                                     placeholder="e.g., Independent Media Hub"
                                     autoComplete="organization"
                                     value={data.organization}
-                                    onChange={(e) => setData('organization', e.target.value)}
+                                    onChange={(e) =>
+                                        setData('organization', e.target.value)
+                                    }
                                 />
                             </Field>
                         </div>
 
                         <div className="mt-5">
-                            <div className="text-[11px] font-extrabold uppercase tracking-wide text-muted-foreground">
+                            <div className="text-[11px] font-extrabold tracking-wide text-muted-foreground uppercase">
                                 Years of Experience
                             </div>
                             <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-3">
                                 {experienceOptions.map((option) => {
-                                    const selected = experience === option.value;
+                                    const selected =
+                                        experience === option.value;
                                     return (
                                         <button
                                             key={option.value}
                                             type="button"
                                             onClick={() => {
                                                 setExperience(option.value);
-                                                setData('years_experience', option.value);
+                                                setData(
+                                                    'years_experience',
+                                                    option.value,
+                                                );
                                             }}
                                             className={[
                                                 'rounded-xl border px-4 py-3 text-sm font-semibold shadow-sm transition',
@@ -359,7 +387,9 @@ export default function ApplyNowModal({
                                 rows={5}
                                 placeholder="Describe your career goals and how this program aligns with your vision for the future of media..."
                                 value={data.motivation}
-                                onChange={(e) => setData('motivation', e.target.value)}
+                                onChange={(e) =>
+                                    setData('motivation', e.target.value)
+                                }
                             />
                         </Field>
                     </SectionCard>
@@ -401,7 +431,10 @@ export default function ApplyNowModal({
                                     autoComplete="url"
                                     value={data.portfolio_link}
                                     onChange={(e) =>
-                                        setData('portfolio_link', e.target.value)
+                                        setData(
+                                            'portfolio_link',
+                                            e.target.value,
+                                        )
                                     }
                                 />
                                 {errors.portfolio_link ? (
@@ -420,15 +453,17 @@ export default function ApplyNowModal({
                                     type="checkbox"
                                     className="mt-1 h-4 w-4 rounded border-border text-beta-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                                     checked={agreedCharter}
-                                    onChange={(e) => setAgreedCharter(e.target.checked)}
+                                    onChange={(e) =>
+                                        setAgreedCharter(e.target.checked)
+                                    }
                                 />
                                 <span className="text-muted-foreground">
                                     I have read and agree to the{' '}
                                     <span className="font-semibold text-beta-blue">
                                         Tilila Quality Charter
                                     </span>
-                                    . I commit to maintaining the editorial standards and
-                                    professional ethics outlined.
+                                    . I commit to maintaining the editorial
+                                    standards and professional ethics outlined.
                                 </span>
                             </label>
 
@@ -437,11 +472,14 @@ export default function ApplyNowModal({
                                     type="checkbox"
                                     className="mt-1 h-4 w-4 rounded border-border text-beta-blue focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                                     checked={agreedPrivacy}
-                                    onChange={(e) => setAgreedPrivacy(e.target.checked)}
+                                    onChange={(e) =>
+                                        setAgreedPrivacy(e.target.checked)
+                                    }
                                 />
                                 <span className="text-muted-foreground">
-                                    I consent to the processing of my personal data for the
-                                    purpose of this application as described in the{' '}
+                                    I consent to the processing of my personal
+                                    data for the purpose of this application as
+                                    described in the{' '}
                                     <span className="font-semibold text-beta-blue">
                                         Data Privacy Policy
                                     </span>
@@ -461,7 +499,9 @@ export default function ApplyNowModal({
                                         : 'cursor-not-allowed bg-muted text-muted-foreground',
                                 ].join(' ')}
                             >
-                                {processing ? 'Submitting…' : 'Submit Application'}
+                                {processing
+                                    ? 'Submitting…'
+                                    : 'Submit Application'}
                             </button>
                         </div>
                     </div>
@@ -470,4 +510,3 @@ export default function ApplyNowModal({
         </Dialog>
     );
 }
-

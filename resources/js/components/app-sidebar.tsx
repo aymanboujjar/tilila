@@ -69,7 +69,7 @@ const moduleItems: NavItem[] = [
     },
     {
         title: 'Events',
-        href: "/admin/events",
+        href: '/admin/events',
         icon: Calendar,
     },
     // {
@@ -131,18 +131,18 @@ export function AppSidebar() {
                     prefetch
                     className="flex items-start gap-3 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
                 >
-                    <span className="bg-beta-blue/20 flex size-10 shrink-0 items-center justify-center rounded-lg">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-beta-blue/20">
                         <img
                             src="/assets/logo.webp"
                             alt=""
                             className="size-7 object-contain"
                         />
                     </span>
-                    <span className="group-data-[collapsible=icon]:hidden grid min-w-0 flex-1 text-left leading-tight">
-                        <span className="text-twhite truncate text-sm font-bold tracking-tight">
+                    <span className="grid min-w-0 flex-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
+                        <span className="truncate text-sm font-bold tracking-tight text-twhite">
                             TILILA Impact
                         </span>
-                        <span className="text-sidebar-foreground/60 mt-0.5 truncate text-xs font-medium">
+                        <span className="mt-0.5 truncate text-xs font-medium text-sidebar-foreground/60">
                             Strategic Pilotage
                         </span>
                     </span>

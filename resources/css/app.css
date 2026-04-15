@@ -109,9 +109,17 @@
     --sidebar-foreground: var(--color-twhite);
     --sidebar-primary: var(--color-beta-blue);
     --sidebar-primary-foreground: var(--color-twhite);
-    --sidebar-accent: color-mix(in srgb, var(--color-twhite) 9%, var(--color-tblack));
+    --sidebar-accent: color-mix(
+        in srgb,
+        var(--color-twhite) 9%,
+        var(--color-tblack)
+    );
     --sidebar-accent-foreground: var(--color-twhite);
-    --sidebar-border: color-mix(in srgb, var(--color-twhite) 12%, var(--color-tblack));
+    --sidebar-border: color-mix(
+        in srgb,
+        var(--color-twhite) 12%,
+        var(--color-tblack)
+    );
     --sidebar-ring: var(--color-beta-blue);
 }
 

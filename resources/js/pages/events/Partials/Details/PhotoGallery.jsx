@@ -60,4 +60,3 @@ export default function PhotoGallery({ title = 'Photo Gallery', items = [] }) {
         </section>
     );
 }
-

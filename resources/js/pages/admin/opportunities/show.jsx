@@ -68,7 +68,7 @@ function StatCard({ title, value, icon: Icon, helper }) {
 function DetailRow({ label, value }) {
     return (
         <div className="grid grid-cols-1 gap-1 sm:grid-cols-3 sm:gap-3">
-            <div className="text-[11px] font-extrabold uppercase tracking-wide text-muted-foreground">
+            <div className="text-[11px] font-extrabold tracking-wide text-muted-foreground uppercase">
                 {label}
             </div>
             <div className="sm:col-span-2">
@@ -129,13 +129,17 @@ export default function AdminOpportunitiesShow({ opportunity, stats }) {
                         </Button>
 
                         <div className="flex flex-wrap gap-2">
-                            <Button type="button" variant="outline" className="gap-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="gap-2"
+                            >
                                 <Download className="size-4" />
                                 Export Candidates
                             </Button>
                             <Button
                                 asChild
-                                className="bg-beta-blue hover:bg-beta-blue/90 text-twhite gap-2"
+                                className="gap-2 bg-beta-blue text-twhite hover:bg-beta-blue/90"
                             >
                                 <Link
                                     href={`/admin/opportunities/${encodeURIComponent(
@@ -160,7 +164,8 @@ export default function AdminOpportunitiesShow({ opportunity, stats }) {
                             {opportunity.title?.en ?? 'Opportunity'}
                         </h1>
                         <p className="mt-1 text-sm text-muted-foreground">
-                            Review and manage expert applications for this opportunity.
+                            Review and manage expert applications for this
+                            opportunity.
                         </p>
                     </div>
                 </div>
@@ -187,7 +192,7 @@ export default function AdminOpportunitiesShow({ opportunity, stats }) {
                 <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
                     <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                         <div className="relative w-full lg:max-w-xl">
-                            <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                            <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                             <Input
                                 value={query}
                                 onChange={(e) => setQuery(e.target.value)}
@@ -197,15 +202,25 @@ export default function AdminOpportunitiesShow({ opportunity, stats }) {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-2">
-                            <Button type="button" variant="outline" className="gap-2">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                className="gap-2"
+                            >
                                 <Filter className="size-4" />
                                 Filters
                             </Button>
                             <div className="flex flex-wrap gap-1 rounded-xl border border-border bg-background p-1">
                                 {[
-                                    { id: 'all', label: `All Candidates (${applications.length})` },
+                                    {
+                                        id: 'all',
+                                        label: `All Candidates (${applications.length})`,
+                                    },
                                     { id: 'new', label: 'New (0)' },
-                                    { id: 'shortlisted', label: 'Shortlisted (0)' },
+                                    {
+                                        id: 'shortlisted',
+                                        label: 'Shortlisted (0)',
+                                    },
                                     { id: 'selected', label: 'Selected (0)' },
                                     { id: 'rejected', label: 'Rejected (0)' },
                                 ].map((x) => (
@@ -229,13 +244,15 @@ export default function AdminOpportunitiesShow({ opportunity, stats }) {
 
                     <div className="mt-5 overflow-x-auto">
                         <table className="w-full min-w-[1000px] border-collapse text-left text-sm">
-                            <thead className="text-xs uppercase tracking-wide text-muted-foreground">
+                            <thead className="text-xs tracking-wide text-muted-foreground uppercase">
                                 <tr className="border-b border-border">
                                     <th className="px-3 py-3">Expert name</th>
                                     <th className="px-3 py-3">Expertise</th>
                                     <th className="px-3 py-3">Applied date</th>
                                     <th className="px-3 py-3">Status</th>
-                                    <th className="px-3 py-3 text-right">Actions</th>
+                                    <th className="px-3 py-3 text-right">
+                                        Actions
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-border">
@@ -451,7 +468,7 @@ export default function AdminOpportunitiesShow({ opportunity, stats }) {
                             <div className="text-sm font-extrabold text-beta-blue">
                                 Motivation
                             </div>
-                            <div className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">
+                            <div className="mt-3 text-sm leading-relaxed whitespace-pre-wrap text-muted-foreground">
                                 {selected?.motivation || '—'}
                             </div>
                         </div>
@@ -473,4 +490,3 @@ export default function AdminOpportunitiesShow({ opportunity, stats }) {
 }
 
 AdminOpportunitiesShow.layout = (page) => <AppLayout>{page}</AppLayout>;
-

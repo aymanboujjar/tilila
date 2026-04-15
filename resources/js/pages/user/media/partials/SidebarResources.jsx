@@ -71,11 +71,7 @@ export default function SidebarResources({ links = null }) {
                     }
 
                     return (
-                        <button
-                            key={key}
-                            type="button"
-                            className={className}
-                        >
+                        <button key={key} type="button" className={className}>
                             {inner}
                         </button>
                     );

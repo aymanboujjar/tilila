@@ -58,7 +58,10 @@ export function AuthSidebar() {
 
                             return (
                                 <SidebarMenuItem key={item.title}>
-                                    <SidebarMenuButton asChild tooltip={{ children: item.title }}>
+                                    <SidebarMenuButton
+                                        asChild
+                                        tooltip={{ children: item.title }}
+                                    >
                                         <Link href={item.href} prefetch>
                                             {Icon && <Icon />}
                                             <span>{item.title}</span>
@@ -71,8 +74,10 @@ export function AuthSidebar() {
                 </SidebarGroup>
             </SidebarContent>
 
-            <SidebarFooter className="text-sidebar-foreground/70 p-4 text-xs">
-                <p className="leading-snug">Secure access to your Tilila account.</p>
+            <SidebarFooter className="p-4 text-xs text-sidebar-foreground/70">
+                <p className="leading-snug">
+                    Secure access to your Tilila account.
+                </p>
             </SidebarFooter>
         </Sidebar>
     );

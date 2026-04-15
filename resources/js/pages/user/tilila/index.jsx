@@ -17,7 +17,9 @@ export default function TililaIndex() {
             <TililaHead />
             <div>
                 <div className="pb-8">
-                    <HeroSection onParticipate={() => setParticipateOpen(true)} />
+                    <HeroSection
+                        onParticipate={() => setParticipateOpen(true)}
+                    />
                 </div>
                 <div className="bg-twhite px-8 py-10">
                     <FeaturedLaureatesSection />
@@ -30,7 +32,10 @@ export default function TililaIndex() {
                 </div>
             </div>
 
-            <ParticipateModal open={participateOpen} onOpenChange={setParticipateOpen} />
+            <ParticipateModal
+                open={participateOpen}
+                onOpenChange={setParticipateOpen}
+            />
         </>
     );
 }

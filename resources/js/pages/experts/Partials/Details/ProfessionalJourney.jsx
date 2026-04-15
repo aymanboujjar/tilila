@@ -32,7 +32,7 @@ export default function ProfessionalJourney({ items = [] }) {
                                 <img
                                     src={it.imageSrc}
                                     alt=""
-                                    className="h-14 w-14 rounded-full object-cover ring-2 ring-border shadow-sm"
+                                    className="h-14 w-14 rounded-full object-cover shadow-sm ring-2 ring-border"
                                     loading="lazy"
                                     decoding="async"
                                 />

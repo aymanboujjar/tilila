@@ -18,7 +18,9 @@ function PeopleGrid({ people }) {
             ) : (
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {people.map((p, idx) => {
-                        const img = p?.photo_path ? `/storage/${p.photo_path}` : '';
+                        const img = p?.photo_path
+                            ? `/storage/${p.photo_path}`
+                            : '';
                         return (
                             <div
                                 key={`${p.full_name}-${idx}`}
@@ -70,7 +72,11 @@ export default function TililaEditionJury() {
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <div className="text-xs font-semibold tracking-widest text-tgray">
-                            <TransText en="TROPHÉE TILILA" fr="TROPHÉE TILILA" ar="جائزة تيليلا" />
+                            <TransText
+                                en="TROPHÉE TILILA"
+                                fr="TROPHÉE TILILA"
+                                ar="جائزة تيليلا"
+                            />
                         </div>
                         <h1 className="mt-3 text-2xl font-semibold text-tblack sm:text-3xl">
                             <TransText
@@ -93,7 +99,11 @@ export default function TililaEditionJury() {
                         className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack hover:bg-secondary"
                     >
                         <ChevronLeft className="size-4 text-tgray" />
-                        <TransText en="Back to archive" fr="Retour aux archives" ar="العودة للأرشيف" />
+                        <TransText
+                            en="Back to archive"
+                            fr="Retour aux archives"
+                            ar="العودة للأرشيف"
+                        />
                     </Link>
                 </div>
 
@@ -104,4 +114,3 @@ export default function TililaEditionJury() {
 }
 
 TililaEditionJury.layout = (page) => <AppLayout>{page}</AppLayout>;
-

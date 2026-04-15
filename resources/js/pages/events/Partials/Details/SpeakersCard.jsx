@@ -29,7 +29,10 @@ function SpeakerRow({ name, role, image }) {
 
 export default function SpeakersCard({ title = 'Speakers', items = [] }) {
     return (
-        <SectionCard title={title} right={<span className="font-semibold">See all</span>}>
+        <SectionCard
+            title={title}
+            right={<span className="font-semibold">See all</span>}
+        >
             <div className="space-y-4">
                 {items.map((s, idx) => (
                     <SpeakerRow
@@ -43,4 +46,3 @@ export default function SpeakersCard({ title = 'Speakers', items = [] }) {
         </SectionCard>
     );
 }
-

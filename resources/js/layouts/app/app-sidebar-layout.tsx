@@ -17,7 +17,7 @@ export default function AppSidebarLayout({ children }: AppLayoutProps) {
                 className="overflow-x-hidden"
             >
                 {isAuthenticated && (
-                    <div className="border-border/60 flex h-12 shrink-0 items-center border-b bg-muted px-3 lg:hidden">
+                    <div className="flex h-12 shrink-0 items-center border-b border-border/60 bg-muted px-3 lg:hidden">
                         <SidebarTrigger className="-ml-1" />
                     </div>
                 )}

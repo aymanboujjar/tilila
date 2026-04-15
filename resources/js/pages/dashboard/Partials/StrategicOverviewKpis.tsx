@@ -60,10 +60,10 @@ export function StrategicOverviewKpis() {
         <section className="space-y-4">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h2 className="text-tblack text-lg font-semibold">
+                    <h2 className="text-lg font-semibold text-tblack">
                         Strategic overview
                     </h2>
-                    <p className="text-tgray text-sm">
+                    <p className="text-sm text-tgray">
                         Impact performance across modules
                     </p>
                 </div>
@@ -82,7 +82,10 @@ export function StrategicOverviewKpis() {
                         <ToggleGroupItem value="30d" aria-label="Last 30 days">
                             30D
                         </ToggleGroupItem>
-                        <ToggleGroupItem value="12m" aria-label="Last 12 months">
+                        <ToggleGroupItem
+                            value="12m"
+                            aria-label="Last 12 months"
+                        >
                             12M
                         </ToggleGroupItem>
                     </ToggleGroup>
@@ -107,7 +110,7 @@ export function StrategicOverviewKpis() {
                             className="border-border/70 shadow-sm"
                         >
                             <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
-                                <CardTitle className="text-tgray text-sm font-medium">
+                                <CardTitle className="text-sm font-medium text-tgray">
                                     {kpi.title}
                                 </CardTitle>
                                 <div
@@ -120,12 +123,12 @@ export function StrategicOverviewKpis() {
                                 </div>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-tblack text-2xl font-bold tracking-tight">
+                                <p className="text-2xl font-bold tracking-tight text-tblack">
                                     {kpi.value}
                                 </p>
                                 <CardDescription className="mt-1 flex items-center gap-1 text-xs">
                                     {kpi.steady ? (
-                                        <span className="text-tgray font-medium">
+                                        <span className="font-medium text-tgray">
                                             {kpi.trend}
                                         </span>
                                     ) : (
@@ -141,7 +144,7 @@ export function StrategicOverviewKpis() {
                                                 {kpi.trend}
                                             </span>
                                             {kpi.trendPositive && (
-                                                <TrendingUp className="text-alpha-green size-3.5" />
+                                                <TrendingUp className="size-3.5 text-alpha-green" />
                                             )}
                                         </>
                                     )}
