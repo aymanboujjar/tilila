@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ExpertAccountCreated;
 use App\Models\Expert;
 use App\Models\ExpertApplication;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -60,12 +63,22 @@ class ExpertApplicationController extends Controller
             return back()->with('error', 'This application has already been reviewed.');
         }
 
-        DB::transaction(function () use ($application, $data, $request): void {
+        $credentialPayload = null;
+        $mailFailed = false;
+
+        DB::transaction(function () use ($application, $data, $request, &$credentialPayload): void {
             $expertId = $application->expert_id;
 
             if ($data['decision'] === 'accepted') {
-                $expert = $this->createExpertFromApplication($application);
+                $account = $this->createOrResolveExpertUser($application);
+                $expert = $this->createExpertFromApplication($application, $account['user']);
                 $expertId = $expert->id;
+
+                $credentialPayload = [
+                    'user' => $account['user'],
+                    'temporary_password' => $account['temporary_password'],
+                    'new_account' => $account['new_account'],
+                ];
             }
 
             $application->update([
@@ -76,6 +89,26 @@ class ExpertApplicationController extends Controller
                 'expert_id' => $expertId,
             ]);
         });
+
+        if ($credentialPayload !== null) {
+            try {
+                /** @var User $targetUser */
+                $targetUser = $credentialPayload['user'];
+
+                Mail::to($targetUser->email)->send(new ExpertAccountCreated(
+                    user: $targetUser,
+                    temporaryPassword: $credentialPayload['temporary_password'],
+                    isNewAccount: (bool) $credentialPayload['new_account'],
+                ));
+            } catch (\Throwable $e) {
+                report($e);
+                $mailFailed = true;
+            }
+        }
+
+        if ($mailFailed) {
+            return back()->with('warning', 'Application was accepted, but the access email could not be sent. Please verify mail settings and retry.');
+        }
 
         return back()->with('success', 'Application reviewed successfully.');
     }
@@ -89,10 +122,54 @@ class ExpertApplicationController extends Controller
         ]);
     }
 
-    private function createExpertFromApplication(ExpertApplication $application): Expert
+    /**
+     * @return array{user: User, temporary_password: string|null, new_account: bool}
+     */
+    private function createOrResolveExpertUser(ExpertApplication $application): array
+    {
+        $existing = User::query()
+            ->where('email', $application->email)
+            ->first();
+
+        if ($existing) {
+            if ($existing->role !== 'admin' && $existing->role !== 'expert') {
+                $existing->role = 'expert';
+                $existing->save();
+            }
+
+            return [
+                'user' => $existing,
+                'temporary_password' => null,
+                'new_account' => false,
+            ];
+        }
+
+        $temporaryPassword = Str::password(12);
+
+        $user = User::query()->create([
+            'name' => $application->full_name,
+            'email' => $application->email,
+            'password' => $temporaryPassword,
+            'role' => 'expert',
+            'email_verified_at' => now(),
+        ]);
+
+        return [
+            'user' => $user,
+            'temporary_password' => $temporaryPassword,
+            'new_account' => true,
+        ];
+    }
+
+    private function createExpertFromApplication(ExpertApplication $application, User $user): Expert
     {
         if ($application->expert_id) {
-            return Expert::query()->findOrFail($application->expert_id);
+            $expert = Expert::query()->findOrFail($application->expert_id);
+            if ($expert->user_id === null) {
+                $expert->update(['user_id' => $user->id]);
+            }
+
+            return $expert;
         }
 
         $fullName = trim((string) $application->full_name);
@@ -107,6 +184,7 @@ class ExpertApplicationController extends Controller
         $bio = trim((string) ($application->bio ?? ''));
 
         return Expert::query()->create([
+            'user_id' => $user->id,
             'slug' => $this->uniqueSlugFromName($fullName),
             'name' => ['en' => $fullName, 'fr' => $fullName, 'ar' => $fullName],
             'title' => ['en' => $title, 'fr' => $title, 'ar' => $title],

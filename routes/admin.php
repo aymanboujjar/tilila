@@ -12,8 +12,11 @@ use App\Http\Controllers\Admin\TililabEditionController;
 use App\Http\Controllers\Admin\TililabAnalyticsController;
 use App\Http\Controllers\Admin\TililabParticipantController;
 use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', fn () => Inertia::render('dashboard'))->name('dashboard');
+
     Route::get('experts/export.csv', [ExpertController::class, 'exportCsv'])->name('experts.export');
     Route::resource('experts', ExpertController::class)->except(['show']);
     Route::get('expert-applications', [ExpertApplicationController::class, 'index'])->name('expert-applications.index');

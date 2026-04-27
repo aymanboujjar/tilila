@@ -12,14 +12,18 @@ export default function AppLayout({
     children: React.ReactNode;
 }) {
     const page = usePage();
+    const role = (page.props.auth?.user?.role as string | undefined) ?? null;
     const currentPath = new URL(
         page.url,
         typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
     ).pathname;
-    const isAdminPage =
-        currentPath === '/dashboard' || currentPath.startsWith('/admin/');
+    const isSettingsPage = currentPath.startsWith('/settings/');
+    const isBackOfficePage =
+        currentPath.startsWith('/admin/') ||
+        currentPath.startsWith('/expert/') ||
+        (isSettingsPage && (role === 'admin' || role === 'expert'));
 
-    if (!isAdminPage) {
+    if (!isBackOfficePage) {
         return (
             <div className="flex min-h-screen flex-col bg-background">
                 <Navbar />

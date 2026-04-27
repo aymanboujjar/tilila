@@ -115,10 +115,16 @@ Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', fn () => redirect()->route('admin.dashboard'))
+        ->middleware('role:admin')
+        ->name('dashboard');
 
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
         require __DIR__.'/admin.php';
+    });
+
+    Route::prefix('expert')->name('expert.')->middleware('role:expert')->group(function () {
+        require __DIR__.'/expert.php';
     });
 });
 
