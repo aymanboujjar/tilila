@@ -10,13 +10,21 @@ class ExpertApplication extends Model
 {
     protected $fillable = [
         'full_name',
+        'name_i18n',
         'email',
         'phone',
         'country',
         'city',
+        'industries',
+        'languages',
         'current_title',
+        'title_i18n',
         'expertise',
+        'expertise_i18n',
         'bio',
+        'bio_i18n',
+        'quote_i18n',
+        'socials',
         'linkedin_url',
         'portfolio_url',
         'cv_path',
@@ -35,6 +43,14 @@ class ExpertApplication extends Model
     protected function casts(): array
     {
         return [
+            'name_i18n' => 'array',
+            'title_i18n' => 'array',
+            'expertise_i18n' => 'array',
+            'bio_i18n' => 'array',
+            'industries' => 'array',
+            'languages' => 'array',
+            'quote_i18n' => 'array',
+            'socials' => 'array',
             'reviewed_at' => 'datetime',
         ];
     }

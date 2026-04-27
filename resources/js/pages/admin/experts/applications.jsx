@@ -95,11 +95,6 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                             Review incoming expert applications and accept or deny each request.
                         </p>
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                        <Button asChild variant="outline">
-                            <Link href="/admin/experts">Back to experts</Link>
-                        </Button>
-                    </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -168,14 +163,14 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                                 rows.map((application) => (
                                     <TableRow key={application.id}>
                                         <TableCell className="py-4 sm:px-3">
-                                            <div className="font-semibold text-tblack">{application.full_name}</div>
+                                            <div className="font-semibold text-tblack">{application.name_i18n?.en || application.full_name}</div>
                                             <div className="text-xs text-tgray">{application.email}</div>
                                             <div className="text-xs text-tgray">
                                                 {[application.city, application.country].filter(Boolean).join(', ') || '—'}
                                             </div>
                                         </TableCell>
                                         <TableCell className="max-w-sm py-4 text-sm text-tgray sm:px-3">
-                                            <div className="line-clamp-2">{application.expertise || '—'}</div>
+                                            <div className="line-clamp-2">{application.expertise_i18n?.en || application.expertise || '—'}</div>
                                         </TableCell>
                                         <TableCell className="py-4 sm:px-3">
                                             <span className={cn('inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize', statusClass(application.status))}>
@@ -224,9 +219,9 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                                                         </Button>
                                                     </>
                                                 ) : application.expert_id ? (
-                                                    <Button asChild variant="ghost" size="sm" className="text-beta-blue">
-                                                        <Link href={`/admin/experts/${application.expert_id}/edit`}>View Expert</Link>
-                                                    </Button>
+                                                    <span className="text-xs font-medium text-alpha-green">
+                                                        Published
+                                                    </span>
                                                 ) : null}
                                             </div>
                                         </TableCell>

@@ -28,11 +28,6 @@ import type { NavItem } from '@/types';
 
 const adminModuleItems: NavItem[] = [
     {
-        title: 'Experts',
-        href: '/admin/experts',
-        icon: Users,
-    },
-    {
         title: 'Expert Requests',
         href: '/admin/expert-applications',
         icon: Users,

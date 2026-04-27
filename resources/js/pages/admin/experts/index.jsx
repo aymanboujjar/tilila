@@ -1,5 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
-import { Download, Plus, Search, SlidersHorizontal } from 'lucide-react';
+import { Download, Search, SlidersHorizontal } from 'lucide-react';
 import { useState } from 'react';
 
 import { Badge } from '@/components/ui/badge';
@@ -88,15 +88,6 @@ export default function AdminExpertsIndex({ experts, filters }) {
                             <Download className="size-4" />
                             Export CSV
                         </Button>
-                        <Button
-                            asChild
-                            className="gap-2 bg-beta-blue text-twhite hover:bg-beta-blue/90"
-                        >
-                            <Link href="/admin/experts/create">
-                                <Plus className="size-4" />
-                                Add Expert
-                            </Link>
-                        </Button>
                     </div>
                 </div>
 
@@ -170,7 +161,7 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                         colSpan={5}
                                         className="px-4 py-14 text-center text-sm text-tgray sm:px-6"
                                     >
-                                        No experts yet. Add one to get started.
+                                        No accepted experts yet. Review applications to publish experts.
                                     </TableCell>
                                 </TableRow>
                             ) : (

@@ -194,12 +194,17 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
         expertsProp,
     ]);
 
+    const countriesCount = useMemo(
+        () => new Set((expertsProp ?? []).map((item) => item.country).filter(Boolean)).size,
+        [expertsProp],
+    );
+
     return (
         <>
             <Head title={t('experts.headTitle')} />
 
             <div>
-                <div className="bg-beta-white py-10">
+                <div className="bg-[radial-gradient(circle_at_top,#dff2ff_0%,#ffffff_50%,#f8fcff_100%)] py-12">
                     <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                         <header className="mx-auto max-w-3xl text-center">
                             <TransText
@@ -230,6 +235,21 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
                                 </Link>
                             </div>
                         </header>
+
+                        <div className="mx-auto mt-8 grid max-w-3xl grid-cols-3 gap-3">
+                            <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center shadow-sm">
+                                <p className="text-2xl font-bold text-tblack">{expertsProp.length}</p>
+                                <p className="text-xs text-tgray">Experts</p>
+                            </div>
+                            <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center shadow-sm">
+                                <p className="text-2xl font-bold text-tblack">{countriesCount}</p>
+                                <p className="text-xs text-tgray">Countries</p>
+                            </div>
+                            <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center shadow-sm">
+                                <p className="text-2xl font-bold text-tblack">{activeFilters.length}</p>
+                                <p className="text-xs text-tgray">Active filters</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -251,50 +271,23 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
                                 <div className="flex items-center gap-2">
                                     <span className="font-semibold">
                                         <TransText
-                                            en="ACTIVE FILTERS:"
-                                            fr="FILTRES ACTIFS :"
-                                            ar="الفلاتر النشطة:"
+                                            en={`${experts.length} results`}
+                                            fr={`${experts.length} resultats`}
+                                            ar={`${experts.length} نتيجة`}
                                         />
                                     </span>
-                                    {activeFilters.length ? (
-                                        <>
-                                            {activeFilters.map((f) => (
-                                                <button
-                                                    key={f.key}
-                                                    type="button"
-                                                    onClick={() =>
-                                                        setFilters((prev) => ({
-                                                            ...prev,
-                                                            [f.key]: 'all',
-                                                        }))
-                                                    }
-                                                    className="inline-flex items-center gap-1 rounded-full bg-alpha-blue px-2.5 py-1 text-xs font-semibold text-beta-blue hover:opacity-90"
-                                                >
-                                                    {f.label}{' '}
-                                                    <span aria-hidden="true">
-                                                        ×
-                                                    </span>
-                                                </button>
-                                            ))}
-                                            <button
-                                                type="button"
-                                                onClick={() =>
-                                                    setFilters({
-                                                        industry: 'all',
-                                                        country: 'all',
-                                                        language: 'all',
-                                                        availability: 'all',
-                                                    })
-                                                }
-                                                className="text-xs font-semibold text-muted-foreground hover:text-foreground hover:underline"
+                                </div>
+
+                                <div className="flex flex-wrap items-center gap-2">
+                                    {activeFilters.length > 0 ? (
+                                        activeFilters.map((item) => (
+                                            <span
+                                                key={item.key}
+                                                className="rounded-full border border-border bg-card px-2.5 py-1 text-[11px] font-medium text-foreground"
                                             >
-                                                <TransText
-                                                    en="Clear all"
-                                                    fr="Tout effacer"
-                                                    ar="مسح الكل"
-                                                />
-                                            </button>
-                                        </>
+                                                {item.label}
+                                            </span>
+                                        ))
                                     ) : (
                                         <span>
                                             <TransText
@@ -318,21 +311,28 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
                             </div>
 
                             <div className="mt-5">
-                                <div
-                                    className={
-                                        view === 'grid'
-                                            ? 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4'
-                                            : 'grid grid-cols-1 gap-4'
-                                    }
-                                >
-                                    {experts.map((expert) => (
-                                        <ExpertCard
-                                            key={expert.id}
-                                            expert={expert}
-                                            view={view}
-                                        />
-                                    ))}
-                                </div>
+                                {experts.length === 0 ? (
+                                    <div className="rounded-2xl border border-dashed border-border/80 bg-card p-10 text-center">
+                                        <p className="text-base font-semibold text-tblack">No experts match your filters.</p>
+                                        <p className="mt-2 text-sm text-tgray">Try removing a filter or changing your search query.</p>
+                                    </div>
+                                ) : (
+                                    <div
+                                        className={
+                                            view === 'grid'
+                                                ? 'grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4'
+                                                : 'grid grid-cols-1 gap-4'
+                                        }
+                                    >
+                                        {experts.map((expert) => (
+                                            <ExpertCard
+                                                key={expert.id}
+                                                expert={expert}
+                                                view={view}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
 
                             <div className="mt-10 flex items-center justify-center gap-2 text-xs">

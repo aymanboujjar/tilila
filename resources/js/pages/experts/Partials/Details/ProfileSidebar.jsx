@@ -198,24 +198,6 @@ export default function ProfileSidebar({ expert, details }) {
                 </div>
             </div>
 
-            {details?.quote &&
-            (details.quote.en || details.quote.fr || details.quote.ar) ? (
-                <div className="rounded-2xl bg-card p-5 shadow-sm ring-1 ring-border">
-                    <div className="text-2xl font-extrabold text-beta-blue">
-                        “
-                    </div>
-                    <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                        <TransText
-                            en={details.quote.en}
-                            fr={details.quote.fr}
-                            ar={details.quote.ar}
-                        />
-                    </div>
-                    <div className="mt-3 text-right text-xs font-semibold text-muted-foreground">
-                        — {resolvedName}
-                    </div>
-                </div>
-            ) : null}
         </aside>
     );
 }

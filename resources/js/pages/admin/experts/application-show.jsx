@@ -121,9 +121,9 @@ export default function AdminExpertApplicationShow({ application }) {
                         ) : null}
 
                         {a.expert_id ? (
-                            <Button asChild variant="ghost" className="text-beta-blue">
-                                <Link href={`/admin/experts/${a.expert_id}/edit`}>Open Expert</Link>
-                            </Button>
+                            <span className="text-xs font-medium text-alpha-green">
+                                Published
+                            </span>
                         ) : null}
                     </div>
                 </div>
@@ -131,12 +131,25 @@ export default function AdminExpertApplicationShow({ application }) {
                 <div className="space-y-4 rounded-xl border border-border/70 bg-card p-5 shadow-sm sm:p-6">
                     <Row label="Email" value={a.email} />
                     <Row label="Phone" value={a.phone} />
-                    <Row label="Current title" value={a.current_title} />
+                    <Row label="Name (EN)" value={a.name_i18n?.en || a.full_name} />
+                    <Row label="Name (FR)" value={a.name_i18n?.fr} />
+                    <Row label="Name (AR)" value={a.name_i18n?.ar} />
+                    <Row label="Current title (EN)" value={a.title_i18n?.en || a.current_title} />
+                    <Row label="Current title (FR)" value={a.title_i18n?.fr} />
+                    <Row label="Current title (AR)" value={a.title_i18n?.ar} />
                     <Row label="Country" value={a.country} />
                     <Row label="City" value={a.city} />
-                    <Row label="Expertise" value={a.expertise} />
-                    <Row label="Bio" value={a.bio} />
+                    <Row label="Industries" value={Array.isArray(a.industries) ? a.industries.join(', ') : ''} />
+                    <Row label="Languages" value={Array.isArray(a.languages) ? a.languages.join(', ') : ''} />
+                    <Row label="Expertise (EN)" value={a.expertise_i18n?.en || a.expertise} />
+                    <Row label="Expertise (FR)" value={a.expertise_i18n?.fr} />
+                    <Row label="Expertise (AR)" value={a.expertise_i18n?.ar} />
+                    <Row label="Bio (EN)" value={a.bio_i18n?.en || a.bio} />
+                    <Row label="Bio (FR)" value={a.bio_i18n?.fr} />
+                    <Row label="Bio (AR)" value={a.bio_i18n?.ar} />
                     <Row label="LinkedIn" value={a.linkedin_url} />
+                    <Row label="Twitter / X" value={a.socials?.twitter} />
+                    <Row label="Instagram" value={a.socials?.instagram} />
                     <Row label="Portfolio" value={a.portfolio_url} />
                     <Row label="Locale" value={a.locale} />
                     <Row label="IP" value={a.ip} />
