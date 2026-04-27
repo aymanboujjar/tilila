@@ -38,6 +38,11 @@ const moduleItems: NavItem[] = [
         icon: Users,
     },
     {
+        title: 'Expert Requests',
+        href: '/admin/expert-applications',
+        icon: Users,
+    },
+    {
         title: 'Tililab Editions',
         href: '/admin/tililab/editions',
         icon: Trophy,

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import FiltersBar from '@/pages/experts/Partials/FiltersBar';
 import ExpertCard from '@/pages/experts/Partials/ExpertCard';
@@ -216,6 +216,19 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
                                 fr="Découvrez et contactez des expertes de premier plan au Maroc et en Afrique."
                                 ar="اكتشف وتواصل مع خبيرات رائدات في المغرب وإفريقيا."
                             />
+
+                            <div className="mt-6 flex justify-center">
+                                <Link
+                                    href="/experts/become"
+                                    className="inline-flex items-center rounded-full bg-beta-blue px-5 py-2.5 text-sm font-semibold text-twhite transition hover:bg-beta-blue/90"
+                                >
+                                    <TransText
+                                        en="Become an Expert"
+                                        fr="Devenir experte"
+                                        ar="أصبحي خبيرة"
+                                    />
+                                </Link>
+                            </div>
                         </header>
                     </div>
                 </div>

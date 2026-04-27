@@ -1,4 +1,4 @@
-import { Form, Head, Link, setLayoutProps } from '@inertiajs/react';
+import { Form, Head, setLayoutProps } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { home, register as registerRoute } from '@/routes';
+import { register as registerRoute } from '@/routes';
 import { store as loginForm } from '@/routes/login';
 import { request } from '@/routes/password';
 import type { TranslationContextValue } from '@/types/translation';
@@ -36,19 +36,6 @@ export default function Login({
             <Head title={t('auth.login.headTitle')} />
 
             <div className="flex flex-col gap-6 text-tblack">
-                <Link
-                    href={home()}
-                    className="flex justify-center rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-beta-blue/40 focus-visible:ring-offset-2"
-                >
-                    <img
-                        src="/assets/logo.webp"
-                        alt="Tilila"
-                        className="h-11 w-auto max-w-55 object-contain"
-                        loading="eager"
-                        decoding="async"
-                    />
-                </Link>
-
                 <Form
                     {...loginForm.form()}
                     resetOnSuccess={['password']}

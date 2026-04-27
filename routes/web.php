@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExpertController;
+use App\Http\Controllers\ExpertApplicationController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\TililabInscriptionController;
@@ -40,6 +41,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/experts', [ExpertController::class, 'index'])->name('experts.index');
+Route::get('/experts/become', [ExpertApplicationController::class, 'create'])->name('experts.become');
+Route::post('/experts/become', [ExpertApplicationController::class, 'store'])->name('experts.become.store');
 Route::get('/experts/{expert}', [ExpertController::class, 'show'])->name('experts.show');
 Route::get('/opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
 Route::get('/opportunities/{opportunity}', [OpportunityController::class, 'show'])->name('opportunities.show');

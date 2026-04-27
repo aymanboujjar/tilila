@@ -11,10 +11,15 @@ export default function AppLayout({
     breadcrumbs?: BreadcrumbItem[];
     children: React.ReactNode;
 }) {
-    const { auth } = usePage().props as { auth?: { user?: { role?: string } } };
-    const isAuthenticated = Boolean(auth?.user);
+    const page = usePage();
+    const currentPath = new URL(
+        page.url,
+        typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
+    ).pathname;
+    const isAdminPage =
+        currentPath === '/dashboard' || currentPath.startsWith('/admin/');
 
-    if (!isAuthenticated) {
+    if (!isAdminPage) {
         return (
             <div className="flex min-h-screen flex-col bg-background">
                 <Navbar />

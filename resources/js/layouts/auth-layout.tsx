@@ -1,4 +1,4 @@
-import AuthSidebarLayout from '@/layouts/auth/auth-sidebar-layout';
+import AuthLayoutTemplate from '@/layouts/auth/auth-simple-layout';
 
 export default function AuthLayout({
     title = '',
@@ -10,8 +10,8 @@ export default function AuthLayout({
     children: React.ReactNode;
 }) {
     return (
-        <AuthSidebarLayout title={title} description={description}>
+        <AuthLayoutTemplate title={title} description={description}>
             {children}
-        </AuthSidebarLayout>
+        </AuthLayoutTemplate>
     );
 }

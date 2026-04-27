@@ -66,6 +66,11 @@ export default function AdminExpertsIndex({ experts, filters }) {
                         </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
+                        <Button asChild variant="outline" className="gap-2">
+                            <Link href="/admin/expert-applications">
+                                Review Requests
+                            </Link>
+                        </Button>
                         <Button
                             type="button"
                             variant="outline"
