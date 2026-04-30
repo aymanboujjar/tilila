@@ -31,7 +31,7 @@ export default function Navbar() {
             //     ar: 'الحوكمة',
             //     href: '/gouvernance',
             // },
-            { en: 'Experts', fr: 'Experts', ar: 'الخبراء', href: '/experts' },
+            { en: 'Experts', fr: 'Expertes', ar: 'الخبيرات', href: '/experts' },
             {
                 en: 'Events',
                 fr: 'Événements',
