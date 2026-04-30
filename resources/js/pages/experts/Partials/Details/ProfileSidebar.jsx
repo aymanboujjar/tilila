@@ -197,7 +197,6 @@ export default function ProfileSidebar({ expert, details }) {
                     )}
                 </div>
             </div>
-
         </aside>
     );
 }

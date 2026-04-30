@@ -33,7 +33,11 @@ function statusClass(status) {
     }
 }
 
-export default function AdminExpertApplicationsIndex({ applications, filters, kpis }) {
+export default function AdminExpertApplicationsIndex({
+    applications,
+    filters,
+    kpis,
+}) {
     const [search, setSearch] = useState(filters?.search ?? '');
     const [denyModal, setDenyModal] = useState({
         open: false,
@@ -46,13 +50,17 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
 
     const submitSearch = (e) => {
         e.preventDefault();
-        router.get('/admin/expert-applications', {
-            search,
-            status: filters?.status,
-        }, {
-            preserveState: true,
-            replace: true,
-        });
+        router.get(
+            '/admin/expert-applications',
+            {
+                search,
+                status: filters?.status,
+            },
+            {
+                preserveState: true,
+                replace: true,
+            },
+        );
     };
 
     const review = (id, decision) => {
@@ -61,11 +69,15 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
             return;
         }
 
-        router.patch(`/admin/expert-applications/${id}/review`, {
-            decision,
-        }, {
-            preserveScroll: true,
-        });
+        router.patch(
+            `/admin/expert-applications/${id}/review`,
+            {
+                decision,
+            },
+            {
+                preserveScroll: true,
+            },
+        );
     };
 
     const submitDeny = () => {
@@ -73,13 +85,22 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
             return;
         }
 
-        router.patch(`/admin/expert-applications/${denyModal.applicationId}/review`, {
-            decision: 'denied',
-            admin_notes: denyModal.note,
-        }, {
-            preserveScroll: true,
-            onSuccess: () => setDenyModal({ open: false, applicationId: null, note: '' }),
-        });
+        router.patch(
+            `/admin/expert-applications/${denyModal.applicationId}/review`,
+            {
+                decision: 'denied',
+                admin_notes: denyModal.note,
+            },
+            {
+                preserveScroll: true,
+                onSuccess: () =>
+                    setDenyModal({
+                        open: false,
+                        applicationId: null,
+                        note: '',
+                    }),
+            },
+        );
     };
 
     return (
@@ -89,34 +110,58 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="flex flex-col gap-4 border-b border-border/60 pb-6 sm:pb-8 lg:flex-row lg:items-start lg:justify-between">
                     <div>
-                        <p className="text-sm font-medium text-tgray">Experts Directory</p>
-                        <h1 className="text-2xl font-bold tracking-tight text-tblack">Become Expert Requests</h1>
+                        <p className="text-sm font-medium text-tgray">
+                            Experts Directory
+                        </p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
+                            Become Expert Requests
+                        </h1>
                         <p className="mt-1 max-w-2xl text-sm text-tgray">
-                            Review incoming expert applications and accept or deny each request.
+                            Review incoming expert applications and accept or
+                            deny each request.
                         </p>
                     </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
                     <div className="rounded-xl border border-border/70 bg-card p-4">
-                        <div className="text-xs uppercase text-tgray">Total</div>
-                        <div className="mt-1 text-2xl font-bold text-tblack">{kpis?.total ?? 0}</div>
+                        <div className="text-xs text-tgray uppercase">
+                            Total
+                        </div>
+                        <div className="mt-1 text-2xl font-bold text-tblack">
+                            {kpis?.total ?? 0}
+                        </div>
                     </div>
                     <div className="rounded-xl border border-border/70 bg-card p-4">
-                        <div className="text-xs uppercase text-tgray">Pending</div>
-                        <div className="mt-1 text-2xl font-bold text-alpha-yellow">{kpis?.pending ?? 0}</div>
+                        <div className="text-xs text-tgray uppercase">
+                            Pending
+                        </div>
+                        <div className="mt-1 text-2xl font-bold text-alpha-yellow">
+                            {kpis?.pending ?? 0}
+                        </div>
                     </div>
                     <div className="rounded-xl border border-border/70 bg-card p-4">
-                        <div className="text-xs uppercase text-tgray">Accepted</div>
-                        <div className="mt-1 text-2xl font-bold text-alpha-green">{kpis?.accepted ?? 0}</div>
+                        <div className="text-xs text-tgray uppercase">
+                            Accepted
+                        </div>
+                        <div className="mt-1 text-2xl font-bold text-alpha-green">
+                            {kpis?.accepted ?? 0}
+                        </div>
                     </div>
                     <div className="rounded-xl border border-border/70 bg-card p-4">
-                        <div className="text-xs uppercase text-tgray">Denied</div>
-                        <div className="mt-1 text-2xl font-bold text-alpha-danger">{kpis?.denied ?? 0}</div>
+                        <div className="text-xs text-tgray uppercase">
+                            Denied
+                        </div>
+                        <div className="mt-1 text-2xl font-bold text-alpha-danger">
+                            {kpis?.denied ?? 0}
+                        </div>
                     </div>
                 </div>
 
-                <form onSubmit={submitSearch} className="flex flex-col gap-4 lg:flex-row lg:items-center">
+                <form
+                    onSubmit={submitSearch}
+                    className="flex flex-col gap-4 lg:flex-row lg:items-center"
+                >
                     <div className="relative min-w-0 flex-1">
                         <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" />
                         <Input
@@ -127,13 +172,18 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                         />
                     </div>
                     <div className="flex gap-2">
-                        <Button type="submit" variant="secondary">Search</Button>
+                        <Button type="submit" variant="secondary">
+                            Search
+                        </Button>
                         <Button
                             type="button"
                             variant="outline"
                             onClick={() => {
                                 setSearch('');
-                                router.get('/admin/expert-applications', { search: '', status: '' });
+                                router.get('/admin/expert-applications', {
+                                    search: '',
+                                    status: '',
+                                });
                             }}
                         >
                             Reset
@@ -145,17 +195,30 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                     <Table>
                         <TableHeader>
                             <TableRow className="hover:bg-transparent">
-                                <TableHead className="py-3 text-tgray uppercase sm:px-3">Applicant</TableHead>
-                                <TableHead className="py-3 text-tgray uppercase sm:px-3">Expertise</TableHead>
-                                <TableHead className="py-3 text-tgray uppercase sm:px-3">Status</TableHead>
-                                <TableHead className="py-3 text-tgray uppercase sm:px-3">Submitted</TableHead>
-                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">Actions</TableHead>
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
+                                    Applicant
+                                </TableHead>
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
+                                    Expertise
+                                </TableHead>
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
+                                    Status
+                                </TableHead>
+                                <TableHead className="py-3 text-tgray uppercase sm:px-3">
+                                    Submitted
+                                </TableHead>
+                                <TableHead className="py-3 text-right text-tgray uppercase sm:px-3">
+                                    Actions
+                                </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {rows.length === 0 ? (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="px-4 py-14 text-center text-sm text-tgray sm:px-6">
+                                    <TableCell
+                                        colSpan={5}
+                                        className="px-4 py-14 text-center text-sm text-tgray sm:px-6"
+                                    >
                                         No expert applications found.
                                     </TableCell>
                                 </TableRow>
@@ -163,27 +226,59 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                                 rows.map((application) => (
                                     <TableRow key={application.id}>
                                         <TableCell className="py-4 sm:px-3">
-                                            <div className="font-semibold text-tblack">{application.name_i18n?.en || application.full_name}</div>
-                                            <div className="text-xs text-tgray">{application.email}</div>
+                                            <div className="font-semibold text-tblack">
+                                                {application.name_i18n?.en ||
+                                                    application.full_name}
+                                            </div>
                                             <div className="text-xs text-tgray">
-                                                {[application.city, application.country].filter(Boolean).join(', ') || '—'}
+                                                {application.email}
+                                            </div>
+                                            <div className="text-xs text-tgray">
+                                                {[
+                                                    application.city,
+                                                    application.country,
+                                                ]
+                                                    .filter(Boolean)
+                                                    .join(', ') || '—'}
                                             </div>
                                         </TableCell>
                                         <TableCell className="max-w-sm py-4 text-sm text-tgray sm:px-3">
-                                            <div className="line-clamp-2">{application.expertise_i18n?.en || application.expertise || '—'}</div>
+                                            <div className="line-clamp-2">
+                                                {application.expertise_i18n
+                                                    ?.en ||
+                                                    application.expertise ||
+                                                    '—'}
+                                            </div>
                                         </TableCell>
                                         <TableCell className="py-4 sm:px-3">
-                                            <span className={cn('inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize', statusClass(application.status))}>
+                                            <span
+                                                className={cn(
+                                                    'inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize',
+                                                    statusClass(
+                                                        application.status,
+                                                    ),
+                                                )}
+                                            >
                                                 {application.status}
                                             </span>
                                         </TableCell>
                                         <TableCell className="py-4 text-sm text-tgray sm:px-3">
-                                            {application.created_at ? new Date(application.created_at).toLocaleString() : '—'}
+                                            {application.created_at
+                                                ? new Date(
+                                                      application.created_at,
+                                                  ).toLocaleString()
+                                                : '—'}
                                         </TableCell>
                                         <TableCell className="py-4 text-right sm:px-3">
                                             <div className="inline-flex items-center justify-end gap-2">
-                                                <Button asChild variant="outline" size="sm">
-                                                    <Link href={`/admin/expert-applications/${application.id}`}>
+                                                <Button
+                                                    asChild
+                                                    variant="outline"
+                                                    size="sm"
+                                                >
+                                                    <Link
+                                                        href={`/admin/expert-applications/${application.id}`}
+                                                    >
                                                         Details
                                                     </Link>
                                                 </Button>
@@ -193,19 +288,31 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                                                         type="button"
                                                         variant="outline"
                                                         size="sm"
-                                                        onClick={() => window.open(application.cv_url, '_blank', 'noopener,noreferrer')}
+                                                        onClick={() =>
+                                                            window.open(
+                                                                application.cv_url,
+                                                                '_blank',
+                                                                'noopener,noreferrer',
+                                                            )
+                                                        }
                                                     >
                                                         CV
                                                     </Button>
                                                 ) : null}
 
-                                                {application.status === 'pending' ? (
+                                                {application.status ===
+                                                'pending' ? (
                                                     <>
                                                         <Button
                                                             type="button"
                                                             size="sm"
                                                             className="bg-alpha-green text-twhite hover:bg-alpha-green/90"
-                                                            onClick={() => review(application.id, 'accepted')}
+                                                            onClick={() =>
+                                                                review(
+                                                                    application.id,
+                                                                    'accepted',
+                                                                )
+                                                            }
                                                         >
                                                             Accept
                                                         </Button>
@@ -213,7 +320,12 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                                                             type="button"
                                                             size="sm"
                                                             variant="destructive"
-                                                            onClick={() => review(application.id, 'denied')}
+                                                            onClick={() =>
+                                                                review(
+                                                                    application.id,
+                                                                    'denied',
+                                                                )
+                                                            }
                                                         >
                                                             Deny
                                                         </Button>
@@ -235,9 +347,14 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                 {applications && applications.last_page > 1 ? (
                     <div className="flex flex-col items-center justify-between gap-3 text-sm text-tgray sm:flex-row">
                         <p>
-                            Showing {applications.from ?? 0} to {applications.to ?? 0} of {applications.total} results
+                            Showing {applications.from ?? 0} to{' '}
+                            {applications.to ?? 0} of {applications.total}{' '}
+                            results
                         </p>
-                        <nav className="flex flex-wrap items-center gap-1" aria-label="Pagination">
+                        <nav
+                            className="flex flex-wrap items-center gap-1"
+                            aria-label="Pagination"
+                        >
                             {links.map((link, i) =>
                                 link.url ? (
                                     <Link
@@ -245,15 +362,24 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                                         href={link.url}
                                         className={cn(
                                             'inline-flex min-w-9 items-center justify-center rounded-md border border-border bg-card px-3 py-1.5 text-xs font-medium shadow-sm hover:bg-muted',
-                                            link.active && 'border-beta-blue bg-beta-blue text-twhite',
+                                            link.active &&
+                                                'border-beta-blue bg-beta-blue text-twhite',
                                         )}
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                     />
                                 ) : (
                                     <span
                                         key={i}
-                                        className={cn('inline-flex min-w-9 items-center justify-center px-3 py-1.5 text-xs', link.active && 'border-beta-blue font-semibold text-beta-blue')}
-                                        dangerouslySetInnerHTML={{ __html: link.label }}
+                                        className={cn(
+                                            'inline-flex min-w-9 items-center justify-center px-3 py-1.5 text-xs',
+                                            link.active &&
+                                                'border-beta-blue font-semibold text-beta-blue',
+                                        )}
+                                        dangerouslySetInnerHTML={{
+                                            __html: link.label,
+                                        }}
                                     />
                                 ),
                             )}
@@ -266,7 +392,11 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                 open={denyModal.open}
                 onOpenChange={(open) => {
                     if (!open) {
-                        setDenyModal({ open: false, applicationId: null, note: '' });
+                        setDenyModal({
+                            open: false,
+                            applicationId: null,
+                            note: '',
+                        });
                         return;
                     }
                     setDenyModal((prev) => ({ ...prev, open }));
@@ -276,20 +406,29 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                     <DialogHeader>
                         <DialogTitle>Deny expert application</DialogTitle>
                         <DialogDescription>
-                            Add an optional note that will be saved with this decision.
+                            Add an optional note that will be saved with this
+                            decision.
                         </DialogDescription>
                     </DialogHeader>
 
                     <div className="space-y-2">
-                        <label htmlFor="deny-note" className="text-sm font-medium text-foreground">
+                        <label
+                            htmlFor="deny-note"
+                            className="text-sm font-medium text-foreground"
+                        >
                             Admin note
                         </label>
                         <textarea
                             id="deny-note"
                             value={denyModal.note}
-                            onChange={(e) => setDenyModal((prev) => ({ ...prev, note: e.target.value }))}
+                            onChange={(e) =>
+                                setDenyModal((prev) => ({
+                                    ...prev,
+                                    note: e.target.value,
+                                }))
+                            }
                             placeholder="Reason for denial (optional)..."
-                            className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring min-h-28 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                            className="min-h-28 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                         />
                     </div>
 
@@ -297,11 +436,21 @@ export default function AdminExpertApplicationsIndex({ applications, filters, kp
                         <Button
                             type="button"
                             variant="outline"
-                            onClick={() => setDenyModal({ open: false, applicationId: null, note: '' })}
+                            onClick={() =>
+                                setDenyModal({
+                                    open: false,
+                                    applicationId: null,
+                                    note: '',
+                                })
+                            }
                         >
                             Cancel
                         </Button>
-                        <Button type="button" variant="destructive" onClick={submitDeny}>
+                        <Button
+                            type="button"
+                            variant="destructive"
+                            onClick={submitDeny}
+                        >
                             Confirm deny
                         </Button>
                     </DialogFooter>

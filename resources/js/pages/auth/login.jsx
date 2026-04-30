@@ -11,20 +11,9 @@ import { useTranslation } from '@/contexts/TranslationContext';
 import { register as registerRoute } from '@/routes';
 import { store as loginForm } from '@/routes/login';
 import { request } from '@/routes/password';
-import type { TranslationContextValue } from '@/types/translation';
 
-type LoginPageProps = {
-    status?: string;
-    canResetPassword: boolean;
-    canRegister: boolean;
-};
-
-export default function Login({
-    status,
-    canResetPassword,
-    canRegister,
-}: LoginPageProps) {
-    const { t } = useTranslation() as TranslationContextValue;
+export default function Login({ status, canResetPassword, canRegister }) {
+    const { t } = useTranslation();
 
     setLayoutProps({
         title: t('auth.login.layoutTitle'),

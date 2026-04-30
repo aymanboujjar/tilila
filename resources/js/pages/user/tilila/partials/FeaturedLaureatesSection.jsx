@@ -1,29 +1,33 @@
-import { ArrowRight } from 'lucide-react';
 import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 
-function firstEditionWithWinners(editions) {
-    if (!Array.isArray(editions)) return null;
-    return (
-        editions.find(
-            (e) => Array.isArray(e?.winners) && e.winners.length > 0,
-        ) ||
-        editions[0] ||
-        null
-    );
+function latestLaureates(editions, limit = 3) {
+    const out = [];
+    if (!Array.isArray(editions)) return out;
+
+    for (const edition of editions) {
+        const winners = Array.isArray(edition?.winners) ? edition.winners : [];
+        if (winners.length === 0) continue;
+
+        for (const person of winners) {
+            out.push({
+                person,
+                editionId: edition?.id,
+                editionYear: edition?.year,
+            });
+            if (out.length >= limit) return out;
+        }
+    }
+
+    return out;
 }
 
 export default function FeaturedLaureatesSection() {
     const { locale } = useTranslation();
     const { editions } = usePage().props;
 
-    const edition = firstEditionWithWinners(editions);
-    const winners = Array.isArray(edition?.winners) ? edition.winners : [];
-    const featured = winners.slice(0, 3);
-    const detailsUrl = edition?.id
-        ? `/tilila/editions/${edition.id}`
-        : '/tilila#archive';
+    const featured = latestLaureates(editions, 3);
 
     return (
         <section id="featured" className="mx-auto max-w-7xl px-4 pt-8 pb-10">
@@ -40,19 +44,6 @@ export default function FeaturedLaureatesSection() {
                         />
                     </h2>
                 </div>
-                <Link
-                    href={detailsUrl}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-beta-blue hover:opacity-80"
-                >
-                    <span>
-                        <TransText
-                            en="View all editions"
-                            fr="Voir toutes les éditions"
-                            ar="عرض جميع الدورات"
-                        />
-                    </span>{' '}
-                    <ArrowRight className="size-4" />
-                </Link>
             </div>
 
             <div className="mt-8 grid gap-6 lg:grid-cols-3">
@@ -65,7 +56,7 @@ export default function FeaturedLaureatesSection() {
                         />
                     </div>
                 ) : (
-                    featured.map((person, idx) => {
+                    featured.map(({ person, editionId, editionYear }, idx) => {
                         const imageUrl = person?.photo_path
                             ? `/storage/${person.photo_path}`
                             : '';
@@ -75,6 +66,10 @@ export default function FeaturedLaureatesSection() {
                                 : locale === 'fr'
                                   ? person?.full_name
                                   : person?.full_name;
+
+                        const detailsUrl = editionId
+                            ? `/tilila/editions/${editionId}`
+                            : '/tilila#archive';
 
                         return (
                             <Link
@@ -95,7 +90,7 @@ export default function FeaturedLaureatesSection() {
                                         <div className="aspect-4/3 w-full bg-muted" />
                                     )}
                                     <span className="absolute top-4 left-4 rounded-full bg-background px-3 py-1 text-xs font-semibold text-tblack">
-                                        {edition?.year ?? ''}
+                                        {editionYear ?? ''}
                                     </span>
                                 </div>
                                 <div className="p-5">

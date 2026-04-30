@@ -195,7 +195,10 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
     ]);
 
     const countriesCount = useMemo(
-        () => new Set((expertsProp ?? []).map((item) => item.country).filter(Boolean)).size,
+        () =>
+            new Set(
+                (expertsProp ?? []).map((item) => item.country).filter(Boolean),
+            ).size,
         [expertsProp],
     );
 
@@ -238,16 +241,24 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
 
                         <div className="mx-auto mt-8 grid max-w-3xl grid-cols-3 gap-3">
                             <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center shadow-sm">
-                                <p className="text-2xl font-bold text-tblack">{expertsProp.length}</p>
+                                <p className="text-2xl font-bold text-tblack">
+                                    {expertsProp.length}
+                                </p>
                                 <p className="text-xs text-tgray">Experts</p>
                             </div>
                             <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center shadow-sm">
-                                <p className="text-2xl font-bold text-tblack">{countriesCount}</p>
+                                <p className="text-2xl font-bold text-tblack">
+                                    {countriesCount}
+                                </p>
                                 <p className="text-xs text-tgray">Countries</p>
                             </div>
                             <div className="rounded-xl border border-border/70 bg-card/70 p-4 text-center shadow-sm">
-                                <p className="text-2xl font-bold text-tblack">{activeFilters.length}</p>
-                                <p className="text-xs text-tgray">Active filters</p>
+                                <p className="text-2xl font-bold text-tblack">
+                                    {activeFilters.length}
+                                </p>
+                                <p className="text-xs text-tgray">
+                                    Active filters
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -313,8 +324,13 @@ export default function ExpertsIndex({ experts: expertsProp = [] }) {
                             <div className="mt-5">
                                 {experts.length === 0 ? (
                                     <div className="rounded-2xl border border-dashed border-border/80 bg-card p-10 text-center">
-                                        <p className="text-base font-semibold text-tblack">No experts match your filters.</p>
-                                        <p className="mt-2 text-sm text-tgray">Try removing a filter or changing your search query.</p>
+                                        <p className="text-base font-semibold text-tblack">
+                                            No experts match your filters.
+                                        </p>
+                                        <p className="mt-2 text-sm text-tgray">
+                                            Try removing a filter or changing
+                                            your search query.
+                                        </p>
                                     </div>
                                 ) : (
                                     <div

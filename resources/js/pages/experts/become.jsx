@@ -9,11 +9,13 @@ export default function BecomeExpert() {
             head: 'Become an Expert',
             network: 'Experts Network',
             title: 'Become an Expert',
-            subtitle: 'Submit your multilingual profile once. On approval, your expert account and public profile are created from this application.',
+            subtitle:
+                'Submit your multilingual profile once. On approval, your expert account and public profile are created from this application.',
             step1: 'Submit profile',
             step2: 'Admin review',
             step3: 'Account + publication',
-            success: 'Your request has been submitted. We will contact you after review.',
+            success:
+                'Your request has been submitted. We will contact you after review.',
             identity: 'Identity',
             email: 'Email *',
             phone: 'Phone',
@@ -41,11 +43,13 @@ export default function BecomeExpert() {
             head: 'Devenir experte',
             network: 'Réseau des expertes',
             title: 'Devenir experte',
-            subtitle: 'Soumettez votre profil multilingue une seule fois. Après validation, votre compte et profil public seront créés à partir de cette candidature.',
+            subtitle:
+                'Soumettez votre profil multilingue une seule fois. Après validation, votre compte et profil public seront créés à partir de cette candidature.',
             step1: 'Soumettre le profil',
             step2: 'Revue admin',
             step3: 'Compte + publication',
-            success: 'Votre demande a été soumise. Nous vous contacterons après la revue.',
+            success:
+                'Votre demande a été soumise. Nous vous contacterons après la revue.',
             identity: 'Identité',
             email: 'Email *',
             phone: 'Téléphone',
@@ -73,7 +77,8 @@ export default function BecomeExpert() {
             head: 'أصبحي خبيرة',
             network: 'شبكة الخبيرات',
             title: 'أصبحي خبيرة',
-            subtitle: 'أرسلي ملفك متعدد اللغات مرة واحدة. بعد القبول، سيتم إنشاء حسابك وملفك العام من هذا الطلب.',
+            subtitle:
+                'أرسلي ملفك متعدد اللغات مرة واحدة. بعد القبول، سيتم إنشاء حسابك وملفك العام من هذا الطلب.',
             step1: 'إرسال الملف',
             step2: 'مراجعة الإدارة',
             step3: 'الحساب + النشر',
@@ -230,7 +235,6 @@ export default function BecomeExpert() {
                     </div>
 
                     <div className="rounded-2xl border border-border/70 bg-card p-6 shadow-sm sm:p-8">
-
                         {recentlySuccessful ? (
                             <div className="mb-6 rounded-lg border border-alpha-green/30 bg-beta-green px-4 py-3 text-sm text-alpha-green">
                                 {c.success}
@@ -285,7 +289,8 @@ export default function BecomeExpert() {
                                     {['en', 'fr', 'ar'].map((lang) => (
                                         <div key={`name-${lang}`}>
                                             <label className="mb-2 block text-sm font-semibold text-tblack">
-                                                {c.fullName} ({lang.toUpperCase()}){' '}
+                                                {c.fullName} (
+                                                {lang.toUpperCase()}){' '}
                                                 {lang === 'en' ? '*' : ''}
                                             </label>
                                             <input
@@ -511,7 +516,6 @@ export default function BecomeExpert() {
                                             ) : null}
                                         </div>
                                     ))}
-
                                 </div>
                             </div>
 

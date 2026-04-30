@@ -9,10 +9,9 @@ import { Spinner } from '@/components/ui/spinner';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { login } from '@/routes';
 import { store } from '@/routes/register';
-import type { TranslationContextValue } from '@/types/translation';
 
 export default function Register() {
-    const { t } = useTranslation() as TranslationContextValue;
+    const { t } = useTranslation();
 
     setLayoutProps({
         title: t('auth.register.layoutTitle'),
