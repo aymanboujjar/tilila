@@ -219,21 +219,6 @@ export default function ExpertPublicProfileDetails({ details, onChange }) {
                     </div>
                 </section>
 
-                {/* Quote */}
-                <section className="space-y-3">
-                    <h3 className="text-sm font-semibold">Quote (sidebar)</h3>
-                    <p className="text-xs text-muted-foreground">
-                        Shown in the quote card when at least one language is
-                        filled.
-                    </p>
-                    <TriLangTextareas
-                        label="Quote"
-                        value={d.quote ?? emptyTri()}
-                        onChange={(next) => patch({ quote: next })}
-                        minHeight={64}
-                    />
-                </section>
-
                 {/* Social links (sidebar icons) */}
                 <section className="space-y-3">
                     <h3 className="text-sm font-semibold">

@@ -119,29 +119,6 @@ class ExpertController extends Controller
         ]);
     }
 
-    public function create(): Response
-    {
-        return Inertia::render('admin/experts/create', [
-            'statuses' => ['draft', 'pending', 'published', 'suspended'],
-        ]);
-    }
-
-    public function store(Request $request): RedirectResponse
-    {
-        $data = $this->validated($request);
-
-        $data['slug'] = $this->uniqueSlugFromName($data['name']['en']);
-
-        if ($request->hasFile('profile_image')) {
-            $data = array_merge($data, $this->storeProfileImageFromUpload($request->file('profile_image')));
-        }
-
-        Expert::create($data);
-
-        return redirect()->route('admin.experts.index')
-            ->with('success', 'Expert created.');
-    }
-
     public function edit(Expert $expert): Response
     {
         return Inertia::render('admin/experts/edit', [

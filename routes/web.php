@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExpertController;
+use App\Http\Controllers\ExpertApplicationController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\TililabInscriptionController;
@@ -40,6 +41,8 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/experts', [ExpertController::class, 'index'])->name('experts.index');
+Route::get('/experts/become', [ExpertApplicationController::class, 'create'])->name('experts.become');
+Route::post('/experts/become', [ExpertApplicationController::class, 'store'])->name('experts.become.store');
 Route::get('/experts/{expert}', [ExpertController::class, 'show'])->name('experts.show');
 Route::get('/opportunities', [OpportunityController::class, 'index'])->name('opportunities.index');
 Route::get('/opportunities/{opportunity}', [OpportunityController::class, 'show'])->name('opportunities.show');
@@ -112,10 +115,16 @@ Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::inertia('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', fn () => redirect()->route('admin.dashboard'))
+        ->middleware('role:admin')
+        ->name('dashboard');
 
-    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
         require __DIR__.'/admin.php';
+    });
+
+    Route::prefix('expert')->name('expert.')->middleware('role:expert')->group(function () {
+        require __DIR__.'/expert.php';
     });
 });
 

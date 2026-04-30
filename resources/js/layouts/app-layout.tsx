@@ -11,10 +11,19 @@ export default function AppLayout({
     breadcrumbs?: BreadcrumbItem[];
     children: React.ReactNode;
 }) {
-    const { auth } = usePage().props as { auth?: { user?: { role?: string } } };
-    const isAuthenticated = Boolean(auth?.user);
+    const page = usePage();
+    const role = (page.props.auth?.user?.role as string | undefined) ?? null;
+    const currentPath = new URL(
+        page.url,
+        typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
+    ).pathname;
+    const isSettingsPage = currentPath.startsWith('/settings/');
+    const isBackOfficePage =
+        currentPath.startsWith('/admin/') ||
+        currentPath.startsWith('/expert/') ||
+        (isSettingsPage && (role === 'admin' || role === 'expert'));
 
-    if (!isAuthenticated) {
+    if (!isBackOfficePage) {
         return (
             <div className="flex min-h-screen flex-col bg-background">
                 <Navbar />

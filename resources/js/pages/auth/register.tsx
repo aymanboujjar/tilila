@@ -1,4 +1,4 @@
-import { Form, Head, Link, setLayoutProps } from '@inertiajs/react';
+import { Form, Head, setLayoutProps } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
 import TextLink from '@/components/text-link';
@@ -7,11 +7,12 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { home, login } from '@/routes';
+import { login } from '@/routes';
 import { store } from '@/routes/register';
+import type { TranslationContextValue } from '@/types/translation';
 
 export default function Register() {
-    const { t } = useTranslation();
+    const { t } = useTranslation() as TranslationContextValue;
 
     setLayoutProps({
         title: t('auth.register.layoutTitle'),
@@ -21,21 +22,6 @@ export default function Register() {
     return (
         <>
             <Head title={t('auth.register.headTitle')} />
-
-            <div className="mb-6 flex justify-center">
-                <Link
-                    href={home()}
-                    className="rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-beta-blue/40 focus-visible:ring-offset-2"
-                >
-                    <img
-                        src="/assets/logo.webp"
-                        alt="Tilila"
-                        className="h-11 w-auto max-w-55 object-contain"
-                        loading="eager"
-                        decoding="async"
-                    />
-                </Link>
-            </div>
 
             <Form
                 {...store.form()}

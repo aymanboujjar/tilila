@@ -1,8 +1,9 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import {
     Calendar,
     LayoutGrid,
     Megaphone,
+    Shield,
     Settings,
     Trophy,
     Users,
@@ -25,16 +26,10 @@ import { dashboard } from '@/routes';
 import { edit as profileEdit } from '@/routes/profile';
 import type { NavItem } from '@/types';
 
-const dashboardItem: NavItem = {
-    title: 'Dashboard',
-    href: dashboard.url(),
-    icon: LayoutGrid,
-};
-
-const moduleItems: NavItem[] = [
+const adminModuleItems: NavItem[] = [
     {
-        title: 'Experts',
-        href: '/admin/experts',
+        title: 'Expert Requests',
+        href: '/admin/expert-applications',
         icon: Users,
     },
     {
@@ -79,7 +74,7 @@ const moduleItems: NavItem[] = [
     // },
 ];
 
-const strategicItems: NavItem[] = [
+const adminStrategicItems: NavItem[] = [
     // {
     //     title: 'Tililab Analytics',
     //     href: '/admin/tililab/analytics',
@@ -89,6 +84,27 @@ const strategicItems: NavItem[] = [
         title: 'Settings',
         href: profileEdit.url(),
         icon: Settings,
+    },
+];
+
+const expertModuleItems: NavItem[] = [
+    {
+        title: 'My Profile',
+        href: '/expert/profile',
+        icon: Users,
+    },
+];
+
+const expertStrategicItems: NavItem[] = [
+    {
+        title: 'Profile Settings',
+        href: profileEdit.url(),
+        icon: Settings,
+    },
+    {
+        title: 'Security',
+        href: '/settings/security',
+        icon: Shield,
     },
 ];
 
@@ -120,14 +136,24 @@ function SidebarNavLinks({ items }: { items: NavItem[] }) {
 }
 
 export function AppSidebar() {
+    const page = usePage();
+    const role = (page.props.auth?.user?.role as string | undefined) ?? 'user';
+    const isExpert = role === 'expert';
     const { isCurrentUrl } = useCurrentUrl();
+    const dashboardItem: NavItem = {
+        title: 'Dashboard',
+        href: isExpert ? '/expert/dashboard' : '/admin/dashboard',
+        icon: LayoutGrid,
+    };
+    const moduleItems = isExpert ? expertModuleItems : adminModuleItems;
+    const strategicItems = isExpert ? expertStrategicItems : adminStrategicItems;
     const DashboardIcon = dashboardItem.icon;
 
     return (
         <Sidebar collapsible="icon" variant="sidebar">
             <SidebarHeader className="gap-3 border-b border-sidebar-border p-4">
                 <Link
-                    href={dashboard.url()}
+                    href={isExpert ? '/expert/dashboard' : '/admin/dashboard'}
                     prefetch
                     className="flex items-start gap-3 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-sidebar-ring"
                 >
@@ -140,10 +166,10 @@ export function AppSidebar() {
                     </span>
                     <span className="grid min-w-0 flex-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
                         <span className="truncate text-sm font-bold tracking-tight text-twhite">
-                            TILILA Impact
+                            {isExpert ? 'Expert Back Office' : 'TILILA Impact'}
                         </span>
                         <span className="mt-0.5 truncate text-xs font-medium text-sidebar-foreground/60">
-                            Strategic Pilotage
+                            {isExpert ? 'Manage your profile' : 'Strategic Pilotage'}
                         </span>
                     </span>
                 </Link>

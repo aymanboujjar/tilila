@@ -26,7 +26,7 @@ export default function ExpertDetails({ expert, details: detailsProp }) {
                 title={resolvedName ?? t('experts.detail.fallbackHeadTitle')}
             />
 
-            <div className="bg-background">
+            <div className="bg-[linear-gradient(180deg,#f8fcff_0%,#ffffff_22%,#ffffff_100%)]">
                 <div className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
                     <nav className="flex items-center gap-2 text-xs text-muted-foreground">
                         <Link
@@ -82,6 +82,19 @@ export default function ExpertDetails({ expert, details: detailsProp }) {
                                         ar={expert?.title?.ar ?? ''}
                                     />
                                 </p>
+
+                                <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+                                    {expert?.country ? (
+                                        <span className="rounded-full border border-border bg-background px-2.5 py-1 text-muted-foreground">
+                                            {expert.country}
+                                        </span>
+                                    ) : null}
+                                    {expert?.location ? (
+                                        <span className="rounded-full border border-border bg-background px-2.5 py-1 text-muted-foreground">
+                                            {expert.location}
+                                        </span>
+                                    ) : null}
+                                </div>
 
                                 <div className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
                                     {(details?.bio ?? []).length > 0 ? (
