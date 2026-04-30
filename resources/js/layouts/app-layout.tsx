@@ -15,7 +15,9 @@ export default function AppLayout({
     const role = (page.props.auth?.user?.role as string | undefined) ?? null;
     const currentPath = new URL(
         page.url,
-        typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
+        typeof window !== 'undefined'
+            ? window.location.origin
+            : 'http://localhost',
     ).pathname;
     const isSettingsPage = currentPath.startsWith('/settings/');
     const isBackOfficePage =

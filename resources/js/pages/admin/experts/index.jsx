@@ -161,7 +161,8 @@ export default function AdminExpertsIndex({ experts, filters }) {
                                         colSpan={5}
                                         className="px-4 py-14 text-center text-sm text-tgray sm:px-6"
                                     >
-                                        No accepted experts yet. Review applications to publish experts.
+                                        No accepted experts yet. Review
+                                        applications to publish experts.
                                     </TableCell>
                                 </TableRow>
                             ) : (

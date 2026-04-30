@@ -53,15 +53,19 @@ export default function AdminExpertApplicationShow({ application }) {
     };
 
     const submitDeny = () => {
-        router.patch(`/admin/expert-applications/${a.id}/review`, {
-            decision: 'denied',
-            admin_notes: denyNote,
-        }, {
-            onSuccess: () => {
-                setDenyOpen(false);
-                setDenyNote('');
+        router.patch(
+            `/admin/expert-applications/${a.id}/review`,
+            {
+                decision: 'denied',
+                admin_notes: denyNote,
             },
-        });
+            {
+                onSuccess: () => {
+                    setDenyOpen(false);
+                    setDenyNote('');
+                },
+            },
+        );
     };
 
     return (
@@ -71,15 +75,24 @@ export default function AdminExpertApplicationShow({ application }) {
             <div className="mx-auto flex w-full max-w-[min(100%,70rem)] flex-col gap-6 px-4 py-6 sm:px-6 sm:py-8 lg:px-10">
                 <div className="flex flex-col gap-3 border-b border-border/60 pb-5 sm:flex-row sm:items-start sm:justify-between">
                     <div>
-                        <p className="text-sm font-medium text-tgray">Experts Directory</p>
-                        <h1 className="text-2xl font-bold tracking-tight text-tblack">{a.full_name || 'Application details'}</h1>
+                        <p className="text-sm font-medium text-tgray">
+                            Experts Directory
+                        </p>
+                        <h1 className="text-2xl font-bold tracking-tight text-tblack">
+                            {a.full_name || 'Application details'}
+                        </h1>
                         <p className="mt-1 text-sm text-tgray">
-                            Submitted {a.created_at ? new Date(a.created_at).toLocaleString() : '—'}
+                            Submitted{' '}
+                            {a.created_at
+                                ? new Date(a.created_at).toLocaleString()
+                                : '—'}
                         </p>
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">
-                        <span className={`inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize ${statusClass(a.status)}`}>
+                        <span
+                            className={`inline-flex rounded-full border px-2.5 py-0.5 text-xs font-medium capitalize ${statusClass(a.status)}`}
+                        >
                             {a.status || 'pending'}
                         </span>
                         <Button asChild variant="outline">
@@ -91,7 +104,13 @@ export default function AdminExpertApplicationShow({ application }) {
                                 type="button"
                                 variant="outline"
                                 className="gap-2"
-                                onClick={() => window.open(a.cv_url, '_blank', 'noopener,noreferrer')}
+                                onClick={() =>
+                                    window.open(
+                                        a.cv_url,
+                                        '_blank',
+                                        'noopener,noreferrer',
+                                    )
+                                }
                             >
                                 <FileText className="size-4" />
                                 Open CV
@@ -131,17 +150,40 @@ export default function AdminExpertApplicationShow({ application }) {
                 <div className="space-y-4 rounded-xl border border-border/70 bg-card p-5 shadow-sm sm:p-6">
                     <Row label="Email" value={a.email} />
                     <Row label="Phone" value={a.phone} />
-                    <Row label="Name (EN)" value={a.name_i18n?.en || a.full_name} />
+                    <Row
+                        label="Name (EN)"
+                        value={a.name_i18n?.en || a.full_name}
+                    />
                     <Row label="Name (FR)" value={a.name_i18n?.fr} />
                     <Row label="Name (AR)" value={a.name_i18n?.ar} />
-                    <Row label="Current title (EN)" value={a.title_i18n?.en || a.current_title} />
+                    <Row
+                        label="Current title (EN)"
+                        value={a.title_i18n?.en || a.current_title}
+                    />
                     <Row label="Current title (FR)" value={a.title_i18n?.fr} />
                     <Row label="Current title (AR)" value={a.title_i18n?.ar} />
                     <Row label="Country" value={a.country} />
                     <Row label="City" value={a.city} />
-                    <Row label="Industries" value={Array.isArray(a.industries) ? a.industries.join(', ') : ''} />
-                    <Row label="Languages" value={Array.isArray(a.languages) ? a.languages.join(', ') : ''} />
-                    <Row label="Expertise (EN)" value={a.expertise_i18n?.en || a.expertise} />
+                    <Row
+                        label="Industries"
+                        value={
+                            Array.isArray(a.industries)
+                                ? a.industries.join(', ')
+                                : ''
+                        }
+                    />
+                    <Row
+                        label="Languages"
+                        value={
+                            Array.isArray(a.languages)
+                                ? a.languages.join(', ')
+                                : ''
+                        }
+                    />
+                    <Row
+                        label="Expertise (EN)"
+                        value={a.expertise_i18n?.en || a.expertise}
+                    />
                     <Row label="Expertise (FR)" value={a.expertise_i18n?.fr} />
                     <Row label="Expertise (AR)" value={a.expertise_i18n?.ar} />
                     <Row label="Bio (EN)" value={a.bio_i18n?.en || a.bio} />
@@ -154,11 +196,22 @@ export default function AdminExpertApplicationShow({ application }) {
                     <Row label="Locale" value={a.locale} />
                     <Row label="IP" value={a.ip} />
                     <Row label="User agent" value={a.user_agent} />
-                    <Row label="Reviewed at" value={a.reviewed_at ? new Date(a.reviewed_at).toLocaleString() : ''} />
+                    <Row
+                        label="Reviewed at"
+                        value={
+                            a.reviewed_at
+                                ? new Date(a.reviewed_at).toLocaleString()
+                                : ''
+                        }
+                    />
                     <Row label="Admin notes" value={a.admin_notes} />
                     <Row
                         label="Reviewed by"
-                        value={a.reviewed_by ? `${a.reviewed_by.name ?? ''} (${a.reviewed_by.email ?? ''})` : ''}
+                        value={
+                            a.reviewed_by
+                                ? `${a.reviewed_by.name ?? ''} (${a.reviewed_by.email ?? ''})`
+                                : ''
+                        }
                     />
                 </div>
             </div>
@@ -176,12 +229,16 @@ export default function AdminExpertApplicationShow({ application }) {
                     <DialogHeader>
                         <DialogTitle>Deny expert application</DialogTitle>
                         <DialogDescription>
-                            Add an optional note that will be saved with this decision.
+                            Add an optional note that will be saved with this
+                            decision.
                         </DialogDescription>
                     </DialogHeader>
 
                     <div className="space-y-2">
-                        <label htmlFor="deny-note" className="text-sm font-medium text-foreground">
+                        <label
+                            htmlFor="deny-note"
+                            className="text-sm font-medium text-foreground"
+                        >
                             Admin note
                         </label>
                         <textarea
@@ -189,15 +246,23 @@ export default function AdminExpertApplicationShow({ application }) {
                             value={denyNote}
                             onChange={(e) => setDenyNote(e.target.value)}
                             placeholder="Reason for denial (optional)..."
-                            className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring min-h-28 w-full rounded-md border px-3 py-2 text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
+                            className="min-h-28 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
                         />
                     </div>
 
                     <DialogFooter>
-                        <Button type="button" variant="outline" onClick={() => setDenyOpen(false)}>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => setDenyOpen(false)}
+                        >
                             Cancel
                         </Button>
-                        <Button type="button" variant="destructive" onClick={submitDeny}>
+                        <Button
+                            type="button"
+                            variant="destructive"
+                            onClick={submitDeny}
+                        >
                             Confirm deny
                         </Button>
                     </DialogFooter>
