@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\ExpertApplicationController;
+use App\Http\Controllers\Admin\ExpertController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaSidebarController;
 use App\Http\Controllers\Admin\OpportunityController;
@@ -19,6 +20,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('expert-applications', [ExpertApplicationController::class, 'index'])->name('expert-applications.index');
     Route::get('expert-applications/{application}', [ExpertApplicationController::class, 'show'])->name('expert-applications.show');
     Route::patch('expert-applications/{application}/review', [ExpertApplicationController::class, 'review'])->name('expert-applications.review');
+
+    Route::get('experts/export.csv', [ExpertController::class, 'exportCsv'])->name('experts.export');
+    Route::resource('experts', ExpertController::class);
 
     Route::get('opportunities/export.csv', [OpportunityController::class, 'exportCsv'])->name('opportunities.export');
     Route::resource('opportunities', OpportunityController::class);
