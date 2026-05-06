@@ -1,6 +1,6 @@
 import { Link } from '@inertiajs/react';
 import { Mail, MessageCircle, Twitter } from 'lucide-react';
-import { login, register } from '@/routes';
+import { login } from '@/routes';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 

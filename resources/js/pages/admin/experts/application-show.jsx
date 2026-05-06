@@ -101,15 +101,15 @@ export default function AdminExpertApplicationShow({ application }) {
                 href: '/admin/dashboard',
             },
             {
-                title: 'Expert Applications',
+                title: 'Expertes Applications',
                 href: '/admin/expert-applications',
             },
             {
-                title: `Request #${application?.id ?? ''}`,
+                title: `#${application?.id ?? ''}`,
                 href: '#',
             }
         ],
-        title: `Expert Application #${application?.id ?? ''}`,
+        title: `Experte Application #${application?.id ?? ''}`,
         description:
             'Review the details of this expert application and accept or deny it accordingly.',
     });
@@ -162,7 +162,7 @@ export default function AdminExpertApplicationShow({ application }) {
                     <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                         <div>
                             <p className="text-xs font-semibold tracking-[0.3em] text-tgray uppercase">
-                                Experts Directory
+                                Expertes Directory jnnnn
                             </p>
                             <h1 className="mt-2 text-2xl font-bold tracking-tight text-tblack sm:text-3xl">
                                 {a.full_name || 'Application details'}
