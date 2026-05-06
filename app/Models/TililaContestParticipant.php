@@ -14,8 +14,6 @@ class TililaContestParticipant extends Model
         'last_name',
         'email',
         'phone',
-        'organization',
-        'job_title',
         'city',
         'country',
         'submission_title',

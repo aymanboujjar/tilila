@@ -4,13 +4,11 @@ import ArchiveSection from '@/pages/user/tilila/partials/ArchiveSection';
 import CtaSection from '@/pages/user/tilila/partials/CtaSection';
 import FeaturedLaureatesSection from '@/pages/user/tilila/partials/FeaturedLaureatesSection';
 import HeroSection from '@/pages/user/tilila/partials/HeroSection';
-import ParticipateModal from '@/pages/user/tilila/partials/ParticipateModal';
+import ParticipateSection from '@/pages/user/tilila/partials/ParticipateModal';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { useState } from 'react';
 
 export default function TililaIndex() {
     const { editions } = usePage().props;
-    const [participateOpen, setParticipateOpen] = useState(false);
     // `editions` is provided by the /tilila route (Inertia props)
     return (
         <>
@@ -18,24 +16,34 @@ export default function TililaIndex() {
             <div>
                 <div className="pb-8">
                     <HeroSection
-                        onParticipate={() => setParticipateOpen(true)}
+                        onParticipate={() => {
+                            requestAnimationFrame(() => {
+                                const el = document.getElementById(
+                                    'tilila-participate-section',
+                                );
+                                if (el) {
+                                    el.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start',
+                                    });
+                                }
+                            });
+                        }}
                     />
                 </div>
                 <div className="bg-twhite px-8 py-10">
                     <FeaturedLaureatesSection />
                 </div>
+                <ParticipateSection />
                 <div className="bg-beta-white py-10">
                     <ArchiveSection editions={editions ?? []} />
                 </div>
-                <div className="bg-twhite py-10">
+                {/* <div className="bg-twhite py-10">
                     <CtaSection />
-                </div>
+                </div> */}
             </div>
 
-            <ParticipateModal
-                open={participateOpen}
-                onOpenChange={setParticipateOpen}
-            />
+
         </>
     );
 }
