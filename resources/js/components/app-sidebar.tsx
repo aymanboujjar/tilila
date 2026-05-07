@@ -2,14 +2,11 @@ import { Link, usePage } from '@inertiajs/react';
 import {
     Calendar,
     LayoutGrid,
-    Mail,
     Megaphone,
-    Newspaper,
     Shield,
     Settings,
     Trophy,
     Users,
-    FileText,
 } from 'lucide-react';
 
 import { NavUser } from '@/components/nav-user';
@@ -25,12 +22,11 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { useCurrentUrl } from '@/hooks/use-current-url';
-import { edit as profileEdit } from '@/routes/profile';
 import type { NavItem } from '@/types';
 
 const adminModuleItems: NavItem[] = [
     {
-        title: 'Expert Requests',
+        title: 'Expertes',
         href: '/admin/expert-applications',
         icon: Users,
     },
@@ -54,11 +50,11 @@ const adminModuleItems: NavItem[] = [
         href: '/admin/tililab/participants',
         icon: Users,
     },
-    {
-        title: 'Media',
-        href: '/admin/media',
-        icon: FileText,
-    },
+    // {
+    //     title: 'Media',
+    //     href: '/admin/media',
+    //     icon: FileText,
+    // },
     {
         title: 'Opportunities',
         href: '/admin/opportunities',
@@ -86,37 +82,11 @@ const adminModuleItems: NavItem[] = [
     // },
 ];
 
-const adminStrategicItems: NavItem[] = [
-    // {
-    //     title: 'Tililab Analytics',
-    //     href: '/admin/tililab/analytics',
-    //     icon: BarChart3,
-    // },
-    {
-        title: 'Settings',
-        href: profileEdit.url(),
-        icon: Settings,
-    },
-];
-
 const expertModuleItems: NavItem[] = [
     {
         title: 'My Profile',
         href: '/expert/profile',
         icon: Users,
-    },
-];
-
-const expertStrategicItems: NavItem[] = [
-    {
-        title: 'Profile Settings',
-        href: profileEdit.url(),
-        icon: Settings,
-    },
-    {
-        title: 'Security',
-        href: '/settings/security',
-        icon: Shield,
     },
 ];
 
@@ -158,9 +128,7 @@ export function AppSidebar() {
         icon: LayoutGrid,
     };
     const moduleItems = isExpert ? expertModuleItems : adminModuleItems;
-    const strategicItems = isExpert
-        ? expertStrategicItems
-        : adminStrategicItems;
+    // const strategicItems = isExpert ? expertStrategicItems : adminStrategicItems;
     const DashboardIcon = dashboardItem.icon;
 
     return (
@@ -214,10 +182,44 @@ export function AppSidebar() {
                     <SidebarNavLinks items={moduleItems} />
                 </SidebarGroup>
 
-                <SidebarGroup className="mt-4 py-0">
-                    <SidebarGroupLabel>Strategic</SidebarGroupLabel>
-                    <SidebarNavLinks items={strategicItems} />
-                </SidebarGroup>
+                {role === 'admin' && (
+                    <>
+                        <SidebarGroup className="mt-4 py-0">
+                            <SidebarGroupLabel>Tilila</SidebarGroupLabel>
+                            <SidebarNavLinks
+                                items={[
+                                    {
+                                        title: 'Editions',
+                                        href: '/admin/tilila/editions',
+                                        icon: Trophy,
+                                    },
+                                    {
+                                        title: 'Submissions',
+                                        href: '/admin/tilila/participants',
+                                        icon: Users,
+                                    },
+                                ]}
+                            />
+                        </SidebarGroup>
+                        <SidebarGroup className="mt-4 py-0">
+                            <SidebarGroupLabel>Tililab</SidebarGroupLabel>
+                            <SidebarNavLinks
+                                items={[
+                                    {
+                                        title: 'Editions',
+                                        href: '/admin/tililab/editions',
+                                        icon: Trophy,
+                                    },
+                                    {
+                                        title: 'Participants',
+                                        href: '/admin/tililab/participants',
+                                        icon: Users,
+                                    },
+                                ]}
+                            />
+                        </SidebarGroup>
+                    </>
+                )}
             </SidebarContent>
 
             <SidebarFooter className="border-t border-sidebar-border bg-sidebar-accent/50 p-2">
