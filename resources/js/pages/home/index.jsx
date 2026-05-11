@@ -40,7 +40,7 @@ export default function HomeIndex({
             <FeaturedExperts items={featuredExperts} />
             <LatestMedia items={latestMedia} />
             <QuickAgenda items={quickAgenda} />
-            <PartnersStrip items={partners} />
+            {/* <PartnersStrip items={partners} /> */}
 
             <div
                 className="sr-only"
