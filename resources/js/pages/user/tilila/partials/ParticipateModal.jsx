@@ -1,7 +1,5 @@
 import { useForm, usePage } from '@inertiajs/react';
 import { useEffect } from 'react';
-import { Award, CheckCircle2, ClipboardList } from 'lucide-react';
-
 import TransText from '@/components/TransText';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
@@ -108,137 +106,8 @@ export default function ParticipateModal({ open, onOpenChange }) {
                         </div>
                     ) : null}
 
-                    <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-12 lg:items-start">
-                        <div className="lg:col-span-5">
-                            <div className="rounded-2xl border border-border bg-card shadow-sm">
-                                <div className="border-b border-border px-5 py-4">
-                                    <div className="text-xs font-semibold tracking-widest text-beta-blue uppercase">
-                                        <TransText
-                                            en="Notes"
-                                            fr="Notes"
-                                            ar="ملاحظات"
-                                        />
-                                    </div>
-                                    <div className="mt-2 text-lg font-semibold tracking-tight text-foreground">
-                                        <TransText
-                                            en="Everything you need to know"
-                                            fr="Tout ce qu’il faut savoir"
-                                            ar="كل ما تحتاج معرفته"
-                                        />
-                                    </div>
-                                    <div className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                                        <TransText
-                                            en="Conditions, steps, and reward — before you submit."
-                                            fr="Conditions, étapes et récompense — avant d’envoyer."
-                                            ar="الشروط والخطوات والمكافأة — قبل الإرسال."
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-3 p-4">
-                                    <div className="rounded-2xl border border-border bg-muted/40 p-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="rounded-xl bg-beta-blue/10 p-2 text-beta-blue">
-                                                <ClipboardList className="size-5" />
-                                            </div>
-                                            <div className="text-xs font-bold tracking-wide text-foreground uppercase">
-                                                Conditions
-                                            </div>
-                                        </div>
-                                        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
-                                            <li className="flex gap-2">
-                                                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-beta-blue/60" />
-                                                <span>
-                                                    La participation pour
-                                                    l’édition en cours est
-                                                    ouverte jusqu’à la date de
-                                                    clôture annoncée.
-                                                </span>
-                                            </li>
-                                            <li className="flex gap-2">
-                                                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-beta-blue/60" />
-                                                <span>
-                                                    Les publicités
-                                                    télévisuelles en concours
-                                                    doivent impérativement avoir
-                                                    été diffusées (ou avoir une
-                                                    diffusion programmée) sur
-                                                    2M durant la période
-                                                    d’éligibilité.
-                                                </span>
-                                            </li>
-                                            <li className="flex gap-2">
-                                                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-beta-blue/60" />
-                                                <span>
-                                                    Les campagnes digitales sont
-                                                    également éligibles.
-                                                </span>
-                                            </li>
-                                            <li className="flex gap-2">
-                                                <span className="mt-2 size-1.5 shrink-0 rounded-full bg-beta-blue/60" />
-                                                <span>
-                                                    Un comité de sélection
-                                                    présélectionne des spots
-                                                    inscrits et en retient 10
-                                                    (dix) à soumettre à
-                                                    l’évaluation du jury.
-                                                </span>
-                                            </li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="rounded-2xl border border-border bg-muted/40 p-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="rounded-xl bg-gold/15 p-2 text-gold">
-                                                <CheckCircle2 className="size-5" />
-                                            </div>
-                                            <div className="text-xs font-bold tracking-wide text-foreground uppercase">
-                                                Étapes
-                                            </div>
-                                        </div>
-                                        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
-                                            {[
-                                                'Remplir le formulaire de participation.',
-                                                'Accepter le règlement du concours.',
-                                                'Un accusé de réception sera envoyé à l’adresse e-mail.',
-                                                'Les gagnants seront annoncés lors de la cérémonie Trophée Tilila.',
-                                            ].map((txt) => (
-                                                <li key={txt} className="flex gap-2">
-                                                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-gold/70" />
-                                                    <span>{txt}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="rounded-2xl border border-border bg-muted/40 p-4">
-                                        <div className="flex items-center gap-3">
-                                            <div className="rounded-xl bg-emerald-500/10 p-2 text-emerald-700">
-                                                <Award className="size-5" />
-                                            </div>
-                                            <div className="text-xs font-bold tracking-wide text-foreground uppercase">
-                                                Récompense
-                                            </div>
-                                        </div>
-                                        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-muted-foreground">
-                                            {[
-                                                'Le Trophée Tilila récompense les spots publicitaires les plus égalitaires et inclusifs.',
-                                                'Les annonceurs gagnants remporteront un trophée et un prix.',
-                                                'Les agences auteures des spots gagnants recevront un trophée.',
-                                            ].map((txt) => (
-                                                <li key={txt} className="flex gap-2">
-                                                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-emerald-500/60" />
-                                                    <span>{txt}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="lg:col-span-7">
-                            <form
+                    <div className="p-5 sm:p-6">
+                        <form
                                 onSubmit={submit}
                                 className="rounded-2xl border border-border bg-card p-5 shadow-sm sm:p-6"
                             >
@@ -541,8 +410,7 @@ export default function ParticipateModal({ open, onOpenChange }) {
                                         </button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </DialogContent>
