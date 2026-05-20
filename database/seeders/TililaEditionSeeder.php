@@ -7,208 +7,11 @@ use Illuminate\Database\Seeder;
 
 class TililaEditionSeeder extends Seeder
 {
-    /**
-     * Trophée Tilila edition facts — aligned with resources/js/pages/user/tilila/data/tilila-editions-history.js
-     */
     public function run(): void
     {
         TililaEdition::query()->where('year', '2020')->delete();
 
-        $editions = [
-            [
-                'year' => '2018',
-                'edition_label' => [
-                    'en' => '1st edition (2018)',
-                    'fr' => '1re édition (2018)',
-                    'ar' => 'الدورة الأولى (2018)',
-                ],
-                'theme' => [
-                    'en' => 'First edition dedicated to advertising that most respectfully promotes the image of women.',
-                    'fr' => 'Première édition consacrée à la publicité la plus respectueuse et valorisante de l’image des femmes.',
-                    'ar' => 'دورة أولى مكرّسة للإعلان الأكثر احتراماً وتقديراً لصورة المرأة.',
-                ],
-                'cover_image_path' => 'assets/trophee.png',
-                'lines' => [
-                    [
-                        'en' => 'Grand Prix — MIO (Ama Detergent). Agency: RAPP.',
-                        'fr' => 'Grand Prix — MIO (Ama Détergent). Agence : RAPP.',
-                        'ar' => 'الجائزة الكبرى — MIO (أما ديتيرجنت). الوكالة: RAPP.',
-                    ],
-                    [
-                        'en' => 'Prize: a media campaign worth 1 million dirhams on 2M.',
-                        'fr' => 'Prix : une campagne média d’une valeur d’un million de dirhams sur 2M.',
-                        'ar' => 'الجائزة: حملة إعلامية بقيمة مليون درهم على قناة 2M.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2019',
-                'edition_label' => [
-                    'en' => '2nd edition (2019)',
-                    'fr' => '2e édition (2019)',
-                    'ar' => 'الدورة الثانية (2019)',
-                ],
-                'theme' => [
-                    'en' => 'Award ceremony: 10 October 2019 — Casablanca',
-                    'fr' => 'Remise des prix : 10 octobre 2019 — Casablanca',
-                    'ar' => 'حفل التتويج: 10 أكتوبر 2019 — الدار البيضاء',
-                ],
-                'cover_image_path' => 'assets/trophee.png',
-                'lines' => [
-                    [
-                        'en' => '1st prize — MDJS (Marocaine des Jeux et des Sports), campaign “Faire gagner le sport”.',
-                        'fr' => '1er prix — MDJS (Marocaine des Jeux et des Sports), campagne « Faire gagner le sport ».',
-                        'ar' => 'الجائزة الأولى — MDJS (الشركة المغربية للألعاب والرياضة)، حملة « جعل الرياضة تفوز ».',
-                    ],
-                    [
-                        'en' => '2nd prize (ex-aequo) — MIO (Ama Detergent) and Maxis (Mutandis).',
-                        'fr' => '2e prix (ex-aequo) — MIO (Ama Détergent) et Maxis (Mutandis).',
-                        'ar' => 'الجائزة الثانية (مناصفة) — MIO (أما ديتيرجنت) وMaxis (ميوتانديس).',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2021',
-                'edition_label' => [
-                    'en' => '3rd edition (2021)',
-                    'fr' => '3e édition (2021)',
-                    'ar' => 'الدورة الثالثة (2021)',
-                ],
-                'theme' => [
-                    'en' => 'Award ceremony: 25 November 2021 — Casablanca',
-                    'fr' => 'Remise des prix : 25 novembre 2021 — Casablanca',
-                    'ar' => 'حفل التتويج: 25 نونبر 2021 — الدار البيضاء',
-                ],
-                'cover_image_path' => 'assets/trophee.png',
-                'lines' => [
-                    [
-                        'en' => 'Prix du Jury — OFPPT (Office for Vocational Training). Agency: DDB Zone Bleue.',
-                        'fr' => 'Prix du Jury — OFPPT (Office de la formation professionnelle et de la promotion du travail). Agence : DDB Zone Bleue.',
-                        'ar' => 'جائزة لجنة التحكيم — OFPPT (مكتب التكوين المهني وإنعاش الشغل). الوكالة: DDB Zone Bleue.',
-                    ],
-                    [
-                        'en' => 'Prix Coup de Cœur — COPAG. Agency: The Next Clic.',
-                        'fr' => 'Prix Coup de Cœur — COPAG. Agence : The Next Clic.',
-                        'ar' => 'جائزة القلب — COPAG. الوكالة: The Next Clic.',
-                    ],
-                    [
-                        'en' => 'Prix d’Honneur — MIO. Agency: RAPP.',
-                        'fr' => 'Prix d’Honneur — MIO. Agence : RAPP.',
-                        'ar' => 'جائزة الشرف — MIO. الوكالة: RAPP.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2022',
-                'edition_label' => [
-                    'en' => '4th edition (2022)',
-                    'fr' => '4e édition (2022)',
-                    'ar' => 'الدورة الرابعة (2022)',
-                ],
-                'theme' => [
-                    'en' => 'Award ceremony: 13 October 2022 — Casablanca',
-                    'fr' => 'Remise des prix : 13 octobre 2022 — Casablanca',
-                    'ar' => 'حفل التتويج: 13 أكتوبر 2022 — الدار البيضاء',
-                ],
-                'cover_image_path' => 'assets/trophee.png',
-                'lines' => [
-                    [
-                        'en' => 'Prix du Jury — Royal Moroccan Armed Forces (FAR). Agency: Boomerang Communication.',
-                        'fr' => 'Prix du Jury — Forces armées royales (FAR). Agence : Boomerang Communication.',
-                        'ar' => 'جائزة لجنة التحكيم — القوات المسلحة الملكية. الوكالة: Boomerang Communication.',
-                    ],
-                    [
-                        'en' => 'Prix Coup de Cœur — Casabus-Alsa. Agency: Initiative Digital.',
-                        'fr' => 'Prix Coup de Cœur — Casabus-Alsa. Agence : Initiative Digital.',
-                        'ar' => 'جائزة القلب — Casabus-Alsa. الوكالة: Initiative Digital.',
-                    ],
-                    [
-                        'en' => 'Prix d’Honneur — MDJS. Agency: Initiative Digital.',
-                        'fr' => 'Prix d’Honneur — MDJS. Agence : Initiative Digital.',
-                        'ar' => 'جائزة الشرف — MDJS. الوكالة: Initiative Digital.',
-                    ],
-                    [
-                        'en' => 'Other shortlisted campaigns included Inwi, Merendina, Always, Addoha, Wafa Assurance, Aïcha, and Société Générale.',
-                        'fr' => 'Parmi les campagnes remarquées : Inwi, Merendina, Always, Addoha, Wafa Assurance, Aïcha, Société Générale.',
-                        'ar' => 'من بين الحملات البارزة: Inwi وMerendina وAlways وAddoha وWafa Assurance وAïcha وSociété Générale.',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2023',
-                'edition_label' => [
-                    'en' => '5th edition (2023)',
-                    'fr' => '5e édition (2023)',
-                    'ar' => 'الدورة الخامسة (2023)',
-                ],
-                'theme' => [
-                    'en' => 'Theme: “For advertising that truly brings us together” — run alongside Tililab, the creative bootcamp for young talents promoting parity and inclusion.',
-                    'fr' => 'Thème : « Pour une pub qui nous rassemble vraiment » — en lien avec Tililab, bootcamp créatif pour jeunes talents autour de la parité et de l’inclusion.',
-                    'ar' => 'الشعار: « من أجل إعلان يجمعنا حقاً » — بالتوازي مع تيليلاب، معسكر إبداعي للشباب حول المساواة والإدماج.',
-                ],
-                'cover_image_path' => 'assets/tilila/editions/edition-2023.png',
-                'lines' => [],
-            ],
-            [
-                'year' => '2024',
-                'edition_label' => [
-                    'en' => '6th edition (2024)',
-                    'fr' => '6e édition (2024)',
-                    'ar' => 'الدورة السادسة (2024)',
-                ],
-                'theme' => [
-                    'en' => 'Stronger focus on inclusion — including people with disabilities in advertising — and on fighting gender stereotypes.',
-                    'fr' => 'Accent renforcé sur l’inclusion — notamment des personnes en situation de handicap dans la publicité — et sur la lutte contre les stéréotypes de genre.',
-                    'ar' => 'تركيز أقوى على الإدماج—بمن فيهم الأشخاص ذوو الإعاقة في الإعلان—ومحاربة الصور النمطية حول النوع الاجتماعي.',
-                ],
-                'cover_image_path' => 'assets/tilila/editions/edition-2024.png',
-                'lines' => [
-                    [
-                        'en' => 'Prix du Jury — Royal Air Maroc (main winner).',
-                        'fr' => 'Prix du Jury — Royal Air Maroc (grand lauréat).',
-                        'ar' => 'جائزة لجنة التحكيم — الخطوط الملكية المغربية (الفائز الرئيسي).',
-                    ],
-                ],
-            ],
-            [
-                'year' => '2025',
-                'edition_label' => [
-                    'en' => '7th edition (2025)',
-                    'fr' => '7e édition (2025)',
-                    'ar' => 'الدورة السابعة (2025)',
-                ],
-                'theme' => [
-                    'en' => 'Theme: rural women — pillars of society, often under-represented in advertising.',
-                    'fr' => 'Thème : la femme rurale — pilier de la société, souvent peu visible dans la publicité.',
-                    'ar' => 'الموضوع: المرأة الريفية—ركيزة في المجتمع، قليلة التمثيل في الإعلان.',
-                ],
-                'cover_image_path' => 'assets/tilila/editions/edition-2025.png',
-                'lines' => [
-                    [
-                        'en' => 'Prix du Jury — Ain Atlas × Agency Klem.',
-                        'fr' => 'Prix du Jury — Ain Atlas × agence Klem.',
-                        'ar' => 'جائزة لجنة التحكيم — Ain Atlas × وكالة Klem.',
-                    ],
-                    [
-                        'en' => 'Prix d’Honneur — Sonasid × Agency Shem’s.',
-                        'fr' => 'Prix d’Honneur — Sonasid × agence Shem’s.',
-                        'ar' => 'جائزة الشرف — Sonasid × وكالة Shem’s.',
-                    ],
-                    [
-                        'en' => 'Prix Coup de Cœur — Lio × Agency Creative Labs.',
-                        'fr' => 'Prix Coup de Cœur — Lio × agence Creative Labs.',
-                        'ar' => 'جائزة القلب — Lio × وكالة Creative Labs.',
-                    ],
-                    [
-                        'en' => 'Prix Tilila Digital — Ain Atlas × ID36.',
-                        'fr' => 'Prix Tilila Digital — Ain Atlas × ID36.',
-                        'ar' => 'جائزة تيليلا الرقمية — Ain Atlas × ID36.',
-                    ],
-                ],
-            ],
-        ];
-
-        foreach ($editions as $index => $row) {
+        foreach ($this->editions() as $row) {
             $year = (int) $row['year'];
 
             TililaEdition::query()->updateOrCreate(
@@ -217,8 +20,8 @@ class TililaEditionSeeder extends Seeder
                     'edition_label' => $row['edition_label'],
                     'theme' => $row['theme'],
                     'cover_image_path' => $row['cover_image_path'],
-                    'winners' => $this->linesToWinners($row['lines']),
-                    'jury' => [],
+                    'winners' => $row['winners'],
+                    'jury' => $row['jury'],
                     'gallery_images' => [],
                     'has_gallery' => false,
                     'winners_url' => null,
@@ -231,30 +34,311 @@ class TililaEditionSeeder extends Seeder
     }
 
     /**
-     * @param  array<int, array{en: string, fr: string, ar: string}>  $lines
-     * @return array<int, array{full_name: string, bio: array{en: string, fr: string, ar: string}, photo_path: null}>
+     * @return array<int, array<string, mixed>>
      */
-    private function linesToWinners(array $lines): array
+    private function editions(): array
     {
-        $winners = [];
-
-        foreach ($lines as $line) {
-            $en = trim((string) ($line['en'] ?? ''));
-            if ($en === '') {
-                continue;
-            }
-
-            $winners[] = [
-                'full_name' => mb_strlen($en) > 120 ? mb_substr($en, 0, 117).'…' : $en,
-                'bio' => [
-                    'en' => $line['en'] ?? '',
-                    'fr' => $line['fr'] ?? '',
-                    'ar' => $line['ar'] ?? '',
+        return [
+            [
+                'year' => '2018',
+                'edition_label' => $this->label(1, 2018),
+                'theme' => $this->triple(
+                    'First edition focused on breaking gender stereotypes (e.g. men doing household chores).',
+                    'Première édition axée sur la rupture des stéréotypes de genre (ex. hommes aux tâches ménagères).',
+                    'الدورة الأولى تركز على كسر الصور النمطية حول النوع الاجتماعي (مثل مشاركة الرجال في الأعمال المنزلية).',
+                ),
+                'cover_image_path' => 'assets/trophee.png',
+                'winners' => [
+                    $this->winner(
+                        'Grand Prix — MIO (Ama Détergent)',
+                        'Agency: RAPP.',
+                        'Agence : RAPP.',
+                        'الوكالة: RAPP.',
+                    ),
                 ],
-                'photo_path' => null,
-            ];
-        }
+                'jury' => [],
+            ],
+            [
+                'year' => '2019',
+                'edition_label' => $this->label(2, 2019),
+                'theme' => $this->triple(
+                    'Award ceremony: 10 October 2019 — Casablanca.',
+                    'Remise des prix : 10 octobre 2019 — Casablanca.',
+                    'حفل التتويج: 10 أكتوبر 2019 — الدار البيضاء.',
+                ),
+                'cover_image_path' => 'assets/trophee.png',
+                'winners' => [
+                    $this->winner(
+                        '1er prix — MDJS',
+                        'Campaign « Faire gagner le sport » — Agency: Initiative Digital.',
+                        'Campagne « Faire gagner le sport » — Agence : Initiative Digital.',
+                        'حملة « Faire gagner le sport » — الوكالة: Initiative Digital.',
+                    ),
+                    $this->winner(
+                        '2e prix (ex-aequo) — MIO',
+                        'Agency: RAPP.',
+                        'Agence : RAPP.',
+                        'الوكالة: RAPP.',
+                    ),
+                    $this->winner(
+                        '2e prix (ex-aequo) — Maxis (Mutandis)',
+                        'Agency: Klem.',
+                        'Agence : Klem.',
+                        'الوكالة: Klem.',
+                    ),
+                ],
+                'jury' => [],
+            ],
+            [
+                'year' => '2021',
+                'edition_label' => $this->label(3, 2021),
+                'theme' => $this->triple(
+                    'Award ceremony: 25 November 2021 — Casablanca.',
+                    'Remise des prix : 25 novembre 2021 — Casablanca.',
+                    'حفل التتويج: 25 نونبر 2021 — الدار البيضاء.',
+                ),
+                'cover_image_path' => 'assets/trophee.png',
+                'winners' => [
+                    $this->winner(
+                        'Prix du Jury — OFPPT',
+                        'Agency: DDB Zone Bleue.',
+                        'Agence : DDB Zone Bleue.',
+                        'الوكالة: DDB Zone Bleue.',
+                    ),
+                    $this->winner(
+                        'Prix Coup de Cœur — COPAG',
+                        'Agency: The Next Clic.',
+                        'Agence : The Next Clic.',
+                        'الوكالة: The Next Clic.',
+                    ),
+                    $this->winner(
+                        'Prix d’Honneur — MIO',
+                        'Agency: RAPP.',
+                        'Agence : RAPP.',
+                        'الوكالة: RAPP.',
+                    ),
+                ],
+                'jury' => [],
+            ],
+            [
+                'year' => '2022',
+                'edition_label' => $this->label(4, 2022),
+                'theme' => $this->triple(
+                    'Award ceremony: 13 October 2022 — Casablanca.',
+                    'Remise des prix : 13 octobre 2022 — Casablanca.',
+                    'حفل التتويج: 13 أكتوبر 2022 — الدار البيضاء.',
+                ),
+                'cover_image_path' => 'assets/trophee.png',
+                'winners' => [
+                    $this->winner(
+                        'Prix du Jury — Forces Armées Royales (FAR)',
+                        'Agency: Boomerang Communication.',
+                        'Agence : Boomerang Communication.',
+                        'الوكالة: Boomerang Communication.',
+                    ),
+                    $this->winner(
+                        'Prix Coup de Cœur — Casabus-Alsa',
+                        'Agency: Initiative Digital.',
+                        'Agence : Initiative Digital.',
+                        'الوكالة: Initiative Digital.',
+                    ),
+                    $this->winner(
+                        'Prix d’Honneur — MDJS',
+                        'Agency: Initiative Digital.',
+                        'Agence : Initiative Digital.',
+                        'الوكالة: Initiative Digital.',
+                    ),
+                ],
+                'jury' => [
+                    $this->juror('Nadia Ghalia Lamhaidi', 'Expert on women’s image in media', 'Experte de l’image des femmes dans les médias', 'خبيرة في صورة المرأة في الإعلام'),
+                    $this->juror('Mohamed Beyoud', 'FICAM', 'FICAM', 'FICAM'),
+                    $this->juror('Zakia Tahiri', 'Director', 'Réalisatrice', 'مخرجة'),
+                    $this->juror('Lamia Chraïbi', 'Producer', 'Productrice', 'منتجة'),
+                    $this->juror('Noureddine Lakhmari', 'Director', 'Réalisateur', 'مخرج'),
+                ],
+            ],
+            [
+                'year' => '2023',
+                'edition_label' => $this->label(5, 2023),
+                'theme' => $this->triple(
+                    'Theme: « For advertising that truly brings us together » — alongside Tililab.',
+                    'Thème : « Pour une pub qui nous rassemble vraiment » — en lien avec Tililab.',
+                    'الشعار: « من أجل إعلان يجمعنا حقاً » — بالتوازي مع تيليلاب.',
+                ),
+                'cover_image_path' => 'assets/tilila/editions/edition-2023.png',
+                'winners' => [
+                    $this->winner(
+                        'Prix du Jury — MIA',
+                        'Campaign « Bla Mika » — Agency: Jawjab.',
+                        'Campagne « Bla Mika » — Agence : Jawjab.',
+                        'حملة « Bla Mika » — الوكالة: Jawjab.',
+                    ),
+                    $this->winner(
+                        'Prix d’Honneur — CIH Bank',
+                        'Agency: RAPP.',
+                        'Agence : RAPP.',
+                        'الوكالة: RAPP.',
+                    ),
+                    $this->winner(
+                        'Prix Coup de Cœur — INWI',
+                        'Agency: Shem’s.',
+                        'Agence : Shem’s.',
+                        'الوكالة: Shem’s.',
+                    ),
+                ],
+                'jury' => [
+                    $this->juror('Nabil Ayouch', 'Jury member', 'Membre du jury', 'عضو لجنة التحكيم'),
+                    $this->juror('Latefa Ahrrare', 'Jury member', 'Membre du jury', 'عضو لجنة التحكيم'),
+                    $this->juror('Amal Chafai', 'Jury member', 'Membre du jury', 'عضو لجنة التحكيم'),
+                    $this->juror('Basma El Hijri', 'Jury member', 'Membre du jury', 'عضو لجنة التحكيم'),
+                    $this->juror('Nawal El Aidaoui', 'Jury member', 'Membre du jury', 'عضو لجنة التحكيم'),
+                    $this->juror('Nawfel Bensari', 'Jury member', 'Membre du jury', 'عضو لجنة التحكيم'),
+                ],
+            ],
+            [
+                'year' => '2024',
+                'edition_label' => $this->label(6, 2024),
+                'theme' => $this->triple(
+                    'Stronger focus on inclusion — people with disabilities in advertising and fighting gender stereotypes.',
+                    'Accent renforcé sur l’inclusion — handicap dans la publicité et lutte contre les stéréotypes de genre.',
+                    'تركيز على الإدماج — ذوو الإعاقة في الإعلان ومحاربة الصور النمطية.',
+                ),
+                'cover_image_path' => 'assets/tilila/editions/edition-2024.png',
+                'winners' => [
+                    $this->winner(
+                        'Prix du Jury — Royal Air Maroc',
+                        'Agency: Mosaik.',
+                        'Agence : Mosaik.',
+                        'الوكالة: Mosaik.',
+                    ),
+                    $this->winner(
+                        'Prix d’Honneur — Marjane',
+                        'Agency: Shem’s.',
+                        'Agence : Shem’s.',
+                        'الوكالة: Shem’s.',
+                    ),
+                    $this->winner(
+                        'Prix Coup de Cœur — CIH',
+                        'Agency: RAPP.',
+                        'Agence : RAPP.',
+                        'الوكالة: RAPP.',
+                    ),
+                    $this->winner(
+                        'Prix Tilila Digital — Shell',
+                        'Agency: The Next Click.',
+                        'Agence : The Next Click.',
+                        'الوكالة: The Next Click.',
+                    ),
+                ],
+                'jury' => [
+                    $this->juror('Sanaa Akroud', 'Producer, director, actress', 'Productrice, réalisatrice, actrice', 'منتجة، مخرجة، ممثلة'),
+                    $this->juror('Rabii Kati', 'Actor', 'Acteur', 'ممثل'),
+                    $this->juror('Zhor Fassi Fihri', 'Director, producer', 'Réalisatrice, productrice', 'مخرجة، منتجة'),
+                    $this->juror('Mohamed Achaour', 'Director, screenwriter, producer', 'Réalisateur, scénariste, producteur', 'مخرج، كاتب سيناريو، منتج'),
+                    $this->juror('Siham El Mechtani El Idrissi', 'Marketing & innovation expert', 'Experte marketing & innovation', 'خبيرة تسويق وابتكار'),
+                    $this->juror('Ali Boujena', 'Marketing & communication expert', 'Expert marketing & communication', 'خبير تسويق واتصال'),
+                ],
+            ],
+            [
+                'year' => '2025',
+                'edition_label' => $this->label(7, 2025),
+                'theme' => $this->triple(
+                    'Theme: rural women — pillars of society, often under-represented in advertising.',
+                    'Thème : la femme rurale — pilier de la société, souvent peu visible dans la publicité.',
+                    'الموضوع: المرأة الريفية — ركيزة في المجتمع، قليلة التمثيل في الإعلان.',
+                ),
+                'cover_image_path' => 'assets/tilila/editions/edition-2025.png',
+                'winners' => [
+                    $this->winner(
+                        'Prix du Jury — Ain Atlas',
+                        'Agency: Klem.',
+                        'Agence : Klem.',
+                        'الوكالة: Klem.',
+                    ),
+                    $this->winner(
+                        'Prix d’Honneur — Sonasid',
+                        'Agency: Shem’s.',
+                        'Agence : Shem’s.',
+                        'الوكالة: Shem’s.',
+                    ),
+                    $this->winner(
+                        'Prix Coup de Cœur — Lio',
+                        'Agency: Creative Labs.',
+                        'Agence : Creative Labs.',
+                        'الوكالة: Creative Labs.',
+                    ),
+                    $this->winner(
+                        'Prix Tilila Digital — Ain Atlas',
+                        'Agency: ID36.',
+                        'Agence : ID36.',
+                        'الوكالة: ID36.',
+                    ),
+                ],
+                'jury' => [
+                    $this->juror('Hind Bensari', 'Director', 'Réalisatrice', 'مخرجة'),
+                    $this->juror('Fihr Kettani', 'Cultural entrepreneur', 'Entrepreneur culturel', 'رائد أعمال ثقافي'),
+                    $this->juror('Idir Ouguindi', 'Associative activist & inclusive development consultant', 'Militant associatif & consultant développement inclusif', 'ناشط جمعوي ومستشار تنمية شاملة'),
+                    $this->juror('Samira Rafi / Ghita El Kholti', 'Creative director', 'Directrice de création', 'مديرة إبداعية'),
+                    $this->juror('Mounia Lamkimel', 'Actress', 'Actrice', 'ممثلة'),
+                    $this->juror('Abdellah Tourabi', 'Journalist & TV presenter', 'Journaliste & présentateur TV', 'صحفي ومقدم تلفزيوني'),
+                ],
+            ],
+        ];
+    }
 
-        return $winners;
+    /**
+     * @return array{en: string, fr: string, ar: string}
+     */
+    private function label(int $n, int $year): array
+    {
+        $ordinals = [
+            1 => ['en' => '1st', 'fr' => '1re', 'ar' => 'الأولى'],
+            2 => ['en' => '2nd', 'fr' => '2e', 'ar' => 'الثانية'],
+            3 => ['en' => '3rd', 'fr' => '3e', 'ar' => 'الثالثة'],
+            4 => ['en' => '4th', 'fr' => '4e', 'ar' => 'الرابعة'],
+            5 => ['en' => '5th', 'fr' => '5e', 'ar' => 'الخامسة'],
+            6 => ['en' => '6th', 'fr' => '6e', 'ar' => 'السادسة'],
+            7 => ['en' => '7th', 'fr' => '7e', 'ar' => 'السابعة'],
+        ];
+
+        $o = $ordinals[$n] ?? ['en' => (string) $n, 'fr' => (string) $n, 'ar' => (string) $n];
+
+        return [
+            'en' => "{$o['en']} edition ({$year})",
+            'fr' => "{$o['fr']} édition ({$year})",
+            'ar' => "الدورة {$o['ar']} ({$year})",
+        ];
+    }
+
+    /**
+     * @return array{en: string, fr: string, ar: string}
+     */
+    private function triple(string $en, string $fr, string $ar): array
+    {
+        return ['en' => $en, 'fr' => $fr, 'ar' => $ar];
+    }
+
+    /**
+     * @return array{full_name: string, bio: array{en: string, fr: string, ar: string}, photo_path: null}
+     */
+    private function winner(string $name, string $bioEn, string $bioFr, string $bioAr): array
+    {
+        return [
+            'full_name' => $name,
+            'bio' => ['en' => $bioEn, 'fr' => $bioFr, 'ar' => $bioAr],
+            'photo_path' => null,
+        ];
+    }
+
+    /**
+     * @return array{full_name: string, bio: array{en: string, fr: string, ar: string}, photo_path: null}
+     */
+    private function juror(string $name, string $roleEn, string $roleFr, string $roleAr): array
+    {
+        return [
+            'full_name' => $name,
+            'bio' => ['en' => $roleEn, 'fr' => $roleFr, 'ar' => $roleAr],
+            'photo_path' => null,
+        ];
     }
 }

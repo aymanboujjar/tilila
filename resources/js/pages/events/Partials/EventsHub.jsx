@@ -196,7 +196,7 @@ export default function EventsHub({ eventsByYear = {} }) {
                     </div>
                 </div>
             </div>
-
+{/* 
             {years.length > 0 ? (
                 <div className="rounded-2xl border border-border bg-muted/30 p-6">
                     <h3 className="text-sm font-extrabold uppercase tracking-wide text-muted-foreground">
@@ -222,7 +222,7 @@ export default function EventsHub({ eventsByYear = {} }) {
                         ))}
                     </div>
                 </div>
-            ) : null}
+            ) : null} */}
         </div>
     );
 }
