@@ -369,7 +369,7 @@ class EventController extends Controller
 
         $title = trim((string) ($agenda['title'] ?? ''));
         if ($title === '') {
-            $title = 'Agenda';
+            $title = 'Timeline';
         }
 
         $items = [];

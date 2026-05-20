@@ -304,7 +304,7 @@ export default function EventForm({
                             <Card className="border-border/70 bg-background shadow-none">
                                 <CardHeader className="flex flex-col gap-3 px-5 sm:flex-row sm:items-center sm:justify-between sm:px-6">
                                     <CardTitle className="text-base">
-                                        Agenda
+                                        Timeline
                                     </CardTitle>
                                     <Button
                                         type="button"
@@ -323,14 +323,14 @@ export default function EventForm({
                                     </Button>
                                 </CardHeader>
                                 <CardContent className="space-y-4 px-5 sm:px-6">
-                                    <div className="space-y-2">
+                                    {/* <div className="space-y-2">
                                         <Label htmlFor="agenda-section-title">
                                             Section title
                                         </Label>
                                         <Input
                                             id="agenda-section-title"
                                             value={
-                                                data.agenda?.title ?? 'Agenda'
+                                                data.agenda?.title ?? 'Timeline'
                                             }
                                             onChange={(e) =>
                                                 setData('agenda', {
@@ -341,9 +341,9 @@ export default function EventForm({
                                                         [],
                                                 })
                                             }
-                                            placeholder="Agenda"
+                                            placeholder="Timeline"
                                         />
-                                    </div>
+                                    </div> */}
                                     {(data.agenda?.items ?? []).length === 0 ? (
                                         <div className="rounded-xl border border-border bg-card px-4 py-3 text-sm text-muted-foreground">
                                             No agenda items yet. Add times and
@@ -417,7 +417,7 @@ export default function EventForm({
                                                                                 data
                                                                                     .agenda
                                                                                     ?.title ??
-                                                                                'Agenda',
+                                                                                'Timeline',
                                                                             items: next,
                                                                         },
                                                                     );
@@ -1381,7 +1381,7 @@ export default function EventForm({
                                     setData('agenda', {
                                         title:
                                             (data.agenda?.title ?? '').trim() ||
-                                            'Agenda',
+                                            'Timeline',
                                         items,
                                     });
                                     setAgendaModalOpen(false);

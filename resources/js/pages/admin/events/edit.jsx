@@ -58,7 +58,7 @@ export default function AdminEventsEdit({
                           typeof event.agenda.title === 'string' &&
                           event.agenda.title.trim() !== ''
                               ? event.agenda.title
-                              : 'Agenda',
+                              : 'Timeline',
                       items: Array.isArray(event.agenda.items)
                           ? event.agenda.items.map((row) => ({
                                 time: row?.time ?? '',
@@ -66,7 +66,7 @@ export default function AdminEventsEdit({
                             }))
                           : [],
                   }
-                : { title: 'Agenda', items: [] },
+                : { title: 'Timeline', items: [] },
     });
 
     const [processing, setProcessing] = useState(false);

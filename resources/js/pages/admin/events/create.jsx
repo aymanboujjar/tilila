@@ -36,7 +36,7 @@ export default function AdminEventsCreate({
         partners: [],
         replay_video_url: '',
         live_video_url: '',
-        agenda: { title: 'Agenda', items: [] },
+        agenda: { title: 'Timeline', items: [] },
     });
 
     const [processing, setProcessing] = useState(false);

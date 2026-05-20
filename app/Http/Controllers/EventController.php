@@ -289,12 +289,12 @@ class EventController extends Controller
     {
         $a = $event->agenda;
         if (! is_array($a)) {
-            return ['title' => 'Agenda', 'items' => []];
+            return ['title' => 'Timeline', 'items' => []];
         }
 
         $title = isset($a['title']) && is_string($a['title']) && trim($a['title']) !== ''
             ? trim($a['title'])
-            : 'Agenda';
+            : 'Timeline';
 
         $items = [];
         foreach ($a['items'] ?? [] as $row) {
