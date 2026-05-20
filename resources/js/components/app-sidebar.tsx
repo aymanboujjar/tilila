@@ -45,11 +45,11 @@ const adminModuleItems: NavItem[] = [
         href: '/admin/home-highlights',
         icon: Newspaper,
     },
-    {
-        title: 'Connect requests',
-        href: '/admin/tilila-connect-requests',
-        icon: Mail,
-    },
+    // {
+    //     title: 'Connect requests',
+    //     href: '/admin/tilila-connect-requests',
+    //     icon: Mail,
+    // },
     // {
     //     title: 'Community',
     //     href: home.url(),
