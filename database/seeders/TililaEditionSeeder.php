@@ -12,25 +12,46 @@ class TililaEditionSeeder extends Seeder
         TililaEdition::query()->where('year', '2020')->delete();
 
         foreach ($this->editions() as $row) {
-            $year = (int) $row['year'];
+            $year = (string) $row['year'];
+
+            $payload = [
+                'edition_label' => $row['edition_label'],
+                'theme' => $row['theme'],
+                'cover_image_path' => $row['cover_image_path'],
+                'winners' => $row['winners'],
+                'jury' => $row['jury'],
+                'gallery_images' => [],
+                'has_gallery' => false,
+                'winners_url' => null,
+                'jury_url' => null,
+                'gallery_url' => null,
+                'sort' => (int) $year - 2017,
+            ];
+
+            $ceremonyUrl = $this->ceremonyVideoUrl($year);
+            if ($ceremonyUrl !== null) {
+                $payload['ceremony_video_url'] = $ceremonyUrl;
+            }
 
             TililaEdition::query()->updateOrCreate(
-                ['year' => (string) $year],
-                [
-                    'edition_label' => $row['edition_label'],
-                    'theme' => $row['theme'],
-                    'cover_image_path' => $row['cover_image_path'],
-                    'winners' => $row['winners'],
-                    'jury' => $row['jury'],
-                    'gallery_images' => [],
-                    'has_gallery' => false,
-                    'winners_url' => null,
-                    'jury_url' => null,
-                    'gallery_url' => null,
-                    'sort' => $year - 2017,
-                ],
+                ['year' => $year],
+                $payload,
             );
         }
+    }
+
+    private function ceremonyVideoUrl(string $year): ?string
+    {
+        static $map = null;
+
+        if ($map === null) {
+            $path = __DIR__.'/data/tilila_ceremony_videos.php';
+            $map = is_file($path) ? require $path : [];
+        }
+
+        $url = $map[$year] ?? null;
+
+        return is_string($url) && trim($url) !== '' ? trim($url) : null;
     }
 
     /**
@@ -50,7 +71,10 @@ class TililaEditionSeeder extends Seeder
                 'cover_image_path' => 'assets/trophee.png',
                 'winners' => [
                     $this->winner(
-                        'Grand Prix — MIO (Ama Détergent)',
+                        'Grand Prize',
+                        'Grand Prix',
+                        'الجائزة الكبرى',
+                        'MIO (Ama Détergent)',
                         'Agency: RAPP.',
                         'Agence : RAPP.',
                         'الوكالة: RAPP.',
@@ -69,19 +93,28 @@ class TililaEditionSeeder extends Seeder
                 'cover_image_path' => 'assets/trophee.png',
                 'winners' => [
                     $this->winner(
-                        '1er prix — MDJS',
+                        '1st Prize',
+                        '1er prix',
+                        'الجائزة الأولى',
+                        'MDJS',
                         'Campaign « Faire gagner le sport » — Agency: Initiative Digital.',
                         'Campagne « Faire gagner le sport » — Agence : Initiative Digital.',
                         'حملة « Faire gagner le sport » — الوكالة: Initiative Digital.',
                     ),
                     $this->winner(
-                        '2e prix (ex-aequo) — MIO',
+                        '2nd Prize (ex-aequo)',
+                        '2e prix (ex-aequo)',
+                        'الجائزة الثانية (مناصفة)',
+                        'MIO',
                         'Agency: RAPP.',
                         'Agence : RAPP.',
                         'الوكالة: RAPP.',
                     ),
                     $this->winner(
-                        '2e prix (ex-aequo) — Maxis (Mutandis)',
+                        '2nd Prize (ex-aequo)',
+                        '2e prix (ex-aequo)',
+                        'الجائزة الثانية (مناصفة)',
+                        'Maxis (Mutandis)',
                         'Agency: Klem.',
                         'Agence : Klem.',
                         'الوكالة: Klem.',
@@ -100,19 +133,28 @@ class TililaEditionSeeder extends Seeder
                 'cover_image_path' => 'assets/trophee.png',
                 'winners' => [
                     $this->winner(
-                        'Prix du Jury — OFPPT',
+                        'Jury Prize',
+                        'Prix du Jury',
+                        'جائزة لجنة التحكيم',
+                        'OFPPT',
                         'Agency: DDB Zone Bleue.',
                         'Agence : DDB Zone Bleue.',
                         'الوكالة: DDB Zone Bleue.',
                     ),
                     $this->winner(
-                        'Prix Coup de Cœur — COPAG',
+                        'Coup de Cœur',
+                        'Prix Coup de Cœur',
+                        'جائزة القلب',
+                        'COPAG',
                         'Agency: The Next Clic.',
                         'Agence : The Next Clic.',
                         'الوكالة: The Next Clic.',
                     ),
                     $this->winner(
-                        'Prix d’Honneur — MIO',
+                        'Honor Prize',
+                        'Prix d’Honneur',
+                        'جائزة الشرف',
+                        'MIO',
                         'Agency: RAPP.',
                         'Agence : RAPP.',
                         'الوكالة: RAPP.',
@@ -131,19 +173,28 @@ class TililaEditionSeeder extends Seeder
                 'cover_image_path' => 'assets/trophee.png',
                 'winners' => [
                     $this->winner(
-                        'Prix du Jury — Forces Armées Royales (FAR)',
+                        'Jury Prize',
+                        'Prix du Jury',
+                        'جائزة لجنة التحكيم',
+                        'Forces Armées Royales (FAR)',
                         'Agency: Boomerang Communication.',
                         'Agence : Boomerang Communication.',
                         'الوكالة: Boomerang Communication.',
                     ),
                     $this->winner(
-                        'Prix Coup de Cœur — Casabus-Alsa',
+                        'Coup de Cœur',
+                        'Prix Coup de Cœur',
+                        'جائزة القلب',
+                        'Casabus-Alsa',
                         'Agency: Initiative Digital.',
                         'Agence : Initiative Digital.',
                         'الوكالة: Initiative Digital.',
                     ),
                     $this->winner(
-                        'Prix d’Honneur — MDJS',
+                        'Honor Prize',
+                        'Prix d’Honneur',
+                        'جائزة الشرف',
+                        'MDJS',
                         'Agency: Initiative Digital.',
                         'Agence : Initiative Digital.',
                         'الوكالة: Initiative Digital.',
@@ -168,19 +219,28 @@ class TililaEditionSeeder extends Seeder
                 'cover_image_path' => 'assets/tilila/editions/edition-2023.png',
                 'winners' => [
                     $this->winner(
-                        'Prix du Jury — MIA',
+                        'Jury Prize',
+                        'Prix du Jury',
+                        'جائزة لجنة التحكيم',
+                        'MIA',
                         'Campaign « Bla Mika » — Agency: Jawjab.',
                         'Campagne « Bla Mika » — Agence : Jawjab.',
                         'حملة « Bla Mika » — الوكالة: Jawjab.',
                     ),
                     $this->winner(
-                        'Prix d’Honneur — CIH Bank',
+                        'Honor Prize',
+                        'Prix d’Honneur',
+                        'جائزة الشرف',
+                        'CIH Bank',
                         'Agency: RAPP.',
                         'Agence : RAPP.',
                         'الوكالة: RAPP.',
                     ),
                     $this->winner(
-                        'Prix Coup de Cœur — INWI',
+                        'Coup de Cœur',
+                        'Prix Coup de Cœur',
+                        'جائزة القلب',
+                        'INWI',
                         'Agency: Shem’s.',
                         'Agence : Shem’s.',
                         'الوكالة: Shem’s.',
@@ -206,25 +266,37 @@ class TililaEditionSeeder extends Seeder
                 'cover_image_path' => 'assets/tilila/editions/edition-2024.png',
                 'winners' => [
                     $this->winner(
-                        'Prix du Jury — Royal Air Maroc',
+                        'Jury Prize',
+                        'Prix du Jury',
+                        'جائزة لجنة التحكيم',
+                        'Royal Air Maroc',
                         'Agency: Mosaik.',
                         'Agence : Mosaik.',
                         'الوكالة: Mosaik.',
                     ),
                     $this->winner(
-                        'Prix d’Honneur — Marjane',
+                        'Honor Prize',
+                        'Prix d’Honneur',
+                        'جائزة الشرف',
+                        'Marjane',
                         'Agency: Shem’s.',
                         'Agence : Shem’s.',
                         'الوكالة: Shem’s.',
                     ),
                     $this->winner(
-                        'Prix Coup de Cœur — CIH',
+                        'Coup de Cœur',
+                        'Prix Coup de Cœur',
+                        'جائزة القلب',
+                        'CIH',
                         'Agency: RAPP.',
                         'Agence : RAPP.',
                         'الوكالة: RAPP.',
                     ),
                     $this->winner(
-                        'Prix Tilila Digital — Shell',
+                        'Tilila Digital Prize',
+                        'Prix Tilila Digital',
+                        'جائزة تيليلا الرقمية',
+                        'Shell',
                         'Agency: The Next Click.',
                         'Agence : The Next Click.',
                         'الوكالة: The Next Click.',
@@ -250,25 +322,37 @@ class TililaEditionSeeder extends Seeder
                 'cover_image_path' => 'assets/tilila/editions/edition-2025.png',
                 'winners' => [
                     $this->winner(
-                        'Prix du Jury — Ain Atlas',
+                        'Jury Prize',
+                        'Prix du Jury',
+                        'جائزة لجنة التحكيم',
+                        'Ain Atlas',
                         'Agency: Klem.',
                         'Agence : Klem.',
                         'الوكالة: Klem.',
                     ),
                     $this->winner(
-                        'Prix d’Honneur — Sonasid',
+                        'Honor Prize',
+                        'Prix d’Honneur',
+                        'جائزة الشرف',
+                        'Sonasid',
                         'Agency: Shem’s.',
                         'Agence : Shem’s.',
                         'الوكالة: Shem’s.',
                     ),
                     $this->winner(
-                        'Prix Coup de Cœur — Lio',
+                        'Coup de Cœur',
+                        'Prix Coup de Cœur',
+                        'جائزة القلب',
+                        'Lio',
                         'Agency: Creative Labs.',
                         'Agence : Creative Labs.',
                         'الوكالة: Creative Labs.',
                     ),
                     $this->winner(
-                        'Prix Tilila Digital — Ain Atlas',
+                        'Tilila Digital Prize',
+                        'Prix Tilila Digital',
+                        'جائزة تيليلا الرقمية',
+                        'Ain Atlas',
                         'Agency: ID36.',
                         'Agence : ID36.',
                         'الوكالة: ID36.',
@@ -319,13 +403,21 @@ class TililaEditionSeeder extends Seeder
     }
 
     /**
-     * @return array{full_name: string, bio: array{en: string, fr: string, ar: string}, photo_path: null}
+     * @return array{full_name: string, trophy: array{en: string, fr: string, ar: string}, bio: array{en: string, fr: string, ar: string}, photo_path: null}
      */
-    private function winner(string $name, string $bioEn, string $bioFr, string $bioAr): array
-    {
+    private function winner(
+        string $trophyEn,
+        string $trophyFr,
+        string $trophyAr,
+        string $brandName,
+        string $bioEn,
+        string $bioFr,
+        string $bioAr,
+    ): array {
         return [
-            'full_name' => $name,
-            'bio' => ['en' => $bioEn, 'fr' => $bioFr, 'ar' => $bioAr],
+            'full_name' => $brandName,
+            'trophy' => $this->triple($trophyEn, $trophyFr, $trophyAr),
+            'bio' => $this->triple($bioEn, $bioFr, $bioAr),
             'photo_path' => null,
         ];
     }
@@ -337,7 +429,7 @@ class TililaEditionSeeder extends Seeder
     {
         return [
             'full_name' => $name,
-            'bio' => ['en' => $roleEn, 'fr' => $roleFr, 'ar' => $roleAr],
+            'bio' => $this->triple($roleEn, $roleFr, $roleAr),
             'photo_path' => null,
         ];
     }
