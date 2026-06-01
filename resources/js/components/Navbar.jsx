@@ -291,7 +291,7 @@ export default function Navbar() {
                 </nav>
 
                 <div className="ml-auto hidden items-center gap-3 md:flex">
-                    <Link
+                    {/* <Link
                         href="/experts"
                         className={registerButtonClass}
                     >
@@ -300,7 +300,7 @@ export default function Navbar() {
                             fr="Trouver une experte"
                             ar="اعثر على خبيرة"
                         />
-                    </Link>
+                    </Link> */}
                     <LanguageSwitcher />
                     {auth?.user ? (
                         <Link href={dashboardHref} className={authButtonClass}>
