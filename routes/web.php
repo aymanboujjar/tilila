@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccessRequestController;
 use App\Http\Controllers\ExpertApplicationController;
 use App\Http\Controllers\ExpertArticleController;
+use App\Http\Controllers\ExpertContactController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterSubscriptionController;
@@ -57,14 +58,14 @@ Route::get('/', function () {
             ->orderByDesc('id')
             ->limit(3)
             ->get()
-            ->map(fn (Expert $e) => $e->toDirectoryArray()),
+            ->map(fn(Expert $e) => $e->toDirectoryArray()),
         'latestMedia' => MediaItem::query()
             ->where('visibility', 'public')
             ->where('status', 'published')
             ->orderByDesc('updated_at')
             ->limit(6)
             ->get()
-            ->map(fn (MediaItem $m) => [
+            ->map(fn(MediaItem $m) => [
                 'id' => (string) $m->slug,
                 'badge' => $m->badge ?? ['en' => '', 'fr' => '', 'ar' => ''],
                 'title' => $m->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
@@ -126,6 +127,7 @@ Route::get('/experts/articles/{article}', [ExpertArticleController::class, 'show
 Route::get('/experts/{expert}', [ExpertController::class, 'show'])
     ->middleware(['auth', 'verified', 'expert.access'])
     ->name('experts.show');
+Route::post('/experts/{expert}/contact', [ExpertContactController::class, 'store'])->name('experts.contact.store');
 
 Route::post('/newsletter', [NewsletterSubscriptionController::class, 'store'])->name('newsletter.store');
 
@@ -152,7 +154,7 @@ Route::get('/tililab', function () {
         ->where('is_current', false)
         ->when(
             $currentEdition,
-            fn ($q) => $q->where('id', '!=', $currentEdition->id),
+            fn($q) => $q->where('id', '!=', $currentEdition->id),
         )
         ->orderByDesc('year')
         ->orderBy('sort')
@@ -171,7 +173,7 @@ Route::get('/tilila', function () {
         ->where('is_current', false)
         ->when(
             $currentEdition,
-            fn ($q) => $q->where('id', '!=', $currentEdition->id),
+            fn($q) => $q->where('id', '!=', $currentEdition->id),
         )
         ->orderByDesc('year')
         ->orderBy('sort')
@@ -234,20 +236,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('access-request/pending', [AccessRequestController::class, 'pending'])->name('access-request.pending');
     Route::get('access-request/rejected', [AccessRequestController::class, 'rejected'])->name('access-request.rejected');
 
-    Route::get('dashboard', fn () => redirect()->route('admin.dashboard'))
+    Route::get('dashboard', fn() => redirect()->route('admin.dashboard'))
         ->middleware('role:admin')
         ->name('dashboard');
 
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
-        require __DIR__.'/admin.php';
+        require __DIR__ . '/admin.php';
     });
 
     Route::prefix('expert')->name('expert.')->middleware('role:expert')->group(function () {
-        require __DIR__.'/expert.php';
+        require __DIR__ . '/expert.php';
     });
 });
 
-require __DIR__.'/events.php';
-require __DIR__.'/learn.php';
-require __DIR__.'/gouvernance.php';
-require __DIR__.'/settings.php';
+require __DIR__ . '/events.php';
+require __DIR__ . '/learn.php';
+require __DIR__ . '/gouvernance.php';
+require __DIR__ . '/settings.php';
