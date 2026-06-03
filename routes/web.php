@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccessRequestActivationController;
 use App\Http\Controllers\AccessRequestController;
 use App\Http\Controllers\ExpertApplicationController;
 use App\Http\Controllers\ExpertArticleController;
@@ -58,14 +59,14 @@ Route::get('/', function () {
             ->orderByDesc('id')
             ->limit(3)
             ->get()
-            ->map(fn(Expert $e) => $e->toDirectoryArray()),
+            ->map(fn (Expert $e) => $e->toDirectoryArray()),
         'latestMedia' => MediaItem::query()
             ->where('visibility', 'public')
             ->where('status', 'published')
             ->orderByDesc('updated_at')
             ->limit(6)
             ->get()
-            ->map(fn(MediaItem $m) => [
+            ->map(fn (MediaItem $m) => [
                 'id' => (string) $m->slug,
                 'badge' => $m->badge ?? ['en' => '', 'fr' => '', 'ar' => ''],
                 'title' => $m->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
@@ -156,7 +157,7 @@ Route::get('/tililab', function () {
         ->where('is_current', false)
         ->when(
             $currentEdition,
-            fn($q) => $q->where('id', '!=', $currentEdition->id),
+            fn ($q) => $q->where('id', '!=', $currentEdition->id),
         )
         ->orderByDesc('year')
         ->orderBy('sort')
@@ -175,7 +176,7 @@ Route::get('/tilila', function () {
         ->where('is_current', false)
         ->when(
             $currentEdition,
-            fn($q) => $q->where('id', '!=', $currentEdition->id),
+            fn ($q) => $q->where('id', '!=', $currentEdition->id),
         )
         ->orderByDesc('year')
         ->orderBy('sort')
@@ -230,6 +231,15 @@ Route::post('/tililab/form', [TililabInscriptionController::class, 'store'])->na
 Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 Route::get('/media/{media}', [MediaController::class, 'show'])->name('media.show');
 
+Route::post('access-request/apply', [AccessRequestController::class, 'apply'])
+    ->middleware('throttle:5,60')
+    ->name('access-request.apply');
+Route::get('access-request/submitted', [AccessRequestController::class, 'submitted'])->name('access-request.submitted');
+Route::get('access-request/activate/{token}', [AccessRequestActivationController::class, 'show'])->name('access-request.activate');
+Route::post('access-request/activate/{token}', [AccessRequestActivationController::class, 'store'])
+    ->middleware('throttle:10,60')
+    ->name('access-request.activate.store');
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('access-request/create', [AccessRequestController::class, 'create'])->name('access-request.create');
     Route::post('access-request', [AccessRequestController::class, 'store'])
@@ -238,20 +248,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('access-request/pending', [AccessRequestController::class, 'pending'])->name('access-request.pending');
     Route::get('access-request/rejected', [AccessRequestController::class, 'rejected'])->name('access-request.rejected');
 
-    Route::get('dashboard', fn() => redirect()->route('admin.dashboard'))
+    Route::get('dashboard', fn () => redirect()->route('admin.dashboard'))
         ->middleware('role:admin')
         ->name('dashboard');
 
     Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function () {
-        require __DIR__ . '/admin.php';
+        require __DIR__.'/admin.php';
     });
 
     Route::prefix('expert')->name('expert.')->middleware('role:expert')->group(function () {
-        require __DIR__ . '/expert.php';
+        require __DIR__.'/expert.php';
     });
 });
 
-require __DIR__ . '/events.php';
-require __DIR__ . '/learn.php';
-require __DIR__ . '/gouvernance.php';
-require __DIR__ . '/settings.php';
+require __DIR__.'/events.php';
+require __DIR__.'/learn.php';
+require __DIR__.'/gouvernance.php';
+require __DIR__.'/settings.php';

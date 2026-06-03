@@ -236,7 +236,13 @@
             "demoAdmin": "Continue as admin",
             "demoExpert": "Continue as expert",
             "noAccount": "Don't have an account?",
-            "signUp": "Sign up"
+            "signUp": "Sign up",
+            "modeSignIn": "Sign in",
+            "modeRequestAccount": "Request account",
+            "requestLayoutTitle": "Request an account",
+            "requestLayoutDescription": "Submit your details for review. You will set a password after an administrator approves your request.",
+            "requestAccountHint": "No password is required now. If approved, you will receive an email with a link to activate your account and choose a password.",
+            "requestAccountSubmit": "Submit request"
         },
         "register": {
             "headTitle": "Register",
@@ -434,6 +440,18 @@
             "title": "Your request is under review",
             "description": "We are reviewing your request to access expert profiles. This usually takes a short time.",
             "emailNotice": "You will receive an email once your request has been reviewed."
+        },
+        "submitted": {
+            "headTitle": "Request submitted",
+            "title": "Request submitted",
+            "description": "Thank you. An administrator will review your account request.",
+            "emailNotice": "If approved, you will receive an email with a link to set your password and access expert profiles. You cannot sign in until then."
+        },
+        "activate": {
+            "headTitle": "Activate account",
+            "layoutTitle": "Set your password",
+            "layoutDescription": "Your account request was approved. Create a password to finish activation.",
+            "submit": "Activate account"
         },
         "rejected": {
             "headTitle": "Request not approved",

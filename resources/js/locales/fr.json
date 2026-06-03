@@ -236,7 +236,13 @@
             "demoAdmin": "Continuer en tant qu’admin",
             "demoExpert": "Continuer en tant qu’experte",
             "noAccount": "Vous n’avez pas de compte ?",
-            "signUp": "S’inscrire"
+            "signUp": "S’inscrire",
+            "modeSignIn": "Connexion",
+            "modeRequestAccount": "Demander un compte",
+            "requestLayoutTitle": "Demander un compte",
+            "requestLayoutDescription": "Soumettez vos informations pour examen. Vous définirez un mot de passe après validation par un administrateur.",
+            "requestAccountHint": "Aucun mot de passe n’est requis pour l’instant. Si votre demande est approuvée, vous recevrez un e-mail pour activer votre compte et choisir un mot de passe.",
+            "requestAccountSubmit": "Envoyer la demande"
         },
         "register": {
             "headTitle": "S’inscrire",
@@ -434,6 +440,18 @@
             "title": "Votre demande est en cours d’examen",
             "description": "Nous examinons votre demande d’accès aux profils d’expertes.",
             "emailNotice": "Vous recevrez un e-mail une fois votre demande traitée."
+        },
+        "submitted": {
+            "headTitle": "Demande envoyée",
+            "title": "Demande envoyée",
+            "description": "Merci. Un administrateur examinera votre demande de compte.",
+            "emailNotice": "Si elle est approuvée, vous recevrez un e-mail pour définir votre mot de passe et accéder aux profils d’expertes. Vous ne pourrez pas vous connecter avant cela."
+        },
+        "activate": {
+            "headTitle": "Activer le compte",
+            "layoutTitle": "Définir votre mot de passe",
+            "layoutDescription": "Votre demande de compte a été approuvée. Créez un mot de passe pour terminer l’activation.",
+            "submit": "Activer le compte"
         },
         "rejected": {
             "headTitle": "Demande non approuvée",
