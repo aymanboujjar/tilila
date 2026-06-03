@@ -127,7 +127,9 @@ Route::get('/experts/articles/{article}', [ExpertArticleController::class, 'show
 Route::get('/experts/{expert}', [ExpertController::class, 'show'])
     ->middleware(['auth', 'verified', 'expert.access'])
     ->name('experts.show');
-Route::post('/experts/{expert}/contact', [ExpertContactController::class, 'store'])->name('experts.contact.store');
+Route::post('/experts/{expert}/contact', [ExpertContactController::class, 'store'])
+    ->middleware('auth')
+    ->name('experts.contact.store');
 
 Route::post('/newsletter', [NewsletterSubscriptionController::class, 'store'])->name('newsletter.store');
 
