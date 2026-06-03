@@ -229,7 +229,6 @@ export function AppSidebar() {
                                         title: 'Newsletter',
                                         href: '/admin/newsletter',
                                         icon: Mail,
-
                                     },
                                 ]}
                             />
