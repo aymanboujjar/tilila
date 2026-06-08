@@ -9,7 +9,7 @@ export default function AuthSimpleLayout({
 }: AuthLayoutProps) {
     return (
         <div className="relative min-h-svh overflow-hidden bg-beta-white">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,151,170,0.09),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.05),transparent_36%)]" />
+            <div className="absolute inset-0 bg-brand-subtle" />
 
             <div className="relative mx-auto flex min-h-svh max-w-7xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
                 <div className="w-full max-w-md">
@@ -20,7 +20,7 @@ export default function AuthSimpleLayout({
                                 className="inline-flex items-center rounded-full focus-visible:ring-2 focus-visible:ring-beta-blue/40 focus-visible:ring-offset-2"
                             >
                                 <img
-                                    src="/assets/logo.webp"
+                                    src="/assets/logo.png"
                                     alt="Tilila"
                                     className="h-11 w-auto object-contain"
                                     loading="eager"

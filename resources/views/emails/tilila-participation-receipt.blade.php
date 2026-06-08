@@ -48,7 +48,7 @@
                 @if($participant->submission_link)
                     <p style="margin: 0 0 8px;">
                         <strong style="color: #0f172a;">Lien</strong><br>
-                        <a href="{{ $participant->submission_link }}" style="color: #0097aa; word-break: break-all;">{{ $participant->submission_link }}</a>
+                        <a href="{{ $participant->submission_link }}" style="color: #4419a8; word-break: break-all;">{{ $participant->submission_link }}</a>
                     </p>
                 @endif
                 <p style="margin: 0;">

@@ -240,7 +240,7 @@ function HeroSlideLayer({ slide, isActive, locale }) {
                                     </span>
                                     <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
                                         <span
-                                            className="size-1.5 rounded-full bg-beta-blue shadow-[0_0_8px_rgba(0,151,170,0.8)]"
+                                            className="size-1.5 rounded-full bg-beta-blue shadow-[0_0_8px_rgba(68,25,168,0.8)]"
                                             aria-hidden
                                         />
                                         <TransText
@@ -391,7 +391,7 @@ function PageHeroBanner({ slide, locale }) {
                                         </span>
                                         <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-xs font-semibold text-white backdrop-blur-sm">
                                             <span
-                                                className="size-1.5 rounded-full bg-beta-blue shadow-[0_0_8px_rgba(0,151,170,0.8)]"
+                                                className="size-1.5 rounded-full bg-beta-blue shadow-[0_0_8px_rgba(68,25,168,0.8)]"
                                                 aria-hidden
                                             />
                                             <TransText

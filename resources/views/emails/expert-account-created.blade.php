@@ -30,7 +30,7 @@
             <td style="padding: 18px 20px; font-size: 14px; line-height: 1.6; color: #334155;">
                 <p style="margin: 0 0 10px;">
                     <strong style="color: #0f172a;">Login URL</strong><br>
-                    <a href="{{ url('/login') }}" style="color: #0097aa; text-decoration: none;">{{ url('/login') }}</a>
+                    <a href="{{ url('/login') }}" style="color: #4419a8; text-decoration: none;">{{ url('/login') }}</a>
                 </p>
                 <p style="margin: 0 0 10px;">
                     <strong style="color: #0f172a;">Email</strong><br>
@@ -55,7 +55,7 @@
 
     <table role="presentation" cellspacing="0" cellpadding="0" border="0">
         <tr>
-            <td style="border-radius: 8px; background-color: #0097aa;">
+            <td style="border-radius: 8px; background-color: #4419a8;">
                 <a
                     href="{{ url('/expert/dashboard') }}"
                     target="_blank"
