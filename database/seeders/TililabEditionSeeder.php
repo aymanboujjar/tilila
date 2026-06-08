@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 use App\Models\TililabEdition;
+use Database\Seeders\Concerns\SeedsTililaJury;
 use Illuminate\Database\Seeder;
 
 class TililabEditionSeeder extends Seeder
 {
+    use SeedsTililaJury;
+
     public function run(): void
     {
         TililabEdition::query()->whereNotIn('year', ['2021', '2022', '2023', '2024', '2025', '2026'])->delete();
@@ -56,7 +59,7 @@ class TililabEditionSeeder extends Seeder
                     'Édition inaugurale de Tililab — publicité inclusive et égalité des genres.',
                     'الدورة الافتتاحية لتيليلاب — إعلان شامل والمساواة بين الجنسين.',
                 ),
-                'jury' => [],
+                'jury' => $this->juryForYear('2021'),
                 'winners' => [
                     $this->winner(
                         'Zakaria El Jouhari',
@@ -74,7 +77,7 @@ class TililabEditionSeeder extends Seeder
                     'Thème : diversité dans la création publicitaire. Bootcamp à Marrakech.',
                     'الموضوع: التنوع في الإبداع الإعلاني. المعسكر في مراكش.',
                 ),
-                'jury' => [],
+                'jury' => $this->juryForYear('2022'),
                 'winners' => [
                     $this->winner(
                         'Aymane Oulmadou',
@@ -92,7 +95,7 @@ class TililabEditionSeeder extends Seeder
                     'Édition mettant l’accent sur le travail d’équipe des jeunes créateurs (lauréats ex-aequo).',
                     'دورة تؤكد العمل الجماعي للمبدعين الشباب (فائزون مناصفة).',
                 ),
-                'jury' => $this->juryFifthTililaEdition(),
+                'jury' => $this->juryForYear('2023'),
                 'winners' => [
                     $this->winner(
                         'Coupinates (ex-aequo)',
@@ -116,7 +119,7 @@ class TililabEditionSeeder extends Seeder
                     'Thème : inclusion des personnes en situation de handicap et usage de l’intelligence artificielle.',
                     'الموضوع: إدماج ذوي الإعاقة واستخدام الذكاء الاصطناعي.',
                 ),
-                'jury' => $this->jurySixthTililaEdition(),
+                'jury' => $this->juryForYear('2024'),
                 'winners' => [
                     $this->winner(
                         'Yassine El Fataoui',
@@ -134,7 +137,7 @@ class TililabEditionSeeder extends Seeder
                     'Thème : bénévolat pour la Coupe du Monde 2030. Bootcamp Marrakech (10–13 sept. 2025), 7 finalistes ; enfants de Douar Shems’y (Al Haouz).',
                     'الموضوع: التطوع لكأس العالم 2030. معسكر مراكش (10–13 سبتمبر 2025)، 7 متأهلين؛ أطفال دوار شمسي (الحوز).',
                 ),
-                'jury' => $this->jurySeventhTililaEdition(),
+                'jury' => $this->juryForYear('2025'),
                 'winners' => [
                     $this->winner(
                         'Mohamed Saïd El Bekkali',
@@ -152,7 +155,7 @@ class TililabEditionSeeder extends Seeder
                     'Édition en cours — les candidatures sont ouvertes jusqu’à la finale nationale.',
                     'الدورة الحالية — الترشيحات مفتوحة حتى النهائي الوطني.',
                 ),
-                'jury' => $this->jurySeventhTililaEdition(),
+                'jury' => $this->juryForYear('2025'),
                 'winners' => [],
             ],
         ];
@@ -210,45 +213,6 @@ class TililabEditionSeeder extends Seeder
             'full_name' => $name,
             'bio' => ['en' => $roleEn, 'fr' => $roleFr, 'ar' => $roleAr],
             'photo_path' => null,
-        ];
-    }
-
-    /** 5th Tililab (2025) — same as 7th Trophée Tilila */
-    private function jurySeventhTililaEdition(): array
-    {
-        return [
-            $this->juror('Hind Bensari', 'Director', 'Réalisatrice', 'مخرجة'),
-            $this->juror('Fihr Kettani', 'Cultural entrepreneur', 'Entrepreneur culturel', 'رائد أعمال ثقافي'),
-            $this->juror('Idir Ouguindi', 'Associative activist & inclusive development consultant', 'Militant associatif & consultant développement inclusif', 'ناشط جمعوي ومستشار تنمية شاملة'),
-            $this->juror('Ghita El Kholti', 'Creative director', 'Directrice de création', 'مديرة إبداعية'),
-            $this->juror('Mounia Lamkimel', 'Actress', 'Actrice', 'ممثلة'),
-            $this->juror('Abdellah Tourabi', 'Journalist & TV presenter', 'Journaliste & présentateur TV', 'صحفي ومقدم تلفزيوني'),
-        ];
-    }
-
-    /** 4th Tililab (2024) — same as 6th Trophée Tilila */
-    private function jurySixthTililaEdition(): array
-    {
-        return [
-            $this->juror('Sanaa Akroud', 'Producer, director, actress', 'Productrice, réalisatrice, actrice', 'منتجة، مخرجة، ممثلة'),
-            $this->juror('Rabii Kati', 'Actor', 'Acteur', 'ممثل'),
-            $this->juror('Zhor Fassi Fihri', 'Director, producer', 'Réalisatrice, productrice', 'مخرجة، منتجة'),
-            $this->juror('Mohamed Achaour', 'Director, screenwriter, producer', 'Réalisateur, scénariste, producteur', 'مخرج، كاتب سيناريو، منتج'),
-            $this->juror('Siham El Mechtani El Idrissi', 'Marketing & innovation expert', 'Experte marketing & innovation', 'خبيرة تسويق وابتكار'),
-            $this->juror('Ali Boujena', 'Marketing & communication expert — among other jury members', 'Expert marketing & communication — parmi d’autres membres du jury', 'خبير تسويق واتصال — ضمن أعضاء لجنة التحكيم'),
-        ];
-    }
-
-    /** 3rd Tililab (2023) — aligned with 5th Trophée Tilila */
-    private function juryFifthTililaEdition(): array
-    {
-        return [
-            $this->juror('Nabil Ayouch', 'Director & producer', 'Réalisateur & producteur', 'مخرج ومنتج'),
-            $this->juror('Latefa Ahrrare', 'Actress', 'Actrice', 'ممثلة'),
-            $this->juror('Amal Chafai', 'Actress', 'Actrice', 'ممثلة'),
-            $this->juror('Basma El Hijri', 'Director', 'Réalisatrice', 'مخرجة'),
-            $this->juror('Nawal El Aidaoui', 'Journalist & presenter', 'Journaliste & présentatrice', 'صحفية ومقدمة'),
-            $this->juror('Nawfel Bensari', 'Director', 'Réalisateur', 'مخرج'),
         ];
     }
 }
