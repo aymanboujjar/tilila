@@ -342,7 +342,7 @@ export default function BecomeExpert() {
         <>
             <Head title={t('experts.become.headTitle')} />
 
-            <section className="bg-[radial-gradient(circle_at_top_left,#dff2ff_0%,#ffffff_45%,#f5fbff_100%)] py-10 sm:py-14">
+            <section className="bg-brand-hero py-10 sm:py-14">
                 <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
                     <div className="mb-6 rounded-2xl border border-beta-blue/20 bg-card/80 p-6 shadow-sm backdrop-blur sm:p-8">
                         <p className="text-xs font-semibold tracking-[0.3em] text-tgray uppercase">

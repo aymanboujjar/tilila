@@ -18,7 +18,7 @@
             @endif
             <tr>
                 <td align="center" style="padding-bottom: 12px;">
-                    <a href="{{ $homeUrl }}" target="_blank" rel="noopener noreferrer" style="font-size: 13px; font-weight: 600; color: #0097aa; text-decoration: none;">
+                    <a href="{{ $homeUrl }}" target="_blank" rel="noopener noreferrer" style="font-size: 13px; font-weight: 600; color: #4419a8; text-decoration: none;">
                         tilila.ma
                     </a>
                     <span style="color: #475569; font-size: 13px;">&nbsp;·&nbsp;</span>

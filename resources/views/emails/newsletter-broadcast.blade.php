@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td style="padding-bottom: 20px;">
-                <div style="height: 3px; width: 48px; background-color: #0097aa; border-radius: 2px; font-size: 0; line-height: 0;">&nbsp;</div>
+                <div style="height: 3px; width: 48px; background-color: #4419a8; border-radius: 2px; font-size: 0; line-height: 0;">&nbsp;</div>
             </td>
         </tr>
         <tr>

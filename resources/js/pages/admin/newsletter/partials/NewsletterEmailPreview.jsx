@@ -21,7 +21,7 @@ export default function NewsletterEmailPreview({
 
             <div className="flex flex-1 flex-col overflow-hidden p-4">
                 <div className="mx-auto w-full max-w-sm flex-1 overflow-hidden rounded-lg border border-border bg-card shadow-sm">
-                    <div className="bg-gradient-to-br from-beta-blue to-beta-blue/80 px-4 py-3">
+                    <div className="bg-brand-gradient px-4 py-3">
                         <div className="flex items-center gap-2">
                             <span className="flex size-8 items-center justify-center rounded-md bg-twhite/15">
                                 <Mail className="size-4 text-twhite" />

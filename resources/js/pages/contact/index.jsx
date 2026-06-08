@@ -57,7 +57,7 @@ function ContactPage() {
                     <div className="absolute inset-0">
                         <div className="absolute top-0 -right-24 h-72 w-72 rounded-full bg-alpha-blue/70 blur-3xl" />
                         <div className="absolute -bottom-28 left-0 h-72 w-72 rounded-full bg-secondary/25 blur-3xl" />
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,151,170,0.12),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.06),transparent_35%)]" />
+                        <div className="absolute inset-0 bg-brand-subtle" />
                     </div>
 
                     <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
@@ -342,7 +342,7 @@ function ContactPage() {
 
                             <div className="lg:col-span-8">
                                 <div className="relative overflow-hidden rounded-3xl border border-border bg-background p-6 shadow-sm sm:p-8">
-                                    <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(0,151,170,0.08),transparent_45%),radial-gradient(circle_at_top_right,rgba(15,23,42,0.08),transparent_30%)]" />
+                                    <div className="absolute inset-0 bg-brand-subtle" />
                                     <div className="relative grid gap-6 lg:grid-cols-[1.25fr_0.75fr]">
                                         <div className="rounded-2xl border border-border bg-beta-white p-6">
                                             <div className="flex items-center gap-3 text-tblack">
