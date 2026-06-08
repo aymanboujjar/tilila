@@ -5,7 +5,7 @@ import AppLayout from '@/layouts/app-layout';
 import EditionTopHero from '@/components/program/EditionTopHero';
 import TransText from '@/components/TransText';
 import TililaPeopleGrid from '@/components/TililaPeopleGrid';
-import { getYoutubeEmbedUrl } from '@/lib/youtubeEmbed';
+import { resolveTililaHeroMedia } from '@/lib/editionHeroMedia';
 import { coverImageSrc } from '@/pages/user/tilila/utils/editions';
 
 function GalleryGrid({ images }) {
@@ -67,21 +67,20 @@ export default function TililaEditionDetails() {
     const images = Array.isArray(edition?.gallery_images)
         ? edition.gallery_images
         : [];
-    const embedUrl = getYoutubeEmbedUrl(edition?.ceremony_video_url);
-    const bannerSrc = coverImageSrc(
-        edition?.cover_image_path,
-        edition?.gallery_images,
-    );
+    const heroMedia = resolveTililaHeroMedia({
+        ceremonyVideoUrl: edition?.ceremony_video_url,
+        bannerSrc: coverImageSrc(
+            edition?.cover_image_path,
+            edition?.gallery_images,
+        ),
+    });
 
     return (
         <>
             <Head title={`Tilila Edition ${edition?.year ?? ''}`} />
 
             <section className="mx-auto max-w-7xl px-4 py-10">
-                <EditionTopHero
-                    embedUrl={embedUrl}
-                    bannerSrc={embedUrl ? '' : bannerSrc}
-                />
+                <EditionTopHero {...heroMedia} />
 
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div>

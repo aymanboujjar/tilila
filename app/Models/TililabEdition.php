@@ -79,4 +79,13 @@ class TililabEdition extends Model
     {
         return ProgramTililabArchive::enrichEdition($this);
     }
+
+    /** Reuse Tilila jury photos without injecting ceremony video fallbacks. */
+    public function withJuryPhotoEnrichment(): self
+    {
+        $jury = is_array($this->jury) ? $this->jury : [];
+        $this->jury = ProgramTililabArchive::enrichJuryPhotos($jury, $this->year);
+
+        return $this;
+    }
 }

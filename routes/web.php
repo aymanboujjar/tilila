@@ -227,7 +227,7 @@ Route::post('/program/contact', [ProgramContactController::class, 'store'])
 
 Route::get('/tilila/editions/{edition}', function (TililaEdition $edition) {
     return Inertia::render('user/tilila/edition', [
-        'edition' => $edition,
+        'edition' => \App\Support\ProgramEditionHero::forTilila($edition),
     ]);
 });
 
@@ -254,10 +254,8 @@ Route::get('/tilila/participate', function () {
 })->name('tilila.participate');
 
 Route::get('/tililab/editions/{edition}', function (TililabEdition $edition) {
-    $edition->withArchiveEnrichment();
-
     return Inertia::render('user/tililab/edition', [
-        'edition' => $edition,
+        'edition' => \App\Support\ProgramEditionHero::forTililab($edition),
     ]);
 });
 

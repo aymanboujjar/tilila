@@ -5,12 +5,8 @@ import AppLayout from '@/layouts/app-layout';
 import EditionTopHero from '@/components/program/EditionTopHero';
 import TransText from '@/components/TransText';
 import TililaPeopleGrid from '@/components/TililaPeopleGrid';
-import {
-    archiveUploadedVideoSrc,
-    coverImageSrc,
-    editionHasArchiveVideo,
-} from '@/pages/user/tililab/utils/editions';
-import { getYoutubeEmbedUrl } from '@/lib/youtubeEmbed';
+import { resolveTililabHeroMedia } from '@/lib/editionHeroMedia';
+import { coverImageSrc } from '@/pages/user/tililab/utils/editions';
 
 function GalleryGrid({ images }) {
     const rows = Array.isArray(images) ? images : [];
@@ -71,27 +67,22 @@ export default function TililabEditionDetails() {
     const images = Array.isArray(edition?.gallery_images)
         ? edition.gallery_images
         : [];
-    const bannerSrc = coverImageSrc(
-        edition?.cover_image_path,
-        edition?.gallery_images,
-        edition?.winners,
-    );
-    const hasArchiveVideo = editionHasArchiveVideo(edition);
-    const uploadSrc = archiveUploadedVideoSrc(edition?.ceremony_video_path);
-    const embedUrl = uploadSrc
-        ? null
-        : getYoutubeEmbedUrl(edition?.ceremony_video_url);
+    const heroMedia = resolveTililabHeroMedia({
+        ceremonyVideoPath: edition?.ceremony_video_path,
+        ceremonyVideoUrl: edition?.ceremony_video_url,
+        bannerSrc: coverImageSrc(
+            edition?.cover_image_path,
+            edition?.gallery_images,
+            edition?.winners,
+        ),
+    });
 
     return (
         <>
             <Head title={`Tililab Edition ${edition?.year ?? ''}`} />
 
             <section className="mx-auto max-w-7xl px-4 py-10">
-                <EditionTopHero
-                    uploadSrc={uploadSrc}
-                    embedUrl={embedUrl}
-                    bannerSrc={hasArchiveVideo ? '' : bannerSrc}
-                />
+                <EditionTopHero {...heroMedia} />
 
                 <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div>
