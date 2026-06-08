@@ -32,7 +32,7 @@ export default function TililabIndex() {
             <TililabHead />
             <div>
                 <ProgramHeroSection program="tililab" />
-                <ProgramStatsSection />
+                <ProgramStatsSection program="tililab" />
 
                 <TililabCurrentEditionSection edition={currentEdition} />
 
@@ -59,8 +59,8 @@ export default function TililabIndex() {
                     <TililabHowToApply />
                 </div>
 
-                <ProgramTestimonialsSection testimonials={testimonials ?? []} program="tililab" />
-                <ProgramNewsSection news={news ?? []} program="tililab" />
+                {/* <ProgramTestimonialsSection testimonials={testimonials ?? []} program="tililab" /> */}
+                {/* <ProgramNewsSection news={news ?? []} program="tililab" /> */}
 
                 <div className="bg-twhite">
                     <TililabSponsorsSection />

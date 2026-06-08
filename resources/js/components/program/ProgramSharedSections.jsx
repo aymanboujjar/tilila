@@ -72,7 +72,39 @@ export function ProgramHeroSection({ program }) {
     );
 }
 
-export function ProgramStatsSection() {
+function TililaStatsCard() {
+    return (
+        <div className="rounded-2xl border border-border bg-card p-6">
+            <h3 className="text-lg font-bold text-tblack">Tilila Awards</h3>
+            <ul className="mt-4 space-y-2 text-sm text-tgray">
+                <li>7 <TransText en="editions" fr="éditions" ar="دورات" /></li>
+                <li><TransText en="250+ candidate campaigns" fr="Plus de 250 campagnes candidates" ar="أكثر من 250 حملة مرشحة" /></li>
+                <li><TransText en="50+ shortlisted campaigns" fr="Plus de 50 campagnes shortlistées" ar="أكثر من 50 حملة في القائمة القصيرة" /></li>
+                <li><TransText en="13 awarded campaigns" fr="13 campagnes primées" ar="13 حملة فائزة" /></li>
+                <li><TransText en="26 jury members mobilized" fr="26 membres de jury mobilisés" ar="26 عضوًا في لجنة التحكيم" /></li>
+                <li><TransText en="7 Hommage Tilila awards" fr="7 Hommages Tilila décernés" ar="7 تكريمات تيليلا" /></li>
+            </ul>
+        </div>
+    );
+}
+
+function TililabStatsCard() {
+    return (
+        <div className="rounded-2xl border border-border bg-card p-6">
+            <h3 className="text-lg font-bold text-tblack">Tililab</h3>
+            <ul className="mt-4 space-y-2 text-sm text-tgray">
+                <li>5 <TransText en="editions" fr="éditions" ar="دورات" /></li>
+                <li><TransText en="Dozens of young creators supported" fr="Plusieurs dizaines de jeunes créateurs accompagnés" ar="عشرات المبدعين الشباب المرافقين" /></li>
+                <li><TransText en="30+ projects produced" fr="Plus de 30 projets produits" ar="أكثر من 30 مشروعًا منتجًا" /></li>
+                <li><TransText en="Hundreds of hours of training and mentoring" fr="Des centaines d'heures de formation et de mentorat" ar="مئات الساعات من التدريب والإرشاد" /></li>
+            </ul>
+        </div>
+    );
+}
+
+export function ProgramStatsSection({ program }) {
+    const isTilila = program === 'tilila';
+
     return (
         <SectionShell
             id="stats"
@@ -81,27 +113,8 @@ export function ProgramStatsSection() {
             }
             className="bg-background"
         >
-            <div className="grid gap-6 md:grid-cols-2">
-                <div className="rounded-2xl border border-border bg-card p-6">
-                    <h3 className="text-lg font-bold text-tblack">Tilila Awards</h3>
-                    <ul className="mt-4 space-y-2 text-sm text-tgray">
-                        <li>7 <TransText en="editions" fr="éditions" ar="دورات" /></li>
-                        <li><TransText en="250+ candidate campaigns" fr="Plus de 250 campagnes candidates" ar="أكثر من 250 حملة مرشحة" /></li>
-                        <li><TransText en="50+ shortlisted campaigns" fr="Plus de 50 campagnes shortlistées" ar="أكثر من 50 حملة في القائمة القصيرة" /></li>
-                        <li><TransText en="13 awarded campaigns" fr="13 campagnes primées" ar="13 حملة فائزة" /></li>
-                        <li><TransText en="26 jury members mobilized" fr="26 membres de jury mobilisés" ar="26 عضوًا في لجنة التحكيم" /></li>
-                        <li><TransText en="7 Hommage Tilila awards" fr="7 Hommages Tilila décernés" ar="7 تكريمات تيليلا" /></li>
-                    </ul>
-                </div>
-                <div className="rounded-2xl border border-border bg-card p-6">
-                    <h3 className="text-lg font-bold text-tblack">Tililab</h3>
-                    <ul className="mt-4 space-y-2 text-sm text-tgray">
-                        <li>5 <TransText en="editions" fr="éditions" ar="دورات" /></li>
-                        <li><TransText en="Dozens of young creators supported" fr="Plusieurs dizaines de jeunes créateurs accompagnés" ar="عشرات المبدعين الشباب المرافقين" /></li>
-                        <li><TransText en="30+ projects produced" fr="Plus de 30 projets produits" ar="أكثر من 30 مشروعًا منتجًا" /></li>
-                        <li><TransText en="Hundreds of hours of training and mentoring" fr="Des centaines d'heures de formation et de mentorat" ar="مئات الساعات من التدريب والإرشاد" /></li>
-                    </ul>
-                </div>
+            <div >
+                {isTilila ? <TililaStatsCard /> : <TililabStatsCard />}
             </div>
         </SectionShell>
     );

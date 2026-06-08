@@ -549,9 +549,9 @@ export function TililabSponsorsSection() {
             id="sponsors"
             title={
                 <TransText
-                    en="Complete list of sponsors & partners"
-                    fr="Liste complète des sponsors & partenaires"
-                    ar="القائمة الكاملة للرعاة والشركاء"
+                    en=" Sponsors & partners"
+                    fr="Sponsors & partenaires"
+                    ar="الرعاة والشركاء"
                 />
             }
             subtitle={

@@ -40,7 +40,7 @@ export default function TililaIndex() {
                 ) : null}
 
                 <ProgramHeroSection program="tilila" />
-                <ProgramStatsSection />
+                <ProgramStatsSection program="tilila" />
 
                 <CurrentEditionSection
                     edition={currentEdition}

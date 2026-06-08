@@ -89,7 +89,7 @@ export default function TililaParticipate() {
                         <Field label="Marque" error={errors.brand} required>
                             <input className={inputClass} value={data.brand} onChange={(e) => setData('brand', e.target.value)} required />
                         </Field>
-                        <Field label="Agence" error={errors.agency} required>
+                        <Field label="Agence de communication " error={errors.agency} required>
                             <input className={inputClass} value={data.agency} onChange={(e) => setData('agency', e.target.value)} required />
                         </Field>
                     </fieldset>
@@ -107,13 +107,13 @@ export default function TililaParticipate() {
                         <Field label="Lien de consultation" error={errors.submission_link}>
                             <input type="url" className={inputClass} value={data.submission_link} onChange={(e) => setData('submission_link', e.target.value)} />
                         </Field>
-                        {/* <Field label="Catégorie" error={errors.category} required>
+                        <Field label="Catégorie" error={errors.category} required>
                             <select className={inputClass} value={data.category} onChange={(e) => setData('category', e.target.value)} required>
                                 {CATEGORIES.map((c) => (
                                     <option key={c.value} value={c.value}>{c.fr}</option>
                                 ))}
                             </select>
-                        </Field> */}
+                        </Field>
                         <Field label="Vidéo" error={errors.submission_video}>
                             <input type="file" accept="video/*" onChange={(e) => setData('submission_video', e.target.files[0])} />
                         </Field>

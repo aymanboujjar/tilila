@@ -118,9 +118,9 @@ export default function TililabParticipate() {
                         <Field label="Upload Vidéo" error={errors.original_video}>
                             <input type="file" accept="video/*" onChange={(e) => setData('original_video', e.target.files[0])} />
                         </Field>
-                        <Field label="Lien vidéo" error={errors.original_video_link}>
+                        {/* <Field label="Lien vidéo" error={errors.original_video_link}>
                             <input type="url" className={inputClass} value={data.original_video_link} onChange={(e) => setData('original_video_link', e.target.value)} />
-                        </Field>
+                        </Field> */}
                         <Field label="Upload Dossier PDF" error={errors.pdf_dossier}>
                             <input type="file" accept=".pdf" onChange={(e) => setData('pdf_dossier', e.target.files[0])} />
                         </Field>
