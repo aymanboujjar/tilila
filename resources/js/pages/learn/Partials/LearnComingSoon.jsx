@@ -59,7 +59,7 @@ export default function LearnComingSoon({
     return (
         <div className="relative overflow-hidden">
             <div
-                className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(0,151,170,0.14),transparent_42%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.06),transparent_38%)]"
+                className="pointer-events-none absolute inset-0 bg-brand-subtle"
                 aria-hidden
             />
             <div className="pointer-events-none absolute end-0 -top-24 h-72 w-72 rounded-full bg-beta-blue/10 blur-3xl" />

@@ -134,7 +134,7 @@ export function AppSidebar() {
                 >
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-beta-blue/20">
                         <img
-                            src="/assets/logo.webp"
+                            src="/assets/logo.png"
                             alt=""
                             className="size-7 object-contain"
                         />

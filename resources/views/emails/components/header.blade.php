@@ -4,7 +4,7 @@
     $tagline = $headerTagline ?? 'Impact · Media · Community';
 @endphp
 <tr>
-    <td style="background: linear-gradient(135deg, #0097aa 0%, #007a8a 100%); padding: 0;">
+    <td style="background: linear-gradient(135deg, #4419a8 0%, #00a4c1 55%, #635faa 100%); padding: 0;">
         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
             <tr>
                 <td style="padding: 28px 40px 24px;">

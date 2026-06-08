@@ -30,11 +30,11 @@ export default function Footer() {
             <div className="mx-auto max-w-7xl px-4 py-14">
                 <div className="grid gap-10 md:grid-cols-12">
                     <div className="md:col-span-4">
-                        <div className="flex items-center gap-3 text-tblack">
+                        <div className="relative h-25">
                             <img
-                                src="/assets/logo.webp"
+                                src="/assets/logo.png"
                                 alt="Tilila"
-                                className="size-25 object-contain"
+                                className="absolute top-0 -left-10.75 h-25 w-auto object-contain"
                                 loading="eager"
                                 decoding="async"
                             />
