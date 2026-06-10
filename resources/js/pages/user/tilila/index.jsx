@@ -53,7 +53,7 @@ export default function TililaIndex() {
                     <TililaWhyParticipateSection />
                     <TililaPrizesSection />
                     <TililaAdmissionSection />
-                    <TililaJurySection />
+                    <TililaJurySection jury={currentEdition?.jury} />
                     {/* <TililaCriteriaSection /> */}
                 </div>
 
