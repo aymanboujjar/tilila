@@ -239,9 +239,7 @@ export function TililaJurySection({ jury = [] }) {
                     ar="تضم لجنة تحكيم تيليلا أووردز شخصيات معروفة من الإعلام والاتصال والإبداع والمؤسسات والبحث والمجتمع المدني. تقيّم الترشحات من حيث الجودة الإبداعية والملاءمة والأثر والمساهمة في قيم الإنصاف والتنوع والإدماج."
                 />
             </p>
-            {members.length > 0 ? (
-                <TililaPeopleGrid people={members} />
-            ) : null}
+            {members.length > 0 ? <TililaPeopleGrid people={members} /> : null}
         </SectionShell>
     );
 }

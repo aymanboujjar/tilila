@@ -40,13 +40,10 @@ export default function TililaIndex() {
                 ) : null}
                 <TililaTeaserHero videoUrl={usePage().props.teaserVideoUrl} />
 
-
                 <CurrentEditionSection
                     edition={currentEdition}
                     onOpenParticipate={() => setFormOpen(true)}
                 />
-
-
 
                 <div className="bg-beta-white">
                     <TililaConceptSection />
