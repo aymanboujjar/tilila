@@ -180,16 +180,31 @@ function HeroSlideMedia({ slide, locale, isActive, kenBurns = false }) {
         const el = videoRef.current;
         if (!el) return;
 
+        let cancelled = false;
+
         if (!shouldPlay) {
             el.pause();
             el.currentTime = 0;
-            return;
+            return () => {
+                cancelled = true;
+            };
         }
 
         const playPromise = el.play();
         if (playPromise && typeof playPromise.catch === 'function') {
-            playPromise.catch(() => {});
+            playPromise.catch(() => {
+                if (cancelled) {
+                    return;
+                }
+            });
         }
+
+        return () => {
+            cancelled = true;
+            if (!el.paused) {
+                el.pause();
+            }
+        };
     }, [shouldPlay, slide?.videoUrl]);
 
     const alt = pickLocalizedTriple(
@@ -206,12 +221,9 @@ function HeroSlideMedia({ slide, locale, isActive, kenBurns = false }) {
     if (slide?.mediaType === 'video' && slide?.videoUrl) {
         return (
             <div className="absolute inset-0">
-                {/* {!videoLoaded && (
-                    <div className="absolute inset-0 animate-pulse bg-gray-200 dark:bg-gray-700" />
-                )} */}
-                 <div
-                  className={cn(
-                     'pointer-events-none absolute inset-0 animate-pulse bg-gray-200 transition-opacity duration-300 dark:bg-gray-700',
+                <div
+                    className={cn(
+                        'pointer-events-none absolute inset-0 animate-pulse bg-gray-200 transition-opacity duration-300 dark:bg-gray-700',
                         videoLoaded ? 'opacity-0' : 'opacity-100',
                     )}
                 />
@@ -225,13 +237,8 @@ function HeroSlideMedia({ slide, locale, isActive, kenBurns = false }) {
                     preload={shouldPlay ? 'metadata' : 'none'}
                     poster={slide.imageSrc ?? undefined}
                     onCanPlay={() => setVideoLoaded(true)}
-                    // className={cn(
-                    //     classes,
-                    //     'transition-opacity duration-500',
-                    //     videoLoaded ? 'opacity-100' : 'opacity-0',
-                    // )}
                     onError={() => setVideoLoaded(true)}
-                  className={classes}
+                    className={classes}
                 />
             </div>
         );

@@ -114,20 +114,23 @@ class HeroSlideController extends Controller
             $data['image_path'] = $request->file('image')->store('hero_slides', 'public');
         }
 
-        if (
-            $newMediaType === $oldMediaType
-            && array_key_exists('video_path', $data)
-            && $data['video_path'] !== $heroSlide->video_path
-            && $heroSlide->video_path
-        ) {
-            $this->deleteStoredFile((string) $heroSlide->video_path);
-        }
+        $previousVideoPath = $heroSlide->video_path;
 
         $this->wasTempFileMissing = false;
         $this->promoteTempVideoPath($data);
         $this->finalizeVideoPath($data, $heroSlide);
 
         $heroSlide->update($data);
+
+        if (
+            $newMediaType === 'video'
+            && $oldMediaType === 'video'
+            && $previousVideoPath
+            && ($data['video_path'] ?? null) !== $previousVideoPath
+        ) {
+            $this->deleteStoredFile((string) $previousVideoPath);
+        }
+
         $this->syncDisplayTypeForPath($heroSlide->path_prefix, (string) $data['display_type']);
 
         return redirect()->route('admin.hero-slides.index')->with('success', 'Hero slide updated.');

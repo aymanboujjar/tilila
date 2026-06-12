@@ -243,6 +243,55 @@ test('update preserves existing video when no new file is provided', function ()
     Storage::disk('public')->assertExists($existingPath);
 });
 
+test('update rejects missing temp video and keeps existing file', function () {
+    Storage::fake('public');
+    Log::spy();
+
+    $admin = User::factory()->create(['role' => 'admin', 'email_verified_at' => now()]);
+    $existingPath = 'hero_slides/videos/existing.mp4';
+    $tempPath = 'hero_slides/videos/temp/missing.mp4';
+    Storage::disk('public')->put($existingPath, 'existing-video');
+
+    $slide = HeroSlide::query()->create([
+        'slide_key' => 'video-slide-update-missing-temp',
+        'media_type' => 'video',
+        'video_path' => $existingPath,
+        'display_mode' => 'banner_image',
+        'display_type' => 'banner',
+        'is_active' => true,
+        'sort_order' => 0,
+    ]);
+
+    $response = $this->actingAs($admin)->put(route('admin.hero-slides.update', $slide), [
+        'slide_key' => 'video-slide-update-missing-temp',
+        'path_prefix' => null,
+        'display_type' => 'banner',
+        'media_type' => 'video',
+        'video_path' => $tempPath,
+        'display_mode' => 'banner_image',
+        'is_active' => true,
+        'sort_order' => 0,
+        'image_contain' => false,
+        'banner_image_contain' => false,
+    ]);
+
+    $response->assertSessionHasErrors([
+        'video_path' => 'The uploaded video is no longer available. Please re-upload the video.',
+    ]);
+
+    $slide->refresh();
+
+    expect($slide->video_path)->toBe($existingPath);
+
+    Storage::disk('public')->assertExists($existingPath);
+
+    Log::shouldHaveReceived('warning')
+        ->once()
+        ->with('Temp video file not found during promotion', [
+            'temp_path' => $tempPath,
+        ]);
+});
+
 test('store throws user-friendly error when temp video promotion fails', function () {
     Log::spy();
 
