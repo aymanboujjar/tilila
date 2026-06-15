@@ -1,7 +1,6 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
 import { Mail, MessageCircle, Twitter } from 'lucide-react';
 import { useEffect } from 'react';
-import { login } from '@/routes';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
 
@@ -42,9 +41,9 @@ export default function Footer() {
 
                         <p className="mt-5 max-w-xs text-sm leading-6 text-tgray">
                             <TransText
-                                en="Tilila connects experts and institutions across Morocco and Africa — programme EDI by SOREAD 2M."
-                                fr="Tilila relie expertes et institutions au Maroc et en Afrique — programme EDI porté par SOREAD 2M."
-                                ar="تربط تيليلا الخبيرات والمؤسسات في المغرب وإفريقيا — برنامج EDI من SOREAD 2M."
+                                en="Tilila Awards and Tililab — programs for responsible communication and young creative talents, by SOREAD 2M."
+                                fr="Tilila Awards et Tililab — programmes pour une communication responsable et les jeunes talents créatifs, par SOREAD 2M."
+                                ar="تيليلا أووردز وتيليلاب — برامج للتواصل المسؤول والمواهب الإبداعية الشابة، من SOREAD 2M."
                             />
                         </p>
 
@@ -76,90 +75,73 @@ export default function Footer() {
                     <div className="md:col-span-2 md:col-start-6">
                         <h3 className="text-sm font-semibold text-tblack">
                             <TransText
-                                en="Navigate"
-                                fr="Navigation"
-                                ar="التصفح"
+                                en="Tilila Awards"
+                                fr="Tilila Awards"
+                                ar="تيليلا أووردز"
                             />
                         </h3>
                         <ul className="mt-4 space-y-3 text-sm text-tgray">
                             <li>
-                                <Link
-                                    href="/about"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    <TransText
-                                        en="About"
-                                        fr="À propos"
-                                        ar="حول"
-                                    />
+                                <Link href="/tilila/participate" className="transition-colors hover:text-tblack">
+                                    <TransText en="Apply" fr="Candidater" ar="ترشح" />
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/events"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    <TransText
-                                        en="Events"
-                                        fr="Événements"
-                                        ar="الفعاليات"
-                                    />
-                                </Link>
-                            </li>
-                            {/* <li>
-                                <Link
-                                    href="/experts"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    <TransText
-                                        en="Experts"
-                                        fr="Expertes"
-                                        ar="الخبيرات"
-                                    />
+                                <Link href="/tilila/reglement" className="transition-colors hover:text-tblack">
+                                    <TransText en="Regulations" fr="Règlement" ar="النظام" />
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/learn"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    Learn
+                                <Link href="/tilila#prizes" className="transition-colors hover:text-tblack">
+                                    <TransText en="Prizes" fr="Les prix" ar="الجوائز" />
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href="/plan-du-site"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    <TransText
-                                        en="Site map"
-                                        fr="Plan du site"
-                                        ar="خريطة الموقع"
-                                    />
+                                <Link href="/actualites?program=tilila" className="transition-colors hover:text-tblack">
+                                    <TransText en="News" fr="Actualités" ar="أخبار" />
                                 </Link>
-                            </li> */}
+                            </li>
+                        </ul>
+                        <h3 className="mt-6 text-sm font-semibold text-tblack">
+                            <TransText en="Tililab" fr="Tililab" ar="تيليلاب" />
+                        </h3>
+                        <ul className="mt-4 space-y-3 text-sm text-tgray">
                             <li>
-                                <Link
-                                    href="/mentions-legales"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    <TransText
-                                        en="Legal & RGPD"
-                                        fr="Mentions légales"
-                                        ar="قانوني"
-                                    />
+                                <Link href="/tililab/form" className="transition-colors hover:text-tblack">
+                                    <TransText en="Apply" fr="Candidater" ar="ترشح" />
                                 </Link>
                             </li>
                             <li>
-                                <Link
-                                    href={login()}
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    <TransText
-                                        en="Login"
-                                        fr="Connexion"
-                                        ar="تسجيل الدخول"
-                                    />
+                                <Link href="/tililab/reglement" className="transition-colors hover:text-tblack">
+                                    <TransText en="Regulations" fr="Règlement" ar="النظام" />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/tililab#journey" className="transition-colors hover:text-tblack">
+                                    <TransText en="Journey" fr="Parcours" ar="المسار" />
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div className="md:col-span-2">
+                        <h3 className="text-sm font-semibold text-tblack">
+                            <TransText en="Resources" fr="Ressources" ar="الموارد" />
+                        </h3>
+                        <ul className="mt-4 space-y-3 text-sm text-tgray">
+                            <li>
+                                <Link href="/about" className="transition-colors hover:text-tblack">
+                                    <TransText en="About Tilila" fr="À propos de Tilila" ar="حول تيليلا" />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/about#partners" className="transition-colors hover:text-tblack">
+                                    <TransText en="Partners" fr="Partenaires" ar="الشركاء" />
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/mentions-legales" className="transition-colors hover:text-tblack">
+                                    <TransText en="Legal & RGPD" fr="Mentions légales" ar="قانوني" />
                                 </Link>
                             </li>
                         </ul>

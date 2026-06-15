@@ -73,6 +73,18 @@ export default function Navbar() {
                 ar: 'الرئيسية',
                 href: home(),
             },
+            {
+                en: 'Tilila Awards',
+                fr: 'Tilila Awards',
+                ar: 'تيليلا أووردز',
+                href: '/tilila',
+            },
+            {
+                en: 'Tililab',
+                fr: 'Tililab',
+                ar: 'تيليلاب',
+                href: '/tililab',
+            },
             // {
             //     en: 'Tilala Events',
             //     fr: 'Tilila Événements',
@@ -92,8 +104,14 @@ export default function Navbar() {
         return base || '/';
     };
 
-    const isActiveHref = (href) =>
-        normalizePath(currentPath) === normalizePath(href);
+    const isActiveHref = (href) => {
+        const normalized = normalizePath(currentPath);
+        const target = normalizePath(href);
+        if (target === '/tilila' && (normalized === '/' || normalized === '/tilila')) {
+            return true;
+        }
+        return normalized === target;
+    };
 
     useEffect(() => {
         if (!mobileOpen) {
@@ -218,7 +236,7 @@ export default function Navbar() {
                 </Link>
 
                 <nav className="hidden flex-1 items-center justify-center gap-6 md:flex lg:gap-8">
-                    {navItems.slice(0, 1).map((item) => (
+                    {navItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
@@ -287,27 +305,6 @@ export default function Navbar() {
                             ))}
                         </DropdownMenuContent>
                     </DropdownMenu>
-
-                    {navItems.slice(1).map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={[
-                                'relative text-sm font-medium transition-colors',
-                                isActiveHref(item.href)
-                                    ? 'text-beta-blue'
-                                    : 'text-tgray hover:text-tblack',
-                            ].join(' ')}
-                        >
-                            <TransText en={item.en} fr={item.fr} ar={item.ar} />
-                            {isActiveHref(item.href) ? (
-                                <span
-                                    aria-hidden="true"
-                                    className="absolute -bottom-2 left-0 h-0.5 w-full rounded-full bg-beta-blue"
-                                />
-                            ) : null}
-                        </Link>
-                    ))}
                 </nav>
 
                 <div className="ml-auto- hidden items-center gap-3 md:flex">
@@ -411,7 +408,7 @@ export default function Navbar() {
                             </div>
                         </div>
                         <nav className="mx-auto flex max-w-7xl flex-col gap-1 px-4 pt-20 pb-3">
-                            {navItems.slice(0, 1).map((item) => (
+                            {navItems.map((item) => (
                                 <Link
                                     key={item.href}
                                     href={item.href}
@@ -471,21 +468,6 @@ export default function Navbar() {
                                     </div>
                                 ) : null}
                             </div>
-
-                            {navItems.slice(1).map((item) => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className="rounded-lg px-3 py-2.5 text-sm font-medium text-tgray transition-colors hover:bg-alpha-blue/30 hover:text-tblack"
-                                    onClick={closeMobile}
-                                >
-                                    <TransText
-                                        en={item.en}
-                                        fr={item.fr}
-                                        ar={item.ar}
-                                    />
-                                </Link>
-                            ))}
 
                             <div className="mt-2 flex items-center justify-between gap-2">
                                 <LanguageSwitcher className="w-fit" />

@@ -1,66 +1,57 @@
 import { Head, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
-import {
-    ProgramContactSection,
-    ProgramHeroSection,
-    ProgramNewsSection,
-    ProgramPartnersSection,
-    ProgramStatsSection,
-    ProgramTestimonialsSection,
-} from '@/components/program/ProgramSharedSections';
-import TililabCurrentEditionSection from '@/pages/user/tililab/partials/CurrentEditionSection';
-import TililabHowToApply from '@/pages/user/tililab/partials/TililabHowToApply';
+import ProgramBottomSection from '@/components/program/ProgramBottomSection';
+import ProgramSubNav from '@/components/program/ProgramSubNav';
+import { ProgramContactSection, ProgramPartnersSection } from '@/components/program/ProgramSharedSections';
+import TililabCandidatureBlock from '@/pages/user/tililab/partials/TililabCandidatureBlock';
+import TililabHero from '@/pages/user/tililab/partials/TililabHero';
 import TililabPastEditionsCarousel from '@/pages/user/tililab/partials/TililabPastEditionsCarousel';
-import GuidelinesSection from '@/pages/user/tililab/partials/GuidelinesSection';
+import TililabStatsBenefitsSection from '@/pages/user/tililab/partials/TililabStatsBenefitsSection';
 import KeyDatesSection from '@/pages/user/tililab/partials/KeyDatesSection';
 import {
     TililabAdmissionSection,
-    TililabConceptSection,
-    TililabCriteriaSection,
     TililabFaqSection,
     TililabJourneySection,
     TililabPrizesSection,
-    TililabWhyParticipateSection,
 } from '@/pages/user/tililab/partials/ProgramSections';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function TililabIndex() {
-    const { currentEdition, editions, testimonials, news } = usePage().props;
+    const { currentEdition, editions, news } = usePage().props;
 
     return (
         <>
             <TililabHead />
+            <ProgramSubNav program="tililab" />
             <div>
-                <ProgramHeroSection program="tililab" />
-                <ProgramStatsSection program="tililab" />
-
-                <TililabCurrentEditionSection edition={currentEdition} />
-
-                <TililabPastEditionsCarousel
-                    editions={editions ?? []}
-                    excludeEditionId={currentEdition?.id ?? null}
-                    excludeYear={currentEdition?.year ?? null}
-                />
+                <TililabHero />
+                <TililabCandidatureBlock />
+                <TililabStatsBenefitsSection />
 
                 <div className="bg-beta-white">
-                    <TililabConceptSection />
-                    <TililabWhyParticipateSection />
                     <TililabJourneySection />
                     <TililabPrizesSection />
-                    <TililabAdmissionSection />
-                    <TililabCriteriaSection />
                 </div>
 
                 <div className="bg-background">
+                    <TililabAdmissionSection />
                     <KeyDatesSection edition={currentEdition} />
-                    <div className="mx-auto max-w-7xl px-4 pb-10">
-                        <GuidelinesSection />
-                    </div>
-                    <TililabHowToApply />
                 </div>
 
-                {/* <ProgramTestimonialsSection testimonials={testimonials ?? []} program="tililab" /> */}
-                {/* <ProgramNewsSection news={news ?? []} program="tililab" /> */}
+                <ProgramBottomSection
+                    program="tililab"
+                    news={news ?? []}
+                    editionsSlot={
+                        <div className="mt-6">
+                            <TililabPastEditionsCarousel
+                                editions={editions ?? []}
+                                excludeEditionId={currentEdition?.id ?? null}
+                                excludeYear={currentEdition?.year ?? null}
+                                compact
+                            />
+                        </div>
+                    }
+                />
 
                 <ProgramPartnersSection />
 
