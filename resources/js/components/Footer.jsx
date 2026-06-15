@@ -1,11 +1,48 @@
 import { Link, useForm, usePage } from '@inertiajs/react';
-import { Mail, MessageCircle, Twitter } from 'lucide-react';
+import {
+    Facebook,
+    Instagram,
+    Linkedin,
+    Mail,
+    MapPin,
+    Phone,
+    Youtube,
+} from 'lucide-react';
 import { useEffect } from 'react';
-import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
+import { useTranslation } from '@/contexts/TranslationContext';
+
+function FooterHeading({ children }) {
+    return (
+        <h3 className="text-xs font-bold tracking-[0.12em] text-tblack uppercase">
+            {children}
+        </h3>
+    );
+}
+
+function FooterLink({ href, children }) {
+    return (
+        <Link
+            href={href}
+            className="text-sm text-tgray transition-colors hover:text-beta-blue"
+        >
+            {children}
+        </Link>
+    );
+}
+
+function FooterColumn({ children, className = '' }) {
+    return (
+        <div
+            className={`min-w-0 lg:border-s lg:border-border/70 lg:ps-8 first:lg:border-s-0 first:lg:ps-0 ${className}`}
+        >
+            {children}
+        </div>
+    );
+}
 
 export default function Footer() {
-    const { t, locale } = useTranslation();
+    const { locale } = useTranslation();
     const { flash } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
@@ -25,136 +62,152 @@ export default function Footer() {
     };
 
     return (
-        <footer className="border-t border-border bg-background">
-            <div className="mx-auto max-w-7xl px-4 py-14">
-                <div className="grid gap-10 md:grid-cols-12">
-                    <div className="md:col-span-4">
-                        <div className="relative h-25">
-                            <img
-                                src="/assets/logo.png"
-                                alt="Tilila"
-                                className="absolute top-0 -left-10.75 h-25 w-auto object-contain"
-                                loading="eager"
-                                decoding="async"
-                            />
-                        </div>
-
-                        <p className="mt-5 max-w-xs text-sm leading-6 text-tgray">
+        <footer id="contact" className="border-t border-border bg-twhite">
+            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
+                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6 lg:gap-0">
+                    <FooterColumn className="sm:col-span-2 lg:col-span-1">
+                        <img
+                            src="/assets/logo.png"
+                            alt="Tilila"
+                            className="h-11 w-auto object-contain"
+                        />
+                        <p className="mt-4 max-w-[220px] text-sm leading-relaxed text-tgray">
                             <TransText
-                                en="Tilila Awards and Tililab — programs for responsible communication and young creative talents, by SOREAD 2M."
-                                fr="Tilila Awards et Tililab — programmes pour une communication responsable et les jeunes talents créatifs, par SOREAD 2M."
-                                ar="تيليلا أووردز وتيليلاب — برامج للتواصل المسؤول والمواهب الإبداعية الشابة، من SOREAD 2M."
+                                en="The award that recognises campaigns committed to equality, diversity and inclusion."
+                                fr="Le prix qui récompense les campagnes engagées pour l'égalité, la diversité et l'inclusion."
+                                ar="الجائزة التي تكرّم الحملات الملتزمة بالمساواة والتنوع والإدماج."
                             />
                         </p>
-
-                        <div className="mt-5 flex items-center gap-4 text-tgray">
-                            <a
-                                href="/"
-                                aria-label={t('footer.aria.twitter')}
-                                className="inline-flex size-9 items-center justify-center rounded-full bg-alpha-blue text-beta-blue transition-colors hover:bg-beta-blue hover:text-twhite"
-                            >
-                                <Twitter className="size-4" />
-                            </a>
-                            <a
-                                href="/"
-                                aria-label={t('footer.aria.community')}
-                                className="inline-flex size-9 items-center justify-center rounded-full bg-alpha-blue text-beta-blue transition-colors hover:bg-beta-blue hover:text-twhite"
-                            >
-                                <MessageCircle className="size-4" />
-                            </a>
-                            <a
-                                href="mailto:contact@tilila.ma"
-                                aria-label={t('footer.aria.email')}
-                                className="inline-flex size-9 items-center justify-center rounded-full bg-alpha-blue text-beta-blue transition-colors hover:bg-beta-blue hover:text-twhite"
-                            >
-                                <Mail className="size-4" />
-                            </a>
+                        <div className="mt-5 flex items-center gap-4">
+                            {[
+                                { Icon: Facebook, label: 'Facebook' },
+                                { Icon: Instagram, label: 'Instagram' },
+                                { Icon: Linkedin, label: 'LinkedIn' },
+                                { Icon: Youtube, label: 'YouTube' },
+                            ].map(({ Icon, label }) => (
+                                <a
+                                    key={label}
+                                    href="/"
+                                    aria-label={label}
+                                    className="text-beta-blue transition-opacity hover:opacity-70"
+                                >
+                                    <Icon className="size-5" strokeWidth={1.75} />
+                                </a>
+                            ))}
                         </div>
-                    </div>
+                    </FooterColumn>
 
-                    <div className="md:col-span-2 md:col-start-6">
-                        <h3 className="text-sm font-semibold text-tblack">
+                    <FooterColumn>
+                        <FooterHeading>
                             <TransText
-                                en="Tilila Awards"
-                                fr="Tilila Awards"
-                                ar="تيليلا أووردز"
+                                en="Applications"
+                                fr="Candidatures"
+                                ar="الترشحات"
                             />
-                        </h3>
-                        <ul className="mt-4 space-y-3 text-sm text-tgray">
+                        </FooterHeading>
+                        <ul className="mt-4 space-y-2.5">
                             <li>
-                                <Link href="/tilila/participate" className="transition-colors hover:text-tblack">
-                                    <TransText en="Apply" fr="Candidater" ar="ترشح" />
-                                </Link>
+                                <FooterLink href="/tilila">
+                                    Tilila Awards
+                                </FooterLink>
                             </li>
                             <li>
-                                <Link href="/tilila/reglement" className="transition-colors hover:text-tblack">
-                                    <TransText en="Regulations" fr="Règlement" ar="النظام" />
-                                </Link>
+                                <FooterLink href="/tililab">Tililab</FooterLink>
                             </li>
                             <li>
-                                <Link href="/tilila#prizes" className="transition-colors hover:text-tblack">
-                                    <TransText en="Prizes" fr="Les prix" ar="الجوائز" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/actualites?program=tilila" className="transition-colors hover:text-tblack">
-                                    <TransText en="News" fr="Actualités" ar="أخبار" />
-                                </Link>
+                                <FooterLink href="/tilila/participate">
+                                    <TransText en="FAQ" fr="FAQ" ar="الأسئلة الشائعة" />
+                                </FooterLink>
                             </li>
                         </ul>
-                        <h3 className="mt-6 text-sm font-semibold text-tblack">
-                            <TransText en="Tililab" fr="Tililab" ar="تيليلاب" />
-                        </h3>
-                        <ul className="mt-4 space-y-3 text-sm text-tgray">
-                            <li>
-                                <Link href="/tililab/form" className="transition-colors hover:text-tblack">
-                                    <TransText en="Apply" fr="Candidater" ar="ترشح" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/tililab/reglement" className="transition-colors hover:text-tblack">
-                                    <TransText en="Regulations" fr="Règlement" ar="النظام" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/tililab#journey" className="transition-colors hover:text-tblack">
-                                    <TransText en="Journey" fr="Parcours" ar="المسار" />
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+                    </FooterColumn>
 
-                    <div className="md:col-span-2">
-                        <h3 className="text-sm font-semibold text-tblack">
-                            <TransText en="Resources" fr="Ressources" ar="الموارد" />
-                        </h3>
-                        <ul className="mt-4 space-y-3 text-sm text-tgray">
-                            <li>
-                                <Link href="/about" className="transition-colors hover:text-tblack">
-                                    <TransText en="About Tilila" fr="À propos de Tilila" ar="حول تيليلا" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/about#partners" className="transition-colors hover:text-tblack">
-                                    <TransText en="Partners" fr="Partenaires" ar="الشركاء" />
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/mentions-legales" className="transition-colors hover:text-tblack">
-                                    <TransText en="Legal & RGPD" fr="Mentions légales" ar="قانوني" />
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className="md:col-span-4">
-                        <h3 className="text-sm font-semibold text-tblack">
+                    <FooterColumn>
+                        <FooterHeading>
                             <TransText
-                                en="Newsletter"
-                                fr="Newsletter"
-                                ar="النشرة"
+                                en="Resources"
+                                fr="Ressources"
+                                ar="الموارد"
                             />
-                        </h3>
+                        </FooterHeading>
+                        <ul className="mt-4 space-y-2.5">
+                            <li>
+                                <FooterLink href="/tilila/reglement">
+                                    <TransText
+                                        en="Tilila Awards regulations"
+                                        fr="Règlement Tilila Awards"
+                                        ar="نظام تيليلا أووردز"
+                                    />
+                                </FooterLink>
+                            </li>
+                            <li>
+                                <FooterLink href="/tililab/reglement">
+                                    <TransText
+                                        en="Tililab regulations"
+                                        fr="Règlement Tililab"
+                                        ar="نظام تيليلاب"
+                                    />
+                                </FooterLink>
+                            </li>
+                            <li>
+                                <FooterLink href="/tilila/reglement">
+                                    <TransText
+                                        en="Participation conditions"
+                                        fr="Conditions de participation"
+                                        ar="شروط المشاركة"
+                                    />
+                                </FooterLink>
+                            </li>
+                        </ul>
+                    </FooterColumn>
+
+                    <FooterColumn>
+                        <FooterHeading>
+                            <TransText en="Contact" fr="Contact" ar="التواصل" />
+                        </FooterHeading>
+                        <ul className="mt-4 space-y-3 text-sm text-tgray">
+                            <li>
+                                <a
+                                    href="mailto:awards@tilila.org"
+                                    className="inline-flex items-start gap-2.5 transition-colors hover:text-beta-blue"
+                                >
+                                    <Mail className="mt-0.5 size-4 shrink-0 text-beta-blue" />
+                                    <span>awards@tilila.org</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="tel:+212537661010"
+                                    className="inline-flex items-start gap-2.5 transition-colors hover:text-beta-blue"
+                                >
+                                    <Phone className="mt-0.5 size-4 shrink-0 text-beta-blue" />
+                                    <span>+212 5 37 66 10 10</span>
+                                </a>
+                            </li>
+                            <li className="inline-flex items-start gap-2.5">
+                                <MapPin className="mt-0.5 size-4 shrink-0 text-beta-blue" />
+                                <span>
+                                    <TransText
+                                        en="Casablanca, Morocco"
+                                        fr="Casablanca, Maroc"
+                                        ar="الدار البيضاء، المغرب"
+                                    />
+                                </span>
+                            </li>
+                        </ul>
+                    </FooterColumn>
+
+                   
+
+                    <FooterColumn className="col-span-2">
+                        <FooterHeading>Newsletter</FooterHeading>
+                        <p className="mt-3 text-sm text-tgray">
+                            <TransText
+                                en="Receive Tilila Awards news"
+                                fr="Recevez les actualités de Tilila Awards"
+                                ar="تلقّوا أخبار تيليلا أووردز"
+                            />
+                        </p>
                         <form
                             onSubmit={submitNewsletter}
                             className="mt-4 flex flex-col gap-2 sm:flex-row"
@@ -166,17 +219,23 @@ export default function Footer() {
                                 onChange={(e) =>
                                     setData('email', e.target.value)
                                 }
-                                placeholder="email@example.com"
-                                className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground shadow-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                                placeholder={
+                                    locale === 'ar'
+                                        ? 'بريدك الإلكتروني'
+                                        : locale === 'en'
+                                          ? 'Your email'
+                                          : 'Votre email'
+                                }
+                                className="min-w-0 flex-1 rounded-md border border-border bg-twhite px-3 py-2.5 text-sm text-tblack outline-none placeholder:text-tgray/70 focus-visible:ring-2 focus-visible:ring-beta-blue/25"
                             />
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="rounded-lg bg-beta-blue px-4 py-2 text-sm font-semibold text-white hover:opacity-95 disabled:opacity-60"
+                                className="shrink-0 rounded-md bg-beta-blue px-4 py-2.5 text-xs font-bold tracking-[0.1em] text-twhite uppercase hover:opacity-95 disabled:opacity-60"
                             >
                                 <TransText
                                     en="Subscribe"
-                                    fr="S’inscrire"
+                                    fr="S'inscrire"
                                     ar="اشتراك"
                                 />
                             </button>
@@ -191,54 +250,51 @@ export default function Footer() {
                                 {flash.success}
                             </p>
                         ) : null}
-
-                        <h3 className="mt-8 text-sm font-semibold text-tblack">
-                            <TransText en="Contact" fr="Contact" ar="التواصل" />
-                        </h3>
-                        <ul className="mt-4 space-y-3 text-sm text-tgray">
-                            <li>
-                                <TransText
-                                    en="Casablanca, Morocco"
-                                    fr="Casablanca, Maroc"
-                                    ar="الدار البيضاء، المغرب"
-                                />
-                            </li>
-                            <li>
-                                <a
-                                    href="mailto:contact@tilila.ma"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    contact@tilila.ma
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="tel:+212522000000"
-                                    className="transition-colors hover:text-tblack"
-                                >
-                                    +212 5 22 00 00 00
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                    </FooterColumn>
                 </div>
 
-                <div className="mt-14 flex flex-col gap-3 border-t border-border pt-6 text-xs text-tgray md:flex-row md:items-center md:justify-between">
+                <div className="mt-10 flex flex-col gap-4 border-t border-border pt-6 text-xs text-tgray sm:flex-row sm:items-center sm:justify-between">
                     <span>
                         <TransText
-                            en="© 2026 SOREAD 2M · Tilila programme."
-                            fr="© 2026 SOREAD 2M · Programme Tilila."
-                            ar="© 2026 SOREAD 2M · برنامج تيليلا."
+                            en="© Tilila Awards 2026 — All rights reserved"
+                            fr="© Tilila Awards 2026 — Tous droits réservés"
+                            ar="© تيليلا أووردز 2026 — جميع الحقوق محفوظة"
                         />
                     </span>
-                    <span>
-                        <TransText
-                            en="Powered by"
-                            fr="Propulsé par"
-                            ar="بدعم من"
-                        />{' '}
-                        <span className="font-semibold">2M</span>
-                    </span>
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <Link
+                            href="/mentions-legales"
+                            className="hover:text-beta-blue"
+                        >
+                            <TransText
+                                en="Legal notice"
+                                fr="Mentions légales"
+                                ar="إشعارات قانونية"
+                            />
+                        </Link>
+                        <span className="hidden text-border sm:inline">|</span>
+                        <Link
+                            href="/mentions-legales"
+                            className="hover:text-beta-blue"
+                        >
+                            <TransText
+                                en="Privacy policy"
+                                fr="Politique de confidentialité"
+                                ar="سياسة الخصوصية"
+                            />
+                        </Link>
+                        <span className="hidden text-border sm:inline">|</span>
+                        <Link
+                            href="/mentions-legales"
+                            className="hover:text-beta-blue"
+                        >
+                            <TransText
+                                en="Terms of use"
+                                fr="Conditions d'utilisation"
+                                ar="شروط الاستخدام"
+                            />
+                        </Link>
+                    </div>
                 </div>
             </div>
         </footer>

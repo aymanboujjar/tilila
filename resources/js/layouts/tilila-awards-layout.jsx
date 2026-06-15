@@ -1,4 +1,4 @@
-import TililaAwardsFooter from '@/pages/user/tilila/partials/TililaAwardsFooter';
+import Footer from '@/components/Footer';
 import TililaAwardsHeader from '@/pages/user/tilila/partials/TililaAwardsHeader';
 
 export default function TililaAwardsLayout({ children }) {
@@ -6,7 +6,7 @@ export default function TililaAwardsLayout({ children }) {
         <div className="flex min-h-screen flex-col bg-twhite text-tblack">
             <TililaAwardsHeader />
             <main className="flex-1">{children}</main>
-            <TililaAwardsFooter />
+            <Footer />
         </div>
     );
 }
