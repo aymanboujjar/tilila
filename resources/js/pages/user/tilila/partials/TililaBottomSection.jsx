@@ -10,20 +10,10 @@ import {
     TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-const ARCHIVE_LINKS = [
-    { fr: 'Lauréats', en: 'Winners', ar: 'الفائزون' },
-    { fr: 'Campagnes primées', en: 'Awarded campaigns', ar: 'الحملات الفائزة' },
-    { fr: 'Marques', en: 'Brands', ar: 'العلامات' },
-    { fr: 'Agences', en: 'Agencies', ar: 'الوكالات' },
-    { fr: 'Jurys', en: 'Juries', ar: 'لجان التحكيم' },
-    { fr: 'Photos', en: 'Photos', ar: 'صور' },
-    { fr: 'Vidéos', en: 'Videos', ar: 'فيديوهات' },
-];
-
 const INSTITUTIONAL = TILILA_AWARDS_PARTNERS.slice(0, 3);
 const MEDIA = TILILA_AWARDS_PARTNERS.slice(3);
 
-export default function TililaBottomSection({ news = [], editionsSlot = null }) {
+export default function TililaBottomSection({ news = [] }) {
     const { locale } = useTranslation();
     const textFor = (obj) =>
         obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
@@ -107,31 +97,15 @@ export default function TililaBottomSection({ news = [], editionsSlot = null }) 
                                 />
                             }
                         />
-                        <div className="mt-6 flex gap-5">
-                            <img
-                                src="/assets/tilila/trophee-tilila.png"
-                                alt=""
-                                className="h-28 w-auto shrink-0 object-contain"
+                        <p className="mt-6 text-sm leading-relaxed text-tgray">
+                            <TransText
+                                en="Browse past editions: winners, jury, photos and videos are available inside each edition page."
+                                fr="Parcourez les éditions passées : lauréats, jury, photos et vidéos sont disponibles dans chaque fiche édition."
+                                ar="تصفح الدورات السابقة: الفائزون ولجنة التحكيم والصور والفيديوهات متاحة داخل صفحة كل دورة."
                             />
-                            <ul className="space-y-2">
-                                {ARCHIVE_LINKS.map((link) => (
-                                    <li key={link.en}>
-                                        <a
-                                            href="#past-editions-carousel"
-                                            className="text-sm text-tgray transition hover:text-beta-blue"
-                                        >
-                                            <TransText
-                                                en={link.en}
-                                                fr={link.fr}
-                                                ar={link.ar}
-                                            />
-                                        </a>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                        <a
-                            href="#past-editions-carousel"
+                        </p>
+                        <Link
+                            href="/tilila/archives"
                             className="mt-6 inline-flex items-center gap-1 text-xs font-bold tracking-wide text-beta-blue uppercase hover:underline"
                         >
                             <TransText
@@ -140,8 +114,7 @@ export default function TililaBottomSection({ news = [], editionsSlot = null }) 
                                 ar="عرض كل الأرشيف"
                             />
                             <ArrowRight className="size-4" />
-                        </a>
-                        {/* {editionsSlot} */}
+                        </Link>
                     </div>
 
                     <div id="partners">

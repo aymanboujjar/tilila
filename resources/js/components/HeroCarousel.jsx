@@ -75,7 +75,7 @@ export function shouldShowHeroCarousel(pathname, slides) {
         return false;
     }
 
-    if (path === '/tilila/participate') {
+    if (path === '/tilila/participate' || path === '/tilila/reglement') {
         return false;
     }
 
@@ -88,6 +88,10 @@ export function shouldShowHeroCarousel(pathname, slides) {
     }
 
     if (path === '/' || path === '/tilila' || path === '/tililab') {
+        return false;
+    }
+
+    if (path === '/tilila/archives' || path.startsWith('/tilila/archives/editions/')) {
         return false;
     }
 

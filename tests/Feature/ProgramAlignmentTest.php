@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Storage;
 test('tilila regulation page is accessible', function () {
     $this->get(route('program.reglement.tilila'))
         ->assertOk()
-        ->assertInertia(fn ($page) => $page->component('user/program/reglement')->where('program', 'tilila'));
+        ->assertInertia(fn ($page) => $page
+            ->component('user/tilila/reglement')
+            ->has('downloadUrl'));
 });
 
 test('tililab regulation page is accessible', function () {

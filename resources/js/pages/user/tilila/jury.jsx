@@ -95,8 +95,8 @@ export default function TililaEditionJury() {
                     </div>
 
                     <Link
-                        href="/tilila#archive"
-                        className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm font-semibold text-tblack hover:bg-secondary"
+                        href="/tilila/archives"
+                        className="inline-flex items-center gap-2 text-xs font-bold tracking-wide text-beta-blue uppercase hover:underline"
                     >
                         <ChevronLeft className="size-4 text-tgray" />
                         <TransText

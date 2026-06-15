@@ -60,6 +60,11 @@ export default function TililaAwardsFooter() {
                         </h3>
                         <ul className="mt-4 space-y-2.5 text-sm text-tgray">
                             <li>
+                                <Link href="/tilila/archives" className="hover:text-beta-blue">
+                                    <TransText en="Archives" fr="Archives & palmarès" ar="الأرشيف" />
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/tilila/participate" className="hover:text-beta-blue">
                                     <TransText en="Apply" fr="Déposer une candidature" ar="قدّم ترشيحك" />
                                 </Link>

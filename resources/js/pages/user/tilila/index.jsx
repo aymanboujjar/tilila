@@ -4,8 +4,6 @@ import TililaAdmissionJurySection from '@/pages/user/tilila/partials/TililaAdmis
 import TililaBottomSection from '@/pages/user/tilila/partials/TililaBottomSection';
 import TililaHero from '@/pages/user/tilila/partials/TililaHero';
 import TililaKeyDatesSection from '@/pages/user/tilila/partials/TililaKeyDatesSection';
-import TililaPartnersFullSection from '@/pages/user/tilila/partials/TililaPartnersFullSection';
-import TililaPastEditionsCarousel from '@/pages/user/tilila/partials/TililaPastEditionsCarousel';
 import TililaPrizesSection from '@/pages/user/tilila/partials/TililaPrizesSection';
 import TililaStatsBenefitsSection from '@/pages/user/tilila/partials/TililaStatsBenefitsSection';
 import { useTranslation } from '@/contexts/TranslationContext';
@@ -29,19 +27,7 @@ export default function TililaIndex() {
                 <TililaKeyDatesSection />
                 <TililaAdmissionJurySection jury={currentEdition?.jury} />
 
-                <TililaBottomSection
-                    news={news ?? []}
-                    editionsSlot={
-                        <div id="past-editions-carousel" className="mt-6">
-                            <TililaPastEditionsCarousel
-                                editions={editions ?? []}
-                                excludeEditionId={currentEdition?.id ?? null}
-                                excludeYear={currentEdition?.year ?? null}
-                                compact
-                            />
-                        </div>
-                    }
-                />
+                <TililaBottomSection news={news ?? []} />
 
                 {/* <TililaPartnersFullSection /> */}
             </div>

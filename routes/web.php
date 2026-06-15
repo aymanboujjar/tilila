@@ -234,6 +234,39 @@ Route::get('/tilila', function () {
     ]);
 });
 
+Route::get('/tilila/archives', function () {
+    $editions = TililaEdition::query()
+        ->where('is_current', false)
+        ->orderByDesc('year')
+        ->orderBy('sort')
+        ->orderByDesc('id')
+        ->get();
+
+    return Inertia::render('user/tilila/archives', [
+        'editions' => $editions,
+    ]);
+})->name('tilila.archives');
+
+Route::get('/tilila/archives/editions/{year}', function (string $year) {
+    $dbEdition = TililaEdition::query()->where('year', $year)->first();
+
+    if ($dbEdition) {
+        return redirect()->route('tilila.editions.show', $dbEdition);
+    }
+
+    $editions = TililaEdition::query()
+        ->where('is_current', false)
+        ->orderByDesc('year')
+        ->orderBy('sort')
+        ->orderByDesc('id')
+        ->get();
+
+    return Inertia::render('user/tilila/archives-edition', [
+        'year' => $year,
+        'editions' => $editions,
+    ]);
+})->where('year', '[0-9]{4}')->name('tilila.archives.edition');
+
 Route::get('/tilila/reglement', [ProgramRegulationController::class, 'tilila'])->name('program.reglement.tilila');
 Route::get('/tilila/reglement/download', [ProgramRegulationController::class, 'downloadTilila'])->name('program.reglement.tilila.download');
 Route::get('/tililab/reglement', [ProgramRegulationController::class, 'tililab'])->name('program.reglement.tililab');
@@ -248,7 +281,7 @@ Route::get('/tilila/editions/{edition}', function (TililaEdition $edition) {
     return Inertia::render('user/tilila/edition', [
         'edition' => \App\Support\ProgramEditionHero::forTilila($edition),
     ]);
-});
+})->name('tilila.editions.show');
 
 Route::get('/tilila/editions/{edition}/gallery', function (TililaEdition $edition) {
     return Inertia::render('user/tilila/gallery', [
