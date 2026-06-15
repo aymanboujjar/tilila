@@ -231,6 +231,7 @@ Route::get('/tilila', function () {
         'currentEdition' => $currentEdition,
         'editions' => $pastEditions,
         ...ProgramPageProps::forProgram('tilila'),
+        'teaserVideoUrl' => TililaHighlightVideos::teaserUrl(),
     ]);
 });
 

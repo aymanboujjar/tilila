@@ -86,8 +86,7 @@ export default function TililaBottomSection({ news = [] }) {
                             <ArrowRight className="size-4" />
                         </Link>
                     </div>
-
-                    <div id="past-editions">
+                    <div id="past-editions" className="flex flex-col h-full">
                         <TililaSectionHeading
                             title={
                                 <TransText
@@ -97,13 +96,26 @@ export default function TililaBottomSection({ news = [] }) {
                                 />
                             }
                         />
-                        <p className="mt-6 text-sm leading-relaxed text-tgray">
-                            <TransText
-                                en="Browse past editions: winners, jury, photos and videos are available inside each edition page."
-                                fr="Parcourez les éditions passées : lauréats, jury, photos et vidéos sont disponibles dans chaque fiche édition."
-                                ar="تصفح الدورات السابقة: الفائزون ولجنة التحكيم والصور والفيديوهات متاحة داخل صفحة كل دورة."
-                            />
-                        </p>
+                        <div className="flex flex-col sm:flex-row gap-6 items-start mt-6">
+                            <div>
+                                {/* Replace with the actual image URL or import if available */}
+                                <img
+                                    src="/assets/logo.png"
+                                    alt=""
+                                    className="w-40 h-48 rounded-lg shadow-lg border border-border"
+                                    style={{ background: 'linear-gradient(180deg,#4b2675 0%,#2e1861 100%)' }}
+                                />
+                            </div>
+                            <ul className="ml-2 mt-1 space-y-2 text-tblack text-sm font-semibold">
+                                <li>• Lauréats</li>
+                                <li>• Campagnes primées</li>
+                                <li>• Marques</li>
+                                <li>• Agences</li>
+                                <li>• Jurys</li>
+                                <li>• Photos</li>
+                                <li>• Vidéos</li>
+                            </ul>
+                        </div>
                         <Link
                             href="/tilila/archives"
                             className="mt-6 inline-flex items-center gap-1 text-xs font-bold tracking-wide text-beta-blue uppercase hover:underline"
@@ -116,6 +128,7 @@ export default function TililaBottomSection({ news = [] }) {
                             <ArrowRight className="size-4" />
                         </Link>
                     </div>
+           
 
                     <div id="partners">
                         <TililaSectionHeading
@@ -144,6 +157,13 @@ export default function TililaBottomSection({ news = [] }) {
                         <a
                             href="#partners-full"
                             className="mt-6 inline-flex items-center gap-1 text-xs font-bold tracking-wide text-beta-blue uppercase hover:underline"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                const partnersSection = document.getElementById('partners-full');
+                                if (partnersSection) {
+                                    partnersSection.scrollIntoView({ behavior: 'smooth' });
+                                }
+                            }}
                         >
                             <TransText
                                 en="View all partners"
@@ -152,6 +172,8 @@ export default function TililaBottomSection({ news = [] }) {
                             />
                             <ArrowRight className="size-4" />
                         </a>
+                    
+               
                     </div>
            
            

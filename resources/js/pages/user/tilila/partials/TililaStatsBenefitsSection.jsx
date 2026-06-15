@@ -84,12 +84,12 @@ const BENEFITS = [
         en: 'Contribute to responsible communication',
         ar: 'المساهمة في تواصل مسؤول',
     },
-    {
-        icon: Users,
-        fr: "Rejoindre une communauté d'acteurs engagés",
-        en: 'Join a community of engaged actors',
-        ar: 'الانضمام إلى مجتمع من الفاعلين الملتزمين',
-    },
+    // {
+    //     icon: Users,
+    //     fr: "Rejoindre une communauté d'acteurs engagés",
+    //     en: 'Join a community of engaged actors',
+    //     ar: 'الانضمام إلى مجتمع من الفاعلين الملتزمين',
+    // },
 ];
 
 export default function TililaStatsBenefitsSection() {

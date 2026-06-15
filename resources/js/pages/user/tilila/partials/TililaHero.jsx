@@ -1,5 +1,4 @@
-import { useRef, useState } from 'react';
-import { Play } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import TransText from '@/components/TransText';
 import {
     TililaBtnOutline,
@@ -13,16 +12,13 @@ const HERO_FALLBACK = '/assets/tilila/hero-7eme-edition.png';
 
 export default function TililaHero({ videoUrl }) {
     const videoRef = useRef(null);
-    const [playing, setPlaying] = useState(false);
 
-    const handlePlay = () => {
+    useEffect(() => {
         const el = videoRef.current;
-        if (!el) return;
-        el.controls = true;
-        el.muted = false;
-        void el.play();
-        setPlaying(true);
-    };
+        if (!el || !videoUrl) return;
+        el.muted = true;
+        void el.play().catch(() => {});
+    }, [videoUrl]);
 
     return (
         <TililaSection id="hero" className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16">
@@ -100,40 +96,18 @@ export default function TililaHero({ videoUrl }) {
                             }}
                         >
                             {videoUrl ? (
-                                <>
-                                    <video
-                                        ref={videoRef}
-                                        className="aspect-[4/3] w-full object-cover brightness-[0.65] sm:aspect-video"
-                                        muted
-                                        loop
-                                        playsInline
-                                        preload="metadata"
-                                        poster={HERO_FALLBACK}
-                                    >
-                                        <source src={videoUrl} type="video/mp4" />
-                                    </video>
-                                    {!playing ? (
-                                        <button
-                                            type="button"
-                                            onClick={handlePlay}
-                                            className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-tblack/25 transition hover:bg-tblack/35"
-                                        >
-                                            <span className="flex size-14 items-center justify-center rounded-full border-2 border-twhite/80 bg-twhite/15 backdrop-blur-sm">
-                                                <Play
-                                                    className="size-6 fill-twhite text-twhite"
-                                                    aria-hidden
-                                                />
-                                            </span>
-                                            <span className="max-w-[220px] text-center text-[11px] font-bold tracking-[0.14em] text-twhite uppercase">
-                                                <TransText
-                                                    en="Watch the Best Of from past editions"
-                                                    fr="Voir le Best-Of des éditions précédentes"
-                                                    ar="شاهد أفضل لحظات الدورات السابقة"
-                                                />
-                                            </span>
-                                        </button>
-                                    ) : null}
-                                </>
+                                <video
+                                    ref={videoRef}
+                                    className="aspect-[4/3] w-full object-cover sm:aspect-video"
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    preload="auto"
+                                    poster={HERO_FALLBACK}
+                                >
+                                    <source src={videoUrl} type="video/mp4" />
+                                </video>
                             ) : (
                                 <img
                                     src={HERO_FALLBACK}
