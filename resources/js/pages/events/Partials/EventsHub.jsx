@@ -1,16 +1,11 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import TransText from '@/components/TransText';
-import {
-    TILILA_AWARDS_LOGO,
-    TILILAB_LOGO,
-    TILITALKS_LOGO,
-} from '@/data/tilila-brand-logos';
 
 const MODULES = [
     {
         href: '/tilila',
-        logoSrc: TILILA_AWARDS_LOGO,
+        logoSrc: '/assets/tilila/tilila-awards-logo.png',
         logoAlt: 'Les Débats Tilila — Tilila Awards',
         logoClassName: 'h-14 w-full max-w-[12rem] object-contain',
         enTitle: 'Tilila Awards',
@@ -22,7 +17,7 @@ const MODULES = [
     },
     {
         href: '/tililab',
-        logoSrc: TILILAB_LOGO,
+        logoSrc: '/assets/tililab/tililab-logo.png',
         logoAlt: 'Tililab',
         logoClassName: 'h-14 w-14 object-contain',
         enTitle: 'Tililab',
@@ -34,7 +29,7 @@ const MODULES = [
     },
     {
         href: '/events?view=calendar',
-        logoSrc: TILITALKS_LOGO,
+        logoSrc: '/assets/tilitalks/tilitalks-logo.png',
         logoAlt: 'TiliTalks',
         logoClassName: 'h-12 w-full max-w-[10rem] object-contain',
         enTitle: 'TiliTalks',

@@ -1,33 +1,33 @@
 import { Head } from '@inertiajs/react';
+import AppLayout from '@/layouts/app-layout';
 import RegulationDocument from '@/components/program/RegulationDocument';
 import TransText from '@/components/TransText';
-import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
 import { useTranslation } from '@/contexts/TranslationContext';
-import { getTililaReglement } from '@/data';
+import { getTililabReglement } from '@/data';
 
-export default function TililaReglement({ downloadUrl }) {
+export default function TililabReglement({ downloadUrl }) {
     const { locale } = useTranslation();
-    const document = getTililaReglement(locale);
+    const document = getTililabReglement(locale);
 
     return (
         <>
             <Head>
                 <title>
                     {locale === 'ar'
-                        ? 'النظام — Tilila Awards'
+                        ? 'النظام — Tililab'
                         : locale === 'en'
-                          ? 'Regulations — Tilila Awards'
-                          : 'Règlement — Tilila Awards'}
+                          ? 'Regulations — Tililab'
+                          : 'Règlement — Tililab'}
                 </title>
             </Head>
 
             <RegulationDocument
-                backHref="/tilila"
+                backHref="/tililab"
                 backLabel={
                     <TransText
-                        en="Back to Tilila Awards"
-                        fr="Retour aux Tilila Awards"
-                        ar="العودة إلى تيليلا أووردز"
+                        en="Back to Tililab"
+                        fr="Retour à Tililab"
+                        ar="العودة إلى تيليلاب"
                     />
                 }
                 downloadUrl={downloadUrl}
@@ -37,6 +37,4 @@ export default function TililaReglement({ downloadUrl }) {
     );
 }
 
-TililaReglement.layout = (page) => (
-    <TililaAwardsLayout>{page}</TililaAwardsLayout>
-);
+TililabReglement.layout = (page) => <AppLayout>{page}</AppLayout>;

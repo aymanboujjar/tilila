@@ -40,6 +40,6 @@ class DatabaseSeeder extends Seeder
         $this->call(HeroSlideSeeder::class);
         $this->call(TililaConnectRequestSeeder::class);
         $this->call(NewsletterSubscriptionSeeder::class);
-        $this->call(ProgramContentSeeder::class);
+        $this->call(PartnerSeeder::class);
     }
 }

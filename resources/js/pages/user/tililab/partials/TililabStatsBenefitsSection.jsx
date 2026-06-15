@@ -1,113 +1,143 @@
+import {
+    Clapperboard,
+    GraduationCap,
+    Sparkles,
+    Trophy,
+    Users,
+} from 'lucide-react';
 import TransText from '@/components/TransText';
+import {
+    TililaContainer,
+    TililaIconBadge,
+    TililaSection,
+    TililaSectionHeading,
+} from '@/pages/user/tilila/partials/TililaUi';
 
-const TILILAB_STATS = [
-    { fr: '5 éditions', en: '5 editions', ar: '5 دورات' },
+const STATS = [
     {
-        fr: "Plusieurs dizaines de jeunes créateurs accompagnés",
-        en: 'Dozens of young creators supported',
-        ar: 'عشرات المبدعين الشباب المرافقين',
+        icon: Trophy,
+        value: '5',
+        labelFr: 'éditions',
+        labelEn: 'editions',
+        labelAr: 'دورات',
     },
     {
-        fr: 'Plus de 30 projets produits',
-        en: '30+ projects produced',
-        ar: 'أكثر من 30 مشروعًا منتجًا',
+        icon: Users,
+        value: '30+',
+        labelFr: 'jeunes créateurs accompagnés',
+        labelEn: 'young creators supported',
+        labelAr: 'مبدع شاب مرافق',
     },
     {
-        fr: "Des centaines d'heures de formation et de mentorat",
-        en: 'Hundreds of hours of training and mentoring',
-        ar: 'مئات الساعات من التدريب والإرشاد',
+        icon: Clapperboard,
+        value: '30+',
+        labelFr: 'projets produits',
+        labelEn: 'projects produced',
+        labelAr: 'مشروع منتج',
+    },
+    {
+        icon: GraduationCap,
+        value: '100+',
+        labelFr: 'heures de formation',
+        labelEn: 'hours of training',
+        labelAr: 'ساعة تدريب',
     },
 ];
 
-const WHY_PARTICIPATE = [
+const BENEFITS = [
     {
+        icon: Sparkles,
         fr: 'Développer ses compétences créatives',
         en: 'Develop creative skills',
         ar: 'تطوير المهارات الإبداعية',
     },
     {
+        icon: Users,
         fr: 'Être accompagné par des professionnels',
         en: 'Be mentored by professionals',
         ar: 'المرافقة من قبل محترفين',
     },
     {
-        fr: 'Participer à une expérience immersive unique',
-        en: 'Join a unique immersive experience',
-        ar: 'تجربة غامرة فريدة',
-    },
-    {
+        icon: Clapperboard,
         fr: 'Produire une œuvre audiovisuelle originale',
         en: 'Produce an original audiovisual work',
         ar: 'إنتاج عمل سمعي بصري أصلي',
     },
     {
-        fr: 'Gagner en visibilité auprès des médias et professionnels du secteur',
-        en: 'Gain visibility with media and industry professionals',
-        ar: 'اكتساب ظهور لدى الإعلام ومحترفي القطاع',
+        icon: Trophy,
+        fr: 'Gagner en visibilité auprès des médias',
+        en: 'Gain visibility with media professionals',
+        ar: 'اكتساب الظهور لدى الإعلام',
     },
 ];
 
 export default function TililabStatsBenefitsSection() {
     return (
-        <section id="stats" className="border-b border-border bg-background py-10 sm:py-12">
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="grid gap-8 lg:grid-cols-2">
-                    <div
-                        id="why-participate"
-                        className="rounded-2xl border border-border bg-card p-6 shadow-sm"
-                    >
-                        <h3 className="text-lg font-bold text-beta-blue">
-                            <TransText
-                                en="Why participate?"
-                                fr="Pourquoi participer ?"
-                                ar="لماذا المشاركة؟"
-                            />
-                        </h3>
-                        <ul className="mt-5 space-y-3">
-                            {WHY_PARTICIPATE.map((item) => (
-                                <li
-                                    key={item.en}
-                                    className="flex items-start gap-3 text-sm text-tgray"
+        <TililaSection id="stats" className="border-t border-border/60 bg-beta-white">
+            <TililaContainer>
+                <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+                    <div>
+                        <TililaSectionHeading
+                            title={
+                                <TransText
+                                    en="Tililab in numbers"
+                                    fr="Tililab en chiffres"
+                                    ar="تيليلاب بالأرقام"
+                                />
+                            }
+                        />
+                        <div className="mt-8 grid grid-cols-2 gap-4">
+                            {STATS.map((item) => (
+                                <div
+                                    key={item.labelEn}
+                                    className="flex flex-col items-center rounded-xl border border-border/70 bg-twhite px-3 py-5 text-center shadow-sm"
                                 >
-                                    <span
-                                        className="mt-1.5 size-1.5 shrink-0 rounded-full bg-beta-blue"
-                                        aria-hidden
-                                    />
-                                    <TransText
-                                        en={item.en}
-                                        fr={item.fr}
-                                        ar={item.ar}
-                                    />
-                                </li>
+                                    <TililaIconBadge icon={item.icon} />
+                                    <p className="mt-3 text-xl font-extrabold text-beta-blue">
+                                        {item.value}
+                                    </p>
+                                    <p className="mt-1 text-xs leading-snug text-tgray">
+                                        <TransText
+                                            en={item.labelEn}
+                                            fr={item.labelFr}
+                                            ar={item.labelAr}
+                                        />
+                                    </p>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
 
-                    <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-                        <h3 className="text-lg font-bold text-beta-blue">
-                            Tililab
-                        </h3>
-                        <ul className="mt-5 space-y-3">
-                            {TILILAB_STATS.map((item) => (
-                                <li
+                    <div id="why-participate">
+                        <TililaSectionHeading
+                            title={
+                                <TransText
+                                    en="Why participate?"
+                                    fr="Pourquoi participer ?"
+                                    ar="لماذا المشاركة؟"
+                                />
+                            }
+                        />
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                            {BENEFITS.map((item) => (
+                                <div
                                     key={item.en}
-                                    className="flex items-start gap-3 text-sm text-tgray"
+                                    className="flex flex-col items-center rounded-xl border border-border/70 bg-twhite px-4 py-5 text-center shadow-sm"
                                 >
-                                    <span
-                                        className="mt-1.5 size-1.5 shrink-0 rounded-full bg-beta-blue"
-                                        aria-hidden
-                                    />
-                                    <TransText
-                                        en={item.en}
-                                        fr={item.fr}
-                                        ar={item.ar}
-                                    />
-                                </li>
+                                    <TililaIconBadge icon={item.icon} />
+                                    <p className="mt-3 text-sm leading-relaxed text-tgray">
+                                        <TransText
+                                            en={item.en}
+                                            fr={item.fr}
+                                            ar={item.ar}
+                                        />
+                                    </p>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </TililaContainer>
+        </TililaSection>
     );
 }

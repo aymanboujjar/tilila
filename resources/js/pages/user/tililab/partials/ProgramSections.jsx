@@ -1,15 +1,9 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import RegulationCta from '@/components/program/RegulationCta';
 import { PartnerLogoTile, PartnerTier } from '@/components/PartnerSection';
-import { TILILAB_FAQ_ITEMS } from '@/data/tililab-faq';
-import { TILILAB_JURY_EDITION_NOTES } from '@/data/tililab-jury';
-import { TILILAB_LOGO } from '@/data/tilila-brand-logos';
-import {
-    TILILAB_MEDIA_PARTNERS,
-    TILILAB_ORGANISER,
-    TILILAB_PROGRAM_PARTNERS,
-} from '@/data/tililab-partners';
+import { partnersInGroup } from '@/lib/programPartners';
+import { TILILAB_FAQ_ITEMS } from '@/pages/user/tililab/partials/faq-items';
 
 function SectionShell({ id, title, subtitle, children }) {
     return (
@@ -404,7 +398,6 @@ export function TililabJurySection({ editions = [] }) {
                         const jury = Array.isArray(edition.jury)
                             ? edition.jury
                             : [];
-                        const note = TILILAB_JURY_EDITION_NOTES[year];
                         const label = edition.edition_label ?? {
                             en: `${year}`,
                             fr: `${year}`,
@@ -426,15 +419,6 @@ export function TililabJurySection({ editions = [] }) {
                                         ar={label.ar ?? ''}
                                     />
                                 </p>
-                                {note ? (
-                                    <p className="mt-2 text-sm text-tgray">
-                                        <TransText
-                                            en={note.en}
-                                            fr={note.fr}
-                                            ar={note.ar}
-                                        />
-                                    </p>
-                                ) : null}
 
                                 {jury.length === 0 ? (
                                     <p className="mt-4 text-sm text-tgray italic">
@@ -610,25 +594,33 @@ export function TililabFaqSection() {
 }
 
 function TililabPartnerSubtitle({ partner }) {
+    const role = partner.meta?.role;
+    const edition = partner.meta?.edition;
+    if (!role) {
+        return null;
+    }
+
     return (
         <>
-            <TransText
-                en={partner.role.en}
-                fr={partner.role.fr}
-                ar={partner.role.ar}
-            />
-            <span className="mt-1 block font-medium text-beta-blue">
-                <TransText
-                    en={partner.edition.en}
-                    fr={partner.edition.fr}
-                    ar={partner.edition.ar}
-                />
-            </span>
+            <TransText en={role.en} fr={role.fr} ar={role.ar} />
+            {edition ? (
+                <span className="mt-1 block font-medium text-beta-blue">
+                    <TransText
+                        en={edition.en}
+                        fr={edition.fr}
+                        ar={edition.ar}
+                    />
+                </span>
+            ) : null}
         </>
     );
 }
 
 export function TililabSponsorsSection() {
+    const { partners = [] } = usePage().props;
+    const organiser = partnersInGroup(partners, 'organiser')[0];
+    const programPartners = partnersInGroup(partners, 'program');
+    const mediaPartners = partnersInGroup(partners, 'media');
     return (
         <SectionShell
             id="sponsors"
@@ -672,17 +664,25 @@ export function TililabSponsorsSection() {
                         />
                     }
                     description={
-                        <TransText
-                            en={TILILAB_ORGANISER.role.en}
-                            fr={TILILAB_ORGANISER.role.fr}
-                            ar={TILILAB_ORGANISER.role.ar}
-                        />
+                        organiser?.meta?.role ? (
+                            <TransText
+                                en={organiser.meta.role.en}
+                                fr={organiser.meta.role.fr}
+                                ar={organiser.meta.role.ar}
+                            />
+                        ) : (
+                            <TransText
+                                en="Organizer — creative bootcamp alongside Tilila Awards"
+                                fr="Organisateur — bootcamp créatif en marge des Tilila Awards"
+                                ar="المنظم — معسكر إبداعي إلى جانب تيليلا أووردز"
+                            />
+                        )
                     }
                 >
                     <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                         <div className="flex justify-center rounded-2xl border border-border bg-white px-6 py-6 shadow-sm">
                             <img
-                                src={TILILAB_LOGO}
+                                src="/assets/tililab/tililab-logo.png"
                                 alt="Tililab logo"
                                 className="h-20 w-20 object-contain sm:h-24 sm:w-24"
                                 loading="lazy"
@@ -691,7 +691,7 @@ export function TililabSponsorsSection() {
                         </div>
                         <div className="flex flex-1 justify-center rounded-2xl border border-border bg-white px-8 py-8 shadow-sm">
                             <img
-                                src={TILILAB_ORGANISER.logoUrl}
+                                src={organiser?.logo_url ?? '/assets/organizer-logo.png'}
                                 alt="2M logo"
                                 className="h-24 w-full max-w-xs object-contain sm:h-28"
                                 loading="eager"
@@ -725,11 +725,11 @@ export function TililabSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        {TILILAB_PROGRAM_PARTNERS.map((partner) => (
+                        {programPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                                 tall
                                 subtitle={
                                     <TililabPartnerSubtitle partner={partner} />
@@ -765,11 +765,11 @@ export function TililabSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                        {TILILAB_MEDIA_PARTNERS.map((partner) => (
+                        {mediaPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                                 subtitle={
                                     <TililabPartnerSubtitle partner={partner} />
                                 }

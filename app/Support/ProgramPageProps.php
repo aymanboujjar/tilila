@@ -2,8 +2,7 @@
 
 namespace App\Support;
 
-use App\Models\ProgramNews;
-use App\Models\ProgramTestimonial;
+use App\Models\Partner;
 
 class ProgramPageProps
 {
@@ -11,13 +10,8 @@ class ProgramPageProps
     public static function forProgram(string $program): array
     {
         return [
-            'testimonials' => ProgramTestimonial::query()
+            'partners' => Partner::query()
                 ->publishedForProgram($program)
-                ->limit(6)
-                ->get(),
-            'news' => ProgramNews::query()
-                ->published($program)
-                ->limit(3)
                 ->get(),
         ];
     }

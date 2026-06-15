@@ -19,10 +19,8 @@ class ProgramRegulationController extends Controller
 
     public function tililab(): InertiaResponse
     {
-        return Inertia::render('user/program/reglement', [
-            'program' => 'tililab',
+        return Inertia::render('user/tililab/reglement', [
             'downloadUrl' => route('program.reglement.tililab.download'),
-            'backUrl' => '/tililab',
         ]);
     }
 
@@ -36,7 +34,7 @@ class ProgramRegulationController extends Controller
 
     public function downloadTililab(): BinaryFileResponse|Response
     {
-        return $this->downloadDocument('reglement-tililab-2026', 'Reglement-Tililab-2026');
+        return $this->downloadDocument('reglement-tililab-2026', 'Reglement-Tililab-v2-2026');
     }
 
     private function downloadDocument(string $basename, string $downloadName): BinaryFileResponse|Response

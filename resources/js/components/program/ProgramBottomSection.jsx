@@ -1,9 +1,8 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight, Archive } from 'lucide-react';
 import TransText from '@/components/TransText';
 import { PartnerLogoTile } from '@/components/PartnerSection';
-import { TILILA_AWARDS_PARTNERS } from '@/data/tilila-awards-partners';
-import { PROGRAM_PARTNERS } from '@/data/program-partners';
+import { partnerStrip, partnersInGroup } from '@/lib/programPartners';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 const ARCHIVE_LINKS = {
@@ -31,8 +30,11 @@ export default function ProgramBottomSection({
     editionsSlot = null,
 }) {
     const { locale } = useTranslation();
+    const { partners = [] } = usePage().props;
     const isTilila = program === 'tilila';
-    const partners = isTilila ? TILILA_AWARDS_PARTNERS : PROGRAM_PARTNERS;
+    const previewPartners = isTilila
+        ? partnerStrip(partners)
+        : partnersInGroup(partners, 'program');
     const archiveLinks = ARCHIVE_LINKS[program] ?? [];
 
     const textFor = (obj) =>
@@ -142,11 +144,11 @@ export default function ProgramBottomSection({
                             />
                         </h2>
                         <div className="mt-5 grid grid-cols-2 gap-3">
-                            {partners.slice(0, 6).map((partner) => (
+                            {previewPartners.slice(0, 6).map((partner) => (
                                 <PartnerLogoTile
                                     key={partner.id}
                                     name={partner.name}
-                                    logoUrl={partner.logoUrl}
+                                    logoUrl={partner.logo_url}
                                     tall
                                 />
                             ))}

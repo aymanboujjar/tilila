@@ -1,14 +1,10 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import TililaPeopleGrid from '@/components/TililaPeopleGrid';
 import RegulationCta from '@/components/program/RegulationCta';
 import { PartnerLogoTile, PartnerTier } from '@/components/PartnerSection';
-import { TILILA_FAQ_ITEMS } from '@/data/tilila-faq';
-import {
-    TILILA_INSTITUTIONAL_PARTNERS,
-    TILILA_MEDIA_PARTNERS,
-    TILILA_ORGANISER_LOGO,
-} from '@/data/tilila-partners-logos';
+import { partnersInGroup } from '@/lib/programPartners';
+import { TILILA_FAQ_ITEMS } from '@/pages/user/tilila/partials/faq-items';
 
 function SectionShell({ id, title, subtitle, children, className = '' }) {
     return (
@@ -516,6 +512,10 @@ export function TililaFaqSection() {
 }
 
 export function TililaSponsorsSection() {
+    const { partners = [] } = usePage().props;
+    const institutionalPartners = partnersInGroup(partners, 'institutional');
+    const mediaPartners = partnersInGroup(partners, 'media');
+
     return (
         <SectionShell
             id="sponsors"
@@ -568,7 +568,7 @@ export function TililaSponsorsSection() {
                 >
                     <div className="flex justify-center rounded-2xl border border-border bg-white px-8 py-8 shadow-sm">
                         <img
-                            src={TILILA_ORGANISER_LOGO}
+                            src="/assets/organizer-logo.png"
                             alt="2M logo"
                             className="h-24 w-full max-w-xs object-contain sm:h-28"
                             loading="eager"
@@ -601,18 +601,20 @@ export function TililaSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        {TILILA_INSTITUTIONAL_PARTNERS.map((partner) => (
+                        {institutionalPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                                 tall
                                 subtitle={
-                                    <TransText
-                                        en={partner.subtitle.en}
-                                        fr={partner.subtitle.fr}
-                                        ar={partner.subtitle.ar}
-                                    />
+                                    partner.subtitle ? (
+                                        <TransText
+                                            en={partner.subtitle.en}
+                                            fr={partner.subtitle.fr}
+                                            ar={partner.subtitle.ar}
+                                        />
+                                    ) : null
                                 }
                             />
                         ))}
@@ -645,11 +647,11 @@ export function TililaSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                        {TILILA_MEDIA_PARTNERS.map((partner) => (
+                        {mediaPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                             />
                         ))}
                     </div>

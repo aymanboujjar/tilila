@@ -9,9 +9,8 @@ const NAV = [
     { hash: 'prizes', fr: 'Les prix', en: 'Prizes', ar: 'الجوائز' },
     { hash: 'calendar', fr: 'Calendrier', en: 'Calendar', ar: 'التقويم' },
     { hash: 'jury', fr: 'Jury', en: 'Jury', ar: 'لجنة التحكيم' },
-    { hash: 'news', fr: 'Actualités', en: 'News', ar: 'أخبار' },
     { href: '/tilila/reglement', fr: 'Règlement', en: 'Rules', ar: 'النظام' },
-    { hash: 'contact', fr: 'Contact', en: 'Contact', ar: 'تواصل' },
+    { hash: 'partners', fr: 'Partenaires', en: 'Partners', ar: 'الشركاء' },
 ];
 
 export default function TililaAwardsHeader() {

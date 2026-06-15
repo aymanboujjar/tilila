@@ -9,8 +9,6 @@ use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NewsletterSubscriptionController;
 use App\Http\Controllers\OpportunityController;
-use App\Http\Controllers\ProgramContactController;
-use App\Http\Controllers\ProgramNewsController;
 use App\Http\Controllers\ProgramRegulationController;
 use App\Http\Controllers\TililabInscriptionController;
 use App\Http\Controllers\TililaConnectController;
@@ -182,7 +180,9 @@ Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class,
     ->middleware('throttle:public-uploads')
     ->name('opportunities.apply');
 Route::get('/about', function () {
-    return Inertia::render('user/about/index');
+    return Inertia::render('user/about/index', [
+        ...ProgramPageProps::forProgram('tilila'),
+    ]);
 });
 Route::get('/contact', function () {
     return Inertia::render('contact/index');
@@ -272,11 +272,6 @@ Route::get('/tilila/reglement', [ProgramRegulationController::class, 'tilila'])-
 Route::get('/tilila/reglement/download', [ProgramRegulationController::class, 'downloadTilila'])->name('program.reglement.tilila.download');
 Route::get('/tililab/reglement', [ProgramRegulationController::class, 'tililab'])->name('program.reglement.tililab');
 Route::get('/tililab/reglement/download', [ProgramRegulationController::class, 'downloadTililab'])->name('program.reglement.tililab.download');
-Route::get('/actualites', [ProgramNewsController::class, 'index'])->name('program.news.index');
-Route::get('/actualites/{news:slug}', [ProgramNewsController::class, 'show'])->name('program.news.show');
-Route::post('/program/contact', [ProgramContactController::class, 'store'])
-    ->middleware('throttle:public-forms')
-    ->name('program.contact.store');
 
 Route::get('/tilila/editions/{edition}', function (TililaEdition $edition) {
     return Inertia::render('user/tilila/edition', [

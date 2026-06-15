@@ -1,6 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import {
     Calendar,
+    Handshake,
     Images,
     KeyRound,
     LayoutGrid,
@@ -243,6 +244,11 @@ export function AppSidebar() {
                                         title: 'Hero Carousel',
                                         href: '/admin/hero-slides',
                                         icon: Images,
+                                    },
+                                    {
+                                        title: 'Partners',
+                                        href: '/admin/partners',
+                                        icon: Handshake,
                                     },
                                     {
                                         title: 'Newsletter',

@@ -8,9 +8,8 @@ use App\Http\Controllers\Admin\HeroSlideController;
 use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\MediaSidebarController;
 use App\Http\Controllers\Admin\OpportunityController;
-use App\Http\Controllers\Admin\ProgramNewsController;
+use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\ProgramParticipantFileController;
-use App\Http\Controllers\Admin\ProgramTestimonialController;
 use App\Http\Controllers\Admin\TililabAnalyticsController;
 use App\Http\Controllers\Admin\TililabEditionController;
 use App\Http\Controllers\Admin\TililabParticipantController;
@@ -91,13 +90,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('tilila/participants/{participant}', [TililaContestParticipantController::class, 'destroy'])
         ->name('tilila.participants.destroy');
 
-    Route::resource('program/testimonials', ProgramTestimonialController::class)
+    Route::resource('partners', PartnerController::class)
         ->except(['show'])
-        ->names('program.testimonials');
-    Route::resource('program/news', ProgramNewsController::class)
-        ->except(['show'])
-        ->parameters(['news' => 'news'])
-        ->names('program.news');
+        ->names('partners');
 
     require __DIR__.'/newsletter.php';
 });

@@ -9,58 +9,55 @@ import {
     TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-export default function TililaBottomSection() {
+export default function TililabBottomSection() {
     const { partners = [] } = usePage().props;
-    const displayed = partnersPreviewGrid(partners, 'tilila');
+    const displayed = partnersPreviewGrid(partners, 'tililab');
 
     return (
-        <TililaSection className="border-t border-border/60 bg-beta-white">
+        <TililaSection
+            id="partners"
+            className="border-t border-border/60 bg-beta-white"
+        >
             <TililaContainer>
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
                     <div id="past-editions">
                         <TililaSectionHeading
                             title={
                                 <TransText
-                                    en="Archives & awards"
-                                    fr="Archives & palmarès"
-                                    ar="الأرشيف والجوائز"
+                                    en="Archives & laureates"
+                                    fr="Archives & lauréats"
+                                    ar="الأرشيف والفائزون"
                                 />
                             }
                         />
                         <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
                             <img
-                                src="/assets/logo.png"
+                                src="/assets/tililab/tililab-logo.png"
                                 alt=""
-                                className="h-48 w-40 rounded-lg border border-border object-cover shadow-lg"
-                                style={{
-                                    background:
-                                        'linear-gradient(180deg,#4b2675 0%,#2e1861 100%)',
-                                }}
+                                className="h-48 w-40 rounded-lg border border-border bg-twhite object-contain p-4 shadow-lg"
                             />
                             <ul className="space-y-2 text-sm font-semibold text-tblack">
                                 <li>• Lauréats</li>
-                                <li>• Campagnes primées</li>
-                                <li>• Marques</li>
-                                <li>• Agences</li>
-                                <li>• Jurys</li>
-                                <li>• Photos</li>
+                                <li>• Projets produits</li>
+                                <li>• Bootcamp</li>
+                                <li>• Galerie</li>
                                 <li>• Vidéos</li>
                             </ul>
                         </div>
                         <Link
-                            href="/tilila/archives"
+                            href="/tililab/participate"
                             className="mt-6 inline-flex items-center gap-1 text-xs font-bold tracking-wide text-beta-blue uppercase hover:underline"
                         >
                             <TransText
-                                en="View all archives"
-                                fr="Voir toutes les archives"
-                                ar="عرض كل الأرشيف"
+                                en="Explore past editions"
+                                fr="Explorer les éditions passées"
+                                ar="استكشف الدورات السابقة"
                             />
                             <ArrowRight className="size-4" />
                         </Link>
                     </div>
 
-                    <div id="partners">
+                    <div>
                         <TililaSectionHeading
                             title={
                                 <TransText

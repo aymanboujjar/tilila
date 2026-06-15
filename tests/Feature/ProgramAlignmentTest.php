@@ -18,7 +18,9 @@ test('tilila regulation page is accessible', function () {
 test('tililab regulation page is accessible', function () {
     $this->get(route('program.reglement.tililab'))
         ->assertOk()
-        ->assertInertia(fn ($page) => $page->component('user/program/reglement')->where('program', 'tililab'));
+        ->assertInertia(fn ($page) => $page
+            ->component('user/tililab/reglement')
+            ->has('downloadUrl'));
 });
 
 test('tilila regulation document can be downloaded', function () {

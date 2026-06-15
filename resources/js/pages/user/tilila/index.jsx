@@ -9,7 +9,7 @@ import TililaStatsBenefitsSection from '@/pages/user/tilila/partials/TililaStats
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function TililaIndex() {
-    const { currentEdition, editions, flash, news } = usePage().props;
+    const { currentEdition, editions, flash } = usePage().props;
 
     return (
         <>
@@ -27,7 +27,7 @@ export default function TililaIndex() {
                 <TililaKeyDatesSection />
                 <TililaAdmissionJurySection jury={currentEdition?.jury} />
 
-                <TililaBottomSection news={news ?? []} />
+                <TililaBottomSection />
 
                 {/* <TililaPartnersFullSection /> */}
             </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 import TransText from '@/components/TransText';
-import { TILITALKS_LOGO } from '@/data/tilila-brand-logos';
 
 function Section({ id, title, subtitle, children }) {
     return (
@@ -25,7 +24,7 @@ export default function TiliTalksLanding() {
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="mb-8 flex flex-col items-center rounded-2xl border border-border bg-card px-6 py-8 text-center sm:py-10">
                 <img
-                    src={TILITALKS_LOGO}
+                    src="/assets/tilitalks/tilitalks-logo.png"
                     alt="TiliTalks"
                     className="h-16 w-full max-w-md object-contain sm:h-20"
                     loading="eager"

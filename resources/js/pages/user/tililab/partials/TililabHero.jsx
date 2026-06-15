@@ -1,57 +1,91 @@
 import TransText from '@/components/TransText';
 import {
-    ProgramApplyButton,
-    ProgramDeadlineBadge,
-    ProgramRegulationButton,
-} from '@/components/program/ProgramCtaButtons';
+    TililaBtnOutline,
+    TililaBtnPrimary,
+    TililaContainer,
+    TililaDeadlinePill,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
+
+const HERO_IMAGE = '/assets/tililab/tililab-banner.png';
 
 export default function TililabHero() {
     return (
-        <section
-            id="hero"
-            className="relative overflow-hidden border-b border-border bg-[radial-gradient(circle_at_top_right,#f0ebfa_0%,#ffffff_50%,#f8f5ff_100%)] py-12 sm:py-16"
-        >
-            <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-14">
-                    <div>
-                        <p className="text-xs font-bold tracking-[0.28em] text-beta-blue uppercase">
-                            Tililab 2026
-                        </p>
-                        <h1 className="mt-4 text-3xl font-bold tracking-tight text-tblack sm:text-4xl">
+        <TililaSection id="hero" className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16">
+            <TililaContainer>
+                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+                    <div id="candidature">
+                        <p className="text-xs font-bold tracking-[0.22em] text-beta-blue uppercase">
                             <TransText
-                                en="Reveal the talents who create tomorrow's stories"
-                                fr="Révéler les talents qui créent les récits de demain"
-                                ar="إبراز المواهب التي تصنع سرديات الغد"
+                                en="6th edition"
+                                fr="6e édition"
+                                ar="الدورة السادسة"
                             />
+                        </p>
+                        <h1 className="mt-3 text-4xl font-extrabold leading-[1.05] tracking-tight text-beta-blue sm:text-5xl lg:text-[3.25rem]">
+                            TILILAB
+                            <span className="mt-1 block text-tblack">2026</span>
                         </h1>
-                        <p className="mt-5 max-w-xl text-base leading-relaxed text-tgray">
+
+                        <div className="mt-6 space-y-1 text-base font-medium leading-snug text-tblack/90">
+                            <p>
+                                <TransText
+                                    en="Reveal the talents who create tomorrow's stories."
+                                    fr="Révéler les talents qui créent les récits de demain."
+                                    ar="إبراز المواهب التي تصنع سرديات الغد."
+                                />
+                            </p>
+                        </div>
+
+                        <p className="mt-5 max-w-lg text-sm leading-relaxed text-tgray sm:text-base">
                             <TransText
-                                en="Tililab is a detection, training and mentoring program for young Moroccan creative talents."
-                                fr="Tililab est un programme de détection, de formation et d'accompagnement destiné aux jeunes talents créatifs marocains."
-                                ar="تيليلاب برنامج لاكتشاف وتدريب ومرافقة المواهب الإبداعية الشابة في المغرب."
+                                en="Tililab is a detection, training and mentoring program for young Moroccan creative talents under 30."
+                                fr="Tililab est un programme de détection, de formation et d'accompagnement destiné aux jeunes talents créatifs marocains de moins de 30 ans."
+                                ar="تيليلاب برنامج لاكتشاف وتدريب ومرافقة المواهب الإبداعية الشابة في المغرب دون 30 سنة."
                             />
                         </p>
-                        <p className="mt-4 max-w-xl text-base leading-relaxed text-tgray">
-                            <TransText
-                                en="Through an immersive journey combining training, mentoring and audiovisual creation, Tililab supports tomorrow's creators in producing meaningful, impactful content."
-                                fr="À travers un parcours immersif mêlant formation, mentorat et création audiovisuelle, Tililab accompagne les créateurs et créatrices de demain dans la réalisation de contenus porteurs de sens et d'impact."
-                                ar="عبر مسار غامر يجمع التدريب والإرشاد والإبداع السمعي البصري، يرافق تيليلاب مبدعي ومبدعات الغد في إنتاج محتوى ذي معنى وأثر."
-                            />
-                        </p>
+
+                        <div className="mt-6">
+                            <TililaDeadlinePill deadline="31 août 2026" />
+                        </div>
+
+                        <div className="mt-8 flex flex-wrap gap-3">
+                            <TililaBtnPrimary href="/tililab/form">
+                                <TransText
+                                    en="Submit application"
+                                    fr="Déposer une candidature"
+                                    ar="قدّم ترشيحك"
+                                />
+                            </TililaBtnPrimary>
+                            <TililaBtnOutline href="/tililab/reglement/download">
+                                <TransText
+                                    en="Download regulations"
+                                    fr="Télécharger le règlement"
+                                    ar="تحميل النظام"
+                                />
+                            </TililaBtnOutline>
+                        </div>
                     </div>
 
-                    <div className="relative overflow-hidden rounded-2xl border border-border shadow-lg">
-                        <img
-                            src="/assets/tililab/tililab-banner.png"
-                            alt=""
-                            className="aspect-[4/3] w-full object-cover"
-                            loading="eager"
-                            decoding="async"
-                        />
-                        <div className="absolute inset-0 bg-beta-blue/20" aria-hidden />
+                    <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
+                        <div
+                            className="relative overflow-hidden shadow-xl"
+                            style={{
+                                clipPath:
+                                    'polygon(12% 0, 100% 0, 100% 100%, 0 100%)',
+                            }}
+                        >
+                            <img
+                                src={HERO_IMAGE}
+                                alt=""
+                                className="aspect-[4/3] w-full object-cover brightness-[0.92] sm:aspect-video"
+                                loading="eager"
+                                decoding="async"
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </TililaContainer>
+        </TililaSection>
     );
 }

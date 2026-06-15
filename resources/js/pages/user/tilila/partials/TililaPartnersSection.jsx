@@ -1,6 +1,7 @@
+import { usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import { PartnerLogoTile } from '@/components/PartnerSection';
-import { TILILA_AWARDS_PARTNERS } from '@/data/tilila-awards-partners';
+import { partnerStrip } from '@/lib/programPartners';
 
 function SectionShell({ id, title, subtitle, children, className = '' }) {
     return (
@@ -24,6 +25,13 @@ function SectionShell({ id, title, subtitle, children, className = '' }) {
 }
 
 export default function TililaPartnersSection() {
+    const { partners = [] } = usePage().props;
+    const displayed = partnerStrip(partners);
+
+    if (!displayed.length) {
+        return null;
+    }
+
     return (
         <SectionShell
             id="partners"
@@ -38,11 +46,11 @@ export default function TililaPartnersSection() {
             className="bg-twhite"
         >
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-3">
-                {TILILA_AWARDS_PARTNERS.map((partner) => (
+                {displayed.map((partner) => (
                     <PartnerLogoTile
                         key={partner.id}
                         name={partner.name}
-                        logoUrl={partner.logoUrl}
+                        logoUrl={partner.logo_url}
                         tall
                         subtitle={
                             partner.subtitle ? (
