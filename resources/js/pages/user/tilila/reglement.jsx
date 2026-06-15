@@ -2,7 +2,8 @@ import { Head, Link } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
 import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
 import TransText from '@/components/TransText';
-import { TILILA_REGLEMENT_2026 } from '@/data/tilila-reglement-2026';
+import { useTranslation } from '@/contexts/TranslationContext';
+import { getTililaReglement } from '@/data/tilila-reglement-2026';
 import {
     TililaBtnOutline,
     TililaContainer,
@@ -65,12 +66,21 @@ function ArticleBody({ paragraphs }) {
 }
 
 export default function TililaReglement({ downloadUrl }) {
-    const { title, subtitle, intro, articles, footer, version } =
-        TILILA_REGLEMENT_2026;
+    const { locale } = useTranslation();
+    const { title, subtitle, intro, articles, footer, version, articleLabel } =
+        getTililaReglement(locale);
 
     return (
         <>
-            <Head title="Règlement — Tilila Awards" />
+            <Head>
+                <title>
+                    {locale === 'ar'
+                        ? 'النظام — Tilila Awards'
+                        : locale === 'en'
+                          ? 'Regulations — Tilila Awards'
+                          : 'Règlement — Tilila Awards'}
+                </title>
+            </Head>
 
             <section className="border-b border-border/60 bg-beta-white py-10 sm:py-12">
                 <TililaContainer>
@@ -170,7 +180,7 @@ export default function TililaReglement({ downloadUrl }) {
                                 >
                                     <h2 className="text-lg font-bold text-beta-blue sm:text-xl">
                                         <TililaTealText>
-                                            Article {article.number}
+                                            {articleLabel} {article.number}
                                         </TililaTealText>
                                         <span className="text-tblack">
                                             {' '}
