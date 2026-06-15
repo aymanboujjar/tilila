@@ -142,7 +142,7 @@ export default function TililabAdmissionJurySection({ jury = [] }) {
                             </p>
                         ) : null}
 
-                        <JuryPreview members={members} />
+                        <JuryPreview members={members.slice(0, 4)} />
 
                         <div className="mt-8">
                             <button
