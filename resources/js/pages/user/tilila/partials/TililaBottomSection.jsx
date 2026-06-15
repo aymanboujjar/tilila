@@ -154,34 +154,18 @@ export default function TililaBottomSection({ news = [], editionsSlot = null }) 
                                 />
                             }
                         />
-                        <p className="mt-4 text-xs font-bold tracking-wide text-beta-blue uppercase">
-                            <TransText
-                                en="Institutional"
-                                fr="Institutionnels"
-                                ar="مؤسساتيون"
-                            />
-                        </p>
-                        <div className="mt-3 grid grid-cols-2 gap-3">
-                            {INSTITUTIONAL.map((p) => (
-                                <PartnerLogoTile
+                        <div className="mt-6 grid grid-cols-3 gap-4">
+                            {[...INSTITUTIONAL, ...MEDIA].map((p) => (
+                                <div
                                     key={p.id}
-                                    name={p.name}
-                                    logoUrl={p.logoUrl}
-                                    tall
-                                />
-                            ))}
-                        </div>
-                        <p className="mt-5 text-xs font-bold tracking-wide text-beta-blue uppercase">
-                            <TransText en="Media" fr="Médias" ar="إعلام" />
-                        </p>
-                        <div className="mt-3 grid grid-cols-2 gap-3">
-                            {MEDIA.slice(0, 4).map((p) => (
-                                <PartnerLogoTile
-                                    key={p.id}
-                                    name={p.name}
-                                    logoUrl={p.logoUrl}
-                                    tall
-                                />
+                                    className="flex items-center justify-center py-2"
+                                >
+                                    <PartnerLogoTile
+                                        name={p.name}
+                                        logoUrl={p.logoUrl}
+                                        tall
+                                    />
+                                </div>
                             ))}
                         </div>
                         <a
@@ -196,6 +180,8 @@ export default function TililaBottomSection({ news = [], editionsSlot = null }) 
                             <ArrowRight className="size-4" />
                         </a>
                     </div>
+           
+           
                 </div>
             </TililaContainer>
         </TililaSection>
