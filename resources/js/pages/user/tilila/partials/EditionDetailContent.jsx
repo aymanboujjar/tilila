@@ -1,6 +1,7 @@
 import { Award, Gavel, Play } from 'lucide-react';
 import TransText from '@/components/TransText';
 import { getYoutubeEmbedUrl } from '@/lib/youtubeEmbed';
+import TililaHorizontalCarousel from '@/pages/user/tilila/partials/TililaHorizontalCarousel';
 import {
     TililaIconBadge,
     TililaSectionHeading,
@@ -76,41 +77,45 @@ export function EditionWinnersSection({
                     <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
                 }
             />
-            <ul className="mt-6 space-y-3">
+            <TililaHorizontalCarousel
+                ariaLabel="Edition winners"
+                className="mt-6"
+                slideClassName="w-[min(100%,340px)] shrink-0 snap-start md:w-[48%] lg:w-[32%]"
+            >
                 {winners.length > 0
                     ? winners.map((w, i) => (
-                          <li
+                          <article
                               key={i}
-                              className="flex gap-4 rounded-xl border border-border bg-twhite p-4"
+                              className="flex h-full min-h-[200px] flex-col gap-4 rounded-2xl border border-border/60 bg-twhite p-5 shadow-sm"
                           >
                               {w.photo_path ? (
                                   <PersonPhoto
                                       path={w.photo_path}
                                       alt={w.full_name}
-                                      className="size-20"
+                                      className="size-24"
                                   />
                               ) : (
                                   <TililaIconBadge icon={Award} />
                               )}
-                              <div className="min-w-0">
+                              <div className="min-w-0 flex-1">
                                   <p className="text-xs font-bold tracking-wide text-beta-blue uppercase">
                                       {textFor(w.trophy, locale)}
                                   </p>
-                                  <p className="mt-1 font-semibold text-tblack">
+                                  <p className="mt-1 text-lg font-bold text-tblack">
                                       {w.full_name}
                                   </p>
                                   {textFor(w.bio, locale) ? (
-                                      <p className="mt-1 text-sm leading-relaxed text-tgray">
+                                      <p className="mt-2 line-clamp-5 text-sm leading-relaxed text-tgray">
                                           {textFor(w.bio, locale)}
                                       </p>
                                   ) : null}
                               </div>
-                          </li>
+                          </article>
                       ))
                     : historyLines.map((line, i) => (
-                          <li
+                          <article
                               key={i}
-                              className="flex gap-4 rounded-xl border border-border bg-twhite p-4"
+                              className="flex h-full min-h-[160px] gap-4 rounded-2xl border border-border/60 bg-twhite p-5 shadow-sm"
                           >
                               <TililaIconBadge icon={Award} />
                               <p className="text-sm leading-relaxed text-tgray">
@@ -120,9 +125,9 @@ export function EditionWinnersSection({
                                       ar={line.ar}
                                   />
                               </p>
-                          </li>
+                          </article>
                       ))}
-            </ul>
+            </TililaHorizontalCarousel>
         </section>
     );
 }
@@ -144,34 +149,38 @@ export function EditionJurySection({ jury = [], locale }) {
                     />
                 </p>
             ) : (
-                <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <TililaHorizontalCarousel
+                    ariaLabel="Edition jury"
+                    className="mt-6"
+                    slideClassName="w-[min(100%,300px)] shrink-0 snap-start sm:w-[45%] lg:w-[30%]"
+                >
                     {jury.map((member, i) => (
-                        <div
+                        <article
                             key={i}
-                            className="flex items-start gap-4 rounded-xl border border-border bg-twhite p-4"
+                            className="flex h-full min-h-[180px] flex-col gap-4 rounded-2xl border border-border/60 bg-twhite p-5 shadow-sm"
                         >
                             {member.photo_path ? (
                                 <PersonPhoto
                                     path={member.photo_path}
                                     alt={member.full_name}
-                                    className="size-20"
+                                    className="size-24"
                                 />
                             ) : (
                                 <TililaIconBadge icon={Gavel} />
                             )}
                             <div className="min-w-0">
-                                <p className="font-semibold text-tblack">
+                                <p className="text-lg font-bold text-tblack">
                                     {member.full_name}
                                 </p>
                                 {textFor(member.bio, locale) ? (
-                                    <p className="mt-1 text-sm leading-relaxed text-tgray">
+                                    <p className="mt-2 line-clamp-5 text-sm leading-relaxed text-tgray">
                                         {textFor(member.bio, locale)}
                                     </p>
                                 ) : null}
                             </div>
-                        </div>
+                        </article>
                     ))}
-                </div>
+                </TililaHorizontalCarousel>
             )}
         </section>
     );
@@ -194,23 +203,32 @@ export function EditionGallerySection({ images = [] }) {
                     />
                 </p>
             ) : (
-                <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-                    {rows.map((path) => (
-                        <a
-                            key={path}
-                            href={`/storage/${path}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="overflow-hidden rounded-lg border border-border"
-                        >
-                            <img
-                                src={`/storage/${path}`}
-                                alt=""
-                                className="aspect-square w-full object-cover transition hover:scale-105"
-                            />
-                        </a>
-                    ))}
-                </div>
+                <TililaHorizontalCarousel
+                    ariaLabel="Edition gallery"
+                    className="mt-6"
+                    slideClassName="w-[min(100%,400px)] shrink-0 snap-start sm:w-[60%] lg:w-[40%]"
+                    autoAdvanceMs={5200}
+                >
+                    {rows.map((path) => {
+                        const src = storagePhotoSrc(path);
+                        return (
+                            <a
+                                key={path}
+                                href={src}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="group block overflow-hidden rounded-2xl border border-border/60 shadow-md"
+                            >
+                                <img
+                                    src={src}
+                                    alt=""
+                                    className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                                    loading="lazy"
+                                />
+                            </a>
+                        );
+                    })}
+                </TililaHorizontalCarousel>
             )}
         </section>
     );
@@ -231,9 +249,9 @@ export function EditionVideoSection({ videoUrl, year }) {
                     />
                 }
             />
-            <div className="mt-6">
+            <div className="mt-6 overflow-hidden rounded-2xl border border-border/60 bg-tblack shadow-lg">
                 {embed ? (
-                    <div className="aspect-video overflow-hidden rounded-xl border border-border bg-tblack">
+                    <div className="aspect-video">
                         <iframe
                             title={`Ceremony ${year}`}
                             src={embed}
@@ -246,7 +264,7 @@ export function EditionVideoSection({ videoUrl, year }) {
                         href={videoUrl}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-beta-blue hover:underline"
+                        className="flex items-center gap-2 px-6 py-10 text-sm font-semibold text-beta-blue hover:underline"
                     >
                         <Play className="size-4" />
                         <TransText

@@ -350,7 +350,57 @@
             "missionLabel": "La mission",
             "missionQuote": "\"La publicité a le pouvoir de façonner les esprits. Assurons-nous qu’elle façonne un monde d’égalité.\""
         },
-        "headTitle": "Tilila Awards"
+        "headTitle": "Tilila Awards",
+        "archives": {
+            "pageTitle": "Archives & Palmarès — Tilila Awards",
+            "title": "Archives & Palmarès",
+            "subtitle": "Explorez l'ensemble des éditions, lauréats, campagnes primées, marques, agences, jurys et contenus médias du concours.",
+            "heritage": "Patrimoine Tilila Awards",
+            "backToTilila": "Retour aux Tilila Awards",
+            "editionsCount": "Éditions",
+            "searchPlaceholder": "Rechercher éditions, lauréats, marques, agences…",
+            "filterYear": "Filtrer par année",
+            "allYears": "Toutes les années",
+            "sortLabel": "Trier les éditions",
+            "sortNewest": "Plus récentes",
+            "sortOldest": "Plus anciennes",
+            "resetFilters": "Réinitialiser",
+            "resultsCount": ":count édition(s) trouvée(s)",
+            "timelineLabel": "Frise chronologique",
+            "timelineAria": "Frise des années d'édition",
+            "editionsKicker": "Toutes les éditions",
+            "editionsTitle": "Éditions du concours",
+            "editionsSubtitle": "Parcourez chaque cérémonie — chaque carte ouvre l'édition complète avec lauréats, jury, photos et vidéos.",
+            "editionsSectionAria": "Éditions du concours",
+            "editionLabel": "Édition",
+            "discoverEdition": "Découvrir l'édition",
+            "statsSection": {
+                "kicker": "Vue d'ensemble",
+                "title": "Statistiques des archives"
+            },
+            "stats": {
+                "laureats": "Lauréats",
+                "campagnes": "Campagnes primées",
+                "marques": "Marques",
+                "agences": "Agences",
+                "jurys": "Jurys",
+                "photos": "Photos",
+                "videos": "Vidéos"
+            },
+            "statsHint": {
+                "laureats": "Prix et lauréats de toutes les éditions",
+                "campagnes": "Créations publicitaires distinguées",
+                "marques": "Marques au palmarès",
+                "agences": "Agences créatives lauréates",
+                "jurys": "Professionnels ayant présidé chaque édition",
+                "photos": "Temps forts et coulisses en images",
+                "videos": "Replays de cérémonie et moments filmés"
+            },
+            "empty": {
+                "title": "Aucune édition trouvée",
+                "message": "Ajustez votre recherche ou vos filtres pour explorer l'histoire des Tilila Awards."
+            }
+        }
     },
     "tililab": {
         "headTitle": "Tililab",

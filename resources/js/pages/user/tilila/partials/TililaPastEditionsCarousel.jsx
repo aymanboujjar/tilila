@@ -27,6 +27,7 @@ export default function TililaPastEditionsCarousel({
     excludeEditionId = null,
     excludeYear = null,
     compact = false,
+    showControls = undefined,
 }) {
     const rows = useMemo(() => {
         const shouldExclude = (edition) => {
@@ -128,6 +129,8 @@ export default function TililaPastEditionsCarousel({
 
     if (rows.length === 0) return null;
 
+    const controlsVisible = showControls ?? !compact;
+
     const Wrapper = compact ? 'div' : 'section';
     const wrapperProps = compact
         ? { className: '' }
@@ -136,6 +139,54 @@ export default function TililaPastEditionsCarousel({
               className:
                   'border-b border-border bg-linear-to-b from-muted/50 to-background py-14 sm:py-16',
           };
+
+    const navButtons = (
+        <div className="flex shrink-0 items-center gap-2">
+            <button
+                type="button"
+                onClick={() => {
+                    lastInteractionAtRef.current = Date.now();
+                    const el = trackRef.current;
+                    if (el) {
+                        const max = el.scrollWidth - el.clientWidth;
+                        const x = el.scrollLeft;
+                        if (x <= 8 && max > 0) {
+                            el.scrollTo({
+                                left: max,
+                                behavior: 'smooth',
+                            });
+                            return;
+                        }
+                    }
+                    scrollBySlides(-1);
+                }}
+                className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
+                aria-label="Previous"
+            >
+                <ChevronLeft className="size-5" />
+            </button>
+            <button
+                type="button"
+                onClick={() => {
+                    lastInteractionAtRef.current = Date.now();
+                    const el = trackRef.current;
+                    if (el) {
+                        const max = el.scrollWidth - el.clientWidth;
+                        const x = el.scrollLeft;
+                        if (x >= max - 8 && max > 0) {
+                            scrollToStart();
+                            return;
+                        }
+                    }
+                    scrollBySlides(1);
+                }}
+                className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
+                aria-label="Next"
+            >
+                <ChevronRight className="size-5" />
+            </button>
+        </div>
+    );
 
     return (
         <Wrapper {...wrapperProps}>
@@ -165,52 +216,10 @@ export default function TililaPastEditionsCarousel({
                             />
                         </p>
                     </div>
-                    <div className="flex shrink-0 items-center gap-2">
-                        <button
-                            type="button"
-                            onClick={() => {
-                                lastInteractionAtRef.current = Date.now();
-                                const el = trackRef.current;
-                                if (el) {
-                                    const max = el.scrollWidth - el.clientWidth;
-                                    const x = el.scrollLeft;
-                                    if (x <= 8 && max > 0) {
-                                        el.scrollTo({
-                                            left: max,
-                                            behavior: 'smooth',
-                                        });
-                                        return;
-                                    }
-                                }
-                                scrollBySlides(-1);
-                            }}
-                            className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
-                            aria-label="Previous"
-                        >
-                            <ChevronLeft className="size-5" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                lastInteractionAtRef.current = Date.now();
-                                const el = trackRef.current;
-                                if (el) {
-                                    const max = el.scrollWidth - el.clientWidth;
-                                    const x = el.scrollLeft;
-                                    if (x >= max - 8 && max > 0) {
-                                        scrollToStart();
-                                        return;
-                                    }
-                                }
-                                scrollBySlides(1);
-                            }}
-                            className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
-                            aria-label="Next"
-                        >
-                            <ChevronRight className="size-5" />
-                        </button>
-                    </div>
+                    {navButtons}
                 </div>
+                ) : controlsVisible ? (
+                    <div className="mb-4 flex justify-end">{navButtons}</div>
                 ) : null}
 
                 <div className={`relative ${compact ? 'mt-0' : 'mt-8'}`}>

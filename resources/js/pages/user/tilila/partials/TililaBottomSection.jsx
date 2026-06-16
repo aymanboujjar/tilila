@@ -3,22 +3,38 @@ import { ArrowRight } from 'lucide-react';
 import TransText from '@/components/TransText';
 import { PartnerLogoTile } from '@/components/PartnerSection';
 import { partnersPreviewGrid } from '@/lib/programPartners';
+import TililaPastEditionsCarousel from '@/pages/user/tilila/partials/TililaPastEditionsCarousel';
 import {
     TililaContainer,
     TililaSection,
     TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
+import { useTranslation } from '@/contexts/TranslationContext';
+
+const ARCHIVE_QUICK_LINKS = [
+    { id: 'statistics', en: 'Statistics', fr: 'Statistiques', ar: 'الإحصائيات' },
+    { id: 'editions', en: 'Editions', fr: 'Éditions', ar: 'الدورات' },
+];
 
 export default function TililaBottomSection() {
-    const { partners = [] } = usePage().props;
+    const { partners = [], editions = [] } = usePage().props;
+    const { locale } = useTranslation();
     const displayed = partnersPreviewGrid(partners, 'tilila');
 
     return (
         <TililaSection className="border-t border-border/60 bg-beta-white">
-            <TililaContainer>
-                <div className="grid gap-12 lg:grid-cols-2 lg:gap-10">
+            <TililaContainer className="space-y-14">
+                <div className="grid gap-12 lg:grid-cols-2 lg:gap-14">
                     <div id="past-editions">
+                        <p className="text-xs font-bold tracking-[0.28em] text-beta-turquoise uppercase">
+                            <TransText
+                                en="Heritage"
+                                fr="Patrimoine"
+                                ar="الإرث"
+                            />
+                        </p>
                         <TililaSectionHeading
+                            className="mt-2"
                             title={
                                 <TransText
                                     en="Archives & awards"
@@ -26,30 +42,30 @@ export default function TililaBottomSection() {
                                     ar="الأرشيف والجوائز"
                                 />
                             }
+                            subtitle={
+                                <TransText
+                                    en="Latest highlights, past editions, winners and jury — all in one place."
+                                    fr="Temps forts, éditions passées, lauréats et jury — tout au même endroit."
+                                    ar="أبرز اللحظات والدورات السابقة والفائزون ولجنة التحكيم — في مكان واحد."
+                                />
+                            }
                         />
-                        <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
-                            <img
-                                src="/assets/logo.png"
-                                alt=""
-                                className="h-48 w-40 rounded-lg border border-border object-cover shadow-lg"
-                                style={{
-                                    background:
-                                        'linear-gradient(180deg,#4b2675 0%,#2e1861 100%)',
-                                }}
-                            />
-                            <ul className="space-y-2 text-sm font-semibold text-tblack">
-                                <li>• Lauréats</li>
-                                <li>• Campagnes primées</li>
-                                <li>• Marques</li>
-                                <li>• Agences</li>
-                                <li>• Jurys</li>
-                                <li>• Photos</li>
-                                <li>• Vidéos</li>
-                            </ul>
+
+                        <div className="mt-6 flex flex-wrap gap-2">
+                            {ARCHIVE_QUICK_LINKS.map((link) => (
+                                <a
+                                    key={link.id}
+                                    href={`/tilila/archives#${link.id}`}
+                                    className="rounded-full border border-border/70 bg-twhite px-4 py-2 text-xs font-bold text-tblack transition hover:border-beta-blue hover:text-beta-blue"
+                                >
+                                    {link[locale] || link.fr || link.en}
+                                </a>
+                            ))}
                         </div>
+
                         <Link
                             href="/tilila/archives"
-                            className="mt-6 inline-flex items-center gap-1 text-xs font-bold tracking-wide text-beta-blue uppercase hover:underline"
+                            className="mt-6 inline-flex items-center gap-2 rounded-full bg-beta-blue px-5 py-2.5 text-xs font-bold tracking-wide text-twhite uppercase transition hover:bg-brand-light-purple"
                         >
                             <TransText
                                 en="View all archives"
@@ -74,7 +90,7 @@ export default function TililaBottomSection() {
                             {displayed.map((p) => (
                                 <div
                                     key={p.id}
-                                    className="flex items-center justify-center py-2"
+                                    className="flex items-center justify-center rounded-xl border border-border/40 bg-twhite py-3"
                                 >
                                     <PartnerLogoTile
                                         name={p.name}
@@ -86,6 +102,27 @@ export default function TililaBottomSection() {
                         </div>
                     </div>
                 </div>
+
+                {editions?.length > 0 ? (
+                    <div>
+                        <TililaSectionHeading
+                            title={
+                                <TransText
+                                    en="Past editions"
+                                    fr="Éditions passées"
+                                    ar="دورات سابقة"
+                                />
+                            }
+                        />
+                        <div className="mt-6">
+                            <TililaPastEditionsCarousel
+                                editions={editions}
+                                compact
+                                showControls
+                            />
+                        </div>
+                    </div>
+                ) : null}
             </TililaContainer>
         </TililaSection>
     );
