@@ -26,9 +26,53 @@ function firstFormError(errors) {
     return flat[0] ?? null;
 }
 
+function resolveUploadPercent(progress) {
+    if (!progress) {
+        return 0;
+    }
+
+    if (typeof progress.percentage === 'number') {
+        return Math.min(100, Math.max(0, progress.percentage));
+    }
+
+    if (typeof progress.progress === 'number') {
+        return Math.min(100, Math.max(0, Math.round(progress.progress * 100)));
+    }
+
+    if (progress.total && progress.total > 0) {
+        return Math.min(
+            100,
+            Math.max(0, Math.round((progress.loaded / progress.total) * 100)),
+        );
+    }
+
+    return 0;
+}
+
+function formatBytes(bytes) {
+    if (!bytes || bytes <= 0) {
+        return null;
+    }
+
+    const units = ['B', 'KB', 'MB', 'GB'];
+    let value = bytes;
+    let unitIndex = 0;
+
+    while (value >= 1024 && unitIndex < units.length - 1) {
+        value /= 1024;
+        unitIndex += 1;
+    }
+
+    const decimals = unitIndex === 0 ? 0 : 1;
+    return `${value.toFixed(decimals)} ${units[unitIndex]}`;
+}
+
 export default function TililaParticipate() {
     const [resultModal, setResultModal] = useState(null);
     const [errorSummary, setErrorSummary] = useState('');
+    const [uploadPercent, setUploadPercent] = useState(0);
+    const [uploadBytes, setUploadBytes] = useState({ loaded: 0, total: null });
+    const [submissionPhase, setSubmissionPhase] = useState(null);
 
     const { data, setData, post, processing, errors, reset, clearErrors } =
         useForm({
@@ -61,10 +105,26 @@ export default function TililaParticipate() {
         clearErrors();
         setResultModal(null);
         setErrorSummary('');
+        setUploadPercent(0);
+        setUploadBytes({ loaded: 0, total: null });
+        setSubmissionPhase('uploading');
 
         post('/tilila/participate', {
             forceFormData: true,
             preserveScroll: true,
+            showProgress: false,
+            onProgress: (progress) => {
+                const percent = resolveUploadPercent(progress);
+                setUploadPercent(percent);
+                setUploadBytes({
+                    loaded: progress.loaded ?? 0,
+                    total: progress.total ?? null,
+                });
+
+                if (percent >= 100) {
+                    setSubmissionPhase('processing');
+                }
+            },
             onSuccess: () => {
                 reset();
                 setResultModal('success');
@@ -72,6 +132,11 @@ export default function TililaParticipate() {
             onError: (serverErrors) => {
                 setErrorSummary(firstFormError(serverErrors) ?? '');
                 setResultModal('error');
+            },
+            onFinish: () => {
+                setSubmissionPhase(null);
+                setUploadPercent(0);
+                setUploadBytes({ loaded: 0, total: null });
             },
         });
     };
@@ -87,21 +152,12 @@ export default function TililaParticipate() {
             <Head title="Tilila Awards — Candidature" />
 
             {processing ? (
-                <div
-                    className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-black/50 px-4 backdrop-blur-[2px]"
-                    role="status"
-                    aria-live="polite"
-                    aria-busy="true"
-                >
-                    <Spinner className="size-10 text-twhite" />
-                    <p className="text-center text-sm font-semibold text-twhite">
-                        <TransText
-                            en="Submitting your application…"
-                            fr="Envoi de votre candidature en cours…"
-                            ar="جاري إرسال ترشحكم…"
-                        />
-                    </p>
-                </div>
+                <SubmissionProgressOverlay
+                    phase={submissionPhase}
+                    percent={uploadPercent}
+                    loaded={uploadBytes.loaded}
+                    total={uploadBytes.total}
+                />
             ) : null}
 
             <Dialog open={resultModal !== null} onOpenChange={closeResultModal}>
@@ -540,6 +596,91 @@ export default function TililaParticipate() {
 }
 
 TililaParticipate.layout = (page) => <AppLayout>{page}</AppLayout>;
+
+function SubmissionProgressOverlay({ phase, percent, loaded, total }) {
+    const isProcessing = phase === 'processing';
+    const displayPercent = isProcessing ? 100 : percent;
+    const loadedLabel = formatBytes(loaded);
+    const totalLabel = formatBytes(total);
+    const bytesLabel =
+        loadedLabel && totalLabel
+            ? `${loadedLabel} / ${totalLabel}`
+            : loadedLabel
+              ? loadedLabel
+              : null;
+
+    return (
+        <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4 backdrop-blur-[2px]"
+            role="status"
+            aria-live="polite"
+            aria-busy="true"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={displayPercent}
+        >
+            <div className="w-full max-w-md rounded-2xl border border-border bg-background p-6 shadow-xl">
+                <div className="flex items-center justify-center gap-2">
+                    {isProcessing ? (
+                        <Spinner className="size-5 text-beta-blue" />
+                    ) : null}
+                    <p className="text-center text-sm font-semibold text-tblack">
+                        {isProcessing ? (
+                            <TransText
+                                en="Finalizing your submission…"
+                                fr="Finalisation de votre candidature…"
+                                ar="جاري إنهاء إرسال ترشحكم…"
+                            />
+                        ) : (
+                            <TransText
+                                en="Uploading your application…"
+                                fr="Téléversement de votre candidature…"
+                                ar="جاري رفع ملفات ترشحكم…"
+                            />
+                        )}
+                    </p>
+                </div>
+
+                <div className="mt-4 h-2.5 overflow-hidden rounded-full bg-muted">
+                    <div
+                        className={`h-full rounded-full bg-beta-blue transition-[width] duration-150 ease-out ${
+                            isProcessing ? 'animate-pulse' : ''
+                        }`}
+                        style={{ width: `${displayPercent}%` }}
+                    />
+                </div>
+
+                <p className="mt-3 text-center text-2xl font-bold text-tblack tabular-nums">
+                    {displayPercent}%
+                </p>
+
+                {bytesLabel && !isProcessing ? (
+                    <p className="mt-1 text-center text-xs text-muted-foreground">
+                        {bytesLabel}
+                    </p>
+                ) : null}
+
+                {isProcessing ? (
+                    <p className="mt-2 text-center text-xs text-muted-foreground">
+                        <TransText
+                            en="Upload complete. Validating and saving your submission on our servers."
+                            fr="Téléversement terminé. Validation et enregistrement de votre candidature sur nos serveurs."
+                            ar="اكتمل الرفع. جاري التحقق من ترشحكم وحفظه على خوادمنا."
+                        />
+                    </p>
+                ) : (
+                    <p className="mt-2 text-center text-xs text-muted-foreground">
+                        <TransText
+                            en="Progress reflects the actual upload of your files."
+                            fr="La progression reflète le téléversement réel de vos fichiers."
+                            ar="تعكس النسبة رفع ملفاتكم الفعلي."
+                        />
+                    </p>
+                )}
+            </div>
+        </div>
+    );
+}
 
 function Field({ label, error, required = false, children }) {
     return (

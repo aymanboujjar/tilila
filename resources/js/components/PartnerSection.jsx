@@ -3,37 +3,20 @@ import { cn } from '@/lib/utils';
 export function PartnerLogoTile({ name, logoUrl, subtitle, tall = false }) {
     return (
         <div
-            className={cn(
-                'flex flex-col items-center justify-center rounded-2xl border border-border bg-white px-4 shadow-sm transition hover:shadow-md',
-                tall ? 'min-h-32 py-5' : 'min-h-24 py-4',
-            )}
+          
         >
-            {logoUrl ? (
+            {logoUrl && (
                 <img
                     src={logoUrl}
                     alt={`${name} logo`}
                     className={cn(
                         'w-full object-contain',
-                        tall ? 'max-h-24' : 'max-h-16',
+                        tall ? 'max-h-25' : 'max-h-25',
                     )}
                     loading="lazy"
                     decoding="async"
                 />
-            ) : (
-                <span className="text-center text-sm font-semibold text-tblack">
-                    {name}
-                </span>
             )}
-            {logoUrl ? (
-                <span className="mt-3 text-center text-xs font-medium text-tgray">
-                    {name}
-                </span>
-            ) : null}
-            {subtitle ? (
-                <p className="mt-1 text-center text-xs text-tgray">
-                    {subtitle}
-                </p>
-            ) : null}
         </div>
     );
 }

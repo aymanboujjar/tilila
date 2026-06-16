@@ -12,12 +12,26 @@ function hasTrophyLabel(trophy) {
     );
 }
 
+import { useState } from 'react';
+
 export default function TililaPeopleGrid({
     title,
     people = [],
-    showTrophy = false,
 }) {
     const rows = Array.isArray(people) ? people : [];
+
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedPerson, setSelectedPerson] = useState(null);
+
+    const handleOpenModal = (person) => {
+        setSelectedPerson(person);
+        setModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setModalOpen(false);
+        setSelectedPerson(null);
+    };
 
     return (
         <div className="mt-8">
@@ -38,55 +52,68 @@ export default function TililaPeopleGrid({
                             : '';
 
                         return (
-                            <div
+                            <button
                                 key={`${p?.full_name ?? 'person'}-${idx}`}
-                                className="rounded-2xl border border-border bg-white p-5 shadow-sm"
+                                type="button"
+                                onClick={() => handleOpenModal(p)}
+                                style={{ cursor: 'pointer' }}
                             >
-                                <div className="flex items-start gap-4">
-                                    <div className="size-16 shrink-0 overflow-hidden rounded-xl border border-border bg-muted">
+                                <div className="flex items-center justify-center">
+                                    <div className="size-26 shrink-0 overflow-hidden rounded-xl border border-border bg-muted flex items-center justify-center">
                                         {img ? (
                                             <img
                                                 src={img}
-                                                alt=""
+                                                alt={p?.full_name || ""}
                                                 className="h-full w-full object-cover"
                                                 loading="lazy"
                                                 decoding="async"
                                             />
                                         ) : null}
                                     </div>
-                                    <div className="min-w-0">
-                                        {showTrophy &&
-                                        hasTrophyLabel(p?.trophy) ? (
-                                            <div className="text-xs font-bold tracking-wide text-beta-blue uppercase">
-                                                <TransText
-                                                    en={p.trophy.en}
-                                                    fr={p.trophy.fr}
-                                                    ar={p.trophy.ar}
-                                                />
-                                            </div>
-                                        ) : null}
-                                        <div
-                                            className={
-                                                showTrophy &&
-                                                hasTrophyLabel(p?.trophy)
-                                                    ? 'mt-1 text-base font-semibold text-foreground'
-                                                    : 'text-base font-semibold text-foreground'
-                                            }
-                                        >
-                                            {p?.full_name ?? ''}
-                                        </div>
-                                        <div className="mt-2 text-sm text-muted-foreground">
-                                            <TransText
-                                                en={p?.bio?.en ?? ''}
-                                                fr={p?.bio?.fr ?? ''}
-                                                ar={p?.bio?.ar ?? ''}
-                                            />
-                                        </div>
-                                    </div>
                                 </div>
-                            </div>
+                            </button>
                         );
                     })}
+                </div>
+            )}
+            {/* Modal */}
+            {modalOpen && selectedPerson && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
+                    <div className="bg-white rounded-xl p-6 max-w-xs w-full shadow-lg relative">
+                        <button
+                            onClick={handleCloseModal}
+                            className="absolute top-2 right-2 text-tgray hover:text-tblack focus:outline-none"
+                            aria-label="Close"
+                        >
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                                <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                            </svg>
+                        </button>
+                        <div className="flex flex-col items-center">
+                            <div className="size-24 rounded-xl overflow-hidden mb-4 border border-border bg-muted flex items-center justify-center">
+                                {selectedPerson?.photo_path && (
+                                    <img
+                                        src={`/storage/${selectedPerson.photo_path}`}
+                                        alt={selectedPerson?.full_name || ""}
+                                        className="h-full w-full object-cover"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                )}
+                            </div>
+                            <div className="text-lg font-semibold text-tblack mb-2 text-center break-words">
+                                {selectedPerson?.full_name ?? ''}
+                            </div>
+                            <div className="text-sm text-tgray text-center">
+                                <TransText
+                                    en={selectedPerson?.bio?.en ?? ''}
+                                    fr={selectedPerson?.bio?.fr ?? ''}
+                                    ar={selectedPerson?.bio?.ar ?? ''}
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

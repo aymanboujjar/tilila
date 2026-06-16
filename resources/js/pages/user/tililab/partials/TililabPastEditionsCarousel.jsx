@@ -26,6 +26,7 @@ export default function TililabPastEditionsCarousel({
     editions = [],
     excludeEditionId = null,
     excludeYear = null,
+    compact = false,
 }) {
     const rows = useMemo(() => {
         const shouldExclude = (edition) => {
@@ -127,12 +128,19 @@ export default function TililabPastEditionsCarousel({
 
     if (rows.length === 0) return null;
 
+    const Wrapper = compact ? 'div' : 'section';
+    const wrapperProps = compact
+        ? { className: '' }
+        : {
+              id: 'past-editions',
+              className:
+                  'border-b border-border bg-linear-to-b from-muted/50 to-background py-14 sm:py-16',
+          };
+
     return (
-        <section
-            id="past-editions"
-            className="border-b border-border bg-linear-to-b from-muted/50 to-background py-14 sm:py-16"
-        >
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Wrapper {...wrapperProps}>
+            <div className={compact ? '' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'}>
+                {!compact ? (
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
                     <div>
                         <p className="text-xs font-bold tracking-[0.2em] text-beta-blue uppercase">
@@ -203,8 +211,9 @@ export default function TililabPastEditionsCarousel({
                         </button>
                     </div>
                 </div>
+                ) : null}
 
-                <div className="relative mt-8">
+                <div className={`relative ${compact ? 'mt-0' : 'mt-8'}`}>
                     <div className="bg-linear-to-e pointer-events-none absolute inset-y-0 start-0 z-10 w-10 from-background to-transparent" />
                     <div className="pointer-events-none absolute inset-y-0 end-0 z-10 w-10 bg-linear-to-l from-background to-transparent" />
                     <div
@@ -295,6 +304,6 @@ export default function TililabPastEditionsCarousel({
                     </div>
                 </div>
             </div>
-        </section>
+        </Wrapper>
     );
 }

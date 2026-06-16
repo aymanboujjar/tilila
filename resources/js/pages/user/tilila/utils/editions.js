@@ -67,7 +67,7 @@ export function editionRowFromHistory(entry) {
         theme: entry.focus ?? { en: '', fr: '', ar: '' },
         cover_image_path: null,
         cover_image_src: entry.posterSrc || '',
-        details_url: '/tilila#past-editions',
+        details_url: `/tilila/archives/editions/${entry.year}`,
         winners_url: '/tilila#past-editions',
         jury_url: '/tilila#past-editions',
         gallery_url: '/tilila#past-editions',

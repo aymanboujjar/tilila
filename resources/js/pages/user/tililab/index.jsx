@@ -1,80 +1,40 @@
 import { Head, usePage } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import {
-    ProgramContactSection,
-    ProgramHeroSection,
-    ProgramNewsSection,
-    ProgramPartnersSection,
-    ProgramStatsSection,
-    ProgramTestimonialsSection,
-} from '@/components/program/ProgramSharedSections';
-import TililabCurrentEditionSection from '@/pages/user/tililab/partials/CurrentEditionSection';
-import TililabHowToApply from '@/pages/user/tililab/partials/TililabHowToApply';
-import TililabPastEditionsCarousel from '@/pages/user/tililab/partials/TililabPastEditionsCarousel';
-import GuidelinesSection from '@/pages/user/tililab/partials/GuidelinesSection';
-import KeyDatesSection from '@/pages/user/tililab/partials/KeyDatesSection';
-import {
-    TililabAdmissionSection,
-    TililabConceptSection,
-    TililabCriteriaSection,
-    TililabFaqSection,
-    TililabJourneySection,
-    TililabPrizesSection,
-    TililabWhyParticipateSection,
-} from '@/pages/user/tililab/partials/ProgramSections';
+import TililabProgramLayout from '@/layouts/tililab-program-layout';
+import TililabAdmissionJurySection from '@/pages/user/tililab/partials/TililabAdmissionJurySection';
+import TililabBottomSection from '@/pages/user/tililab/partials/TililabBottomSection';
+import TililabHero from '@/pages/user/tililab/partials/TililabHero';
+import TililabKeyDatesSection from '@/pages/user/tililab/partials/TililabKeyDatesSection';
+import TililabPrizesSection from '@/pages/user/tililab/partials/TililabPrizesSection';
+import TililabStatsBenefitsSection from '@/pages/user/tililab/partials/TililabStatsBenefitsSection';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function TililabIndex() {
-    const { currentEdition, editions, testimonials, news } = usePage().props;
+    const { currentEdition, flash } = usePage().props;
 
     return (
         <>
             <TililabHead />
             <div>
-                <ProgramHeroSection program="tililab" />
-                <ProgramStatsSection program="tililab" />
-
-                <TililabCurrentEditionSection edition={currentEdition} />
-
-                <TililabPastEditionsCarousel
-                    editions={editions ?? []}
-                    excludeEditionId={currentEdition?.id ?? null}
-                    excludeYear={currentEdition?.year ?? null}
-                />
-
-                <div className="bg-beta-white">
-                    <TililabConceptSection />
-                    <TililabWhyParticipateSection />
-                    <TililabJourneySection />
-                    <TililabPrizesSection />
-                    <TililabAdmissionSection />
-                    <TililabCriteriaSection />
-                </div>
-
-                <div className="bg-background">
-                    <KeyDatesSection edition={currentEdition} />
-                    <div className="mx-auto max-w-7xl px-4 pb-10">
-                        <GuidelinesSection />
+                {flash?.success ? (
+                    <div className="border-b border-emerald-200 bg-emerald-50 px-4 py-3 text-center text-sm text-emerald-900">
+                        {flash.success}
                     </div>
-                    <TililabHowToApply />
-                </div>
+                ) : null}
 
-                {/* <ProgramTestimonialsSection testimonials={testimonials ?? []} program="tililab" /> */}
-                {/* <ProgramNewsSection news={news ?? []} program="tililab" /> */}
-
-                <ProgramPartnersSection />
-
-                <div className="border-t border-border bg-background">
-                    <TililabFaqSection />
-                </div>
-
-                <ProgramContactSection program="tililab" />
+                <TililabHero videoUrl={usePage().props.teaserVideoUrl} />
+                <TililabStatsBenefitsSection />
+                <TililabPrizesSection />
+                <TililabKeyDatesSection />
+                <TililabAdmissionJurySection jury={currentEdition?.jury} />
+                <TililabBottomSection />
             </div>
         </>
     );
 }
 
-TililabIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
+TililabIndex.layout = (page) => (
+    <TililabProgramLayout>{page}</TililabProgramLayout>
+);
 
 function TililabHead() {
     const { t } = useTranslation();

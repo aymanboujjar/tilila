@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 
 /**
  * Seeds hero_slides from the 9 static slides previously defined in
- * resources/js/data/hero-carousel-data.js. Uses firstOrCreate keyed on
+ * Hero slides are defined inline below (formerly in resources/js/data/).
  * slide_key so it is safe to re-run without creating duplicates.
  *
  * slide_key values are the routing anchor — they must never change.

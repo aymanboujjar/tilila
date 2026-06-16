@@ -1,9 +1,9 @@
 import { Link } from '@inertiajs/react';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import { PartnerLogoTile } from '@/components/PartnerSection';
 import RegulationCta from '@/components/program/RegulationCta';
-import { PROGRAM_PARTNERS } from '@/data/program-partners';
+import { partnersInGroup } from '@/lib/programPartners';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 function SectionShell({ id, title, subtitle, children, className = '' }) {
@@ -455,6 +455,13 @@ export function ProgramContactSection({ program }) {
 }
 
 export function ProgramPartnersSection() {
+    const { partners = [] } = usePage().props;
+    const featured = partnersInGroup(partners, 'featured');
+
+    if (!featured.length) {
+        return null;
+    }
+
     return (
         <SectionShell
             id="partners"
@@ -469,11 +476,11 @@ export function ProgramPartnersSection() {
             className="bg-twhite"
         >
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                {PROGRAM_PARTNERS.map((partner) => (
+                {featured.map((partner) => (
                     <PartnerLogoTile
                         key={partner.id}
                         name={partner.name}
-                        logoUrl={partner.logoUrl}
+                        logoUrl={partner.logo_url}
                         tall
                         subtitle={
                             partner.subtitle ? (

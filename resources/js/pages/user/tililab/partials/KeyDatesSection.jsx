@@ -1,4 +1,12 @@
-import { CalendarDays } from 'lucide-react';
+import {
+    Calendar,
+    Clapperboard,
+    Gavel,
+    GraduationCap,
+    Megaphone,
+    Trophy,
+    Users,
+} from 'lucide-react';
 import TransText from '@/components/TransText';
 
 function formatDeadline(iso) {
@@ -17,53 +25,48 @@ function formatDeadline(iso) {
     }
 }
 
-const keyDates = [
+const KEY_DATES = [
     {
-        date: 'PHASE 1',
-        enTitle: 'Applications open',
-        frTitle: 'Ouverture des candidatures',
-        arTitle: 'فتح باب التقديم',
-        enDescription:
-            'Submit your application via the online form before the edition deadline.',
-        frDescription:
-            'Déposez votre candidature via le formulaire en ligne avant la date limite de l’édition.',
-        arDescription:
-            'قدّموا ترشحكم عبر الاستمارة الإلكترونية قبل الموعد النهائي للدورة.',
+        icon: Megaphone,
+        month: 'Mai 2026',
+        fr: 'Ouverture des candidatures',
+        en: 'Applications open',
+        ar: 'فتح باب الترشح',
     },
     {
-        date: 'PHASE 2',
-        enTitle: 'Pre-selection',
-        frTitle: 'Pré-sélection',
-        arTitle: 'الفرز الأولي',
-        enDescription:
-            'Up to six candidates are shortlisted for the masterclass and residency.',
-        frDescription:
-            'Jusqu’à six candidat·e·s sont présélectionné·e·s pour la masterclass et la résidence.',
-        arDescription: 'يتم اختيار ما يصل إلى ستة مرشحين للماستركلاس والإقامة.',
+        icon: Users,
+        month: 'Juin 2026',
+        fr: 'Pré-sélection',
+        en: 'Pre-selection',
+        ar: 'الفرز الأولي',
     },
     {
-        date: 'PHASE 3',
-        enTitle: 'Masterclass + 48h residency',
-        frTitle: 'Masterclass + résidence 48h',
-        arTitle: 'ماستركلاس + إقامة 48 ساعة',
-        enDescription:
-            'One-day masterclass followed by an intensive 48-hour creative residency.',
-        frDescription:
-            'Masterclass d’une journée suivie d’une résidence créative intensive de 48 heures.',
-        arDescription:
-            'ماستركلاس ليوم واحد يليه إقامة إبداعية مكثفة لمدة 48 ساعة.',
+        icon: GraduationCap,
+        month: 'Juillet 2026',
+        fr: 'Masterclass',
+        en: 'Masterclass',
+        ar: 'ماستركلاس',
     },
     {
-        date: 'PHASE 4',
-        enTitle: 'Jury & ceremony',
-        frTitle: 'Jury & cérémonie',
-        arTitle: 'لجنة التحكيم والحفل',
-        enDescription:
-            'The jury evaluates produced works; the winner is announced at the Tilila Awards ceremony.',
-        frDescription:
-            'Le jury évalue les œuvres produites ; le·la lauréat·e est annoncé·e lors de la cérémonie Tilila Awards.',
-        arDescription:
-            'تقيّم لجنة التحكيم الأعمال المنتجة؛ يُعلَن الفائز في حفل تيليلا أووردز.',
+        icon: Clapperboard,
+        month: 'Août 2026',
+        fr: 'Bootcamp créatif',
+        en: 'Creative bootcamp',
+        ar: 'المعسكر الإبداعي',
+    },
+    {
+        icon: Gavel,
+        month: 'Octobre 2026',
+        fr: 'Jury & Tililab Trophy',
+        en: 'Jury & Tililab Trophy',
+        ar: 'لجنة التحكيم وكأس تيليلاب',
+    },
+    {
+        icon: Trophy,
+        month: 'Novembre 2026',
+        fr: 'Cérémonie Tilila Awards',
+        en: 'Tilila Awards ceremony',
+        ar: 'حفل تيليلا أووردز',
     },
 ];
 
@@ -71,66 +74,70 @@ export default function KeyDatesSection({ edition = null }) {
     const deadline = formatDeadline(edition?.applications_close_at);
 
     return (
-        <div className="mx-auto max-w-7xl px-4 py-10">
-            <div className="rounded-2xl border border-border bg-background p-6">
-                <div className="flex items-center gap-2 text-sm font-semibold text-tblack">
-                    <span className="inline-flex size-8 items-center justify-center rounded-full bg-alpha-blue text-beta-blue">
-                        <CalendarDays className="size-4" />
-                    </span>
-                    <span>
-                        <TransText
-                            en="Key dates"
-                            fr="Dates clés"
-                            ar="التواريخ الرئيسية"
-                        />
-                    </span>
-                </div>
+        <section
+            id="calendar"
+            className="border-b border-border bg-alpha-blue/40 py-10 sm:py-12"
+        >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h2 className="text-2xl font-bold tracking-tight text-tblack sm:text-3xl">
+                    <TransText
+                        en="Key dates 2026"
+                        fr="Dates clés 2026"
+                        ar="التواريخ الرئيسية 2026"
+                    />
+                </h2>
 
                 {deadline ? (
-                    <p className="mt-4 rounded-xl border border-gold/30 bg-gold/5 px-4 py-3 text-sm text-tgray">
+                    <p className="mt-4 inline-flex items-center gap-2 rounded-full border border-beta-blue/30 bg-background px-4 py-2 text-sm font-semibold text-beta-blue">
+                        <Calendar className="size-4" aria-hidden />
                         <TransText
                             en={`Application deadline: ${deadline}`}
-                            fr={`Date limite de candidature : ${deadline}`}
-                            ar={`الموعد النهائي للترشح: ${deadline}`}
+                            fr={`Date limite : ${deadline}`}
+                            ar={`الموعد النهائي: ${deadline}`}
                         />
                     </p>
                 ) : (
                     <p className="mt-4 text-sm text-tgray">
                         <TransText
-                            en="Application deadline will be announced for the current edition."
-                            fr="La date limite de candidature sera annoncée pour l’édition en cours."
-                            ar="سيُعلَن الموعد النهائي للترشح للدورة الحالية."
+                            en="Applications open until July 31, 2026"
+                            fr="Candidatures ouvertes jusqu'au 31 juillet 2026"
+                            ar="التقديم مفتوح حتى 31 يوليو 2026"
                         />
                     </p>
                 )}
 
-                <div className="mt-6 grid gap-4 md:grid-cols-2">
-                    {keyDates.map((item) => (
-                        <div
-                            key={item.enTitle}
-                            className="rounded-xl border border-border bg-card p-4"
-                        >
-                            <div className="text-xs font-bold tracking-widest text-beta-blue">
-                                {item.date}
-                            </div>
-                            <h3 className="mt-2 text-sm font-semibold text-tblack">
-                                <TransText
-                                    en={item.enTitle}
-                                    fr={item.frTitle}
-                                    ar={item.arTitle}
-                                />
-                            </h3>
-                            <p className="mt-2 text-sm leading-relaxed text-tgray">
-                                <TransText
-                                    en={item.enDescription}
-                                    fr={item.frDescription}
-                                    ar={item.arDescription}
-                                />
-                            </p>
-                        </div>
-                    ))}
+                <div className="relative mt-10">
+                    <div
+                        className="absolute top-8 right-0 left-0 hidden h-0.5 border-t-2 border-dashed border-beta-blue/30 lg:block"
+                        aria-hidden
+                    />
+                    <ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-6">
+                        {KEY_DATES.map((item) => {
+                            const Icon = item.icon;
+                            return (
+                                <li
+                                    key={item.en}
+                                    className="relative flex flex-col items-center text-center"
+                                >
+                                    <div className="relative z-10 flex size-16 items-center justify-center rounded-full border-2 border-beta-blue bg-background text-beta-blue shadow-sm">
+                                        <Icon className="size-6" aria-hidden />
+                                    </div>
+                                    <p className="mt-4 text-xs font-bold tracking-widest text-beta-blue uppercase">
+                                        {item.month}
+                                    </p>
+                                    <h3 className="mt-2 text-sm font-semibold text-tblack">
+                                        <TransText
+                                            en={item.en}
+                                            fr={item.fr}
+                                            ar={item.ar}
+                                        />
+                                    </h3>
+                                </li>
+                            );
+                        })}
+                    </ol>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

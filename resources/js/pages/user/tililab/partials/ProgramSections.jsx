@@ -1,15 +1,9 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import RegulationCta from '@/components/program/RegulationCta';
 import { PartnerLogoTile, PartnerTier } from '@/components/PartnerSection';
-import { TILILAB_FAQ_ITEMS } from '@/data/tililab-faq';
-import { TILILAB_JURY_EDITION_NOTES } from '@/data/tililab-jury';
-import { TILILAB_LOGO } from '@/data/tilila-brand-logos';
-import {
-    TILILAB_MEDIA_PARTNERS,
-    TILILAB_ORGANISER,
-    TILILAB_PROGRAM_PARTNERS,
-} from '@/data/tililab-partners';
+import { partnersInGroup } from '@/lib/programPartners';
+import { TILILAB_FAQ_ITEMS } from '@/pages/user/tililab/partials/faq-items';
 
 function SectionShell({ id, title, subtitle, children }) {
     return (
@@ -148,6 +142,11 @@ export function TililabWhyParticipateSection() {
             fr: 'Produire une œuvre audiovisuelle originale',
             ar: 'إنتاج عمل سمعي بصري أصلي',
         },
+        {
+            en: 'Gain visibility with media and industry professionals',
+            fr: 'Gagner en visibilité auprès des médias et professionnels du secteur',
+            ar: 'اكتساب ظهور لدى الإعلام ومحترفي القطاع',
+        },
     ];
     return (
         <SectionShell
@@ -176,41 +175,13 @@ export function TililabWhyParticipateSection() {
 
 export function TililabJourneySection() {
     const steps = [
-        {
-            en: 'Online application',
-            fr: 'Candidature en ligne',
-            ar: 'الترشح عبر الإنترنت',
-        },
-        {
-            en: 'Pre-selection (up to 6 shortlisted)',
-            fr: 'Pré-sélection (jusqu’à 6 présélectionné·e·s)',
-            ar: 'فرز أولي (حتى 6 مرشحين)',
-        },
-        {
-            en: 'Masterclass (1 day)',
-            fr: 'Masterclass (1 journée)',
-            ar: 'ماستركلاس (يوم واحد)',
-        },
-        {
-            en: '48h creative residency',
-            fr: 'Résidence créative 48h',
-            ar: 'إقامة إبداعية 48 ساعة',
-        },
-        {
-            en: 'Audiovisual production',
-            fr: 'Production audiovisuelle',
-            ar: 'إنتاج سمعي بصري',
-        },
-        {
-            en: 'Jury evaluation',
-            fr: 'Évaluation par le jury',
-            ar: 'تقييم لجنة التحكيم',
-        },
-        {
-            en: 'Winner at Tilila Awards ceremony',
-            fr: 'Lauréat·e lors de la cérémonie Tilila Awards',
-            ar: 'الفائز في حفل تيليلا أووردز',
-        },
+        { en: 'Call for applications', fr: 'Appel à candidatures', ar: 'نداء للترشح' },
+        { en: 'Pre-selection', fr: 'Pré-sélection', ar: 'الفرز الأولي' },
+        { en: 'Masterclass', fr: 'Masterclass', ar: 'ماستركلاس' },
+        { en: 'Creative bootcamp', fr: 'Bootcamp créatif', ar: 'المعسكر الإبداعي' },
+        { en: 'Production', fr: 'Production', ar: 'الإنتاج' },
+        { en: 'Jury', fr: 'Jury', ar: 'لجنة التحكيم' },
+        { en: 'Tililab Trophy', fr: 'Tililab Trophy', ar: 'كأس تيليلاب' },
     ];
     return (
         <SectionShell
@@ -218,21 +189,21 @@ export function TililabJourneySection() {
             title={
                 <TransText
                     en="Tililab journey"
-                    fr="Le parcours Tililab"
+                    fr="Parcours Tililab"
                     ar="مسار تيليلاب"
                 />
             }
         >
-            <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <ol className="relative grid gap-4 sm:grid-cols-3 lg:grid-cols-7">
                 {steps.map((step, i) => (
                     <li
                         key={step.en}
-                        className="rounded-2xl border border-border bg-background p-4"
+                        className="relative flex flex-col items-center rounded-2xl border border-border bg-card p-4 text-center shadow-sm"
                     >
-                        <span className="text-xs font-bold text-beta-blue">
+                        <span className="flex size-8 items-center justify-center rounded-full bg-beta-blue text-xs font-bold text-twhite">
                             {i + 1}
                         </span>
-                        <p className="mt-2 text-sm font-semibold text-tblack">
+                        <p className="mt-3 text-sm font-semibold text-tblack">
                             <TransText en={step.en} fr={step.fr} ar={step.ar} />
                         </p>
                     </li>
@@ -243,110 +214,90 @@ export function TililabJourneySection() {
 }
 
 export function TililabAdmissionSection() {
+    const conditions = [
+        {
+            fr: 'Le concours est ouvert à toute personne résidant au Maroc et âgée de moins de 30 ans.',
+            en: 'The competition is open to anyone residing in Morocco under 30 years of age.',
+            ar: 'المسابقة مفتوحة لكل شخص مقيم في المغرب دون سن 30.',
+        },
+        {
+            fr: "Aucune condition de diplôme ou d'expérience professionnelle n'est exigée.",
+            en: 'No diploma or professional experience is required.',
+            ar: 'لا يُشترط دبلوم أو خبرة مهنية.',
+        },
+        {
+            fr: 'Le candidat doit présenter un portfolio, une réalisation audiovisuelle antérieure ou un projet personnel démontrant son intérêt pour la création de contenus.',
+            en: 'Candidates must submit a portfolio, prior audiovisual work or a personal project demonstrating interest in content creation.',
+            ar: 'يجب على المرشح تقديم ملف أعمال أو عمل سمعي بصري سابق أو مشروع شخصي يظهر اهتمامه بإنشاء المحتوى.',
+        },
+        {
+            fr: 'Les projets peuvent être soumis en arabe, amazighe ou français.',
+            en: 'Projects may be submitted in Arabic, Amazigh or French.',
+            ar: 'يمكن تقديم المشاريع بالعربية أو الأمازيغية أو الفرنسية.',
+        },
+        {
+            fr: "Les candidatures reçues feront l'objet d'une phase de présélection par le jury. Seuls les candidats retenus à l'issue de cette étape seront admis à participer au Bootcamp Tililab et à poursuivre le concours jusqu'à sa phase finale.",
+            en: 'Applications will undergo a pre-selection phase by the jury. Only shortlisted candidates will be admitted to the Tililab Bootcamp and continue to the final phase.',
+            ar: 'ستخضع الترشيحات لمرحلة فرز أولي من لجنة التحكيم. يُقبل في المعسكر ويُتابع المسابقة حتى النهائي المرشحون المختارون فقط.',
+        },
+    ];
+
     return (
         <SectionShell
             id="admission"
             title={
                 <TransText
                     en="Admission conditions"
-                    fr="Conditions d’admission"
+                    fr="Conditions d'admission"
                     ar="شروط القبول"
                 />
             }
         >
-            <ul className="list-inside list-disc space-y-2 text-sm leading-7 text-tgray">
-                <li>
-                    <TransText
-                        en="Residents of Morocco under 30 at the deadline."
-                        fr="Résident·e·s du Maroc de moins de 30 ans à la clôture."
-                        ar="مقيمون في المغرب دون 30 سنة عند الأجل."
-                    />
-                </li>
-                <li>
-                    <TransText
-                        en="No diploma or professional experience required."
-                        fr="Aucune condition de diplôme ou d’expérience professionnelle."
-                        ar="لا يلزم دبلوم أو خبرة مهنية."
-                    />
-                </li>
-                <li>
-                    <TransText
-                        en="Portfolio, prior audiovisual work or personal video project required."
-                        fr="Portfolio, réalisation antérieure ou projet vidéo personnel requis."
-                        ar="مطلوب ملف أعمال أو عمل سابق أو مشروع فيديو شخصي."
-                    />
-                </li>
+            <ul className="max-w-3xl space-y-4">
+                {conditions.map((item) => (
+                    <li
+                        key={item.en}
+                        className="flex items-start gap-3 text-sm leading-relaxed text-tgray"
+                    >
+                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-beta-blue text-xs font-bold text-twhite">
+                            ✓
+                        </span>
+                        <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                    </li>
+                ))}
             </ul>
         </SectionShell>
     );
 }
 
 export function TililabPrizesSection() {
+    const rewards = [
+        { en: 'Tililab Bootcamp participation', fr: 'Participation au Bootcamp Tililab', ar: 'المشاركة في معسكر تيليلاب' },
+        { en: 'Tililab Trophy', fr: 'Tililab Trophy', ar: 'كأس تيليلاب' },
+        { en: 'Work tool from SOREAD 2M', fr: 'Outil de travail offert par SOREAD 2M', ar: 'أداة عمل من SOREAD 2M' },
+        { en: 'Professional mentoring by LionsGeek', fr: 'Accompagnement professionnel par LionsGeek', ar: 'مرافقة مهنية من LionsGeek' },
+        { en: 'Project broadcast on 2M Group platforms', fr: 'Diffusion du projet sur les plateformes du Groupe 2M', ar: 'بث المشروع على منصات مجموعة 2M' },
+    ];
+
     return (
         <SectionShell
             id="prizes"
             title={<TransText en="Rewards" fr="Récompenses" ar="المكافآت" />}
-            subtitle={
-                <TransText
-                    en="What Tililab winners receive from 2M and partners."
-                    fr="Ce que reçoivent les lauréats Tililab de 2M et ses partenaires."
-                    ar="ما يحصل عليه فائزو تيليلاب من 2M والشركاء."
-                />
-            }
         >
-            <div className="grid gap-4 sm:grid-cols-2">
-                {[
-                    {
-                        en: 'Tililab trophy',
-                        fr: 'Trophée Tililab',
-                        ar: 'كأس تيليلاب',
-                        descEn: 'Official recognition of the winning creative spot.',
-                        descFr: 'Reconnaissance officielle du spot créatif gagnant.',
-                        descAr: 'تقدير رسمي للإعلان الإبداعي الفائز.',
-                    },
-                    {
-                        en: 'Work tool from SOREAD 2M',
-                        fr: 'Outil de travail offert par SOREAD 2M',
-                        ar: 'أداة عمل من SOREAD 2M',
-                        descEn: 'Professional equipment offered by SOREAD 2M.',
-                        descFr: 'Outil de travail professionnel offert par SOREAD 2M.',
-                        descAr: 'معدات مهنية تقدمها SOREAD 2M.',
-                    },
-                    {
-                        en: 'LionsGeek support',
-                        fr: 'Accompagnement LionsGeek',
-                        ar: 'مرافقة LionsGeek',
-                        descEn: 'Professional mentoring through LionsGeek.',
-                        descFr: 'Accompagnement professionnel assuré par LionsGeek.',
-                        descAr: 'مرافقة مهنية عبر LionsGeek.',
-                    },
-                    {
-                        en: 'Broadcast & visibility',
-                        fr: 'Diffusion & visibilité',
-                        ar: 'بث وظهور',
-                        descEn: 'Winning spot aired on 2M channels and social media.',
-                        descFr: 'Diffusion du spot sur les antennes et réseaux 2M.',
-                        descAr: 'بث الإعلان على قنوات 2M ووسائل التواصل.',
-                    },
-                ].map((p) => (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {rewards.map((r) => (
                     <div
-                        key={p.en}
-                        className="rounded-2xl border border-border bg-secondary p-5"
+                        key={r.en}
+                        className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm"
                     >
-                        <div className="text-sm font-semibold text-tblack">
-                            <TransText en={p.en} fr={p.fr} ar={p.ar} />
-                        </div>
-                        <div className="mt-2 text-sm text-tgray">
-                            <TransText
-                                en={p.descEn}
-                                fr={p.descFr}
-                                ar={p.descAr}
-                            />
-                        </div>
+                        <span className="text-xl" aria-hidden>🏆</span>
+                        <p className="text-sm font-semibold text-tblack">
+                            <TransText en={r.en} fr={r.fr} ar={r.ar} />
+                        </p>
                     </div>
                 ))}
             </div>
-            <div className="mt-6">
+            <div className="mt-8 text-center">
                 <RegulationCta href="/tililab/reglement" />
             </div>
         </SectionShell>
@@ -447,7 +398,6 @@ export function TililabJurySection({ editions = [] }) {
                         const jury = Array.isArray(edition.jury)
                             ? edition.jury
                             : [];
-                        const note = TILILAB_JURY_EDITION_NOTES[year];
                         const label = edition.edition_label ?? {
                             en: `${year}`,
                             fr: `${year}`,
@@ -469,15 +419,6 @@ export function TililabJurySection({ editions = [] }) {
                                         ar={label.ar ?? ''}
                                     />
                                 </p>
-                                {note ? (
-                                    <p className="mt-2 text-sm text-tgray">
-                                        <TransText
-                                            en={note.en}
-                                            fr={note.fr}
-                                            ar={note.ar}
-                                        />
-                                    </p>
-                                ) : null}
 
                                 {jury.length === 0 ? (
                                     <p className="mt-4 text-sm text-tgray italic">
@@ -653,25 +594,33 @@ export function TililabFaqSection() {
 }
 
 function TililabPartnerSubtitle({ partner }) {
+    const role = partner.meta?.role;
+    const edition = partner.meta?.edition;
+    if (!role) {
+        return null;
+    }
+
     return (
         <>
-            <TransText
-                en={partner.role.en}
-                fr={partner.role.fr}
-                ar={partner.role.ar}
-            />
-            <span className="mt-1 block font-medium text-beta-blue">
-                <TransText
-                    en={partner.edition.en}
-                    fr={partner.edition.fr}
-                    ar={partner.edition.ar}
-                />
-            </span>
+            <TransText en={role.en} fr={role.fr} ar={role.ar} />
+            {edition ? (
+                <span className="mt-1 block font-medium text-beta-blue">
+                    <TransText
+                        en={edition.en}
+                        fr={edition.fr}
+                        ar={edition.ar}
+                    />
+                </span>
+            ) : null}
         </>
     );
 }
 
 export function TililabSponsorsSection() {
+    const { partners = [] } = usePage().props;
+    const organiser = partnersInGroup(partners, 'organiser')[0];
+    const programPartners = partnersInGroup(partners, 'program');
+    const mediaPartners = partnersInGroup(partners, 'media');
     return (
         <SectionShell
             id="sponsors"
@@ -715,17 +664,25 @@ export function TililabSponsorsSection() {
                         />
                     }
                     description={
-                        <TransText
-                            en={TILILAB_ORGANISER.role.en}
-                            fr={TILILAB_ORGANISER.role.fr}
-                            ar={TILILAB_ORGANISER.role.ar}
-                        />
+                        organiser?.meta?.role ? (
+                            <TransText
+                                en={organiser.meta.role.en}
+                                fr={organiser.meta.role.fr}
+                                ar={organiser.meta.role.ar}
+                            />
+                        ) : (
+                            <TransText
+                                en="Organizer — creative bootcamp alongside Tilila Awards"
+                                fr="Organisateur — bootcamp créatif en marge des Tilila Awards"
+                                ar="المنظم — معسكر إبداعي إلى جانب تيليلا أووردز"
+                            />
+                        )
                     }
                 >
                     <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
                         <div className="flex justify-center rounded-2xl border border-border bg-white px-6 py-6 shadow-sm">
                             <img
-                                src={TILILAB_LOGO}
+                                src="/assets/tililab/tililab-logo.png"
                                 alt="Tililab logo"
                                 className="h-20 w-20 object-contain sm:h-24 sm:w-24"
                                 loading="lazy"
@@ -734,7 +691,7 @@ export function TililabSponsorsSection() {
                         </div>
                         <div className="flex flex-1 justify-center rounded-2xl border border-border bg-white px-8 py-8 shadow-sm">
                             <img
-                                src={TILILAB_ORGANISER.logoUrl}
+                                src={organiser?.logo_url ?? '/assets/organizer-logo.png'}
                                 alt="2M logo"
                                 className="h-24 w-full max-w-xs object-contain sm:h-28"
                                 loading="eager"
@@ -768,11 +725,11 @@ export function TililabSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        {TILILAB_PROGRAM_PARTNERS.map((partner) => (
+                        {programPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                                 tall
                                 subtitle={
                                     <TililabPartnerSubtitle partner={partner} />
@@ -808,11 +765,11 @@ export function TililabSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                        {TILILAB_MEDIA_PARTNERS.map((partner) => (
+                        {mediaPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                                 subtitle={
                                     <TililabPartnerSubtitle partner={partner} />
                                 }

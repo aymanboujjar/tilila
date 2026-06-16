@@ -1,20 +1,19 @@
-import { Link } from '@inertiajs/react';
+import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import TililaPeopleGrid from '@/components/TililaPeopleGrid';
 import RegulationCta from '@/components/program/RegulationCta';
 import { PartnerLogoTile, PartnerTier } from '@/components/PartnerSection';
-import { TILILA_FAQ_ITEMS } from '@/data/tilila-faq';
-import {
-    TILILA_INSTITUTIONAL_PARTNERS,
-    TILILA_MEDIA_PARTNERS,
-    TILILA_ORGANISER_LOGO,
-} from '@/data/tilila-partners-logos';
+import { partnersInGroup } from '@/lib/programPartners';
+import { TILILA_FAQ_ITEMS } from '@/pages/user/tilila/partials/faq-items';
 
-function SectionShell({ id, title, subtitle, children }) {
+function SectionShell({ id, title, subtitle, children, className = '' }) {
     return (
-        <section id={id} className="mx-auto max-w-7xl px-4 py-10">
+        <section
+            id={id}
+            className={`mx-auto max-w-7xl px-4 py-10 ${className}`}
+        >
             <div className="max-w-3xl">
-                <h2 className="text-2xl font-semibold tracking-tight text-tblack sm:text-3xl">
+                <h2 className="text-2xl font-bold tracking-tight text-tblack sm:text-3xl lg:text-4xl">
                     {title}
                 </h2>
                 {subtitle ? (
@@ -106,38 +105,51 @@ export function TililaWhyParticipateSection() {
     );
 }
 
-const TILILA_TROPHEE_SRC = '/assets/tilila/trophee-tilila.png';
-
 const TILILA_PRIZES = [
     {
         fr: 'Hommage Tilila',
         en: 'Hommage Tilila',
         ar: 'تكريم تيليلا',
-        reward: 'Distinction honorifique — trophée',
+        descFr: 'Distinction honorifique décernée à une personnalité engagée.',
+        descEn: 'Honorary distinction awarded to an engaged personality.',
+        descAr: 'تكريم شرفي يُمنح لشخصية ملتزمة.',
+        reward: null,
     },
     {
         fr: 'Prix du Jury',
         en: 'Jury Prize',
         ar: 'جائزة لجنة التحكيم',
-        reward: 'Trophée + espace pub 2M — 1 000 000 DH brut',
+        descFr: "Meilleur spot publicitaire promouvant l'égalité femmes-hommes.",
+        descEn: 'Best advertising spot promoting gender equality.',
+        descAr: 'أفضل إعلان يعزز المساواة بين النساء والرجال.',
+        reward: 'Trophée + espace publicitaire 2M de 1 000 000 DH brut',
     },
     {
-        fr: 'Prix d’Honneur',
+        fr: "Prix d'Honneur",
         en: 'Honour Prize',
         ar: 'جائزة الشرف',
-        reward: 'Trophée + espace pub 2M — 500 000 DH brut',
+        descFr: "Marque engagée en faveur de l'équité, de la diversité et de l'inclusion.",
+        descEn: 'Brand committed to equity, diversity and inclusion.',
+        descAr: 'علامة تجارية ملتزمة بالإنصاف والتنوع والإدماج.',
+        reward: 'Trophée + espace publicitaire 2M de 500 000 DH brut',
     },
     {
-        fr: 'Communication Engagée — ONLINE',
-        en: 'Engaged Communication — ONLINE',
-        ar: 'تواصل ملتزم — رقمي',
-        reward: 'Trophée + espace pub 2M — 250 000 DH brut',
+        fr: 'Prix de la Communication Engagée – Online',
+        en: 'Engaged Communication Prize – Online',
+        ar: 'جائزة التواصل الملتزم – رقمي',
+        descFr: 'Campagne ou contenu diffusé sur les supports digitaux.',
+        descEn: 'Campaign or content broadcast on digital media.',
+        descAr: 'حملة أو محتوى منشور على المنصات الرقمية.',
+        reward: 'Trophée + espace publicitaire 2M de 250 000 DH brut',
     },
     {
-        fr: 'Communication Engagée — OFFLINE',
-        en: 'Engaged Communication — OFFLINE',
-        ar: 'تواصل ملتزم — تقليدي',
-        reward: 'Trophée + espace pub 2M — 250 000 DH brut',
+        fr: 'Prix de la Communication Engagée – Offline',
+        en: 'Engaged Communication Prize – Offline',
+        ar: 'جائزة التواصل الملتزم – تقليدي',
+        descFr: 'Campagne diffusée en télévision, radio, presse écrite ou affichage.',
+        descEn: 'Campaign broadcast on TV, radio, print or out-of-home.',
+        descAr: 'حملة مُبثّة في التلفزيون أو الإذاعة أو الصحافة المكتوبة أو الإشهار الخارجي.',
+        reward: 'Trophée + espace publicitaire 2M de 250 000 DH brut',
     },
 ];
 
@@ -147,39 +159,51 @@ export function TililaPrizesSection() {
             id="prizes"
             title={
                 <TransText
-                    en="Categories & rewards"
-                    fr="Les catégories"
-                    ar="الفئات والمكافآت"
+                    en="Prizes & rewards"
+                    fr="Les prix & récompenses"
+                    ar="الجوائز والمكافآت"
+                />
+            }
+            subtitle={
+                <TransText
+                    en="Tilila Awards distinguish and reward campaigns, brands and personalities committed to equity, diversity and inclusion."
+                    fr="Les Tilila Awards distinguent et récompensent les campagnes, les marques et les personnalités engagées en faveur de l'équité, de la diversité et de l'inclusion."
+                    ar="تميّز تيليلا أووردز وتكافئ الحملات والعلامات والشخصيات الملتزمة بالإنصاف والتنوع والإدماج."
                 />
             }
         >
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {TILILA_PRIZES.map((p) => (
                     <div
                         key={p.fr}
-                        className="flex gap-4 rounded-2xl border border-border bg-secondary p-5"
+                        className="flex flex-col rounded-2xl border border-border bg-card p-5 shadow-sm"
                     >
-                        <div className="size-20 shrink-0 overflow-hidden rounded-xl border border-border bg-white sm:size-24">
-                            <img
-                                src={TILILA_TROPHEE_SRC}
-                                alt=""
-                                className="h-full w-full object-cover object-center"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                        </div>
-                        <div className="min-w-0">
-                            <div className="text-sm font-semibold text-tblack">
-                                <TransText en={p.en} fr={p.fr} ar={p.ar} />
+                        <div className="flex items-start gap-3">
+                            <span className="text-xl" aria-hidden>
+                                🏆
+                            </span>
+                            <div className="min-w-0 flex-1">
+                                <div className="text-sm font-bold text-tblack">
+                                    <TransText en={p.en} fr={p.fr} ar={p.ar} />
+                                </div>
+                                <p className="mt-2 text-sm leading-relaxed text-tgray">
+                                    <TransText
+                                        en={p.descEn}
+                                        fr={p.descFr}
+                                        ar={p.descAr}
+                                    />
+                                </p>
+                                {p.reward ? (
+                                    <p className="mt-3 text-sm font-semibold text-beta-blue">
+                                        {p.reward}
+                                    </p>
+                                ) : null}
                             </div>
-                            <p className="mt-2 text-sm text-tgray">
-                                {p.reward}
-                            </p>
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="mt-6">
+            <div className="mt-8 text-center">
                 <RegulationCta href="/tilila/reglement" />
             </div>
         </SectionShell>
@@ -187,61 +211,98 @@ export function TililaPrizesSection() {
 }
 
 export function TililaAdmissionSection() {
+    const conditions = [
+        {
+            fr: 'Le concours est ouvert aux annonceurs marocains ayant diffusé des campagnes publicitaires en télévision, radio, presse écrite, affichage ou sur les supports digitaux.',
+            en: 'The competition is open to Moroccan advertisers who have broadcast advertising campaigns on television, radio, print, out-of-home or digital media.',
+            ar: 'المسابقة مفتوحة للمعلنين المغاربة الذين بثوا حملات إعلانية في التلفزيون أو الإذاعة أو الصحافة المكتوبة أو الإشهار الخارجي أو المنصات الرقمية.',
+        },
+        {
+            fr: "Les campagnes présentées doivent promouvoir les valeurs d'équité, de diversité et d'inclusion portées par le programme Tilila.",
+            en: 'Submitted campaigns must promote the equity, diversity and inclusion values upheld by the Tilila program.',
+            ar: 'يجب أن تعزز الحملات المقدمة قيم الإنصاف والتنوع والإدماج التي يحملها برنامج تيليلا.',
+        },
+    ];
+
     return (
         <SectionShell
             id="admission"
             title={
                 <TransText
                     en="Admission conditions"
-                    fr="Conditions d’admission"
+                    fr="Conditions d'admission"
                     ar="شروط القبول"
                 />
             }
         >
-            <div className="space-y-4 text-sm leading-7 text-tgray">
-                <TransText
-                    fr={`Le concours est ouvert à tous les annonceurs marocains.
-
-Sont éligibles les campagnes publicitaires diffusées en télévision, sur les supports digitaux, en affichage, en presse écrite ou en radio, en langue arabe, amazighe ou française, quel que soit le secteur d'activité concerné.
-
-Les campagnes soumises doivent s'inscrire dans les valeurs portées par le programme Tilila et contribuer à promouvoir l'équité, la diversité et l'inclusion, notamment la parité femmes-hommes et/ou l'inclusion des personnes en situation de handicap.
-`}
-                    en={`The competition is open to all Moroccan advertisers.
-
-Eligible entries are advertising campaigns broadcast on television, digital media, out-of-home, print or radio, in Arabic, Amazigh or French, regardless of the industry sector concerned.
-
-Submitted campaigns must reflect the values promoted by the Tilila program and contribute to equity, diversity and inclusion, particularly gender parity and/or the inclusion of people with disabilities.
-`}
-                    ar={`المسابقة مفتوحة لجميع المعلنين المغاربة.
-
-تُقبل الحملات الإعلانية التي تم بثها في التلفزيون أو على المنصات الرقمية أو في الإشهار الخارجي أو الصحافة المكتوبة أو الإذاعة، باللغة العربية أو الأمازيغية أو الفرنسية، بغض النظر عن القطاع المعني.
-
-يجب أن تندرج الحملات المقدمة في إطار القيم التي يحملها برنامج تيليلا وأن تساهم في تعزيز الإنصاف والتنوع والإدماج، ولا سيما المساواة بين الجنسين و/أو إدماج الأشخاص في وضعية إعاقة.
-`}
-                />
+            <ul className="max-w-3xl space-y-4">
+                {conditions.map((item) => (
+                    <li
+                        key={item.en}
+                        className="flex items-start gap-3 text-sm leading-relaxed text-tgray"
+                    >
+                        <span className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-beta-blue text-xs font-bold text-twhite">
+                            ✓
+                        </span>
+                        <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                    </li>
+                ))}
+            </ul>
+            <div className="mt-8">
+                <RegulationCta href="/tilila/reglement" />
             </div>
         </SectionShell>
     );
 }
 
+const JURY_PLACEHOLDER_COUNT = 7;
+
 export function TililaJurySection({ jury = [] }) {
     const members = Array.isArray(jury) ? jury : [];
+    const showPlaceholders = members.length === 0;
 
     return (
         <SectionShell
             id="jury"
             title={<TransText en="The jury" fr="Le Jury" ar="لجنة التحكيم" />}
+            className="bg-background"
         >
-            <p className="max-w-3xl text-sm leading-7 text-tgray">
-                <TransText
-                    en="The Tilila Awards jury brings together recognized figures from media, communication, creation, institutions, research and civil society. It evaluates applications on creative quality, relevance, impact and contribution to EDI values."
-                    fr="Le Jury des Tilila Awards est composé de personnalités reconnues issues des médias, de la communication, de la création, des institutions, de la recherche et de la société civile. Il évalue les candidatures sur la qualité créative, la pertinence, l’impact et la contribution aux valeurs d’équité, de diversité et d’inclusion."
-                    ar="تضم لجنة تحكيم تيليلا أووردز شخصيات معروفة من الإعلام والاتصال والإبداع والمؤسسات والبحث والمجتمع المدني. تقيّم الترشحات من حيث الجودة الإبداعية والملاءمة والأثر والمساهمة في قيم الإنصاف والتنوع والإدماج."
-                />
-            </p>
-            {members.length > 0 ? (
-                <TililaPeopleGrid people={members} />
-            ) : null}
+            {showPlaceholders ? (
+                <>
+                    <p className="max-w-3xl text-sm leading-relaxed text-tgray">
+                        <TransText
+                            en="The composition of the Tilila Awards 2026 jury will be announced soon. Photos, biographies and roles will be published here after final validation."
+                            fr="La composition du jury Tilila Awards 2026 sera annoncée prochainement. Les photos, biographies et fonctions seront publiées ici après validation définitive."
+                            ar="سيتم الإعلان قريبًا عن تشكيلة لجنة تحكيم تيليلا أووردز 2026. ستُنشر الصور والسير الذاتية والمهام هنا بعد المصادقة النهائية."
+                        />
+                    </p>
+                    <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
+                        {Array.from({ length: JURY_PLACEHOLDER_COUNT }).map(
+                            (_, i) => (
+                                <div
+                                    key={i}
+                                    className="flex flex-col items-center rounded-2xl border border-dashed border-border bg-muted/40 p-4"
+                                >
+                                    <div className="size-20 rounded-full bg-muted sm:size-24" />
+                                    <div className="mt-3 h-3 w-16 rounded bg-muted" />
+                                    <div className="mt-2 h-2 w-24 rounded bg-muted/80" />
+                                </div>
+                            ),
+                        )}
+                    </div>
+                </>
+            ) : (
+                <>
+                    <p className="max-w-3xl text-sm leading-7 text-tgray">
+                        <TransText
+                            en="The Tilila Awards jury brings together recognized figures from media, communication, creation, institutions, research and civil society."
+                            fr="Le Jury des Tilila Awards est composé de personnalités reconnues issues des médias, de la communication, de la création, des institutions, de la recherche et de la société civile."
+                            ar="تضم لجنة تحكيم تيليلا أووردز شخصيات معروفة من الإعلام والاتصال والإبداع والمؤسسات والبحث والمجتمع المدني."
+                        />
+                    </p>
+                    <TililaPeopleGrid people={members} />
+                </>
+            )}
         </SectionShell>
     );
 }
@@ -451,6 +512,10 @@ export function TililaFaqSection() {
 }
 
 export function TililaSponsorsSection() {
+    const { partners = [] } = usePage().props;
+    const institutionalPartners = partnersInGroup(partners, 'institutional');
+    const mediaPartners = partnersInGroup(partners, 'media');
+
     return (
         <SectionShell
             id="sponsors"
@@ -503,7 +568,7 @@ export function TililaSponsorsSection() {
                 >
                     <div className="flex justify-center rounded-2xl border border-border bg-white px-8 py-8 shadow-sm">
                         <img
-                            src={TILILA_ORGANISER_LOGO}
+                            src="/assets/organizer-logo.png"
                             alt="2M logo"
                             className="h-24 w-full max-w-xs object-contain sm:h-28"
                             loading="eager"
@@ -536,18 +601,20 @@ export function TililaSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        {TILILA_INSTITUTIONAL_PARTNERS.map((partner) => (
+                        {institutionalPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                                 tall
                                 subtitle={
-                                    <TransText
-                                        en={partner.subtitle.en}
-                                        fr={partner.subtitle.fr}
-                                        ar={partner.subtitle.ar}
-                                    />
+                                    partner.subtitle ? (
+                                        <TransText
+                                            en={partner.subtitle.en}
+                                            fr={partner.subtitle.fr}
+                                            ar={partner.subtitle.ar}
+                                        />
+                                    ) : null
                                 }
                             />
                         ))}
@@ -580,11 +647,11 @@ export function TililaSponsorsSection() {
                     }
                 >
                     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-                        {TILILA_MEDIA_PARTNERS.map((partner) => (
+                        {mediaPartners.map((partner) => (
                             <PartnerLogoTile
                                 key={partner.id}
                                 name={partner.name}
-                                logoUrl={partner.logoUrl}
+                                logoUrl={partner.logo_url}
                             />
                         ))}
                     </div>
