@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import TransText from '@/components/TransText';
 import {
     TililaBtnOutline,
@@ -7,9 +8,18 @@ import {
     TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-const HERO_IMAGE = '/assets/tililab/tililab-banner.png';
+const HERO_FALLBACK = '/assets/tililab/tililab-banner.png';
 
-export default function TililabHero() {
+export default function TililabHero({ videoUrl }) {
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        const el = videoRef.current;
+        if (!el || !videoUrl) return;
+        el.muted = true;
+        void el.play().catch(() => {});
+    }, [videoUrl]);
+
     return (
         <TililaSection id="hero" className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16">
             <TililaContainer>
@@ -75,13 +85,28 @@ export default function TililabHero() {
                                     'polygon(12% 0, 100% 0, 100% 100%, 0 100%)',
                             }}
                         >
-                            <img
-                                src={HERO_IMAGE}
-                                alt=""
-                                className="aspect-[4/3] w-full object-cover brightness-[0.92] sm:aspect-video"
-                                loading="eager"
-                                decoding="async"
-                            />
+                            {videoUrl ? (
+                                <video
+                                    ref={videoRef}
+                                    className="aspect-[4/3] w-full object-cover sm:aspect-video"
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    preload="auto"
+                                    poster={HERO_FALLBACK}
+                                >
+                                    <source src={videoUrl} type="video/mp4" />
+                                </video>
+                            ) : (
+                                <img
+                                    src={HERO_FALLBACK}
+                                    alt=""
+                                    className="aspect-[4/3] w-full object-cover brightness-[0.92] sm:aspect-video"
+                                    loading="eager"
+                                    decoding="async"
+                                />
+                            )}
                         </div>
                     </div>
                 </div>

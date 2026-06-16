@@ -21,7 +21,7 @@ export default function TililabIndex() {
                     </div>
                 ) : null}
 
-                <TililabHero />
+                <TililabHero videoUrl={usePage().props.teaserVideoUrl} />
                 <TililabStatsBenefitsSection />
                 <TililabPrizesSection />
                 <TililabKeyDatesSection />

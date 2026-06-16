@@ -21,7 +21,7 @@ export default function TililaAwardsHeader() {
             <div className="mx-auto flex h-[72px] max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
                 <Link href="/" className="shrink-0">
                     <img
-                        src="/assets/tilila/tilila-awards-logo.png"
+                        src="/assets/logo.png"
                         alt="Tilila Awards"
                         className="h-10 w-auto object-contain sm:h-11"
                         loading="eager"
