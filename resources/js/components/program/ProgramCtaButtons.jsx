@@ -16,7 +16,7 @@ export function ProgramApplyButton({ href, children }) {
 
 export function ProgramRegulationButton({ href }) {
     return (
-        <Link
+        <a
             href={href}
             className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-beta-blue bg-transparent px-6 py-3 text-sm font-bold tracking-wide text-beta-blue uppercase transition hover:bg-beta-blue hover:text-twhite"
         >
@@ -26,7 +26,7 @@ export function ProgramRegulationButton({ href }) {
                 fr="Télécharger le règlement"
                 ar="تحميل النظام"
             />
-        </Link>
+        </a>
     );
 }
 
