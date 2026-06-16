@@ -18,7 +18,7 @@ export function getYoutubeEmbedUrl(raw) {
     );
 
     if (m) {
-        return `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1`;
+        return `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1&controls=1`;
     }
 
     m = url.match(
@@ -26,7 +26,7 @@ export function getYoutubeEmbedUrl(raw) {
     );
 
     if (m) {
-        return `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1`;
+        return `https://www.youtube.com/embed/${m[1]}?rel=0&modestbranding=1&controls=1`;
     }
 
     return null;
@@ -45,11 +45,12 @@ export function withYoutubeAutoplay(embedUrl) {
         const url = new URL(embedUrl);
         url.searchParams.set('autoplay', '1');
         url.searchParams.set('mute', '1');
+        url.searchParams.set('controls', '1');
 
         return url.toString();
     } catch {
         const separator = embedUrl.includes('?') ? '&' : '?';
 
-        return `${embedUrl}${separator}autoplay=1&mute=1`;
+        return `${embedUrl}${separator}autoplay=1&mute=1&controls=1`;
     }
 }

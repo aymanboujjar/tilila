@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 import { withYoutubeAutoplay } from '@/lib/youtubeEmbed';
 
-const mediaFrameClass =
-    'relative aspect-video overflow-hidden sm:aspect-21/9 lg:aspect-[2.4/1]';
+const bannerFrameClass =
+    'relative aspect-21/9 overflow-hidden sm:aspect-[2.4/1]';
+const videoFrameClass = 'relative aspect-video overflow-hidden';
 
 function EditionBanner({ bannerSrc, shellClass, id }) {
     return (
@@ -34,7 +35,7 @@ export default function EditionTopHero({
     if (uploadSrc && !uploadFailed) {
         return (
             <div id={id} className={shellClass}>
-                <div className={mediaFrameClass}>
+                <div className={videoFrameClass}>
                     <video
                         className="absolute inset-0 h-full w-full object-cover"
                         autoPlay
@@ -64,11 +65,11 @@ export default function EditionTopHero({
     if (embedUrl) {
         return (
             <div id={id} className={shellClass}>
-                <div className={mediaFrameClass}>
+                <div className={videoFrameClass}>
                     <iframe
                         src={withYoutubeAutoplay(embedUrl)}
                         title="Edition video"
-                        className="absolute top-1/2 left-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 border-0 sm:h-[131.25%] lg:h-[135%]"
+                        className="absolute inset-0 h-full w-full border-0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowFullScreen
                     />

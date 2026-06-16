@@ -102,7 +102,7 @@ export default function TililaBottomSection() {
                         </div>
                     </div>
                 </div>
-
+{/* 
                 {editions?.length > 0 ? (
                     <div>
                         <TililaSectionHeading
@@ -122,7 +122,7 @@ export default function TililaBottomSection() {
                             />
                         </div>
                     </div>
-                ) : null}
+                ) : null} */}
             </TililaContainer>
         </TililaSection>
     );

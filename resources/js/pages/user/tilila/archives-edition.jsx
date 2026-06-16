@@ -16,6 +16,7 @@ import {
     TililaTealText,
 } from '@/pages/user/tilila/partials/TililaUi';
 import { findArchiveEdition } from '@/pages/user/tilila/utils/archiveEditions';
+import { useYoutubeAvailability } from '@/hooks/useYoutubeAvailability';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 const EDITION_NAV = [
@@ -67,10 +68,12 @@ export default function TililaArchivesEdition() {
     const label = textFor(edition.edition_label, locale);
     const theme = textFor(edition.theme, locale);
     const ceremony = textFor(edition.ceremony, locale);
+    const ceremonyVideo = useYoutubeAvailability(edition.ceremony_video_url);
 
-    const navItems = EDITION_NAV.filter(
-        (item) => item.id !== 'video' || edition.ceremony_video_url,
-    );
+    const navItems = EDITION_NAV.filter((item) => {
+        if (item.id === 'video') return ceremonyVideo.available;
+        return true;
+    });
 
     return (
         <>
@@ -162,10 +165,12 @@ export default function TililaArchivesEdition() {
                     <EditionGallerySection
                         images={edition.gallery_images ?? []}
                     />
-                    <EditionVideoSection
-                        videoUrl={edition.ceremony_video_url}
-                        year={edition.year}
-                    />
+                    {ceremonyVideo.available && ceremonyVideo.embedUrl ? (
+                        <EditionVideoSection
+                            year={edition.year}
+                            embedUrl={ceremonyVideo.embedUrl}
+                        />
+                    ) : null}
                 </TililaContainer>
             </TililaSection>
         </>

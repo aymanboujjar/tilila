@@ -1,6 +1,6 @@
-import { Award, Gavel, Play } from 'lucide-react';
+import { Award, Gavel } from 'lucide-react';
 import TransText from '@/components/TransText';
-import { getYoutubeEmbedUrl } from '@/lib/youtubeEmbed';
+import { useYoutubeAvailability } from '@/hooks/useYoutubeAvailability';
 import TililaHorizontalCarousel from '@/pages/user/tilila/partials/TililaHorizontalCarousel';
 import {
     TililaIconBadge,
@@ -234,9 +234,15 @@ export function EditionGallerySection({ images = [] }) {
     );
 }
 
-export function EditionVideoSection({ videoUrl, year }) {
-    const embed = videoUrl ? getYoutubeEmbedUrl(videoUrl) : null;
-    if (!embed && !videoUrl) return null;
+export function EditionVideoSection({ videoUrl, year, embedUrl: embedUrlProp }) {
+    const check = useYoutubeAvailability(embedUrlProp ? null : videoUrl);
+    const embedUrl = embedUrlProp ?? check.embedUrl;
+    const loading = embedUrlProp ? false : check.loading;
+    const available = embedUrlProp ? Boolean(embedUrlProp) : check.available;
+
+    if (loading || !available || !embedUrl) {
+        return null;
+    }
 
     return (
         <section id="video">
@@ -250,30 +256,15 @@ export function EditionVideoSection({ videoUrl, year }) {
                 }
             />
             <div className="mt-6 overflow-hidden rounded-2xl border border-border/60 bg-tblack shadow-lg">
-                {embed ? (
-                    <div className="aspect-video">
-                        <iframe
-                            title={`Ceremony ${year}`}
-                            src={embed}
-                            className="h-full w-full"
-                            allowFullScreen
-                        />
-                    </div>
-                ) : (
-                    <a
-                        href={videoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-2 px-6 py-10 text-sm font-semibold text-beta-blue hover:underline"
-                    >
-                        <Play className="size-4" />
-                        <TransText
-                            en="Watch video"
-                            fr="Voir la vidéo"
-                            ar="شاهد الفيديو"
-                        />
-                    </a>
-                )}
+                <div className="aspect-video">
+                    <iframe
+                        title={`Ceremony ${year}`}
+                        src={embedUrl}
+                        className="h-full w-full"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                    />
+                </div>
             </div>
         </section>
     );
