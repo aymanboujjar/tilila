@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\HeroSlide;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
@@ -14,6 +17,8 @@ use Inertia\Response;
 
 class HeroSlideController extends Controller
 {
+    private bool $wasTempFileMissing = false;
+
     public function index(): Response
     {
         $slides = HeroSlide::query()
@@ -28,7 +33,9 @@ class HeroSlideController extends Controller
                 'display_type' => $s->display_type ?? 'banner',
                 'path_prefix' => $s->path_prefix,
                 'also_on_home' => (bool) $s->also_on_home,
+                'media_type' => $s->media_type ?? 'image',
                 'image_url' => $s->image_url,
+                'video_url' => $s->video_url,
                 'title_before' => $s->title_before,
                 'title_accent' => $s->title_accent,
             ]);
@@ -53,6 +60,10 @@ class HeroSlideController extends Controller
             $data['image_path'] = $request->file('image')->store('hero_slides', 'public');
         }
 
+        $this->wasTempFileMissing = false;
+        $this->promoteTempVideoPath($data);
+        $this->finalizeVideoPath($data);
+
         // Auto-assign sort_order to the end when the admin leaves it at the default 0.
         if (! $request->filled('sort_order') || (int) $request->input('sort_order') === 0) {
             $data['sort_order'] = (int) (HeroSlide::query()->max('sort_order') ?? -1) + 1;
@@ -67,7 +78,10 @@ class HeroSlideController extends Controller
     public function edit(HeroSlide $heroSlide): Response
     {
         return Inertia::render('admin/hero-slides/edit', [
-            'slide' => array_merge($heroSlide->toArray(), ['image_url' => $heroSlide->image_url]),
+            'slide' => array_merge($heroSlide->toArray(), [
+                'image_url' => $heroSlide->image_url,
+                'video_url' => $heroSlide->video_url,
+            ]),
             'displayTypeOptions' => ['banner', 'carousel'],
         ]);
     }
@@ -76,14 +90,47 @@ class HeroSlideController extends Controller
     {
         $data = $this->validated($request, $heroSlide);
 
+        $newMediaType = (string) ($data['media_type'] ?? 'image');
+        $oldMediaType = (string) ($heroSlide->media_type ?? 'image');
+
+        if ($newMediaType === 'image' && $oldMediaType === 'video') {
+            if ($heroSlide->video_path) {
+                $this->deleteStoredFile((string) $heroSlide->video_path);
+            }
+            $data['video_path'] = null;
+        }
+
+        if ($newMediaType === 'video' && $oldMediaType === 'image') {
+            if ($heroSlide->image_path) {
+                $this->deleteStoredFile((string) $heroSlide->image_path);
+            }
+            $data['image_path'] = null;
+        }
+
         if ($request->hasFile('image')) {
-            if ($heroSlide->image_path && ! str_starts_with((string) $heroSlide->image_path, '/')) {
-                Storage::disk('public')->delete((string) $heroSlide->image_path);
+            if ($heroSlide->image_path) {
+                $this->deleteStoredFile((string) $heroSlide->image_path);
             }
             $data['image_path'] = $request->file('image')->store('hero_slides', 'public');
         }
 
+        $previousVideoPath = $heroSlide->video_path;
+
+        $this->wasTempFileMissing = false;
+        $this->promoteTempVideoPath($data);
+        $this->finalizeVideoPath($data, $heroSlide);
+
         $heroSlide->update($data);
+
+        if (
+            $newMediaType === 'video'
+            && $oldMediaType === 'video'
+            && $previousVideoPath
+            && ($data['video_path'] ?? null) !== $previousVideoPath
+        ) {
+            $this->deleteStoredFile((string) $previousVideoPath);
+        }
+
         $this->syncDisplayTypeForPath($heroSlide->path_prefix, (string) $data['display_type']);
 
         return redirect()->route('admin.hero-slides.index')->with('success', 'Hero slide updated.');
@@ -91,9 +138,8 @@ class HeroSlideController extends Controller
 
     public function destroy(HeroSlide $heroSlide): RedirectResponse
     {
-        if ($heroSlide->image_path && ! str_starts_with((string) $heroSlide->image_path, '/')) {
-            Storage::disk('public')->delete((string) $heroSlide->image_path);
-        }
+        $this->deleteStoredFile((string) $heroSlide->image_path);
+        $this->deleteStoredFile((string) $heroSlide->video_path);
         $heroSlide->delete();
 
         return redirect()->route('admin.hero-slides.index')->with('success', 'Hero slide deleted.');
@@ -118,6 +164,23 @@ class HeroSlideController extends Controller
         $heroSlide->update(['also_on_home' => ! $heroSlide->also_on_home]);
 
         return redirect()->route('admin.hero-slides.index')->with('success', 'Home carousel setting updated.');
+    }
+
+    public function uploadVideo(Request $request): JsonResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'video' => 'required|file|mimes:mp4,webm',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => $validator->errors()->first('video'),
+            ], 422);
+        }
+
+        $path = $request->file('video')->store('hero_slides/videos/temp', 'public');
+
+        return response()->json(['path' => $path]);
     }
 
     public function reorder(Request $request): RedirectResponse
@@ -153,6 +216,13 @@ class HeroSlideController extends Controller
             'banner_image_contain' => 'boolean',
             'image_position' => 'nullable|string|max:32',
             'image_bg' => 'nullable|string|max:64',
+            'media_type' => 'required|string|in:image,video',
+            'video_path' => [
+                'nullable',
+                'string',
+                'max:500',
+                'regex:#^hero_slides/videos/(temp/)?[A-Za-z0-9._-]+\.(mp4|webm)$#',
+            ],
             'image' => 'nullable|image|max:8192',
 
             'image_alt' => 'nullable|array',
@@ -198,7 +268,9 @@ class HeroSlideController extends Controller
             'ctas.*.url' => 'nullable|string|max:2048',
             'ctas.*.style' => 'required|string|in:primary,secondary',
             'ctas.*.is_active' => 'boolean',
-        ], [], [
+        ], [
+            'video_path.regex' => 'The video reference is invalid. Please re-upload the video.',
+        ], [
             'ctas.*.label.en' => 'CTA label (EN)',
             'ctas.*.label.fr' => 'CTA label (FR)',
             'ctas.*.label.ar' => 'CTA label (AR)',
@@ -279,5 +351,84 @@ class HeroSlideController extends Controller
         $normalized = $this->normalizePathPrefix($slide->path_prefix);
 
         return $normalized !== null && $normalized !== '/';
+    }
+
+    /** @param array<string, mixed> $data */
+    private function finalizeVideoPath(array &$data, ?HeroSlide $slide = null): void
+    {
+        if (
+            ($data['media_type'] ?? 'image') === 'video'
+            && empty($data['video_path'])
+            && $slide?->video_path
+        ) {
+            $data['video_path'] = $slide->video_path;
+        }
+
+        if (($data['media_type'] ?? 'image') === 'image') {
+            $data['video_path'] = null;
+
+            return;
+        }
+
+        if ($this->wasTempFileMissing) {
+            throw ValidationException::withMessages([
+                'video_path' => ['The uploaded video is no longer available. Please re-upload the video.'],
+            ]);
+        }
+
+        if (empty($data['video_path'])) {
+            throw ValidationException::withMessages([
+                'video_path' => ['A video file is required when media type is video.'],
+            ]);
+        }
+    }
+
+    /** @param array<string, mixed> $data */
+    private function promoteTempVideoPath(array &$data): void
+    {
+        if (
+            ! isset($data['video_path'])
+            || ! is_string($data['video_path'])
+            || ! str_starts_with($data['video_path'], 'hero_slides/videos/temp/')
+        ) {
+            return;
+        }
+
+        $tempPath = $data['video_path'];
+        $finalPath = 'hero_slides/videos/'.basename($tempPath);
+        $disk = Storage::disk('public');
+
+        if (! $disk->exists($tempPath)) {
+            Log::warning('Temp video file not found during promotion', [
+                'temp_path' => $tempPath,
+            ]);
+            $data['video_path'] = null;
+            $this->wasTempFileMissing = true;
+
+            return;
+        }
+
+        try {
+            $disk->move($tempPath, $finalPath);
+            $data['video_path'] = $finalPath;
+        } catch (\Exception $e) {
+            Log::error('Failed to promote temp video file', [
+                'temp_path' => $tempPath,
+                'final_path' => $finalPath,
+                'error' => $e->getMessage(),
+            ]);
+            throw new \RuntimeException(
+                'The video could not be saved. Please re-upload and try again.',
+                0,
+                $e
+            );
+        }
+    }
+
+    private function deleteStoredFile(?string $path): void
+    {
+        if ($path && ! str_starts_with($path, '/')) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }
