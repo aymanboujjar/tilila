@@ -227,7 +227,6 @@ export default function Navbar() {
                     onClick={closeMobile}
                 >
                     <img
-                        src="/assets/logo.png"
                         alt="Tilila"
                         className="h-10 w-auto object-contain"
                         loading="eager"
