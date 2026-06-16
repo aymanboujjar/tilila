@@ -86,13 +86,13 @@ export function TililaBtnPrimary({ href, children, className = '' }) {
 
 export function TililaBtnOutline({ href, children, className = '' }) {
     return (
-        <Link
+        <a
             href={href}
             className={`inline-flex items-center justify-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue ${className}`}
         >
             <Download className="size-4" aria-hidden />
             {children}
-        </Link>
+        </a>
     );
 }
 
