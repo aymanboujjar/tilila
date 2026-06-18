@@ -10,9 +10,12 @@ const CARDS = [
     {
         id: 'tilila',
         href: '/tilila/participate',
-        image: '/assets/tilila/tilila-awards-logo.png',
-        imageClass: 'h-[70%] w-[85%] max-w-full object-contain object-center',
+        image: '/assets/logo.png',
+        imageAlt: 'Tilila',
+        imageClass: 'h-auto w-[88%] max-w-[9.5rem] object-contain object-center sm:max-w-[10.5rem]',
         imageLayout: 'logo',
+        imagePanelClass:
+            'flex items-center justify-center bg-white/95 px-3 py-4',
         gradient: 'from-brand-light-purple via-beta-blue to-[#3d1f6e]',
         title: 'TILILA AWARDS',
         descEn: 'Reward campaigns that evolve representations.',
@@ -22,9 +25,12 @@ const CARDS = [
     {
         id: 'tililab',
         href: '/tililab',
-        image: '/assets/tililab/tililab-banner.png',
-        imageClass: 'h-full w-full object-cover object-center',
-        imageLayout: 'cover',
+        image: '/assets/tililab/tililab-logo.png',
+        imageAlt: 'Tililab',
+        imageClass: 'h-auto w-[92%] max-w-full object-contain object-center',
+        imageLayout: 'logo',
+        imagePanelClass:
+            'flex items-center justify-center bg-[#f7f4e8] px-2 py-3',
         gradient: 'from-beta-turquoise via-[#00b4d8] to-[#0096c7]',
         title: 'TILILAB',
         descEn: 'Reveal the talents who create tomorrow’s stories.',
@@ -46,14 +52,15 @@ export default function HomeProgramCards() {
                         >
                             <div
                                 className={`relative w-[42%] shrink-0 overflow-hidden ${
-                                    card.imageLayout === 'logo'
-                                        ? 'flex items-center justify-center bg-tblack/25'
-                                        : ''
+                                    card.imagePanelClass ??
+                                    (card.imageLayout === 'logo'
+                                        ? 'flex items-center justify-center bg-white/95'
+                                        : '')
                                 }`}
                             >
                                 <img
                                     src={card.image}
-                                    alt=""
+                                    alt={card.imageAlt ?? ''}
                                     className={
                                         card.imageLayout === 'cover'
                                             ? `absolute inset-0 ${card.imageClass}`
@@ -61,10 +68,12 @@ export default function HomeProgramCards() {
                                     }
                                     loading="lazy"
                                 />
-                                <div
-                                    className="absolute inset-0 bg-linear-to-r from-transparent to-black/10"
-                                    aria-hidden
-                                />
+                                {card.imageLayout === 'cover' ? (
+                                    <div
+                                        className="absolute inset-0 bg-linear-to-r from-transparent to-black/10"
+                                        aria-hidden
+                                    />
+                                ) : null}
                             </div>
 
                             <div className="flex flex-1 flex-col justify-center px-5 py-6 sm:px-7">

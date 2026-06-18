@@ -35,13 +35,13 @@ const NAV = [
         ar: 'الأرشيف',
         match: (p) => p.startsWith('/tilila/archives'),
     },
-    {
-        href: '/events',
-        en: 'News',
-        fr: 'Actualités',
-        ar: 'أخبار',
-        match: (p) => p.startsWith('/events') || p.startsWith('/actualites'),
-    },
+    // {
+    //     href: '/events',
+    //     en: 'News',
+    //     fr: 'Actualités',
+    //     ar: 'أخبار',
+    //     match: (p) => p.startsWith('/events') || p.startsWith('/actualites'),
+    // },
     {
         href: '/about#partners',
         en: 'Partners',
@@ -49,13 +49,13 @@ const NAV = [
         ar: 'الشركاء',
         match: (p) => p === '/about',
     },
-    {
-        href: '/tilila#faq',
-        en: 'FAQ',
-        fr: 'FAQ',
-        ar: 'الأسئلة الشائعة',
-        match: () => false,
-    },
+    // {
+    //     href: '/tilila#faq',
+    //     en: 'FAQ',
+    //     fr: 'FAQ',
+    //     ar: 'الأسئلة الشائعة',
+    //     match: () => false,
+    // },
     {
         href: '/contact',
         en: 'Contact',
