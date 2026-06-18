@@ -399,6 +399,19 @@
             "empty": {
                 "title": "No editions found",
                 "message": "Try adjusting your search or filters to discover Tilila Awards history."
+            },
+            "hub": {
+                "laureatsTitle": "Winners",
+                "galleryTitle": "Gallery",
+                "galleryAll": "All",
+                "galleryPhotos": "Photos",
+                "galleryVideos": "Videos",
+                "agency": "Agency",
+                "seeAllLaureats": "See all winners",
+                "seeAllGallery": "See all photos & videos",
+                "noLaureats": "No winners published for this selection yet.",
+                "noGallery": "No photos or videos for this selection yet.",
+                "sidebarHint": "Use the menu to jump to each archive section."
             }
         }
     },

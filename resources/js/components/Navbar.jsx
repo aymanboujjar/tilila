@@ -107,7 +107,10 @@ export default function Navbar() {
     const isActiveHref = (href) => {
         const normalized = normalizePath(currentPath);
         const target = normalizePath(href);
-        if (target === '/tilila' && (normalized === '/' || normalized === '/tilila')) {
+        if (target === '/tilila' && normalized === '/tilila') {
+            return true;
+        }
+        if (target === '/' && normalized === '/') {
             return true;
         }
         return normalized === target;
@@ -307,7 +310,6 @@ export default function Navbar() {
                 </nav>
 
                 <div className="ml-auto- hidden items-center gap-3 md:flex">
-                    <LanguageSwitcher />
                     {auth?.user ? (
                         showAccountMenu ? (
                             <DropdownMenu>
@@ -352,9 +354,11 @@ export default function Navbar() {
                             />
                         </Link>
                     )}
+                    <LanguageSwitcher />
                 </div>
 
-                <div className="ml-auto- flex md:hidden">
+                <div className="ml-auto- flex items-center gap-2 md:hidden">
+                    <LanguageSwitcher />
                     <button
                         type="button"
                         className="inline-flex h-10 w-10 items-center justify-center rounded-full text-tblack transition-colors hover:bg-alpha-blue/40"
@@ -468,11 +472,10 @@ export default function Navbar() {
                                 ) : null}
                             </div>
 
-                            <div className="mt-2 flex items-center justify-between gap-2">
-                                <LanguageSwitcher className="w-fit" />
+                            <div className="mt-2 flex items-center justify-end">
                                 <Link
                                     href="/experts"
-                                    className={`${registerButtonClass} flex-1 justify-center`}
+                                    className={`${registerButtonClass} justify-center`}
                                     onClick={closeMobile}
                                 >
                                     <TransText

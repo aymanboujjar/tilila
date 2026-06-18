@@ -122,24 +122,31 @@ use Laravel\Fortify\Features;
 
 
 Route::get('/', function () {
-    $currentEdition = TililaEdition::current();
-
-    $pastEditions = TililaEdition::query()
-        ->where('is_current', false)
-        ->when(
-            $currentEdition,
-            fn ($q) => $q->where('id', '!=', $currentEdition->id),
-        )
-        ->orderByDesc('year')
-        ->orderBy('sort')
+    $news = Event::query()
+        ->where('visibility', 'public')
+        ->where('status', '!=', 'draft')
+        ->orderByDesc('date')
         ->orderByDesc('id')
-        ->get();
+        ->limit(4)
+        ->get()
+        ->map(function (Event $event) {
+            $list = is_array($event->list_payload) ? $event->list_payload : [];
+            $badge = $list['badge'] ?? ['en' => 'NEWS', 'fr' => 'NEWS', 'ar' => 'أخبار'];
 
-    return Inertia::render('user/tilila/index', [
-        'currentEdition' => $currentEdition,
-        'editions' => $pastEditions,
-        ...ProgramPageProps::forProgram('tilila'),
-        'teaserVideoUrl' => TililaHighlightVideos::teaserUrl()
+            return [
+                'id' => (string) $event->id,
+                'slug' => (string) $event->slug,
+                'title' => $event->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'badge' => $badge,
+                'badgeTone' => 'purple',
+                'date' => $event->date?->format('Y-m-d') ?? '',
+                'cover_image_url' => $event->cover_image_url ?? ($list['imageSrc'] ?? null),
+                'href' => route('events.show', $event->id),
+            ];
+        });
+
+    return Inertia::render('home/index', [
+        'news' => $news,
     ]);
 })->name('home');
 
@@ -231,7 +238,8 @@ Route::get('/tilila', function () {
         'currentEdition' => $currentEdition,
         'editions' => $pastEditions,
         ...ProgramPageProps::forProgram('tilila'),
-        'teaserVideoUrl' => TililaHighlightVideos::teaserUrl(),
+        'teaserVideoUrl' => TililaHighlightVideos::bestOfUrl()
+            ?? TililaHighlightVideos::teaserUrl(),
     ]);
 });
 
@@ -243,8 +251,17 @@ Route::get('/tilila/archives', function () {
         ->orderByDesc('id')
         ->get();
 
+    $tililabEditions = TililabEdition::query()
+        ->where('is_current', false)
+        ->orderByDesc('year')
+        ->orderBy('sort')
+        ->orderByDesc('id')
+        ->get()
+        ->each->withArchiveEnrichment();
+
     return Inertia::render('user/tilila/archives', [
         'editions' => $editions,
+        'tililabEditions' => $tililabEditions,
     ]);
 })->name('tilila.archives');
 

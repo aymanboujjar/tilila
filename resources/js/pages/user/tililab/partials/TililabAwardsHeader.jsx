@@ -54,7 +54,6 @@ export default function TililabAwardsHeader() {
                 </nav>
 
                 <div className="ms-auto flex items-center gap-2">
-                    <LanguageSwitcher />
                     <button
                         type="button"
                         className="inline-flex size-10 items-center justify-center rounded-lg border border-border lg:hidden"
@@ -68,6 +67,7 @@ export default function TililabAwardsHeader() {
                             <Menu className="size-5" />
                         )}
                     </button>
+                    <LanguageSwitcher />
                 </div>
             </div>
 

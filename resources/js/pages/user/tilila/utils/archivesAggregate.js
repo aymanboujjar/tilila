@@ -2,7 +2,7 @@ import {
     buildArchiveEditions,
     extractAgency,
 } from '@/pages/user/tilila/utils/archiveEditions';
-import { textFor } from '@/pages/user/tilila/partials/EditionDetailContent';
+import { storagePhotoSrc, textFor } from '@/pages/user/tilila/partials/EditionDetailContent';
 
 function parseCampaignFromLine(line, locale = 'fr') {
     const text = line?.[locale] || line?.fr || line?.en || '';
@@ -116,6 +116,7 @@ export function buildArchivesSections(editions, locale = 'fr') {
                     ...base,
                     name: member.full_name,
                     role: textFor(member.bio, locale),
+                    photo_path: member.photo_path ?? null,
                 });
             }
         }
@@ -124,7 +125,7 @@ export function buildArchivesSections(editions, locale = 'fr') {
             for (const path of edition.gallery_images) {
                 photos.push({
                     ...base,
-                    src: path.startsWith('/') ? path : `/storage/${path}`,
+                    src: storagePhotoSrc(path),
                 });
             }
         }

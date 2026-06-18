@@ -4,6 +4,8 @@ import {
     TililaBtnOutline,
     TililaBtnPrimary,
     TililaContainer,
+    TILILA_HERO_BTN,
+    TILILA_HERO_CTA_ROW,
     TililaDeadlinePill,
     TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
@@ -69,15 +71,21 @@ export default function TililaHero({ videoUrl }) {
                             <TililaDeadlinePill deadline="31 août 2026" />
                         </div>
 
-                        <div className="mt-8 flex flex-wrap gap-3">
-                            <TililaBtnPrimary href="/tilila/participate">
+                        <div className={`mt-8 ${TILILA_HERO_CTA_ROW}`}>
+                            <TililaBtnPrimary
+                                href="/tilila/participate"
+                                className={TILILA_HERO_BTN}
+                            >
                                 <TransText
                                     en="Submit application"
                                     fr="Déposer une candidature"
                                     ar="قدّم ترشيحك"
                                 />
                             </TililaBtnPrimary>
-                            <TililaBtnOutline href="/tilila/reglement/download">
+                            <TililaBtnOutline
+                                href="/tilila/reglement/download"
+                                className={TILILA_HERO_BTN}
+                            >
                                 <TransText
                                     en="Download regulations"
                                     fr="Télécharger le règlement"
