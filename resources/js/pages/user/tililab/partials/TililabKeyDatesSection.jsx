@@ -61,7 +61,10 @@ const KEY_DATES = [
 
 export default function TililabKeyDatesSection() {
     return (
-        <TililaSection id="calendar" className="border-t border-border/60 bg-beta-white">
+        <TililaSection
+            id="calendar"
+            className="border-t border-border/60 bg-beta-white"
+        >
             <TililaContainer>
                 <TililaSectionHeading
                     centered
@@ -89,7 +92,10 @@ export default function TililabKeyDatesSection() {
                                     className="relative flex flex-col items-center text-center"
                                 >
                                     <div className="relative z-10 flex size-[4.5rem] items-center justify-center rounded-full border-2 border-beta-blue/20 bg-twhite text-beta-blue shadow-sm">
-                                        <Icon className="size-6 stroke-[1.5]" aria-hidden />
+                                        <Icon
+                                            className="size-6 stroke-[1.5]"
+                                            aria-hidden
+                                        />
                                     </div>
                                     <h3 className="mt-5 text-xs font-bold tracking-wide text-beta-blue uppercase">
                                         <TransText
@@ -99,7 +105,9 @@ export default function TililabKeyDatesSection() {
                                         />
                                     </h3>
                                     <p className="mt-2 text-sm">
-                                        <TililaTealText>{item.date}</TililaTealText>
+                                        <TililaTealText>
+                                            {item.date}
+                                        </TililaTealText>
                                     </p>
                                 </li>
                             );

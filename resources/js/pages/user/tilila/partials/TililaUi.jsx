@@ -51,9 +51,7 @@ export function TililaIconBadge({ icon: Icon, className = '' }) {
 
 export function TililaTealText({ children, className = '' }) {
     return (
-        <span
-            className={`font-bold text-beta-turquoise ${className}`}
-        >
+        <span className={`font-bold text-beta-turquoise ${className}`}>
             {children}
         </span>
     );

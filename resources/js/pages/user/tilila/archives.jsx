@@ -1,6 +1,6 @@
 import { Head, usePage } from '@inertiajs/react';
 import { useMemo } from 'react';
-import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
+import AppLayout from '@/layouts/app-layout';
 import ArchivesCategoryPanels from '@/pages/user/tilila/archives/components/ArchivesCategoryPanels';
 import {
     ArchivesGallerySection,
@@ -25,12 +25,12 @@ import { useTranslation } from '@/contexts/TranslationContext';
 function ArchivesDecor() {
     return (
         <div
-            className="pointer-events-none fixed bottom-0 right-0 z-0 hidden overflow-hidden opacity-40 lg:block"
+            className="pointer-events-none fixed right-0 bottom-0 z-0 hidden overflow-hidden opacity-40 lg:block"
             aria-hidden
         >
-            <div className="absolute bottom-0 right-0 size-0 border-b-[180px] border-l-[180px] border-b-beta-turquoise/30 border-l-transparent" />
-            <div className="absolute bottom-8 right-8 size-0 border-b-[120px] border-l-[120px] border-b-beta-blue/25 border-l-transparent" />
-            <div className="absolute bottom-16 right-24 size-0 border-b-[80px] border-l-[80px] border-b-brand-light-purple/20 border-l-transparent" />
+            <div className="absolute right-0 bottom-0 size-0 border-b-[180px] border-l-[180px] border-b-beta-turquoise/30 border-l-transparent" />
+            <div className="absolute right-8 bottom-8 size-0 border-b-[120px] border-l-[120px] border-b-beta-blue/25 border-l-transparent" />
+            <div className="absolute right-24 bottom-16 size-0 border-b-[80px] border-l-[80px] border-b-brand-light-purple/20 border-l-transparent" />
         </div>
     );
 }
@@ -96,9 +96,12 @@ export default function TililaArchives() {
             marques: 'marques',
             agences: 'agences',
         };
-        window.setTimeout(() => {
-            scrollToSection(map[sectionId] ?? sectionId);
-        }, targetProgram && targetProgram !== program ? 80 : 0);
+        window.setTimeout(
+            () => {
+                scrollToSection(map[sectionId] ?? sectionId);
+            },
+            targetProgram && targetProgram !== program ? 80 : 0,
+        );
     };
 
     return (
@@ -125,9 +128,7 @@ export default function TililaArchives() {
                                         : 'text-tgray hover:text-beta-blue'
                                 }`}
                             >
-                                {tab === 'tilila'
-                                    ? 'Tilila Awards'
-                                    : 'Tililab'}
+                                {tab === 'tilila' ? 'Tilila Awards' : 'Tililab'}
                             </button>
                         ))}
                     </div>
@@ -205,6 +206,4 @@ export default function TililaArchives() {
     );
 }
 
-TililaArchives.layout = (page) => (
-    <TililaAwardsLayout>{page}</TililaAwardsLayout>
-);
+TililaArchives.layout = (page) => <AppLayout>{page}</AppLayout>;

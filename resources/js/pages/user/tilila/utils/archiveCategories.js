@@ -36,7 +36,9 @@ export function groupArchiveItemsByYear(items) {
         if (!acc[item.year]) {
             acc[item.year] = { meta: item, items: [] };
         }
+
         acc[item.year].items.push(item);
+
         return acc;
     }, {});
 

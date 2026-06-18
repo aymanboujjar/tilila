@@ -10,7 +10,7 @@ export default function ArchivesStats({ stats }) {
     return (
         <section
             id="statistics"
-            className="relative border-b border-border/40 bg-linear-to-b from-beta-white to-twhite py-14 dark:from-[#0c0618] dark:to-[#120a22] sm:py-16"
+            className="relative border-b border-border/40 bg-linear-to-b from-beta-white to-twhite py-14 sm:py-16 dark:from-[#0c0618] dark:to-[#120a22]"
         >
             <TililaContainer>
                 <motion.div
@@ -23,7 +23,7 @@ export default function ArchivesStats({ stats }) {
                     <p className="text-xs font-bold tracking-[0.28em] text-beta-turquoise uppercase">
                         {t('tilila.archives.statsSection.kicker')}
                     </p>
-                    <h2 className="mt-2 text-2xl font-bold tracking-tight text-beta-blue dark:text-twhite sm:text-3xl">
+                    <h2 className="mt-2 text-2xl font-bold tracking-tight text-beta-blue sm:text-3xl dark:text-twhite">
                         {t('tilila.archives.statsSection.title')}
                     </h2>
                 </motion.div>

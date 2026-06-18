@@ -52,11 +52,7 @@ export function EditionWinnersSection({
             <section id="winners">
                 <TililaSectionHeading
                     title={
-                        <TransText
-                            en="Winners"
-                            fr="Lauréats"
-                            ar="الفائزون"
-                        />
+                        <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
                     }
                 />
                 <p className="mt-6 text-sm text-tgray">
@@ -73,9 +69,7 @@ export function EditionWinnersSection({
     return (
         <section id="winners">
             <TililaSectionHeading
-                title={
-                    <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
-                }
+                title={<TransText en="Winners" fr="Lauréats" ar="الفائزون" />}
             />
             <TililaHorizontalCarousel
                 ariaLabel="Edition winners"
@@ -136,9 +130,7 @@ export function EditionJurySection({ jury = [], locale }) {
     return (
         <section id="jury">
             <TililaSectionHeading
-                title={
-                    <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
-                }
+                title={<TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />}
             />
             {jury.length === 0 ? (
                 <p className="mt-6 text-sm text-tgray">
@@ -234,7 +226,11 @@ export function EditionGallerySection({ images = [] }) {
     );
 }
 
-export function EditionVideoSection({ videoUrl, year, embedUrl: embedUrlProp }) {
+export function EditionVideoSection({
+    videoUrl,
+    year,
+    embedUrl: embedUrlProp,
+}) {
     const check = useYoutubeAvailability(embedUrlProp ? null : videoUrl);
     const embedUrl = embedUrlProp ?? check.embedUrl;
     const loading = embedUrlProp ? false : check.loading;

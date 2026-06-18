@@ -2,8 +2,7 @@
 export default {
     title: 'TILILAB TROPHY',
     subtitle: 'RÈGLEMENT DU CONCOURS',
-    intro:
-        'Le présent règlement annule et remplace le précédent Règlement du concours « Tililab ».',
+    intro: 'Le présent règlement annule et remplace le précédent Règlement du concours « Tililab ».',
     articles: [
         {
             number: 1,

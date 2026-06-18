@@ -205,8 +205,7 @@ export default function AdminPartnerForm({ partner }) {
                                                 setData({
                                                     groups,
                                                     group:
-                                                        groups[0] ??
-                                                        data.group,
+                                                        groups[0] ?? data.group,
                                                 });
                                             }}
                                         />
@@ -338,10 +337,7 @@ export default function AdminPartnerForm({ partner }) {
                                 type="file"
                                 accept="image/*"
                                 onChange={(e) =>
-                                    setData(
-                                        'logo',
-                                        e.target.files?.[0] ?? null,
-                                    )
+                                    setData('logo', e.target.files?.[0] ?? null)
                                 }
                             />
                         </div>

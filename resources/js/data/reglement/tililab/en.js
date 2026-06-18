@@ -2,8 +2,7 @@
 export default {
     title: 'TILILAB TROPHY',
     subtitle: 'COMPETITION REGULATIONS',
-    intro:
-        'These regulations cancel and replace the previous Tililab competition regulations.',
+    intro: 'These regulations cancel and replace the previous Tililab competition regulations.',
     articles: [
         {
             number: 1,

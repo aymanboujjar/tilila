@@ -2,8 +2,7 @@
 export default {
     title: 'TILILA AWARDS',
     subtitle: 'COMPETITION REGULATIONS',
-    intro:
-        'These regulations cancel and replace the regulations of the “Trophée Tilila” competition established on 1 May 2019, as well as Amendments No. 1 & 2 and the regulations of 13 June 2025, filed with the notary.',
+    intro: 'These regulations cancel and replace the regulations of the “Trophée Tilila” competition established on 1 May 2019, as well as Amendments No. 1 & 2 and the regulations of 13 June 2025, filed with the notary.',
     articles: [
         {
             number: 1,

@@ -1,12 +1,12 @@
 import {
+    storagePhotoSrc,
+    textFor,
+} from '@/pages/user/tilila/partials/EditionDetailContent';
+import {
     extractAgency,
     editionWinnerRows,
 } from '@/pages/user/tilila/utils/archiveEditions';
 import { buildArchivesSections } from '@/pages/user/tilila/utils/archivesAggregate';
-import {
-    storagePhotoSrc,
-    textFor,
-} from '@/pages/user/tilila/partials/EditionDetailContent';
 import { normalizeEdition as normalizeTililabEdition } from '@/pages/user/tililab/utils/editions';
 
 export function buildTililabArchiveEditions(rawEditions = []) {
@@ -14,7 +14,10 @@ export function buildTililabArchiveEditions(rawEditions = []) {
         .filter((e) => !e?.is_current)
         .map((raw) => {
             const base = normalizeTililabEdition(raw);
-            if (!base) return null;
+
+            if (!base) {
+                return null;
+            }
 
             return {
                 ...base,
@@ -33,12 +36,16 @@ export function buildTililabArchiveEditions(rawEditions = []) {
 }
 
 function editionsForYear(editions, year) {
-    if (year === 'all') return editions;
+    if (year === 'all') {
+        return editions;
+    }
+
     return editions.filter((e) => String(e.year) === String(year));
 }
 
 function primaryEdition(editions, year) {
     const pool = editionsForYear(editions, year);
+
     return pool[0] ?? null;
 }
 
@@ -65,7 +72,11 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
             cards.push({
                 id: `${edition.id}-laureat-${index}`,
                 trophy: row.trophy || row.detail?.split('—')[0]?.trim() || '',
-                name: row.name || row.detail?.split('—')[1]?.trim() || row.detail || '',
+                name:
+                    row.name ||
+                    row.detail?.split('—')[1]?.trim() ||
+                    row.detail ||
+                    '',
                 agency,
                 photoSrc: row.photo
                     ? storagePhotoSrc(row.photo)
@@ -99,8 +110,7 @@ export function buildGalleryItems(editions, year) {
 
         if (edition.ceremony_video_url) {
             const thumb =
-                edition.cover_image_src ||
-                '/assets/tilila/trophee-tilila.png';
+                edition.cover_image_src || '/assets/tilila/trophee-tilila.png';
             items.push({
                 id: `${edition.id}-video`,
                 type: 'video',
@@ -119,23 +129,28 @@ export function filterGalleryItems(items, filter) {
     if (filter === 'photos') {
         return items.filter((i) => i.type === 'photo');
     }
+
     if (filter === 'videos') {
         return items.filter((i) => i.type === 'video');
     }
+
     return items;
 }
 
 export function buildCategorySections(editions, year, locale) {
     const pool = editionsForYear(editions, year);
+
     return buildArchivesSections(pool, locale);
 }
 
 export function hubEditionCta(editions, year) {
     const edition = primaryEdition(editions, year);
+
     return edition?.details_url ?? '/tilila/archives';
 }
 
 export function hubEditionLabel(editions, year, locale) {
     const edition = primaryEdition(editions, year);
+
     return edition ? textFor(edition.edition_label, locale) : '';
 }

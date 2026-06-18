@@ -35,11 +35,7 @@ function EditionWinnersBlock({ edition, locale }) {
                     href={edition.details_url}
                     className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wide text-beta-blue uppercase hover:underline"
                 >
-                    <TransText
-                        en="Edition"
-                        fr="Édition"
-                        ar="الدورة"
-                    />
+                    <TransText en="Edition" fr="Édition" ar="الدورة" />
                     <ArrowRight className="size-3.5" />
                 </Link>
             </header>
@@ -72,63 +68,63 @@ function EditionWinnersBlock({ edition, locale }) {
                     }
 
                     return (
-                    <li
-                        key={index}
-                        className="px-5 py-4 sm:grid sm:grid-cols-[minmax(140px,1.1fr)_minmax(120px,0.9fr)_1fr] sm:items-start sm:gap-4 sm:px-6 sm:py-5"
-                    >
-                        <div className="flex items-start gap-3">
-                            {row.photo ? (
-                                <PersonPhoto
-                                    path={row.photo}
-                                    alt={row.name || ''}
-                                    className="size-12 sm:hidden"
-                                />
-                            ) : (
-                                <TililaIconBadge
-                                    icon={Award}
-                                    className="size-10 sm:hidden"
-                                />
-                            )}
-                            <div>
-                                <p className="text-[11px] font-bold tracking-wide text-beta-blue uppercase sm:hidden">
+                        <li
+                            key={index}
+                            className="px-5 py-4 sm:grid sm:grid-cols-[minmax(140px,1.1fr)_minmax(120px,0.9fr)_1fr] sm:items-start sm:gap-4 sm:px-6 sm:py-5"
+                        >
+                            <div className="flex items-start gap-3">
+                                {row.photo ? (
+                                    <PersonPhoto
+                                        path={row.photo}
+                                        alt={row.name || ''}
+                                        className="size-12 sm:hidden"
+                                    />
+                                ) : (
+                                    <TililaIconBadge
+                                        icon={Award}
+                                        className="size-10 sm:hidden"
+                                    />
+                                )}
+                                <div>
+                                    <p className="text-[11px] font-bold tracking-wide text-beta-blue uppercase sm:hidden">
+                                        <TransText
+                                            en="Prize"
+                                            fr="Prix"
+                                            ar="الجائزة"
+                                        />
+                                    </p>
+                                    <p className="mt-0.5 text-sm font-bold text-beta-blue sm:mt-0">
+                                        {row.trophy || '—'}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="mt-3 sm:mt-0">
+                                <p className="text-[11px] font-bold tracking-wide text-tgray uppercase sm:hidden">
                                     <TransText
-                                        en="Prize"
-                                        fr="Prix"
-                                        ar="الجائزة"
+                                        en="Laureate"
+                                        fr="Lauréat"
+                                        ar="الفائز"
                                     />
                                 </p>
-                                <p className="mt-0.5 text-sm font-bold text-beta-blue sm:mt-0">
-                                    {row.trophy || '—'}
+                                <p className="mt-0.5 font-semibold text-tblack sm:mt-0">
+                                    {row.name || '—'}
                                 </p>
                             </div>
-                        </div>
 
-                        <div className="mt-3 sm:mt-0">
-                            <p className="text-[11px] font-bold tracking-wide text-tgray uppercase sm:hidden">
-                                <TransText
-                                    en="Laureate"
-                                    fr="Lauréat"
-                                    ar="الفائز"
-                                />
-                            </p>
-                            <p className="mt-0.5 font-semibold text-tblack sm:mt-0">
-                                {row.name || '—'}
-                            </p>
-                        </div>
-
-                        <div className="mt-3 sm:mt-0">
-                            <p className="text-[11px] font-bold tracking-wide text-tgray uppercase sm:hidden">
-                                <TransText
-                                    en="Details"
-                                    fr="Détails"
-                                    ar="التفاصيل"
-                                />
-                            </p>
-                            <p className="mt-0.5 text-sm leading-relaxed text-tgray sm:mt-0">
-                                {row.detail || '—'}
-                            </p>
-                        </div>
-                    </li>
+                            <div className="mt-3 sm:mt-0">
+                                <p className="text-[11px] font-bold tracking-wide text-tgray uppercase sm:hidden">
+                                    <TransText
+                                        en="Details"
+                                        fr="Détails"
+                                        ar="التفاصيل"
+                                    />
+                                </p>
+                                <p className="mt-0.5 text-sm leading-relaxed text-tgray sm:mt-0">
+                                    {row.detail || '—'}
+                                </p>
+                            </div>
+                        </li>
                     );
                 })}
             </ul>

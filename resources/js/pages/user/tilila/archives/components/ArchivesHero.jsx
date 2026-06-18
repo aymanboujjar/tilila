@@ -42,15 +42,15 @@ export default function ArchivesHero({
                 }}
             />
             <FloatingShape
-                className="pointer-events-none absolute -top-16 end-0 size-72 rounded-full bg-beta-turquoise/25 blur-3xl"
+                className="pointer-events-none absolute end-0 -top-16 size-72 rounded-full bg-beta-turquoise/25 blur-3xl"
                 delay={0}
             />
             <FloatingShape
-                className="pointer-events-none absolute bottom-0 start-0 size-96 rounded-full bg-beta-blue/30 blur-3xl"
+                className="pointer-events-none absolute start-0 bottom-0 size-96 rounded-full bg-beta-blue/30 blur-3xl"
                 delay={2}
             />
             <FloatingShape
-                className="pointer-events-none absolute top-1/3 start-1/4 size-40 rounded-full border border-white/10 bg-white/5 backdrop-blur-3xl"
+                className="pointer-events-none absolute start-1/4 top-1/3 size-40 rounded-full border border-white/10 bg-white/5 backdrop-blur-3xl"
                 delay={1}
             />
 
@@ -71,7 +71,7 @@ export default function ArchivesHero({
                     <p className="mt-10 text-xs font-bold tracking-[0.32em] text-beta-turquoise uppercase">
                         {t('tilila.archives.heritage')}
                     </p>
-                    <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
+                    <h1 className="mt-4 max-w-4xl text-4xl leading-[1.05] font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
                         {t('tilila.archives.title')}
                     </h1>
                     <p className="mt-6 max-w-3xl text-base leading-relaxed text-twhite/80 sm:text-lg">
@@ -119,7 +119,7 @@ export default function ArchivesHero({
                             value={searchQuery}
                             onChange={(e) => onSearchChange(e.target.value)}
                             placeholder={t('tilila.archives.searchPlaceholder')}
-                            className="w-full rounded-2xl border border-twhite/20 bg-twhite/10 py-4 ps-12 pe-4 text-sm text-twhite placeholder:text-twhite/50 backdrop-blur transition focus:border-beta-turquoise/50 focus:bg-twhite/15 focus:outline-none focus:ring-2 focus:ring-beta-turquoise/30"
+                            className="w-full rounded-2xl border border-twhite/20 bg-twhite/10 py-4 ps-12 pe-4 text-sm text-twhite backdrop-blur transition placeholder:text-twhite/50 focus:border-beta-turquoise/50 focus:bg-twhite/15 focus:ring-2 focus:ring-beta-turquoise/30 focus:outline-none"
                         />
                     </div>
                 </motion.div>

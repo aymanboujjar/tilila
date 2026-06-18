@@ -1,9 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 export function useArchivesHub(tililaEditions, tililabEditions) {
-    const [program, setProgram] = useState('tilila');
+    const [program, setProgramState] = useState('tilila');
     const [selectedYear, setSelectedYear] = useState('all');
     const [galleryFilter, setGalleryFilter] = useState('all');
+
+    const setProgram = useCallback((nextProgram) => {
+        setProgramState(nextProgram);
+        setSelectedYear('all');
+        setGalleryFilter('all');
+    }, []);
 
     const activeEditions = useMemo(
         () => (program === 'tilila' ? tililaEditions : tililabEditions),
@@ -15,15 +21,11 @@ export function useArchivesHub(tililaEditions, tililabEditions) {
         [activeEditions],
     );
 
-    useEffect(() => {
-        setSelectedYear('all');
-        setGalleryFilter('all');
-    }, [program]);
-
     const year = selectedYear ?? 'all';
 
     const scrollToSection = (sectionId) => {
         const el = document.getElementById(sectionId);
+
         if (el) {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }

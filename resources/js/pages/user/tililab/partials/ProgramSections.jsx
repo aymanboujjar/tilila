@@ -175,10 +175,18 @@ export function TililabWhyParticipateSection() {
 
 export function TililabJourneySection() {
     const steps = [
-        { en: 'Call for applications', fr: 'Appel à candidatures', ar: 'نداء للترشح' },
+        {
+            en: 'Call for applications',
+            fr: 'Appel à candidatures',
+            ar: 'نداء للترشح',
+        },
         { en: 'Pre-selection', fr: 'Pré-sélection', ar: 'الفرز الأولي' },
         { en: 'Masterclass', fr: 'Masterclass', ar: 'ماستركلاس' },
-        { en: 'Creative bootcamp', fr: 'Bootcamp créatif', ar: 'المعسكر الإبداعي' },
+        {
+            en: 'Creative bootcamp',
+            fr: 'Bootcamp créatif',
+            ar: 'المعسكر الإبداعي',
+        },
         { en: 'Production', fr: 'Production', ar: 'الإنتاج' },
         { en: 'Jury', fr: 'Jury', ar: 'لجنة التحكيم' },
         { en: 'Tililab Trophy', fr: 'Tililab Trophy', ar: 'كأس تيليلاب' },
@@ -272,11 +280,27 @@ export function TililabAdmissionSection() {
 
 export function TililabPrizesSection() {
     const rewards = [
-        { en: 'Tililab Bootcamp participation', fr: 'Participation au Bootcamp Tililab', ar: 'المشاركة في معسكر تيليلاب' },
+        {
+            en: 'Tililab Bootcamp participation',
+            fr: 'Participation au Bootcamp Tililab',
+            ar: 'المشاركة في معسكر تيليلاب',
+        },
         { en: 'Tililab Trophy', fr: 'Tililab Trophy', ar: 'كأس تيليلاب' },
-        { en: 'Work tool from SOREAD 2M', fr: 'Outil de travail offert par SOREAD 2M', ar: 'أداة عمل من SOREAD 2M' },
-        { en: 'Professional mentoring by LionsGeek', fr: 'Accompagnement professionnel par LionsGeek', ar: 'مرافقة مهنية من LionsGeek' },
-        { en: 'Project broadcast on 2M Group platforms', fr: 'Diffusion du projet sur les plateformes du Groupe 2M', ar: 'بث المشروع على منصات مجموعة 2M' },
+        {
+            en: 'Work tool from SOREAD 2M',
+            fr: 'Outil de travail offert par SOREAD 2M',
+            ar: 'أداة عمل من SOREAD 2M',
+        },
+        {
+            en: 'Professional mentoring by LionsGeek',
+            fr: 'Accompagnement professionnel par LionsGeek',
+            ar: 'مرافقة مهنية من LionsGeek',
+        },
+        {
+            en: 'Project broadcast on 2M Group platforms',
+            fr: 'Diffusion du projet sur les plateformes du Groupe 2M',
+            ar: 'بث المشروع على منصات مجموعة 2M',
+        },
     ];
 
     return (
@@ -290,7 +314,9 @@ export function TililabPrizesSection() {
                         key={r.en}
                         className="flex items-start gap-3 rounded-2xl border border-border bg-card p-5 shadow-sm"
                     >
-                        <span className="text-xl" aria-hidden>🏆</span>
+                        <span className="text-xl" aria-hidden>
+                            🏆
+                        </span>
                         <p className="text-sm font-semibold text-tblack">
                             <TransText en={r.en} fr={r.fr} ar={r.ar} />
                         </p>
@@ -691,7 +717,10 @@ export function TililabSponsorsSection() {
                         </div>
                         <div className="flex flex-1 justify-center rounded-2xl border border-border bg-white px-8 py-8 shadow-sm">
                             <img
-                                src={organiser?.logo_url ?? '/assets/organizer-logo.png'}
+                                src={
+                                    organiser?.logo_url ??
+                                    '/assets/organizer-logo.png'
+                                }
                                 alt="2M logo"
                                 className="h-24 w-full max-w-xs object-contain sm:h-28"
                                 loading="eager"

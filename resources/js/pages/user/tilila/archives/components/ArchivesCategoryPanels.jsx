@@ -1,9 +1,6 @@
 import TransText from '@/components/TransText';
 
-export default function ArchivesCategoryPanels({
-    sections,
-    year,
-}) {
+export default function ArchivesCategoryPanels({ sections, year }) {
     const yearLabel = year === 'all' ? '' : ` ${year}`;
 
     const panels = [

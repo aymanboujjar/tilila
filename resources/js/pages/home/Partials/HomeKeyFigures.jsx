@@ -41,7 +41,10 @@ function StatsBlock({ title, stats }) {
 
 export default function HomeKeyFigures() {
     return (
-        <TililaSection id="stats" className="border-t border-border/60 bg-beta-white">
+        <TililaSection
+            id="stats"
+            className="border-t border-border/60 bg-beta-white"
+        >
             <TililaContainer>
                 <h2 className="text-center text-2xl font-extrabold tracking-tight text-beta-blue sm:text-3xl">
                     <TransText

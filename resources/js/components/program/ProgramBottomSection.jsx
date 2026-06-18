@@ -7,18 +7,53 @@ import { useTranslation } from '@/contexts/TranslationContext';
 
 const ARCHIVE_LINKS = {
     tilila: [
-        { fr: 'Lauréats', en: 'Winners', ar: 'الفائزون', href: '#past-editions' },
-        { fr: 'Campagnes primées', en: 'Awarded campaigns', ar: 'الحملات الفائزة', href: '#past-editions' },
+        {
+            fr: 'Lauréats',
+            en: 'Winners',
+            ar: 'الفائزون',
+            href: '#past-editions',
+        },
+        {
+            fr: 'Campagnes primées',
+            en: 'Awarded campaigns',
+            ar: 'الحملات الفائزة',
+            href: '#past-editions',
+        },
         { fr: 'Marques', en: 'Brands', ar: 'العلامات', href: '#past-editions' },
-        { fr: 'Agences', en: 'Agencies', ar: 'الوكالات', href: '#past-editions' },
-        { fr: 'Jurys', en: 'Juries', ar: 'لجان التحكيم', href: '#past-editions' },
+        {
+            fr: 'Agences',
+            en: 'Agencies',
+            ar: 'الوكالات',
+            href: '#past-editions',
+        },
+        {
+            fr: 'Jurys',
+            en: 'Juries',
+            ar: 'لجان التحكيم',
+            href: '#past-editions',
+        },
         { fr: 'Photos', en: 'Photos', ar: 'صور', href: '#past-editions' },
         { fr: 'Vidéos', en: 'Videos', ar: 'فيديوهات', href: '#past-editions' },
     ],
     tililab: [
-        { fr: 'Lauréats', en: 'Winners', ar: 'الفائزون', href: '#past-editions' },
-        { fr: 'Projets produits', en: 'Produced projects', ar: 'المشاريع المنتجة', href: '#past-editions' },
-        { fr: 'Bootcamp', en: 'Bootcamp', ar: 'المعسكر', href: '#past-editions' },
+        {
+            fr: 'Lauréats',
+            en: 'Winners',
+            ar: 'الفائزون',
+            href: '#past-editions',
+        },
+        {
+            fr: 'Projets produits',
+            en: 'Produced projects',
+            ar: 'المشاريع المنتجة',
+            href: '#past-editions',
+        },
+        {
+            fr: 'Bootcamp',
+            en: 'Bootcamp',
+            ar: 'المعسكر',
+            href: '#past-editions',
+        },
         { fr: 'Galerie', en: 'Gallery', ar: 'المعرض', href: '#past-editions' },
         { fr: 'Vidéos', en: 'Videos', ar: 'فيديوهات', href: '#past-editions' },
     ],
@@ -46,11 +81,7 @@ export default function ProgramBottomSection({
                 <div className="grid gap-10 lg:grid-cols-3">
                     <div id="news">
                         <h2 className="text-lg font-bold text-tblack">
-                            <TransText
-                                en="News"
-                                fr="Actualités"
-                                ar="أخبار"
-                            />
+                            <TransText en="News" fr="Actualités" ar="أخبار" />
                         </h2>
                         {news.length > 0 ? (
                             <ul className="mt-5 space-y-4">

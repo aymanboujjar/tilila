@@ -15,10 +15,7 @@ export function useArchivesPage(editions, locale) {
         [editions, locale],
     );
 
-    const years = useMemo(
-        () => enriched.map((e) => e.year),
-        [enriched],
-    );
+    const years = useMemo(() => enriched.map((e) => e.year), [enriched]);
 
     const filtered = useMemo(
         () =>
@@ -43,6 +40,7 @@ export function useArchivesPage(editions, locale) {
     const scrollToYear = useCallback((year) => {
         setTimelineYear(year);
         const el = document.getElementById(`edition-${year}`);
+
         if (el) {
             el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }

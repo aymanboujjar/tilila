@@ -48,8 +48,8 @@ export default function EditionCard({ edition, index = 0 }) {
                     <div className="absolute start-5 top-5 rounded-full border border-white/20 bg-white/15 px-4 py-1.5 text-xs font-bold tracking-widest text-twhite backdrop-blur-md">
                         {t('tilila.archives.editionLabel')} {edition.year}
                     </div>
-                    <div className="absolute bottom-0 start-0 end-0 p-6 sm:p-8">
-                        <p className="text-4xl font-extrabold leading-none text-twhite sm:text-5xl">
+                    <div className="absolute start-0 end-0 bottom-0 p-6 sm:p-8">
+                        <p className="text-4xl leading-none font-extrabold text-twhite sm:text-5xl">
                             {edition.year}
                         </p>
                         <p className="mt-2 text-base font-semibold text-twhite/90 sm:text-lg">
@@ -60,7 +60,7 @@ export default function EditionCard({ edition, index = 0 }) {
 
                 <div className="p-6 sm:p-8">
                     {edition.theme ? (
-                        <p className="line-clamp-3 text-sm leading-relaxed text-tgray dark:text-twhite/70 sm:text-base">
+                        <p className="line-clamp-3 text-sm leading-relaxed text-tgray sm:text-base dark:text-twhite/70">
                             {edition.theme}
                         </p>
                     ) : null}

@@ -8,7 +8,13 @@ function labelFor(category, locale) {
     return category[locale] || category.fr || category.en;
 }
 
-function CategoryList({ categories, targetProgram, activeProgram, locale, onSelect }) {
+function CategoryList({
+    categories,
+    targetProgram,
+    activeProgram,
+    locale,
+    onSelect,
+}) {
     return (
         <ul className="mt-4 space-y-3">
             {categories.map((category) => (

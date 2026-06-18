@@ -16,7 +16,7 @@ export default function LanguageSwitcher({ className = '' }) {
             aria-label={t('nav.language')}
             className={[
                 'h-9 shrink-0 cursor-pointer rounded-lg border border-border bg-twhite px-2.5 text-xs font-bold tracking-wide text-tblack',
-                'focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/20',
+                'focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/20 focus:outline-none',
                 className,
             ].join(' ')}
         >

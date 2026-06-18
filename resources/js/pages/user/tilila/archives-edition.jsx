@@ -1,7 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
 import { useMemo } from 'react';
-import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
+import AppLayout from '@/layouts/app-layout';
 import TransText from '@/components/TransText';
 import {
     EditionGallerySection,
@@ -177,6 +177,4 @@ export default function TililaArchivesEdition() {
     );
 }
 
-TililaArchivesEdition.layout = (page) => (
-    <TililaAwardsLayout>{page}</TililaAwardsLayout>
-);
+TililaArchivesEdition.layout = (page) => <AppLayout>{page}</AppLayout>;

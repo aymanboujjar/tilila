@@ -59,7 +59,10 @@ const REWARDS = [
 
 export default function TililabPrizesSection() {
     return (
-        <TililaSection id="prizes" className="border-t border-border/60 bg-twhite">
+        <TililaSection
+            id="prizes"
+            className="border-t border-border/60 bg-twhite"
+        >
             <TililaContainer>
                 <TililaSectionHeading
                     centered

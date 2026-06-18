@@ -20,7 +20,8 @@ export default function ArchivesTimeline({ years, activeYear, onYearSelect }) {
                     <div className="pointer-events-none absolute inset-y-3 start-0 end-0 hidden h-px bg-linear-to-r from-transparent via-beta-blue/25 to-transparent sm:block dark:via-beta-turquoise/25" />
                     <div className="flex gap-2 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                         {years.map((year, index) => {
-                            const isActive = String(activeYear) === String(year);
+                            const isActive =
+                                String(activeYear) === String(year);
 
                             return (
                                 <motion.button

@@ -91,7 +91,10 @@ export function shouldShowHeroCarousel(pathname, slides) {
         return false;
     }
 
-    if (path === '/tilila/archives' || path.startsWith('/tilila/archives/editions/')) {
+    if (
+        path === '/tilila/archives' ||
+        path.startsWith('/tilila/archives/editions/')
+    ) {
         return false;
     }
 
@@ -259,7 +262,11 @@ function HeroSlideMedia({ slide, locale, isActive, kenBurns = false }) {
                 alt={alt}
                 className={classes}
                 loading={
-                    isActive !== undefined ? (isActive ? 'eager' : 'lazy') : 'eager'
+                    isActive !== undefined
+                        ? isActive
+                            ? 'eager'
+                            : 'lazy'
+                        : 'eager'
                 }
                 decoding="async"
             />

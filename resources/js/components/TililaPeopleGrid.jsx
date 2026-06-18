@@ -14,10 +14,7 @@ function hasTrophyLabel(trophy) {
 
 import { useState } from 'react';
 
-export default function TililaPeopleGrid({
-    title,
-    people = [],
-}) {
+export default function TililaPeopleGrid({ title, people = [] }) {
     const rows = Array.isArray(people) ? people : [];
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -59,11 +56,11 @@ export default function TililaPeopleGrid({
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="flex items-center justify-center">
-                                    <div className="size-26 shrink-0 overflow-hidden rounded-xl border border-border bg-muted flex items-center justify-center">
+                                    <div className="flex size-26 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
                                         {img ? (
                                             <img
                                                 src={img}
-                                                alt={p?.full_name || ""}
+                                                alt={p?.full_name || ''}
                                                 className="h-full w-full object-cover"
                                                 loading="lazy"
                                                 decoding="async"
@@ -79,33 +76,48 @@ export default function TililaPeopleGrid({
             {/* Modal */}
             {modalOpen && selectedPerson && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30">
-                    <div className="bg-white rounded-xl p-6 max-w-xs w-full shadow-lg relative">
+                    <div className="relative w-full max-w-xs rounded-xl bg-white p-6 shadow-lg">
                         <button
                             onClick={handleCloseModal}
                             className="absolute top-2 right-2 text-tgray hover:text-tblack focus:outline-none"
                             aria-label="Close"
                         >
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                                <path d="M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                                <path d="M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <path
+                                    d="M18 6L6 18"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                />
+                                <path
+                                    d="M6 6L18 18"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    strokeLinecap="round"
+                                />
                             </svg>
                         </button>
                         <div className="flex flex-col items-center">
-                            <div className="size-24 rounded-xl overflow-hidden mb-4 border border-border bg-muted flex items-center justify-center">
+                            <div className="mb-4 flex size-24 items-center justify-center overflow-hidden rounded-xl border border-border bg-muted">
                                 {selectedPerson?.photo_path && (
                                     <img
                                         src={`/storage/${selectedPerson.photo_path}`}
-                                        alt={selectedPerson?.full_name || ""}
+                                        alt={selectedPerson?.full_name || ''}
                                         className="h-full w-full object-cover"
                                         loading="lazy"
                                         decoding="async"
                                     />
                                 )}
                             </div>
-                            <div className="text-lg font-semibold text-tblack mb-2 text-center break-words">
+                            <div className="mb-2 text-center text-lg font-semibold break-words text-tblack">
                                 {selectedPerson?.full_name ?? ''}
                             </div>
-                            <div className="text-sm text-tgray text-center">
+                            <div className="text-center text-sm text-tgray">
                                 <TransText
                                     en={selectedPerson?.bio?.en ?? ''}
                                     fr={selectedPerson?.bio?.fr ?? ''}

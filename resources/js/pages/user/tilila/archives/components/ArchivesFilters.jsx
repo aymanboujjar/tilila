@@ -16,7 +16,7 @@ export default function ArchivesFilters({
     const { t } = useTranslation();
 
     return (
-        <section className="sticky top-16 z-30 border-b border-border/50 bg-twhite/90 py-4 backdrop-blur-xl dark:border-white/10 dark:bg-[#0c0618]/90 sm:top-18">
+        <section className="sticky top-16 z-30 border-b border-border/50 bg-twhite/90 py-4 backdrop-blur-xl sm:top-18 dark:border-white/10 dark:bg-[#0c0618]/90">
             <TililaContainer>
                 <motion.div
                     initial={{ opacity: 0 }}
@@ -24,14 +24,17 @@ export default function ArchivesFilters({
                     className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
                 >
                     <div className="flex flex-wrap items-center gap-3">
-                        <label className="sr-only" htmlFor="archives-year-filter">
+                        <label
+                            className="sr-only"
+                            htmlFor="archives-year-filter"
+                        >
                             {t('tilila.archives.filterYear')}
                         </label>
                         <select
                             id="archives-year-filter"
                             value={yearFilter}
                             onChange={(e) => onYearChange(e.target.value)}
-                            className="rounded-xl border border-border/60 bg-white px-4 py-2.5 text-sm font-semibold text-tblack shadow-sm focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/20 dark:border-white/10 dark:bg-white/5 dark:text-twhite"
+                            className="rounded-xl border border-border/60 bg-white px-4 py-2.5 text-sm font-semibold text-tblack shadow-sm focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/20 focus:outline-none dark:border-white/10 dark:bg-white/5 dark:text-twhite"
                         >
                             <option value="all">
                                 {t('tilila.archives.allYears')}
@@ -55,7 +58,7 @@ export default function ArchivesFilters({
                                 id="archives-sort"
                                 value={sort}
                                 onChange={(e) => onSortChange(e.target.value)}
-                                className="rounded-xl border border-border/60 bg-white py-2.5 ps-10 pe-4 text-sm font-semibold text-tblack shadow-sm focus:border-beta-blue focus:outline-none focus:ring-2 focus:ring-beta-blue/20 dark:border-white/10 dark:bg-white/5 dark:text-twhite"
+                                className="rounded-xl border border-border/60 bg-white py-2.5 ps-10 pe-4 text-sm font-semibold text-tblack shadow-sm focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/20 focus:outline-none dark:border-white/10 dark:bg-white/5 dark:text-twhite"
                             >
                                 <option value="newest">
                                     {t('tilila.archives.sortNewest')}

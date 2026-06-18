@@ -3,7 +3,7 @@ import HomeHero from '@/pages/home/Partials/HomeHero';
 import HomeKeyFigures from '@/pages/home/Partials/HomeKeyFigures';
 import HomeNews from '@/pages/home/Partials/HomeNews';
 import HomeProgramCards from '@/pages/home/Partials/HomeProgramCards';
-import HomeLayout from '@/layouts/home-layout';
+import AppLayout from '@/layouts/app-layout';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function HomeIndex({ news = [] }) {
@@ -21,4 +21,4 @@ export default function HomeIndex({ news = [] }) {
     );
 }
 
-HomeIndex.layout = (page) => <HomeLayout>{page}</HomeLayout>;
+HomeIndex.layout = (page) => <AppLayout>{page}</AppLayout>;

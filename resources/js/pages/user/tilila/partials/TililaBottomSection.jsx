@@ -12,7 +12,12 @@ import {
 import { useTranslation } from '@/contexts/TranslationContext';
 
 const ARCHIVE_QUICK_LINKS = [
-    { id: 'statistics', en: 'Statistics', fr: 'Statistiques', ar: 'الإحصائيات' },
+    {
+        id: 'statistics',
+        en: 'Statistics',
+        fr: 'Statistiques',
+        ar: 'الإحصائيات',
+    },
     { id: 'editions', en: 'Editions', fr: 'Éditions', ar: 'الدورات' },
 ];
 
@@ -102,7 +107,7 @@ export default function TililaBottomSection() {
                         </div>
                     </div>
                 </div>
-{/* 
+                {/* 
                 {editions?.length > 0 ? (
                     <div>
                         <TililaSectionHeading
