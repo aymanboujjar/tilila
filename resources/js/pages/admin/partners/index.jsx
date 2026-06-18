@@ -56,7 +56,9 @@ function programLabel(value) {
 }
 
 function groupLabel(value) {
-    return GROUP_OPTIONS.find((option) => option.value === value)?.label ?? value;
+    return (
+        GROUP_OPTIONS.find((option) => option.value === value)?.label ?? value
+    );
 }
 
 function programBadgeClass(program) {
@@ -110,7 +112,11 @@ export default function AdminPartnersIndex({ partners, filters, stats }) {
     };
 
     const resetFilters = () => {
-        router.get('/admin/partners', {}, { preserveState: true, replace: true });
+        router.get(
+            '/admin/partners',
+            {},
+            { preserveState: true, replace: true },
+        );
     };
 
     const handleDelete = () => {
@@ -137,10 +143,7 @@ export default function AdminPartnersIndex({ partners, filters, stats }) {
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
                     <StatCard label="Total" value={stats?.total ?? 0} />
-                    <StatCard
-                        label="Published"
-                        value={stats?.published ?? 0}
-                    />
+                    <StatCard label="Published" value={stats?.published ?? 0} />
                     <StatCard
                         label="Tilila Awards"
                         value={stats?.tilila ?? 0}
@@ -158,8 +161,7 @@ export default function AdminPartnersIndex({ partners, filters, stats }) {
                                 value={filters?.program || 'all'}
                                 onValueChange={(value) =>
                                     applyFilters({
-                                        program:
-                                            value === 'all' ? '' : value,
+                                        program: value === 'all' ? '' : value,
                                     })
                                 }
                             >
@@ -452,8 +454,8 @@ export default function AdminPartnersIndex({ partners, filters, stats }) {
                             Delete “{deleteTarget?.name}”?
                         </AlertDialogTitle>
                         <AlertDialogDescription>
-                            This partner will be removed from all program
-                            pages. This action cannot be undone.
+                            This partner will be removed from all program pages.
+                            This action cannot be undone.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>

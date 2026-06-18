@@ -7,9 +7,27 @@ const TILILA_LINKS = [
     { hash: 'calendar', fr: 'Calendrier', en: 'Calendar', ar: 'التقويم' },
     { hash: 'admission', fr: 'Conditions', en: 'Conditions', ar: 'الشروط' },
     { hash: 'jury', fr: 'Jury', en: 'Jury', ar: 'لجنة التحكيم' },
-    { hash: 'news', fr: 'Actualités', en: 'News', ar: 'أخبار', href: '/actualites?program=tilila' },
-    { hash: 'reglement', fr: 'Règlement', en: 'Rules', ar: 'النظام', href: '/tilila/reglement' },
-    { hash: 'contact', fr: 'Contact', en: 'Contact', ar: 'تواصل', href: '#contact' },
+    {
+        hash: 'news',
+        fr: 'Actualités',
+        en: 'News',
+        ar: 'أخبار',
+        href: '/actualites?program=tilila',
+    },
+    {
+        hash: 'reglement',
+        fr: 'Règlement',
+        en: 'Rules',
+        ar: 'النظام',
+        href: '/tilila/reglement',
+    },
+    {
+        hash: 'contact',
+        fr: 'Contact',
+        en: 'Contact',
+        ar: 'تواصل',
+        href: '#contact',
+    },
 ];
 
 const TILILAB_LINKS = [
@@ -19,8 +37,20 @@ const TILILAB_LINKS = [
     { hash: 'calendar', fr: 'Calendrier', en: 'Calendar', ar: 'التقويم' },
     { hash: 'admission', fr: 'Conditions', en: 'Conditions', ar: 'الشروط' },
     { hash: 'faq', fr: 'FAQ', en: 'FAQ', ar: 'الأسئلة', href: '#faq' },
-    { hash: 'news', fr: 'Actualités', en: 'News', ar: 'أخبار', href: '/actualites?program=tililab' },
-    { hash: 'contact', fr: 'Contact', en: 'Contact', ar: 'تواصل', href: '#contact' },
+    {
+        hash: 'news',
+        fr: 'Actualités',
+        en: 'News',
+        ar: 'أخبار',
+        href: '/actualites?program=tililab',
+    },
+    {
+        hash: 'contact',
+        fr: 'Contact',
+        en: 'Contact',
+        ar: 'تواصل',
+        href: '#contact',
+    },
 ];
 
 function normalizePath(path) {
@@ -46,15 +76,17 @@ export default function ProgramSubNav({ program }) {
 
     return (
         <nav
-            aria-label={isTilila ? 'Tilila Awards navigation' : 'Tililab navigation'}
+            aria-label={
+                isTilila ? 'Tilila Awards navigation' : 'Tililab navigation'
+            }
             className="sticky top-16 z-40 border-b border-border bg-background/95 backdrop-blur"
         >
             <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-2">
                 <div className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     {links.map((item) => {
-                        const href =
-                            item.href ?? `#${item.hash}`;
-                        const isExternal = href.startsWith('/') && !href.startsWith('/#');
+                        const href = item.href ?? `#${item.hash}`;
+                        const isExternal =
+                            href.startsWith('/') && !href.startsWith('/#');
 
                         if (isExternal) {
                             return (
@@ -63,7 +95,11 @@ export default function ProgramSubNav({ program }) {
                                     href={href}
                                     className="shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide text-tgray uppercase transition hover:bg-alpha-blue hover:text-beta-blue"
                                 >
-                                    <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                    <TransText
+                                        en={item.en}
+                                        fr={item.fr}
+                                        ar={item.ar}
+                                    />
                                 </Link>
                             );
                         }
@@ -74,7 +110,11 @@ export default function ProgramSubNav({ program }) {
                                 href={href}
                                 className="shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide text-tgray uppercase transition hover:bg-alpha-blue hover:text-beta-blue"
                             >
-                                <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                <TransText
+                                    en={item.en}
+                                    fr={item.fr}
+                                    ar={item.ar}
+                                />
                             </a>
                         );
                     })}

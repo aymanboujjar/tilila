@@ -5,14 +5,62 @@ import TransText from '@/components/TransText';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 const NAV = [
-    { href: '/', en: 'Home', fr: 'Accueil', ar: 'الرئيسية', match: (p) => p === '/' },
-    { href: '/tilila', en: 'Tilila Awards', fr: 'Tilila Awards', ar: 'تيليلا أووردز', match: (p) => p === '/tilila' },
-    { href: '/tililab', en: 'Tililab', fr: 'Tililab', ar: 'تيليلاب', match: (p) => p === '/tililab' },
-    { href: '/tilila/archives', en: 'Archives', fr: 'Archives', ar: 'الأرشيف', match: (p) => p.startsWith('/tilila/archives') },
-    { href: '/events', en: 'News', fr: 'Actualités', ar: 'أخبار', match: (p) => p.startsWith('/events') || p.startsWith('/actualites') },
-    { href: '/about#partners', en: 'Partners', fr: 'Partenaires', ar: 'الشركاء', match: (p) => p === '/about' },
-    { href: '/tilila#faq', en: 'FAQ', fr: 'FAQ', ar: 'الأسئلة الشائعة', match: () => false },
-    { href: '/contact', en: 'Contact', fr: 'Contact', ar: 'تواصل', match: (p) => p === '/contact' },
+    {
+        href: '/',
+        en: 'Home',
+        fr: 'Accueil',
+        ar: 'الرئيسية',
+        match: (p) => p === '/',
+    },
+    {
+        href: '/tilila',
+        en: 'Tilila Awards',
+        fr: 'Tilila Awards',
+        ar: 'تيليلا أووردز',
+        match: (p) => p === '/tilila',
+    },
+    {
+        href: '/tililab',
+        en: 'Tililab',
+        fr: 'Tililab',
+        ar: 'تيليلاب',
+        match: (p) => p === '/tililab',
+    },
+    {
+        href: '/tilila/archives',
+        en: 'Archives',
+        fr: 'Archives',
+        ar: 'الأرشيف',
+        match: (p) => p.startsWith('/tilila/archives'),
+    },
+    {
+        href: '/events',
+        en: 'News',
+        fr: 'Actualités',
+        ar: 'أخبار',
+        match: (p) => p.startsWith('/events') || p.startsWith('/actualites'),
+    },
+    {
+        href: '/about#partners',
+        en: 'Partners',
+        fr: 'Partenaires',
+        ar: 'الشركاء',
+        match: (p) => p === '/about',
+    },
+    {
+        href: '/tilila#faq',
+        en: 'FAQ',
+        fr: 'FAQ',
+        ar: 'الأسئلة الشائعة',
+        match: () => false,
+    },
+    {
+        href: '/contact',
+        en: 'Contact',
+        fr: 'Contact',
+        ar: 'تواصل',
+        match: (p) => p === '/contact',
+    },
 ];
 
 function normalizePath(path) {
@@ -54,7 +102,11 @@ export default function TililaSiteHeader() {
                                         : 'text-tblack hover:text-beta-blue'
                                 }`}
                             >
-                                <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                <TransText
+                                    en={item.en}
+                                    fr={item.fr}
+                                    ar={item.ar}
+                                />
                             </Link>
                         );
                     })}
@@ -77,7 +129,11 @@ export default function TililaSiteHeader() {
                         aria-expanded={open}
                         onClick={() => setOpen((v) => !v)}
                     >
-                        {open ? <X className="size-5" /> : <Menu className="size-5" />}
+                        {open ? (
+                            <X className="size-5" />
+                        ) : (
+                            <Menu className="size-5" />
+                        )}
                     </button>
                     <LanguageSwitcher />
                 </div>
@@ -93,7 +149,11 @@ export default function TililaSiteHeader() {
                                 className="rounded-lg px-3 py-2.5 text-sm font-semibold text-tblack hover:bg-alpha-blue/40"
                                 onClick={() => setOpen(false)}
                             >
-                                <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                <TransText
+                                    en={item.en}
+                                    fr={item.fr}
+                                    ar={item.ar}
+                                />
                             </Link>
                         ))}
                         <Link

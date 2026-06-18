@@ -190,34 +190,38 @@ export default function TililaPastEditionsCarousel({
 
     return (
         <Wrapper {...wrapperProps}>
-            <div className={compact ? '' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'}>
+            <div
+                className={
+                    compact ? '' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'
+                }
+            >
                 {!compact ? (
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                        <p className="text-xs font-bold tracking-[0.2em] text-beta-blue uppercase">
-                            <TransText
-                                en="Past editions"
-                                fr="Éditions passées"
-                                ar="دورات سابقة"
-                            />
-                        </p>
-                        <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                            <TransText
-                                en="Swipe through Tilila years"
-                                fr="Parcourez les années Tilila"
-                                ar="تصفح سنوات تيليلا"
-                            />
-                        </h2>
-                        <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                            <TransText
-                                en="Each card links to the edition hub (or the full timeline when using the public recap)."
-                                fr="Chaque carte mène vers la fiche édition (ou la frise récapitulative en mode public)."
-                                ar="كل بطاقة تفتح صفحة الدورة (أو الخط الزمني في الوضع العام)."
-                            />
-                        </p>
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <p className="text-xs font-bold tracking-[0.2em] text-beta-blue uppercase">
+                                <TransText
+                                    en="Past editions"
+                                    fr="Éditions passées"
+                                    ar="دورات سابقة"
+                                />
+                            </p>
+                            <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                                <TransText
+                                    en="Swipe through Tilila years"
+                                    fr="Parcourez les années Tilila"
+                                    ar="تصفح سنوات تيليلا"
+                                />
+                            </h2>
+                            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                                <TransText
+                                    en="Each card links to the edition hub (or the full timeline when using the public recap)."
+                                    fr="Chaque carte mène vers la fiche édition (ou la frise récapitulative en mode public)."
+                                    ar="كل بطاقة تفتح صفحة الدورة (أو الخط الزمني في الوضع العام)."
+                                />
+                            </p>
+                        </div>
+                        {navButtons}
                     </div>
-                    {navButtons}
-                </div>
                 ) : controlsVisible ? (
                     <div className="mb-4 flex justify-end">{navButtons}</div>
                 ) : null}

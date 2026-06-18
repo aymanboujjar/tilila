@@ -1,11 +1,4 @@
-import {
-    Award,
-    Heart,
-    Megaphone,
-    Star,
-    Trophy,
-    Users,
-} from 'lucide-react';
+import { Award, Heart, Megaphone, Star, Trophy, Users } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TililaContainer,
@@ -94,7 +87,10 @@ const BENEFITS = [
 
 export default function TililaStatsBenefitsSection() {
     return (
-        <TililaSection id="stats" className="border-t border-border/60 bg-beta-white">
+        <TililaSection
+            id="stats"
+            className="border-t border-border/60 bg-beta-white"
+        >
             <TililaContainer>
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
                     <div>

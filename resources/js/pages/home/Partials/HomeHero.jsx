@@ -13,11 +13,14 @@ const TROPHY = '/assets/tilila/trophee-tilila.png';
 
 export default function HomeHero() {
     return (
-        <TililaSection id="hero" className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16">
+        <TililaSection
+            id="hero"
+            className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16"
+        >
             <TililaContainer>
                 <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
                     <div>
-                        <h1 className="text-3xl font-extrabold leading-[1.12] tracking-tight text-beta-blue sm:text-4xl lg:text-[2.65rem]">
+                        <h1 className="text-3xl leading-[1.12] font-extrabold tracking-tight text-beta-blue sm:text-4xl lg:text-[2.65rem]">
                             <TransText
                                 en="Every creation tells a story. Every story shapes a perspective. Every new perspective can help society evolve."
                                 fr="Chaque création raconte une histoire. Chaque histoire façonne un regard. Chaque nouveau regard peut faire évoluer une société."
@@ -78,8 +81,6 @@ export default function HomeHero() {
                             />
                         </div>
                     </div>
-              
-              
                 </div>
             </TililaContainer>
         </TililaSection>

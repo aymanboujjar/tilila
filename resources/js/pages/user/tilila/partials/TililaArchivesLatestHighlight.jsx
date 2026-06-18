@@ -66,7 +66,7 @@ export default function TililaArchivesLatestHighlight({ edition }) {
                             )}
                             <div className="absolute inset-0 bg-linear-to-t from-tblack/80 via-tblack/30 to-transparent" />
                             <div className="absolute bottom-0 left-0 p-6 sm:p-8">
-                                <p className="text-5xl font-extrabold leading-none text-twhite sm:text-6xl">
+                                <p className="text-5xl leading-none font-extrabold text-twhite sm:text-6xl">
                                     {edition.year}
                                 </p>
                                 <p className="mt-2 text-lg font-semibold text-twhite/90">

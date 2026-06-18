@@ -2,9 +2,7 @@ import { cn } from '@/lib/utils';
 
 export function PartnerLogoTile({ name, logoUrl, subtitle, tall = false }) {
     return (
-        <div
-          
-        >
+        <div>
             {logoUrl && (
                 <img
                     src={logoUrl}

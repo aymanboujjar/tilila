@@ -1,11 +1,4 @@
-import {
-    Globe,
-    Monitor,
-    Radio,
-    Sparkles,
-    Trophy,
-    Tv,
-} from 'lucide-react';
+import { Globe, Monitor, Radio, Sparkles, Trophy, Tv } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TililaBtnGhost,
@@ -35,7 +28,7 @@ const PRIZES = [
         descFr: "Meilleur spot publicitaire promouvant l'égalité femmes-hommes.",
         descEn: 'Best advertising spot promoting gender equality.',
         descAr: 'أفضل إعلان يعزز المساواة بين النساء والرجال.',
-        reward: '1 000 000 DH d\'espace publicitaire 2M brut',
+        reward: "1 000 000 DH d'espace publicitaire 2M brut",
     },
     {
         icon: Tv,
@@ -45,7 +38,7 @@ const PRIZES = [
         descFr: "Marque engagée en faveur de l'équité, de la diversité et de l'inclusion.",
         descEn: 'Brand committed to equity, diversity and inclusion.',
         descAr: 'علامة تجارية ملتزمة بالإنصاف والتنوع والإدماج.',
-        reward: '500 000 DH d\'espace publicitaire 2M brut',
+        reward: "500 000 DH d'espace publicitaire 2M brut",
     },
     {
         icon: Monitor,
@@ -55,7 +48,7 @@ const PRIZES = [
         descFr: 'Campagne ou contenu diffusé sur les supports digitaux.',
         descEn: 'Campaign or content broadcast on digital media.',
         descAr: 'حملة أو محتوى منشور على المنصات الرقمية.',
-        reward: '250 000 DH d\'espace publicitaire 2M brut',
+        reward: "250 000 DH d'espace publicitaire 2M brut",
     },
     {
         icon: Radio,
@@ -65,14 +58,14 @@ const PRIZES = [
         descFr: 'Campagne diffusée en télévision, radio, presse écrite ou affichage.',
         descEn: 'Campaign on TV, radio, print or out-of-home.',
         descAr: 'حملة في التلفزيون أو الإذاعة أو الصحافة أو الإشهار الخارجي.',
-        reward: '250 000 DH d\'espace publicitaire 2M brut',
+        reward: "250 000 DH d'espace publicitaire 2M brut",
     },
     {
         icon: Globe,
         fr: 'Grand Prix du Jury',
         en: 'Grand Jury Prize',
         ar: 'الجائزة الكبرى للجنة التحكيم',
-        descFr: 'La campagne la plus remarquable de l\'édition.',
+        descFr: "La campagne la plus remarquable de l'édition.",
         descEn: 'The most outstanding campaign of the edition.',
         descAr: 'أبرز حملة في الدورة.',
         reward: 'Trophée Tilila Awards',

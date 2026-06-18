@@ -48,10 +48,7 @@ export function ArchivesGallerySlide({ item }) {
     );
 
     return (
-        <a
-            href={item.detailsUrl}
-            className="group relative block"
-        >
+        <a href={item.detailsUrl} className="group relative block">
             {inner}
         </a>
     );

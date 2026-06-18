@@ -1,10 +1,14 @@
 import { TILILA_EDITIONS_HISTORY } from '@/pages/user/tilila/data/tilila-editions-history';
-import { coverImageSrc, normalizeEdition } from '@/pages/user/tilila/utils/editions';
+import {
+    coverImageSrc,
+    normalizeEdition,
+} from '@/pages/user/tilila/utils/editions';
 
 function parseLineToWinner(line) {
     const text = line?.fr || line?.en || '';
-    const trophyMatch = text.match(/^([^—]+)—\s*(.+?)(?:\s*—\s*Agence\s*:\s*(.+))?$/i)
-        || text.match(/^([^—]+)—\s*(.+)$/);
+    const trophyMatch =
+        text.match(/^([^—]+)—\s*(.+?)(?:\s*—\s*Agence\s*:\s*(.+))?$/i) ||
+        text.match(/^([^—]+)—\s*(.+)$/);
 
     if (!trophyMatch) {
         return {
@@ -15,6 +19,7 @@ function parseLineToWinner(line) {
     }
 
     const [, trophyPart, brandPart, agencyPart] = trophyMatch;
+
     return {
         full_name: (brandPart || trophyPart || '').trim(),
         trophy: {
@@ -78,7 +83,10 @@ function historyToArchiveEdition(entry) {
 
 function apiToArchiveEdition(raw) {
     const base = normalizeEdition(raw);
-    if (!base) return null;
+
+    if (!base) {
+        return null;
+    }
 
     const galleryImages = Array.isArray(raw.gallery_images)
         ? raw.gallery_images
@@ -133,14 +141,17 @@ export function buildArchiveEditions(apiEditions = []) {
 
 export function extractAgency(bio, locale = 'fr') {
     const text = bio?.[locale] || bio?.fr || bio?.en || '';
-    const match = text.match(/Agence\s*:\s*(.+)/i)
-        || text.match(/Agency:\s*(.+)/i)
-        || text.match(/الوكالة:\s*(.+)/);
+    const match =
+        text.match(/Agence\s*:\s*(.+)/i) ||
+        text.match(/Agency:\s*(.+)/i) ||
+        text.match(/الوكالة:\s*(.+)/);
+
     return match ? match[1].trim().replace(/\.$/, '') : null;
 }
 
 export function findArchiveEdition(apiEditions = [], year) {
     const target = String(year ?? '');
+
     return (
         buildArchiveEditions(apiEditions).find((e) => e.year === target) ?? null
     );
@@ -148,10 +159,11 @@ export function findArchiveEdition(apiEditions = [], year) {
 
 /** Normalized winner rows for display (DB winners or history lines). */
 export function editionWinnerRows(edition, locale = 'fr') {
-    if (!edition) return [];
+    if (!edition) {
+        return [];
+    }
 
-    const text = (obj) =>
-        obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
+    const text = (obj) => obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
 
     if (edition.winners?.length) {
         return edition.winners.map((winner) => ({

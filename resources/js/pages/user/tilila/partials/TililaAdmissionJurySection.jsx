@@ -77,7 +77,10 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
     const showPlaceholders = members.length === 0;
 
     return (
-        <TililaSection id="admission" className="border-t border-border/60 bg-twhite">
+        <TililaSection
+            id="admission"
+            className="border-t border-border/60 bg-twhite"
+        >
             <TililaContainer>
                 <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
                     <div>
@@ -133,7 +136,6 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                         ) : null}
 
                         <JuryPreview members={members.slice(0, 4)} />
-                   
 
                         <div className="mt-8">
                             <button

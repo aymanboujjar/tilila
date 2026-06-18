@@ -1,10 +1,5 @@
 import { Link } from '@inertiajs/react';
-import {
-    ArrowRight,
-    Award,
-    Play,
-    Trophy,
-} from 'lucide-react';
+import { ArrowRight, Award, Play, Trophy } from 'lucide-react';
 import { getYoutubeEmbedUrl } from '@/lib/youtubeEmbed';
 import TransText from '@/components/TransText';
 import { TILILA_ARCHIVE_CATEGORIES } from '@/pages/user/tilila/data/archive-categories';
@@ -50,7 +45,7 @@ function YearStrip({ year, label, count }) {
     return (
         <div className="mb-4 flex flex-wrap items-end justify-between gap-3 border-s-4 border-beta-turquoise ps-4">
             <div>
-                <p className="text-3xl font-extrabold leading-none text-beta-blue">
+                <p className="text-3xl leading-none font-extrabold text-beta-blue">
                     {year}
                 </p>
                 {label ? (
@@ -90,7 +85,7 @@ function SectionBlock({ id, category, locale, index, itemCount, children }) {
                     </div>
                 </div>
                 <div className="flex items-center gap-4 lg:flex-col lg:items-end">
-                    <span className="text-5xl font-black leading-none text-beta-blue/10">
+                    <span className="text-5xl leading-none font-black text-beta-blue/10">
                         {String(index + 1).padStart(2, '0')}
                     </span>
                     {itemCount > 0 ? (
@@ -134,7 +129,9 @@ function LaureatsSection({ items }) {
                     <TililaHorizontalCarousel
                         ariaLabel={`Winners ${group.year}`}
                         slideClassName="w-[min(100%,340px)] shrink-0 snap-start md:w-[42%] lg:w-[30%]"
-                        fadeFrom={group.year % 2 ? 'from-beta-white' : 'from-twhite'}
+                        fadeFrom={
+                            group.year % 2 ? 'from-beta-white' : 'from-twhite'
+                        }
                     >
                         {group.items.map((row, index) => (
                             <article
@@ -193,14 +190,16 @@ function NamedCardsSection({ items, emptyMessage }) {
                     <TililaHorizontalCarousel
                         ariaLabel={`Items ${group.year}`}
                         slideClassName="w-[min(100%,260px)] shrink-0 snap-start sm:w-[38%] lg:w-[24%]"
-                        fadeFrom={group.year % 2 ? 'from-beta-white' : 'from-twhite'}
+                        fadeFrom={
+                            group.year % 2 ? 'from-beta-white' : 'from-twhite'
+                        }
                     >
                         {group.items.map((item, index) => (
                             <article
                                 key={`${group.year}-${item.name}-${index}`}
                                 className="group flex h-full min-h-[120px] flex-col justify-between rounded-2xl border border-border/60 bg-linear-to-br from-twhite to-beta-white/80 p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-beta-blue/25 hover:shadow-md"
                             >
-                                <p className="text-lg font-bold leading-snug text-tblack group-hover:text-beta-blue">
+                                <p className="text-lg leading-snug font-bold text-tblack group-hover:text-beta-blue">
                                     {item.name}
                                 </p>
                                 <p className="mt-3 text-xs font-bold tracking-wide text-beta-blue uppercase">
@@ -248,7 +247,9 @@ function JurysSection({ items }) {
                     <TililaHorizontalCarousel
                         ariaLabel={`Jury ${group.year}`}
                         slideClassName="w-[min(100%,280px)] shrink-0 snap-start sm:w-[45%] lg:w-[28%]"
-                        fadeFrom={group.year % 2 ? 'from-beta-white' : 'from-twhite'}
+                        fadeFrom={
+                            group.year % 2 ? 'from-beta-white' : 'from-twhite'
+                        }
                     >
                         {group.items.map((member, index) => (
                             <article
@@ -306,7 +307,9 @@ function PhotosSection({ items }) {
                     <TililaHorizontalCarousel
                         ariaLabel={`Photos ${group.year}`}
                         slideClassName="w-[min(100%,420px)] shrink-0 snap-start sm:w-[65%] lg:w-[45%]"
-                        fadeFrom={group.year % 2 ? 'from-beta-white' : 'from-twhite'}
+                        fadeFrom={
+                            group.year % 2 ? 'from-beta-white' : 'from-twhite'
+                        }
                         autoAdvanceMs={5200}
                     >
                         {group.items.map((image) => (
@@ -422,7 +425,7 @@ export default function TililaArchivesSections({ sections }) {
     const { locale } = useTranslation();
 
     return (
-        <TililaSection className="bg-twhite pb-4 pt-0">
+        <TililaSection className="bg-twhite pt-0 pb-4">
             <div className="sticky top-16 z-30 border-b border-border/60 bg-twhite/90 backdrop-blur-md sm:top-18">
                 <TililaContainer className="py-3">
                     <nav

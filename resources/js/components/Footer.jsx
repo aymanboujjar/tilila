@@ -91,7 +91,10 @@ export default function Footer() {
                                     aria-label={label}
                                     className="text-beta-blue transition-opacity hover:opacity-70"
                                 >
-                                    <Icon className="size-5" strokeWidth={1.75} />
+                                    <Icon
+                                        className="size-5"
+                                        strokeWidth={1.75}
+                                    />
                                 </a>
                             ))}
                         </div>
@@ -116,7 +119,11 @@ export default function Footer() {
                             </li>
                             <li>
                                 <FooterLink href="/tilila/participate">
-                                    <TransText en="FAQ" fr="FAQ" ar="الأسئلة الشائعة" />
+                                    <TransText
+                                        en="FAQ"
+                                        fr="FAQ"
+                                        ar="الأسئلة الشائعة"
+                                    />
                                 </FooterLink>
                             </li>
                         </ul>
@@ -196,8 +203,6 @@ export default function Footer() {
                             </li>
                         </ul>
                     </FooterColumn>
-
-                   
 
                     <FooterColumn className="col-span-2">
                         <FooterHeading>Newsletter</FooterHeading>

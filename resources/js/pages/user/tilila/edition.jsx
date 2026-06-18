@@ -88,7 +88,9 @@ export default function TililaEditionDetails() {
                             </p>
                             <h1 className="mt-2 text-3xl font-extrabold tracking-tight text-beta-blue sm:text-4xl">
                                 <TililaTealText>{edition?.year}</TililaTealText>
-                                <span className="ms-2 text-tblack">{label}</span>
+                                <span className="ms-2 text-tblack">
+                                    {label}
+                                </span>
                             </h1>
                             {theme ? (
                                 <p className="mt-4 max-w-2xl text-base leading-relaxed text-tgray">

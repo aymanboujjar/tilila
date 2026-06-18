@@ -139,78 +139,84 @@ export default function TililabPastEditionsCarousel({
 
     return (
         <Wrapper {...wrapperProps}>
-            <div className={compact ? '' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'}>
+            <div
+                className={
+                    compact ? '' : 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'
+                }
+            >
                 {!compact ? (
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                        <p className="text-xs font-bold tracking-[0.2em] text-beta-blue uppercase">
-                            <TransText
-                                en="Past editions"
-                                fr="Éditions passées"
-                                ar="دورات سابقة"
-                            />
-                        </p>
-                        <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-                            <TransText
-                                en="Swipe through Tililab years"
-                                fr="Parcourez les années Tililab"
-                                ar="تصفح سنوات تيليلاب"
-                            />
-                        </h2>
-                        <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                            <TransText
-                                en="Each card links to the edition hub (or the full timeline when using the public recap)."
-                                fr="Chaque carte mène vers la fiche édition (ou la frise récapitulative en mode public)."
-                                ar="كل بطاقة تفتح صفحة الدورة (أو الخط الزمني في الوضع العام)."
-                            />
-                        </p>
-                    </div>
-                    <div className="flex shrink-0 items-center gap-2">
-                        <button
-                            type="button"
-                            onClick={() => {
-                                lastInteractionAtRef.current = Date.now();
-                                const el = trackRef.current;
-                                if (el) {
-                                    const max = el.scrollWidth - el.clientWidth;
-                                    const x = el.scrollLeft;
-                                    if (x <= 8 && max > 0) {
-                                        el.scrollTo({
-                                            left: max,
-                                            behavior: 'smooth',
-                                        });
-                                        return;
+                    <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <p className="text-xs font-bold tracking-[0.2em] text-beta-blue uppercase">
+                                <TransText
+                                    en="Past editions"
+                                    fr="Éditions passées"
+                                    ar="دورات سابقة"
+                                />
+                            </p>
+                            <h2 className="mt-2 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+                                <TransText
+                                    en="Swipe through Tililab years"
+                                    fr="Parcourez les années Tililab"
+                                    ar="تصفح سنوات تيليلاب"
+                                />
+                            </h2>
+                            <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                                <TransText
+                                    en="Each card links to the edition hub (or the full timeline when using the public recap)."
+                                    fr="Chaque carte mène vers la fiche édition (ou la frise récapitulative en mode public)."
+                                    ar="كل بطاقة تفتح صفحة الدورة (أو الخط الزمني في الوضع العام)."
+                                />
+                            </p>
+                        </div>
+                        <div className="flex shrink-0 items-center gap-2">
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    lastInteractionAtRef.current = Date.now();
+                                    const el = trackRef.current;
+                                    if (el) {
+                                        const max =
+                                            el.scrollWidth - el.clientWidth;
+                                        const x = el.scrollLeft;
+                                        if (x <= 8 && max > 0) {
+                                            el.scrollTo({
+                                                left: max,
+                                                behavior: 'smooth',
+                                            });
+                                            return;
+                                        }
                                     }
-                                }
-                                scrollBySlides(-1);
-                            }}
-                            className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
-                            aria-label="Previous"
-                        >
-                            <ChevronLeft className="size-5" />
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                                lastInteractionAtRef.current = Date.now();
-                                const el = trackRef.current;
-                                if (el) {
-                                    const max = el.scrollWidth - el.clientWidth;
-                                    const x = el.scrollLeft;
-                                    if (x >= max - 8 && max > 0) {
-                                        scrollToStart();
-                                        return;
+                                    scrollBySlides(-1);
+                                }}
+                                className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
+                                aria-label="Previous"
+                            >
+                                <ChevronLeft className="size-5" />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    lastInteractionAtRef.current = Date.now();
+                                    const el = trackRef.current;
+                                    if (el) {
+                                        const max =
+                                            el.scrollWidth - el.clientWidth;
+                                        const x = el.scrollLeft;
+                                        if (x >= max - 8 && max > 0) {
+                                            scrollToStart();
+                                            return;
+                                        }
                                     }
-                                }
-                                scrollBySlides(1);
-                            }}
-                            className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
-                            aria-label="Next"
-                        >
-                            <ChevronRight className="size-5" />
-                        </button>
+                                    scrollBySlides(1);
+                                }}
+                                className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-card text-foreground shadow-sm transition hover:bg-muted"
+                                aria-label="Next"
+                            >
+                                <ChevronRight className="size-5" />
+                            </button>
+                        </div>
                     </div>
-                </div>
                 ) : null}
 
                 <div className={`relative ${compact ? 'mt-0' : 'mt-8'}`}>

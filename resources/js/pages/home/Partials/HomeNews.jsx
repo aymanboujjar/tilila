@@ -2,7 +2,10 @@ import { Link } from '@inertiajs/react';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { useRef } from 'react';
 import TransText from '@/components/TransText';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 const FALLBACK_NEWS = [
@@ -88,8 +91,7 @@ function textFor(obj, locale) {
 }
 
 function NewsCard({ item, locale }) {
-    const tone =
-        BADGE_TONES[item.badgeTone] ?? BADGE_TONES.purple;
+    const tone = BADGE_TONES[item.badgeTone] ?? BADGE_TONES.purple;
     const href = item.href || (item.slug ? `/events/${item.slug}` : '/events');
 
     return (
@@ -113,7 +115,7 @@ function NewsCard({ item, locale }) {
                 >
                     {textFor(item.badge, locale)}
                 </span>
-                <h3 className="mt-3 line-clamp-2 text-sm font-extrabold leading-snug text-tblack">
+                <h3 className="mt-3 line-clamp-2 text-sm leading-snug font-extrabold text-tblack">
                     {textFor(item.title, locale)}
                 </h3>
                 <p className="mt-auto pt-3 text-xs text-tgray">
@@ -127,17 +129,19 @@ function NewsCard({ item, locale }) {
 export default function HomeNews({ items = [] }) {
     const { locale } = useTranslation();
     const scrollerRef = useRef(null);
-    const list = (Array.isArray(items) && items.length ? items : FALLBACK_NEWS).slice(
-        0,
-        8,
-    );
+    const list = (
+        Array.isArray(items) && items.length ? items : FALLBACK_NEWS
+    ).slice(0, 8);
 
     const scrollNext = () => {
         scrollerRef.current?.scrollBy({ left: 300, behavior: 'smooth' });
     };
 
     return (
-        <TililaSection id="news" className="border-t border-border/60 bg-twhite pb-16">
+        <TililaSection
+            id="news"
+            className="border-t border-border/60 bg-twhite pb-16"
+        >
             <TililaContainer>
                 <div className="flex flex-wrap items-end justify-between gap-4">
                     <h2 className="text-2xl font-extrabold tracking-tight text-beta-blue sm:text-3xl">
@@ -159,7 +163,7 @@ export default function HomeNews({ items = [] }) {
                 <div className="relative mt-8">
                     <div
                         ref={scrollerRef}
-                        className="flex gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden snap-x snap-mandatory"
+                        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                     >
                         {list.map((item) => (
                             <NewsCard

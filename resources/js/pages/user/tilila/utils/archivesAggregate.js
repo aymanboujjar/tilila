@@ -1,8 +1,8 @@
 import {
-    buildArchiveEditions,
-    extractAgency,
-} from '@/pages/user/tilila/utils/archiveEditions';
-import { storagePhotoSrc, textFor } from '@/pages/user/tilila/partials/EditionDetailContent';
+    storagePhotoSrc,
+    textFor,
+} from '@/pages/user/tilila/partials/EditionDetailContent';
+import { extractAgency } from '@/pages/user/tilila/utils/archiveEditions';
 
 function parseCampaignFromLine(line, locale = 'fr') {
     const text = line?.[locale] || line?.fr || line?.en || '';
@@ -16,8 +16,8 @@ function parseCampaignFromLine(line, locale = 'fr') {
 function parseCampaignFromWinner(winner, locale) {
     const bio = textFor(winner?.bio, locale);
     const name = winner?.full_name || '';
-    const campaignMatch = bio.match(/Campagne\s*:\s*(.+)/i)
-        || bio.match(/Campaign:\s*(.+)/i);
+    const campaignMatch =
+        bio.match(/Campagne\s*:\s*(.+)/i) || bio.match(/Campaign:\s*(.+)/i);
 
     if (campaignMatch) {
         return campaignMatch[1].trim();
@@ -26,11 +26,7 @@ function parseCampaignFromWinner(winner, locale) {
     return name || null;
 }
 
-function uniqueStrings(values) {
-    return [...new Set(values.filter(Boolean))];
-}
-
-/** @param {ReturnType<typeof buildArchiveEditions>} editions */
+/** @param {Array<Record<string, unknown>>} editions */
 export function buildArchivesSections(editions, locale = 'fr') {
     const laureats = [];
     const campagnes = [];
@@ -62,11 +58,13 @@ export function buildArchivesSections(editions, locale = 'fr') {
                 }
 
                 const agency = extractAgency(winner.bio, locale);
+
                 if (agency) {
                     agences.push({ ...base, name: agency });
                 }
 
                 const campaign = parseCampaignFromWinner(winner, locale);
+
                 if (campaign) {
                     campagnes.push({ ...base, name: campaign });
                 }
@@ -83,6 +81,7 @@ export function buildArchivesSections(editions, locale = 'fr') {
                 });
 
                 const campaign = parseCampaignFromLine(line, locale);
+
                 if (campaign) {
                     campagnes.push({ ...base, name: campaign });
                 }
@@ -91,10 +90,12 @@ export function buildArchivesSections(editions, locale = 'fr') {
                 const brandMatch = text.match(
                     /—\s*([^—]+?)(?:\s*—\s*Campagne|\s*—\s*Agence|\s*—\s*Agency|$)/i,
                 );
+
                 if (brandMatch?.[1]) {
                     const brand = brandMatch[1]
                         .replace(/^(\d+(?:er|e|ème)?\s*prix[^—]*—\s*)/i, '')
                         .trim();
+
                     if (brand) {
                         marques.push({ ...base, name: brand });
                     }
@@ -103,7 +104,12 @@ export function buildArchivesSections(editions, locale = 'fr') {
                 const agencyMatch = text.match(
                     /Agence\s*:\s*([^.—]+)|Agency:\s*([^.—]+)/i,
                 );
-                const agency = (agencyMatch?.[1] || agencyMatch?.[2] || '').trim();
+                const agency = (
+                    agencyMatch?.[1] ||
+                    agencyMatch?.[2] ||
+                    ''
+                ).trim();
+
                 if (agency) {
                     agences.push({ ...base, name: agency });
                 }
@@ -143,8 +149,13 @@ export function buildArchivesSections(editions, locale = 'fr') {
 
         return rows.filter((row) => {
             const key = `${row.year}-${row.name || row.detail || row.src}`;
-            if (seen.has(key)) return false;
+
+            if (seen.has(key)) {
+                return false;
+            }
+
             seen.add(key);
+
             return true;
         });
     };

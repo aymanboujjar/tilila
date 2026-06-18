@@ -41,7 +41,9 @@ export default function TililabAwardsHeader() {
                                 key={href}
                                 href={href}
                                 className="text-xs font-bold tracking-[0.12em] text-tblack uppercase transition hover:text-beta-blue"
-                                {...(isRoute ? {} : { onClick: () => setOpen(false) })}
+                                {...(isRoute
+                                    ? {}
+                                    : { onClick: () => setOpen(false) })}
                             >
                                 <TransText
                                     en={item.en}

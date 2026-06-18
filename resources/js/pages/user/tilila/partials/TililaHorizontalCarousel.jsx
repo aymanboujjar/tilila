@@ -124,7 +124,7 @@ export default function TililaHorizontalCarousel({
                 {hasMultiple ? (
                     <>
                         <div
-                            className={`pointer-events-none absolute inset-y-0 start-0 z-10 w-8 bg-linear-to-e ${fadeFrom} to-transparent`}
+                            className={`bg-linear-to-e pointer-events-none absolute inset-y-0 start-0 z-10 w-8 ${fadeFrom} to-transparent`}
                         />
                         <div
                             className={`pointer-events-none absolute inset-y-0 end-0 z-10 w-8 bg-linear-to-l ${fadeFrom} to-transparent`}
@@ -144,7 +144,10 @@ export default function TililaHorizontalCarousel({
                     aria-label={ariaLabel}
                 >
                     {slides.map((slide, index) => (
-                        <div key={slide.key ?? index} className={slideClassName}>
+                        <div
+                            key={slide.key ?? index}
+                            className={slideClassName}
+                        >
                             {slide}
                         </div>
                     ))}

@@ -15,8 +15,7 @@ export function ArchivesLaureatsSection({
 }) {
     const { t } = useTranslation();
     const preview = cards.slice(0, previewCount);
-    const programLabel =
-        program === 'tililab' ? 'TILILAB' : 'TILILA AWARDS';
+    const programLabel = program === 'tililab' ? 'TILILAB' : 'TILILA AWARDS';
     const yearLabel = year === 'all' ? '' : year;
 
     if (!cards.length) {
@@ -57,7 +56,7 @@ export function ArchivesLaureatsSection({
                         </div>
                         <div className="space-y-1 p-3 sm:p-4">
                             {card.trophy ? (
-                                <p className="text-[11px] font-semibold leading-snug text-tgray uppercase sm:text-xs">
+                                <p className="text-[11px] leading-snug font-semibold text-tgray uppercase sm:text-xs">
                                     {card.trophy}
                                 </p>
                             ) : null}

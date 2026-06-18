@@ -371,9 +371,7 @@ export default function HeroSlideForm({
     const pendingVideoFileRef = React.useRef(null);
     const previewObjectUrlRef = React.useRef(null);
     const manualPosterRef = React.useRef(
-        mode === 'edit' && isVideoOnLoad
-            ? Boolean(data.image_url)
-            : false,
+        mode === 'edit' && isVideoOnLoad ? Boolean(data.image_url) : false,
     );
     const posterSourceRef = React.useRef(posterSource);
     const coverModeRef = React.useRef(coverMode);
@@ -404,7 +402,8 @@ export default function HeroSlideForm({
     const hasVideoSource = Boolean(
         data.video_url || data.video_path || videoUploadState,
     );
-    const showCoverModeChoice = mode === 'edit' && isVideoMedia && hasVideoSource;
+    const showCoverModeChoice =
+        mode === 'edit' && isVideoMedia && hasVideoSource;
     const useAutoCover =
         mode === 'create' || (mode === 'edit' && coverMode === 'auto');
 
@@ -500,7 +499,14 @@ export default function HeroSlideForm({
         }
 
         regenerateAutoCover();
-    }, [mode, coverMode, isVideoMedia, imagePreview, data.image, regenerateAutoCover]);
+    }, [
+        mode,
+        coverMode,
+        isVideoMedia,
+        imagePreview,
+        data.image,
+        regenerateAutoCover,
+    ]);
 
     const startVideoUpload = React.useCallback(
         (file) => {
@@ -1077,13 +1083,15 @@ export default function HeroSlideForm({
                                         <X className="size-4" />
                                     </button>
                                     <p
-                                        className="pe-8 text-sm font-medium text-foreground truncate"
+                                        className="truncate pe-8 text-sm font-medium text-foreground"
                                         title={videoUploadState.fileName}
                                     >
                                         {videoUploadState.fileName}
                                     </p>
                                     <p className="mt-0.5 text-xs text-muted-foreground">
-                                        {formatFileSize(videoUploadState.fileSize)}
+                                        {formatFileSize(
+                                            videoUploadState.fileSize,
+                                        )}
                                     </p>
                                     <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-muted">
                                         <div
@@ -1160,7 +1168,7 @@ export default function HeroSlideForm({
                                                 {videoUploadState.message ||
                                                     'Upload failed. Please try again.'}
                                             </p>
-                                            <p className="text-xs text-muted-foreground truncate">
+                                            <p className="truncate text-xs text-muted-foreground">
                                                 {videoUploadState.fileName} ·{' '}
                                                 {formatFileSize(
                                                     videoUploadState.fileSize,

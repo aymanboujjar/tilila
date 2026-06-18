@@ -42,7 +42,7 @@ export default function TililaArchivesIntro({
                             ar="إرث تيليلا أووردز"
                         />
                     </p>
-                    <h1 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+                    <h1 className="mt-3 text-4xl leading-tight font-extrabold tracking-tight sm:text-5xl">
                         <TransText
                             en="Archives & palmarès"
                             fr="Archives & palmarès"

@@ -41,15 +41,27 @@ export default function TililaAwardsHeader() {
 
                         if (isRoute) {
                             return (
-                                <Link key={item.fr} href={href} className={className}>
-                                    <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                <Link
+                                    key={item.fr}
+                                    href={href}
+                                    className={className}
+                                >
+                                    <TransText
+                                        en={item.en}
+                                        fr={item.fr}
+                                        ar={item.ar}
+                                    />
                                 </Link>
                             );
                         }
 
                         return (
                             <a key={item.fr} href={href} className={className}>
-                                <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                <TransText
+                                    en={item.en}
+                                    fr={item.fr}
+                                    ar={item.ar}
+                                />
                             </a>
                         );
                     })}
@@ -72,7 +84,11 @@ export default function TililaAwardsHeader() {
                         aria-expanded={open}
                         onClick={() => setOpen((v) => !v)}
                     >
-                        {open ? <X className="size-5" /> : <Menu className="size-5" />}
+                        {open ? (
+                            <X className="size-5" />
+                        ) : (
+                            <Menu className="size-5" />
+                        )}
                     </button>
                     <LanguageSwitcher />
                 </div>
@@ -95,7 +111,11 @@ export default function TililaAwardsHeader() {
                                             className={className}
                                             onClick={() => setOpen(false)}
                                         >
-                                            <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                            <TransText
+                                                en={item.en}
+                                                fr={item.fr}
+                                                ar={item.ar}
+                                            />
                                         </Link>
                                     ) : (
                                         <a
@@ -103,7 +123,11 @@ export default function TililaAwardsHeader() {
                                             className={className}
                                             onClick={() => setOpen(false)}
                                         >
-                                            <TransText en={item.en} fr={item.fr} ar={item.ar} />
+                                            <TransText
+                                                en={item.en}
+                                                fr={item.fr}
+                                                ar={item.ar}
+                                            />
                                         </a>
                                     )}
                                 </li>

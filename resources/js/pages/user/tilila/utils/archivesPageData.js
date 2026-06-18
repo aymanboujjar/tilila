@@ -1,5 +1,5 @@
-import { buildArchivesSections } from '@/pages/user/tilila/utils/archivesAggregate';
 import { textFor } from '@/pages/user/tilila/partials/EditionDetailContent';
+import { buildArchivesSections } from '@/pages/user/tilila/utils/archivesAggregate';
 
 export const ARCHIVE_STAT_KEYS = [
     'laureats',
@@ -75,12 +75,17 @@ export function filterAndSortEditions(
         if (year !== 'all' && String(edition.year) !== String(year)) {
             return false;
         }
-        if (!normalizedQuery) return true;
+
+        if (!normalizedQuery) {
+            return true;
+        }
+
         return editionSearchBlob(edition, locale).includes(normalizedQuery);
     });
 
     rows = [...rows].sort((a, b) => {
         const diff = Number(b.year) - Number(a.year);
+
         return sort === 'oldest' ? -diff : diff;
     });
 

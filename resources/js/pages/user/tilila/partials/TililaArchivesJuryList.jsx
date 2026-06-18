@@ -44,10 +44,7 @@ function EditionJuryBlock({ edition, locale }) {
 
             <ul className="grid gap-px bg-border/40 sm:grid-cols-2 lg:grid-cols-3">
                 {jury.map((member, index) => (
-                    <li
-                        key={index}
-                        className="flex gap-4 bg-twhite p-5 sm:p-6"
-                    >
+                    <li key={index} className="flex gap-4 bg-twhite p-5 sm:p-6">
                         {member.photo_path ? (
                             <PersonPhoto
                                 path={member.photo_path}
@@ -83,11 +80,7 @@ export default function TililaArchivesJuryList({ editions = [] }) {
             <TililaContainer>
                 <TililaSectionHeading
                     title={
-                        <TransText
-                            en="Juries"
-                            fr="Jurys"
-                            ar="لجان التحكيم"
-                        />
+                        <TransText en="Juries" fr="Jurys" ar="لجان التحكيم" />
                     }
                     subtitle={
                         <TransText

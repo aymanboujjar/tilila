@@ -1,15 +1,17 @@
 import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 import TransText from '@/components/TransText';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const CARDS = [
     {
         id: 'tilila',
         href: '/tilila/participate',
         image: '/assets/tilila/tilila-awards-logo.png',
-        imageClass:
-            'h-[70%] w-[85%] max-w-full object-contain object-center',
+        imageClass: 'h-[70%] w-[85%] max-w-full object-contain object-center',
         imageLayout: 'logo',
         gradient: 'from-brand-light-purple via-beta-blue to-[#3d1f6e]',
         title: 'TILILA AWARDS',

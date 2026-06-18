@@ -23,7 +23,10 @@ export default function TililabHero({ videoUrl }) {
     }, [videoUrl]);
 
     return (
-        <TililaSection id="hero" className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16">
+        <TililaSection
+            id="hero"
+            className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16"
+        >
             <TililaContainer>
                 <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
                     <div id="candidature">
@@ -34,12 +37,12 @@ export default function TililabHero({ videoUrl }) {
                                 ar="الدورة السادسة"
                             />
                         </p>
-                        <h1 className="mt-3 text-4xl font-extrabold leading-[1.05] tracking-tight text-beta-blue sm:text-5xl lg:text-[3.25rem]">
+                        <h1 className="mt-3 text-4xl leading-[1.05] font-extrabold tracking-tight text-beta-blue sm:text-5xl lg:text-[3.25rem]">
                             TILILAB
                             <span className="mt-1 block text-tblack">2026</span>
                         </h1>
 
-                        <div className="mt-6 space-y-1 text-base font-medium leading-snug text-tblack/90">
+                        <div className="mt-6 space-y-1 text-base leading-snug font-medium text-tblack/90">
                             <p>
                                 <TransText
                                     en="Reveal the talents who create tomorrow's stories."

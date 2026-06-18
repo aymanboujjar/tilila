@@ -3,10 +3,14 @@ import { ARCHIVE_CATEGORY_ICONS } from '@/pages/user/tilila/utils/archiveCategor
 import { useTranslation } from '@/contexts/TranslationContext';
 
 const GRADIENTS = {
-    laureats: 'from-amber-500/20 via-amber-400/10 to-transparent dark:from-amber-400/25',
-    campagnes: 'from-violet-500/20 via-violet-400/10 to-transparent dark:from-violet-400/25',
-    marques: 'from-sky-500/20 via-sky-400/10 to-transparent dark:from-sky-400/25',
-    agences: 'from-emerald-500/20 via-emerald-400/10 to-transparent dark:from-emerald-400/25',
+    laureats:
+        'from-amber-500/20 via-amber-400/10 to-transparent dark:from-amber-400/25',
+    campagnes:
+        'from-violet-500/20 via-violet-400/10 to-transparent dark:from-violet-400/25',
+    marques:
+        'from-sky-500/20 via-sky-400/10 to-transparent dark:from-sky-400/25',
+    agences:
+        'from-emerald-500/20 via-emerald-400/10 to-transparent dark:from-emerald-400/25',
     jurys: 'from-rose-500/20 via-rose-400/10 to-transparent dark:from-rose-400/25',
     photos: 'from-fuchsia-500/20 via-fuchsia-400/10 to-transparent dark:from-fuchsia-400/25',
     videos: 'from-indigo-500/20 via-indigo-400/10 to-transparent dark:from-indigo-400/25',
