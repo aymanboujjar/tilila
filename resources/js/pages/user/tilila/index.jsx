@@ -1,5 +1,5 @@
 import { Head, usePage } from '@inertiajs/react';
-import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
+import AppLayout from '@/layouts/app-layout';
 import TililaAdmissionJurySection from '@/pages/user/tilila/partials/TililaAdmissionJurySection';
 import TililaBottomSection from '@/pages/user/tilila/partials/TililaBottomSection';
 import TililaHero from '@/pages/user/tilila/partials/TililaHero';
@@ -35,7 +35,7 @@ export default function TililaIndex() {
     );
 }
 
-TililaIndex.layout = (page) => <TililaAwardsLayout>{page}</TililaAwardsLayout>;
+TililaIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
 
 function TililaHead() {
     const { t } = useTranslation();

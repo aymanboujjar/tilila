@@ -1,5 +1,5 @@
 import { Head, usePage } from '@inertiajs/react';
-import TililabProgramLayout from '@/layouts/tililab-program-layout';
+import AppLayout from '@/layouts/app-layout';
 import TililabAdmissionJurySection from '@/pages/user/tililab/partials/TililabAdmissionJurySection';
 import TililabBottomSection from '@/pages/user/tililab/partials/TililabBottomSection';
 import TililabHero from '@/pages/user/tililab/partials/TililabHero';
@@ -32,9 +32,7 @@ export default function TililabIndex() {
     );
 }
 
-TililabIndex.layout = (page) => (
-    <TililabProgramLayout>{page}</TililabProgramLayout>
-);
+TililabIndex.layout = (page) => <AppLayout>{page}</AppLayout>;
 
 function TililabHead() {
     const { t } = useTranslation();

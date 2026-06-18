@@ -1,6 +1,6 @@
 import { Head, usePage } from '@inertiajs/react';
 import { useMemo } from 'react';
-import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
+import AppLayout from '@/layouts/app-layout';
 import ArchivesCategoryPanels from '@/pages/user/tilila/archives/components/ArchivesCategoryPanels';
 import {
     ArchivesGallerySection,
@@ -206,6 +206,4 @@ export default function TililaArchives() {
     );
 }
 
-TililaArchives.layout = (page) => (
-    <TililaAwardsLayout>{page}</TililaAwardsLayout>
-);
+TililaArchives.layout = (page) => <AppLayout>{page}</AppLayout>;

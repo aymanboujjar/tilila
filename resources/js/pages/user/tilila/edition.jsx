@@ -1,7 +1,7 @@
 import { Head, Link, usePage } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
 import { useMemo } from 'react';
-import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
+import AppLayout from '@/layouts/app-layout';
 import EditionTopHero from '@/components/program/EditionTopHero';
 import TransText from '@/components/TransText';
 import { useYoutubeAvailability } from '@/hooks/useYoutubeAvailability';
@@ -188,6 +188,4 @@ export default function TililaEditionDetails() {
     );
 }
 
-TililaEditionDetails.layout = (page) => (
-    <TililaAwardsLayout>{page}</TililaAwardsLayout>
-);
+TililaEditionDetails.layout = (page) => <AppLayout>{page}</AppLayout>;

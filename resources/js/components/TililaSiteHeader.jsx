@@ -17,14 +17,16 @@ const NAV = [
         en: 'Tilila Awards',
         fr: 'Tilila Awards',
         ar: 'تيليلا أووردز',
-        match: (p) => p === '/tilila',
+        match: (p) =>
+            p === '/tilila' ||
+            (p.startsWith('/tilila/') && !p.startsWith('/tilila/archives')),
     },
     {
         href: '/tililab',
         en: 'Tililab',
         fr: 'Tililab',
         ar: 'تيليلاب',
-        match: (p) => p === '/tililab',
+        match: (p) => p === '/tililab' || p.startsWith('/tililab/'),
     },
     {
         href: '/tilila/archives',
@@ -114,7 +116,7 @@ export default function TililaSiteHeader() {
 
                 <div className="ml-auto flex items-center gap-2 sm:gap-3">
                     <Link
-                        href="/tilila/participate"
+                        href="/tilila"
                         className="hidden items-center justify-center rounded-lg bg-beta-blue px-4 py-2.5 text-[10px] font-bold tracking-[0.1em] text-twhite uppercase transition hover:bg-brand-light-purple sm:inline-flex xl:px-5 xl:text-[11px]"
                     >
                         <TransText

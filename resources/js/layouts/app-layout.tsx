@@ -3,7 +3,7 @@ import Footer from '@/components/Footer';
 import HeroCarousel, {
     shouldShowHeroCarousel,
 } from '@/components/HeroCarousel';
-import Navbar from '@/components/Navbar';
+import TililaSiteHeader from '@/components/TililaSiteHeader';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import type { BreadcrumbItem } from '@/types';
 
@@ -37,9 +37,9 @@ export default function AppLayout({
         const showHero = shouldShowHeroCarousel(currentPath, slides);
 
         return (
-            <div className="flex min-h-screen flex-col bg-background">
-                <Navbar />
-                <main className="flex-1 pt-16">
+            <div className="flex min-h-screen flex-col bg-twhite text-tblack">
+                <TililaSiteHeader />
+                <main className="flex-1">
                     {showHero ? <HeroCarousel /> : null}
                     {children}
                 </main>
