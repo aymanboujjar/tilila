@@ -1,6 +1,14 @@
 /** Filter partners returned from Inertia by display group. */
 export function partnersInGroup(partners, group) {
-    return (partners ?? []).filter((partner) => partner.group === group);
+    return (partners ?? []).filter((partner) => partnerGroups(partner).includes(group));
+}
+
+function partnerGroups(partner) {
+    if (Array.isArray(partner?.groups) && partner.groups.length > 0) {
+        return partner.groups;
+    }
+
+    return partner?.group ? [partner.group] : [];
 }
 
 function partnerKey(partner) {
@@ -14,7 +22,9 @@ export function dedupePartners(partners, groups) {
     const seen = new Set();
 
     return (partners ?? [])
-        .filter((partner) => groups.includes(partner.group))
+        .filter((partner) =>
+            partnerGroups(partner).some((group) => groups.includes(group)),
+        )
         .filter((partner) => {
             const key = partnerKey(partner);
             if (seen.has(key)) {

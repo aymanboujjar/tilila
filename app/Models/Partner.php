@@ -10,6 +10,7 @@ class Partner extends Model
     protected $fillable = [
         'program',
         'group',
+        'groups',
         'name',
         'subtitle',
         'meta',
@@ -22,6 +23,7 @@ class Partner extends Model
     protected $casts = [
         'subtitle' => 'array',
         'meta' => 'array',
+        'groups' => 'array',
         'is_published' => 'boolean',
     ];
 

@@ -145,3 +145,31 @@ export function findArchiveEdition(apiEditions = [], year) {
         buildArchiveEditions(apiEditions).find((e) => e.year === target) ?? null
     );
 }
+
+/** Normalized winner rows for display (DB winners or history lines). */
+export function editionWinnerRows(edition, locale = 'fr') {
+    if (!edition) return [];
+
+    const text = (obj) =>
+        obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
+
+    if (edition.winners?.length) {
+        return edition.winners.map((winner) => ({
+            trophy: text(winner.trophy),
+            name: winner.full_name || '',
+            detail: text(winner.bio),
+            photo: winner.photo_path || null,
+        }));
+    }
+
+    if (edition.history_lines?.length) {
+        return edition.history_lines.map((line) => ({
+            trophy: null,
+            name: null,
+            detail: text(line),
+            photo: null,
+        }));
+    }
+
+    return [];
+}

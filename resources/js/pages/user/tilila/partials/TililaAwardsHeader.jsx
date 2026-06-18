@@ -56,7 +56,6 @@ export default function TililaAwardsHeader() {
                 </nav>
 
                 <div className="ml-auto flex items-center gap-2 sm:gap-3">
-                    <LanguageSwitcher className="hidden sm:flex" />
                     <Link
                         href="/tilila/participate"
                         className="hidden items-center justify-center rounded-lg bg-beta-blue px-5 py-2.5 text-[11px] font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-brand-light-purple sm:inline-flex"
@@ -75,6 +74,7 @@ export default function TililaAwardsHeader() {
                     >
                         {open ? <X className="size-5" /> : <Menu className="size-5" />}
                     </button>
+                    <LanguageSwitcher />
                 </div>
             </div>
 

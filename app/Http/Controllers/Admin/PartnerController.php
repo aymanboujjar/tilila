@@ -23,7 +23,10 @@ class PartnerController extends Controller
             });
         }
         if ($group) {
-            $query->where('group', $group);
+            $query->where(function ($q) use ($group) {
+                $q->where('group', $group)
+                    ->orWhereJsonContains('groups', $group);
+            });
         }
 
         return Inertia::render('admin/partners/index', [
@@ -31,6 +34,12 @@ class PartnerController extends Controller
             'filters' => [
                 'program' => $program,
                 'group' => $group,
+            ],
+            'stats' => [
+                'total' => Partner::query()->count(),
+                'published' => Partner::query()->where('is_published', true)->count(),
+                'tilila' => Partner::query()->whereIn('program', ['tilila', 'both'])->count(),
+                'tililab' => Partner::query()->whereIn('program', ['tililab', 'both'])->count(),
             ],
         ]);
     }
@@ -49,6 +58,7 @@ class PartnerController extends Controller
             $data['logo_path'] = $request->file('logo')->storePublicly('partners', 'public');
         }
         $data['is_published'] = $request->boolean('is_published');
+        $data = $this->normalizeGroups($data);
         Partner::query()->create($data);
 
         return redirect()->route('admin.partners.index')
@@ -69,6 +79,7 @@ class PartnerController extends Controller
             $data['logo_path'] = $request->file('logo')->storePublicly('partners', 'public');
         }
         $data['is_published'] = $request->boolean('is_published');
+        $data = $this->normalizeGroups($data);
         $partner->update($data);
 
         return redirect()->route('admin.partners.index')
@@ -89,6 +100,8 @@ class PartnerController extends Controller
         return $request->validate([
             'program' => ['required', 'string', 'in:tilila,tililab,both'],
             'group' => ['required', 'string', 'in:featured,institutional,media,program,organiser,strip'],
+            'groups' => ['nullable', 'array'],
+            'groups.*' => ['string', 'in:featured,institutional,media,program,organiser,strip'],
             'name' => ['required', 'string', 'max:255'],
             'subtitle' => ['nullable', 'array'],
             'subtitle.en' => ['nullable', 'string'],
@@ -101,5 +114,26 @@ class PartnerController extends Controller
             'is_published' => ['sometimes', 'boolean'],
             'logo' => ['nullable', 'image', 'max:5120'],
         ]);
+    }
+
+    /** @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    private function normalizeGroups(array $data): array
+    {
+        $groups = collect($data['groups'] ?? [])
+            ->filter()
+            ->unique()
+            ->values()
+            ->all();
+
+        if ($groups === [] && ! empty($data['group'])) {
+            $groups = [$data['group']];
+        }
+
+        $data['groups'] = $groups;
+        $data['group'] = $groups[0] ?? $data['group'];
+
+        return $data;
     }
 }

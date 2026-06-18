@@ -72,6 +72,12 @@ export function TililaDeadlinePill({ deadline }) {
     );
 }
 
+export const TILILA_HERO_CTA_ROW =
+    'flex flex-row flex-nowrap items-center gap-2 sm:gap-3';
+
+export const TILILA_HERO_BTN =
+    'shrink-0 whitespace-nowrap px-4 py-3 text-[10px] tracking-[0.08em] sm:px-5 sm:text-[11px] lg:px-6 lg:text-xs';
+
 export function TililaBtnPrimary({ href, children, className = '' }) {
     return (
         <Link

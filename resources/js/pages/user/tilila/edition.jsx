@@ -4,11 +4,11 @@ import { useMemo } from 'react';
 import TililaAwardsLayout from '@/layouts/tilila-awards-layout';
 import EditionTopHero from '@/components/program/EditionTopHero';
 import TransText from '@/components/TransText';
+import { useYoutubeAvailability } from '@/hooks/useYoutubeAvailability';
 import { resolveTililaHeroMedia } from '@/lib/editionHeroMedia';
 import {
     EditionGallerySection,
     EditionJurySection,
-    EditionVideoSection,
     EditionWinnersSection,
     textFor,
 } from '@/pages/user/tilila/partials/EditionDetailContent';
@@ -35,13 +35,26 @@ export default function TililaEditionDetails() {
         ? edition.gallery_images
         : [];
 
-    const heroMedia = resolveTililaHeroMedia({
-        ceremonyVideoUrl: edition?.ceremony_video_url,
-        bannerSrc: coverImageSrc(
+    const ceremonyVideo = useYoutubeAvailability(edition?.ceremony_video_url);
+
+    const heroMedia = useMemo(
+        () =>
+            resolveTililaHeroMedia({
+                ceremonyVideoUrl: ceremonyVideo.available
+                    ? edition?.ceremony_video_url
+                    : null,
+                bannerSrc: coverImageSrc(
+                    edition?.cover_image_path,
+                    edition?.gallery_images,
+                ),
+            }),
+        [
+            ceremonyVideo.available,
+            edition?.ceremony_video_url,
             edition?.cover_image_path,
             edition?.gallery_images,
-        ),
-    });
+        ],
+    );
 
     const label = textFor(edition?.edition_label, locale);
     const theme = textFor(edition?.theme, locale);
@@ -129,10 +142,13 @@ export default function TililaEditionDetails() {
                         <a href="#gallery" className="hover:underline">
                             <TransText en="Photos" fr="Photos" ar="الصور" />
                         </a>
-                        {edition?.ceremony_video_url ? (
+                        {ceremonyVideo.available ? (
                             <>
                                 <span className="text-tgray">·</span>
-                                <a href="#video" className="hover:underline">
+                                <a
+                                    href="#edition-hero"
+                                    className="hover:underline"
+                                >
                                     <TransText
                                         en="Video"
                                         fr="Vidéo"
@@ -163,10 +179,6 @@ export default function TililaEditionDetails() {
 
                         <EditionJurySection jury={jury} locale={locale} />
                         <EditionGallerySection images={images} />
-                        <EditionVideoSection
-                            videoUrl={edition?.ceremony_video_url}
-                            year={edition?.year}
-                        />
                     </div>
                 </TililaContainer>
             </TililaSection>
