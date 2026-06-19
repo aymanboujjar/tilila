@@ -1,5 +1,33 @@
 import { cn } from '@/lib/utils';
 
+export const PARTNER_CAROUSEL_SLIDE_CLASS =
+    'w-[min(100%,260px)] shrink-0 snap-start sm:w-[260px]';
+
+export function PartnerCarouselCard({ name, logoUrl, className = '' }) {
+    return (
+        <div
+            className={cn(
+                'flex h-24 w-full items-center justify-center px-3 sm:h-28',
+                className,
+            )}
+        >
+            {logoUrl ? (
+                <img
+                    src={logoUrl}
+                    alt={`${name} logo`}
+                    className="max-h-24 w-full object-contain object-center sm:max-h-28"
+                    loading="lazy"
+                    decoding="async"
+                />
+            ) : (
+                <span className="line-clamp-3 text-center text-sm font-semibold text-tgray">
+                    {name}
+                </span>
+            )}
+        </div>
+    );
+}
+
 export function PartnerLogoTile({ name, logoUrl, subtitle, tall = false }) {
     return (
         <div>

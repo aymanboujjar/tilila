@@ -147,6 +147,7 @@ Route::get('/', function () {
 
     return Inertia::render('home/index', [
         'news' => $news,
+        ...ProgramPageProps::allPublished(),
     ]);
 })->name('home');
 
@@ -188,7 +189,7 @@ Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class,
     ->name('opportunities.apply');
 Route::get('/about', function () {
     return Inertia::render('user/about/index', [
-        ...ProgramPageProps::forProgram('tilila'),
+        ...ProgramPageProps::allPublished(),
     ]);
 });
 Route::get('/contact', function () {

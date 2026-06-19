@@ -1,4 +1,9 @@
 import TransText from '@/components/TransText';
+import {
+    TililaContainer,
+    TililaSection,
+    TililaSectionHeading,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const committee = [
     {
@@ -29,73 +34,76 @@ const committee = [
 
 export default function CommitteeSection() {
     return (
-        <section
+        <TililaSection
             id="committee"
-            className="mx-auto max-w-7xl scroll-mt-16 px-4 py-12"
+            className="scroll-mt-28 border-b border-border/60 bg-beta-white"
         >
-            <div className="text-center">
-                <div className="text-xs font-semibold tracking-widest text-tgray">
+            <TililaContainer>
+                <TililaSectionHeading
+                    centered
+                    className="mx-auto"
+                    title={
+                        <TransText
+                            en="Parity & Diversity Committee"
+                            fr="Comité Parité et Diversité"
+                            ar="لجنة المساواة والتنوع"
+                        />
+                    }
+                    subtitle={
+                        <TransText
+                            en="The Committee steers 2M’s commitments on equality, representation, and non-discrimination. Tilila Awards is one of its flagship programmes—recognising advertising that advances inclusion and respect in Morocco."
+                            fr="Le Comité porte les engagements de 2M en matière d’égalité, de représentation et de non-discrimination. Les Tilila Awards sont l’une de ses initiatives phares—récompensant une publicité qui fait progresser l’inclusion et le respect au Maroc."
+                            ar="توجّه اللجنة التزامات 2M بالمساواة والتمثيل ومكافحة التمييز. جائزة تيليلا من أبرز برامجها—تُكرّم إعلاناً يرسّخ الإدماج والاحترام في المغرب."
+                        />
+                    }
+                />
+
+                <p className="mx-auto mt-3 max-w-xl text-center text-xs font-bold tracking-[0.2em] text-beta-turquoise uppercase">
                     <TransText
-                        en="2M · PARITY & DIVERSITY"
-                        fr="2M · PARITÉ & DIVERSITÉ"
+                        en="2M · Parity & Diversity"
+                        fr="2M · Parité & Diversité"
                         ar="2M · المساواة والتنوع"
                     />
-                </div>
-                <h2 className="mt-3 text-2xl font-semibold text-tblack">
-                    <TransText
-                        en="Parity & Diversity Committee"
-                        fr="Comité Parité et Diversité"
-                        ar="لجنة المساواة والتنوع"
-                    />
-                </h2>
-                <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-tgray">
-                    <TransText
-                        en="The Committee steers 2M’s commitments on equality, representation, and non-discrimination. Tilila Awards is one of its flagship programmes—recognising advertising that advances inclusion and respect in Morocco."
-                        fr="Le Comité porte les engagements de 2M en matière d’égalité, de représentation et de non-discrimination. Les Tilila Awards sont l’une de ses initiatives phares—récompensant une publicité qui fait progresser l’inclusion et le respect au Maroc."
-                        ar="توجّه اللجنة التزامات 2M بالمساواة والتمثيل ومكافحة التمييز. جائزة تيليلا من أبرز برامجها—تُكرّم إعلاناً يرسّخ الإدماج والاحترام في المغرب."
-                    />
                 </p>
-            </div>
 
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {committee.map((member) => (
-                    <div
-                        key={member.name}
-                        className="rounded-2xl border border-border bg-background p-4"
-                    >
-                        <div className="aspect-4/5 w-full overflow-hidden rounded-xl bg-secondary">
-                            <img
-                                src={member.photoUrl}
-                                alt={member.name}
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                                referrerPolicy="no-referrer"
-                            />
-                        </div>
-                        <div className="mt-4">
-                            <div className="text-sm font-semibold text-tblack">
-                                {member.name}
+                <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                    {committee.map((member) => (
+                        <article
+                            key={member.name}
+                            className="overflow-hidden rounded-xl border border-border/70 bg-twhite shadow-sm"
+                        >
+                            <div className="aspect-[4/5] overflow-hidden bg-beta-white">
+                                <img
+                                    src={member.photoUrl}
+                                    alt={member.name}
+                                    className="h-full w-full object-cover"
+                                    loading="lazy"
+                                />
                             </div>
-                            <div className="mt-1 text-xs font-medium text-tgray">
-                                {member.role === 'Chair' ? (
-                                    <TransText
-                                        en="Chair"
-                                        fr="Présidente"
-                                        ar="الرئيسة"
-                                    />
-                                ) : (
-                                    <TransText
-                                        en="Member"
-                                        fr="Membre"
-                                        ar="عضوة"
-                                    />
-                                )}
+                            <div className="p-4">
+                                <p className="text-sm font-extrabold text-tblack">
+                                    {member.name}
+                                </p>
+                                <p className="mt-1 text-xs font-semibold text-tgray">
+                                    {member.role === 'Chair' ? (
+                                        <TransText
+                                            en="Chair"
+                                            fr="Présidente"
+                                            ar="الرئيسة"
+                                        />
+                                    ) : (
+                                        <TransText
+                                            en="Member"
+                                            fr="Membre"
+                                            ar="عضوة"
+                                        />
+                                    )}
+                                </p>
                             </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </section>
+                        </article>
+                    ))}
+                </div>
+            </TililaContainer>
+        </TililaSection>
     );
 }

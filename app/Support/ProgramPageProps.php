@@ -8,6 +8,18 @@ use Illuminate\Support\Facades\Storage;
 class ProgramPageProps
 {
     /** @return array<string, mixed> */
+    public static function allPublished(): array
+    {
+        return [
+            'partners' => Partner::query()
+                ->where('is_published', true)
+                ->orderBy('sort')
+                ->orderBy('id')
+                ->get(),
+        ];
+    }
+
+    /** @return array<string, mixed> */
     public static function forProgram(string $program): array
     {
         $props = [

@@ -40,6 +40,16 @@ export function dedupePartners(partners, groups) {
         });
 }
 
+export function allPartnersCarousel(partners) {
+    return dedupePartners(partners, [
+        'featured',
+        'institutional',
+        'program',
+        'media',
+        'strip',
+    ]);
+}
+
 /** Deduplicated partner strip for footer / preview sections. */
 export function partnerStrip(partners) {
     return dedupePartners(partners, [

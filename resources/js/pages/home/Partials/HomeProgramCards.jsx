@@ -9,7 +9,7 @@ import {
 const CARDS = [
     {
         id: 'tilila',
-        href: '/tilila/participate',
+        href: '/tilila',
         image: '/assets/logo.png',
         imageAlt: 'Tilila',
         imageClass: 'h-auto w-[88%] max-w-[9.5rem] object-contain object-center sm:max-w-[10.5rem]',
