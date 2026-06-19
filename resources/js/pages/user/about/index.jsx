@@ -34,7 +34,7 @@ export default function About() {
                 <HeroSection />
                 <AboutOverviewSection />
                 <MissionSection />
-                <CommitteeSection />
+                {/* <CommitteeSection /> */}
                 <PartnersSection />
                 <TililabCtaSection />
                 <ContactSection />
