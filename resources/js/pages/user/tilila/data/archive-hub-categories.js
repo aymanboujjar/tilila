@@ -1,37 +1,50 @@
 /** Sidebar navigation — Tilila Awards archives hub */
 export const TILILA_HUB_CATEGORIES = [
-    { id: 'laureats', fr: 'Lauréats', en: 'Winners', ar: 'الفائزون' },
-    { id: 'galerie', fr: 'Galerie', en: 'Gallery', ar: 'المعرض' },
-    { id: 'jurys', fr: 'Jury', en: 'Jury', ar: 'لجنة التحكيم' },
+    {
+        id: 'laureats',
+        fr: 'Lauréats des 7 éditions',
+        en: 'Winners from 7 editions',
+        ar: 'الفائزون في الدورات السبع',
+    },
     {
         id: 'campagnes',
         fr: 'Campagnes primées',
         en: 'Awarded campaigns',
         ar: 'الحملات الفائزة',
     },
-    { id: 'marques', fr: 'Marques', en: 'Brands', ar: 'العلامات' },
-    { id: 'agences', fr: 'Agences', en: 'Agencies', ar: 'الوكالات' },
-    { id: 'photos', fr: 'Photos', en: 'Photos', ar: 'الصور' },
-    { id: 'videos', fr: 'Vidéos', en: 'Videos', ar: 'الفيديوهات' },
+    {
+        id: 'jurys',
+        fr: 'Jury des 7 éditions',
+        en: 'Jury from 7 editions',
+        ar: 'لجنة التحكيم في الدورات السبع',
+    },
+    {
+        id: 'photos',
+        fr: 'Photos de chaque édition',
+        en: 'Photos from each edition',
+        ar: 'صور كل دورة',
+    },
+    {
+        id: 'videos',
+        fr: 'Vidéos de chaque édition Cérémonie',
+        en: 'Ceremony videos from each edition',
+        ar: 'فيديوهات حفل كل دورة',
+    },
 ];
 
 /** Sidebar navigation — Tililab archives hub */
 export const TILILAB_HUB_CATEGORIES = [
-    { id: 'finalistes', fr: 'Finalistes', en: 'Finalists', ar: 'النهائيون' },
     { id: 'laureats', fr: 'Lauréats', en: 'Winners', ar: 'الفائزون' },
     {
         id: 'projets',
-        fr: 'Projets réalisés',
-        en: 'Completed projects',
-        ar: 'المشاريع المنجزة',
+        fr: 'Projets réalisés (Vidéos)',
+        en: 'Completed projects (Videos)',
+        ar: 'المشاريع المنجزة (فيديو)',
     },
-    { id: 'galerie', fr: 'Galerie', en: 'Gallery', ar: 'المعرض' },
     {
-        id: 'intervenants',
-        fr: 'Intervenants',
-        en: 'Speakers',
-        ar: 'المتحدثون',
+        id: 'bootcamp',
+        fr: 'Best-of Bootcamps (Vidéos – Photos)',
+        en: 'Best-of Bootcamps (Videos – Photos)',
+        ar: 'أفضل لحظات المعسكرات (فيديو – صور)',
     },
-    { id: 'photos', fr: 'Photos', en: 'Photos', ar: 'الصور' },
-    { id: 'videos', fr: 'Vidéos', en: 'Videos', ar: 'الفيديوهات' },
 ];

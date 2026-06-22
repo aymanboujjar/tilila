@@ -26,10 +26,16 @@ export function ArchivesPhotoSlide({ src, href, className = '' }) {
     return content;
 }
 
-export function ArchivesGallerySlide({ item }) {
+export function ArchivesGallerySlide({ item, compact = false }) {
     const inner = (
         <>
-            <div className="aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-beta-white shadow-sm">
+            <div
+                className={`overflow-hidden border border-border/50 bg-beta-white shadow-sm ${
+                    compact
+                        ? 'aspect-[3/8] rounded-xl'
+                        : 'aspect-[3/2] rounded-xl'
+                }`}
+            >
                 <img
                     src={item.src}
                     alt=""
@@ -38,9 +44,16 @@ export function ArchivesGallerySlide({ item }) {
                 />
             </div>
             {item.type === 'video' ? (
-                <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-tblack/25">
-                    <span className="flex size-10 items-center justify-center rounded-full bg-white/90 text-beta-blue shadow">
-                        <Play className="size-5 fill-beta-blue" aria-hidden />
+                <span
+                    className={`absolute inset-0 flex items-center justify-center bg-tblack/20 ${
+                        compact ? 'rounded-xl' : 'rounded-xl'
+                    }`}
+                >
+                    <span className="flex size-9 items-center justify-center rounded-full bg-white/95 text-beta-blue shadow sm:size-10">
+                        <Play
+                            className="size-4 fill-beta-blue sm:size-5"
+                            aria-hidden
+                        />
                     </span>
                 </span>
             ) : null}
@@ -57,14 +70,25 @@ export function ArchivesGallerySlide({ item }) {
 export default function ArchivesMediaCarousel({
     ariaLabel,
     slideClassName = 'w-[min(100%,220px)] shrink-0 snap-start sm:w-[42%] md:w-[30%] lg:w-[22%] xl:w-[18%]',
+    visibleCount = null,
+    headerRow = null,
+    showFade = true,
+    navOverlay = false,
+    trackGapClassName = 'gap-4',
+    autoAdvanceMs = 5200,
     children,
 }) {
     return (
         <TililaHorizontalCarousel
             ariaLabel={ariaLabel}
             slideClassName={slideClassName}
-            fadeFrom="from-twhite"
-            autoAdvanceMs={5200}
+            visibleCount={visibleCount}
+            headerRow={headerRow}
+            showFade={showFade}
+            navOverlay={navOverlay}
+            trackGapClassName={trackGapClassName}
+            fadeFrom="from-white"
+            autoAdvanceMs={autoAdvanceMs}
         >
             {children}
         </TililaHorizontalCarousel>

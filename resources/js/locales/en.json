@@ -354,7 +354,7 @@
         "archives": {
             "pageTitle": "Archives & Palmarès — Tilila Awards",
             "title": "Archives & Palmarès",
-            "subtitle": "Explore all editions, winners, awarded campaigns, brands, agencies, juries and media content from the competition.",
+            "subtitle": "Find all Tilila Awards and Tililab editions: winners, juries, awarded campaigns, projects, photos and videos.",
             "heritage": "Tilila Awards heritage",
             "backToTilila": "Back to Tilila Awards",
             "editionsCount": "Editions",
@@ -401,7 +401,10 @@
                 "message": "Try adjusting your search or filters to discover Tilila Awards history."
             },
             "hub": {
-                "laureatsTitle": "Winners",
+                "sommaire": "Contents",
+                "contactPrompt": "Looking for specific content or a past edition?",
+                "contactCta": "Contact us",
+                "laureatsTitle": "Winners of",
                 "galleryTitle": "Gallery",
                 "galleryAll": "All",
                 "galleryPhotos": "Photos",
