@@ -30,7 +30,7 @@ export default function TililaIndex() {
                 <TililaLaureatesSection />
                 <TililaAdmissionJurySection jury={currentEdition?.jury} />
                 <TililaFinalCtaSection />
-                <TililaFaqSection />
+                {/* <TililaFaqSection /> */}
             </div>
         </>
     );
