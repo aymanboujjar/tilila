@@ -19,6 +19,16 @@ export default function PartnersCarouselSection({
     fadeFrom = 'from-twhite',
     showCta = true,
     ctaHref = '/contact',
+    title = (
+        <TransText en="Our partners" fr="Nos partenaires" ar="شركاؤنا" />
+    ),
+    subtitle = (
+        <TransText
+            en="Valoriser les partenaires institutionnels, médias et techniques associés à Tilila."
+            fr="Valoriser les partenaires institutionnels, médias et techniques associés à Tilila."
+            ar="إبراز الشركاء المؤسساتيين والإعلاميين والتقنيين المرتبطين بتيليلا."
+        />
+    ),
 }) {
     const { partners = [] } = usePage().props;
     const displayed = allPartnersCarousel(partners);
@@ -27,22 +37,7 @@ export default function PartnersCarouselSection({
         <TililaSection id={id} className={className}>
             <TililaContainer>
                 <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-                    <TililaSectionHeading
-                        title={
-                            <TransText
-                                en="Our partners"
-                                fr="Nos partenaires"
-                                ar="شركاؤنا"
-                            />
-                        }
-                        subtitle={
-                            <TransText
-                                en="Valoriser les partenaires institutionnels, médias et techniques associés à Tilila."
-                                fr="Valoriser les partenaires institutionnels, médias et techniques associés à Tilila."
-                                ar="إبراز الشركاء المؤسساتيين والإعلاميين والتقنيين المرتبطين بتيليلا."
-                            />
-                        }
-                    />
+                    <TililaSectionHeading title={title} subtitle={subtitle} />
                     {showCta ? (
                         <TililaBtnGhost href={ctaHref}>
                             <TransText

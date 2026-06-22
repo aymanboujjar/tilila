@@ -127,7 +127,7 @@ Route::get('/', function () {
         ->where('status', '!=', 'draft')
         ->orderByDesc('date')
         ->orderByDesc('id')
-        ->limit(4)
+        ->limit(3)
         ->get()
         ->map(function (Event $event) {
             $list = is_array($event->list_payload) ? $event->list_payload : [];
@@ -147,6 +147,8 @@ Route::get('/', function () {
 
     return Inertia::render('home/index', [
         'news' => $news,
+        'bestOfVideoUrl' => TililaHighlightVideos::bestOfUrl()
+            ?? TililaHighlightVideos::teaserUrl(),
         ...ProgramPageProps::allPublished(),
     ]);
 })->name('home');

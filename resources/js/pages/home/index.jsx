@@ -17,8 +17,8 @@ export default function HomeIndex({ news = [] }) {
             <HomeHero />
             <HomeProgramCards />
             <HomeKeyFigures />
+            <HomeNews items={news} />
             <HomePartners />
-            {/* <HomeNews items={news} /> */}
         </>
     );
 }

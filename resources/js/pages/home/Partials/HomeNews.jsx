@@ -131,7 +131,7 @@ export default function HomeNews({ items = [] }) {
     const scrollerRef = useRef(null);
     const list = (
         Array.isArray(items) && items.length ? items : FALLBACK_NEWS
-    ).slice(0, 8);
+    ).slice(0, 3);
 
     const scrollNext = () => {
         scrollerRef.current?.scrollBy({ left: 300, behavior: 'smooth' });
@@ -148,7 +148,7 @@ export default function HomeNews({ items = [] }) {
                         <TransText en="News" fr="Actualités" ar="أخبار" />
                     </h2>
                     <Link
-                        href="/"
+                        href="/events"
                         className="inline-flex items-center gap-2 text-sm font-bold text-beta-blue transition hover:text-brand-light-purple"
                     >
                         <TransText
@@ -174,7 +174,7 @@ export default function HomeNews({ items = [] }) {
                         ))}
                     </div>
 
-                    {list.length > 4 ? (
+                    {list.length > 3 ? (
                         <button
                             type="button"
                             onClick={scrollNext}
