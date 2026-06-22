@@ -15,6 +15,10 @@ class EventController extends Controller
 {
     public function index(Request $request): Response
     {
+        if (! $request->filled('view')) {
+            return redirect()->route('actualites.index');
+        }
+
         $rows = Event::query()
             ->where('visibility', 'public')
             ->where('status', '!=', 'draft')

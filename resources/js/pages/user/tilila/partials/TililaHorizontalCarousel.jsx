@@ -5,10 +5,12 @@ const VISIBLE_SLIDE_CLASS = {
     3: {
         'gap-4': 'w-[calc((100%-2rem)/3)] shrink-0 snap-start',
         'gap-2.5': 'w-[calc((100%-1.25rem)/3)] shrink-0 snap-start',
+        'gap-6': 'w-[calc((100%-3rem)/3)] shrink-0 snap-start',
     },
     4: {
         'gap-4': 'w-[calc((100%-3rem)/4)] shrink-0 snap-start',
         'gap-2.5': 'w-[calc((100%-1.875rem)/4)] shrink-0 snap-start',
+        'gap-6': 'w-[calc((100%-4.5rem)/4)] shrink-0 snap-start',
     },
 };
 

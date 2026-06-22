@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActualitesController;
 use App\Http\Controllers\AccessRequestActivationController;
 use App\Http\Controllers\AccessRequestController;
 use App\Http\Controllers\ExpertApplicationController;
@@ -195,6 +196,9 @@ Route::get('/about', function () {
         ...ProgramPageProps::allPublished(),
     ]);
 });
+Route::get('/actualites', [ActualitesController::class, 'index'])
+    ->name('actualites.index');
+
 Route::get('/contact', function () {
     return Inertia::render('contact/index');
 })->name('contact');

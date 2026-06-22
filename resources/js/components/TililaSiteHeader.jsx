@@ -65,11 +65,11 @@ const NAV = [
     },
     {
         type: 'link',
-        href: '/events',
+        href: '/actualites',
         en: 'News',
         fr: 'Actualités',
         ar: 'أخبار',
-        match: (p) => p.startsWith('/events'),
+        match: (p) => p.startsWith('/actualites') || p.startsWith('/events'),
     },
     {
         type: 'link',

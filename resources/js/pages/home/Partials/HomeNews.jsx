@@ -182,7 +182,7 @@ export default function HomeNews({ items = [] }) {
                     </div>
 
                     <Link
-                        href="/events"
+                        href="/actualites"
                         className="mt-4 inline-flex items-center gap-2 text-xs font-bold tracking-wide text-beta-blue uppercase transition hover:text-brand-light-purple sm:absolute sm:top-1/2 sm:right-0 sm:mt-0 sm:-translate-y-1/2 sm:text-sm"
                     >
                         <TransText
