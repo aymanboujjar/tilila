@@ -429,7 +429,11 @@
         "headTitle": "Governance"
     },
     "actualites": {
-        "pageTitle": "News — Tilila"
+        "pageTitle": "News — Tilila",
+        "newsletter": {
+            "emailPlaceholder": "Your email",
+            "description": "Receive the latest Tilila news (Tilila Awards, Tililab and initiatives) directly by email."
+        }
     },
     "events": {
         "headTitle": "Events",

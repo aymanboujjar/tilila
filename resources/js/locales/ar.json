@@ -429,7 +429,11 @@
         "headTitle": "الحوكمة"
     },
     "actualites": {
-        "pageTitle": "أخبار — تيليلا"
+        "pageTitle": "أخبار — تيليلا",
+        "newsletter": {
+            "emailPlaceholder": "بريدك الإلكتروني",
+            "description": "تلقّوا آخر أخبار تيليلا (تيليلا أووردز، تيليلاب والمبادرات) مباشرة عبر البريد الإلكتروني."
+        }
     },
     "events": {
         "headTitle": "الفعاليات",

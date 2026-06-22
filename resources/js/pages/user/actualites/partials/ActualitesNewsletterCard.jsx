@@ -26,38 +26,40 @@ export default function ActualitesNewsletterCard() {
     };
 
     return (
-        <aside className="flex h-full flex-col rounded-2xl bg-[#f0f1f5] p-6 sm:p-8">
-            <div className="flex size-12 items-center justify-center rounded-full bg-beta-blue text-twhite">
-                <Mail className="size-5" strokeWidth={1.5} aria-hidden />
-            </div>
+        <aside className="flex h-full min-h-[460px] w-full flex-col justify-between rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(26,35,126,0.08)] sm:p-7 lg:min-h-0 lg:p-8">
+            <div className="flex flex-col gap-5 lg:gap-6">
+                <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-beta-blue text-twhite lg:size-14">
+                    <Mail
+                        className="size-5 lg:size-6"
+                        strokeWidth={1.5}
+                        aria-hidden
+                    />
+                </div>
 
-            <div className="mt-5">
-                <ActualitesSectionHeading>
+                <ActualitesSectionHeading accent="turquoise">
                     <TransText
                         fr="Newsletter"
                         en="Newsletter"
                         ar="النشرة"
                     />
                 </ActualitesSectionHeading>
+
+                <div className="space-y-3 lg:space-y-4">
+                    <h3 className="text-lg font-extrabold leading-tight text-tblack lg:text-xl">
+                        <TransText
+                            fr="Restez informés"
+                            en="Stay informed"
+                            ar="ابقوا على اطلاع"
+                        />
+                    </h3>
+
+                    <p className="text-sm leading-relaxed text-tgray lg:text-[15px] lg:leading-7">
+                        {t('actualites.newsletter.description')}
+                    </p>
+                </div>
             </div>
 
-            <h3 className="mt-4 text-lg font-extrabold text-tblack">
-                <TransText
-                    fr="Restez informés"
-                    en="Stay informed"
-                    ar="ابقوا على اطلاع"
-                />
-            </h3>
-
-            <p className="mt-2 text-sm leading-relaxed text-tgray">
-                <TransText
-                    fr="Recevez les dernières actualités Tilila directement par e-mail."
-                    en="Receive the latest Tilila news directly by email."
-                    ar="تلقّوا آخر أخبار تيليلا مباشرة عبر البريد الإلكتروني."
-                />
-            </p>
-
-            <form onSubmit={submit} className="mt-6 flex flex-1 flex-col">
+            <form onSubmit={submit} className="mt-6 flex flex-col gap-4 lg:mt-8">
                 <label htmlFor="actualites-newsletter-email" className="sr-only">
                     Email
                 </label>
@@ -66,15 +68,15 @@ export default function ActualitesNewsletterCard() {
                     type="email"
                     value={data.email}
                     onChange={(e) => setData('email', e.target.value)}
-                    placeholder={t('media.newsletter.emailPlaceholder')}
-                    className="w-full rounded-lg border border-border/60 bg-twhite px-4 py-3 text-sm text-tblack shadow-sm outline-none transition placeholder:text-tgray/70 focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/20"
+                    placeholder={t('actualites.newsletter.emailPlaceholder')}
+                    className="w-full rounded-lg border border-border/60 bg-twhite px-4 py-3.5 text-sm text-tblack outline-none transition placeholder:text-tgray/60 focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/20 lg:py-4"
                     required
                 />
                 {errors.email ? (
-                    <p className="mt-2 text-xs text-red-600">{errors.email}</p>
+                    <p className="-mt-2 text-xs text-red-600">{errors.email}</p>
                 ) : null}
                 {flash?.success ? (
-                    <p className="mt-2 text-xs font-semibold text-beta-turquoise">
+                    <p className="-mt-2 text-xs font-semibold text-beta-turquoise">
                         {flash.success}
                     </p>
                 ) : null}
@@ -82,7 +84,7 @@ export default function ActualitesNewsletterCard() {
                 <button
                     type="submit"
                     disabled={processing}
-                    className="mt-4 w-full rounded-md bg-beta-blue px-6 py-3.5 text-xs font-extrabold tracking-[0.12em] text-twhite uppercase transition hover:bg-brand-light-purple disabled:opacity-60"
+                    className="w-full rounded-lg bg-beta-blue px-6 py-3.5 text-xs font-extrabold tracking-[0.14em] text-twhite uppercase transition hover:bg-brand-light-purple disabled:opacity-60 lg:py-4"
                 >
                     <TransText fr="S'abonner" en="Subscribe" ar="اشترك" />
                 </button>
