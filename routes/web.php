@@ -5,6 +5,7 @@ use App\Http\Controllers\AccessRequestActivationController;
 use App\Http\Controllers\AccessRequestController;
 use App\Http\Controllers\ExpertApplicationController;
 use App\Http\Controllers\ExpertArticleController;
+use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\ExpertContactController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\MediaController;
@@ -203,9 +204,10 @@ Route::get('/faq', function () {
     return Inertia::render('user/faq/index');
 })->name('faq.index');
 
-Route::get('/contact', function () {
-    return Inertia::render('contact/index');
-})->name('contact');
+Route::get('/contact', [ContactPageController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactPageController::class, 'store'])
+    ->middleware('throttle:public-forms')
+    ->name('contact.store');
 Route::get('/tililab', function () {
     $currentEdition = TililabEdition::current();
 
