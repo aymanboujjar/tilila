@@ -1,6 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, ChevronRight } from 'lucide-react';
-import { useRef } from 'react';
+import { ArrowRight } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TililaContainer,
@@ -12,60 +11,66 @@ const FALLBACK_NEWS = [
     {
         id: 'fallback-1',
         href: '/tilila/participate',
-        badge: { en: 'OPENING', fr: 'OUVERTURE', ar: 'الافتتاح' },
-        badgeTone: 'turquoise',
-        title: {
-            en: 'Applications open for 2026',
-            fr: 'Ouverture des candidatures 2026',
-            ar: 'افتتاح الترشحات 2026',
+        badge: {
+            en: 'TILILA AWARDS',
+            fr: 'TILILA AWARDS',
+            ar: 'تيليلا أووردز',
         },
-        date: '2026-05-01',
+        badgeTone: 'purple',
+        title: {
+            en: 'Tilila Awards 2026 applications open',
+            fr: 'Ouverture des candidatures Tilila Awards 2026',
+            ar: 'افتتاح ترشحات تيليلا أووردز 2026',
+        },
+        excerpt: {
+            en: 'Take part in the 8th Tilila Awards edition by showcasing campaigns that evolve representations.',
+            fr: 'Participez à la 8ème édition des Tilila Awards en valorisant vos campagnes qui font évoluer les représentations.',
+            ar: 'شاركوا في الدورة الثامنة من تيليلا أووردز بإبراز حملاتكم التي تطور التمثيلات.',
+        },
+        date: '2026-05-15',
         cover_image_url: '/assets/tilila/editions/edition-2025.png',
     },
     {
         id: 'fallback-2',
-        href: '/tilila#jury',
-        badge: { en: 'NEWS', fr: 'NEWS', ar: 'أخبار' },
-        badgeTone: 'purple',
+        href: '/tililab',
+        badge: { en: 'TILILAB', fr: 'TILILAB', ar: 'تيليلاب' },
+        badgeTone: 'turquoise',
         title: {
-            en: '2026 jury announced',
-            fr: 'Composition du jury 2026',
-            ar: 'تشكيلة لجنة التحكيم 2026',
+            en: 'Tililab 2026 call for applications',
+            fr: 'Appel à candidatures Tililab 2026',
+            ar: 'دعوة للترشح لتيليلاب 2026',
         },
-        date: '2026-06-03',
-        cover_image_url: '/assets/tilila/hero-7eme-edition.png',
-    },
-    {
-        id: 'fallback-3',
-        href: '/tilila/archives',
-        badge: { en: 'NEWS', fr: 'NEWS', ar: 'أخبار' },
-        badgeTone: 'purple',
-        title: {
-            en: 'Tililab 2025 winners published',
-            fr: 'Palmarès Tililab 2025 publié',
-            ar: 'نشر قائمة فائزي تيليلاب 2025',
+        excerpt: {
+            en: 'Young creative talents, join Tililab and benefit from tailored mentoring.',
+            fr: 'Jeunes talents créatifs, rejoignez Tililab et bénéficiez d’un accompagnement sur mesure.',
+            ar: 'أيها المبدعون الشباب، انضموا إلى تيليلاب واستفيدوا من مرافقة مخصصة.',
         },
-        date: '2025-11-12',
+        date: '2026-05-10',
         cover_image_url: '/assets/tililab/tililab-banner.png',
     },
     {
-        id: 'fallback-4',
-        href: '/tilila/archives',
-        badge: { en: 'CEREMONY', fr: 'CÉRÉMONIE', ar: 'الحفل' },
+        id: 'fallback-3',
+        href: '/tililab',
+        badge: { en: 'TILILAB', fr: 'TILILAB', ar: 'تيليلاب' },
         badgeTone: 'turquoise',
         title: {
-            en: '7th Tilila Awards ceremony',
-            fr: 'Cérémonie des 7e Tilila Awards',
-            ar: 'حفل تيليلا أووردز السابع',
+            en: 'Tililab Bootcamp: look back at the previous edition',
+            fr: 'Bootcamp Tililab : retour sur l’édition précédente',
+            ar: 'معسكر تيليلاب: العودة إلى الدورة السابقة',
         },
-        date: '2024-12-14',
-        cover_image_url: '/assets/tilila/editions/edition-2024.png',
+        excerpt: {
+            en: 'Relive the highlights of Tililab Bootcamp 2025 in pictures.',
+            fr: 'Revivez les temps forts du Bootcamp Tililab 2025 en images.',
+            ar: 'استرجعوا أبرز لحظات معسكر تيليلاب 2025 بالصور.',
+        },
+        date: '2026-05-01',
+        cover_image_url: '/assets/tililab/tililab-banner.png',
     },
 ];
 
 const BADGE_TONES = {
-    turquoise: 'bg-beta-turquoise/15 text-beta-turquoise',
-    purple: 'bg-brand-light-purple/15 text-brand-light-purple',
+    turquoise: 'bg-beta-turquoise text-twhite',
+    purple: 'bg-beta-blue text-twhite',
 };
 
 function formatNewsDate(iso, locale) {
@@ -76,8 +81,8 @@ function formatNewsDate(iso, locale) {
     const tag = locale === 'ar' ? 'ar' : locale === 'fr' ? 'fr-FR' : 'en-US';
     try {
         return date.toLocaleDateString(tag, {
-            day: '2-digit',
-            month: 'short',
+            day: 'numeric',
+            month: locale === 'fr' ? 'long' : 'short',
             year: 'numeric',
             timeZone: 'UTC',
         });
@@ -97,30 +102,53 @@ function NewsCard({ item, locale }) {
     return (
         <Link
             href={href}
-            className="group flex w-[260px] shrink-0 snap-start flex-col overflow-hidden rounded-xl border border-border/70 bg-twhite shadow-sm transition hover:-translate-y-0.5 hover:shadow-md sm:w-[280px]"
+            className="group flex flex-col bg-twhite transition hover:-translate-y-0.5"
         >
-            <div className="aspect-[16/10] overflow-hidden bg-beta-white">
-                {item.cover_image_url ? (
-                    <img
-                        src={item.cover_image_url}
-                        alt=""
-                        className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                        loading="lazy"
-                    />
-                ) : null}
+            <div className="relative">
+                <div
+                    className="absolute top-2 -left-1 h-[calc(100%-0.5rem)] w-3 rounded-sm bg-beta-blue/10 shadow-sm"
+                    aria-hidden
+                />
+                <div className="relative ml-2 aspect-[16/10] overflow-hidden rounded-lg bg-beta-white shadow-md">
+                    {item.cover_image_url ? (
+                        <img
+                            src={item.cover_image_url}
+                            alt=""
+                            className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.02]"
+                            loading="lazy"
+                        />
+                    ) : null}
+                </div>
             </div>
-            <div className="flex flex-1 flex-col p-4">
-                <span
-                    className={`inline-flex w-fit rounded px-2 py-0.5 text-[10px] font-bold tracking-wide uppercase ${tone}`}
-                >
-                    {textFor(item.badge, locale)}
-                </span>
-                <h3 className="mt-3 line-clamp-2 text-sm leading-snug font-extrabold text-tblack">
+
+            <div className="flex flex-1 flex-col px-1 pt-4 pb-1">
+                <div className="flex items-center justify-between gap-3">
+                    <span
+                        className={`inline-flex rounded-md px-2.5 py-1 text-[10px] font-bold tracking-wide uppercase ${tone}`}
+                    >
+                        {textFor(item.badge, locale)}
+                    </span>
+                    <time
+                        dateTime={item.date}
+                        className="shrink-0 text-xs text-tgray"
+                    >
+                        {formatNewsDate(item.date, locale)}
+                    </time>
+                </div>
+
+                <h3 className="mt-3 line-clamp-2 text-sm leading-snug font-extrabold text-tblack sm:text-[0.95rem]">
                     {textFor(item.title, locale)}
                 </h3>
-                <p className="mt-auto pt-3 text-xs text-tgray">
-                    {formatNewsDate(item.date, locale)}
-                </p>
+
+                {textFor(item.excerpt, locale) ? (
+                    <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-tgray sm:text-sm">
+                        {textFor(item.excerpt, locale)}
+                    </p>
+                ) : null}
+
+                <span className="mt-auto flex justify-end pt-4 text-beta-blue transition group-hover:translate-x-0.5">
+                    <ArrowRight className="size-4" aria-hidden />
+                </span>
             </div>
         </Link>
     );
@@ -128,28 +156,34 @@ function NewsCard({ item, locale }) {
 
 export default function HomeNews({ items = [] }) {
     const { locale } = useTranslation();
-    const scrollerRef = useRef(null);
     const list = (
         Array.isArray(items) && items.length ? items : FALLBACK_NEWS
     ).slice(0, 3);
 
-    const scrollNext = () => {
-        scrollerRef.current?.scrollBy({ left: 300, behavior: 'smooth' });
-    };
-
     return (
         <TililaSection
             id="news"
-            className="border-t border-border/60 bg-twhite pb-16"
+            className="border-t border-border/60 bg-twhite py-10 sm:py-12"
         >
             <TililaContainer>
-                <div className="flex flex-wrap items-end justify-between gap-4">
-                    <h2 className="text-2xl font-extrabold tracking-tight text-beta-blue sm:text-3xl">
-                        <TransText en="News" fr="Actualités" ar="أخبار" />
-                    </h2>
+                <div className="relative mb-8 sm:mb-10">
+                    <div className="text-center">
+                        <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
+                            <TransText
+                                en="News"
+                                fr="Actualités"
+                                ar="أخبار"
+                            />
+                        </h2>
+                        <div
+                            className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-beta-blue/70"
+                            aria-hidden
+                        />
+                    </div>
+
                     <Link
                         href="/events"
-                        className="inline-flex items-center gap-2 text-sm font-bold text-beta-blue transition hover:text-brand-light-purple"
+                        className="mt-4 inline-flex items-center gap-2 text-xs font-bold tracking-wide text-beta-blue uppercase transition hover:text-brand-light-purple sm:absolute sm:top-1/2 sm:right-0 sm:mt-0 sm:-translate-y-1/2 sm:text-sm"
                     >
                         <TransText
                             en="View all news"
@@ -160,30 +194,14 @@ export default function HomeNews({ items = [] }) {
                     </Link>
                 </div>
 
-                <div className="relative mt-8">
-                    <div
-                        ref={scrollerRef}
-                        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                    >
-                        {list.map((item) => (
-                            <NewsCard
-                                key={item.id}
-                                item={item}
-                                locale={locale}
-                            />
-                        ))}
-                    </div>
-
-                    {list.length > 3 ? (
-                        <button
-                            type="button"
-                            onClick={scrollNext}
-                            className="absolute top-1/2 -right-1 hidden -translate-y-1/2 rounded-full border border-border bg-twhite p-2 text-beta-blue shadow-md transition hover:bg-alpha-blue lg:inline-flex"
-                            aria-label="Next"
-                        >
-                            <ChevronRight className="size-5" />
-                        </button>
-                    ) : null}
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+                    {list.map((item) => (
+                        <NewsCard
+                            key={item.id}
+                            item={item}
+                            locale={locale}
+                        />
+                    ))}
                 </div>
             </TililaContainer>
         </TililaSection>
