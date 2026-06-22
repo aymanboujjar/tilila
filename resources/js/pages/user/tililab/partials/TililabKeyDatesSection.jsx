@@ -1,113 +1,108 @@
 import {
-    Calendar,
     Clapperboard,
+    Filter,
     Gavel,
     GraduationCap,
     Megaphone,
     Trophy,
+    Video,
 } from 'lucide-react';
 import TransText from '@/components/TransText';
-import {
-    TililaContainer,
-    TililaSection,
-    TililaSectionHeading,
-    TililaTealText,
-} from '@/pages/user/tilila/partials/TililaUi';
+import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
 
-const KEY_DATES = [
+const PARCOURS_STEPS = [
     {
         icon: Megaphone,
-        date: 'Mai 2026',
-        fr: 'Ouverture des candidatures',
-        en: 'Applications open',
-        ar: 'فتح باب الترشح',
+        fr: 'Appel à candidatures',
+        en: 'Call for applications',
+        ar: 'دعوة للترشح',
     },
     {
-        icon: Gavel,
-        date: 'Juin 2026',
+        icon: Filter,
         fr: 'Pré-sélection',
         en: 'Pre-selection',
         ar: 'الفرز الأولي',
     },
     {
         icon: GraduationCap,
-        date: 'Juillet 2026',
         fr: 'Masterclass',
         en: 'Masterclass',
         ar: 'ماستركلاس',
     },
     {
         icon: Clapperboard,
-        date: 'Août 2026',
-        fr: 'Résidence créative 48h',
-        en: '48h creative residency',
-        ar: 'إقامة إبداعية 48 ساعة',
+        fr: 'Bootcamp créatif',
+        en: 'Creative bootcamp',
+        ar: 'المعسكر الإبداعي',
     },
     {
-        icon: Calendar,
-        date: 'Septembre 2026',
-        fr: 'Délibération du jury',
-        en: 'Jury deliberation',
-        ar: 'مداولة لجنة التحكيم',
+        icon: Video,
+        fr: 'Production',
+        en: 'Production',
+        ar: 'الإنتاج',
+    },
+    {
+        icon: Gavel,
+        fr: 'Jury',
+        en: 'Jury',
+        ar: 'لجنة التحكيم',
     },
     {
         icon: Trophy,
-        date: 'Novembre 2026',
-        fr: 'Cérémonie Tilila Awards',
-        en: 'Tilila Awards ceremony',
-        ar: 'حفل تيليلا أووردز',
+        fr: 'Tililab Trophy',
+        en: 'Tililab Trophy',
+        ar: 'كأس تيليلاب',
     },
 ];
 
 export default function TililabKeyDatesSection() {
     return (
-        <TililaSection
-            id="calendar"
-            className="border-t border-border/60 bg-beta-white"
-        >
+        <TililaSection id="parcours" className="bg-beta-white">
             <TililaContainer>
-                <TililaSectionHeading
-                    centered
-                    className="mx-auto"
-                    title={
+                <div className="text-center">
+                    <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
                         <TransText
-                            en="Key dates 2026"
-                            fr="Dates clés 2026"
-                            ar="التواريخ الرئيسية 2026"
+                            en="The Tililab journey"
+                            fr="Le parcours Tililab"
+                            ar="مسار تيليلاب"
                         />
-                    }
-                />
-
-                <div className="relative mt-14">
+                    </h2>
                     <div
-                        className="absolute top-9 right-[8%] left-[8%] hidden border-t-2 border-dashed border-beta-blue/25 lg:block"
+                        className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-beta-turquoise"
                         aria-hidden
                     />
-                    <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-4">
-                        {KEY_DATES.map((item) => {
-                            const Icon = item.icon;
+                </div>
+
+                <div className="relative mt-12 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div
+                        className="absolute top-9 right-[6%] left-[6%] hidden border-t-2 border-dashed border-beta-blue/20 lg:block"
+                        aria-hidden
+                    />
+                    <ol className="flex min-w-[720px] gap-3 lg:min-w-0 lg:justify-between">
+                        {PARCOURS_STEPS.map((step, index) => {
+                            const Icon = step.icon;
                             return (
                                 <li
-                                    key={item.en}
-                                    className="relative flex flex-col items-center text-center"
+                                    key={step.fr}
+                                    className="relative flex flex-1 flex-col items-center px-1 text-center"
                                 >
-                                    <div className="relative z-10 flex size-[4.5rem] items-center justify-center rounded-full border-2 border-beta-blue/20 bg-twhite text-beta-blue shadow-sm">
-                                        <Icon
-                                            className="size-6 stroke-[1.5]"
-                                            aria-hidden
-                                        />
+                                    <div className="relative">
+                                        <div className="flex size-[4.25rem] items-center justify-center rounded-full border-2 border-beta-blue/25 bg-twhite text-beta-blue shadow-sm sm:size-[4.5rem]">
+                                            <Icon
+                                                className="size-6 stroke-[1.5]"
+                                                aria-hidden
+                                            />
+                                        </div>
+                                        <span className="absolute -end-1 -bottom-1 flex size-5 items-center justify-center rounded-full bg-beta-blue text-[10px] font-bold text-twhite">
+                                            {index + 1}
+                                        </span>
                                     </div>
-                                    <h3 className="mt-5 text-xs font-bold tracking-wide text-beta-blue uppercase">
+                                    <p className="mt-4 text-[10px] leading-snug font-bold tracking-wide text-beta-blue uppercase sm:text-[11px]">
                                         <TransText
-                                            en={item.en}
-                                            fr={item.fr}
-                                            ar={item.ar}
+                                            en={step.en}
+                                            fr={step.fr}
+                                            ar={step.ar}
                                         />
-                                    </h3>
-                                    <p className="mt-2 text-sm">
-                                        <TililaTealText>
-                                            {item.date}
-                                        </TililaTealText>
                                     </p>
                                 </li>
                             );

@@ -1,7 +1,7 @@
 import { Head, usePage } from '@inertiajs/react';
 import AppLayout from '@/layouts/app-layout';
 import TililabAdmissionJurySection from '@/pages/user/tililab/partials/TililabAdmissionJurySection';
-import TililabBottomSection from '@/pages/user/tililab/partials/TililabBottomSection';
+import TililabApplySection from '@/pages/user/tililab/partials/TililabApplySection';
 import TililabHero from '@/pages/user/tililab/partials/TililabHero';
 import TililabKeyDatesSection from '@/pages/user/tililab/partials/TililabKeyDatesSection';
 import TililabPrizesSection from '@/pages/user/tililab/partials/TililabPrizesSection';
@@ -9,7 +9,7 @@ import TililabStatsBenefitsSection from '@/pages/user/tililab/partials/TililabSt
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export default function TililabIndex() {
-    const { currentEdition, flash } = usePage().props;
+    const { flash } = usePage().props;
 
     return (
         <>
@@ -21,12 +21,12 @@ export default function TililabIndex() {
                     </div>
                 ) : null}
 
-                <TililabHero videoUrl={usePage().props.teaserVideoUrl} />
+                <TililabHero />
                 <TililabStatsBenefitsSection />
-                <TililabPrizesSection />
                 <TililabKeyDatesSection />
-                <TililabAdmissionJurySection jury={currentEdition?.jury} />
-                <TililabBottomSection />
+                <TililabPrizesSection />
+                <TililabAdmissionJurySection />
+                <TililabApplySection />
             </div>
         </>
     );
