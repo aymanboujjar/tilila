@@ -2,29 +2,48 @@ import { useState } from 'react';
 import { Link } from '@inertiajs/react';
 import {
     ArrowRight,
-    FileText,
+    Award,
     Mail,
+    MessageSquare,
     Monitor,
     Newspaper,
     Radio,
+    Smartphone,
+    Trophy,
     Tv,
-    Users,
 } from 'lucide-react';
 import TransText from '@/components/TransText';
 import TililaJuryMembersModal from '@/pages/user/tilila/partials/TililaJuryMembersModal';
 import { storagePhotoSrc } from '@/pages/user/tilila/partials/EditionDetailContent';
-import {
-    TililaBtnGhost,
-    TililaContainer,
-    TililaSection,
-} from '@/pages/user/tilila/partials/TililaUi';
+import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
 
-const MEDIA_ICONS = [Tv, Monitor, Radio, Newspaper, FileText];
+const MEDIA_CHANNELS = [
+    { Icon: Tv, labelFr: 'TV', labelEn: 'TV', labelAr: 'تلفزيون' },
+    { Icon: Monitor, labelFr: 'Digital', labelEn: 'Digital', labelAr: 'رقمي' },
+    { Icon: Radio, labelFr: 'Radio', labelEn: 'Radio', labelAr: 'إذاعة' },
+    { Icon: Newspaper, labelFr: 'Presse', labelEn: 'Press', labelAr: 'صحافة' },
+    {
+        Icon: Smartphone,
+        labelFr: 'Affichage',
+        labelEn: 'OOH',
+        labelAr: 'إشهار',
+    },
+];
+
+function ColumnIcon({ children, className = '' }) {
+    return (
+        <span
+            className={`inline-flex size-14 items-center justify-center rounded-full sm:size-16 ${className}`}
+        >
+            {children}
+        </span>
+    );
+}
 
 function JuryPreview({ members }) {
     if (members.length === 0) {
         return (
-            <div className="mt-6 flex justify-center gap-3">
+            <div className="mt-8 flex flex-wrap gap-3">
                 {Array.from({ length: 4 }).map((_, i) => (
                     <div
                         key={i}
@@ -36,13 +55,14 @@ function JuryPreview({ members }) {
     }
 
     return (
-        <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <div className="mt-8 flex flex-wrap gap-3">
             {members.slice(0, 4).map((member, i) => {
                 const photo = storagePhotoSrc(member?.photo_path);
+
                 return (
                     <div
                         key={`${member?.full_name ?? 'member'}-${i}`}
-                        className="size-14 overflow-hidden rounded-full border-2 border-beta-blue/20 sm:size-16"
+                        className="size-14 overflow-hidden rounded-full border-2 border-beta-blue/15 sm:size-16"
                     >
                         {photo ? (
                             <img
@@ -66,24 +86,21 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
     const [modalOpen, setModalOpen] = useState(false);
 
     return (
-        <TililaSection
-            id="admission"
-            className="border-t border-border/60 bg-beta-white"
-        >
+        <TililaSection id="admission" className="bg-twhite">
             <TililaContainer>
-                <div className="grid gap-10 lg:grid-cols-3 lg:gap-8">
-                    <article className="rounded-2xl border border-border/70 bg-twhite p-6 shadow-sm">
-                        <span className="inline-flex size-11 items-center justify-center rounded-full bg-alpha-blue text-beta-turquoise">
-                            <FileText className="size-5" aria-hidden />
-                        </span>
-                        <h3 className="mt-4 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase">
+                <div className="grid gap-12 lg:grid-cols-3 lg:gap-10 xl:gap-14">
+                    <article>
+                        <ColumnIcon className="bg-alpha-blue text-beta-turquoise">
+                            <Trophy className="size-7" strokeWidth={1.5} aria-hidden />
+                        </ColumnIcon>
+                        <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase sm:text-base">
                             <TransText
                                 en="Admission conditions"
                                 fr="Conditions d'admission"
                                 ar="شروط القبول"
                             />
                         </h3>
-                        <div className="mt-4 space-y-4 text-sm leading-relaxed text-tgray">
+                        <div className="mt-5 space-y-4 text-sm leading-relaxed text-tgray">
                             <p>
                                 <TransText
                                     en="The competition is open to all Moroccan advertisers."
@@ -106,33 +123,43 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                                 />
                             </p>
                         </div>
-                        <div className="mt-6 flex flex-wrap gap-2">
-                            {MEDIA_ICONS.map((Icon, i) => (
-                                <span
-                                    key={i}
-                                    className="inline-flex size-9 items-center justify-center rounded-lg border border-border/60 bg-beta-white text-beta-blue"
-                                >
-                                    <Icon className="size-4" aria-hidden />
-                                </span>
-                            ))}
+                        <div className="mt-8 flex flex-wrap gap-5 sm:gap-6">
+                            {MEDIA_CHANNELS.map(
+                                ({ Icon, labelFr, labelEn, labelAr }) => (
+                                    <div
+                                        key={labelEn}
+                                        className="flex min-w-[52px] flex-col items-center gap-2"
+                                    >
+                                        <Icon
+                                            className="size-6 text-beta-turquoise sm:size-7"
+                                            strokeWidth={1.5}
+                                            aria-hidden
+                                        />
+                                        <span className="text-[10px] font-bold tracking-wide text-beta-turquoise uppercase">
+                                            <TransText
+                                                en={labelEn}
+                                                fr={labelFr}
+                                                ar={labelAr}
+                                            />
+                                        </span>
+                                    </div>
+                                ),
+                            )}
                         </div>
                     </article>
 
-                    <article
-                        id="jury"
-                        className="scroll-mt-28 rounded-2xl border border-border/70 bg-twhite p-6 shadow-sm"
-                    >
-                        <span className="inline-flex size-11 items-center justify-center rounded-full bg-alpha-blue text-beta-blue">
-                            <Users className="size-5" aria-hidden />
-                        </span>
-                        <h3 className="mt-4 text-sm font-extrabold tracking-wide text-beta-blue uppercase">
+                    <article id="jury" className="scroll-mt-28">
+                        <ColumnIcon className="bg-beta-blue/10 text-beta-blue">
+                            <Award className="size-7" strokeWidth={1.5} aria-hidden />
+                        </ColumnIcon>
+                        <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-blue uppercase sm:text-base">
                             <TransText
                                 en="The jury"
                                 fr="Le jury"
                                 ar="لجنة التحكيم"
                             />
                         </h3>
-                        <div className="mt-4 space-y-4 text-sm leading-relaxed text-tgray">
+                        <div className="mt-5 space-y-4 text-sm leading-relaxed text-tgray">
                             <p>
                                 <TransText
                                     en="The Tilila Awards jury is made up of recognised figures from media, communication, creative industries, institutions, research and civil society."
@@ -154,7 +181,7 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                         <button
                             type="button"
                             onClick={() => setModalOpen(true)}
-                            className="mx-auto mt-6 flex items-center justify-center gap-2 rounded-lg bg-beta-blue px-5 py-2.5 text-xs font-bold tracking-wide text-twhite uppercase transition hover:bg-brand-light-purple"
+                            className="mt-8 inline-flex items-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue"
                         >
                             <TransText
                                 en="Discover the jury"
@@ -165,18 +192,22 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                         </button>
                     </article>
 
-                    <article className="rounded-2xl border border-border/70 bg-twhite p-6 shadow-sm">
-                        <span className="inline-flex size-11 items-center justify-center rounded-full bg-alpha-blue text-beta-blue">
-                            <Mail className="size-5" aria-hidden />
-                        </span>
-                        <h3 className="mt-4 text-sm font-extrabold tracking-wide text-beta-blue uppercase">
+                    <article>
+                        <ColumnIcon className="bg-alpha-blue text-beta-turquoise">
+                            <MessageSquare
+                                className="size-7"
+                                strokeWidth={1.5}
+                                aria-hidden
+                            />
+                        </ColumnIcon>
+                        <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase sm:text-base">
                             <TransText
                                 en="A question?"
                                 fr="Une question ?"
                                 ar="سؤال؟"
                             />
                         </h3>
-                        <p className="mt-4 text-sm leading-relaxed text-tgray">
+                        <p className="mt-5 text-sm leading-relaxed text-tgray">
                             <TransText
                                 en="Our team is available to answer your questions about Tilila Awards."
                                 fr="Notre équipe est à votre disposition pour répondre à vos questions sur les Tilila Awards."
@@ -185,15 +216,15 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                         </p>
                         <a
                             href="mailto:contact@tilila.org"
-                            className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-beta-blue"
+                            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-beta-turquoise transition hover:brightness-110"
                         >
                             <Mail className="size-4" aria-hidden />
                             contact@tilila.org
                         </a>
-                        <div className="mt-6">
+                        <div className="mt-8">
                             <Link
                                 href="/contact"
-                                className="inline-flex items-center justify-center gap-2 rounded-lg bg-beta-turquoise px-5 py-2.5 text-xs font-bold tracking-wide text-twhite uppercase transition hover:brightness-110"
+                                className="inline-flex items-center gap-2 rounded-lg bg-beta-turquoise px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-twhite uppercase transition hover:brightness-110"
                             >
                                 <TransText
                                     en="Contact us"
@@ -204,16 +235,6 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                             </Link>
                         </div>
                     </article>
-                </div>
-
-                <div className="mt-8 flex flex-wrap justify-center gap-3">
-                    <TililaBtnGhost href="/tilila#jury">
-                        <TransText
-                            en="Presentation"
-                            fr="Présentation"
-                            ar="عرض تقديمي"
-                        />
-                    </TililaBtnGhost>
                 </div>
             </TililaContainer>
 
