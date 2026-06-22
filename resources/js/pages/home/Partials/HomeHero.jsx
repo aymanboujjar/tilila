@@ -141,17 +141,17 @@ export default function HomeHero() {
                         </div>
                     </div>
 
-                    <div className="relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none lg:justify-self-end">
+                    <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl lg:justify-self-end">
                         <div
-                            className="relative overflow-hidden rounded-xl shadow-xl ring-1 ring-twhite/10"
+                            className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-twhite/10"
                             style={{
                                 clipPath:
-                                    'polygon(10% 0, 100% 0, 100% 100%, 0 100%)',
+                                    'polygon(8% 0, 100% 0, 100% 100%, 0 100%)',
                             }}
                         >
                             <video
                                 ref={videoRef}
-                                className="aspect-video w-full max-h-[220px] object-cover brightness-[0.88] sm:max-h-[240px] lg:max-h-[260px]"
+                                className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
                                 src={videoSrc}
                                 poster={HERO_BG}
                                 autoPlay
@@ -167,15 +167,8 @@ export default function HomeHero() {
                                 aria-hidden
                             />
                         </div>
-
-                        <img
-                            src={TROPHY}
-                            alt=""
-                            className="pointer-events-none absolute -right-1 -bottom-3 z-10 h-16 w-auto drop-shadow-2xl sm:-right-2 sm:-bottom-4 sm:h-20 lg:h-24"
-                            loading="lazy"
-                            aria-hidden
-                        />
                     </div>
+             
                 </div>
             </TililaContainer>
         </TililaSection>
