@@ -1,6 +1,11 @@
 import { Trophy } from 'lucide-react';
 import TransText from '@/components/TransText';
 
+const SECTION_BG = '#05051a';
+const TROPHY_IMG = '/assets/tilila/trophee-tilila.png';
+
+const UNIFIED_GRADIENT = `linear-gradient(to right, ${SECTION_BG} 0%, ${SECTION_BG} 30%, rgba(5, 5, 26, 0.96) 38%, rgba(18, 10, 38, 0.9) 46%, rgba(32, 18, 62, 0.72) 54%, rgba(45, 25, 80, 0.45) 62%, rgba(55, 32, 92, 0.18) 70%, transparent 80%)`;
+
 const CATEGORIES = [
     {
         fr: 'Hommage Tilila',
@@ -34,8 +39,6 @@ const CATEGORIES = [
         arBottom: 'OFFLINE',
     },
 ];
-
-const TROPHY_IMG = '/assets/tilila/trophee-tilila.png';
 
 function CategoryLabel({ cat }) {
     if (cat.frTop) {
@@ -71,15 +74,15 @@ function CategoryLabel({ cat }) {
 
 function CategoryCard({ cat }) {
     return (
-        <article className="flex min-h-[155px] min-w-[108px] flex-1 flex-col items-center justify-center rounded-lg border border-twhite/12 bg-[#0a0a23]/45 px-2.5 py-5 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md sm:min-h-[170px] sm:min-w-0 sm:px-3 sm:py-6">
-            <span className="flex size-11 shrink-0 items-center justify-center rounded-full border border-[#D4AF37] bg-[#0a0a23]/30 text-[#D4AF37] sm:size-12">
+        <article className="flex min-h-[120px] min-w-[100px] flex-1 flex-col items-center justify-center rounded-lg border border-twhite/10 bg-[#0a0a23]/50 px-2 py-4 text-center backdrop-blur-sm sm:min-h-[140px] sm:min-w-0 sm:px-3 sm:py-5">
+            <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-[#D4AF37] text-[#D4AF37] sm:size-11">
                 <Trophy
-                    className="size-4 sm:size-5"
+                    className="size-4 sm:size-[18px]"
                     strokeWidth={1.5}
                     aria-hidden
                 />
             </span>
-            <p className="mt-4 text-[10px] leading-snug font-medium text-twhite sm:text-[11px]">
+            <p className="mt-3 text-[9px] leading-snug font-medium text-twhite sm:text-[10px]">
                 <CategoryLabel cat={cat} />
             </p>
         </article>
@@ -88,8 +91,8 @@ function CategoryCard({ cat }) {
 
 function SectionTitle() {
     return (
-        <h2 className="text-lg font-extrabold tracking-[0.1em] text-twhite uppercase sm:text-xl">
-            <span className="inline-block border-b-[3px] border-[#00CED1] pb-1">
+        <h2 className="text-base font-extrabold tracking-widest text-twhite uppercase sm:text-lg">
+            <span className="inline-block border-b-[3px] border-[#00CED1] pb-0.5">
                 <TransText en="The" fr="Les" ar="ال" />
             </span>
             <span className="ms-1.5">
@@ -103,36 +106,33 @@ export default function TililaCategoriesSection() {
     return (
         <section
             id="categories"
-            className="relative min-h-[360px] overflow-hidden bg-[#0a0a23] sm:min-h-[400px] lg:min-h-[440px]"
+            className="relative overflow-hidden sm:min-h-[300px] lg:min-h-[360px]"
+            style={{ backgroundColor: SECTION_BG }}
         >
             <img
                 src={TROPHY_IMG}
                 alt=""
-                className="absolute inset-0 h-full w-full object-contain object-right"
+                className="pointer-events-none absolute top-0 right-0 z-0 h-full w-[72%] object-cover sm:w-[68%] lg:w-[58%]"
+                style={{ objectPosition: '22% center' }}
                 loading="lazy"
             />
 
             <div
-                className="absolute inset-0 bg-linear-to-r from-[#0a0a23] from-0% via-[#0a0a23]/88 via-[38%] to-transparent to-[72%]"
-                aria-hidden
-            />
-            <div
-                className="pointer-events-none absolute inset-0 bg-linear-to-t from-[#0a0a23]/50 via-transparent to-[#0a0a23]/30"
+                className="pointer-events-none absolute inset-0 z-[1]"
+                style={{ background: UNIFIED_GRADIENT }}
                 aria-hidden
             />
 
-            <div className="relative z-10 mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12 lg:px-10 lg:py-14 xl:px-14">
-                <div className="max-w-full lg:max-w-[62%] xl:max-w-[58%]">
-                    <SectionTitle />
+            <div className="relative z-10 mx-auto flex h-full max-w-7xl flex-col justify-center px-5 py-8 sm:px-7 sm:py-10 lg:px-9 lg:py-12 xl:px-11">
+                <SectionTitle />
 
-                    <div className="mt-8 flex gap-2.5 overflow-x-auto pb-1 sm:gap-3 lg:overflow-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                        {CATEGORIES.map((cat) => (
-                            <CategoryCard
-                                key={cat.fr ?? cat.frTop + cat.frBottom}
-                                cat={cat}
-                            />
-                        ))}
-                    </div>
+                <div className="mt-6 flex gap-2 overflow-x-auto sm:mt-7 sm:gap-3 lg:max-w-[72%] lg:overflow-visible xl:max-w-[70%] [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    {CATEGORIES.map((cat) => (
+                        <CategoryCard
+                            key={cat.fr ?? cat.frTop + cat.frBottom}
+                            cat={cat}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
