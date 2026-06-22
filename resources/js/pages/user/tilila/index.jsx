@@ -5,6 +5,7 @@ import TililaBottomSection from '@/pages/user/tilila/partials/TililaBottomSectio
 import TililaHero from '@/pages/user/tilila/partials/TililaHero';
 import TililaKeyDatesSection from '@/pages/user/tilila/partials/TililaKeyDatesSection';
 import TililaPrizesSection from '@/pages/user/tilila/partials/TililaPrizesSection';
+import { TililaFaqSection } from '@/pages/user/tilila/partials/ProgramSections';
 import TililaStatsBenefitsSection from '@/pages/user/tilila/partials/TililaStatsBenefitsSection';
 import { useTranslation } from '@/contexts/TranslationContext';
 
@@ -26,6 +27,7 @@ export default function TililaIndex() {
                 <TililaPrizesSection />
                 <TililaKeyDatesSection />
                 <TililaAdmissionJurySection jury={currentEdition?.jury} />
+                <TililaFaqSection />
 
                 <TililaBottomSection />
 
