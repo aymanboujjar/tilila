@@ -1,13 +1,12 @@
 import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import AppLayout from '@/layouts/app-layout';
-import AboutOverviewSection from '@/pages/user/about/partials/AboutOverviewSection';
+import AboutGalleryStrip from '@/pages/user/about/partials/AboutGalleryStrip';
 import CommitteeSection from '@/pages/user/about/partials/CommitteeSection';
-import ContactSection from '@/pages/user/about/partials/ContactSection';
 import HeroSection from '@/pages/user/about/partials/HeroSection';
-import MissionSection from '@/pages/user/about/partials/MissionSection';
-import PartnersSection from '@/pages/user/about/partials/PartnersSection';
-import TililabCtaSection from '@/pages/user/about/partials/TililabCtaSection';
+import MissionSection, {
+    AboutValuesSection,
+} from '@/pages/user/about/partials/MissionSection';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 function scrollToHashSection() {
@@ -29,15 +28,13 @@ export default function About() {
 
     return (
         <>
-            <AboutHead />
+            {/* <AboutHead /> */}
             <div className="bg-twhite">
                 <HeroSection />
-                <AboutOverviewSection />
+                <AboutGalleryStrip />
                 <MissionSection />
-                {/* <CommitteeSection /> */}
-                <PartnersSection />
-                <TililabCtaSection />
-                <ContactSection />
+                <CommitteeSection />
+                <AboutValuesSection />
             </div>
         </>
     );

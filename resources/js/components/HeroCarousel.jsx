@@ -91,6 +91,10 @@ export function shouldShowHeroCarousel(pathname, slides) {
         return false;
     }
 
+    if (path === '/about' || path.startsWith('/about/')) {
+        return false;
+    }
+
     if (
         path === '/tilila/archives' ||
         path.startsWith('/tilila/archives/editions/')
