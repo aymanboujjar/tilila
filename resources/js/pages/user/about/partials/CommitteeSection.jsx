@@ -1,101 +1,71 @@
 import TransText from '@/components/TransText';
+import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
-const committee = [
-    {
-        name: 'Khadija Bouzoubaa',
-        role: 'Chair',
-        photoUrl:
-            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80',
-    },
-    {
-        name: 'Salim Cherdi',
-        role: 'Member',
-        photoUrl:
-            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80',
-    },
-    {
-        name: 'Rabia Fassi',
-        role: 'Member',
-        photoUrl:
-            'https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?auto=format&fit=crop&w=900&q=80',
-    },
-    {
-        name: 'Fatiha Derres',
-        role: 'Member',
-        photoUrl:
-            'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80',
-    },
-];
+const COMMITTEE_IMAGE = '/assets/about/about1.jpg';
 
 export default function CommitteeSection() {
     return (
         <section
-            id="committee"
-            className="mx-auto max-w-7xl scroll-mt-16 px-4 py-12"
+            id="mission"
+            className="scroll-mt-28 bg-twhite py-14 sm:py-16"
         >
-            <div className="text-center">
-                <div className="text-xs font-semibold tracking-widest text-tgray">
-                    <TransText
-                        en="2M · PARITY & DIVERSITY"
-                        fr="2M · PARITÉ & DIVERSITÉ"
-                        ar="2M · المساواة والتنوع"
-                    />
-                </div>
-                <h2 className="mt-3 text-2xl font-semibold text-tblack">
-                    <TransText
-                        en="Parity & Diversity Committee"
-                        fr="Comité Parité et Diversité"
-                        ar="لجنة المساواة والتنوع"
-                    />
-                </h2>
-                <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-tgray">
-                    <TransText
-                        en="The Committee steers 2M’s commitments on equality, representation, and non-discrimination. Tilila Awards is one of its flagship programmes—recognising advertising that advances inclusion and respect in Morocco."
-                        fr="Le Comité porte les engagements de 2M en matière d’égalité, de représentation et de non-discrimination. Les Tilila Awards sont l’une de ses initiatives phares—récompensant une publicité qui fait progresser l’inclusion et le respect au Maroc."
-                        ar="توجّه اللجنة التزامات 2M بالمساواة والتمثيل ومكافحة التمييز. جائزة تيليلا من أبرز برامجها—تُكرّم إعلاناً يرسّخ الإدماج والاحترام في المغرب."
-                    />
-                </p>
-            </div>
-
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {committee.map((member) => (
-                    <div
-                        key={member.name}
-                        className="rounded-2xl border border-border bg-background p-4"
-                    >
-                        <div className="aspect-4/5 w-full overflow-hidden rounded-xl bg-secondary">
-                            <img
-                                src={member.photoUrl}
-                                alt={member.name}
-                                className="h-full w-full object-cover"
-                                loading="lazy"
-                                decoding="async"
-                                referrerPolicy="no-referrer"
+            <TililaContainer>
+                <div className="grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+                    <div className="lg:pe-4">
+                        <div
+                            className="mb-4 h-1 w-10 bg-beta-blue"
+                            aria-hidden
+                        />
+                        <h2 className="text-xl font-extrabold tracking-tight text-[#1a237e] uppercase sm:text-[1.35rem]">
+                            <TransText
+                                en="Parity & Diversity Committee"
+                                fr="Le Comité Parité & Diversité"
+                                ar="لجنة المساواة والتنوع"
                             />
-                        </div>
-                        <div className="mt-4">
-                            <div className="text-sm font-semibold text-tblack">
-                                {member.name}
-                            </div>
-                            <div className="mt-1 text-xs font-medium text-tgray">
-                                {member.role === 'Chair' ? (
-                                    <TransText
-                                        en="Chair"
-                                        fr="Présidente"
-                                        ar="الرئيسة"
-                                    />
-                                ) : (
-                                    <TransText
-                                        en="Member"
-                                        fr="Membre"
-                                        ar="عضوة"
-                                    />
-                                )}
-                            </div>
+                        </h2>
+
+                        <div className="mt-7 space-y-5 text-sm leading-[1.75] text-[#1a237e]/90 sm:text-[15px]">
+                            <p>
+                                <TransText
+                                    en="Created in 2013 within SOREAD 2M, the Parity & Diversity Committee works to promote equal opportunities, diversity and the fight against discrimination in content, professional practices and projects carried by the Group."
+                                    fr="Créé en 2013 au sein de SOREAD 2M, le Comité Parité & Diversité œuvre à promouvoir l'égalité des chances, la diversité et la lutte contre les discriminations dans les contenus, les pratiques professionnelles et les projets portés par le Groupe."
+                                    ar="أُنشئت سنة 2013 ضمن SOREAD 2M، وتعمل لجنة المساواة والتنوع على تعزيز تكافؤ الفرص والتنوع ومكافحة التمييز في المحتوى والممارسات المهنية ومشاريع المجموعة."
+                                />
+                            </p>
+                            <p>
+                                <TransText
+                                    en="A true space for reflection, proposals and action, it has for over a decade supported initiatives that foster a more balanced representation of women and men, value diverse paths and talents, and strengthen consideration of equity, diversity and inclusion in media and communication."
+                                    fr="Véritable espace de réflexion, de proposition et d'action, il accompagne depuis plus d'une décennie le développement d'initiatives visant à favoriser une représentation plus équilibrée des femmes et des hommes, à valoriser la diversité des parcours et des talents et à renforcer la prise en compte des enjeux d'équité, de diversité et d'inclusion dans les médias et la communication."
+                                    ar="بوصفها فضاءً حقيقياً للتفكير والاقتراح والعمل، ترافق منذ أكثر من عقد تطوير مبادرات تفضّل تمثيلاً أكثر توازناً للنساء والرجال، وتُقدّر تنوع المسارات والمواهب، وتعزز مراعاة قضايا المساواة والتنوع والإدماج في الإعلام والتواصل."
+                                />
+                            </p>
+                            <p>
+                                <TransText
+                                    en="Through awareness programmes, reference tools, dialogue spaces and innovative projects, the Committee helps shift perspectives, promote best practices and encourage fairer, more inclusive representations."
+                                    fr="À travers des programmes de sensibilisation, des outils de référence, des espaces de dialogue et des projets innovants, le Comité contribue à faire évoluer les regards, à promouvoir les bonnes pratiques et à encourager des représentations plus justes et plus inclusives."
+                                    ar="من خلال برامج التوعية وأدوات المرجعية ومساحات الحوار والمشاريع المبتكرة، تساهم اللجنة في تطوير النظرات وتعزيز الممارسات الفضلى وتشجيع تمثيلات أكثر عدلاً وشمولاً."
+                                />
+                            </p>
                         </div>
                     </div>
-                ))}
-            </div>
+
+                    <div>
+                        <img
+                            src={COMMITTEE_IMAGE}
+                            alt=""
+                            className="aspect-[16/10] w-full object-cover"
+                            loading="lazy"
+                        />
+                        <p className="mt-3 text-xs leading-relaxed text-beta-blue sm:text-sm">
+                            <TransText
+                                en="The Parity & Diversity Committee of SOREAD 2M, on the occasion of its 10th anniversary."
+                                fr="Le Comité Parité & Diversité de SOREAD 2M, à l'occasion de la célébration de son 10e anniversaire."
+                                ar="لجنة المساواة والتنوع لـ SOREAD 2M، بمناسبة الاحتفال بالذكرى العاشرة لتأسيسها."
+                            />
+                        </p>
+                    </div>
+                </div>
+            </TililaContainer>
         </section>
     );
 }

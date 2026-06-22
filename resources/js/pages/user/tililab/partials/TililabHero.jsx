@@ -1,127 +1,87 @@
-import { useEffect, useRef } from 'react';
+import { Link } from '@inertiajs/react';
+import { ArrowRight, Download } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
-    TililaBtnOutline,
-    TililaBtnPrimary,
     TililaContainer,
     TILILA_HERO_BTN,
     TILILA_HERO_CTA_ROW,
-    TililaDeadlinePill,
-    TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-const HERO_FALLBACK = '/assets/tililab/tililab-banner.png';
+const HERO_BG = '/assets/tililab/tililab-banner.png';
 
-export default function TililabHero({ videoUrl }) {
-    const videoRef = useRef(null);
-
-    useEffect(() => {
-        const el = videoRef.current;
-        if (!el || !videoUrl) return;
-        el.muted = true;
-        void el.play().catch(() => {});
-    }, [videoUrl]);
-
+export default function TililabHero() {
     return (
-        <TililaSection
+        <section
             id="hero"
-            className="bg-twhite pt-10 pb-12 sm:pt-14 sm:pb-16"
+            className="relative min-h-[480px] overflow-hidden sm:min-h-[520px] lg:min-h-[560px]"
         >
-            <TililaContainer>
-                <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-                    <div id="candidature">
-                        <p className="text-xs font-bold tracking-[0.22em] text-beta-blue uppercase">
+            <img
+                src={HERO_BG}
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover object-center"
+                loading="eager"
+            />
+            <div
+                className="absolute inset-0 bg-linear-to-r from-twhite/96 via-twhite/88 to-twhite/25"
+                aria-hidden
+            />
+
+            <TililaContainer className="relative z-10 flex min-h-[480px] items-center py-14 sm:min-h-[520px] sm:py-16 lg:min-h-[560px]">
+                <div className="max-w-2xl" id="candidature">
+                    <p className="text-lg font-extrabold tracking-tight text-beta-blue sm:text-xl">
+                        Tililab
+                    </p>
+                    <h1 className="mt-3 text-2xl leading-[1.15] font-extrabold text-[#1a237e] sm:text-3xl lg:text-[2.35rem]">
+                        <TransText
+                            en="Reveal the talents who create tomorrow's stories"
+                            fr="Révéler les talents qui créent les récits de demain"
+                            ar="إبراز المواهب التي تصنع سرديات الغد"
+                        />
+                    </h1>
+
+                    <div className="mt-6 space-y-4 text-sm leading-relaxed text-tgray sm:text-base">
+                        <p>
                             <TransText
-                                en="6th edition"
-                                fr="6e édition"
-                                ar="الدورة السادسة"
+                                en="Tililab is a detection, training and mentoring program for young Moroccan creative talents."
+                                fr="Tililab est un programme de détection, de formation et d'accompagnement destiné aux jeunes talents créatifs marocains."
+                                ar="تيليلاب برنامج لاكتشاف وتدريب ومرافقة المواهب الإبداعية الشابة في المغرب."
                             />
                         </p>
-                        <h1 className="mt-3 text-4xl leading-[1.05] font-extrabold tracking-tight text-beta-blue sm:text-5xl lg:text-[3.25rem]">
-                            TILILAB
-                            <span className="mt-1 block text-tblack">2026</span>
-                        </h1>
-
-                        <div className="mt-6 space-y-1 text-base leading-snug font-medium text-tblack/90">
-                            <p>
-                                <TransText
-                                    en="Reveal the talents who create tomorrow's stories."
-                                    fr="Révéler les talents qui créent les récits de demain."
-                                    ar="إبراز المواهب التي تصنع سرديات الغد."
-                                />
-                            </p>
-                        </div>
-
-                        <p className="mt-5 max-w-lg text-sm leading-relaxed text-tgray sm:text-base">
+                        <p>
                             <TransText
-                                en="Tililab is a detection, training and mentoring program for young Moroccan creative talents under 30."
-                                fr="Tililab est un programme de détection, de formation et d'accompagnement destiné aux jeunes talents créatifs marocains de moins de 30 ans."
-                                ar="تيليلاب برنامج لاكتشاف وتدريب ومرافقة المواهب الإبداعية الشابة في المغرب دون 30 سنة."
+                                en="Through an immersive journey combining training, mentoring and audiovisual creation, Tililab supports tomorrow's creators in producing meaningful, impactful content."
+                                fr="À travers un parcours immersif mêlant formation, mentorat et création audiovisuelle, Tililab accompagne les créateurs et créatrices de demain dans la réalisation de contenus porteurs de sens et d'impact."
+                                ar="من خلال مسار غامر يجمع التكوين والإرشاد والإبداع السمعي البصري، ترافق تيليلاب مبدعي ومبدعات الغد في إنتاج محتوى هادف ومؤثر."
                             />
                         </p>
-
-                        <div className="mt-6">
-                            <TililaDeadlinePill deadline="31 août 2026" />
-                        </div>
-
-                        <div className={`mt-8 ${TILILA_HERO_CTA_ROW}`}>
-                            <TililaBtnPrimary
-                                href="/tililab/form"
-                                className={TILILA_HERO_BTN}
-                            >
-                                <TransText
-                                    en="Submit application"
-                                    fr="Déposer une candidature"
-                                    ar="قدّم ترشيحك"
-                                />
-                            </TililaBtnPrimary>
-                            <TililaBtnOutline
-                                href="/tililab/reglement/download"
-                                className={TILILA_HERO_BTN}
-                            >
-                                <TransText
-                                    en="Download regulations"
-                                    fr="Télécharger le règlement"
-                                    ar="تحميل النظام"
-                                />
-                            </TililaBtnOutline>
-                        </div>
                     </div>
 
-                    <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
-                        <div
-                            className="relative overflow-hidden shadow-xl"
-                            style={{
-                                clipPath:
-                                    'polygon(12% 0, 100% 0, 100% 100%, 0 100%)',
-                            }}
+                    <div className={`mt-8 ${TILILA_HERO_CTA_ROW}`}>
+                        <Link
+                            href="/tililab#apply"
+                            className={`inline-flex items-center justify-center gap-2 rounded-lg bg-beta-turquoise px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:brightness-110 ${TILILA_HERO_BTN}`}
                         >
-                            {videoUrl ? (
-                                <video
-                                    ref={videoRef}
-                                    className="aspect-[4/3] w-full object-cover sm:aspect-video"
-                                    autoPlay
-                                    muted
-                                    loop
-                                    playsInline
-                                    preload="auto"
-                                    poster={HERO_FALLBACK}
-                                >
-                                    <source src={videoUrl} type="video/mp4" />
-                                </video>
-                            ) : (
-                                <img
-                                    src={HERO_FALLBACK}
-                                    alt=""
-                                    className="aspect-[4/3] w-full object-cover brightness-[0.92] sm:aspect-video"
-                                    loading="eager"
-                                    decoding="async"
-                                />
-                            )}
-                        </div>
+                            <TransText
+                                en="Submit application"
+                                fr="Déposer une candidature"
+                                ar="قدّم ترشيحك"
+                            />
+                            <ArrowRight className="size-4" aria-hidden />
+                        </Link>
+                        <a
+                            href="/tililab/reglement/download"
+                            className={`inline-flex items-center justify-center gap-2 rounded-lg border-2 border-beta-blue bg-twhite/80 px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-twhite ${TILILA_HERO_BTN}`}
+                        >
+                            <Download className="size-4" aria-hidden />
+                            <TransText
+                                en="Download regulations"
+                                fr="Télécharger le règlement"
+                                ar="تحميل النظام"
+                            />
+                        </a>
                     </div>
                 </div>
             </TililaContainer>
-        </TililaSection>
+        </section>
     );
 }

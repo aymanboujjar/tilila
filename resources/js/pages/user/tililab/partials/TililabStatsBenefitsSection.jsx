@@ -1,52 +1,16 @@
 import {
     Clapperboard,
-    GraduationCap,
+    Lightbulb,
     Sparkles,
     Trophy,
     Users,
 } from 'lucide-react';
 import TransText from '@/components/TransText';
-import {
-    TililaContainer,
-    TililaIconBadge,
-    TililaSection,
-    TililaSectionHeading,
-} from '@/pages/user/tilila/partials/TililaUi';
-
-const STATS = [
-    {
-        icon: Trophy,
-        value: '5',
-        labelFr: 'éditions',
-        labelEn: 'editions',
-        labelAr: 'دورات',
-    },
-    {
-        icon: Users,
-        value: '30+',
-        labelFr: 'jeunes créateurs accompagnés',
-        labelEn: 'young creators supported',
-        labelAr: 'مبدع شاب مرافق',
-    },
-    {
-        icon: Clapperboard,
-        value: '30+',
-        labelFr: 'projets produits',
-        labelEn: 'projects produced',
-        labelAr: 'مشروع منتج',
-    },
-    {
-        icon: GraduationCap,
-        value: '100+',
-        labelFr: 'heures de formation',
-        labelEn: 'hours of training',
-        labelAr: 'ساعة تدريب',
-    },
-];
+import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
 
 const BENEFITS = [
     {
-        icon: Sparkles,
+        icon: Lightbulb,
         fr: 'Développer ses compétences créatives',
         en: 'Develop creative skills',
         ar: 'تطوير المهارات الإبداعية',
@@ -58,6 +22,12 @@ const BENEFITS = [
         ar: 'المرافقة من قبل محترفين',
     },
     {
+        icon: Sparkles,
+        fr: 'Participer à une expérience immersive unique',
+        en: 'Take part in a unique immersive experience',
+        ar: 'المشاركة في تجربة غامرة فريدة',
+    },
+    {
         icon: Clapperboard,
         fr: 'Produire une œuvre audiovisuelle originale',
         en: 'Produce an original audiovisual work',
@@ -65,80 +35,54 @@ const BENEFITS = [
     },
     {
         icon: Trophy,
-        fr: 'Gagner en visibilité auprès des médias',
-        en: 'Gain visibility with media professionals',
-        ar: 'اكتساب الظهور لدى الإعلام',
+        fr: 'Gagner en visibilité auprès des médias et professionnels du secteur',
+        en: 'Gain visibility with media and industry professionals',
+        ar: 'اكتساب الظهور لدى الإعلام ومحترفي القطاع',
     },
 ];
 
 export default function TililabStatsBenefitsSection() {
     return (
-        <TililaSection
-            id="stats"
-            className="border-t border-border/60 bg-beta-white"
-        >
+        <TililaSection id="why-participate" className="bg-twhite">
             <TililaContainer>
-                <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-                    <div>
-                        <TililaSectionHeading
-                            title={
-                                <TransText
-                                    en="Tililab in numbers"
-                                    fr="Tililab en chiffres"
-                                    ar="تيليلاب بالأرقام"
-                                />
-                            }
+                <div className="text-center">
+                    <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
+                        <TransText
+                            en="Why participate?"
+                            fr="Pourquoi participer ?"
+                            ar="لماذا المشاركة؟"
                         />
-                        <div className="mt-8 grid grid-cols-2 gap-4">
-                            {STATS.map((item) => (
-                                <div
-                                    key={item.labelEn}
-                                    className="flex flex-col items-center rounded-xl border border-border/70 bg-twhite px-3 py-5 text-center shadow-sm"
-                                >
-                                    <TililaIconBadge icon={item.icon} />
-                                    <p className="mt-3 text-xl font-extrabold text-beta-blue">
-                                        {item.value}
-                                    </p>
-                                    <p className="mt-1 text-xs leading-snug text-tgray">
-                                        <TransText
-                                            en={item.labelEn}
-                                            fr={item.labelFr}
-                                            ar={item.labelAr}
-                                        />
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    </h2>
+                    <div
+                        className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-beta-turquoise"
+                        aria-hidden
+                    />
+                </div>
 
-                    <div id="why-participate">
-                        <TililaSectionHeading
-                            title={
-                                <TransText
-                                    en="Why participate?"
-                                    fr="Pourquoi participer ?"
-                                    ar="لماذا المشاركة؟"
-                                />
-                            }
-                        />
-                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                            {BENEFITS.map((item) => (
-                                <div
-                                    key={item.en}
-                                    className="flex flex-col items-center rounded-xl border border-border/70 bg-twhite px-4 py-5 text-center shadow-sm"
-                                >
-                                    <TililaIconBadge icon={item.icon} />
-                                    <p className="mt-3 text-sm leading-relaxed text-tgray">
-                                        <TransText
-                                            en={item.en}
-                                            fr={item.fr}
-                                            ar={item.ar}
-                                        />
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
+                    {BENEFITS.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                            <div
+                                key={item.fr}
+                                className="flex flex-col items-center text-center"
+                            >
+                                <span className="inline-flex size-14 items-center justify-center rounded-full border border-beta-turquoise/25 bg-alpha-blue text-beta-turquoise">
+                                    <Icon
+                                        className="size-6 stroke-[1.5]"
+                                        aria-hidden
+                                    />
+                                </span>
+                                <p className="mt-4 text-sm leading-snug font-semibold text-beta-blue">
+                                    <TransText
+                                        en={item.en}
+                                        fr={item.fr}
+                                        ar={item.ar}
+                                    />
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
             </TililaContainer>
         </TililaSection>

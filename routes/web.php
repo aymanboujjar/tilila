@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ActualitesController;
 use App\Http\Controllers\AccessRequestActivationController;
 use App\Http\Controllers\AccessRequestController;
 use App\Http\Controllers\ExpertApplicationController;
 use App\Http\Controllers\ExpertArticleController;
+use App\Http\Controllers\ContactPageController;
 use App\Http\Controllers\ExpertContactController;
 use App\Http\Controllers\ExpertController;
 use App\Http\Controllers\MediaController;
@@ -127,7 +129,7 @@ Route::get('/', function () {
         ->where('status', '!=', 'draft')
         ->orderByDesc('date')
         ->orderByDesc('id')
-        ->limit(4)
+        ->limit(3)
         ->get()
         ->map(function (Event $event) {
             $list = is_array($event->list_payload) ? $event->list_payload : [];
@@ -137,8 +139,9 @@ Route::get('/', function () {
                 'id' => (string) $event->id,
                 'slug' => (string) $event->slug,
                 'title' => $event->title ?? ['en' => '', 'fr' => '', 'ar' => ''],
+                'excerpt' => $event->description ?? ['en' => '', 'fr' => '', 'ar' => ''],
                 'badge' => $badge,
-                'badgeTone' => 'purple',
+                'badgeTone' => $list['badgeTone'] ?? 'purple',
                 'date' => $event->date?->format('Y-m-d') ?? '',
                 'cover_image_url' => $event->cover_image_url ?? ($list['imageSrc'] ?? null),
                 'href' => route('events.show', $event->id),
@@ -147,6 +150,9 @@ Route::get('/', function () {
 
     return Inertia::render('home/index', [
         'news' => $news,
+        'bestOfVideoUrl' => TililaHighlightVideos::bestOfUrl()
+            ?? TililaHighlightVideos::teaserUrl(),
+        ...ProgramPageProps::allPublished(),
     ]);
 })->name('home');
 
@@ -188,12 +194,20 @@ Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class,
     ->name('opportunities.apply');
 Route::get('/about', function () {
     return Inertia::render('user/about/index', [
-        ...ProgramPageProps::forProgram('tilila'),
+        ...ProgramPageProps::allPublished(),
     ]);
 });
-Route::get('/contact', function () {
-    return Inertia::render('contact/index');
-})->name('contact');
+Route::get('/actualites', [ActualitesController::class, 'index'])
+    ->name('actualites.index');
+
+Route::get('/faq', function () {
+    return Inertia::render('user/faq/index');
+})->name('faq.index');
+
+Route::get('/contact', [ContactPageController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactPageController::class, 'store'])
+    ->middleware('throttle:public-forms')
+    ->name('contact.store');
 Route::get('/tililab', function () {
     $currentEdition = TililabEdition::current();
 

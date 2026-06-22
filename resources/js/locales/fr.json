@@ -111,7 +111,7 @@
     },
     "contact": {
         "page": {
-            "headTitle": "Contact",
+            "headTitle": "Contact — Tilila",
             "hero": {
                 "eyebrow": "CONTACTER TILILA",
                 "title": "Entamons la conversation.",
@@ -354,7 +354,7 @@
         "archives": {
             "pageTitle": "Archives & Palmarès — Tilila Awards",
             "title": "Archives & Palmarès",
-            "subtitle": "Explorez l'ensemble des éditions, lauréats, campagnes primées, marques, agences, jurys et contenus médias du concours.",
+            "subtitle": "Retrouvez toutes les éditions des Tilila Awards et Tililab : lauréats, jurys, campagnes primées, projets, photos et vidéos.",
             "heritage": "Patrimoine Tilila Awards",
             "backToTilila": "Retour aux Tilila Awards",
             "editionsCount": "Éditions",
@@ -401,14 +401,17 @@
                 "message": "Ajustez votre recherche ou vos filtres pour explorer l'histoire des Tilila Awards."
             },
             "hub": {
-                "laureatsTitle": "Lauréats",
+                "sommaire": "Sommaire",
+                "contactPrompt": "Vous recherchez un contenu spécifique ou une ancienne édition ?",
+                "contactCta": "Contactez-nous",
+                "laureatsTitle": "Lauréats des",
                 "galleryTitle": "Galerie",
                 "galleryAll": "Toutes",
                 "galleryPhotos": "Photos",
                 "galleryVideos": "Vidéos",
                 "agency": "Agence",
                 "seeAllLaureats": "Voir tous les lauréats",
-                "seeAllGallery": "Voir toutes les photos & vidéos",
+                "seeAllGallery": "Voir toutes les photos et vidéos",
                 "noLaureats": "Aucun lauréat publié pour cette sélection.",
                 "noGallery": "Aucune photo ou vidéo pour cette sélection.",
                 "sidebarHint": "Utilisez le menu pour accéder à chaque rubrique."
@@ -424,6 +427,16 @@
     },
     "gouvernance": {
         "headTitle": "Gouvernance"
+    },
+    "actualites": {
+        "pageTitle": "Actualités — Tilila",
+        "newsletter": {
+            "emailPlaceholder": "Votre e-mail",
+            "description": "Recevez les dernières actualités Tilila (Tilila Awards, Tililab et initiatives) directement par e-mail."
+        }
+    },
+    "faq": {
+        "pageTitle": "FAQ — Tilila"
     },
     "events": {
         "headTitle": "Événements",

@@ -1,158 +1,115 @@
-import { Award, Heart, Megaphone, Star, Trophy, Users } from 'lucide-react';
+import { Award, Heart, Megaphone, Star, Users } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TililaContainer,
-    TililaIconBadge,
     TililaSection,
-    TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
-
-const STATS = [
-    {
-        icon: Trophy,
-        value: '7',
-        labelFr: 'éditions',
-        labelEn: 'editions',
-        labelAr: 'دورات',
-    },
-    {
-        icon: Megaphone,
-        value: '250+',
-        labelFr: 'campagnes candidates',
-        labelEn: 'candidate campaigns',
-        labelAr: 'حملة مرشحة',
-    },
-    {
-        icon: Star,
-        value: '50+',
-        labelFr: 'campagnes shortlistées',
-        labelEn: 'shortlisted campaigns',
-        labelAr: 'حملة في القائمة القصيرة',
-    },
-    {
-        icon: Award,
-        value: '13',
-        labelFr: 'campagnes primées',
-        labelEn: 'awarded campaigns',
-        labelAr: 'حملة فائزة',
-    },
-    {
-        icon: Users,
-        value: '26',
-        labelFr: 'membres de jury mobilisés',
-        labelEn: 'jury members mobilized',
-        labelAr: 'عضوًا في لجنة التحكيم',
-    },
-    {
-        icon: Trophy,
-        value: '7',
-        labelFr: 'Hommages Tilila décernés',
-        labelEn: 'Hommage Tilila awards',
-        labelAr: 'تكريمات تيليلا',
-    },
-];
 
 const BENEFITS = [
     {
         icon: Heart,
-        fr: 'Valoriser son engagement sociétal',
-        en: 'Highlight your societal commitment',
-        ar: 'إبراز الالتزام المجتمعي',
+        titleFr: 'Valoriser son engagement sociétal',
+        titleEn: 'Highlight your societal commitment',
+        titleAr: 'إبراز الالتزام المجتمعي',
+        descFr:
+            'Mettre en lumière les initiatives qui portent des valeurs responsables.',
+        descEn: 'Spotlight initiatives that carry responsible values.',
+        descAr: 'إبراز المبادرات التي تحمل قيماً مسؤولة.',
     },
     {
         icon: Award,
-        fr: 'Faire reconnaître ses campagnes par un jury indépendant',
-        en: 'Gain recognition from an independent jury',
-        ar: 'الحصول على اعتراف من لجنة تحكيم مستقلة',
+        titleFr: 'Faire reconnaître ses campagnes par un jury indépendant',
+        titleEn: 'Gain recognition from an independent jury',
+        titleAr: 'الحصول على اعتراف من لجنة تحكيم مستقلة',
+        descFr:
+            'Bénéficier de l’évaluation d’experts issus des médias, de la création et de la société civile.',
+        descEn: 'Benefit from evaluation by experts from media, creative fields and civil society.',
+        descAr: 'الاستفادة من تقييم خبراء من الإعلام والإبداع والمجتمع المدني.',
     },
     {
         icon: Megaphone,
-        fr: "Bénéficier d'une visibilité nationale",
-        en: 'Benefit from national visibility',
-        ar: 'الاستفادة من ظهور وطني',
+        titleFr: "Bénéficier d'une visibilité nationale",
+        titleEn: 'Benefit from national visibility',
+        titleAr: 'الاستفادة من ظهور وطني',
+        descFr:
+            'Profiter d’une exposition médiatique auprès d’un large public.',
+        descEn: 'Gain media exposure to a wide audience.',
+        descAr: 'الاستفادة من ظهور إعلامي أمام جمهور واسع.',
     },
     {
         icon: Star,
-        fr: 'Contribuer à une communication responsable',
-        en: 'Contribute to responsible communication',
-        ar: 'المساهمة في تواصل مسؤول',
+        titleFr: 'Contribuer à une communication responsable',
+        titleEn: 'Contribute to responsible communication',
+        titleAr: 'المساهمة في تواصل مسؤول',
+        descFr:
+            'Participer à l’évolution des représentations dans la publicité.',
+        descEn: 'Help evolve representations in advertising.',
+        descAr: 'المساهمة في تطور التمثيلات في الإعلان.',
     },
-    // {
-    //     icon: Users,
-    //     fr: "Rejoindre une communauté d'acteurs engagés",
-    //     en: 'Join a community of engaged actors',
-    //     ar: 'الانضمام إلى مجتمع من الفاعلين الملتزمين',
-    // },
+    {
+        icon: Users,
+        titleFr: "Rejoindre une communauté d'acteurs engagés",
+        titleEn: 'Join a community of engaged actors',
+        titleAr: 'الانضمام إلى مجتمع من الفاعلين الملتزمين',
+        descFr:
+            'Intégrer un réseau de marques et de créateurs engagés pour le changement.',
+        descEn: 'Join a network of brands and creators committed to change.',
+        descAr: 'الانضمام إلى شبكة من العلامات والمبدعين الملتزمين بالتغيير.',
+    },
 ];
 
 export default function TililaStatsBenefitsSection() {
     return (
         <TililaSection
-            id="stats"
-            className="border-t border-border/60 bg-beta-white"
+            id="why-participate"
+            className="border-t border-border/60 bg-twhite"
         >
             <TililaContainer>
-                <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-                    <div>
-                        <TililaSectionHeading
-                            title={
-                                <TransText
-                                    en="Tilila Awards in numbers"
-                                    fr="Tilila Awards en chiffres"
-                                    ar="تيليلا أووردز بالأرقام"
-                                />
-                            }
+                <div className="text-center">
+                    <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
+                        <TransText
+                            en="Why participate?"
+                            fr="Pourquoi participer ?"
+                            ar="لماذا المشاركة؟"
                         />
-                        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3">
-                            {STATS.map((item) => (
-                                <div
-                                    key={item.labelEn}
-                                    className="flex flex-col items-center rounded-xl border border-border/70 bg-twhite px-3 py-5 text-center shadow-sm"
-                                >
-                                    <TililaIconBadge icon={item.icon} />
-                                    <p className="mt-3 text-xl font-extrabold text-beta-blue">
-                                        {item.value}
-                                    </p>
-                                    <p className="mt-1 text-xs leading-snug text-tgray">
-                                        <TransText
-                                            en={item.labelEn}
-                                            fr={item.labelFr}
-                                            ar={item.labelAr}
-                                        />
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                    </h2>
+                    <div
+                        className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-beta-blue/70"
+                        aria-hidden
+                    />
+                </div>
 
-                    <div id="why-participate">
-                        <TililaSectionHeading
-                            title={
-                                <TransText
-                                    en="Why participate?"
-                                    fr="Pourquoi participer ?"
-                                    ar="لماذا المشاركة؟"
-                                />
-                            }
-                        />
-                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                            {BENEFITS.map((item) => (
-                                <div
-                                    key={item.en}
-                                    className="flex flex-col items-center rounded-xl border border-border/70 bg-twhite px-4 py-5 text-center shadow-sm"
-                                >
-                                    <TililaIconBadge icon={item.icon} />
-                                    <p className="mt-3 text-sm leading-relaxed text-tgray">
-                                        <TransText
-                                            en={item.en}
-                                            fr={item.fr}
-                                            ar={item.ar}
-                                        />
-                                    </p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+                <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
+                    {BENEFITS.map((item) => {
+                        const Icon = item.icon;
+                        return (
+                            <div
+                                key={item.titleEn}
+                                className="flex flex-col items-center text-center"
+                            >
+                                <span className="inline-flex size-14 items-center justify-center rounded-full border border-beta-blue/20 bg-alpha-blue text-beta-blue">
+                                    <Icon
+                                        className="size-6 stroke-[1.5]"
+                                        aria-hidden
+                                    />
+                                </span>
+                                <h3 className="mt-4 text-sm font-extrabold leading-snug text-beta-blue">
+                                    <TransText
+                                        en={item.titleEn}
+                                        fr={item.titleFr}
+                                        ar={item.titleAr}
+                                    />
+                                </h3>
+                                <p className="mt-2 text-xs leading-relaxed text-tgray">
+                                    <TransText
+                                        en={item.descEn}
+                                        fr={item.descFr}
+                                        ar={item.descAr}
+                                    />
+                                </p>
+                            </div>
+                        );
+                    })}
                 </div>
             </TililaContainer>
         </TililaSection>

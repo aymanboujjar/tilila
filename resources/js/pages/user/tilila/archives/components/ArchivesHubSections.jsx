@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { ArrowRight } from 'lucide-react';
 import TransText from '@/components/TransText';
 import ArchivesMediaCarousel, {
     ArchivesGallerySlide,
@@ -6,24 +7,25 @@ import ArchivesMediaCarousel, {
 } from '@/pages/user/tilila/archives/components/ArchivesMediaCarousel';
 import { useTranslation } from '@/contexts/TranslationContext';
 
+const VISIBLE_LAUREATS = 4;
+const VISIBLE_GALLERY = 4;
+
 export function ArchivesLaureatsSection({
     cards,
     year,
     program,
     detailsUrl,
-    previewCount = 4,
 }) {
     const { t } = useTranslation();
-    const preview = cards.slice(0, previewCount);
     const programLabel = program === 'tililab' ? 'TILILAB' : 'TILILA AWARDS';
     const yearLabel = year === 'all' ? '' : year;
+    const title = `${t('tilila.archives.hub.laureatsTitle')} ${programLabel} ${yearLabel}`.trim();
 
     if (!cards.length) {
         return (
             <section id="laureats" className="scroll-mt-28">
-                <h2 className="text-lg font-extrabold tracking-wide text-beta-blue uppercase sm:text-xl">
-                    {t('tilila.archives.hub.laureatsTitle')} {programLabel}{' '}
-                    {yearLabel}
+                <h2 className="text-base font-extrabold tracking-wide text-beta-blue uppercase sm:text-lg">
+                    {title}
                 </h2>
                 <p className="mt-6 rounded-xl border border-dashed border-border bg-beta-white p-8 text-center text-sm text-tgray">
                     {t('tilila.archives.hub.noLaureats')}
@@ -34,19 +36,26 @@ export function ArchivesLaureatsSection({
 
     return (
         <section id="laureats" className="scroll-mt-28">
-            <h2 className="text-lg font-extrabold tracking-wide text-beta-blue uppercase sm:text-xl">
-                {t('tilila.archives.hub.laureatsTitle')} {programLabel}{' '}
-                {yearLabel}
-            </h2>
-
-            <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
-                {preview.map((card) => (
+            <ArchivesMediaCarousel
+                ariaLabel="Laureates"
+                visibleCount={VISIBLE_LAUREATS}
+                showFade={cards.length > VISIBLE_LAUREATS}
+                headerRow={(nav) => (
+                    <div className="mb-5 flex items-center justify-between gap-4">
+                        <h2 className="text-base font-extrabold tracking-wide text-beta-blue uppercase sm:text-lg">
+                            {title}
+                        </h2>
+                        {nav}
+                    </div>
+                )}
+            >
+                {cards.map((card) => (
                     <Link
                         key={card.id}
                         href={card.detailsUrl}
-                        className="group overflow-hidden rounded-lg border border-border/70 bg-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                        className="group block"
                     >
-                        <div className="relative aspect-[4/3] overflow-hidden bg-beta-white">
+                        <div className="relative aspect-[3/4] overflow-hidden rounded-lg border border-border/50 bg-beta-white shadow-sm">
                             <img
                                 src={card.photoSrc}
                                 alt=""
@@ -54,13 +63,13 @@ export function ArchivesLaureatsSection({
                                 loading="lazy"
                             />
                         </div>
-                        <div className="space-y-1 p-3 sm:p-4">
+                        <div className="mt-3 space-y-1">
                             {card.trophy ? (
-                                <p className="text-[11px] leading-snug font-semibold text-tgray uppercase sm:text-xs">
+                                <p className="text-[10px] leading-snug font-extrabold tracking-wide text-beta-blue uppercase sm:text-[11px]">
                                     {card.trophy}
                                 </p>
                             ) : null}
-                            <p className="text-sm font-extrabold text-tblack sm:text-base">
+                            <p className="text-sm font-extrabold text-beta-blue sm:text-[15px]">
                                 {card.name}
                             </p>
                             {card.agency ? (
@@ -72,17 +81,15 @@ export function ArchivesLaureatsSection({
                         </div>
                     </Link>
                 ))}
-            </div>
+            </ArchivesMediaCarousel>
 
-            {cards.length > previewCount ? (
-                <Link
-                    href={`${detailsUrl}#winners`}
-                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-beta-blue px-6 py-3.5 text-xs font-bold tracking-[0.14em] text-twhite uppercase transition hover:bg-brand-light-purple sm:mt-8"
-                >
-                    {t('tilila.archives.hub.seeAllLaureats')}
-                    <span aria-hidden>&gt;</span>
-                </Link>
-            ) : null}
+            <Link
+                href={`${detailsUrl}#winners`}
+                className="mt-8 flex w-full items-center justify-center gap-2 rounded-md bg-beta-blue px-6 py-3.5 text-xs font-bold tracking-[0.14em] text-twhite uppercase transition hover:bg-brand-light-purple"
+            >
+                {t('tilila.archives.hub.seeAllLaureats')}
+                <ArrowRight className="size-4" aria-hidden />
+            </Link>
         </section>
     );
 }
@@ -90,12 +97,18 @@ export function ArchivesLaureatsSection({
 export function ArchivesGallerySection({
     items,
     year,
+    program,
     filter,
     onFilterChange,
     detailsUrl,
+    compact = false,
 }) {
     const { t } = useTranslation();
     const yearLabel = year === 'all' ? '' : year;
+    const programLabel = program === 'tililab' ? 'TILILAB' : 'TILILA AWARDS';
+    const title = compact
+        ? `${t('tilila.archives.hub.galleryTitle')} ${programLabel}`
+        : `${t('tilila.archives.hub.galleryTitle')} ${programLabel} ${yearLabel}`.trim();
 
     const filters = [
         { id: 'all', label: t('tilila.archives.hub.galleryAll') },
@@ -103,39 +116,70 @@ export function ArchivesGallerySection({
         { id: 'videos', label: t('tilila.archives.hub.galleryVideos') },
     ];
 
+    const filterPills = (
+        <div className="flex flex-wrap gap-2">
+            {filters.map((f) => (
+                <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => onFilterChange(f.id)}
+                    className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition sm:text-sm ${
+                        filter === f.id
+                            ? 'bg-beta-blue text-twhite'
+                            : 'border border-beta-blue/50 bg-white text-beta-blue hover:bg-beta-blue/5'
+                    }`}
+                >
+                    {f.label}
+                </button>
+            ))}
+        </div>
+    );
+
     return (
-        <section id="galerie" className="scroll-mt-28">
-            <div className="flex flex-wrap items-end justify-between gap-4">
-                <h2 className="text-lg font-extrabold tracking-wide text-beta-blue uppercase sm:text-xl">
-                    {t('tilila.archives.hub.galleryTitle')} {yearLabel}
-                </h2>
-                <div className="flex gap-4 text-sm">
-                    {filters.map((f) => (
-                        <button
-                            key={f.id}
-                            type="button"
-                            onClick={() => onFilterChange(f.id)}
-                            className={`font-semibold transition ${
-                                filter === f.id
-                                    ? 'text-beta-blue underline decoration-2 underline-offset-4'
-                                    : 'text-tgray hover:text-beta-blue'
-                            }`}
-                        >
-                            {f.label}
-                        </button>
-                    ))}
+        <section
+            id="galerie"
+            className={`scroll-mt-28 ${compact ? 'flex h-full flex-col' : ''}`}
+        >
+            {compact ? (
+                <>
+                    <h2 className="text-base font-extrabold tracking-wide text-beta-blue uppercase sm:text-lg">
+                        {title}
+                    </h2>
+                    <div className="mt-3">{filterPills}</div>
+                </>
+            ) : (
+                <div className="flex flex-wrap items-end justify-between gap-4">
+                    <h2 className="text-base font-extrabold tracking-wide text-beta-blue uppercase sm:text-lg">
+                        {title}
+                    </h2>
+                    {filterPills}
                 </div>
-            </div>
+            )}
 
             {!items.length ? (
-                <p className="mt-6 rounded-xl border border-dashed border-border bg-beta-white p-8 text-center text-sm text-tgray">
+                <p className="mt-6 rounded-xl border border-dashed border-border bg-beta-white p-6 text-center text-sm text-tgray">
                     {t('tilila.archives.hub.noGallery')}
                 </p>
             ) : (
-                <div className="mt-6">
-                    <ArchivesMediaCarousel ariaLabel="Gallery">
+                <div className="mt-5 flex-1">
+                    <ArchivesMediaCarousel
+                        ariaLabel="Gallery"
+                        visibleCount={compact ? VISIBLE_GALLERY : null}
+                        showFade={compact && items.length > VISIBLE_GALLERY}
+                        navOverlay={compact}
+                        trackGapClassName={compact ? 'gap-2.5' : 'gap-4'}
+                        slideClassName={
+                            compact
+                                ? undefined
+                                : 'w-[min(100%,200px)] shrink-0 snap-start sm:w-[42%] md:w-[30%] lg:w-[22%]'
+                        }
+                    >
                         {items.map((item) => (
-                            <ArchivesGallerySlide key={item.id} item={item} />
+                            <ArchivesGallerySlide
+                                key={item.id}
+                                item={item}
+                                compact={compact}
+                            />
                         ))}
                     </ArchivesMediaCarousel>
                 </div>
@@ -144,10 +188,12 @@ export function ArchivesGallerySection({
             {items.length > 0 ? (
                 <Link
                     href={`${detailsUrl}#gallery`}
-                    className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-beta-blue px-6 py-3.5 text-xs font-bold tracking-[0.14em] text-twhite uppercase transition hover:bg-brand-light-purple sm:mt-8"
+                    className={`flex w-full items-center justify-center gap-2 rounded-md bg-beta-blue px-4 py-3 text-[11px] font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-brand-light-purple sm:text-xs ${
+                        compact ? 'mt-6' : 'mt-6'
+                    }`}
                 >
                     {t('tilila.archives.hub.seeAllGallery')}
-                    <span aria-hidden>&gt;</span>
+                    <ArrowRight className="size-3.5" aria-hidden />
                 </Link>
             ) : null}
         </section>

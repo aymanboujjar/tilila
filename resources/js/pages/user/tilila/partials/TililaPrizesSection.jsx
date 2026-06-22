@@ -1,134 +1,145 @@
-import { Globe, Monitor, Radio, Sparkles, Trophy, Tv } from 'lucide-react';
+import { ArrowRight, Trophy } from 'lucide-react';
+import { Link } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import {
-    TililaBtnGhost,
     TililaContainer,
-    TililaIconBadge,
     TililaSection,
-    TililaSectionHeading,
-    TililaTealText,
 } from '@/pages/user/tilila/partials/TililaUi';
 
 const PRIZES = [
     {
-        icon: Sparkles,
-        fr: 'Hommage Tilila',
-        en: 'Hommage Tilila',
-        ar: 'تكريم تيليلا',
-        descFr: 'Distinction honorifique décernée à une personnalité engagée.',
-        descEn: 'Honorary distinction awarded to an engaged personality.',
-        descAr: 'تكريم شرفي يُمنح لشخصية ملتزمة.',
-        reward: null,
-    },
-    {
-        icon: Trophy,
         fr: 'Prix du Jury',
         en: 'Jury Prize',
         ar: 'جائزة لجنة التحكيم',
-        descFr: "Meilleur spot publicitaire promouvant l'égalité femmes-hommes.",
-        descEn: 'Best advertising spot promoting gender equality.',
-        descAr: 'أفضل إعلان يعزز المساواة بين النساء والرجال.',
-        reward: "1 000 000 DH d'espace publicitaire 2M brut",
+        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
+        descEn: 'Trophy + 2M advertising space worth',
+        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
+        amount: '1 000 000',
+        border: 'border-beta-blue',
+        badge: 'bg-beta-blue',
+        amountColor: 'text-beta-blue',
     },
     {
-        icon: Tv,
         fr: "Prix d'Honneur",
         en: 'Honour Prize',
         ar: 'جائزة الشرف',
-        descFr: "Marque engagée en faveur de l'équité, de la diversité et de l'inclusion.",
-        descEn: 'Brand committed to equity, diversity and inclusion.',
-        descAr: 'علامة تجارية ملتزمة بالإنصاف والتنوع والإدماج.',
-        reward: "500 000 DH d'espace publicitaire 2M brut",
+        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
+        descEn: 'Trophy + 2M advertising space worth',
+        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
+        amount: '500 000',
+        border: 'border-beta-turquoise',
+        badge: 'bg-beta-turquoise',
+        amountColor: 'text-beta-turquoise',
     },
     {
-        icon: Monitor,
-        fr: 'Prix Communication Engagée – Digital',
-        en: 'Engaged Communication – Digital',
-        ar: 'تواصل ملتزم – رقمي',
-        descFr: 'Campagne ou contenu diffusé sur les supports digitaux.',
-        descEn: 'Campaign or content broadcast on digital media.',
-        descAr: 'حملة أو محتوى منشور على المنصات الرقمية.',
-        reward: "250 000 DH d'espace publicitaire 2M brut",
+        fr: 'Prix Communication Engagée – ONLINE',
+        en: 'Engaged Communication – ONLINE',
+        ar: 'جائزة التواصل الملتزم – ONLINE',
+        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
+        descEn: 'Trophy + 2M advertising space worth',
+        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
+        amount: '250 000',
+        border: 'border-[#3d5f9a]',
+        badge: 'bg-[#3d5f9a]',
+        amountColor: 'text-[#3d5f9a]',
     },
     {
-        icon: Radio,
-        fr: 'Prix Communication Engagée – Offline',
-        en: 'Engaged Communication – Offline',
-        ar: 'تواصل ملتزم – تقليدي',
-        descFr: 'Campagne diffusée en télévision, radio, presse écrite ou affichage.',
-        descEn: 'Campaign on TV, radio, print or out-of-home.',
-        descAr: 'حملة في التلفزيون أو الإذاعة أو الصحافة أو الإشهار الخارجي.',
-        reward: "250 000 DH d'espace publicitaire 2M brut",
+        fr: 'Prix Communication Engagée – OFFLINE',
+        en: 'Engaged Communication – OFFLINE',
+        ar: 'جائزة التواصل الملتزم – OFFLINE',
+        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
+        descEn: 'Trophy + 2M advertising space worth',
+        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
+        amount: '250 000',
+        border: 'border-beta-turquoise',
+        badge: 'bg-beta-turquoise',
+        amountColor: 'text-beta-turquoise',
     },
     {
-        icon: Globe,
-        fr: 'Grand Prix du Jury',
-        en: 'Grand Jury Prize',
-        ar: 'الجائزة الكبرى للجنة التحكيم',
-        descFr: "La campagne la plus remarquable de l'édition.",
-        descEn: 'The most outstanding campaign of the edition.',
-        descAr: 'أبرز حملة في الدورة.',
-        reward: 'Trophée Tilila Awards',
+        fr: 'Hommage Tilila',
+        en: 'Hommage Tilila',
+        ar: 'تكريم تيليلا',
+        descFr:
+            'Distinction honorifique décernée par le Comité Parité & Diversité de SOREAD 2M.',
+        descEn:
+            'Honorary distinction awarded by the SOREAD 2M Parity & Diversity Committee.',
+        descAr: 'تكريم شرفي يمنحه لجنة المساواة والتنوع لـ SOREAD 2M.',
+        amount: null,
+        border: 'border-[#D4AF37]',
+        badge: 'bg-[#D4AF37]',
+        amountColor: '',
     },
 ];
 
+function PrizeCard({ prize }) {
+    return (
+        <article
+            className={`relative flex h-full flex-col rounded-2xl border-2 bg-twhite px-4 pt-10 pb-6 sm:px-5 sm:pt-11 sm:pb-7 ${prize.border}`}
+        >
+            <span
+                className={`absolute top-0 left-1/2 flex size-11 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-[3px] border-twhite text-twhite shadow-sm sm:size-12 ${prize.badge}`}
+            >
+                <Trophy className="size-5 sm:size-[22px]" strokeWidth={1.5} aria-hidden />
+            </span>
+
+            <h3 className="text-center text-[11px] leading-snug font-extrabold tracking-wide text-beta-blue uppercase sm:text-xs">
+                <TransText en={prize.en} fr={prize.fr} ar={prize.ar} />
+            </h3>
+
+            <p className="mt-3 flex-1 text-center text-[10px] leading-relaxed text-tgray sm:text-[11px]">
+                <TransText
+                    en={prize.descEn}
+                    fr={prize.descFr}
+                    ar={prize.descAr}
+                />
+            </p>
+
+            {prize.amount ? (
+                <div className="mt-4 text-center">
+                    <p
+                        className={`text-2xl leading-none font-extrabold sm:text-[1.75rem] ${prize.amountColor}`}
+                    >
+                        {prize.amount}
+                    </p>
+                    <p className={`mt-1 text-xs font-bold ${prize.amountColor}`}>
+                        <TransText en="DH gross" fr="DH brut" ar="درهم إجمالي" />
+                    </p>
+                </div>
+            ) : null}
+        </article>
+    );
+}
+
 export default function TililaPrizesSection() {
     return (
-        <TililaSection id="prizes" className="bg-twhite">
+        <TililaSection id="prizes" className="bg-beta-white">
             <TililaContainer>
-                <TililaSectionHeading
-                    centered
-                    title={
-                        <TransText
-                            en="Prizes & rewards"
-                            fr="Les prix & récompenses"
-                            ar="الجوائز والمكافآت"
-                        />
-                    }
-                    subtitle={
-                        <TransText
-                            en="Tilila Awards distinguish and reward campaigns, brands and personalities committed to equity, diversity and inclusion."
-                            fr="Les Tilila Awards distinguent et récompensent les campagnes, les marques et les personnalités engagées en faveur de l'équité, de la diversité et de l'inclusion."
-                            ar="تميّز تيليلا أووردز وتكافئ الحملات والعلامات والشخصيات الملتزمة بالإنصاف والتنوع والإدماج."
-                        />
-                    }
-                    className="mx-auto"
-                />
+                <h2 className="text-center text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
+                    <TransText
+                        en="Rewards"
+                        fr="Les récompenses"
+                        ar="المكافآت"
+                    />
+                </h2>
 
-                <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                    {PRIZES.map((p) => (
-                        <article
-                            key={p.fr}
-                            className="flex h-full flex-col rounded-xl border border-border bg-twhite p-6 shadow-sm"
-                        >
-                            <TililaIconBadge icon={p.icon} />
-                            <h3 className="mt-4 text-sm font-bold tracking-wide text-beta-blue uppercase">
-                                <TransText en={p.en} fr={p.fr} ar={p.ar} />
-                            </h3>
-                            <p className="mt-3 flex-1 text-sm leading-relaxed text-tgray">
-                                <TransText
-                                    en={p.descEn}
-                                    fr={p.descFr}
-                                    ar={p.descAr}
-                                />
-                            </p>
-                            {p.reward ? (
-                                <p className="mt-4 text-sm">
-                                    <TililaTealText>{p.reward}</TililaTealText>
-                                </p>
-                            ) : null}
-                        </article>
+                <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:mt-12 lg:grid-cols-3 xl:grid-cols-5 xl:gap-4">
+                    {PRIZES.map((prize) => (
+                        <PrizeCard key={prize.fr} prize={prize} />
                     ))}
                 </div>
 
-                <div className="mt-10 text-center">
-                    <TililaBtnGhost href="/tilila/reglement">
+                <div className="mt-10 text-center lg:mt-12">
+                    <Link
+                        href="/tilila/reglement"
+                        className="inline-flex items-center justify-center gap-2 rounded-lg bg-beta-blue px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-brand-light-purple"
+                    >
                         <TransText
                             en="View full regulations"
                             fr="Consulter le règlement intégral"
                             ar="اطلع على النظام الكامل"
                         />
-                    </TililaBtnGhost>
+                        <ArrowRight className="size-4" aria-hidden />
+                    </Link>
                 </div>
             </TililaContainer>
         </TililaSection>

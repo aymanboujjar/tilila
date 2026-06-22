@@ -1,69 +1,79 @@
 import { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { Link } from '@inertiajs/react';
+import {
+    ArrowRight,
+    Award,
+    Mail,
+    MessageSquare,
+    Monitor,
+    Newspaper,
+    Radio,
+    Smartphone,
+    Trophy,
+    Tv,
+} from 'lucide-react';
 import TransText from '@/components/TransText';
 import TililaJuryMembersModal from '@/pages/user/tilila/partials/TililaJuryMembersModal';
 import { storagePhotoSrc } from '@/pages/user/tilila/partials/EditionDetailContent';
-import {
-    TililaBtnGhost,
-    TililaCheckItem,
-    TililaContainer,
-    TililaSection,
-    TililaSectionHeading,
-} from '@/pages/user/tilila/partials/TililaUi';
+import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
 
-const CONDITIONS = [
+const MEDIA_CHANNELS = [
+    { Icon: Tv, labelFr: 'TV', labelEn: 'TV', labelAr: 'تلفزيون' },
+    { Icon: Monitor, labelFr: 'Digital', labelEn: 'Digital', labelAr: 'رقمي' },
+    { Icon: Radio, labelFr: 'Radio', labelEn: 'Radio', labelAr: 'إذاعة' },
+    { Icon: Newspaper, labelFr: 'Presse', labelEn: 'Press', labelAr: 'صحافة' },
     {
-        fr: 'Le concours est ouvert aux annonceurs marocains ayant diffusé des campagnes publicitaires en télévision, radio, presse écrite, affichage ou sur les supports digitaux.',
-        en: 'The competition is open to Moroccan advertisers who have broadcast campaigns on television, radio, print, out-of-home or digital media.',
-        ar: 'المسابقة مفتوحة للمعلنين المغاربة الذين بثوا حملات في التلفزيون أو الإذاعة أو الصحافة أو الإشهار الخارجي أو المنصات الرقمية.',
-    },
-    {
-        fr: "Les campagnes présentées doivent promouvoir les valeurs d'équité, de diversité et d'inclusion portées par le programme Tilila.",
-        en: 'Submitted campaigns must promote the equity, diversity and inclusion values upheld by the Tilila program.',
-        ar: 'يجب أن تعزز الحملات المقدمة قيم الإنصاف والتنوع والإدماج التي يحملها برنامج تيليلا.',
+        Icon: Smartphone,
+        labelFr: 'Affichage',
+        labelEn: 'OOH',
+        labelAr: 'إشهار',
     },
 ];
 
-const PLACEHOLDER_COUNT = 7;
+function ColumnIcon({ children, className = '' }) {
+    return (
+        <span
+            className={`inline-flex size-14 items-center justify-center rounded-full sm:size-16 ${className}`}
+        >
+            {children}
+        </span>
+    );
+}
 
 function JuryPreview({ members }) {
     if (members.length === 0) {
         return (
-            <div className="mt-8 grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4">
-                {Array.from({ length: PLACEHOLDER_COUNT }).map((_, i) => (
-                    <div key={i} className="flex flex-col items-center">
-                        <div className="size-16 rounded-full bg-muted sm:size-20" />
-                        <div className="mt-3 h-2.5 w-14 rounded bg-muted" />
-                        <div className="mt-2 h-2 w-20 rounded bg-muted/70" />
-                    </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+                {Array.from({ length: 4 }).map((_, i) => (
+                    <div
+                        key={i}
+                        className="size-14 rounded-full bg-muted sm:size-16"
+                    />
                 ))}
             </div>
         );
     }
 
     return (
-        <div className="mt-8 grid grid-cols-3 gap-4 sm:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4">
-            {members.map((member, i) => {
+        <div className="mt-8 flex flex-wrap gap-3">
+            {members.slice(0, 4).map((member, i) => {
                 const photo = storagePhotoSrc(member?.photo_path);
 
                 return (
                     <div
                         key={`${member?.full_name ?? 'member'}-${i}`}
-                        className="flex flex-col items-center text-center"
+                        className="size-14 overflow-hidden rounded-full border-2 border-beta-blue/15 sm:size-16"
                     >
-                        <div className="size-16 overflow-hidden rounded-full border border-border bg-muted sm:size-20">
-                            {photo ? (
-                                <img
-                                    src={photo}
-                                    alt={member?.full_name || ''}
-                                    className="h-full w-full object-cover"
-                                    loading="lazy"
-                                />
-                            ) : null}
-                        </div>
-                        <p className="mt-3 line-clamp-2 text-xs font-semibold text-tblack">
-                            {member?.full_name}
-                        </p>
+                        {photo ? (
+                            <img
+                                src={photo}
+                                alt={member?.full_name || ''}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                            />
+                        ) : (
+                            <div className="h-full w-full bg-muted" />
+                        )}
                     </div>
                 );
             })}
@@ -74,84 +84,157 @@ function JuryPreview({ members }) {
 export default function TililaAdmissionJurySection({ jury = [] }) {
     const members = Array.isArray(jury) ? jury : [];
     const [modalOpen, setModalOpen] = useState(false);
-    const showPlaceholders = members.length === 0;
 
     return (
-        <TililaSection
-            id="admission"
-            className="border-t border-border/60 bg-twhite"
-        >
+        <TililaSection id="admission" className="bg-twhite">
             <TililaContainer>
-                <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-                    <div>
-                        <TililaSectionHeading
-                            title={
+                <div className="grid gap-12 lg:grid-cols-3 lg:gap-10 xl:gap-14">
+                    <article>
+                        <ColumnIcon className="bg-alpha-blue text-beta-turquoise">
+                            <Trophy className="size-7" strokeWidth={1.5} aria-hidden />
+                        </ColumnIcon>
+                        <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase sm:text-base">
+                            <TransText
+                                en="Admission conditions"
+                                fr="Conditions d'admission"
+                                ar="شروط القبول"
+                            />
+                        </h3>
+                        <div className="mt-5 space-y-4 text-sm leading-relaxed text-tgray">
+                            <p>
                                 <TransText
-                                    en="Admission conditions"
-                                    fr="Conditions d'admission"
-                                    ar="شروط القبول"
-                                />
-                            }
-                        />
-                        <ul className="mt-8 space-y-4">
-                            {CONDITIONS.map((item) => (
-                                <TililaCheckItem key={item.en}>
-                                    <TransText
-                                        en={item.en}
-                                        fr={item.fr}
-                                        ar={item.ar}
-                                    />
-                                </TililaCheckItem>
-                            ))}
-                        </ul>
-                        <div className="mt-8">
-                            <TililaBtnGhost href="/tilila/reglement">
-                                <TransText
-                                    en="View full regulations"
-                                    fr="Consulter le règlement intégral"
-                                    ar="اطلع على النظام الكامل"
-                                />
-                            </TililaBtnGhost>
-                        </div>
-                    </div>
-
-                    <div id="jury">
-                        <TililaSectionHeading
-                            title={
-                                <TransText
-                                    en="The 2026 jury"
-                                    fr="Le Jury 2026"
-                                    ar="لجنة التحكيم 2026"
-                                />
-                            }
-                        />
-                        {showPlaceholders ? (
-                            <p className="mt-6 text-sm leading-relaxed text-tgray">
-                                <TransText
-                                    en="The composition of the Tilila Awards 2026 jury will be announced soon. Photos, biographies and roles will be published here after final validation."
-                                    fr="La composition du jury Tilila Awards 2026 sera annoncée prochainement. Les photos, biographies et fonctions seront publiées ici après validation définitive."
-                                    ar="سيتم الإعلان قريبًا عن تشكيلة لجنة تحكيم تيليلا أووردز 2026."
+                                    en="The competition is open to all Moroccan advertisers."
+                                    fr="Le concours est ouvert à tous les annonceurs marocains."
+                                    ar="المسابقة مفتوحة لجميع المعلنين المغاربة."
                                 />
                             </p>
-                        ) : null}
+                            <p>
+                                <TransText
+                                    en="Eligible campaigns are those broadcast on television, digital media, out-of-home, print or radio, in Arabic, Amazigh or French, regardless of sector."
+                                    fr="Sont éligibles les campagnes publicitaires diffusées en télévision, sur les supports digitaux, en affichage, en presse écrite ou en radio, en langue arabe, amazighe ou française, quel que soit le secteur d'activité concerné."
+                                    ar="تُقبل الحملات الإعلانية المبثة في التلفزيون أو الوسائط الرقمية أو الإشهار الخارجي أو الصحافة أو الإذاعة، بالعربية أو الأمازيغية أو الفرنسية، بغض النظر عن القطاع."
+                                />
+                            </p>
+                            <p>
+                                <TransText
+                                    en="Submitted campaigns must reflect Tilila values and promote equity, diversity and inclusion, including gender parity and/or inclusion of people with disabilities."
+                                    fr="Les campagnes soumises doivent s'inscrire dans les valeurs portées par le programme Tilila et contribuer à promouvoir l'équité, la diversité et l'inclusion, notamment la parité femmes-hommes et/ou l'inclusion des personnes en situation de handicap."
+                                    ar="يجب أن تتماشى الحملات المقدمة مع قيم برنامج تيليلا وتعزز المساواة والتنوع والإدماج، بما في ذلك المساواة بين الجنسين و/أو إدماج الأشخاص في وضعية إعاقة."
+                                />
+                            </p>
+                        </div>
+                        <div className="mt-8 flex flex-wrap gap-5 sm:gap-6">
+                            {MEDIA_CHANNELS.map(
+                                ({ Icon, labelFr, labelEn, labelAr }) => (
+                                    <div
+                                        key={labelEn}
+                                        className="flex min-w-[52px] flex-col items-center gap-2"
+                                    >
+                                        <Icon
+                                            className="size-6 text-beta-turquoise sm:size-7"
+                                            strokeWidth={1.5}
+                                            aria-hidden
+                                        />
+                                        <span className="text-[10px] font-bold tracking-wide text-beta-turquoise uppercase">
+                                            <TransText
+                                                en={labelEn}
+                                                fr={labelFr}
+                                                ar={labelAr}
+                                            />
+                                        </span>
+                                    </div>
+                                ),
+                            )}
+                        </div>
+                    </article>
 
-                        <JuryPreview members={members.slice(0, 4)} />
+                    <article id="jury" className="scroll-mt-28">
+                        <ColumnIcon className="bg-beta-blue/10 text-beta-blue">
+                            <Award className="size-7" strokeWidth={1.5} aria-hidden />
+                        </ColumnIcon>
+                        <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-blue uppercase sm:text-base">
+                            <TransText
+                                en="The jury"
+                                fr="Le jury"
+                                ar="لجنة التحكيم"
+                            />
+                        </h3>
+                        <div className="mt-5 space-y-4 text-sm leading-relaxed text-tgray">
+                            <p>
+                                <TransText
+                                    en="The Tilila Awards jury is made up of recognised figures from media, communication, creative industries, institutions, research and civil society."
+                                    fr="Le Jury des Tilila Awards est composé de personnalités reconnues issues du monde des médias, de la communication, de la création, des institutions, de la recherche et de la société civile."
+                                    ar="تتكون لجنة تحكيم تيليلا أووردز من شخصيات معروفة من الإعلام والتواصل والإبداع والمؤسسات والبحث والمجتمع المدني."
+                                />
+                            </p>
+                            <p>
+                                <TransText
+                                    en="It evaluates applications based on creative quality, relevance, impact and contribution to equity, diversity and inclusion values."
+                                    fr="Il évalue les candidatures sur la base de leur qualité créative, de leur pertinence, de leur impact et de leur contribution aux valeurs d'équité, de diversité et d'inclusion."
+                                    ar="تقيّم الترشحات بناءً على الجودة الإبداعية والملاءمة والأثر والمساهمة في قيم المساواة والتنوع والإدماج."
+                                />
+                            </p>
+                        </div>
 
+                        <JuryPreview members={members} />
+
+                        <button
+                            type="button"
+                            onClick={() => setModalOpen(true)}
+                            className="mt-8 inline-flex items-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue"
+                        >
+                            <TransText
+                                en="Discover the jury"
+                                fr="Découvrir le jury"
+                                ar="اكتشف لجنة التحكيم"
+                            />
+                            <ArrowRight className="size-4" aria-hidden />
+                        </button>
+                    </article>
+
+                    <article>
+                        <ColumnIcon className="bg-alpha-blue text-beta-turquoise">
+                            <MessageSquare
+                                className="size-7"
+                                strokeWidth={1.5}
+                                aria-hidden
+                            />
+                        </ColumnIcon>
+                        <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase sm:text-base">
+                            <TransText
+                                en="A question?"
+                                fr="Une question ?"
+                                ar="سؤال؟"
+                            />
+                        </h3>
+                        <p className="mt-5 text-sm leading-relaxed text-tgray">
+                            <TransText
+                                en="Our team is available to answer your questions about Tilila Awards."
+                                fr="Notre équipe est à votre disposition pour répondre à vos questions sur les Tilila Awards."
+                                ar="فريقنا متاح للإجابة على أسئلتكم حول تيليلا أووردز."
+                            />
+                        </p>
+                        <a
+                            href="mailto:contact@tilila.org"
+                            className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-beta-turquoise transition hover:brightness-110"
+                        >
+                            <Mail className="size-4" aria-hidden />
+                            contact@tilila.org
+                        </a>
                         <div className="mt-8">
-                            <button
-                                type="button"
-                                onClick={() => setModalOpen(true)}
-                                className="inline-flex items-center justify-center gap-2 rounded-lg border border-beta-blue px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue"
+                            <Link
+                                href="/contact"
+                                className="inline-flex items-center gap-2 rounded-lg bg-beta-turquoise px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-twhite uppercase transition hover:brightness-110"
                             >
                                 <TransText
-                                    en="Discover jury members"
-                                    fr="Découvrir les membres du jury"
-                                    ar="اكتشف أعضاء لجنة التحكيم"
+                                    en="Contact us"
+                                    fr="Nous contacter"
+                                    ar="تواصل معنا"
                                 />
                                 <ArrowRight className="size-4" aria-hidden />
-                            </button>
+                            </Link>
                         </div>
-                    </div>
+                    </article>
                 </div>
             </TililaContainer>
 
