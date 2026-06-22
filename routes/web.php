@@ -199,6 +199,10 @@ Route::get('/about', function () {
 Route::get('/actualites', [ActualitesController::class, 'index'])
     ->name('actualites.index');
 
+Route::get('/faq', function () {
+    return Inertia::render('user/faq/index');
+})->name('faq.index');
+
 Route::get('/contact', function () {
     return Inertia::render('contact/index');
 })->name('contact');

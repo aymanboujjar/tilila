@@ -81,12 +81,11 @@ const NAV = [
     },
     {
         type: 'link',
-        href: '/tilila#faq',
+        href: '/faq',
         en: 'FAQ',
         fr: 'FAQ',
         ar: 'الأسئلة الشائعة',
-        match: (p, hash) =>
-            (p === '/tilila' || p.startsWith('/tilila/')) && hash === 'faq',
+        match: (p) => p === '/faq' || p.startsWith('/faq'),
     },
     {
         type: 'link',

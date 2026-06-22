@@ -435,6 +435,9 @@
             "description": "Recevez les dernières actualités Tilila (Tilila Awards, Tililab et initiatives) directement par e-mail."
         }
     },
+    "faq": {
+        "pageTitle": "FAQ — Tilila"
+    },
     "events": {
         "headTitle": "Événements",
         "tabs": {

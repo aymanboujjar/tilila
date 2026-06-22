@@ -118,7 +118,7 @@ export default function Footer() {
                                 <FooterLink href="/tililab">Tililab</FooterLink>
                             </li>
                             <li>
-                                <FooterLink href="/tilila/participate">
+                                <FooterLink href="/faq">
                                     <TransText
                                         en="FAQ"
                                         fr="FAQ"
