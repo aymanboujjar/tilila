@@ -23,13 +23,13 @@ const NAV = [
         match: (p) => p.startsWith('/about'),
         children: [
             {
-                href: '/about#overview',
+                href: '/about',
                 en: 'Tilila: SOREAD 2M EDI programme',
                 fr: 'Tilila : Programme EDI SOREAD 2M',
                 ar: 'تيليلا: برنامج EDI SOREAD 2M',
             },
             {
-                href: '/about#mission',
+                href: '/about',
                 en: 'Parity & Diversity Committee',
                 fr: 'Comité Parité & Diversité',
                 ar: 'لجنة المساواة والتنوع',
@@ -148,24 +148,26 @@ function DesktopNavDropdown({ item, active }) {
             >
                 <NavLabel item={item} />
                 <ChevronDown
-                    className="size-3 shrink-0 transition group-hover:rotate-180"
+                    className="size-3 shrink-0 transition group-hover:rotate-180 group-focus-within:rotate-180"
                     aria-hidden
                 />
             </button>
-            <div className="invisible absolute top-full left-1/2 z-50 mt-1 w-64 -translate-x-1/2 rounded-xl border border-border/80 bg-twhite py-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                {item.children.map((child) => (
-                    <Link
-                        key={child.href}
-                        href={child.href}
-                        className="block px-4 py-2.5 text-xs leading-snug font-semibold text-tblack transition hover:bg-alpha-blue/40 hover:text-beta-blue"
-                    >
-                        <TransText
-                            en={child.en}
-                            fr={child.fr}
-                            ar={child.ar}
-                        />
-                    </Link>
-                ))}
+            <div className="pointer-events-none absolute top-full left-1/2 z-[60] hidden w-72 -translate-x-1/2 pt-2 group-hover:block group-focus-within:block">
+                <div className="pointer-events-auto rounded-xl border border-border/80 bg-twhite py-2 shadow-lg">
+                    {item.children.map((child) => (
+                        <Link
+                            key={child.href}
+                            href={child.href}
+                            className="block px-4 py-2.5 text-xs leading-snug font-semibold text-tblack transition hover:bg-alpha-blue/40 hover:text-beta-blue"
+                        >
+                            <TransText
+                                en={child.en}
+                                fr={child.fr}
+                                ar={child.ar}
+                            />
+                        </Link>
+                    ))}
+                </div>
             </div>
         </div>
     );
@@ -208,8 +210,8 @@ export default function TililaSiteHeader() {
     };
 
     return (
-        <header className="sticky top-0 z-50 border-b border-border/80 bg-twhite/95 backdrop-blur-md">
-            <div className="mx-auto flex h-[72px] max-w-[100rem] flex-nowrap items-center gap-2 px-3 sm:gap-3 sm:px-5 lg:px-6 xl:px-8">
+        <header className="sticky top-0 z-50 overflow-visible border-b border-border/80 bg-twhite/95 backdrop-blur-md">
+            <div className="mx-auto flex h-[72px] max-w-[100rem] flex-nowrap items-center gap-2 overflow-visible px-3 sm:gap-3 sm:px-5 lg:px-6 xl:px-8">
                 <Link href="/" className="shrink-0">
                     <img
                         src="/assets/logo.png"
@@ -220,10 +222,10 @@ export default function TililaSiteHeader() {
                 </Link>
 
                 <nav
-                    className="hidden min-w-0 flex-1 lg:block"
+                    className="hidden min-w-0 flex-1 overflow-visible lg:block"
                     aria-label="Tilila"
                 >
-                    <div className="flex flex-row flex-nowrap items-center justify-center gap-x-2 overflow-x-auto xl:gap-x-2.5 2xl:gap-x-3.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                    <div className="flex flex-row flex-nowrap items-center justify-center gap-x-2 overflow-visible xl:gap-x-2.5 2xl:gap-x-3.5">
                         <DesktopNavItems
                             currentPath={currentPath}
                             currentHash={currentHash}
