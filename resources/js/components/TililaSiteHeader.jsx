@@ -97,6 +97,59 @@ const NAV = [
     },
 ];
 
+const APPLY_CTAS = [
+    {
+        href: '/tilila/participate',
+        en: 'Participate Tilila Awards',
+        fr: 'Candidater aux Tilila Awards',
+        ar: 'الترشح لتيليلا أووردز',
+        shortEn: 'Tilila',
+        shortFr: 'Tilila',
+        shortAr: 'تيليلا',
+        className: 'bg-beta-blue hover:bg-brand-light-purple',
+    },
+    {
+        href: '/tililab/form',
+        en: 'Participate Tililab',
+        fr: 'Candidater au Tililab',
+        ar: 'الترشح لتيليلاب',
+        shortEn: 'Tililab',
+        shortFr: 'Tililab',
+        shortAr: 'تيليلاب',
+        className: 'bg-beta-turquoise hover:opacity-90',
+    },
+];
+
+const applyBtnClass =
+    'inline-flex items-center justify-center rounded-full px-2.5 py-2 text-[7px] font-bold tracking-[0.05em] text-twhite uppercase transition xl:px-3 xl:text-[8px] 2xl:text-[9px]';
+
+function ApplyCtaButton({ cta, compact = false, className = '', onNavigate }) {
+    return (
+        <Link
+            href={cta.href}
+            className={`${applyBtnClass} ${cta.className} ${className}`}
+            onClick={onNavigate}
+        >
+            {compact ? (
+                <TransText en={cta.shortEn} fr={cta.shortFr} ar={cta.shortAr} />
+            ) : (
+                <>
+                    <span className="hidden 2xl:inline">
+                        <TransText en={cta.en} fr={cta.fr} ar={cta.ar} />
+                    </span>
+                    <span className="2xl:hidden">
+                        <TransText
+                            en={cta.shortEn}
+                            fr={cta.shortFr}
+                            ar={cta.shortAr}
+                        />
+                    </span>
+                </>
+            )}
+        </Link>
+    );
+}
+
 const linkClass = (active) =>
     `inline-flex h-10 shrink-0 items-center whitespace-nowrap text-[8px] font-bold tracking-[0.05em] uppercase transition xl:text-[9px] 2xl:text-[10px] 2xl:tracking-[0.07em] ${
         active ? 'text-beta-blue' : 'text-tblack hover:text-beta-blue'
@@ -232,26 +285,12 @@ export default function TililaSiteHeader() {
                     </div>
                 </nav>
 
-                <div className="ml-auto flex shrink-0 items-center gap-1.5 sm:gap-2">
-                    <Link
-                        href="/tilila/participate"
-                        className="hidden items-center justify-center rounded-lg bg-beta-blue px-2.5 py-2 text-[7px] font-bold tracking-[0.05em] text-twhite uppercase transition hover:bg-brand-light-purple lg:inline-flex xl:px-3.5 xl:text-[8px] 2xl:text-[9px]"
-                    >
-                        <span className="hidden 2xl:inline">
-                            <TransText
-                                en="Submit application"
-                                fr="Déposer une candidature"
-                                ar="قدّم ترشيحك"
-                            />
-                        </span>
-                        <span className="2xl:hidden">
-                            <TransText
-                                en="Apply"
-                                fr="Candidater"
-                                ar="ترشح"
-                            />
-                        </span>
-                    </Link>
+                <div className="ml-auto flex shrink-0 items-center gap-1 sm:gap-1.5">
+                    <div className="hidden items-center gap-1 lg:flex xl:gap-1.5">
+                        {APPLY_CTAS.map((cta) => (
+                            <ApplyCtaButton key={cta.href} cta={cta} />
+                        ))}
+                    </div>
                     <button
                         type="button"
                         className="inline-flex size-10 items-center justify-center rounded-lg border border-border text-beta-blue lg:hidden"
@@ -339,17 +378,17 @@ export default function TililaSiteHeader() {
                                 </Link>
                             );
                         })}
-                        <Link
-                            href="/tilila/participate"
-                            className="mt-2 inline-flex items-center justify-center rounded-lg bg-beta-blue px-4 py-3 text-xs font-bold tracking-wide text-twhite uppercase"
-                            onClick={closeMobile}
-                        >
-                            <TransText
-                                en="Submit application"
-                                fr="Déposer une candidature"
-                                ar="قدّم ترشيحك"
-                            />
-                        </Link>
+                        <div className="mt-2 grid gap-2">
+                            {APPLY_CTAS.map((cta) => (
+                                <ApplyCtaButton
+                                    key={cta.href}
+                                    cta={cta}
+                                    compact
+                                    className="w-full px-4 py-3 text-xs"
+                                    onNavigate={closeMobile}
+                                />
+                            ))}
+                        </div>
                     </nav>
                 </div>
             ) : null}
