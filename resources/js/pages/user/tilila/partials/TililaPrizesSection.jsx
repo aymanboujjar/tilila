@@ -11,49 +11,41 @@ const PRIZES = [
         fr: 'Prix du Jury',
         en: 'Jury Prize',
         ar: 'جائزة لجنة التحكيم',
-        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
-        descEn: 'Trophy + 2M advertising space worth',
-        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
-        amount: '1 000 000',
+        descFr: 'Trophée + Espace publicitaire 2M',
+        descEn: 'Trophy + 2M advertising space',
+        descAr: 'كأس + مساحة إعلانية على 2M',
         border: 'border-beta-blue',
         badge: 'bg-beta-blue',
-        amountColor: 'text-beta-blue',
     },
     {
         fr: "Prix d'Honneur",
         en: 'Honour Prize',
         ar: 'جائزة الشرف',
-        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
-        descEn: 'Trophy + 2M advertising space worth',
-        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
-        amount: '500 000',
+        descFr: 'Trophée + Espace publicitaire 2M',
+        descEn: 'Trophy + 2M advertising space',
+        descAr: 'كأس + مساحة إعلانية على 2M',
         border: 'border-beta-turquoise',
         badge: 'bg-beta-turquoise',
-        amountColor: 'text-beta-turquoise',
     },
     {
         fr: 'Prix Communication Engagée – ONLINE',
         en: 'Engaged Communication – ONLINE',
         ar: 'جائزة التواصل الملتزم – ONLINE',
-        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
-        descEn: 'Trophy + 2M advertising space worth',
-        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
-        amount: '250 000',
+        descFr: 'Trophée + Espace publicitaire 2M',
+        descEn: 'Trophy + 2M advertising space',
+        descAr: 'كأس + مساحة إعلانية على 2M',
         border: 'border-[#3d5f9a]',
         badge: 'bg-[#3d5f9a]',
-        amountColor: 'text-[#3d5f9a]',
     },
     {
         fr: 'Prix Communication Engagée – OFFLINE',
         en: 'Engaged Communication – OFFLINE',
         ar: 'جائزة التواصل الملتزم – OFFLINE',
-        descFr: "Trophée + Espace publicitaire 2M d'une valeur de",
-        descEn: 'Trophy + 2M advertising space worth',
-        descAr: 'كأس + مساحة إعلانية على 2M بقيمة',
-        amount: '250 000',
+        descFr: 'Trophée + Espace publicitaire 2M',
+        descEn: 'Trophy + 2M advertising space',
+        descAr: 'كأس + مساحة إعلانية على 2M',
         border: 'border-beta-turquoise',
         badge: 'bg-beta-turquoise',
-        amountColor: 'text-beta-turquoise',
     },
     {
         fr: 'Hommage Tilila',
@@ -64,10 +56,8 @@ const PRIZES = [
         descEn:
             'Honorary distinction awarded by the SOREAD 2M Parity & Diversity Committee.',
         descAr: 'تكريم شرفي يمنحه لجنة المساواة والتنوع لـ SOREAD 2M.',
-        amount: null,
         border: 'border-[#D4AF37]',
         badge: 'bg-[#D4AF37]',
-        amountColor: '',
     },
 ];
 
@@ -93,19 +83,6 @@ function PrizeCard({ prize }) {
                     ar={prize.descAr}
                 />
             </p>
-
-            {prize.amount ? (
-                <div className="mt-4 text-center">
-                    <p
-                        className={`text-2xl leading-none font-extrabold sm:text-[1.75rem] ${prize.amountColor}`}
-                    >
-                        {prize.amount}
-                    </p>
-                    <p className={`mt-1 text-xs font-bold ${prize.amountColor}`}>
-                        <TransText en="DH gross" fr="DH brut" ar="درهم إجمالي" />
-                    </p>
-                </div>
-            ) : null}
         </article>
     );
 }

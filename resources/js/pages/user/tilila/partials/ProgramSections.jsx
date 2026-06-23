@@ -122,7 +122,7 @@ const TILILA_PRIZES = [
         descFr: "Meilleur spot publicitaire promouvant l'égalité femmes-hommes.",
         descEn: 'Best advertising spot promoting gender equality.',
         descAr: 'أفضل إعلان يعزز المساواة بين النساء والرجال.',
-        reward: 'Trophée + espace publicitaire 2M de 1 000 000 DH brut',
+        reward: 'Trophée + espace publicitaire 2M',
     },
     {
         fr: "Prix d'Honneur",
@@ -131,7 +131,7 @@ const TILILA_PRIZES = [
         descFr: "Marque engagée en faveur de l'équité, de la diversité et de l'inclusion.",
         descEn: 'Brand committed to equity, diversity and inclusion.',
         descAr: 'علامة تجارية ملتزمة بالإنصاف والتنوع والإدماج.',
-        reward: 'Trophée + espace publicitaire 2M de 500 000 DH brut',
+        reward: 'Trophée + espace publicitaire 2M',
     },
     {
         fr: 'Prix de la Communication Engagée – Online',
@@ -140,7 +140,7 @@ const TILILA_PRIZES = [
         descFr: 'Campagne ou contenu diffusé sur les supports digitaux.',
         descEn: 'Campaign or content broadcast on digital media.',
         descAr: 'حملة أو محتوى منشور على المنصات الرقمية.',
-        reward: 'Trophée + espace publicitaire 2M de 250 000 DH brut',
+        reward: 'Trophée + espace publicitaire 2M',
     },
     {
         fr: 'Prix de la Communication Engagée – Offline',
@@ -149,7 +149,7 @@ const TILILA_PRIZES = [
         descFr: 'Campagne diffusée en télévision, radio, presse écrite ou affichage.',
         descEn: 'Campaign broadcast on TV, radio, print or out-of-home.',
         descAr: 'حملة مُبثّة في التلفزيون أو الإذاعة أو الصحافة المكتوبة أو الإشهار الخارجي.',
-        reward: 'Trophée + espace publicitaire 2M de 250 000 DH brut',
+        reward: 'Trophée + espace publicitaire 2M',
     },
 ];
 
