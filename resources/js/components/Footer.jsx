@@ -64,8 +64,8 @@ export default function Footer() {
     return (
         <footer id="contact" className="border-t border-border bg-twhite">
             <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
-                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-6 lg:gap-0">
-                    <FooterColumn className="sm:col-span-2 lg:col-span-1">
+                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
+                    <FooterColumn className="">
                         <img
                             src="/assets/logo.png"
                             alt="Tilila"
@@ -156,15 +156,7 @@ export default function Footer() {
                                     />
                                 </FooterLink>
                             </li>
-                            <li>
-                                <FooterLink href="/tilila/reglement">
-                                    <TransText
-                                        en="Participation conditions"
-                                        fr="Conditions de participation"
-                                        ar="شروط المشاركة"
-                                    />
-                                </FooterLink>
-                            </li>
+                          
                         </ul>
                     </FooterColumn>
 
@@ -172,39 +164,21 @@ export default function Footer() {
                         <FooterHeading>
                             <TransText en="Contact" fr="Contact" ar="التواصل" />
                         </FooterHeading>
-                        <ul className="mt-4 space-y-3 text-sm text-tgray">
-                            <li>
-                                <a
-                                    href="mailto:awards@tilila.org"
-                                    className="inline-flex items-start gap-2.5 transition-colors hover:text-beta-blue"
-                                >
-                                    <Mail className="mt-0.5 size-4 shrink-0 text-beta-blue" />
-                                    <span>awards@tilila.org</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="tel:+212537661010"
-                                    className="inline-flex items-start gap-2.5 transition-colors hover:text-beta-blue"
-                                >
-                                    <Phone className="mt-0.5 size-4 shrink-0 text-beta-blue" />
-                                    <span>+212 5 37 66 10 10</span>
-                                </a>
-                            </li>
-                            <li className="inline-flex items-start gap-2.5">
-                                <MapPin className="mt-0.5 size-4 shrink-0 text-beta-blue" />
-                                <span>
-                                    <TransText
-                                        en="Casablanca, Morocco"
-                                        fr="Casablanca, Maroc"
-                                        ar="الدار البيضاء، المغرب"
-                                    />
-                                </span>
-                            </li>
-                        </ul>
+                    <ul className="mt-4 space-y-2.5">
+                        <li>
+                            <FooterLink href="/contact">
+                                <TransText
+                                    en="Contact us"
+                                    fr="Contactez-nous"
+                                    ar="اتصل بنا"
+                                />
+                            </FooterLink>
+                        </li>
+                    </ul>
+              
                     </FooterColumn>
 
-                    <FooterColumn className="col-span-2">
+                    {/* <FooterColumn className="col-span-2">
                         <FooterHeading>Newsletter</FooterHeading>
                         <p className="mt-3 text-sm text-tgray">
                             <TransText
@@ -255,7 +229,7 @@ export default function Footer() {
                                 {flash.success}
                             </p>
                         ) : null}
-                    </FooterColumn>
+                    </FooterColumn> */}
                 </div>
 
                 <div className="mt-10 flex flex-col gap-4 border-t border-border pt-6 text-xs text-tgray sm:flex-row sm:items-center sm:justify-between">

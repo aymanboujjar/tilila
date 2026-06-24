@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TililaContainer,
@@ -7,7 +7,7 @@ import {
     TILILA_HERO_CTA_ROW,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-const HERO_BG = '/assets/tililab/tililab-banner.png';
+const HERO_BG = '/assets/tililabhero.jpg';
 
 export default function TililabHero() {
     return (
@@ -22,16 +22,16 @@ export default function TililabHero() {
                 loading="eager"
             />
             <div
-                className="absolute inset-0 bg-linear-to-r from-twhite/96 via-twhite/88 to-twhite/25"
+                className="absolute inset-0 bg-linear-to-r from-tblack/90 via-tblack/75 to-tblack/40"
                 aria-hidden
             />
 
             <TililaContainer className="relative z-10 flex min-h-[480px] items-center py-14 sm:min-h-[520px] sm:py-16 lg:min-h-[560px]">
                 <div className="max-w-2xl" id="candidature">
-                    <p className="text-lg font-extrabold tracking-tight text-beta-blue sm:text-xl">
+                    <p className="text-lg font-extrabold tracking-tight text-white/90 sm:text-xl">
                         Tililab
                     </p>
-                    <h1 className="mt-3 text-2xl leading-[1.15] font-extrabold text-[#1a237e] sm:text-3xl lg:text-[2.35rem]">
+                    <h1 className="mt-3 text-2xl leading-[1.15] font-extrabold text-white/90 sm:text-3xl lg:text-[2.35rem]">
                         <TransText
                             en="Reveal the talents who create tomorrow's stories"
                             fr="Révéler les talents qui créent les récits de demain"
@@ -39,7 +39,7 @@ export default function TililabHero() {
                         />
                     </h1>
 
-                    <div className="mt-6 space-y-4 text-sm leading-relaxed text-tgray sm:text-base">
+                    <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/90 sm:text-base">
                         <p>
                             <TransText
                                 en="Tililab is a detection, training and mentoring program for young Moroccan creative talents."
@@ -69,14 +69,14 @@ export default function TililabHero() {
                             <ArrowRight className="size-4" aria-hidden />
                         </Link>
                         <a
-                            href="/tililab/reglement/download"
+                            href="/tililab/reglement"
                             className={`inline-flex items-center justify-center gap-2 rounded-lg border-2 border-beta-blue bg-twhite/80 px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-twhite ${TILILA_HERO_BTN}`}
                         >
-                            <Download className="size-4" aria-hidden />
+                            <Eye className="size-4" aria-hidden />
                             <TransText
-                                en="Download regulations"
-                                fr="Télécharger le règlement"
-                                ar="تحميل النظام"
+                                en="Read regulations"
+                                fr="Consulter le règlement"
+                                ar="قراءة النظام"
                             />
                         </a>
                     </div>

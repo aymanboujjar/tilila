@@ -1,8 +1,7 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
+import ProgramPartnersGrouped from '@/components/ProgramPartnersGrouped';
 import TransText from '@/components/TransText';
-import { PartnerLogoTile } from '@/components/PartnerSection';
-import { partnersPreviewGrid } from '@/lib/programPartners';
 import {
     TililaContainer,
     TililaSection,
@@ -10,9 +9,6 @@ import {
 } from '@/pages/user/tilila/partials/TililaUi';
 
 export default function TililabBottomSection() {
-    const { partners = [] } = usePage().props;
-    const displayed = partnersPreviewGrid(partners, 'tililab');
-
     return (
         <TililaSection
             id="partners"
@@ -67,19 +63,11 @@ export default function TililabBottomSection() {
                                 />
                             }
                         />
-                        <div className="mt-6 grid grid-cols-3 gap-4">
-                            {displayed.map((p) => (
-                                <div
-                                    key={p.id}
-                                    className="flex items-center justify-center py-2"
-                                >
-                                    <PartnerLogoTile
-                                        name={p.name}
-                                        logoUrl={p.logo_url}
-                                        tall
-                                    />
-                                </div>
-                            ))}
+                        <div className="mt-6">
+                            <ProgramPartnersGrouped
+                                program="tililab"
+                                compact
+                            />
                         </div>
                     </div>
                 </div>

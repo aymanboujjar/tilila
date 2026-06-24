@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TILILA_HERO_BTN,
@@ -18,7 +18,7 @@ export default function TililaHero() {
             <img
                 src={HERO_BG}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover object-bottom"
                 loading="eager"
             />
             <div
@@ -69,14 +69,14 @@ export default function TililaHero() {
                             <ArrowRight className="size-4" aria-hidden />
                         </Link>
                         <a
-                            href="/tilila/reglement/download"
+                            href="/tilila/reglement"
                             className={`inline-flex items-center justify-center gap-2 rounded-lg border-2 border-twhite bg-transparent px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-twhite/10 ${TILILA_HERO_BTN}`}
                         >
-                            <Download className="size-4" aria-hidden />
+                            <Eye className="size-4" aria-hidden />
                             <TransText
-                                en="Download regulations"
-                                fr="Télécharger le règlement"
-                                ar="تحميل النظام"
+                                en="Read regulations"
+                                fr="Consulter le règlement"
+                                ar="قراءة النظام"
                             />
                         </a>
                     </div>

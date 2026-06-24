@@ -151,13 +151,7 @@ function FileDropzone({ onFile, error }) {
                         ar="اسحب ملفك هنا أو تصفح"
                     />
                 </p>
-                <p className="mt-1 text-xs text-twhite/70">
-                    <TransText
-                        en="PDF, MP4, MOV or link (max. 100 MB)"
-                        fr="PDF, MP4, MOV ou lien (max. 100 Mo)"
-                        ar="PDF أو MP4 أو MOV أو رابط (100 ميغا كحد أقصى)"
-                    />
-                </p>
+         
                 <input
                     ref={inputRef}
                     type="file"

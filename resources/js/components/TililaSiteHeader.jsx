@@ -63,22 +63,22 @@ const NAV = [
         ar: 'الأرشيف والجوائز',
         match: (p) => p.startsWith('/tilila/archives'),
     },
-    {
-        type: 'link',
-        href: '/actualites',
-        en: 'News',
-        fr: 'Actualités',
-        ar: 'أخبار',
-        match: (p) => p.startsWith('/actualites') || p.startsWith('/events'),
-    },
-    {
-        type: 'link',
-        href: '/about#partners',
-        en: 'Partners',
-        fr: 'Partenaires',
-        ar: 'الشركاء',
-        match: (p, hash) => p === '/about' && hash === 'partners',
-    },
+    // {
+    //      type: 'link',
+    //     href: '/actualites',
+    //     en: 'News',
+    //     fr: 'Actualités',
+    //     ar: 'أخبار',
+    //     match: (p) => p.startsWith('/actualites') || p.startsWith('/events'),
+    // },
+    // {
+    //     type: 'link',
+    //     href: '/about#partners',
+    //     en: 'Partners',
+    //     fr: 'Partenaires',
+    //     ar: 'الشركاء',
+    //     match: (p, hash) => p === '/about' && hash === 'partners',
+    // },
     {
         type: 'link',
         href: '/faq',
@@ -121,7 +121,7 @@ const APPLY_CTAS = [
 ];
 
 const applyBtnClass =
-    'inline-flex items-center justify-center rounded-full px-2.5 py-2 text-[7px] font-bold tracking-[0.05em] text-twhite uppercase transition xl:px-3 xl:text-[8px] 2xl:text-[9px]';
+    'inline-flex items-center justify-center rounded-full px-2.5 py-2 text-[10px] font-bold tracking-[0.05em] text-twhite uppercase transition ';
 
 function ApplyCtaButton({ cta, compact = false, className = '', onNavigate }) {
     return (
@@ -151,7 +151,7 @@ function ApplyCtaButton({ cta, compact = false, className = '', onNavigate }) {
 }
 
 const linkClass = (active) =>
-    `inline-flex h-10 shrink-0 items-center whitespace-nowrap text-[8px] font-bold tracking-[0.05em] uppercase transition xl:text-[9px] 2xl:text-[10px] 2xl:tracking-[0.07em] ${
+    `inline-flex h-10 shrink-0 items-center whitespace-nowrap text-[12px] font-bold tracking-[0.05em] uppercase transition  2xl:tracking-[0.07em] ${
         active ? 'text-beta-blue' : 'text-tblack hover:text-beta-blue'
     }`;
 
@@ -277,7 +277,7 @@ export default function TililaSiteHeader() {
                     className="hidden min-w-0 flex-1 overflow-visible lg:block"
                     aria-label="Tilila"
                 >
-                    <div className="flex flex-row flex-nowrap items-center justify-center gap-x-2 overflow-visible xl:gap-x-2.5 2xl:gap-x-3.5">
+                    <div className="flex flex-row flex-nowrap items-center justify-center gap-x-3 overflow-visible">
                         <DesktopNavItems
                             currentPath={currentPath}
                             currentHash={currentHash}
