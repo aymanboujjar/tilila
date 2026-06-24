@@ -1,8 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
+import ProgramPartnersGrouped from '@/components/ProgramPartnersGrouped';
 import TransText from '@/components/TransText';
-import { PartnerLogoTile } from '@/components/PartnerSection';
-import { partnersPreviewGrid } from '@/lib/programPartners';
 import TililaPastEditionsCarousel from '@/pages/user/tilila/partials/TililaPastEditionsCarousel';
 import {
     TililaContainer,
@@ -22,9 +21,8 @@ const ARCHIVE_QUICK_LINKS = [
 ];
 
 export default function TililaBottomSection() {
-    const { partners = [], editions = [] } = usePage().props;
+    const { editions = [] } = usePage().props;
     const { locale } = useTranslation();
-    const displayed = partnersPreviewGrid(partners, 'tilila');
 
     return (
         <TililaSection className="border-t border-border/60 bg-beta-white">
@@ -91,19 +89,11 @@ export default function TililaBottomSection() {
                                 />
                             }
                         />
-                        <div className="mt-6 grid grid-cols-3 gap-4">
-                            {displayed.map((p) => (
-                                <div
-                                    key={p.id}
-                                    className="flex items-center justify-center rounded-xl border border-border/40 bg-twhite py-3"
-                                >
-                                    <PartnerLogoTile
-                                        name={p.name}
-                                        logoUrl={p.logo_url}
-                                        tall
-                                    />
-                                </div>
-                            ))}
+                        <div className="mt-6">
+                            <ProgramPartnersGrouped
+                                program="tilila"
+                                compact
+                            />
                         </div>
                     </div>
                 </div>

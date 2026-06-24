@@ -37,16 +37,19 @@ class PartnerSeeder extends Seeder
     private function partners(): array
     {
         return [
+            ...$this->institutionalPartners(),
+            ...$this->tililaMediaPartners(),
+            ...$this->tililabMediaPartners(),
+        ];
+    }
+
+    /** @return list<array<string, mixed>> */
+    private function institutionalPartners(): array
+    {
+        return [
             [
                 'program' => 'both',
-                'groups' => ['featured', 'institutional', 'media'],
-                'name' => 'Les Impériales',
-                'logo_path' => 'partners/Logo-Les-Imperiales-Black-01-300x143.png',
-                'sort' => 1,
-            ],
-            [
-                'program' => 'tilila',
-                'groups' => ['featured', 'institutional'],
+                'groups' => ['institutional'],
                 'name' => 'UACC',
                 'subtitle' => $this->triple(
                     'Union des Agences Conseil en Communication',
@@ -54,11 +57,11 @@ class PartnerSeeder extends Seeder
                     'اتحاد وكالات الاستشارة في الاتصال',
                 ),
                 'logo_path' => 'partners/Logo-UACC-01-200x200.png',
-                'sort' => 2,
+                'sort' => 1,
             ],
             [
-                'program' => 'tilila',
-                'groups' => ['featured', 'institutional'],
+                'program' => 'both',
+                'groups' => ['institutional'],
                 'name' => 'GAM',
                 'subtitle' => $this->triple(
                     'Groupement des Annonceurs du Maroc',
@@ -66,121 +69,50 @@ class PartnerSeeder extends Seeder
                     'تجمع المعلنين في المغرب',
                 ),
                 'logo_path' => 'partners/Logo-GAM-01-200x200.png',
+                'sort' => 2,
+            ],
+            [
+                'program' => 'both',
+                'groups' => ['institutional'],
+                'name' => 'Les Impériales',
+                'logo_path' => 'partners/Logo-Les-Imperiales-Black-01-300x143.png',
                 'sort' => 3,
             ],
+        ];
+    }
+
+    /** @return list<array<string, mixed>> */
+    private function tililaMediaPartners(): array
+    {
+        return [
+            $this->mediaRow('tilila', '2M.ma', 'partners/logo-2m.ma-1-200x100.png', 10),
+            $this->mediaRow('tilila', 'Radio 2M', 'partners/Logo-radio2M-01-182x100.png', 11),
+            $this->mediaRow('tilila', 'SNRT News', 'partners/Logo-snrtnews-141x100.png', 12),
+            $this->mediaRow('tilila', 'Le Site Info', 'partners/Lesiteinfo-Logo-Vector_page-0001-200x74.jpg', 13),
+            $this->mediaRow('tilila', 'Les Éco', 'partners/Logo éco.ma-01.png', 14),
+            $this->mediaRow('tilila', 'Médias24', 'partners/medias24-200x55.png', 15),
+            $this->mediaRow('tilila', 'U Radio', 'partners/Logo-URadio-def-3-01-1-141x100.png', 16),
+            $this->mediaRow('tilila', 'Media Marketing', 'partners/Logo-Media-Marketing-200x76.png', 17),
+        ];
+    }
+
+    /** @return list<array<string, mixed>> */
+    private function tililabMediaPartners(): array
+    {
+        return [
+            $this->mediaRow('tililab', '2M.ma', 'partners/logo-2m.ma-1-200x100.png', 10),
+            $this->mediaRow('tililab', 'Radio 2M', 'partners/Logo-radio2M-01-182x100.png', 11),
             [
-                'program' => 'tilila',
+                'program' => 'tililab',
                 'groups' => ['media'],
-                'name' => 'MFM Radio / Radio 2M',
-                'logo_path' => 'partners/Logo-radio2M-01-182x100.png',
-                'sort' => 4,
-            ],
-            [
-                'program' => 'both',
-                'groups' => ['media', 'strip', 'program'],
-                'name' => 'Jooj',
-                'subtitle' => $this->triple(
-                    'Tiqqa d’Or',
-                    'Tiqqa d’Or',
-                    'تيقا الذهبية',
-                ),
-                'meta' => [
-                    'role' => $this->triple(
-                        'Incubation program for the winner',
-                        'Programme d’incubation pour le lauréat',
-                        'برنامج احتضان للفائز',
-                    ),
-                ],
+                'name' => 'Jooj Media',
+                'subtitle' => $this->triple('Tiqqa d’Or', 'Tiqqa d’Or', 'تيقا الذهبية'),
                 'logo_path' => 'partners/JOOJ-MASTERBRAND-STRAWBERRY-91x100.png',
-                'sort' => 5,
-            ],
-            [
-                'program' => 'both',
-                'groups' => ['media'],
-                'name' => 'SNRT',
-                'meta' => [
-                    'role' => $this->triple(
-                        'Media partner',
-                        'Partenaire média',
-                        'شريك إعلامي',
-                    ),
-                ],
-                'logo_path' => 'partners/Logo-snrtnews-141x100.png',
-                'sort' => 6,
-            ],
-            [
-                'program' => 'both',
-                'groups' => ['media'],
-                'name' => 'Médias24',
-                'meta' => [
-                    'role' => $this->triple(
-                        'Media partner',
-                        'Partenaire média',
-                        'شريك إعلامي',
-                    ),
-                ],
-                'logo_path' => 'partners/medias24-200x55.png',
-                'sort' => 7,
-            ],
-            [
-                'program' => 'tilila',
-                'groups' => ['media'],
-                'name' => 'Le Site Info',
-                'logo_path' => 'partners/Lesiteinfo-Logo-Vector_page-0001-200x74.jpg',
-                'sort' => 8,
-            ],
-            [
-                'program' => 'both',
-                'groups' => ['media'],
-                'name' => 'U Radio',
-                'meta' => [
-                    'role' => $this->triple(
-                        'Media partner',
-                        'Partenaire média',
-                        'شريك إعلامي',
-                    ),
-                ],
-                'logo_path' => 'partners/Logo-URadio-def-3-01-1-141x100.png',
-                'sort' => 9,
-            ],
-            [
-                'program' => 'both',
-                'groups' => ['media'],
-                'name' => 'Media Marketing',
-                'logo_path' => 'partners/Logo-Media-Marketing-200x76.png',
-                'sort' => 10,
-            ],
-            [
-                'program' => 'tilila',
-                'groups' => ['strip'],
-                'name' => '2M.ma',
-                'logo_path' => 'partners/logo-2m.ma-1-200x100.png',
-                'sort' => 11,
-            ],
-            [
-                'program' => 'tilila',
-                'groups' => ['strip'],
-                'name' => 'Euro Media',
-                'logo_path' => 'partners/Logo-EURO-MEDIA-200x100.png',
                 'sort' => 12,
             ],
             [
                 'program' => 'tililab',
-                'groups' => ['organiser'],
-                'name' => '2M',
-                'meta' => [
-                    'role' => $this->triple(
-                        'Organizer — creative bootcamp alongside Tilila Awards',
-                        'Organisateur — bootcamp créatif en marge des Tilila Awards',
-                        'المنظم — معسكر إبداعي إلى جانب تيليلا أووردز',
-                    ),
-                ],
-                'logo_path' => 'partners/organizer-logo.png',
-                'sort' => 1,
-            ],
-            [
-                'program' => 'tililab',
-                'groups' => ['program'],
+                'groups' => ['media'],
                 'name' => 'Lionsgeek',
                 'meta' => [
                     'role' => $this->triple(
@@ -195,8 +127,26 @@ class PartnerSeeder extends Seeder
                     ),
                 ],
                 'logo_path' => 'partners/lionsgeek-logo.png',
-                'sort' => 2,
+                'sort' => 13,
             ],
+            $this->mediaRow('tililab', 'SNRT News', 'partners/Logo-snrtnews-141x100.png', 14),
+            $this->mediaRow('tililab', 'Le Site Info', 'partners/Lesiteinfo-Logo-Vector_page-0001-200x74.jpg', 15),
+            $this->mediaRow('tililab', 'Les Éco', 'partners/Logo éco.ma-01.png', 16),
+            $this->mediaRow('tililab', 'Médias24', 'partners/medias24-200x55.png', 17),
+            $this->mediaRow('tililab', 'U Radio', 'partners/Logo-URadio-def-3-01-1-141x100.png', 18),
+            $this->mediaRow('tililab', 'Media Marketing', 'partners/Logo-Media-Marketing-200x76.png', 19),
+        ];
+    }
+
+    /** @return array<string, mixed> */
+    private function mediaRow(string $program, string $name, string $logoPath, int $sort): array
+    {
+        return [
+            'program' => $program,
+            'groups' => ['media'],
+            'name' => $name,
+            'logo_path' => $logoPath,
+            'sort' => $sort,
         ];
     }
 

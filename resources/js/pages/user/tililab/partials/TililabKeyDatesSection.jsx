@@ -23,12 +23,7 @@ const PARCOURS_STEPS = [
         en: 'Pre-selection',
         ar: 'الفرز الأولي',
     },
-    {
-        icon: GraduationCap,
-        fr: 'Masterclass',
-        en: 'Masterclass',
-        ar: 'ماستركلاس',
-    },
+
     {
         icon: Clapperboard,
         fr: 'Bootcamp créatif',

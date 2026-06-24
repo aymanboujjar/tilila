@@ -6,7 +6,7 @@ import {
     TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-export default function TililaPartnersSection() {
+export default function TililabPartnersSection() {
     return (
         <TililaSection id="partners" className="border-t border-border/60 bg-twhite">
             <TililaContainer>
@@ -20,14 +20,14 @@ export default function TililaPartnersSection() {
                     }
                     subtitle={
                         <TransText
-                            en="Institutional and media partners associated with Tilila Awards."
-                            fr="Partenaires institutionnels et médias associés aux Tilila Awards."
-                            ar="الشركاء المؤسساتيون والإعلاميون المرتبطون بتيليلا أووردز."
+                            en="Institutional and media partners associated with Tililab."
+                            fr="Partenaires institutionnels et médias associés à Tililab."
+                            ar="الشركاء المؤسساتيون والإعلاميون المرتبطون بتيليلاب."
                         />
                     }
                 />
                 <div className="mt-8">
-                    <ProgramPartnersGrouped program="tilila" variant="carousel" />
+                    <ProgramPartnersGrouped program="tililab" variant="carousel" />
                 </div>
             </TililaContainer>
         </TililaSection>

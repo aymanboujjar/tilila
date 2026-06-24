@@ -2,7 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import RegulationCta from '@/components/program/RegulationCta';
 import { PartnerLogoTile, PartnerTier } from '@/components/PartnerSection';
-import { partnersInGroup } from '@/lib/programPartners';
+import { partnersInGroup, partnersInGroupForProgram } from '@/lib/programPartners';
 import { TILILAB_FAQ_ITEMS } from '@/pages/user/tililab/partials/faq-items';
 
 function SectionShell({ id, title, subtitle, children }) {
@@ -646,7 +646,7 @@ export function TililabSponsorsSection() {
     const { partners = [] } = usePage().props;
     const organiser = partnersInGroup(partners, 'organiser')[0];
     const programPartners = partnersInGroup(partners, 'program');
-    const mediaPartners = partnersInGroup(partners, 'media');
+    const mediaPartners = partnersInGroupForProgram(partners, 'media', 'tililab');
     return (
         <SectionShell
             id="sponsors"
@@ -730,43 +730,47 @@ export function TililabSponsorsSection() {
                     </div>
                 </PartnerTier>
 
-                <PartnerTier
-                    badge={
-                        <TransText
-                            en="Program partners"
-                            fr="Partenaires du programme"
-                            ar="شركاء البرنامج"
-                        />
-                    }
-                    title={
-                        <TransText
-                            en="Bootcamp & incubation"
-                            fr="Bootcamp & incubation"
-                            ar="المعسكر والاحتضان"
-                        />
-                    }
-                    description={
-                        <TransText
-                            en="Key partners who host pre-selection or support the laureate after the competition."
-                            fr="Partenaires clés qui accueillent la présélection ou accompagnent le lauréat après le concours."
-                            ar="شركاء أساسيون يستضيفون التصفية أو يدعمون الفائز بعد المسابقة."
-                        />
-                    }
-                >
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        {programPartners.map((partner) => (
-                            <PartnerLogoTile
-                                key={partner.id}
-                                name={partner.name}
-                                logoUrl={partner.logo_url}
-                                tall
-                                subtitle={
-                                    <TililabPartnerSubtitle partner={partner} />
-                                }
+                {programPartners.length > 0 ? (
+                    <PartnerTier
+                        badge={
+                            <TransText
+                                en="Program partners"
+                                fr="Partenaires du programme"
+                                ar="شركاء البرنامج"
                             />
-                        ))}
-                    </div>
-                </PartnerTier>
+                        }
+                        title={
+                            <TransText
+                                en="Bootcamp & incubation"
+                                fr="Bootcamp & incubation"
+                                ar="المعسكر والاحتضان"
+                            />
+                        }
+                        description={
+                            <TransText
+                                en="Key partners who host pre-selection or support the laureate after the competition."
+                                fr="Partenaires clés qui accueillent la présélection ou accompagnent le lauréat après le concours."
+                                ar="شركاء أساسيون يستضيفون التصفية أو يدعمون الفائز بعد المسابقة."
+                            />
+                        }
+                    >
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            {programPartners.map((partner) => (
+                                <PartnerLogoTile
+                                    key={partner.id}
+                                    name={partner.name}
+                                    logoUrl={partner.logo_url}
+                                    tall
+                                    subtitle={
+                                        <TililabPartnerSubtitle
+                                            partner={partner}
+                                        />
+                                    }
+                                />
+                            ))}
+                        </div>
+                    </PartnerTier>
+                ) : null}
             </div>
 
             <div className="mt-6">

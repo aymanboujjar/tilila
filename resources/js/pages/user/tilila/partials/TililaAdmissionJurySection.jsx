@@ -20,7 +20,7 @@ import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/Til
 const MEDIA_CHANNELS = [
     { Icon: Tv, labelFr: 'TV', labelEn: 'TV', labelAr: 'تلفزيون' },
     { Icon: Monitor, labelFr: 'Digital', labelEn: 'Digital', labelAr: 'رقمي' },
-    { Icon: Radio, labelFr: 'Radio', labelEn: 'Radio', labelAr: 'إذاعة' },
+    // { Icon: Radio, labelFr: 'Radio', labelEn: 'Radio', labelAr: 'إذاعة' },
     { Icon: Newspaper, labelFr: 'Presse', labelEn: 'Press', labelAr: 'صحافة' },
     {
         Icon: Smartphone,
@@ -214,13 +214,13 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                                 ar="فريقنا متاح للإجابة على أسئلتكم حول تيليلا أووردز."
                             />
                         </p>
-                        <a
+                        {/* <a
                             href="mailto:contact@tilila.org"
                             className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-beta-turquoise transition hover:brightness-110"
                         >
                             <Mail className="size-4" aria-hidden />
                             contact@tilila.org
-                        </a>
+                        </a> */}
                         <div className="mt-8">
                             <Link
                                 href="/contact"

@@ -1,9 +1,8 @@
 import { Link } from '@inertiajs/react';
 import { useForm, usePage } from '@inertiajs/react';
+import ProgramPartnersGrouped from '@/components/ProgramPartnersGrouped';
 import TransText from '@/components/TransText';
-import { PartnerLogoTile } from '@/components/PartnerSection';
 import RegulationCta from '@/components/program/RegulationCta';
-import { partnersInGroup } from '@/lib/programPartners';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 function SectionShell({ id, title, subtitle, children, className = '' }) {
@@ -454,46 +453,21 @@ export function ProgramContactSection({ program }) {
     );
 }
 
-export function ProgramPartnersSection() {
-    const { partners = [] } = usePage().props;
-    const featured = partnersInGroup(partners, 'featured');
-
-    if (!featured.length) {
-        return null;
-    }
-
+export function ProgramPartnersSection({ program = 'tilila' }) {
     return (
         <SectionShell
             id="partners"
             title={<TransText en="Partners" fr="Partenaires" ar="الشركاء" />}
             subtitle={
                 <TransText
-                    en="A dedicated space for institutional, media and technical partners associated with Tilila Awards and Tililab."
-                    fr="Espace dédié aux partenaires institutionnels, médias et techniques associés aux Tilila Awards et à Tililab."
-                    ar="فضاء مخصص للشركاء المؤسساتيين والإعلاميين والتقنيين المرتبطين بتيليلا أووردز وتيليلاب."
+                    en="Institutional and media partners associated with this programme."
+                    fr="Partenaires institutionnels et médias associés à ce programme."
+                    ar="الشركاء المؤسساتيون والإعلاميون المرتبطون بهذا البرنامج."
                 />
             }
             className="bg-twhite"
         >
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                {featured.map((partner) => (
-                    <PartnerLogoTile
-                        key={partner.id}
-                        name={partner.name}
-                        logoUrl={partner.logo_url}
-                        tall
-                        subtitle={
-                            partner.subtitle ? (
-                                <TransText
-                                    en={partner.subtitle.en}
-                                    fr={partner.subtitle.fr}
-                                    ar={partner.subtitle.ar}
-                                />
-                            ) : null
-                        }
-                    />
-                ))}
-            </div>
+            <ProgramPartnersGrouped program={program} variant="carousel" />
         </SectionShell>
     );
 }
