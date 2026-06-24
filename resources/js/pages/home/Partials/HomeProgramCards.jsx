@@ -10,12 +10,7 @@ const CARDS = [
     {
         id: 'tilila',
         href: '/tilila',
-        image: '/assets/tilila/trophee-tilila.png',
-        imageAlt: 'Trophée Tilila Awards',
-        imagePosition: 'left',
         icon: Trophy,
-        overlay:
-            'bg-linear-to-r from-tblack/30 via-beta-blue/88 to-[#3d1f6e]/95',
         buttonClass:
             'bg-brand-light-purple hover:bg-brand-light-purple/90',
         title: 'TILILA AWARDS',
@@ -33,12 +28,7 @@ const CARDS = [
     {
         id: 'tililab',
         href: '/tililab',
-        image: '/assets/tililab/tililab-banner.png',
-        imageAlt: 'Tournage Tililab',
-        imagePosition: 'right',
         icon: Clapperboard,
-        overlay:
-            'bg-linear-to-l from-tblack/30 via-beta-turquoise/88 to-[#007a8f]/95',
         buttonClass: 'bg-[#00b8d9] hover:bg-[#00a8c4]',
         title: 'TILILAB',
         subtitleEn: 'Reveal the talents who create tomorrow’s stories.',
@@ -71,40 +61,41 @@ function SectionTitle() {
     );
 }
 
+function CardBackground({ variant }) {
+    if (variant === 'tilila') {
+        return (
+            <div className="absolute inset-0" aria-hidden>
+                <div className="absolute inset-0 bg-linear-to-br from-[#6b4a9a] via-[#3d2870] to-[#12081f]" />
+                <div className="absolute top-[12%] left-[6%] size-28 rounded-full bg-purple-300/18 blur-3xl" />
+                <div className="absolute top-[38%] left-[18%] size-20 rounded-full bg-violet-200/12 blur-2xl" />
+                <div className="absolute bottom-[18%] left-[4%] size-36 rounded-full bg-indigo-400/14 blur-3xl" />
+                <div className="absolute top-[22%] right-[28%] size-24 rounded-full bg-purple-500/10 blur-2xl" />
+                <div className="absolute inset-y-0 left-0 w-[42%] bg-linear-to-r from-violet-500/18 to-transparent" />
+            </div>
+        );
+    }
+
+    return (
+        <div className="absolute inset-0" aria-hidden>
+            <div className="absolute inset-0 bg-linear-to-br from-[#0d9488] via-[#0891b2] to-tgray" />
+            <div className="absolute -top-14 -right-10 size-60 rounded-full bg-[#d9f99d]/38 blur-3xl" />
+            <div className="absolute top-2 right-4 size-44 rounded-full bg-lime-200/28 blur-2xl" />
+            <div className="absolute inset-0 bg-linear-to-bl from-transparent via-transparent to-slate-500/45" />
+        </div>
+    );
+}
+
 function ProgramCard({ card }) {
     const Icon = card.icon;
-    const imageOnRight = card.imagePosition === 'right';
 
     return (
         <Link
             href={card.href}
             className="group relative block min-h-[260px] overflow-hidden rounded-2xl shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl sm:min-h-[300px]"
         >
-            <img
-                src={card.image}
-                alt={card.imageAlt}
-                className={`absolute inset-0 h-full w-full object-cover ${
-                    imageOnRight ? 'object-right' : 'object-left'
-                }`}
-                loading="lazy"
-            />
-            <div
-                className={`absolute inset-0 ${card.overlay}`}
-                aria-hidden
-            />
+            <CardBackground variant={card.id} />
 
-            <div
-                className={`relative z-10 flex min-h-[260px] sm:min-h-[300px] ${
-                    imageOnRight ? 'flex-row' : 'flex-row'
-                }`}
-            >
-                {!imageOnRight ? (
-                    <div
-                        className="hidden w-[38%] shrink-0 sm:block"
-                        aria-hidden
-                    />
-                ) : null}
-
+            <div className="relative z-10 flex min-h-[260px] sm:min-h-[300px]">
                 <div className="flex flex-1 flex-col justify-center px-6 py-7 sm:px-8 sm:py-8">
                     <span className="inline-flex size-10 items-center justify-center rounded-full border border-twhite/35 bg-twhite/10 text-twhite">
                         <Icon className="size-5" strokeWidth={1.75} aria-hidden />
@@ -136,13 +127,6 @@ function ProgramCard({ card }) {
                         <TransText en="Discover" fr="Découvrir" ar="اكتشف" />
                     </span>
                 </div>
-
-                {imageOnRight ? (
-                    <div
-                        className="hidden w-[38%] shrink-0 sm:block"
-                        aria-hidden
-                    />
-                ) : null}
             </div>
         </Link>
     );

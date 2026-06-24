@@ -12,7 +12,7 @@ import {
 const HERO_BACKGROUND = '/assets/homehero.jpg';
 const HERO_BG = '/assets/homehero.jpg';
 const TROPHY = '/assets/tilila/trophee-tilila.png';
-const FALLBACK_VIDEO = '/storage/tilila/media/teaser-2022.mp4';
+const FALLBACK_VIDEO = '/assets/Cérémonie Tilila 2025.mp4';
 
 function HeroCtaPrimary({ href, children }) {
     return (
@@ -39,9 +39,8 @@ function HeroCtaTurquoise({ href, children }) {
 }
 
 export default function HomeHero() {
-    const { bestOfVideoUrl } = usePage().props;
     const videoRef = useRef(null);
-    const videoSrc = bestOfVideoUrl || FALLBACK_VIDEO;
+    const videoSrc = FALLBACK_VIDEO;
 
     useEffect(() => {
         const el = videoRef.current;
