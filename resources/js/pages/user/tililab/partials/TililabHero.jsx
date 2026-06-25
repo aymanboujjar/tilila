@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import { ArrowRight, Download, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
+    HERO_UNDER_NAV,
     TililaContainer,
     TILILA_HERO_BTN,
     TILILA_HERO_CTA_ROW,
@@ -13,12 +14,12 @@ export default function TililabHero() {
     return (
         <section
             id="hero"
-            className="relative min-h-[480px] overflow-hidden sm:min-h-[520px] lg:min-h-[560px]"
+            className={`${HERO_UNDER_NAV} min-h-[480px] sm:min-h-[520px] lg:min-h-[560px]`}
         >
             <img
                 src={HERO_BG}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="home-hero-bg pointer-events-none absolute inset-0 h-full w-full object-cover object-center"
                 loading="eager"
             />
             <div
@@ -27,7 +28,7 @@ export default function TililabHero() {
             />
 
             <TililaContainer className="relative z-10 flex min-h-[480px] items-center py-14 sm:min-h-[520px] sm:py-16 lg:min-h-[560px]">
-                <div className="max-w-2xl" id="candidature">
+                <div className="home-hero-copy max-w-2xl" id="candidature">
                     <p className="text-lg font-extrabold tracking-tight text-white/90 sm:text-xl">
                         Tililab
                     </p>

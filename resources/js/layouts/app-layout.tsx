@@ -4,6 +4,7 @@ import HeroCarousel, {
     shouldShowHeroCarousel,
 } from '@/components/HeroCarousel';
 import TililaSiteHeader from '@/components/TililaSiteHeader';
+import { shouldUseTransparentHeader } from '@/lib/transparentHero';
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import type { BreadcrumbItem } from '@/types';
 
@@ -35,12 +36,12 @@ export default function AppLayout({
     if (!isBackOfficePage) {
         const slides = (page.props.hero_slides as unknown[]) ?? [];
         const showHero = shouldShowHeroCarousel(currentPath, slides);
-        const isHome = currentPath === '/';
+        const transparentHeader = shouldUseTransparentHeader(currentPath, slides);
 
         return (
             <div className="flex min-h-screen flex-col bg-twhite text-tblack">
                 <TililaSiteHeader />
-                <main className={`flex-1 ${isHome ? '' : 'pt-[72px]'}`}>
+                <main className={`flex-1 ${transparentHeader ? '' : 'pt-[72px]'}`}>
                     {showHero ? <HeroCarousel /> : null}
                     {children}
                 </main>

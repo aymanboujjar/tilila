@@ -1,5 +1,5 @@
 import { useTranslation } from '@/contexts/TranslationContext';
-import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
+import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
 const HERO_IMAGE = '/assets/tilila/hero-7eme-edition.png';
 
@@ -7,7 +7,9 @@ export default function ArchivesHero() {
     const { t } = useTranslation();
 
     return (
-        <section className="relative min-h-[300px] overflow-hidden sm:min-h-[360px] lg:min-h-[400px]">
+        <section
+            className={`${HERO_UNDER_NAV} min-h-[300px] sm:min-h-[360px] lg:min-h-[400px]`}
+        >
             <img
                 src={HERO_IMAGE}
                 alt=""

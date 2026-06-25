@@ -76,6 +76,10 @@ export const TILILA_HERO_CTA_ROW =
 export const TILILA_HERO_BTN =
     'shrink-0 whitespace-nowrap px-4 py-3 text-[10px] tracking-[0.08em] sm:px-5 sm:text-[11px] lg:px-6 lg:text-xs';
 
+/** Pull hero under fixed navbar; pair with layout main without pt-[72px] */
+export const HERO_UNDER_NAV =
+    'relative -mt-[72px] overflow-hidden pt-[72px] text-twhite';
+
 export function TililaBtnPrimary({ href, children, className = '' }) {
     return (
         <Link

@@ -1,11 +1,13 @@
 import TransText from '@/components/TransText';
-import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
+import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
 const HERO_IMAGE = '/assets/tilila/editions/edition-2025.png';
 
 export default function FaqHero() {
     return (
-        <section className="relative min-h-[320px] overflow-hidden sm:min-h-[380px] lg:min-h-[420px]">
+        <section
+            className={`${HERO_UNDER_NAV} min-h-[320px] sm:min-h-[380px] lg:min-h-[420px]`}
+        >
             <img
                 src={HERO_IMAGE}
                 alt=""

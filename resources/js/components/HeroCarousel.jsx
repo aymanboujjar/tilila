@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/react';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 import { cn } from '@/lib/utils';
+import { shouldUseTransparentHeader } from '@/lib/transparentHero';
 
 const AUTOPLAY_MS = 6500;
 
@@ -682,6 +683,12 @@ export default function HeroCarousel() {
             : 'http://localhost',
     ).pathname;
 
+    const underNav = shouldUseTransparentHeader(pathname, slides);
+    const sectionClass = cn(
+        'relative bg-background',
+        underNav && !isHomeHeroPath(pathname) && '-mt-[72px] pt-[72px]',
+    );
+
     const isHome = isHomeHeroPath(pathname);
 
     if (isHome) {
@@ -689,7 +696,7 @@ export default function HeroCarousel() {
         if (!homeSlides.length) return null;
 
         return (
-            <section className="relative bg-background" aria-label="Home hero">
+            <section className={sectionClass} aria-label="Home hero">
                 <HomeHeroCarousel slides={homeSlides} locale={locale} />
                 <style>{`
                     @keyframes hero-ken-burns {
@@ -709,7 +716,7 @@ export default function HeroCarousel() {
 
     if (displayType === 'carousel') {
         return (
-            <section className="relative bg-background" aria-label="Page hero">
+            <section className={sectionClass} aria-label="Page hero">
                 <PageHeroCarousel slides={pageSlides} locale={locale} />
                 <style>{`
                     @keyframes hero-ken-burns {
@@ -722,7 +729,7 @@ export default function HeroCarousel() {
     }
 
     return (
-        <section className="relative bg-background" aria-label="Page hero">
+        <section className={sectionClass} aria-label="Page hero">
             <div className="relative mx-auto w-full max-w-7xl py-8 sm:py-10">
                 <PageHeroBanner slide={pageSlides[0]} locale={locale} />
             </div>

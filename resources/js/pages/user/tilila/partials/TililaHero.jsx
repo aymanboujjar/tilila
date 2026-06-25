@@ -2,6 +2,7 @@ import { Link } from '@inertiajs/react';
 import { ArrowRight, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
+    HERO_UNDER_NAV,
     TILILA_HERO_BTN,
     TILILA_HERO_CTA_ROW,
     TililaContainer,
@@ -13,12 +14,12 @@ export default function TililaHero() {
     return (
         <section
             id="hero"
-            className="relative min-h-[420px] overflow-hidden sm:min-h-[480px] lg:min-h-[540px]"
+            className={`${HERO_UNDER_NAV} min-h-[420px] sm:min-h-[480px] lg:min-h-[540px]`}
         >
             <img
                 src={HERO_BG}
                 alt=""
-                className="absolute inset-0 h-full w-full object-cover object-bottom"
+                className="home-hero-bg pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom"
                 width={1920}
                 height={1080}
                 fetchPriority="high"

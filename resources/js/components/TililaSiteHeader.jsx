@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import TransText from '@/components/TransText';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { shouldUseTransparentHeader } from '@/lib/transparentHero';
 import { cn } from '@/lib/utils';
 
 const SCROLL_THRESHOLD = 12;
@@ -267,11 +268,16 @@ export default function TililaSiteHeader() {
     const [open, setOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const pageUrl = usePage().url || '/';
+    const page = usePage();
+    const pageUrl = page.url || '/';
     const currentPath = normalizePath(pageUrl.split('?')[0]);
     const currentHash = (pageUrl.split('#')[1] || '').replace(/^#/, '');
-    const isHome = currentPath === '/';
-    const onDark = isHome && !scrolled && !open;
+    const heroSlides = page.props.hero_slides ?? [];
+    const transparentHeader = shouldUseTransparentHeader(
+        currentPath,
+        heroSlides,
+    );
+    const onDark = transparentHeader && !scrolled && !open;
 
     useEffect(() => {
         const onScroll = () => {
