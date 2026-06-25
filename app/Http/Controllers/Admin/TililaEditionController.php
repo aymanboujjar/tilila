@@ -204,6 +204,8 @@ class TililaEditionController extends Controller
             'winners.*.photo_path' => ['nullable', 'string', 'max:500'],
             'winners.*.agency_photo_path' => ['nullable', 'string', 'max:500'],
             'winners.*.showcase_image_path' => ['nullable', 'string', 'max:500'],
+            'winners.*.video_url' => ['nullable', 'string', 'max:2048'],
+            'winners.*.video_path' => ['nullable', 'string', 'max:500'],
             'jury' => ['nullable', 'array'],
             'jury.*.full_name' => ['nullable', 'string', 'max:255'],
             'jury.*.bio' => ['nullable', 'array'],
@@ -242,6 +244,7 @@ class TililaEditionController extends Controller
                 'winners.*.photo' => ['nullable', 'file', 'image', 'max:10240'],
                 'winners.*.agency_photo' => ['nullable', 'file', 'image', 'max:10240'],
                 'winners.*.showcase_photo' => ['nullable', 'file', 'image', 'max:10240'],
+                'winners.*.video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime', 'max:102400'],
             ]);
         }
         if ($request->hasFile('jury')) {
@@ -335,6 +338,7 @@ class TililaEditionController extends Controller
         $keepPaths = [];
         $keepAgencyPaths = [];
         $keepShowcasePaths = [];
+        $keepVideoPaths = [];
         $rows = [];
 
         foreach (array_values($incoming) as $idx => $row) {
@@ -411,6 +415,25 @@ class TililaEditionController extends Controller
                 if (is_string($showcaseImagePath) && $showcaseImagePath !== '' && str_contains($showcaseImagePath, '/showcase/')) {
                     $keepShowcasePaths[] = $showcaseImagePath;
                 }
+
+                $videoUrl = trim((string) ($row['video_url'] ?? ''));
+                if ($videoUrl !== '' && YoutubeVideo::embedUrlFromInput($videoUrl) === null) {
+                    throw ValidationException::withMessages([
+                        "winners.$idx.video_url" => 'Enter a valid YouTube link (watch, live, shorts, youtu.be, or embed).',
+                    ]);
+                }
+
+                $videoPath = null;
+                $videoFile = $request->file("$key.$idx.video");
+                if ($videoFile instanceof UploadedFile && $videoFile->isValid()) {
+                    $videoPath = $videoFile->store("{$storageDir}/videos", 'public');
+                } elseif ($this->isAllowedEditionAssetPath($row['video_path'] ?? null)) {
+                    $videoPath = (string) $row['video_path'];
+                }
+
+                if (is_string($videoPath) && $videoPath !== '') {
+                    $keepVideoPaths[] = $videoPath;
+                }
             }
 
             $entry = [
@@ -425,6 +448,8 @@ class TililaEditionController extends Controller
                 $entry['agency'] = $agency;
                 $entry['agency_photo_path'] = $agencyPhotoPath;
                 $entry['showcase_image_path'] = $showcaseImagePath;
+                $entry['video_url'] = $videoUrl === '' ? null : $videoUrl;
+                $entry['video_path'] = $videoPath;
             }
 
             $rows[] = $entry;
@@ -457,6 +482,11 @@ class TililaEditionController extends Controller
                 && ! in_array($oldShowcasePath, $keepShowcasePaths, true)
             ) {
                 Storage::disk('public')->delete($oldShowcasePath);
+            }
+
+            $oldVideoPath = $oldRow['video_path'] ?? null;
+            if (is_string($oldVideoPath) && $oldVideoPath !== '' && ! in_array($oldVideoPath, $keepVideoPaths, true)) {
+                Storage::disk('public')->delete($oldVideoPath);
             }
         }
 

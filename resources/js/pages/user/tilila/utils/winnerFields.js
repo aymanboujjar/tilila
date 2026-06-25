@@ -127,3 +127,16 @@ export function resolveShowcaseImage(winner, edition, fallback = '') {
 
     return fallback;
 }
+
+/** Uploaded file or YouTube URL for a winner mini video. */
+export function resolveWinnerVideo(winner) {
+    const uploadSrc = winner?.video_path
+        ? storageAssetSrc(winner.video_path)
+        : null;
+    const youtubeUrl =
+        typeof winner?.video_url === 'string' && winner.video_url.trim() !== ''
+            ? winner.video_url.trim()
+            : null;
+
+    return { uploadSrc, youtubeUrl };
+}

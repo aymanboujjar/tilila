@@ -378,6 +378,50 @@ function PersonRow({
                                     value={person?.showcase_image_path ?? ''}
                                     readOnly
                                 />
+                                <div className="mt-5 border-t border-beta-blue/15 pt-4">
+                                    <div className="text-sm font-semibold text-foreground">
+                                        Laureates section video (Prix du
+                                        Jury)
+                                    </div>
+                                    <p className="mt-1 text-xs text-muted-foreground">
+                                        Mini video shown in the gallery frame
+                                        on the Tilila program page. YouTube
+                                        link or MP4/WebM upload.
+                                    </p>
+                                    <Input
+                                        className="mt-3"
+                                        type="url"
+                                        value={person?.video_url ?? ''}
+                                        onChange={(e) =>
+                                            updateRow(idx, {
+                                                video_url: e.target.value,
+                                            })
+                                        }
+                                        placeholder="https://www.youtube.com/watch?v=…"
+                                    />
+                                    <input
+                                        type="file"
+                                        accept="video/mp4,video/webm,video/quicktime"
+                                        className="mt-3 block w-full text-sm"
+                                        onChange={(e) =>
+                                            updateRow(idx, {
+                                                video:
+                                                    e.target.files?.[0] ??
+                                                    null,
+                                            })
+                                        }
+                                    />
+                                    {person?.video_path ? (
+                                        <p className="mt-2 truncate text-xs text-muted-foreground">
+                                            Saved file: {person.video_path}
+                                        </p>
+                                    ) : null}
+                                    <input
+                                        type="hidden"
+                                        value={person?.video_path ?? ''}
+                                        readOnly
+                                    />
+                                </div>
                             </div>
                         ) : null}
                     </>
@@ -421,6 +465,9 @@ function PeopleSection({
             row.agency_photo_path = null;
             row.showcase_image_path = null;
             row.showcase_photo = null;
+            row.video_url = '';
+            row.video_path = null;
+            row.video = null;
         }
         setData(peopleKey, [...rows, row]);
     };

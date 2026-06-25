@@ -9,16 +9,19 @@ import {
     findJuryPrizeWinner,
     resolveShowcaseImage,
     resolveWinnerDisplay,
+    resolveWinnerVideo,
     storageAssetSrc,
 } from '@/pages/user/tilila/utils/winnerFields';
 
 const FALLBACK_IMAGE = '/assets/tilila/editions/edition-2025.png';
-const BORDER_IMAGE_COUNT = 12;
+const BORDER_IMAGE_COUNT = 10;
 
 const FALLBACK_LAUREATE = {
     brand: 'Ain Atlas',
     brandPhoto: FALLBACK_IMAGE,
     showcaseSrc: FALLBACK_IMAGE,
+    videoUploadSrc: null,
+    videoYoutubeUrl: null,
     campaign: {
         fr: 'Campagne primée',
         en: 'Award-winning campaign',
@@ -75,12 +78,15 @@ function buildJuryPrizeLaureate(edition) {
     }
 
     const { campaign, agency, agencyPhoto } = resolveWinnerDisplay(winner);
+    const { uploadSrc, youtubeUrl } = resolveWinnerVideo(winner);
     const fallback = cover || FALLBACK_IMAGE;
 
     return {
         brand: winner.full_name || FALLBACK_LAUREATE.brand,
         brandPhoto: storageAssetSrc(winner.photo_path) || null,
         showcaseSrc: resolveShowcaseImage(winner, edition, fallback),
+        videoUploadSrc: uploadSrc,
+        videoYoutubeUrl: youtubeUrl,
         campaign,
         agency,
         agencyPhoto,
@@ -135,77 +141,114 @@ const FrameThumb = memo(function FrameThumb({ src }) {
     );
 });
 
-const EditionMediaFrame = memo(function EditionMediaFrame({
-    images,
-    videoUrl,
-    year,
+const WinnerMiniVideo = memo(function WinnerMiniVideo({
+    uploadSrc,
+    youtubeUrl,
+    brand,
 }) {
-    const ceremonyVideo = useYoutubeAvailability(videoUrl);
-    const embedUrl = ceremonyVideo.available ? ceremonyVideo.embedUrl : null;
+    const youtube = useYoutubeAvailability(youtubeUrl);
+    const embedUrl = youtube.available ? youtube.embedUrl : null;
+
+    if (uploadSrc) {
+        return (
+            <video
+                className="h-full w-full object-contain"
+                controls
+                autoPlay
+                muted
+                playsInline
+                preload="metadata"
+                title={brand ? `${brand} — campaign video` : 'Winner video'}
+            >
+                <source src={uploadSrc} />
+            </video>
+        );
+    }
+
+    if (embedUrl) {
+        return (
+            <iframe
+                title={brand ? `${brand} — campaign video` : 'Winner video'}
+                src={embedUrl}
+                className="h-full w-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+            />
+        );
+    }
+
+    if (youtubeUrl) {
+        return (
+            <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-full items-center justify-center bg-beta-blue/10 px-3 text-center text-[10px] font-bold tracking-wide text-beta-blue uppercase hover:bg-beta-blue/15 sm:text-xs"
+            >
+                <TransText
+                    en="Watch video"
+                    fr="Voir la vidéo"
+                    ar="شاهد الفيديو"
+                />
+            </a>
+        );
+    }
 
     return (
+        <div className="flex h-full items-center justify-center px-3 text-center text-[10px] text-tgray sm:text-xs">
+            <TransText
+                en="Winner video coming soon"
+                fr="Vidéo du lauréat bientôt disponible"
+                ar="فيديو الفائز قريباً"
+            />
+        </div>
+    );
+});
+
+const EditionMediaFrame = memo(function EditionMediaFrame({
+    images,
+    uploadSrc,
+    youtubeUrl,
+    brand,
+}) {
+    return (
         <div className="overflow-hidden rounded-2xl bg-beta-blue/5 p-2 ring-1 ring-border/50 sm:p-2.5">
-            <div className="grid grid-cols-4 grid-rows-4 gap-1.5 sm:gap-2">
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
                 <FrameThumb src={images[0]} />
                 <FrameThumb src={images[1]} />
                 <FrameThumb src={images[2]} />
                 <FrameThumb src={images[3]} />
 
-                <div className="col-start-1 row-start-2">
+                <div className="col-start-1 row-start-2 self-center">
                     <FrameThumb src={images[4]} />
                 </div>
-                <div className="col-start-1 row-start-3">
+                <div className="col-start-1 row-start-3 self-center">
                     <FrameThumb src={images[5]} />
                 </div>
 
-                <div className="col-start-4 row-start-2">
-                    <FrameThumb src={images[6]} />
-                </div>
-                <div className="col-start-4 row-start-3">
-                    <FrameThumb src={images[7]} />
-                </div>
-
-                <div className="col-span-2 col-start-2 row-span-2 row-start-2 aspect-video overflow-hidden rounded-lg bg-tblack shadow-sm ring-1 ring-border/40">
-                    {embedUrl ? (
-                        <iframe
-                            title={
-                                year
-                                    ? `Tilila Awards ceremony ${year}`
-                                    : 'Tilila Awards ceremony'
-                            }
-                            src={embedUrl}
-                            className="h-full w-full border-0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowFullScreen
-                        />
-                    ) : videoUrl ? (
-                        <a
-                            href={videoUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex h-full items-center justify-center bg-beta-blue/10 px-3 text-center text-[10px] font-bold tracking-wide text-beta-blue uppercase hover:bg-beta-blue/15 sm:text-xs"
-                        >
-                            <TransText
-                                en="Watch ceremony"
-                                fr="Voir la cérémonie"
-                                ar="شاهد الحفل"
-                            />
-                        </a>
-                    ) : (
-                        <div className="flex h-full items-center justify-center px-3 text-center text-[10px] text-tgray sm:text-xs">
-                            <TransText
-                                en="Video coming soon"
-                                fr="Vidéo bientôt disponible"
-                                ar="الفيديو قريباً"
+                <div className="col-span-2 col-start-2 row-span-1 row-start-2 overflow-hidden rounded-lg bg-tblack shadow-sm ring-1 ring-border/40">
+                    <div className="aspect-video h-full w-full">
+                        <div className="h-full w-full">
+                            <WinnerMiniVideo
+                                uploadSrc={uploadSrc}
+                                youtubeUrl={youtubeUrl}
+                                brand={brand}
                             />
                         </div>
-                    )}
+                    </div>
+                </div>
+
+                <div className="col-start-4 row-start-2 self-center">
+                    <FrameThumb src={images[6]} />
+                </div>
+                <div className="col-start-4 row-start-3 self-center">
+                    <FrameThumb src={images[7]} />
                 </div>
 
                 <FrameThumb src={images[8]} />
                 <FrameThumb src={images[9]} />
-                <FrameThumb src={images[10]} />
-                <FrameThumb src={images[11]} />
+                {/* <FrameThumb src={images[0]} /> */}
+                {/* <FrameThumb src={images[1]} /> */}
             </div>
         </div>
     );
@@ -221,22 +264,24 @@ const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
     );
 
     return (
-        <article className="overflow-hidden rounded-2xl bg-twhite ring-1 ring-border/60">
-            <div className="aspect-[16/10] bg-muted/40 sm:aspect-[5/3]">
-                <img
-                    src={laureate.showcaseSrc}
-                    alt=""
-                    className={
-                        logoShowcase
-                            ? 'h-full w-full object-contain p-6 sm:p-8'
-                            : 'h-full w-full object-cover'
-                    }
-                    loading="lazy"
-                    decoding="async"
-                />
+        <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-twhite ring-1 ring-border/60 sm:items-stretch">
+            <div className="w-full shrink-0">
+                <div className="relative  overflow-hidden bg-muted/40 sm:aspect-auto sm:h-full sm:min-h-[260px]">
+                    <img
+                        src={laureate.showcaseSrc}
+                        alt=""
+                        className={
+                            logoShowcase
+                                ? 'absolute inset-0 h-full w-full object-contain p-6 sm:p-8'
+                                : 'absolute inset-0 h-full w-full object-cover'
+                        }
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
             </div>
 
-            <div className="space-y-5 p-5 sm:p-6">
+            <div className="flex flex-1 flex-col justify-center space-y-4 p-5 sm:space-y-5 sm:p-6 lg:p-8">
                 <p className="text-[11px] font-bold tracking-[0.16em] text-beta-blue uppercase sm:text-xs">
                     <TransText
                         en={laureate.trophy?.en || 'Jury Prize'}
@@ -344,7 +389,6 @@ export default function TililaLaureatesSection() {
         [edition],
     );
 
-    const videoUrl = edition?.ceremony_video_url ?? null;
     const awardsUrl = edition?.id
         ? `/tilila/editions/${edition.id}`
         : '/tilila/archives';
@@ -367,14 +411,15 @@ export default function TililaLaureatesSection() {
                     />
                 </div>
 
-                <div className="mt-10 grid items-start gap-8 lg:mt-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-10 xl:grid-cols-[minmax(0,1.25fr)_minmax(0,0.75fr)]">
+                <div className="mt-10 grid items-stretch gap-8 lg:mt-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-10">
                     <JuryPrizeLaureate laureate={laureate} year={year} />
 
-                    <div className="flex w-full flex-col lg:max-w-[380px] lg:justify-self-end xl:max-w-[400px]">
+                    <div className="flex w-full flex-col lg:max-w-none lg:justify-self-stretch">
                         <EditionMediaFrame
                             images={borderImages}
-                            videoUrl={videoUrl}
-                            year={year}
+                            uploadSrc={laureate.videoUploadSrc}
+                            youtubeUrl={laureate.videoYoutubeUrl}
+                            brand={laureate.brand}
                         />
 
                         <div className="mt-5 text-center lg:mt-6">

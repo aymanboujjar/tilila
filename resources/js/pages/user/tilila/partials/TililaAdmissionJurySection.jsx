@@ -43,18 +43,21 @@ function ColumnIcon({ children, className = '' }) {
     );
 }
 
+function JuryComingSoon() {
+    return (
+        <p className="mt-8 text-sm font-medium text-beta-blue/90">
+            <TransText
+                en="The jury will be listed soon."
+                fr="Le jury sera bientôt affiché."
+                ar="سيتم عرض أعضاء لجنة التحكيم قريباً."
+            />
+        </p>
+    );
+}
+
 function JuryPreview({ members }) {
     if (members.length === 0) {
-        return (
-            <div className="mt-8 flex flex-wrap gap-3">
-                {Array.from({ length: 4 }).map((_, i) => (
-                    <div
-                        key={i}
-                        className="size-14 rounded-full bg-muted sm:size-16"
-                    />
-                ))}
-            </div>
-        );
+        return null;
     }
 
     return (
@@ -65,7 +68,7 @@ function JuryPreview({ members }) {
                 return (
                     <div
                         key={`${member?.full_name ?? 'member'}-${i}`}
-                        className="size-14 overflow-hidden rounded-full border-2 border-beta-blue/15 sm:size-16"
+                        className="size-14 overflow-hidden rounded-full border-2 border-beta-blue/15 bg-muted/40 sm:size-16"
                     >
                         {photo ? (
                             <img
@@ -75,9 +78,7 @@ function JuryPreview({ members }) {
                                 loading="lazy"
                                 decoding="async"
                             />
-                        ) : (
-                            <div className="h-full w-full bg-muted" />
-                        )}
+                        ) : null}
                     </div>
                 );
             })}
@@ -85,8 +86,13 @@ function JuryPreview({ members }) {
     );
 }
 
-export default function TililaAdmissionJurySection({ jury = [] }) {
+export default function TililaAdmissionJurySection({
+    jury = [],
+    hasCurrentEdition = false,
+}) {
     const members = Array.isArray(jury) ? jury : [];
+    const showJury = hasCurrentEdition && members.length > 0;
+    const showJuryComingSoon = hasCurrentEdition && members.length === 0;
     const [modalOpen, setModalOpen] = useState(false);
 
     return (
@@ -182,18 +188,22 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
 
                         <JuryPreview members={members} />
 
-                        <button
-                            type="button"
-                            onClick={() => setModalOpen(true)}
-                            className="mt-8 inline-flex items-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue"
-                        >
-                            <TransText
-                                en="Discover the jury"
-                                fr="Découvrir le jury"
-                                ar="اكتشف لجنة التحكيم"
-                            />
-                            <ArrowRight className="size-4" aria-hidden />
-                        </button>
+                        {showJuryComingSoon ? <JuryComingSoon /> : null}
+
+                        {showJury ? (
+                            <button
+                                type="button"
+                                onClick={() => setModalOpen(true)}
+                                className="mt-8 inline-flex items-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue"
+                            >
+                                <TransText
+                                    en="Discover the jury"
+                                    fr="Découvrir le jury"
+                                    ar="اكتشف لجنة التحكيم"
+                                />
+                                <ArrowRight className="size-4" aria-hidden />
+                            </button>
+                        ) : null}
                     </article>
 
                     <article>
