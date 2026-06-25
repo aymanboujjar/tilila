@@ -1,9 +1,8 @@
 import { Link } from '@inertiajs/react';
-import { motion } from 'framer-motion';
 import { ArrowUpRight, Clapperboard, Sparkles, Trophy } from 'lucide-react';
+import { memo } from 'react';
 import {
     CountUpStat,
-    HOME_EASE,
     RevealOnScroll,
     StaggerItem,
     StaggerReveal,
@@ -29,7 +28,6 @@ const PROGRAMS = {
         gridClass: 'sm:grid-cols-2 xl:grid-cols-3',
         headerClass:
             'bg-linear-to-br from-[#6b4a9a] via-[#4419a8] to-[#2a0f6e]',
-        glowClass: 'bg-brand-light-purple/25',
         accentText: 'text-beta-blue',
         valueClass: 'text-beta-blue',
         iconWrap:
@@ -46,7 +44,6 @@ const PROGRAMS = {
         gridClass: 'sm:grid-cols-2',
         headerClass:
             'bg-linear-to-br from-[#0d9488] via-[#00a4c1] to-[#0891b2]',
-        glowClass: 'bg-beta-turquoise/30',
         accentText: 'text-beta-turquoise',
         valueClass: 'text-[#007a94]',
         iconWrap:
@@ -56,7 +53,7 @@ const PROGRAMS = {
     },
 };
 
-function StatLabel({ item }) {
+const StatLabel = memo(function StatLabel({ item }) {
     const { locale } = useTranslation();
     const prefixKey = `labelPrefix${locale === 'ar' ? 'Ar' : locale === 'fr' ? 'Fr' : 'En'}`;
     const prefix = item[prefixKey] ?? '';
@@ -64,39 +61,31 @@ function StatLabel({ item }) {
     return (
         <>
             {prefix}
-            <TransText
-                en={item.labelEn}
-                fr={item.labelFr}
-                ar={item.labelAr}
-            />
+            <TransText en={item.labelEn} fr={item.labelFr} ar={item.labelAr} />
         </>
     );
-}
+});
 
-function StatCard({ item, theme, index }) {
+const StatCard = memo(function StatCard({ item, theme }) {
     const Icon = item.icon;
     const isCompact = item.valueSize === 'sm';
 
     return (
         <StaggerItem>
-            <motion.article
+            <article
                 className={cn(
-                    'group relative flex flex-col items-center rounded-2xl border border-twhite/80 bg-twhite/95 px-3 py-5 text-center shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg',
+                    'group relative flex flex-col items-center rounded-2xl border border-twhite/80 bg-twhite/95 px-3 py-5 text-center shadow-sm ring-1 ring-black/5 transition duration-200 hover:-translate-y-0.5 hover:shadow-md',
                     theme.cardHover,
                 )}
-                whileHover={{ y: -4, scale: 1.02 }}
-                transition={{ duration: 0.25, ease: HOME_EASE }}
             >
-                <motion.span
+                <span
                     className={cn(
                         'inline-flex size-11 items-center justify-center rounded-2xl border shadow-sm',
                         theme.iconWrap,
                     )}
-                    whileHover={{ rotate: [0, -8, 8, 0], scale: 1.08 }}
-                    transition={{ duration: 0.45 }}
                 >
                     <Icon className="size-5 stroke-[1.75]" aria-hidden />
-                </motion.span>
+                </span>
 
                 <p
                     className={cn(
@@ -107,28 +96,16 @@ function StatCard({ item, theme, index }) {
                             : 'text-2xl sm:text-[1.65rem]',
                     )}
                 >
-                    {isCompact ? (
-                        item.value
-                    ) : (
-                        <CountUpStat value={item.value} />
-                    )}
+                    {isCompact ? item.value : <CountUpStat value={item.value} />}
                 </p>
 
                 <p className="mt-1.5 max-w-[11rem] text-[11px] leading-snug font-medium text-tgray sm:text-xs">
                     <StatLabel item={item} />
                 </p>
-
-                <div
-                    className={cn(
-                        'pointer-events-none absolute inset-x-4 bottom-0 h-px bg-linear-to-r from-transparent via-current to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-20',
-                        theme.accentText,
-                    )}
-                    aria-hidden
-                />
-            </motion.article>
+            </article>
         </StaggerItem>
     );
-}
+});
 
 function ProgramStatsPanel({ programKey }) {
     const theme = PROGRAMS[programKey];
@@ -141,21 +118,6 @@ function ProgramStatsPanel({ programKey }) {
                 theme.ringClass,
             )}
         >
-            <div
-                className={cn(
-                    'pointer-events-none absolute -top-10 -right-10 size-40 rounded-full blur-3xl',
-                    theme.glowClass,
-                )}
-                aria-hidden
-            />
-            <div
-                className={cn(
-                    'pointer-events-none absolute -bottom-16 -left-12 size-48 rounded-full blur-3xl opacity-60',
-                    theme.glowClass,
-                )}
-                aria-hidden
-            />
-
             <div
                 className={cn(
                     'relative flex items-start justify-between gap-4 px-5 py-5 sm:px-6 sm:py-6',
@@ -207,7 +169,7 @@ function ProgramStatsPanel({ programKey }) {
                         'grid grid-cols-2 gap-3 sm:gap-4',
                         theme.gridClass,
                     )}
-                    stagger={0.08}
+                    stagger={0.06}
                 >
                     {theme.stats.map((item) => (
                         <StatCard
@@ -225,16 +187,10 @@ function ProgramStatsPanel({ programKey }) {
 function SectionHeading() {
     return (
         <RevealOnScroll className="mx-auto max-w-2xl text-center">
-            <motion.span
-                className="inline-flex items-center gap-1.5 rounded-full border border-beta-blue/15 bg-alpha-blue/60 px-3 py-1 text-[10px] font-bold tracking-[0.14em] text-beta-blue uppercase"
-                initial={{ scale: 0.9, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, ease: HOME_EASE }}
-            >
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-beta-blue/15 bg-alpha-blue/60 px-3 py-1 text-[10px] font-bold tracking-[0.14em] text-beta-blue uppercase">
                 <Sparkles className="size-3.5" aria-hidden />
                 <TransText en="Impact" fr="Impact" ar="الأثر" />
-            </motion.span>
+            </span>
 
             <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-tblack sm:text-3xl">
                 <TransText
@@ -247,17 +203,13 @@ function SectionHeading() {
             <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
                 <TransText
                     en="Two programmes, one mission — measurable momentum for equality, diversity and creative talent in Morocco."
-                    fr="Deux programmes, une mission — un impact concret pour l’égalité, la diversité et les talents créatifs au Maroc."
+                    fr="Deux programmes, une mission — un impact concret pour l'égalité, la diversité et les talents créatifs au Maroc."
                     ar="برنامجان، مهمة واحدة — زخم ملموس للمساواة والتنوع والمواهب الإبداعية في المغرب."
                 />
             </p>
 
-            <motion.div
+            <div
                 className="mx-auto mt-5 h-1 w-20 rounded-full bg-linear-to-r from-beta-blue via-brand-light-purple to-beta-turquoise"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.15, ease: HOME_EASE }}
                 aria-hidden
             />
         </RevealOnScroll>
@@ -268,18 +220,9 @@ export default function HomeKeyFigures() {
     return (
         <TililaSection
             id="stats"
-            className="relative overflow-hidden border-t border-border/40 bg-linear-to-b from-[#f8f7fc] via-twhite to-[#f0fafb]"
+            className="border-t border-border/40 bg-linear-to-b from-[#f8f7fc] via-twhite to-[#f0fafb]"
         >
-            <div
-                className="pointer-events-none absolute top-0 left-1/4 size-72 rounded-full bg-brand-light-purple/10 blur-3xl"
-                aria-hidden
-            />
-            <div
-                className="pointer-events-none absolute right-1/4 bottom-0 size-80 rounded-full bg-beta-turquoise/10 blur-3xl"
-                aria-hidden
-            />
-
-            <TililaContainer className="relative">
+            <TililaContainer>
                 <SectionHeading />
 
                 <div className="relative mt-10 lg:mt-14">
@@ -296,10 +239,10 @@ export default function HomeKeyFigures() {
                     />
 
                     <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
-                        <RevealOnScroll x={-48} delay={0.05}>
+                        <RevealOnScroll x={-24} delay={0.05}>
                             <ProgramStatsPanel programKey="tilila" />
                         </RevealOnScroll>
-                        <RevealOnScroll x={48} delay={0.12}>
+                        <RevealOnScroll x={24} delay={0.1}>
                             <ProgramStatsPanel programKey="tililab" />
                         </RevealOnScroll>
                     </div>

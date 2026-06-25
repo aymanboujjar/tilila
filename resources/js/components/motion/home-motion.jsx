@@ -1,31 +1,45 @@
-import { motion, useInView, useMotionValue, useReducedMotion, useSpring, useTransform } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import {
+    motion,
+    useInView,
+    useReducedMotion,
+} from 'framer-motion';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 
 export const HOME_EASE = [0.22, 1, 0.36, 1];
+
+const VIEWPORT = { once: true, margin: '-48px', amount: 0.15 };
 
 export function RevealOnScroll({
     children,
     className,
     delay = 0,
-    y = 40,
+    y = 24,
     x = 0,
     scale = 1,
-    duration = 0.65,
+    duration = 0.5,
     once = true,
     as: Component = motion.div,
 }) {
     const reduced = useReducedMotion();
 
+    if (reduced) {
+        return <div className={className}>{children}</div>;
+    }
+
     return (
         <Component
             className={className}
-            initial={
-                reduced ? false : { opacity: 0, y, x, scale: scale === 1 ? undefined : scale * 0.96 }
-            }
-            whileInView={reduced ? undefined : { opacity: 1, y: 0, x: 0, scale: 1 }}
-            viewport={{ once, margin: '-72px' }}
+            initial={{
+                opacity: 0,
+                y,
+                x,
+                scale: scale === 1 ? 1 : scale * 0.98,
+            }}
+            whileInView={{ opacity: 1, y: 0, x: 0, scale: 1 }}
+            viewport={once ? VIEWPORT : { ...VIEWPORT, once: false }}
             transition={{ duration, delay, ease: HOME_EASE }}
+            style={{ willChange: 'opacity, transform' }}
         >
             {children}
         </Component>
@@ -35,34 +49,34 @@ export function RevealOnScroll({
 export function StaggerReveal({
     children,
     className,
-    stagger = 0.1,
-    delayChildren = 0.05,
+    stagger = 0.08,
+    delayChildren = 0.04,
 }) {
     const reduced = useReducedMotion();
+
+    if (reduced) {
+        return <div className={className}>{children}</div>;
+    }
 
     return (
         <motion.div
             className={className}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, margin: '-64px' }}
-            variants={
-                reduced
-                    ? undefined
-                    : {
-                          hidden: {},
-                          visible: {
-                              transition: { staggerChildren: stagger, delayChildren },
-                          },
-                      }
-            }
+            viewport={VIEWPORT}
+            variants={{
+                hidden: {},
+                visible: {
+                    transition: { staggerChildren: stagger, delayChildren },
+                },
+            }}
         >
             {children}
         </motion.div>
     );
 }
 
-export function StaggerItem({ children, className, y = 36 }) {
+export function StaggerItem({ children, className, y = 20 }) {
     const reduced = useReducedMotion();
 
     if (reduced) {
@@ -77,83 +91,40 @@ export function StaggerItem({ children, className, y = 36 }) {
                 visible: {
                     opacity: 1,
                     y: 0,
-                    transition: { duration: 0.55, ease: HOME_EASE },
+                    transition: { duration: 0.45, ease: HOME_EASE },
                 },
             }}
+            style={{ willChange: 'opacity, transform' }}
         >
             {children}
         </motion.div>
     );
 }
 
-export function TypewriterText({
+export function FadeInText({
     en,
     fr,
     ar,
     className,
     delay = 0,
-    speed = 32,
-    onComplete,
-    active = true,
-    done = false,
 }) {
     const { locale } = useTranslation();
     const reduced = useReducedMotion();
     const text = locale === 'ar' ? ar : locale === 'fr' ? fr : en;
-    const [displayed, setDisplayed] = useState(done || reduced ? text : '');
 
-    useEffect(() => {
-        if (done || reduced) {
-            setDisplayed(text);
-            return undefined;
-        }
-
-        if (!active) {
-            setDisplayed('');
-            return undefined;
-        }
-
-        setDisplayed('');
-        let index = 0;
-        let intervalId;
-
-        const timeoutId = window.setTimeout(() => {
-            intervalId = window.setInterval(() => {
-                index += 1;
-                setDisplayed(text.slice(0, index));
-
-                if (index >= text.length) {
-                    window.clearInterval(intervalId);
-                    onComplete?.();
-                }
-            }, speed);
-        }, delay);
-
-        return () => {
-            window.clearTimeout(timeoutId);
-            if (intervalId) {
-                window.clearInterval(intervalId);
-            }
-        };
-    }, [active, done, reduced, text, delay, speed, onComplete]);
-
-    const showCursor =
-        !reduced && active && !done && displayed.length < text.length;
+    if (reduced) {
+        return <span className={className}>{text}</span>;
+    }
 
     return (
-        <span className={className}>
-            {displayed}
-            {showCursor ? (
-                <motion.span
-                    className="ms-0.5 inline-block text-beta-turquoise"
-                    animate={{ opacity: [1, 0.2, 1] }}
-                    transition={{ duration: 0.75, repeat: Infinity }}
-                    aria-hidden
-                >
-                    |
-                </motion.span>
-            ) : null}
-        </span>
+        <motion.span
+            className={className}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay, ease: HOME_EASE }}
+        >
+            {text}
+        </motion.span>
     );
 }
 
@@ -177,42 +148,50 @@ function parseNumericStat(value) {
 
 export function CountUpStat({ value, className }) {
     const ref = useRef(null);
-    const inView = useInView(ref, { once: true, margin: '-40px' });
+    const inView = useInView(ref, { once: true, margin: '-32px' });
     const reduced = useReducedMotion();
-    const parsed = parseNumericStat(value);
-
-    const motionValue = useMotionValue(0);
-    const spring = useSpring(motionValue, { stiffness: 55, damping: 20, mass: 0.8 });
-    const output = useTransform(spring, (current) => {
-        if (!parsed) {
-            return value;
-        }
-
-        return `${parsed.prefix}${Math.round(current)}${parsed.suffix}`;
-    });
+    const parsed = useMemo(() => parseNumericStat(value), [value]);
+    const [display, setDisplay] = useState(value);
 
     useEffect(() => {
         if (!parsed) {
-            return;
+            setDisplay(value);
+            return undefined;
         }
 
-        if (inView || reduced) {
-            motionValue.set(parsed.number);
+        if (reduced) {
+            setDisplay(value);
+            return undefined;
         }
-    }, [inView, reduced, parsed, motionValue]);
 
-    if (!parsed || reduced) {
-        return (
-            <span ref={ref} className={className}>
-                {value}
-            </span>
-        );
-    }
+        if (!inView) {
+            return undefined;
+        }
+
+        const duration = 700;
+        const start = performance.now();
+        let frameId = 0;
+        const target = parsed.number;
+
+        const tick = (now) => {
+            const progress = Math.min(1, (now - start) / duration);
+            const current = Math.round(target * progress);
+            setDisplay(`${parsed.prefix}${current}${parsed.suffix}`);
+
+            if (progress < 1) {
+                frameId = requestAnimationFrame(tick);
+            }
+        };
+
+        frameId = requestAnimationFrame(tick);
+
+        return () => cancelAnimationFrame(frameId);
+    }, [inView, reduced, parsed, value]);
 
     return (
-        <motion.span ref={ref} className={className}>
-            {output}
-        </motion.span>
+        <span ref={ref} className={className}>
+            {display}
+        </span>
     );
 }
 
@@ -224,24 +203,24 @@ export function SlideIn({
 }) {
     const reduced = useReducedMotion();
     const offset =
-        direction === 'right' ? 56 : direction === 'left' ? -56 : direction === 'up' ? 40 : -40;
+        direction === 'right' ? 32 : direction === 'left' ? -32 : direction === 'up' ? 24 : -24;
+
+    if (reduced) {
+        return <div className={className}>{children}</div>;
+    }
 
     const initial =
         direction === 'up' || direction === 'down'
             ? { opacity: 0, y: offset }
             : { opacity: 0, x: offset };
 
-    const animate =
-        direction === 'up' || direction === 'down'
-            ? { opacity: 1, y: 0 }
-            : { opacity: 1, x: 0 };
-
     return (
         <motion.div
             className={className}
-            initial={reduced ? false : initial}
-            animate={reduced ? undefined : animate}
-            transition={{ duration: 0.8, delay, ease: HOME_EASE }}
+            initial={initial}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 0.55, delay, ease: HOME_EASE }}
+            style={{ willChange: 'opacity, transform' }}
         >
             {children}
         </motion.div>

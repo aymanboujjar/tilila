@@ -1,6 +1,6 @@
 import { Link, usePage } from '@inertiajs/react';
 import { ArrowRight, Play, Quote } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import TransText from '@/components/TransText';
 import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
 import { coverImageSrc } from '@/pages/user/tilila/utils/editions';
@@ -104,7 +104,7 @@ function buildSlides(editions, teaserVideoUrl) {
     return slides.length > 0 ? slides.slice(0, 8) : FALLBACK_SLIDES;
 }
 
-function MetaLine({ label, children }) {
+const MetaLine = memo(function MetaLine({ label, children }) {
     return (
         <p className="text-sm leading-relaxed text-tblack">
             <span className="font-extrabold text-beta-blue">
@@ -114,9 +114,9 @@ function MetaLine({ label, children }) {
             <span>{children}</span>
         </p>
     );
-}
+});
 
-function FeaturedLaureate({ slide }) {
+const FeaturedLaureate = memo(function FeaturedLaureate({ slide }) {
     return (
         <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
             <div className="w-full shrink-0 sm:w-[44%] lg:w-[46%]">
@@ -126,6 +126,9 @@ function FeaturedLaureate({ slide }) {
                         alt=""
                         className="h-full w-full object-cover"
                         loading="lazy"
+                        decoding="async"
+                        width={640}
+                        height={480}
                     />
                 </div>
             </div>
@@ -192,9 +195,9 @@ function FeaturedLaureate({ slide }) {
             </div>
         </div>
     );
-}
+});
 
-function MediaCard({ item, videoHref }) {
+const MediaCard = memo(function MediaCard({ item, videoHref }) {
     const href = item.play ? videoHref || '/tilila/archives' : item.href;
 
     return (
@@ -203,8 +206,11 @@ function MediaCard({ item, videoHref }) {
                 <img
                     src={item.src}
                     alt=""
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
+                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
                     loading="lazy"
+                    decoding="async"
+                    width={400}
+                    height={300}
                 />
                 {item.play ? (
                     <span className="absolute inset-0 flex items-center justify-center bg-tblack/25">
@@ -226,7 +232,7 @@ function MediaCard({ item, videoHref }) {
             </p>
         </Link>
     );
-}
+});
 
 export default function TililaLaureatesSection() {
     const { editions = [], teaserVideoUrl } = usePage().props;
@@ -267,16 +273,16 @@ export default function TililaLaureatesSection() {
                         <FeaturedLaureate slide={activeSlide} />
 
                         {slides.length > 1 ? (
-                            <div className="mt-5 flex justify-center gap-2 sm:justify-start sm:ps-[2%]">
+                            <div className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start sm:ps-[2%]">
                                 {slides.map((slide, index) => (
                                     <button
                                         key={slide.id}
                                         type="button"
                                         onClick={() => setActiveIndex(index)}
-                                        className={`size-2.5 rounded-full transition ${
+                                        className={`rounded-full px-3 py-1 text-[10px] font-bold tracking-wide uppercase transition ${
                                             index === activeIndex
-                                                ? 'bg-beta-blue'
-                                                : 'bg-border hover:bg-beta-blue/40'
+                                                ? 'bg-beta-blue text-twhite'
+                                                : 'border border-beta-blue/20 bg-twhite text-beta-blue hover:border-beta-blue/40'
                                         }`}
                                         aria-label={`Laureate ${index + 1}`}
                                         aria-current={
@@ -284,7 +290,9 @@ export default function TililaLaureatesSection() {
                                                 ? 'true'
                                                 : undefined
                                         }
-                                    />
+                                    >
+                                        {slide.brand || `#${index + 1}`}
+                                    </button>
                                 ))}
                             </div>
                         ) : null}

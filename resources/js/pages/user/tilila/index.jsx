@@ -1,15 +1,28 @@
 import { Head, usePage } from '@inertiajs/react';
-import AppLayout from '@/layouts/app-layout';
-import TililaAdmissionJurySection from '@/pages/user/tilila/partials/TililaAdmissionJurySection';
-import TililaCategoriesSection from '@/pages/user/tilila/partials/TililaCategoriesSection';
-import TililaFinalCtaSection from '@/pages/user/tilila/partials/TililaFinalCtaSection';
+import { lazy, Suspense } from 'react';
 import TililaHero from '@/pages/user/tilila/partials/TililaHero';
-import TililaLaureatesSection from '@/pages/user/tilila/partials/TililaLaureatesSection';
-import TililaPartnersSection from '@/pages/user/tilila/partials/TililaPartnersSection';
-import TililaPrizesSection from '@/pages/user/tilila/partials/TililaPrizesSection';
-import { TililaFaqSection } from '@/pages/user/tilila/partials/ProgramSections';
-import TililaStatsBenefitsSection from '@/pages/user/tilila/partials/TililaStatsBenefitsSection';
+import AppLayout from '@/layouts/app-layout';
 import { useTranslation } from '@/contexts/TranslationContext';
+
+const TililaStatsBenefitsSection = lazy(
+    () => import('@/pages/user/tilila/partials/TililaStatsBenefitsSection'),
+);
+const TililaPrizesSection = lazy(
+    () => import('@/pages/user/tilila/partials/TililaPrizesSection'),
+);
+const TililaLaureatesSection = lazy(
+    () => import('@/pages/user/tilila/partials/TililaLaureatesSection'),
+);
+const TililaAdmissionJurySection = lazy(
+    () => import('@/pages/user/tilila/partials/TililaAdmissionJurySection'),
+);
+const TililaPartnersSection = lazy(
+    () => import('@/pages/user/tilila/partials/TililaPartnersSection'),
+);
+
+function SectionFallback({ className = 'min-h-[280px]' }) {
+    return <div className={className} aria-hidden />;
+}
 
 export default function TililaIndex() {
     const { currentEdition, flash } = usePage().props;
@@ -25,14 +38,26 @@ export default function TililaIndex() {
                 ) : null}
 
                 <TililaHero />
-                <TililaStatsBenefitsSection />
-                {/* <TililaCategoriesSection /> */}
-                <TililaPrizesSection />
-                <TililaLaureatesSection />
-                <TililaAdmissionJurySection jury={currentEdition?.jury} />
-                <TililaPartnersSection />
-                {/* <TililaFinalCtaSection /> */}
-                {/* <TililaFaqSection /> */}
+
+                <Suspense fallback={<SectionFallback className="min-h-[520px]" />}>
+                    <TililaStatsBenefitsSection />
+                </Suspense>
+
+                <Suspense fallback={<SectionFallback className="min-h-[480px]" />}>
+                    <TililaPrizesSection />
+                </Suspense>
+
+                <Suspense fallback={<SectionFallback className="min-h-[420px]" />}>
+                    <TililaLaureatesSection />
+                </Suspense>
+
+                <Suspense fallback={<SectionFallback className="min-h-[380px]" />}>
+                    <TililaAdmissionJurySection jury={currentEdition?.jury} />
+                </Suspense>
+
+                <Suspense fallback={<SectionFallback className="min-h-[280px]" />}>
+                    <TililaPartnersSection />
+                </Suspense>
             </div>
         </>
     );

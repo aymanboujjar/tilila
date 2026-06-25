@@ -1,11 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
-import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { useMemo, useState } from 'react';
-import {
-    HOME_EASE,
-    RevealOnScroll,
-} from '@/components/motion/home-motion';
+import { memo, useMemo, useState } from 'react';
+import { RevealOnScroll } from '@/components/motion/home-motion';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 import {
@@ -36,7 +32,11 @@ function buildMarqueeLoop(partners, minItems = 6) {
     return loop;
 }
 
-function PartnerLogoCell({ partner, compact = false, className = '' }) {
+const PartnerLogoCell = memo(function PartnerLogoCell({
+    partner,
+    compact = false,
+    className = '',
+}) {
     const [imgError, setImgError] = useState(false);
     const showImage = partner.logo_url && !imgError;
 
@@ -52,6 +52,8 @@ function PartnerLogoCell({ partner, compact = false, className = '' }) {
             )}
             loading="lazy"
             decoding="async"
+            width={160}
+            height={64}
             onError={() => setImgError(true)}
         />
     ) : (
@@ -86,9 +88,13 @@ function PartnerLogoCell({ partner, compact = false, className = '' }) {
     }
 
     return <div className={cellClass}>{content}</div>;
-}
+});
 
-function PartnerMarquee({ partners, compact = false, ariaLabel }) {
+const PartnerMarquee = memo(function PartnerMarquee({
+    partners,
+    compact = false,
+    ariaLabel,
+}) {
     const { locale } = useTranslation();
     const isRtl = locale === 'ar';
 
@@ -126,7 +132,7 @@ function PartnerMarquee({ partners, compact = false, ariaLabel }) {
 
             <div
                 className={cn(
-                    'partner-marquee-track flex w-max will-change-transform',
+                    'partner-marquee-track flex w-max',
                     isRtl && 'partner-marquee-track-rtl',
                 )}
                 style={{
@@ -147,7 +153,7 @@ function PartnerMarquee({ partners, compact = false, ariaLabel }) {
             </div>
         </div>
     );
-}
+});
 
 function EmptyTierMessage() {
     return (
@@ -214,7 +220,7 @@ function PartnerTier({
 function SectionIntro() {
     return (
         <RevealOnScroll
-            y={32}
+            y={24}
             className="grid gap-6 border-s-4 border-beta-blue ps-5 sm:ps-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10"
         >
             <div className="max-w-2xl">
@@ -235,27 +241,25 @@ function SectionIntro() {
                 <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
                     <TransText
                         en="Institutions and media standing with Tilila — organized in two clear tiers that power our programmes nationwide."
-                        fr="Des institutions et des médias aux côtés de Tilila — deux niveaux de partenariat qui soutiennent nos programmes à l’échelle nationale."
+                        fr="Des institutions et des médias aux côtés de Tilila — deux niveaux de partenariat qui soutiennent nos programmes à l'échelle nationale."
                         ar="مؤسسات وإعلام إلى جانب تيليلا — مستويان من الشراكة يدعمان برامجنا على الصعيد الوطني."
                     />
                 </p>
             </div>
 
-            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                    href="/contact"
-                    className="inline-grid w-fit place-items-center rounded-xl border-2 border-beta-blue px-5 py-3 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue lg:justify-self-end"
-                >
-                    <span className="inline-grid grid-flow-col items-center gap-2">
-                        <TransText
-                            en="Become a partner"
-                            fr="Devenir partenaire"
-                            ar="كن شريكًا"
-                        />
-                        <ArrowUpRight className="size-4" aria-hidden />
-                    </span>
-                </Link>
-            </motion.div>
+            <Link
+                href="/contact"
+                className="inline-grid w-fit place-items-center rounded-xl border-2 border-beta-blue px-5 py-3 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue lg:justify-self-end"
+            >
+                <span className="inline-grid grid-flow-col items-center gap-2">
+                    <TransText
+                        en="Become a partner"
+                        fr="Devenir partenaire"
+                        ar="كن شريكًا"
+                    />
+                    <ArrowUpRight className="size-4" aria-hidden />
+                </span>
+            </Link>
         </RevealOnScroll>
     );
 }
@@ -276,37 +280,11 @@ export default function HomePartners() {
             id="partners"
             className="border-t border-border/50 bg-[#fafafa]"
         >
-            <style>{`
-                @keyframes partner-marquee-ltr {
-                    from { transform: translate3d(0, 0, 0); }
-                    to { transform: translate3d(-50%, 0, 0); }
-                }
-                @keyframes partner-marquee-rtl {
-                    from { transform: translate3d(-50%, 0, 0); }
-                    to { transform: translate3d(0, 0, 0); }
-                }
-                .partner-marquee-track {
-                    animation: partner-marquee-ltr var(--marquee-duration, 36s) linear infinite;
-                }
-                .partner-marquee-track-rtl {
-                    animation-name: partner-marquee-rtl;
-                }
-                .group\\/marquee:hover .partner-marquee-track {
-                    animation-play-state: paused;
-                }
-                @media (prefers-reduced-motion: reduce) {
-                    .partner-marquee-track {
-                        animation: none;
-                        transform: none;
-                    }
-                }
-            `}</style>
-
             <TililaContainer>
                 <SectionIntro />
 
                 <div className="mt-10 space-y-5 sm:mt-12 sm:space-y-6">
-                    <RevealOnScroll y={36} delay={0.05}>
+                    <RevealOnScroll y={28} delay={0.05}>
                         <PartnerTier
                             accent={{
                                 rail: 'bg-linear-to-b from-[#5a3d96] to-beta-blue',
@@ -325,7 +303,7 @@ export default function HomePartners() {
                         />
                     </RevealOnScroll>
 
-                    <RevealOnScroll y={36} delay={0.12}>
+                    <RevealOnScroll y={28} delay={0.1}>
                         <PartnerTier
                             accent={{
                                 rail: 'bg-linear-to-b from-[#0d9488] to-beta-turquoise',

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import { Link } from '@inertiajs/react';
 import {
     ArrowRight,
@@ -13,9 +13,12 @@ import {
     Tv,
 } from 'lucide-react';
 import TransText from '@/components/TransText';
-import TililaJuryMembersModal from '@/pages/user/tilila/partials/TililaJuryMembersModal';
 import { storagePhotoSrc } from '@/pages/user/tilila/partials/EditionDetailContent';
 import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+
+const TililaJuryMembersModal = lazy(
+    () => import('@/pages/user/tilila/partials/TililaJuryMembersModal'),
+);
 
 const MEDIA_CHANNELS = [
     { Icon: Tv, labelFr: 'TV', labelEn: 'TV', labelAr: 'تلفزيون' },
@@ -70,6 +73,7 @@ function JuryPreview({ members }) {
                                 alt={member?.full_name || ''}
                                 className="h-full w-full object-cover"
                                 loading="lazy"
+                                decoding="async"
                             />
                         ) : (
                             <div className="h-full w-full bg-muted" />
@@ -238,11 +242,15 @@ export default function TililaAdmissionJurySection({ jury = [] }) {
                 </div>
             </TililaContainer>
 
-            <TililaJuryMembersModal
-                open={modalOpen}
-                onClose={() => setModalOpen(false)}
-                members={members}
-            />
+            {modalOpen ? (
+                <Suspense fallback={null}>
+                    <TililaJuryMembersModal
+                        open={modalOpen}
+                        onClose={() => setModalOpen(false)}
+                        members={members}
+                    />
+                </Suspense>
+            ) : null}
         </TililaSection>
     );
 }

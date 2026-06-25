@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, Download, Eye } from 'lucide-react';
+import { ArrowRight, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TILILA_HERO_BTN,
@@ -19,7 +19,10 @@ export default function TililaHero() {
                 src={HERO_BG}
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover object-bottom"
-                loading="eager"
+                width={1920}
+                height={1080}
+                fetchPriority="high"
+                decoding="async"
             />
             <div
                 className="absolute inset-0 bg-linear-to-r from-tblack/90 via-tblack/75 to-tblack/40"
@@ -27,7 +30,7 @@ export default function TililaHero() {
             />
 
             <TililaContainer className="relative z-10 flex min-h-[420px] items-center py-14 sm:min-h-[480px] sm:py-16 lg:min-h-[540px]">
-                <div className="max-w-2xl" id="candidature">
+                <div className="home-hero-copy max-w-2xl" id="candidature">
                     <p className="text-[11px] font-bold tracking-[0.24em] text-twhite/80 uppercase">
                         Tilila Awards
                     </p>
@@ -56,7 +59,7 @@ export default function TililaHero() {
                         </p>
                     </div>
 
-                    <div className={`mt-8 ${TILILA_HERO_CTA_ROW}`}>
+                    <div className={`home-hero-ctas mt-8 ${TILILA_HERO_CTA_ROW}`}>
                         <Link
                             href="/tilila/participate"
                             className={`inline-flex items-center justify-center gap-2 rounded-lg bg-beta-blue px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-brand-light-purple ${TILILA_HERO_BTN}`}
