@@ -84,7 +84,7 @@ export default function About() {
             <AboutHead />
             <div className="bg-twhite">
                 <HeroSection />
-                <AboutGalleryStrip />
+                {/* <AboutGalleryStrip /> */}
                 <LeadershipMessageSection
                     id="director"
                     className="bg-beta-white"

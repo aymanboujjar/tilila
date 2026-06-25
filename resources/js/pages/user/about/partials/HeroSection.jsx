@@ -1,6 +1,6 @@
 import TransText from '@/components/TransText';
 
-const HERO_IMAGE = '/assets/about/about5.jpg';
+const HERO_IMAGE = '/assets/about/about.jpg';
 const LOGO = '/assets/logo.png';
 
 export default function HeroSection() {
@@ -42,7 +42,7 @@ export default function HeroSection() {
                         loading="eager"
                     />
                     <div
-                        className="absolute inset-y-0 left-0 w-[35%] bg-linear-to-r from-twhite via-twhite/90 to-transparent lg:w-[42%]"
+                        className="absolute inset-y-0 left-0 w-[30%] bg-linear-to-r from-twhite via-twhite/60 to-transparent lg:w-[5%]"
                         aria-hidden
                     />
 
@@ -56,7 +56,7 @@ export default function HeroSection() {
                         <img
                             src={LOGO}
                             alt="Tilila"
-                            className="h-11 w-auto object-contain"
+                            className="h-8 w-auto object-contain"
                         />
                         <p className="text-[9px] font-bold tracking-[0.2em] text-twhite uppercase sm:text-[10px]">
                             <TransText
