@@ -28,7 +28,7 @@ export default function TililaHero() {
 
             <TililaContainer className="relative z-10 flex min-h-[420px] items-center py-14 sm:min-h-[480px] sm:py-16 lg:min-h-[540px]">
                 <div className="max-w-2xl" id="candidature">
-                    <p className="text-[11px] font-bold tracking-[0.24em] text-brand-light-purple uppercase">
+                    <p className="text-[11px] font-bold tracking-[0.24em] text-twhite/80 uppercase">
                         Tilila Awards
                     </p>
                     <h1 className="mt-4 text-2xl leading-[1.12] font-extrabold text-twhite sm:text-3xl lg:text-[2.35rem]">
