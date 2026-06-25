@@ -193,7 +193,19 @@ class TililaEditionController extends Controller
             'winners.*.bio.en' => ['nullable', 'string', 'max:800'],
             'winners.*.bio.fr' => ['nullable', 'string', 'max:800'],
             'winners.*.bio.ar' => ['nullable', 'string', 'max:800'],
+            'winners.*.campaign' => ['nullable', 'array'],
+            'winners.*.campaign.en' => ['nullable', 'string', 'max:255'],
+            'winners.*.campaign.fr' => ['nullable', 'string', 'max:255'],
+            'winners.*.campaign.ar' => ['nullable', 'string', 'max:255'],
+            'winners.*.agency' => ['nullable', 'array'],
+            'winners.*.agency.en' => ['nullable', 'string', 'max:255'],
+            'winners.*.agency.fr' => ['nullable', 'string', 'max:255'],
+            'winners.*.agency.ar' => ['nullable', 'string', 'max:255'],
             'winners.*.photo_path' => ['nullable', 'string', 'max:500'],
+            'winners.*.agency_photo_path' => ['nullable', 'string', 'max:500'],
+            'winners.*.showcase_image_path' => ['nullable', 'string', 'max:500'],
+            'winners.*.video_url' => ['nullable', 'string', 'max:2048'],
+            'winners.*.video_path' => ['nullable', 'string', 'max:500'],
             'jury' => ['nullable', 'array'],
             'jury.*.full_name' => ['nullable', 'string', 'max:255'],
             'jury.*.bio' => ['nullable', 'array'],
@@ -230,6 +242,9 @@ class TililaEditionController extends Controller
             $request->validate([
                 'winners' => ['array'],
                 'winners.*.photo' => ['nullable', 'file', 'image', 'max:10240'],
+                'winners.*.agency_photo' => ['nullable', 'file', 'image', 'max:10240'],
+                'winners.*.showcase_photo' => ['nullable', 'file', 'image', 'max:10240'],
+                'winners.*.video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime', 'max:102400'],
             ]);
         }
         if ($request->hasFile('jury')) {
@@ -321,6 +336,9 @@ class TililaEditionController extends Controller
         $incoming = is_array($incoming) ? array_values($incoming) : [];
 
         $keepPaths = [];
+        $keepAgencyPaths = [];
+        $keepShowcasePaths = [];
+        $keepVideoPaths = [];
         $rows = [];
 
         foreach (array_values($incoming) as $idx => $row) {
@@ -338,6 +356,20 @@ class TililaEditionController extends Controller
                 'en' => trim((string) ($bioIn['en'] ?? '')),
                 'fr' => trim((string) ($bioIn['fr'] ?? '')),
                 'ar' => trim((string) ($bioIn['ar'] ?? '')),
+            ];
+
+            $campaignIn = is_array($row['campaign'] ?? null) ? $row['campaign'] : [];
+            $campaign = [
+                'en' => trim((string) ($campaignIn['en'] ?? '')),
+                'fr' => trim((string) ($campaignIn['fr'] ?? '')),
+                'ar' => trim((string) ($campaignIn['ar'] ?? '')),
+            ];
+
+            $agencyIn = is_array($row['agency'] ?? null) ? $row['agency'] : [];
+            $agency = [
+                'en' => trim((string) ($agencyIn['en'] ?? '')),
+                'fr' => trim((string) ($agencyIn['fr'] ?? '')),
+                'ar' => trim((string) ($agencyIn['ar'] ?? '')),
             ];
 
             $trophyIn = is_array($row['trophy'] ?? null) ? $row['trophy'] : [];
@@ -359,6 +391,51 @@ class TililaEditionController extends Controller
                 $keepPaths[] = $photoPath;
             }
 
+            $agencyPhotoPath = null;
+            $agencyFile = $request->file("$key.$idx.agency_photo");
+            if ($agencyFile instanceof UploadedFile && $agencyFile->isValid()) {
+                $agencyPhotoPath = $agencyFile->store("{$storageDir}/agencies", 'public');
+            } elseif ($this->isAllowedEditionAssetPath($row['agency_photo_path'] ?? null)) {
+                $agencyPhotoPath = (string) $row['agency_photo_path'];
+            }
+
+            if (is_string($agencyPhotoPath) && $agencyPhotoPath !== '') {
+                $keepAgencyPaths[] = $agencyPhotoPath;
+            }
+
+            $showcaseImagePath = null;
+            if ($key === 'winners') {
+                $showcaseFile = $request->file("$key.$idx.showcase_photo");
+                if ($showcaseFile instanceof UploadedFile && $showcaseFile->isValid()) {
+                    $showcaseImagePath = $showcaseFile->store("{$storageDir}/showcase", 'public');
+                } elseif ($this->isAllowedShowcaseImagePath($row['showcase_image_path'] ?? null)) {
+                    $showcaseImagePath = (string) $row['showcase_image_path'];
+                }
+
+                if (is_string($showcaseImagePath) && $showcaseImagePath !== '' && str_contains($showcaseImagePath, '/showcase/')) {
+                    $keepShowcasePaths[] = $showcaseImagePath;
+                }
+
+                $videoUrl = trim((string) ($row['video_url'] ?? ''));
+                if ($videoUrl !== '' && YoutubeVideo::embedUrlFromInput($videoUrl) === null) {
+                    throw ValidationException::withMessages([
+                        "winners.$idx.video_url" => 'Enter a valid YouTube link (watch, live, shorts, youtu.be, or embed).',
+                    ]);
+                }
+
+                $videoPath = null;
+                $videoFile = $request->file("$key.$idx.video");
+                if ($videoFile instanceof UploadedFile && $videoFile->isValid()) {
+                    $videoPath = $videoFile->store("{$storageDir}/videos", 'public');
+                } elseif ($this->isAllowedEditionAssetPath($row['video_path'] ?? null)) {
+                    $videoPath = (string) $row['video_path'];
+                }
+
+                if (is_string($videoPath) && $videoPath !== '') {
+                    $keepVideoPaths[] = $videoPath;
+                }
+            }
+
             $entry = [
                 'full_name' => $fullName,
                 'bio' => $bio,
@@ -367,6 +444,12 @@ class TililaEditionController extends Controller
 
             if ($key === 'winners') {
                 $entry['trophy'] = $trophy;
+                $entry['campaign'] = $campaign;
+                $entry['agency'] = $agency;
+                $entry['agency_photo_path'] = $agencyPhotoPath;
+                $entry['showcase_image_path'] = $showcaseImagePath;
+                $entry['video_url'] = $videoUrl === '' ? null : $videoUrl;
+                $entry['video_path'] = $videoPath;
             }
 
             $rows[] = $entry;
@@ -381,6 +464,30 @@ class TililaEditionController extends Controller
             if (is_string($oldPath) && $oldPath !== '' && ! in_array($oldPath, $keepPaths, true)) {
                 Storage::disk('public')->delete($oldPath);
             }
+
+            if ($key !== 'winners') {
+                continue;
+            }
+
+            $oldAgencyPath = $oldRow['agency_photo_path'] ?? null;
+            if (is_string($oldAgencyPath) && $oldAgencyPath !== '' && ! in_array($oldAgencyPath, $keepAgencyPaths, true)) {
+                Storage::disk('public')->delete($oldAgencyPath);
+            }
+
+            $oldShowcasePath = $oldRow['showcase_image_path'] ?? null;
+            if (
+                is_string($oldShowcasePath)
+                && $oldShowcasePath !== ''
+                && str_contains($oldShowcasePath, '/showcase/')
+                && ! in_array($oldShowcasePath, $keepShowcasePaths, true)
+            ) {
+                Storage::disk('public')->delete($oldShowcasePath);
+            }
+
+            $oldVideoPath = $oldRow['video_path'] ?? null;
+            if (is_string($oldVideoPath) && $oldVideoPath !== '' && ! in_array($oldVideoPath, $keepVideoPaths, true)) {
+                Storage::disk('public')->delete($oldVideoPath);
+            }
         }
 
         return $rows;
@@ -392,5 +499,15 @@ class TililaEditionController extends Controller
             && $path !== ''
             && ! str_contains($path, '..')
             && str_starts_with($path, 'tilila-editions/');
+    }
+
+    private function isAllowedShowcaseImagePath(mixed $path): bool
+    {
+        if (! is_string($path) || $path === '' || str_contains($path, '..')) {
+            return false;
+        }
+
+        return str_starts_with($path, 'tilila-editions/')
+            || str_starts_with($path, 'assets/');
     }
 }

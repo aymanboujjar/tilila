@@ -109,6 +109,35 @@ function useFilePreview(file) {
     return url;
 }
 
+function isJuryPrizePerson(person) {
+    const labels = [person?.trophy?.en, person?.trophy?.fr, person?.trophy?.ar]
+        .filter(Boolean)
+        .map((value) => String(value).toLowerCase());
+
+    return labels.some(
+        (label) =>
+            label.includes('jury prize') ||
+            label.includes('prix du jury') ||
+            label.includes('لجنة التحكيم'),
+    );
+}
+
+function assetPreviewSrc(path) {
+    if (!path || typeof path !== 'string') {
+        return '';
+    }
+
+    if (path.startsWith('assets/')) {
+        return `/${path}`;
+    }
+
+    if (path.startsWith('/')) {
+        return path;
+    }
+
+    return `/storage/${path}`;
+}
+
 function PersonRow({
     peopleKey,
     idx,
@@ -116,12 +145,24 @@ function PersonRow({
     updateRow,
     removeRow,
     showTrophyCategory = false,
+    galleryImages = [],
+    coverImagePath = '',
 }) {
     const existingSrc = person?.photo_path
         ? `/storage/${person.photo_path}`
         : '';
     const previewUrl = useFilePreview(person?.photo ?? null);
     const src = previewUrl || existingSrc || '';
+    const existingAgencySrc = person?.agency_photo_path
+        ? `/storage/${person.agency_photo_path}`
+        : '';
+    const agencyPreviewUrl = useFilePreview(person?.agency_photo ?? null);
+    const agencySrc = agencyPreviewUrl || existingAgencySrc || '';
+    const showcasePreviewUrl = useFilePreview(person?.showcase_photo ?? null);
+    const showcaseExistingSrc = assetPreviewSrc(person?.showcase_image_path);
+    const showcaseSrc = showcasePreviewUrl || showcaseExistingSrc || '';
+    const isWinner = peopleKey === 'winners';
+    const isJuryPrize = isWinner && isJuryPrizePerson(person);
 
     return (
         <div
@@ -207,18 +248,205 @@ function PersonRow({
             </div>
 
             <div className="mt-5">
-                <TriTextareas
-                    label="Mini bio"
-                    value={person?.bio ?? { en: '', fr: '', ar: '' }}
-                    onChange={(v) => updateRow(idx, { bio: v })}
-                    placeholderBase="Short bio"
-                />
+                {isWinner ? (
+                    <>
+                        {/* <TriInputs
+                            label="Campaign title"
+                            value={
+                                person?.campaign ?? {
+                                    en: '',
+                                    fr: '',
+                                    ar: '',
+                                }
+                            }
+                            onChange={(v) => updateRow(idx, { campaign: v })}
+                            placeholderBase="Campaign title"
+                        /> */}
+                        <div className="mt-5">
+                            <TriInputs
+                                label="Agency"
+                                value={
+                                    person?.agency ?? {
+                                        en: '',
+                                        fr: '',
+                                        ar: '',
+                                    }
+                                }
+                                onChange={(v) => updateRow(idx, { agency: v })}
+                                placeholderBase="Agency name"
+                            />
+                        </div>
+                        <div className="mt-5">
+                            <div className="text-sm font-semibold text-foreground">
+                                Agency logo
+                            </div>
+                            <div className="mt-2 flex items-start gap-4">
+                                <div className="size-16 overflow-hidden rounded-lg border border-border bg-muted">
+                                    {agencySrc ? (
+                                        <img
+                                            src={agencySrc}
+                                            alt=""
+                                            className="h-full w-full object-contain p-1"
+                                        />
+                                    ) : null}
+                                </div>
+                                <input
+                                    type="file"
+                                    accept="image/*"
+                                    className="block w-full text-sm"
+                                    onChange={(e) =>
+                                        updateRow(idx, {
+                                            agency_photo:
+                                                e.target.files?.[0] ?? null,
+                                        })
+                                    }
+                                />
+                            </div>
+                            <input
+                                type="hidden"
+                                value={person?.agency_photo_path ?? ''}
+                                readOnly
+                            />
+                        </div>
+                        {isJuryPrize ? (
+                            <div className="mt-5 rounded-lg border border-beta-blue/20 bg-beta-blue/5 p-4">
+                                <div className="text-sm font-semibold text-foreground">
+                                    Laureates section image (Prix du Jury)
+                                </div>
+                                <p className="mt-1 text-xs text-muted-foreground">
+                                    Shown on the Tilila program page next to
+                                    this winner. Pick from the edition gallery
+                                    or upload a dedicated image.
+                                </p>
+                                <div className="mt-3 flex items-start gap-4">
+                                    <div className="size-20 overflow-hidden rounded-lg border border-border bg-muted">
+                                        {showcaseSrc ? (
+                                            <img
+                                                src={showcaseSrc}
+                                                alt=""
+                                                className="h-full w-full object-cover"
+                                            />
+                                        ) : null}
+                                    </div>
+                                    <div className="min-w-0 flex-1 space-y-3">
+                                        <select
+                                            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
+                                            value={
+                                                person?.showcase_image_path ??
+                                                ''
+                                            }
+                                            onChange={(e) =>
+                                                updateRow(idx, {
+                                                    showcase_image_path:
+                                                        e.target.value,
+                                                    showcase_photo: null,
+                                                })
+                                            }
+                                        >
+                                            <option value="">
+                                                Brand logo (default)
+                                            </option>
+                                            {coverImagePath ? (
+                                                <option
+                                                    value={coverImagePath}
+                                                >
+                                                    Edition cover
+                                                </option>
+                                            ) : null}
+                                            {galleryImages.map((path) => (
+                                                <option key={path} value={path}>
+                                                    Gallery — {path}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <input
+                                            type="file"
+                                            accept="image/*"
+                                            className="block w-full text-sm"
+                                            onChange={(e) =>
+                                                updateRow(idx, {
+                                                    showcase_photo:
+                                                        e.target.files?.[0] ??
+                                                        null,
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                                <input
+                                    type="hidden"
+                                    value={person?.showcase_image_path ?? ''}
+                                    readOnly
+                                />
+                                <div className="mt-5 border-t border-beta-blue/15 pt-4">
+                                    <div className="text-sm font-semibold text-foreground">
+                                        Laureates section video (Prix du
+                                        Jury)
+                                    </div>
+                                    <p className="mt-1 text-xs text-muted-foreground">
+                                        Mini video shown in the gallery frame
+                                        on the Tilila program page. YouTube
+                                        link or MP4/WebM upload.
+                                    </p>
+                                    <Input
+                                        className="mt-3"
+                                        type="url"
+                                        value={person?.video_url ?? ''}
+                                        onChange={(e) =>
+                                            updateRow(idx, {
+                                                video_url: e.target.value,
+                                            })
+                                        }
+                                        placeholder="https://www.youtube.com/watch?v=…"
+                                    />
+                                    <input
+                                        type="file"
+                                        accept="video/mp4,video/webm,video/quicktime"
+                                        className="mt-3 block w-full text-sm"
+                                        onChange={(e) =>
+                                            updateRow(idx, {
+                                                video:
+                                                    e.target.files?.[0] ??
+                                                    null,
+                                            })
+                                        }
+                                    />
+                                    {person?.video_path ? (
+                                        <p className="mt-2 truncate text-xs text-muted-foreground">
+                                            Saved file: {person.video_path}
+                                        </p>
+                                    ) : null}
+                                    <input
+                                        type="hidden"
+                                        value={person?.video_path ?? ''}
+                                        readOnly
+                                    />
+                                </div>
+                            </div>
+                        ) : null}
+                    </>
+                ) : (
+                    <TriTextareas
+                        label="Mini bio"
+                        value={person?.bio ?? { en: '', fr: '', ar: '' }}
+                        onChange={(v) => updateRow(idx, { bio: v })}
+                        placeholderBase="Short bio"
+                    />
+                )}
             </div>
         </div>
     );
 }
 
-function PeopleSection({ title, peopleKey, data, setData, maxItems }) {
+function PeopleSection({
+    title,
+    peopleKey,
+    data,
+    setData,
+    maxItems,
+    galleryImages = [],
+    coverImagePath = '',
+}) {
     const rows = Array.isArray(data?.[peopleKey]) ? data[peopleKey] : [];
 
     const addRow = () => {
@@ -231,6 +459,15 @@ function PeopleSection({ title, peopleKey, data, setData, maxItems }) {
         };
         if (peopleKey === 'winners') {
             row.trophy = { en: '', fr: '', ar: '' };
+            row.campaign = { en: '', fr: '', ar: '' };
+            row.agency = { en: '', fr: '', ar: '' };
+            row.agency_photo = null;
+            row.agency_photo_path = null;
+            row.showcase_image_path = null;
+            row.showcase_photo = null;
+            row.video_url = '';
+            row.video_path = null;
+            row.video = null;
         }
         setData(peopleKey, [...rows, row]);
     };
@@ -256,7 +493,7 @@ function PeopleSection({ title, peopleKey, data, setData, maxItems }) {
                     </div>
                     <div className="mt-1 text-xs text-muted-foreground">
                         {peopleKey === 'winners'
-                            ? 'Add name, trophy category, photo, and a short bio.'
+                            ? 'Add brand, trophy, campaign photo, campaign title, and agency.'
                             : 'Add name, photo, and a short bio.'}
                     </div>
                 </div>
@@ -287,6 +524,12 @@ function PeopleSection({ title, peopleKey, data, setData, maxItems }) {
                             updateRow={updateRow}
                             removeRow={removeRow}
                             showTrophyCategory={peopleKey === 'winners'}
+                            galleryImages={
+                                Array.isArray(galleryImages)
+                                    ? galleryImages
+                                    : []
+                            }
+                            coverImagePath={coverImagePath}
                         />
                     ))}
                 </div>
@@ -515,6 +758,8 @@ export default function EditionForm({
                     peopleKey="winners"
                     data={data}
                     setData={setData}
+                    galleryImages={data.gallery_images}
+                    coverImagePath={data.cover_image_path ?? ''}
                 />
                 <PeopleSection
                     title="Jury"

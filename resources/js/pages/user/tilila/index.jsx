@@ -52,7 +52,10 @@ export default function TililaIndex() {
                 </Suspense>
 
                 <Suspense fallback={<SectionFallback className="min-h-[380px]" />}>
-                    <TililaAdmissionJurySection jury={currentEdition?.jury} />
+                    <TililaAdmissionJurySection
+                        jury={currentEdition?.jury}
+                        hasCurrentEdition={Boolean(currentEdition)}
+                    />
                 </Suspense>
 
                 <Suspense fallback={<SectionFallback className="min-h-[280px]" />}>

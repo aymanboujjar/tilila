@@ -1,255 +1,398 @@
 import { Link, usePage } from '@inertiajs/react';
-import { ArrowRight, Play, Quote } from 'lucide-react';
-import { memo, useMemo, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { memo, useMemo } from 'react';
 import TransText from '@/components/TransText';
+import { useYoutubeAvailability } from '@/hooks/useYoutubeAvailability';
 import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
 import { coverImageSrc } from '@/pages/user/tilila/utils/editions';
+import {
+    findJuryPrizeWinner,
+    resolveShowcaseImage,
+    resolveWinnerDisplay,
+    resolveWinnerVideo,
+    storageAssetSrc,
+} from '@/pages/user/tilila/utils/winnerFields';
 
 const FALLBACK_IMAGE = '/assets/tilila/editions/edition-2025.png';
+const BORDER_IMAGE_COUNT = 10;
 
-const DEFAULT_QUOTE = {
-    fr: "Recevoir un Tilila Award a été une formidable reconnaissance de notre engagement en faveur d'une communication plus inclusive.",
-    en: 'Receiving a Tilila Award was tremendous recognition of our commitment to more inclusive communication.',
-    ar: 'كان الفوز بجائزة تيليلا اعترافاً رائعاً بالتزامنا نحو تواصل أكثر شمولاً.',
+const FALLBACK_LAUREATE = {
+    brand: 'Ain Atlas',
+    brandPhoto: FALLBACK_IMAGE,
+    showcaseSrc: FALLBACK_IMAGE,
+    videoUploadSrc: null,
+    videoYoutubeUrl: null,
+    campaign: {
+        fr: 'Campagne primée',
+        en: 'Award-winning campaign',
+        ar: 'حملة فائزة',
+    },
+    agency: {
+        fr: 'Klem.',
+        en: 'Klem.',
+        ar: 'Klem.',
+    },
+    agencyPhoto: null,
+    trophy: {
+        fr: 'Prix du Jury',
+        en: 'Jury Prize',
+        ar: 'جائزة لجنة التحكيم',
+    },
 };
 
-const FALLBACK_SLIDES = [
-    {
-        id: 'fallback-inwi',
-        photo: FALLBACK_IMAGE,
-        quote: DEFAULT_QUOTE,
-        brand: 'Inwi',
-        campaign: {
-            fr: '« Dirha Raybi inwi »',
-            en: '« Dirha Raybi inwi »',
-            ar: '« Dirha Raybi inwi »',
-        },
-        videoUrl: null,
-    },
-];
-
-const MEDIA_ITEMS = [
-    {
-        labelFr: 'Photos',
-        labelEn: 'Photos',
-        labelAr: 'صور',
-        src: '/assets/tilila/editions/edition-2024.png',
-        href: '/tilila/archives',
-    },
-    {
-        labelFr: 'Vidéos',
-        labelEn: 'Videos',
-        labelAr: 'فيديوهات',
-        src: '/assets/tilila/hero-7eme-edition.png',
-        href: null,
-        play: true,
-    },
-    {
-        labelFr: 'Campagnes primées',
-        labelEn: 'Awarded campaigns',
-        labelAr: 'حملات فائزة',
-        src: '/assets/tilila/trophee-tilila.png',
-        href: '/tilila/archives',
-    },
-];
-
-function winnerPhoto(winner, editionPhoto) {
-    if (!winner?.photo_path) {
-        return editionPhoto;
+function lastFinishedEdition(editions) {
+    if (!Array.isArray(editions) || editions.length === 0) {
+        return null;
     }
 
-    if (
-        winner.photo_path.startsWith('assets/') ||
-        winner.photo_path.startsWith('/assets/')
-    ) {
-        return winner.photo_path.startsWith('/')
-            ? winner.photo_path
-            : `/${winner.photo_path}`;
+    const finished = editions.filter((edition) => !edition?.is_current);
+
+    if (finished.length === 0) {
+        return editions[0];
     }
 
-    return `/storage/${winner.photo_path}`;
-}
+    return [...finished].sort((a, b) => {
+        const yearDiff = Number(b?.year ?? 0) - Number(a?.year ?? 0);
 
-function buildSlides(editions, teaserVideoUrl) {
-    const slides = [];
-
-    if (Array.isArray(editions)) {
-        for (const edition of editions) {
-            const winners = edition?.winners;
-            if (!Array.isArray(winners) || winners.length === 0) {
-                continue;
-            }
-
-            const editionPhoto =
-                coverImageSrc(
-                    edition.cover_image_path,
-                    edition.gallery_images,
-                ) || FALLBACK_IMAGE;
-            const videoUrl =
-                edition.ceremony_video_url || teaserVideoUrl || null;
-
-            for (const winner of winners) {
-                slides.push({
-                    id: `${edition.id ?? edition.year}-${winner.full_name}`,
-                    photo: winnerPhoto(winner, editionPhoto),
-                    quote: DEFAULT_QUOTE,
-                    brand: winner.full_name || '',
-                    campaign: winner.bio ?? { fr: '', en: '', ar: '' },
-                    videoUrl,
-                });
-            }
+        if (yearDiff !== 0) {
+            return yearDiff;
         }
-    }
 
-    return slides.length > 0 ? slides.slice(0, 8) : FALLBACK_SLIDES;
+        return (b?.id ?? 0) - (a?.id ?? 0);
+    })[0];
 }
 
-const MetaLine = memo(function MetaLine({ label, children }) {
+function buildJuryPrizeLaureate(edition) {
+    const winner = findJuryPrizeWinner(edition?.winners);
+    const cover = coverImageSrc(
+        edition?.cover_image_path,
+        edition?.gallery_images,
+    );
+
+    if (!winner) {
+        return {
+            ...FALLBACK_LAUREATE,
+            showcaseSrc: cover || FALLBACK_IMAGE,
+            brandPhoto: cover || FALLBACK_IMAGE,
+        };
+    }
+
+    const { campaign, agency, agencyPhoto } = resolveWinnerDisplay(winner);
+    const { uploadSrc, youtubeUrl } = resolveWinnerVideo(winner);
+    const fallback = cover || FALLBACK_IMAGE;
+
+    return {
+        brand: winner.full_name || FALLBACK_LAUREATE.brand,
+        brandPhoto: storageAssetSrc(winner.photo_path) || null,
+        showcaseSrc: resolveShowcaseImage(winner, edition, fallback),
+        videoUploadSrc: uploadSrc,
+        videoYoutubeUrl: youtubeUrl,
+        campaign,
+        agency,
+        agencyPhoto,
+        trophy: winner.trophy ?? FALLBACK_LAUREATE.trophy,
+    };
+}
+
+function borderGallerySrcs(edition, count = BORDER_IMAGE_COUNT) {
+    const gallery = (Array.isArray(edition?.gallery_images)
+        ? edition.gallery_images
+        : []
+    )
+        .map((path) => storageAssetSrc(path))
+        .filter(Boolean);
+
+    const cover =
+        coverImageSrc(edition?.cover_image_path, edition?.gallery_images) ||
+        FALLBACK_IMAGE;
+    const pool = gallery.length > 0 ? gallery : [cover];
+    const images = [];
+
+    for (let index = 0; index < count; index += 1) {
+        images.push(pool[index % pool.length]);
+    }
+
+    return images;
+}
+
+function isLogoLikeImage(src, brandPhoto) {
+    if (!src) {
+        return false;
+    }
+
+    if (brandPhoto && src === brandPhoto) {
+        return true;
+    }
+
+    return /\/winners\//.test(src) && !/\/showcase\//.test(src);
+}
+
+const FrameThumb = memo(function FrameThumb({ src }) {
     return (
-        <p className="text-sm leading-relaxed text-tblack">
-            <span className="font-extrabold text-beta-blue">
-                <TransText en={label.en} fr={label.fr} ar={label.ar} />
-                {' : '}
-            </span>
-            <span>{children}</span>
-        </p>
+        <div className="aspect-square overflow-hidden rounded-md bg-muted/80 ring-1 ring-border/40">
+            <img
+                src={src}
+                alt=""
+                className="h-full w-full object-cover"
+                loading="lazy"
+                decoding="async"
+            />
+        </div>
     );
 });
 
-const FeaturedLaureate = memo(function FeaturedLaureate({ slide }) {
-    return (
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
-            <div className="w-full shrink-0 sm:w-[44%] lg:w-[46%]">
-                <div className="aspect-[4/3] overflow-hidden rounded-lg">
-                    <img
-                        src={slide.photo}
-                        alt=""
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                        decoding="async"
-                        width={640}
-                        height={480}
-                    />
-                </div>
-            </div>
+const WinnerMiniVideo = memo(function WinnerMiniVideo({
+    uploadSrc,
+    youtubeUrl,
+    brand,
+}) {
+    const youtube = useYoutubeAvailability(youtubeUrl);
+    const embedUrl = youtube.available ? youtube.embedUrl : null;
 
-            <div className="min-w-0 flex-1 pt-0 sm:pt-1">
-                <Quote
-                    className="size-8 text-brand-light-purple sm:size-9"
-                    aria-hidden
+    if (uploadSrc) {
+        return (
+            <video
+                className="h-full w-full object-contain"
+                controls
+                autoPlay
+                muted
+                playsInline
+                preload="metadata"
+                title={brand ? `${brand} — campaign video` : 'Winner video'}
+            >
+                <source src={uploadSrc} />
+            </video>
+        );
+    }
+
+    if (embedUrl) {
+        return (
+            <iframe
+                title={brand ? `${brand} — campaign video` : 'Winner video'}
+                src={embedUrl}
+                className="h-full w-full border-0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+            />
+        );
+    }
+
+    if (youtubeUrl) {
+        return (
+            <a
+                href={youtubeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-full items-center justify-center bg-beta-blue/10 px-3 text-center text-[10px] font-bold tracking-wide text-beta-blue uppercase hover:bg-beta-blue/15 sm:text-xs"
+            >
+                <TransText
+                    en="Watch video"
+                    fr="Voir la vidéo"
+                    ar="شاهد الفيديو"
                 />
-                <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-[15px]">
-                    <TransText
-                        en={slide.quote.en}
-                        fr={slide.quote.fr}
-                        ar={slide.quote.ar}
-                    />
-                </p>
+            </a>
+        );
+    }
 
-                {slide.brand ? (
-                    <div className="mt-5 space-y-1">
-                        <MetaLine
-                            label={{
-                                fr: 'Marque',
-                                en: 'Brand',
-                                ar: 'العلامة',
-                            }}
-                        >
-                            {slide.brand}
-                        </MetaLine>
-                        <MetaLine
-                            label={{
-                                fr: 'Campagne',
-                                en: 'Campaign',
-                                ar: 'الحملة',
-                            }}
-                        >
-                            {typeof slide.campaign === 'string' ? (
-                                slide.campaign
-                            ) : (
-                                <TransText
-                                    en={slide.campaign.en}
-                                    fr={slide.campaign.fr}
-                                    ar={slide.campaign.ar}
-                                />
-                            )}
-                        </MetaLine>
+    return (
+        <div className="flex h-full items-center justify-center px-3 text-center text-[10px] text-tgray sm:text-xs">
+            <TransText
+                en="Winner video coming soon"
+                fr="Vidéo du lauréat bientôt disponible"
+                ar="فيديو الفائز قريباً"
+            />
+        </div>
+    );
+});
+
+const EditionMediaFrame = memo(function EditionMediaFrame({
+    images,
+    uploadSrc,
+    youtubeUrl,
+    brand,
+}) {
+    return (
+        <div className="overflow-hidden rounded-2xl bg-beta-blue/5 p-2 ring-1 ring-border/50 sm:p-2.5">
+            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
+                <FrameThumb src={images[0]} />
+                <FrameThumb src={images[1]} />
+                <FrameThumb src={images[2]} />
+                <FrameThumb src={images[3]} />
+
+                <div className="col-start-1 row-start-2 self-center">
+                    <FrameThumb src={images[4]} />
+                </div>
+                <div className="col-start-1 row-start-3 self-center">
+                    <FrameThumb src={images[5]} />
+                </div>
+
+                <div className="col-span-2 col-start-2 row-span-1 row-start-2 overflow-hidden rounded-lg bg-tblack shadow-sm ring-1 ring-border/40">
+                    <div className="aspect-video h-full w-full">
+                        <div className="h-full w-full">
+                            <WinnerMiniVideo
+                                uploadSrc={uploadSrc}
+                                youtubeUrl={youtubeUrl}
+                                brand={brand}
+                            />
+                        </div>
                     </div>
-                ) : null}
+                </div>
 
-                {slide.videoUrl ? (
-                    <a
-                        href={slide.videoUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-6 inline-flex items-center gap-2 rounded-lg bg-beta-blue px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-twhite uppercase transition hover:bg-brand-light-purple"
-                    >
-                        <TransText
-                            en="Watch video"
-                            fr="Voir la vidéo"
-                            ar="شاهد الفيديو"
-                        />
-                        <Play className="size-4 fill-twhite" aria-hidden />
-                    </a>
-                ) : null}
+                <div className="col-start-4 row-start-2 self-center">
+                    <FrameThumb src={images[6]} />
+                </div>
+                <div className="col-start-4 row-start-3 self-center">
+                    <FrameThumb src={images[7]} />
+                </div>
+
+                <FrameThumb src={images[8]} />
+                <FrameThumb src={images[9]} />
+                {/* <FrameThumb src={images[0]} /> */}
+                {/* <FrameThumb src={images[1]} /> */}
             </div>
         </div>
     );
 });
 
-const MediaCard = memo(function MediaCard({ item, videoHref }) {
-    const href = item.play ? videoHref || '/tilila/archives' : item.href;
+const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
+    laureate,
+    year,
+}) {
+    const logoShowcase = isLogoLikeImage(
+        laureate.showcaseSrc,
+        laureate.brandPhoto,
+    );
 
     return (
-        <Link href={href} className="group block">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg">
-                <img
-                    src={item.src}
-                    alt=""
-                    className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.02]"
-                    loading="lazy"
-                    decoding="async"
-                    width={400}
-                    height={300}
-                />
-                {item.play ? (
-                    <span className="absolute inset-0 flex items-center justify-center bg-tblack/25">
-                        <span className="flex size-11 items-center justify-center rounded-full border-2 border-twhite bg-twhite/20">
-                            <Play
-                                className="ms-0.5 size-5 fill-twhite text-twhite"
-                                aria-hidden
-                            />
-                        </span>
-                    </span>
-                ) : null}
+        <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-twhite ring-1 ring-border/60 sm:items-stretch">
+            <div className="w-full shrink-0">
+                <div className="relative  overflow-hidden bg-muted/40 sm:aspect-auto sm:h-full sm:min-h-[260px]">
+                    <img
+                        src={laureate.showcaseSrc}
+                        alt=""
+                        className={
+                            logoShowcase
+                                ? 'absolute inset-0 h-full w-full object-contain p-6 sm:p-8'
+                                : 'absolute inset-0 h-full w-full object-cover'
+                        }
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
             </div>
-            <p className="mt-2.5 text-center text-[10px] font-bold tracking-wide text-beta-blue uppercase sm:text-[11px]">
-                <TransText
-                    en={item.labelEn}
-                    fr={item.labelFr}
-                    ar={item.labelAr}
-                />
-            </p>
-        </Link>
+
+            <div className="flex flex-1 flex-col justify-center space-y-4 p-5 sm:space-y-5 sm:p-6 lg:p-8">
+                <p className="text-[11px] font-bold tracking-[0.16em] text-beta-blue uppercase sm:text-xs">
+                    <TransText
+                        en={laureate.trophy?.en || 'Jury Prize'}
+                        fr={laureate.trophy?.fr || 'Prix du Jury'}
+                        ar={laureate.trophy?.ar || 'جائزة لجنة التحكيم'}
+                    />
+                    {year ? ` · ${year}` : ''}
+                </p>
+
+                <div>
+                    <p className="text-[11px] font-bold tracking-[0.12em] text-beta-blue uppercase">
+                        <TransText en="Brand" fr="Marque" ar="العلامة" />
+                    </p>
+                    <div className="mt-2 flex items-center gap-3">
+                        {laureate.brandPhoto ? (
+                            <div className="flex h-12 w-20 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-1.5">
+                                <img
+                                    src={laureate.brandPhoto}
+                                    alt=""
+                                    className="max-h-full max-w-full object-contain"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </div>
+                        ) : null}
+                        <p className="text-lg font-extrabold text-tblack sm:text-xl">
+                            {laureate.brand}
+                        </p>
+                    </div>
+                </div>
+
+                {(laureate.campaign?.en ||
+                    laureate.campaign?.fr ||
+                    laureate.campaign?.ar) && (
+                    <p className="text-sm leading-relaxed text-tgray">
+                        <span className="font-extrabold text-beta-blue">
+                            <TransText
+                                en="Campaign"
+                                fr="Campagne"
+                                ar="الحملة"
+                            />
+                            {' : '}
+                        </span>
+                        <TransText
+                            en={laureate.campaign.en}
+                            fr={laureate.campaign.fr}
+                            ar={laureate.campaign.ar}
+                        />
+                    </p>
+                )}
+
+                {(laureate.agency?.en ||
+                    laureate.agency?.fr ||
+                    laureate.agency?.ar) && (
+                    <div>
+                        <p className="text-[11px] font-bold tracking-[0.12em] text-beta-blue uppercase">
+                            <TransText
+                                en="Agency"
+                                fr="Agence"
+                                ar="الوكالة"
+                            />
+                        </p>
+                        <div className="mt-2 flex items-center gap-3">
+                            {laureate.agencyPhoto ? (
+                                <div className="flex h-10 w-16 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-1">
+                                    <img
+                                        src={laureate.agencyPhoto}
+                                        alt=""
+                                        className="max-h-full max-w-full object-contain"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                            ) : null}
+                            <p className="text-base font-semibold text-tblack">
+                                <TransText
+                                    en={laureate.agency.en}
+                                    fr={laureate.agency.fr}
+                                    ar={laureate.agency.ar}
+                                />
+                            </p>
+                        </div>
+                    </div>
+                )}
+            </div>
+        </article>
     );
 });
 
 export default function TililaLaureatesSection() {
-    const { editions = [], teaserVideoUrl } = usePage().props;
-    const slides = useMemo(
-        () => buildSlides(editions, teaserVideoUrl),
-        [editions, teaserVideoUrl],
-    );
-    const [activeIndex, setActiveIndex] = useState(0);
-    const activeSlide = slides[activeIndex] ?? slides[0];
+    const { editions = [] } = usePage().props;
 
-    const mediaItems = useMemo(
-        () =>
-            MEDIA_ITEMS.map((item) =>
-                item.play ? { ...item, href: teaserVideoUrl } : item,
-            ),
-        [teaserVideoUrl],
+    const edition = useMemo(() => lastFinishedEdition(editions), [editions]);
+
+    const laureate = useMemo(
+        () => (edition ? buildJuryPrizeLaureate(edition) : FALLBACK_LAUREATE),
+        [edition],
     );
+
+    const borderImages = useMemo(
+        () =>
+            edition
+                ? borderGallerySrcs(edition)
+                : Array(BORDER_IMAGE_COUNT).fill(FALLBACK_IMAGE),
+        [edition],
+    );
+
+    const awardsUrl = edition?.id
+        ? `/tilila/editions/${edition.id}`
+        : '/tilila/archives';
+    const year = edition?.year ?? '2025';
 
     return (
         <TililaSection id="laureates" className="bg-twhite">
@@ -268,51 +411,21 @@ export default function TililaLaureatesSection() {
                     />
                 </div>
 
-                <div className="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[1.12fr_0.88fr] lg:items-start lg:gap-8 xl:gap-10">
-                    <div>
-                        <FeaturedLaureate slide={activeSlide} />
+                <div className="mt-10 grid items-stretch gap-8 lg:mt-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-10">
+                    <JuryPrizeLaureate laureate={laureate} year={year} />
 
-                        {slides.length > 1 ? (
-                            <div className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start sm:ps-[2%]">
-                                {slides.map((slide, index) => (
-                                    <button
-                                        key={slide.id}
-                                        type="button"
-                                        onClick={() => setActiveIndex(index)}
-                                        className={`rounded-full px-3 py-1 text-[10px] font-bold tracking-wide uppercase transition ${
-                                            index === activeIndex
-                                                ? 'bg-beta-blue text-twhite'
-                                                : 'border border-beta-blue/20 bg-twhite text-beta-blue hover:border-beta-blue/40'
-                                        }`}
-                                        aria-label={`Laureate ${index + 1}`}
-                                        aria-current={
-                                            index === activeIndex
-                                                ? 'true'
-                                                : undefined
-                                        }
-                                    >
-                                        {slide.brand || `#${index + 1}`}
-                                    </button>
-                                ))}
-                            </div>
-                        ) : null}
-                    </div>
+                    <div className="flex w-full flex-col lg:max-w-none lg:justify-self-stretch">
+                        <EditionMediaFrame
+                            images={borderImages}
+                            uploadSrc={laureate.videoUploadSrc}
+                            youtubeUrl={laureate.videoYoutubeUrl}
+                            brand={laureate.brand}
+                        />
 
-                    <div className="flex flex-col">
-                        <div className="grid grid-cols-3 gap-3 sm:gap-4">
-                            {mediaItems.map((item) => (
-                                <MediaCard
-                                    key={item.labelEn}
-                                    item={item}
-                                    videoHref={teaserVideoUrl}
-                                />
-                            ))}
-                        </div>
-
-                        <div className="mt-6 text-center lg:mt-8">
+                        <div className="mt-5 text-center lg:mt-6">
                             <Link
-                                href="/tilila/archives"
-                                className="inline-flex w-full max-w-md items-center justify-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue"
+                                href={awardsUrl}
+                                className="inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-3 text-[11px] font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue sm:text-xs"
                             >
                                 <TransText
                                     en="Discover the awards list"

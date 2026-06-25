@@ -103,7 +103,7 @@ const NAV = [
 
 const APPLY_CTAS = [
     {
-        href: '/tilila/participate',
+        href: '/tilila',
         en: 'Participate Tilila Awards',
         fr: 'Candidater aux Tilila Awards',
         ar: 'الترشح لتيليلا أووردز',
@@ -113,7 +113,7 @@ const APPLY_CTAS = [
         className: 'bg-beta-blue hover:bg-brand-light-purple',
     },
     {
-        href: '/tililab/form',
+        href: '/tililab',
         en: 'Participate Tililab',
         fr: 'Candidater au Tililab',
         ar: 'الترشح لتيليلاب',
