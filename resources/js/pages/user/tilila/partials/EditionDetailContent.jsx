@@ -6,6 +6,7 @@ import {
     TililaIconBadge,
     TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
+import { resolveWinnerDisplay } from '@/pages/user/tilila/utils/winnerFields';
 
 export function textFor(obj, locale) {
     return obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
@@ -77,7 +78,11 @@ export function EditionWinnersSection({
                 slideClassName="w-[min(100%,340px)] shrink-0 snap-start md:w-[48%] lg:w-[32%]"
             >
                 {winners.length > 0
-                    ? winners.map((w, i) => (
+                    ? winners.map((w, i) => {
+                          const { campaign, agency, agencyPhoto } =
+                              resolveWinnerDisplay(w);
+
+                          return (
                           <article
                               key={i}
                               className="flex h-full min-h-[200px] flex-col gap-4 rounded-2xl border border-border/60 bg-twhite p-5 shadow-sm"
@@ -98,14 +103,47 @@ export function EditionWinnersSection({
                                   <p className="mt-1 text-lg font-bold text-tblack">
                                       {w.full_name}
                                   </p>
-                                  {textFor(w.bio, locale) ? (
-                                      <p className="mt-2 line-clamp-5 text-sm leading-relaxed text-tgray">
-                                          {textFor(w.bio, locale)}
+                                  {textFor(campaign, locale) ? (
+                                      <p className="mt-2 text-sm leading-relaxed text-tgray">
+                                          <span className="font-semibold text-tblack">
+                                              <TransText
+                                                  en="Campaign"
+                                                  fr="Campagne"
+                                                  ar="الحملة"
+                                              />
+                                              {': '}
+                                          </span>
+                                          {textFor(campaign, locale)}
                                       </p>
+                                  ) : null}
+                                  {textFor(agency, locale) ? (
+                                      <div className="mt-2 flex items-center gap-2">
+                                          {agencyPhoto ? (
+                                              <img
+                                                  src={agencyPhoto}
+                                                  alt=""
+                                                  className="h-8 max-w-[4.5rem] object-contain"
+                                                  loading="lazy"
+                                                  decoding="async"
+                                              />
+                                          ) : null}
+                                          <p className="text-sm leading-relaxed text-tgray">
+                                              <span className="font-semibold text-tblack">
+                                                  <TransText
+                                                      en="Agency"
+                                                      fr="Agence"
+                                                      ar="الوكالة"
+                                                  />
+                                                  {': '}
+                                              </span>
+                                              {textFor(agency, locale)}
+                                          </p>
+                                      </div>
                                   ) : null}
                               </div>
                           </article>
-                      ))
+                          );
+                      })
                     : historyLines.map((line, i) => (
                           <article
                               key={i}

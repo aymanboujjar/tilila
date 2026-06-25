@@ -3,6 +3,7 @@ import {
     coverImageSrc,
     normalizeEdition,
 } from '@/pages/user/tilila/utils/editions';
+import { resolveWinnerDisplay } from '@/pages/user/tilila/utils/winnerFields';
 
 function parseLineToWinner(line) {
     const text = line?.fr || line?.en || '';
@@ -27,11 +28,21 @@ function parseLineToWinner(line) {
             fr: (trophyPart || '').trim(),
             ar: line?.ar || (trophyPart || '').trim(),
         },
-        bio: {
-            en: agencyPart ? `Agency: ${agencyPart.trim()}` : '',
-            fr: agencyPart ? `Agence : ${agencyPart.trim()}` : '',
-            ar: agencyPart ? `الوكالة: ${agencyPart.trim()}` : '',
-        },
+        campaign: agencyPart
+            ? {
+                  en: (brandPart || '').trim(),
+                  fr: (brandPart || '').trim(),
+                  ar: (brandPart || '').trim(),
+              }
+            : { en: '', fr: '', ar: '' },
+        agency: agencyPart
+            ? {
+                  en: agencyPart.trim(),
+                  fr: agencyPart.trim(),
+                  ar: agencyPart.trim(),
+              }
+            : { en: '', fr: '', ar: '' },
+        bio: { en: '', fr: '', ar: '' },
     };
 }
 
@@ -166,12 +177,17 @@ export function editionWinnerRows(edition, locale = 'fr') {
     const text = (obj) => obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
 
     if (edition.winners?.length) {
-        return edition.winners.map((winner) => ({
-            trophy: text(winner.trophy),
-            name: winner.full_name || '',
-            detail: text(winner.bio),
-            photo: winner.photo_path || null,
-        }));
+        return edition.winners.map((winner) => {
+            const { campaign, agency } = resolveWinnerDisplay(winner);
+
+            return {
+                trophy: text(winner.trophy),
+                name: winner.full_name || '',
+                detail: text(campaign),
+                agency: text(agency),
+                photo: winner.photo_path || null,
+            };
+        });
     }
 
     if (edition.history_lines?.length) {

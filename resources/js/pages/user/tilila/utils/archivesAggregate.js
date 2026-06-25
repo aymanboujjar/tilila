@@ -3,6 +3,7 @@ import {
     textFor,
 } from '@/pages/user/tilila/partials/EditionDetailContent';
 import { extractAgency } from '@/pages/user/tilila/utils/archiveEditions';
+import { resolveWinnerDisplay } from '@/pages/user/tilila/utils/winnerFields';
 
 function parseCampaignFromLine(line, locale = 'fr') {
     const text = line?.[locale] || line?.fr || line?.en || '';
@@ -46,27 +47,29 @@ export function buildArchivesSections(editions, locale = 'fr') {
 
         if (edition.winners?.length) {
             for (const winner of edition.winners) {
+                const { campaign, agency } = resolveWinnerDisplay(winner);
+
                 laureats.push({
                     ...base,
                     trophy: textFor(winner.trophy, locale),
                     name: winner.full_name,
-                    detail: textFor(winner.bio, locale),
+                    detail: textFor(campaign, locale) || textFor(agency, locale),
                 });
 
                 if (winner.full_name) {
                     marques.push({ ...base, name: winner.full_name });
                 }
 
-                const agency = extractAgency(winner.bio, locale);
+                const agencyName = textFor(agency, locale);
 
-                if (agency) {
-                    agences.push({ ...base, name: agency });
+                if (agencyName) {
+                    agences.push({ ...base, name: agencyName });
                 }
 
-                const campaign = parseCampaignFromWinner(winner, locale);
+                const campaignName = textFor(campaign, locale);
 
-                if (campaign) {
-                    campagnes.push({ ...base, name: campaign });
+                if (campaignName) {
+                    campagnes.push({ ...base, name: campaignName });
                 }
             }
         }
