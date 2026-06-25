@@ -1,9 +1,12 @@
 import { Link, usePage } from '@inertiajs/react';
 import { ChevronDown, Menu, X } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TransText from '@/components/TransText';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
 import { useTranslation } from '@/contexts/TranslationContext';
+import { cn } from '@/lib/utils';
+
+const SCROLL_THRESHOLD = 12;
 
 const NAV = [
     {
@@ -150,10 +153,17 @@ function ApplyCtaButton({ cta, compact = false, className = '', onNavigate }) {
     );
 }
 
-const linkClass = (active) =>
-    `inline-flex h-10 shrink-0 items-center whitespace-nowrap text-[12px] font-bold tracking-[0.05em] uppercase transition  2xl:tracking-[0.07em] ${
-        active ? 'text-beta-blue' : 'text-tblack hover:text-beta-blue'
-    }`;
+const linkClass = (active, onDark) =>
+    cn(
+        'inline-flex h-10 shrink-0 items-center whitespace-nowrap text-[12px] font-bold tracking-[0.05em] uppercase transition 2xl:tracking-[0.07em]',
+        onDark
+            ? active
+                ? 'text-twhite'
+                : 'text-twhite/90 hover:text-twhite'
+            : active
+              ? 'text-beta-blue'
+              : 'text-tblack hover:text-beta-blue',
+    );
 
 function normalizePath(path) {
     if (!path) return '/';
@@ -177,11 +187,11 @@ function NavLabel({ item }) {
     return <TransText en={item.en} fr={item.fr} ar={item.ar} />;
 }
 
-function NavLink({ item, active, onNavigate }) {
+function NavLink({ item, active, onNavigate, onDark }) {
     return (
         <Link
             href={item.href}
-            className={linkClass(active)}
+            className={linkClass(active, onDark)}
             onClick={onNavigate}
         >
             <NavLabel item={item} />
@@ -189,12 +199,12 @@ function NavLink({ item, active, onNavigate }) {
     );
 }
 
-function DesktopNavDropdown({ item, active }) {
+function DesktopNavDropdown({ item, active, onDark }) {
     return (
         <div className="group relative shrink-0">
             <button
                 type="button"
-                className={`gap-0.5 ${linkClass(active)}`}
+                className={`gap-0.5 ${linkClass(active, onDark)}`}
                 aria-haspopup="true"
                 aria-expanded={active}
             >
@@ -225,7 +235,7 @@ function DesktopNavDropdown({ item, active }) {
     );
 }
 
-function DesktopNavItems({ currentPath, currentHash }) {
+function DesktopNavItems({ currentPath, currentHash, onDark }) {
     const isActive = (item) => item.match(currentPath, currentHash);
 
     return NAV.map((item) => {
@@ -237,12 +247,18 @@ function DesktopNavItems({ currentPath, currentHash }) {
                     key={item.id}
                     item={item}
                     active={active}
+                    onDark={onDark}
                 />
             );
         }
 
         return (
-            <NavLink key={item.href} item={item} active={active} />
+            <NavLink
+                key={item.href}
+                item={item}
+                active={active}
+                onDark={onDark}
+            />
         );
     });
 }
@@ -250,9 +266,23 @@ function DesktopNavItems({ currentPath, currentHash }) {
 export default function TililaSiteHeader() {
     const [open, setOpen] = useState(false);
     const [aboutOpen, setAboutOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
     const pageUrl = usePage().url || '/';
     const currentPath = normalizePath(pageUrl.split('?')[0]);
     const currentHash = (pageUrl.split('#')[1] || '').replace(/^#/, '');
+    const isHome = currentPath === '/';
+    const onDark = isHome && !scrolled && !open;
+
+    useEffect(() => {
+        const onScroll = () => {
+            setScrolled(window.scrollY > SCROLL_THRESHOLD);
+        };
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [currentPath]);
 
     const isActive = (item) => item.match(currentPath, currentHash);
 
@@ -262,13 +292,23 @@ export default function TililaSiteHeader() {
     };
 
     return (
-        <header className="sticky top-0 z-50 overflow-visible border-b border-border/80 bg-twhite/95 backdrop-blur-md">
+        <header
+            className={cn(
+                'fixed inset-x-0 top-0 z-50 overflow-visible transition-[background-color,border-color,box-shadow,backdrop-filter] duration-300',
+                onDark
+                    ? 'border-b border-transparent bg-transparent'
+                    : 'border-b border-border/80 bg-twhite/95 shadow-sm backdrop-blur-md',
+            )}
+        >
             <div className="mx-auto flex h-[72px] max-w-[100rem] flex-nowrap items-center gap-2 overflow-visible px-3 sm:gap-3 sm:px-5 lg:px-6 xl:px-8">
                 <Link href="/" className="shrink-0">
                     <img
                         src="/assets/logo.png"
                         alt="Tilila Awards"
-                        className="h-10 w-auto max-w-[8rem] object-contain sm:h-9 xl:max-w-none"
+                        className={cn(
+                            'h-10 w-auto max-w-[8rem] object-contain transition sm:h-9 xl:max-w-none',
+                            onDark && 'brightness-0 invert',
+                        )}
                         loading="eager"
                     />
                 </Link>
@@ -277,10 +317,11 @@ export default function TililaSiteHeader() {
                     className="hidden min-w-0 flex-1 overflow-visible lg:block"
                     aria-label="Tilila"
                 >
-                    <div className="flex flex-row flex-nowrap items-center justify-center  space-x-8 overflow-visible">
+                    <div className="flex flex-row flex-nowrap items-center justify-center space-x-8 overflow-visible">
                         <DesktopNavItems
                             currentPath={currentPath}
                             currentHash={currentHash}
+                            onDark={onDark}
                         />
                     </div>
                 </nav>
@@ -293,7 +334,12 @@ export default function TililaSiteHeader() {
                     </div>
                     <button
                         type="button"
-                        className="inline-flex size-10 items-center justify-center rounded-lg border border-border text-beta-blue lg:hidden"
+                        className={cn(
+                            'inline-flex size-10 items-center justify-center rounded-lg border lg:hidden',
+                            onDark
+                                ? 'border-twhite/40 text-twhite'
+                                : 'border-border text-beta-blue',
+                        )}
                         aria-expanded={open}
                         onClick={() => setOpen((v) => !v)}
                     >
@@ -303,7 +349,10 @@ export default function TililaSiteHeader() {
                             <Menu className="size-5" />
                         )}
                     </button>
-                    <LanguageSwitcher className="h-8 px-2 text-[10px]" />
+                    <LanguageSwitcher
+                        className="h-8 px-2 text-[10px]"
+                        onDark={onDark}
+                    />
                 </div>
             </div>
 

@@ -52,7 +52,7 @@ export default function HomeHero() {
     return (
         <TililaSection
             id="hero"
-            className="relative overflow-hidden py-8 text-twhite sm:py-10"
+            className="relative overflow-hidden min-h-[calc(100dvh-72px)] flex flex-col justify-center py-8 text-twhite sm:py-10"
         >
             <div
                 className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -67,7 +67,7 @@ export default function HomeHero() {
             <TililaContainer className="relative z-10">
                 <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
                     <div className="max-w-lg lg:max-w-xl">
-                        <div className="space-y-0.5 text-lg leading-[1.2] font-extrabold tracking-tight sm:text-xl lg:text-[1.5rem] xl:text-[2rem]">
+                        <div className="space-y-0.5 text-lg leading-[1.4] font-extrabold tracking-tight sm:text-xl lg:text-[1.5rem] xl:text-[2.2rem]">
                             <p>
                                 <TransText
                                     en="Every creation tells a story."

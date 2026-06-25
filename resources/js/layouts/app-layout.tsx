@@ -35,11 +35,12 @@ export default function AppLayout({
     if (!isBackOfficePage) {
         const slides = (page.props.hero_slides as unknown[]) ?? [];
         const showHero = shouldShowHeroCarousel(currentPath, slides);
+        const isHome = currentPath === '/';
 
         return (
             <div className="flex min-h-screen flex-col bg-twhite text-tblack">
                 <TililaSiteHeader />
-                <main className="flex-1">
+                <main className={`flex-1 ${isHome ? '' : 'pt-[72px]'}`}>
                     {showHero ? <HeroCarousel /> : null}
                     {children}
                 </main>
