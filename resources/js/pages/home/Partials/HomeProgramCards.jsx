@@ -1,5 +1,12 @@
 import { Link } from '@inertiajs/react';
+import { motion } from 'framer-motion';
 import { Clapperboard, Trophy } from 'lucide-react';
+import {
+    HOME_EASE,
+    RevealOnScroll,
+    StaggerItem,
+    StaggerReveal,
+} from '@/components/motion/home-motion';
 import TransText from '@/components/TransText';
 import {
     TililaContainer,
@@ -45,7 +52,7 @@ const CARDS = [
 
 function SectionTitle() {
     return (
-        <div className="mb-8 text-center sm:mb-10">
+        <RevealOnScroll className="mb-8 text-center sm:mb-10">
             <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
                 <TransText
                     en="Our two programmes"
@@ -53,11 +60,15 @@ function SectionTitle() {
                     ar="برنامجانا"
                 />
             </h2>
-            <div
+            <motion.div
                 className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-beta-blue/70"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1, ease: HOME_EASE }}
                 aria-hidden
             />
-        </div>
+        </RevealOnScroll>
     );
 }
 
@@ -89,46 +100,65 @@ function ProgramCard({ card }) {
     const Icon = card.icon;
 
     return (
-        <Link
-            href={card.href}
-            className="group relative block min-h-[260px] overflow-hidden rounded-2xl shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl sm:min-h-[300px]"
-        >
-            <CardBackground variant={card.id} />
+        <StaggerItem y={48}>
+            <motion.div
+                whileHover={{ y: -6, scale: 1.01 }}
+                transition={{ duration: 0.3, ease: HOME_EASE }}
+            >
+                <Link
+                    href={card.href}
+                    className="group relative block min-h-[260px] overflow-hidden rounded-2xl shadow-lg sm:min-h-[300px]"
+                >
+                    <CardBackground variant={card.id} />
 
-            <div className="relative z-10 flex min-h-[260px] sm:min-h-[300px]">
-                <div className="flex flex-1 flex-col justify-center px-6 py-7 sm:px-8 sm:py-8">
-                    <span className="inline-flex size-10 items-center justify-center rounded-full border border-twhite/35 bg-twhite/10 text-twhite">
-                        <Icon className="size-5" strokeWidth={1.75} aria-hidden />
-                    </span>
+                    <div className="relative z-10 flex min-h-[260px] sm:min-h-[300px]">
+                        <div className="flex flex-1 flex-col justify-center px-6 py-7 sm:px-8 sm:py-8">
+                            <motion.span
+                                className="inline-flex size-10 items-center justify-center rounded-full border border-twhite/35 bg-twhite/10 text-twhite"
+                                whileHover={{ rotate: 12, scale: 1.08 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <Icon
+                                    className="size-5"
+                                    strokeWidth={1.75}
+                                    aria-hidden
+                                />
+                            </motion.span>
 
-                    <h3 className="mt-4 text-lg font-extrabold tracking-wide text-twhite uppercase sm:text-xl">
-                        {card.title}
-                    </h3>
+                            <h3 className="mt-4 text-lg font-extrabold tracking-wide text-twhite uppercase sm:text-xl">
+                                {card.title}
+                            </h3>
 
-                    <p className="mt-2 text-sm font-semibold leading-snug text-twhite sm:text-[0.95rem]">
-                        <TransText
-                            en={card.subtitleEn}
-                            fr={card.subtitleFr}
-                            ar={card.subtitleAr}
-                        />
-                    </p>
+                            <p className="mt-2 text-sm font-semibold leading-snug text-twhite sm:text-[0.95rem]">
+                                <TransText
+                                    en={card.subtitleEn}
+                                    fr={card.subtitleFr}
+                                    ar={card.subtitleAr}
+                                />
+                            </p>
 
-                    <p className="mt-3 max-w-sm text-xs leading-relaxed text-twhite/85 sm:text-sm">
-                        <TransText
-                            en={card.bodyEn}
-                            fr={card.bodyFr}
-                            ar={card.bodyAr}
-                        />
-                    </p>
+                            <p className="mt-3 max-w-sm text-xs leading-relaxed text-twhite/85 sm:text-sm">
+                                <TransText
+                                    en={card.bodyEn}
+                                    fr={card.bodyFr}
+                                    ar={card.bodyAr}
+                                />
+                            </p>
 
-                    <span
-                        className={`mt-5 inline-flex w-fit items-center justify-center rounded-lg px-5 py-2.5 text-[10px] font-bold tracking-[0.14em] text-twhite uppercase transition sm:text-xs ${card.buttonClass}`}
-                    >
-                        <TransText en="Discover" fr="Découvrir" ar="اكتشف" />
-                    </span>
-                </div>
-            </div>
-        </Link>
+                            <span
+                                className={`mt-5 inline-flex w-fit items-center justify-center rounded-lg px-5 py-2.5 text-[10px] font-bold tracking-[0.14em] text-twhite uppercase transition sm:text-xs ${card.buttonClass}`}
+                            >
+                                <TransText
+                                    en="Discover"
+                                    fr="Découvrir"
+                                    ar="اكتشف"
+                                />
+                            </span>
+                        </div>
+                    </div>
+                </Link>
+            </motion.div>
+        </StaggerItem>
     );
 }
 
@@ -138,11 +168,14 @@ export default function HomeProgramCards() {
             <TililaContainer>
                 <SectionTitle />
 
-                <div className="grid gap-5 md:grid-cols-2 md:gap-6">
+                <StaggerReveal
+                    className="grid gap-5 md:grid-cols-2 md:gap-6"
+                    stagger={0.14}
+                >
                     {CARDS.map((card) => (
                         <ProgramCard key={card.id} card={card} />
                     ))}
-                </div>
+                </StaggerReveal>
             </TililaContainer>
         </TililaSection>
     );

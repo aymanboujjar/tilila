@@ -1,6 +1,11 @@
 import { Link, usePage } from '@inertiajs/react';
+import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import {
+    HOME_EASE,
+    RevealOnScroll,
+} from '@/components/motion/home-motion';
 import TransText from '@/components/TransText';
 import { useTranslation } from '@/contexts/TranslationContext';
 import {
@@ -208,7 +213,10 @@ function PartnerTier({
 
 function SectionIntro() {
     return (
-        <div className="grid gap-6 border-s-4 border-beta-blue ps-5 sm:ps-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10">
+        <RevealOnScroll
+            y={32}
+            className="grid gap-6 border-s-4 border-beta-blue ps-5 sm:ps-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10"
+        >
             <div className="max-w-2xl">
                 <p className="text-[11px] font-bold tracking-[0.22em] text-beta-turquoise uppercase">
                     <TransText
@@ -233,20 +241,22 @@ function SectionIntro() {
                 </p>
             </div>
 
-            <Link
-                href="/contact"
-                className="inline-grid w-fit place-items-center rounded-xl border-2 border-beta-blue px-5 py-3 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue lg:justify-self-end"
-            >
-                <span className="inline-grid grid-flow-col items-center gap-2">
-                    <TransText
-                        en="Become a partner"
-                        fr="Devenir partenaire"
-                        ar="كن شريكًا"
-                    />
-                    <ArrowUpRight className="size-4" aria-hidden />
-                </span>
-            </Link>
-        </div>
+            <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                    href="/contact"
+                    className="inline-grid w-fit place-items-center rounded-xl border-2 border-beta-blue px-5 py-3 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue lg:justify-self-end"
+                >
+                    <span className="inline-grid grid-flow-col items-center gap-2">
+                        <TransText
+                            en="Become a partner"
+                            fr="Devenir partenaire"
+                            ar="كن شريكًا"
+                        />
+                        <ArrowUpRight className="size-4" aria-hidden />
+                    </span>
+                </Link>
+            </motion.div>
+        </RevealOnScroll>
     );
 }
 
@@ -296,40 +306,44 @@ export default function HomePartners() {
                 <SectionIntro />
 
                 <div className="mt-10 space-y-5 sm:mt-12 sm:space-y-6">
-                    <PartnerTier
-                        accent={{
-                            rail: 'bg-linear-to-b from-[#5a3d96] to-beta-blue',
-                            ring: 'ring-brand-light-purple/15',
-                        }}
-                        count={institutionalCount}
-                        marqueeLabel="Institutional partners"
-                        label={
-                            <TransText
-                                en="Institutional"
-                                fr="Institutionnels"
-                                ar="مؤسسات"
-                            />
-                        }
-                        partners={tilila.institutional}
-                    />
+                    <RevealOnScroll y={36} delay={0.05}>
+                        <PartnerTier
+                            accent={{
+                                rail: 'bg-linear-to-b from-[#5a3d96] to-beta-blue',
+                                ring: 'ring-brand-light-purple/15',
+                            }}
+                            count={institutionalCount}
+                            marqueeLabel="Institutional partners"
+                            label={
+                                <TransText
+                                    en="Institutional"
+                                    fr="Institutionnels"
+                                    ar="مؤسسات"
+                                />
+                            }
+                            partners={tilila.institutional}
+                        />
+                    </RevealOnScroll>
 
-                    <PartnerTier
-                        accent={{
-                            rail: 'bg-linear-to-b from-[#0d9488] to-beta-turquoise',
-                            ring: 'ring-beta-turquoise/15',
-                        }}
-                        count={mediaCount}
-                        marqueeLabel="Media partners"
-                        label={
-                            <TransText
-                                en="Media"
-                                fr="Médias"
-                                ar="إعلام"
-                            />
-                        }
-                        partners={mediaPartners}
-                        compact
-                    />
+                    <RevealOnScroll y={36} delay={0.12}>
+                        <PartnerTier
+                            accent={{
+                                rail: 'bg-linear-to-b from-[#0d9488] to-beta-turquoise',
+                                ring: 'ring-beta-turquoise/15',
+                            }}
+                            count={mediaCount}
+                            marqueeLabel="Media partners"
+                            label={
+                                <TransText
+                                    en="Media"
+                                    fr="Médias"
+                                    ar="إعلام"
+                                />
+                            }
+                            partners={mediaPartners}
+                            compact
+                        />
+                    </RevealOnScroll>
                 </div>
             </TililaContainer>
         </TililaSection>

@@ -1,7 +1,14 @@
-import { Link, usePage } from '@inertiajs/react';
+import { Link } from '@inertiajs/react';
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import {
+    HOME_EASE,
+    SlideIn,
+    TypewriterText,
+} from '@/components/motion/home-motion';
 import TransText from '@/components/TransText';
+import { useTranslation } from '@/contexts/TranslationContext';
 import {
     TililaContainer,
     TILILA_HERO_BTN,
@@ -11,36 +18,73 @@ import {
 
 const HERO_BACKGROUND = '/assets/homehero.jpg';
 const HERO_BG = '/assets/homehero.jpg';
-const TROPHY = '/assets/tilila/trophee-tilila.png';
 const FALLBACK_VIDEO = '/assets/Cérémonie Tilila 2025.mp4';
 
-function HeroCtaPrimary({ href, children }) {
+const HEADLINES = [
+    {
+        en: 'Every creation tells a story.',
+        fr: 'Chaque création raconte une histoire.',
+        ar: 'كل إبداع يحكي قصة.',
+    },
+    {
+        en: 'Every story shapes a perspective.',
+        fr: 'Chaque histoire façonne un regard.',
+        ar: 'كل قصة تشكّل نظرة.',
+    },
+    // {
+    //     en: 'Every new perspective can help society evolve.',
+    //     fr: 'Chaque nouveau regard peut faire évoluer une société.',
+    //     ar: 'وكل نظرة جديدة يمكن أن تساهم في تطور المجتمع.',
+    // },
+];
+
+function HeroCtaPrimary({ href, children, delay = 0 }) {
     return (
-        <Link
-            href={href}
-            className={`inline-flex items-center justify-center gap-1.5 rounded-lg bg-beta-blue px-4 py-2 text-[9px] font-bold tracking-[0.1em] text-twhite uppercase transition hover:bg-brand-light-purple sm:px-5 sm:py-2.5 sm:text-[10px] ${TILILA_HERO_BTN}`}
+        <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay, ease: HOME_EASE }}
         >
-            {children}
-            <ArrowRight className="size-4" aria-hidden />
-        </Link>
+            <Link
+                href={href}
+                className={`inline-flex items-center justify-center gap-1.5 rounded-lg bg-beta-blue px-4 py-2 text-[9px] font-bold tracking-[0.1em] text-twhite uppercase transition hover:bg-brand-light-purple sm:px-5 sm:py-2.5 sm:text-[10px] ${TILILA_HERO_BTN}`}
+            >
+                {children}
+                <ArrowRight className="size-4" aria-hidden />
+            </Link>
+        </motion.div>
     );
 }
 
-function HeroCtaTurquoise({ href, children }) {
+function HeroCtaTurquoise({ href, children, delay = 0 }) {
     return (
-        <Link
-            href={href}
-            className={`inline-flex items-center justify-center gap-1.5 rounded-lg bg-beta-turquoise px-4 py-2 text-[9px] font-bold tracking-[0.1em] text-twhite uppercase transition hover:brightness-110 sm:px-5 sm:py-2.5 sm:text-[10px] ${TILILA_HERO_BTN}`}
+        <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay, ease: HOME_EASE }}
         >
-            {children}
-            <ArrowRight className="size-4" aria-hidden />
-        </Link>
+            <Link
+                href={href}
+                className={`inline-flex items-center justify-center gap-1.5 rounded-lg bg-beta-turquoise px-4 py-2 text-[9px] font-bold tracking-[0.1em] text-twhite uppercase transition hover:brightness-110 sm:px-5 sm:py-2.5 sm:text-[10px] ${TILILA_HERO_BTN}`}
+            >
+                {children}
+                <ArrowRight className="size-4" aria-hidden />
+            </Link>
+        </motion.div>
     );
 }
 
 export default function HomeHero() {
     const videoRef = useRef(null);
     const videoSrc = FALLBACK_VIDEO;
+    const { locale } = useTranslation();
+    const [activeLine, setActiveLine] = useState(0);
+    const [typingDone, setTypingDone] = useState(false);
+
+    useEffect(() => {
+        setActiveLine(0);
+        setTypingDone(false);
+    }, [locale]);
 
     useEffect(() => {
         const el = videoRef.current;
@@ -52,11 +96,14 @@ export default function HomeHero() {
     return (
         <TililaSection
             id="hero"
-            className="relative overflow-hidden min-h-[calc(100dvh-72px)] flex flex-col justify-center py-8 text-twhite sm:py-10"
+            className="relative -mt-[72px] flex min-h-[100dvh] flex-col justify-center overflow-hidden pt-[72px] py-8 text-twhite sm:py-10"
         >
-            <div
+            <motion.div
                 className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{ backgroundImage: `url(${HERO_BACKGROUND})` }}
+                initial={{ scale: 1.08 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.4, ease: HOME_EASE }}
                 aria-hidden
             />
             <div
@@ -66,108 +113,115 @@ export default function HomeHero() {
 
             <TililaContainer className="relative z-10">
                 <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
-                    <div className="max-w-lg lg:max-w-xl">
-                        <div className="space-y-0.5 text-lg leading-[1.4] font-extrabold tracking-tight sm:text-xl lg:text-[1.5rem] xl:text-[2.2rem]">
-                            <p>
-                                <TransText
-                                    en="Every creation tells a story."
-                                    fr="Chaque création raconte une histoire."
-                                    ar="كل إبداع يحكي قصة."
-                                />
-                            </p>
-                            <p>
-                                <TransText
-                                    en="Every story shapes a perspective."
-                                    fr="Chaque histoire façonne un regard."
-                                    ar="كل قصة تشكّل نظرة."
-                                />
-                            </p>
-                            <p>
-                                {/* <TransText
-                                    en="Every new perspective can help society evolve."
-                                    fr="Chaque nouveau regard peut faire évoluer une société."
-                                    ar="وكل نظرة جديدة يمكن أن تساهم في تطور المجتمع."
-                                /> */}
-                            </p>
-                        </div>
+                    <SlideIn direction="left" delay={0.15}>
+                        <div className="max-w-lg lg:max-w-xl">
+                            <div className="space-y-0.5 text-lg leading-[1.6] font-extrabold tracking-tight sm:text-xl lg:text-[1.5rem] xl:text-[2.1rem]">
+                                {HEADLINES.map((line, index) => (
+                                    <p key={line.en}>
+                                        <TypewriterText
+                                            {...line}
+                                            active={activeLine === index}
+                                            done={activeLine > index}
+                                            delay={index === 0 ? 500 : 0}
+                                            speed={28}
+                                            onComplete={() =>
+                                                setActiveLine((current) =>
+                                                    Math.max(current, index + 1),
+                                                )
+                                            }
+                                        />
+                                    </p>
+                                ))}
+                            </div>
 
-                        <div className="mt-4 space-y-2.5 text-xs leading-snug text-twhite/85 sm:text-lg">
-                            <p>
-                                <TransText
-                                    en="Through Tilila Awards and Tililab, SOREAD 2M celebrates those who choose to put creativity at the service of change."
-                                    fr="À travers les Tilila Awards et Tililab, SOREAD 2M célèbre celles et ceux qui choisissent de mettre la créativité au service du changement."
-                                    ar="عبر تيليلا أووردز وتيليلاب، تحتفي SOREAD 2M بمن يختارون وضع الإبداع في خدمة التغيير."
-                                />
-                            </p>
-                            {/* <p>
-                                <TransText
-                                    en="Advertising creations that challenge stereotypes. Ideas that open new perspectives. Talents who imagine fairer, more representative and more inclusive stories."
-                                    fr="Des créations publicitaires qui bousculent les stéréotypes. Des idées qui ouvrent de nouvelles perspectives. Des talents qui imaginent des récits plus justes, plus représentatifs et plus inclusifs."
-                                    ar="إبداعات إعلانية تتحدى الصور النمطية. أفكار تفتح آفاقًا جديدة. مواهب تتخيل سرديات أكثر عدلاً وتمثيلاً وشمولاً."
-                                />
-                            </p>
-                            <p>
-                                <TransText
-                                    en="Whether distinguishing brands that evolve representations or supporting tomorrow's advertising creators, Tilila honours the power of ideas, images and words to inspire, unite and move society forward."
-                                    fr="Qu'il s'agisse de distinguer les marques qui font évoluer les représentations ou d'accompagner les créateurs et créatrices publicitaires de demain, Tilila met à l'honneur le pouvoir des idées, des images et des mots pour inspirer, rassembler et faire progresser la société."
-                                    ar="سواء تمييز العلامات التي تطور التمثيلات أو مرافقة صنّاع الإعلان في الغد، تكرّم تيليلا قوة الأفكار والصور والكلمات للإلهام والتجميع ودفع المجتمع قدمًا."
-                                />
-                            </p> */}
-                            <p>
-                                <TransText
-                                    en="Far more than a competition, Tilila is a space for recognition, support and innovation in the service of responsible communication and impactful creativity."
-                                    fr="Bien plus qu'un concours, Tilila est un espace de reconnaissance, d'accompagnement et d'innovation au service d'une communication responsable et d'une créativité à impact."
-                                    ar="أكثر بكثير من مسابقة، تيليلا فضاء للتقدير والمرافقة والابتكار في خدمة تواصل مسؤول وإبداع مؤثر."
-                                />
-                            </p>
-                        </div>
+                            <motion.div
+                                className="mt-4 space-y-3 text-xs leading-snug text-twhite/85 sm:text-lg"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={
+                                    activeLine >= HEADLINES.length
+                                        ? { opacity: 1, y: 0 }
+                                        : { opacity: 0, y: 20 }
+                                }
+                                transition={{ duration: 0.65, ease: HOME_EASE }}
+                                onAnimationComplete={() => {
+                                    if (activeLine >= HEADLINES.length) {
+                                        setTypingDone(true);
+                                    }
+                                }}
+                            >
+                                <p>
+                                    <TransText
+                                        en="Through Tilila Awards and Tililab, SOREAD 2M celebrates those who choose to put creativity at the service of change."
+                                        fr="À travers les Tilila Awards et Tililab, SOREAD 2M célèbre celles et ceux qui choisissent de mettre la créativité au service du changement."
+                                        ar="عبر تيليلا أووردز وتيليلاب، تحتفي SOREAD 2M بمن يختارون وضع الإبداع في خدمة التغيير."
+                                    />
+                                </p>
+                                <p>
+                                    <TransText
+                                        en="Far more than a competition, Tilila is a space for recognition, support and innovation in the service of responsible communication and impactful creativity."
+                                        fr="Bien plus qu'un concours, Tilila est un espace de reconnaissance, d'accompagnement et d'innovation au service d'une communication responsable et d'une créativité à impact."
+                                        ar="أكثر بكثير من مسابقة، تيليلا فضاء للتقدير والمرافقة والابتكار في خدمة تواصل مسؤول وإبداع مؤثر."
+                                    />
+                                </p>
+                            </motion.div>
 
-                        <div className={`mt-5 ${TILILA_HERO_CTA_ROW}`}>
-                            <HeroCtaPrimary href="/tilila">
-                                <TransText
-                                    en="Discover Tilila Awards"
-                                    fr="Découvrir Tilila Awards"
-                                    ar="اكتشف تيليلا أووردز"
-                                />
-                            </HeroCtaPrimary>
-                            <HeroCtaTurquoise href="/tililab">
-                                <TransText
-                                    en="Discover Tililab"
-                                    fr="Découvrir Tililab"
-                                    ar="اكتشف تيليلاب"
-                                />
-                            </HeroCtaTurquoise>
+                            <div className={`mt-5 ${TILILA_HERO_CTA_ROW}`}>
+                                {typingDone || activeLine >= HEADLINES.length ? (
+                                    <>
+                                        <HeroCtaPrimary href="/tilila" delay={0.1}>
+                                            <TransText
+                                                en="Discover Tilila Awards"
+                                                fr="Découvrir Tilila Awards"
+                                                ar="اكتشف تيليلا أووردز"
+                                            />
+                                        </HeroCtaPrimary>
+                                        <HeroCtaTurquoise
+                                            href="/tililab"
+                                            delay={0.22}
+                                        >
+                                            <TransText
+                                                en="Discover Tililab"
+                                                fr="Découvrir Tililab"
+                                                ar="اكتشف تيليلاب"
+                                            />
+                                        </HeroCtaTurquoise>
+                                    </>
+                                ) : null}
+                            </div>
                         </div>
-                    </div>
+                    </SlideIn>
 
-                    <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl lg:justify-self-end">
-                        <div
-                            className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-twhite/10"
-                            style={{
-                                clipPath:
-                                    'polygon(8% 0, 100% 0, 100% 100%, 0 100%)',
-                            }}
-                        >
-                            <video
-                                ref={videoRef}
-                                className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
-                                src={videoSrc}
-                                poster={HERO_BG}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                controls={false}
-                                preload="auto"
-                            />
+                    <SlideIn direction="right" delay={0.35}>
+                        <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl lg:justify-self-end">
+                            <motion.div
+                                className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-twhite/10"
+                                style={{
+                                    clipPath:
+                                        'polygon(8% 0, 100% 0, 100% 100%, 0 100%)',
+                                }}
+                                whileHover={{ scale: 1.02 }}
+                                transition={{ duration: 0.35, ease: HOME_EASE }}
+                            >
+                                <video
+                                    ref={videoRef}
+                                    className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
+                                    src={videoSrc}
+                                    poster={HERO_BG}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    controls={false}
+                                    preload="auto"
+                                />
 
-                            <div
-                                className="pointer-events-none absolute inset-0 bg-tblack/20"
-                                aria-hidden
-                            />
+                                <div
+                                    className="pointer-events-none absolute inset-0 bg-tblack/20"
+                                    aria-hidden
+                                />
+                            </motion.div>
                         </div>
-                    </div>
-             
+                    </SlideIn>
                 </div>
             </TililaContainer>
         </TililaSection>
