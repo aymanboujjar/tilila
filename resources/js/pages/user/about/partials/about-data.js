@@ -1,0 +1,149 @@
+export const COMMITTEE_HISTORY = [
+    {
+        year: '2013',
+        fr: 'Création du Comité Parité',
+        en: 'Creation of the Parity Committee',
+        ar: 'إنشاء لجنة المساواة',
+    },
+    {
+        year: '2014',
+        fr: 'Publication de la Charte 2M pour la valorisation de l’image de la femme',
+        en: 'Publication of the 2M Charter for the promotion of women’s image',
+        ar: 'نشر ميثاق 2M لتعزيز صورة المرأة',
+    },
+    {
+        year: '2016',
+        fr: 'Lancement de la plateforme Expertes.ma',
+        en: 'Launch of the Expertes.ma platform',
+        ar: 'إطلاق منصة Expertes.ma',
+    },
+    {
+        year: '2017',
+        fr: 'Le Comité Parité devient le Comité Parité et Diversité',
+        en: 'The Parity Committee becomes the Parity and Diversity Committee',
+        ar: 'تحولت لجنة المساواة إلى لجنة المساواة والتنوع',
+    },
+    {
+        year: '2018',
+        fr: 'Création du Trophée Tilila',
+        en: 'Creation of the Tilila Trophy',
+        ar: 'إنشاء جائزة تيليلا',
+    },
+    {
+        year: '2019',
+        fr: 'Lancement de la plateforme Africa Women Experts',
+        en: 'Launch of the Africa Women Experts platform',
+        ar: 'إطلاق منصة Africa Women Experts',
+    },
+    {
+        year: '2020',
+        fr: 'Mise en place du Monitoring Genre des programmes de 2M et publication de la Charte pour le Handicap',
+        en: 'Gender monitoring of 2M programmes and publication of the Disability Charter',
+        ar: 'إطلاق مراقبة النوع الاجتماعي لبرامج 2M ونشر ميثاق الإعاقة',
+    },
+    {
+        year: '2021',
+        fr: 'Création de Tililab, concours destiné aux jeunes créateurs de contenu',
+        en: 'Creation of Tililab, a competition for young content creators',
+        ar: 'إنشاء تيليلاب، مسابقة موجهة للمبدعين الشباب في المحتوى',
+    },
+    {
+        year: '2022',
+        fr: 'Publication du Manuel pratique de lutte contre les discriminations dans les médias et lancement des TiliTalks',
+        en: 'Publication of the practical guide against discrimination in media and launch of TiliTalks',
+        ar: 'نشر الدليل العملي لمكافحة التمييز في الإعلام وإطلاق TiliTalks',
+    },
+];
+
+export const COMMITTEE_MEMBERS = [
+    {
+        name: 'Abderrahmane Amezloug',
+        fr: 'Chef de département – Direction Fiction',
+        en: 'Department Head – Fiction Division',
+        ar: 'رئيس قسم – إدارة الدراما',
+    },
+    {
+        name: 'Adil Chquiry',
+        fr: 'Directeur des programmes et Directeur marketing et digital',
+        en: 'Director of Programmes and Director of Marketing & Digital',
+        ar: 'مدير البرامج ومدير التسويق والرقمنة',
+    },
+    {
+        name: 'Adil Maazouz',
+        fr: 'Directeur juridique et Ressources Humaines',
+        en: 'Legal and Human Resources Director',
+        ar: 'المدير القانوني والموارد البشرية',
+    },
+    {
+        name: 'Ghizlane Gabari',
+        fr: 'Journaliste et Rédactrice en chef',
+        en: 'Journalist and Editor-in-Chief',
+        ar: 'صحفية ورئيسة تحرير',
+    },
+    {
+        name: 'Hassan Louhmadi',
+        fr: 'Grand Reporter',
+        en: 'Senior Reporter',
+        ar: 'مراسل أول',
+    },
+    {
+        name: 'Ibtissame Koutaibi',
+        fr: 'Journaliste présentatrice TV',
+        en: 'TV Journalist and Presenter',
+        ar: 'صحفية ومقدمة تلفزيونية',
+    },
+    {
+        name: 'Ihssane Benbel',
+        fr: 'Présentatrice d’Info Soir et Rédactrice en chef',
+        en: 'Info Soir Presenter and Editor-in-Chief',
+        ar: 'مقدمة نشرة أخبار المساء ورئيسة تحرير',
+    },
+    {
+        name: 'Jamaâ Goulahsen',
+        fr: 'Directeur des programmes d’information et de documentaires',
+        en: 'Director of News and Documentary Programmes',
+        ar: 'مدير برامج الأخبار والوثائقيات',
+    },
+    {
+        name: 'Meryem Bouriki',
+        fr: 'Assistante de Direction générale',
+        en: 'Assistant to the Director General',
+        ar: 'مساعدة المدير العام',
+    },
+    {
+        name: 'Mohamed El Wafy',
+        fr: 'Directeur du département production',
+        en: 'Director of the Production Department',
+        ar: 'مدير قسم الإنتاج',
+    },
+    {
+        name: 'Nadia Hammouchi',
+        fr: 'Rédactrice en chef de 2m.ma',
+        en: 'Editor-in-Chief of 2m.ma',
+        ar: 'رئيسة تحرير 2m.ma',
+    },
+    {
+        name: 'Samid Ghailane',
+        fr: 'Journaliste et Rédacteur en chef',
+        en: 'Journalist and Editor-in-Chief',
+        ar: 'صحفي ورئيس تحرير',
+    },
+    {
+        name: 'Sanaâ Rahimi',
+        fr: 'Journaliste et Rédactrice en chef',
+        en: 'Journalist and Editor-in-Chief',
+        ar: 'صحفية ورئيسة تحرير',
+    },
+    {
+        name: 'Sara Faiq',
+        fr: 'Journaliste et Rédactrice en chef Econews',
+        en: 'Journalist and Editor-in-Chief, Econews',
+        ar: 'صحفية ورئيسة تحرير Econews',
+    },
+    {
+        name: 'Zakaria Ait Abdelmajid',
+        fr: 'Journaliste présentateur JT',
+        en: 'Journalist and Main News Presenter',
+        ar: 'صحفي ومقدم النشرة الرئيسية',
+    },
+];
