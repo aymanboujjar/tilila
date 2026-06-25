@@ -14,7 +14,6 @@ import {
 } from '@/pages/user/tilila/utils/winnerFields';
 
 const FALLBACK_IMAGE = '/assets/tilila/editions/edition-2025.png';
-const BORDER_IMAGE_COUNT = 10;
 
 const FALLBACK_LAUREATE = {
     brand: 'Ain Atlas',
@@ -94,27 +93,6 @@ function buildJuryPrizeLaureate(edition) {
     };
 }
 
-function borderGallerySrcs(edition, count = BORDER_IMAGE_COUNT) {
-    const gallery = (Array.isArray(edition?.gallery_images)
-        ? edition.gallery_images
-        : []
-    )
-        .map((path) => storageAssetSrc(path))
-        .filter(Boolean);
-
-    const cover =
-        coverImageSrc(edition?.cover_image_path, edition?.gallery_images) ||
-        FALLBACK_IMAGE;
-    const pool = gallery.length > 0 ? gallery : [cover];
-    const images = [];
-
-    for (let index = 0; index < count; index += 1) {
-        images.push(pool[index % pool.length]);
-    }
-
-    return images;
-}
-
 function isLogoLikeImage(src, brandPhoto) {
     if (!src) {
         return false;
@@ -126,20 +104,6 @@ function isLogoLikeImage(src, brandPhoto) {
 
     return /\/winners\//.test(src) && !/\/showcase\//.test(src);
 }
-
-const FrameThumb = memo(function FrameThumb({ src }) {
-    return (
-        <div className="aspect-square overflow-hidden rounded-md bg-muted/80 ring-1 ring-border/40">
-            <img
-                src={src}
-                alt=""
-                className="h-full w-full object-cover"
-                loading="lazy"
-                decoding="async"
-            />
-        </div>
-    );
-});
 
 const WinnerMiniVideo = memo(function WinnerMiniVideo({
     uploadSrc,
@@ -156,6 +120,7 @@ const WinnerMiniVideo = memo(function WinnerMiniVideo({
                 controls
                 autoPlay
                 muted
+                loop
                 playsInline
                 preload="metadata"
                 title={brand ? `${brand} — campaign video` : 'Winner video'}
@@ -205,50 +170,19 @@ const WinnerMiniVideo = memo(function WinnerMiniVideo({
     );
 });
 
-const EditionMediaFrame = memo(function EditionMediaFrame({
-    images,
+const LaureateVideo = memo(function LaureateVideo({
     uploadSrc,
     youtubeUrl,
     brand,
 }) {
     return (
-        <div className="overflow-hidden rounded-2xl bg-beta-blue/5 p-2 ring-1 ring-border/50 sm:p-2.5">
-            <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
-                <FrameThumb src={images[0]} />
-                <FrameThumb src={images[1]} />
-                <FrameThumb src={images[2]} />
-                <FrameThumb src={images[3]} />
-
-                <div className="col-start-1 row-start-2 self-center">
-                    <FrameThumb src={images[4]} />
-                </div>
-                <div className="col-start-1 row-start-3 self-center">
-                    <FrameThumb src={images[5]} />
-                </div>
-
-                <div className="col-span-2 col-start-2 row-span-1 row-start-2 overflow-hidden rounded-lg bg-tblack shadow-sm ring-1 ring-border/40">
-                    <div className="aspect-video h-full w-full">
-                        <div className="h-full w-full">
-                            <WinnerMiniVideo
-                                uploadSrc={uploadSrc}
-                                youtubeUrl={youtubeUrl}
-                                brand={brand}
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-start-4 row-start-2 self-center">
-                    <FrameThumb src={images[6]} />
-                </div>
-                <div className="col-start-4 row-start-3 self-center">
-                    <FrameThumb src={images[7]} />
-                </div>
-
-                <FrameThumb src={images[8]} />
-                <FrameThumb src={images[9]} />
-                {/* <FrameThumb src={images[0]} /> */}
-                {/* <FrameThumb src={images[1]} /> */}
+        <div className="overflow-hidden rounded-2xl bg-tblack shadow-sm ring-1 ring-border/50">
+            <div className="aspect-video w-full">
+                <WinnerMiniVideo
+                    uploadSrc={uploadSrc}
+                    youtubeUrl={youtubeUrl}
+                    brand={brand}
+                />
             </div>
         </div>
     );
@@ -266,14 +200,14 @@ const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
     return (
         <article className="flex h-full flex-col overflow-hidden rounded-2xl bg-twhite ring-1 ring-border/60 sm:items-stretch">
             <div className="w-full shrink-0">
-                <div className="relative  overflow-hidden bg-muted/40 sm:aspect-auto sm:h-full sm:min-h-[260px]">
+                <div className="relative aspect-[16/10] max-h-[300px] overflow-hidden bg-muted/40 sm:aspect-[16/9] sm:max-h-[320px]">
                     <img
                         src={laureate.showcaseSrc}
                         alt=""
                         className={
                             logoShowcase
-                                ? 'absolute inset-0 h-full w-full object-contain p-6 sm:p-8'
-                                : 'absolute inset-0 h-full w-full object-cover'
+                                ? 'absolute inset-0 h-full w-full object-contain object-top px-6 pt-3 pb-8 sm:px-8 sm:pt-4 sm:pb-10'
+                                : 'absolute inset-0 h-full w-full object-cover object-top'
                         }
                         loading="lazy"
                         decoding="async"
@@ -291,26 +225,62 @@ const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
                     {year ? ` · ${year}` : ''}
                 </p>
 
-                <div>
-                    <p className="text-[11px] font-bold tracking-[0.12em] text-beta-blue uppercase">
-                        <TransText en="Brand" fr="Marque" ar="العلامة" />
-                    </p>
-                    <div className="mt-2 flex items-center gap-3">
-                        {laureate.brandPhoto ? (
-                            <div className="flex h-12 w-20 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-1.5">
-                                <img
-                                    src={laureate.brandPhoto}
-                                    alt=""
-                                    className="max-h-full max-w-full object-contain"
-                                    loading="lazy"
-                                    decoding="async"
-                                />
-                            </div>
-                        ) : null}
-                        <p className="text-lg font-extrabold text-tblack sm:text-xl">
-                            {laureate.brand}
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6">
+                    <div className="min-w-0 flex-1">
+                        <p className="text-[11px] font-bold tracking-[0.12em] text-beta-blue uppercase">
+                            <TransText en="Brand" fr="Marque" ar="العلامة" />
                         </p>
+                        <div className="mt-2 flex items-center gap-3">
+                            {laureate.brandPhoto ? (
+                                <div className="flex h-12 w-20 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-1.5">
+                                    <img
+                                        src={laureate.brandPhoto}
+                                        alt=""
+                                        className="max-h-full max-w-full object-contain"
+                                        loading="lazy"
+                                        decoding="async"
+                                    />
+                                </div>
+                            ) : null}
+                            <p className="text-lg font-extrabold text-tblack sm:text-xl">
+                                {laureate.brand}
+                            </p>
+                        </div>
                     </div>
+
+                    {(laureate.agency?.en ||
+                        laureate.agency?.fr ||
+                        laureate.agency?.ar) && (
+                        <div className="min-w-0 flex-1">
+                            <p className="text-[11px] font-bold tracking-[0.12em] text-beta-blue uppercase">
+                                <TransText
+                                    en="Agency"
+                                    fr="Agence"
+                                    ar="الوكالة"
+                                />
+                            </p>
+                            <div className="mt-2 flex items-center gap-4">
+                                {laureate.agencyPhoto ? (
+                                    <div className="flex h-20 w-32 shrink-0 items-center justify-center rounded-xl bg-muted/50 p-3 sm:h-24 sm:w-40">
+                                        <img
+                                            src={laureate.agencyPhoto}
+                                            alt=""
+                                            className="max-h-full max-w-full object-contain"
+                                            loading="lazy"
+                                            decoding="async"
+                                        />
+                                    </div>
+                                ) : null}
+                                <p className="text-base font-semibold text-tblack sm:text-lg">
+                                    <TransText
+                                        en={laureate.agency.en}
+                                        fr={laureate.agency.fr}
+                                        ar={laureate.agency.ar}
+                                    />
+                                </p>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {(laureate.campaign?.en ||
@@ -332,40 +302,6 @@ const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
                         />
                     </p>
                 )}
-
-                {(laureate.agency?.en ||
-                    laureate.agency?.fr ||
-                    laureate.agency?.ar) && (
-                    <div>
-                        <p className="text-[11px] font-bold tracking-[0.12em] text-beta-blue uppercase">
-                            <TransText
-                                en="Agency"
-                                fr="Agence"
-                                ar="الوكالة"
-                            />
-                        </p>
-                        <div className="mt-2 flex items-center gap-3">
-                            {laureate.agencyPhoto ? (
-                                <div className="flex h-10 w-16 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-1">
-                                    <img
-                                        src={laureate.agencyPhoto}
-                                        alt=""
-                                        className="max-h-full max-w-full object-contain"
-                                        loading="lazy"
-                                        decoding="async"
-                                    />
-                                </div>
-                            ) : null}
-                            <p className="text-base font-semibold text-tblack">
-                                <TransText
-                                    en={laureate.agency.en}
-                                    fr={laureate.agency.fr}
-                                    ar={laureate.agency.ar}
-                                />
-                            </p>
-                        </div>
-                    </div>
-                )}
             </div>
         </article>
     );
@@ -378,14 +314,6 @@ export default function TililaLaureatesSection() {
 
     const laureate = useMemo(
         () => (edition ? buildJuryPrizeLaureate(edition) : FALLBACK_LAUREATE),
-        [edition],
-    );
-
-    const borderImages = useMemo(
-        () =>
-            edition
-                ? borderGallerySrcs(edition)
-                : Array(BORDER_IMAGE_COUNT).fill(FALLBACK_IMAGE),
         [edition],
     );
 
@@ -411,12 +339,11 @@ export default function TililaLaureatesSection() {
                     />
                 </div>
 
-                <div className="mt-10 grid items-stretch gap-8 lg:mt-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-10">
+                <div className="mt-10 grid items-stretch gap-8 lg:mt-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-10">
                     <JuryPrizeLaureate laureate={laureate} year={year} />
 
                     <div className="flex w-full flex-col lg:max-w-none lg:justify-self-stretch">
-                        <EditionMediaFrame
-                            images={borderImages}
+                        <LaureateVideo
                             uploadSrc={laureate.videoUploadSrc}
                             youtubeUrl={laureate.videoYoutubeUrl}
                             brand={laureate.brand}
