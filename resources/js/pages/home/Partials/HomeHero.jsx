@@ -83,15 +83,15 @@ export default function HomeHero() {
                                 />
                             </p>
                             <p>
-                                <TransText
+                                {/* <TransText
                                     en="Every new perspective can help society evolve."
                                     fr="Chaque nouveau regard peut faire évoluer une société."
                                     ar="وكل نظرة جديدة يمكن أن تساهم في تطور المجتمع."
-                                />
+                                /> */}
                             </p>
                         </div>
 
-                        <div className="mt-4 space-y-2.5 text-xs leading-snug text-twhite/85 sm:text-sm">
+                        <div className="mt-4 space-y-2.5 text-xs leading-snug text-twhite/85 sm:text-lg">
                             <p>
                                 <TransText
                                     en="Through Tilila Awards and Tililab, SOREAD 2M celebrates those who choose to put creativity at the service of change."
