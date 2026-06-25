@@ -1,7 +1,8 @@
 import { Link, usePage } from '@inertiajs/react';
 import { ArrowUpRight } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import TransText from '@/components/TransText';
+import { useTranslation } from '@/contexts/TranslationContext';
 import {
     combinedHomeMediaPartners,
     groupedProgramPartners,
@@ -12,7 +13,25 @@ import {
     TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-function PartnerLogoCell({ partner, compact = false }) {
+const MARQUEE_CELL = {
+    default: 'w-[11rem] sm:w-[12.5rem] lg:w-[14rem]',
+    compact: 'w-[9rem] sm:w-[10rem] lg:w-[11rem]',
+};
+
+function buildMarqueeLoop(partners, minItems = 6) {
+    if (partners.length === 0) {
+        return [];
+    }
+
+    let loop = [...partners];
+    while (loop.length < minItems) {
+        loop = [...loop, ...partners];
+    }
+
+    return loop;
+}
+
+function PartnerLogoCell({ partner, compact = false, className = '' }) {
     const [imgError, setImgError] = useState(false);
     const showImage = partner.logo_url && !imgError;
 
@@ -42,8 +61,9 @@ function PartnerLogoCell({ partner, compact = false }) {
     );
 
     const cellClass = cn(
-        'group grid place-items-center border-border/50 bg-twhite p-4 transition duration-300 hover:bg-alpha-blue/25 sm:p-5',
+        'group grid h-full w-full place-items-center border-border/50 bg-twhite p-4 transition duration-300 hover:bg-alpha-blue/25 sm:p-5',
         compact ? 'min-h-[5.5rem] sm:min-h-[6rem]' : 'min-h-[7rem] sm:min-h-[8rem]',
+        className,
     );
 
     if (partner.url) {
@@ -63,9 +83,70 @@ function PartnerLogoCell({ partner, compact = false }) {
     return <div className={cellClass}>{content}</div>;
 }
 
+function PartnerMarquee({ partners, compact = false, ariaLabel }) {
+    const { locale } = useTranslation();
+    const isRtl = locale === 'ar';
+
+    const loopPartners = useMemo(
+        () => buildMarqueeLoop(partners, compact ? 8 : 6),
+        [partners, compact],
+    );
+
+    const track = useMemo(
+        () => [...loopPartners, ...loopPartners],
+        [loopPartners],
+    );
+
+    const durationSec = Math.max(22, loopPartners.length * (compact ? 3.2 : 4));
+
+    if (partners.length === 0) {
+        return null;
+    }
+
+    const cellWidth = compact ? MARQUEE_CELL.compact : MARQUEE_CELL.default;
+
+    return (
+        <div
+            className="partner-marquee group/marquee relative overflow-hidden"
+            aria-label={ariaLabel}
+        >
+            <div
+                className="pointer-events-none absolute inset-y-0 start-0 z-10 w-10 bg-linear-to-e from-twhite to-transparent"
+                aria-hidden
+            />
+            <div
+                className="pointer-events-none absolute inset-y-0 end-0 z-10 w-10 bg-linear-to-l from-twhite to-transparent"
+                aria-hidden
+            />
+
+            <div
+                className={cn(
+                    'partner-marquee-track flex w-max will-change-transform',
+                    isRtl && 'partner-marquee-track-rtl',
+                )}
+                style={{
+                    '--marquee-duration': `${durationSec}s`,
+                }}
+            >
+                {track.map((partner, index) => (
+                    <div
+                        key={`${partner.id}-${index}`}
+                        className={cn(
+                            'shrink-0 border-e border-border/50',
+                            cellWidth,
+                        )}
+                    >
+                        <PartnerLogoCell partner={partner} compact={compact} />
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
 function EmptyTierMessage() {
     return (
-        <div className="grid min-h-[7rem] place-items-center border border-dashed border-border/70 bg-twhite/80 p-8 text-center">
+        <div className="grid min-h-28 place-items-center border border-dashed border-border/70 bg-twhite/80 p-8 text-center">
             <p className="text-sm text-tgray">
                 <TransText
                     en="Partner logos will appear here when published."
@@ -77,11 +158,14 @@ function EmptyTierMessage() {
     );
 }
 
-function PartnerTier({ accent, label, count, partners, compact = false }) {
-    const cols = compact
-        ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'
-        : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3';
-
+function PartnerTier({
+    accent,
+    label,
+    count,
+    partners,
+    compact = false,
+    marqueeLabel,
+}) {
     return (
         <section
             className={cn(
@@ -106,22 +190,13 @@ function PartnerTier({ accent, label, count, partners, compact = false }) {
                     </div>
                 </div>
 
-                <div className="border-t border-border/50 lg:border-t-0 lg:border-s lg:border-border/50">
+                <div className="overflow-hidden border-t border-border/50 lg:border-t-0 lg:border-s lg:border-border/50">
                     {partners.length > 0 ? (
-                        <div
-                            className={cn(
-                                'grid divide-x divide-y divide-border/50',
-                                cols,
-                            )}
-                        >
-                            {partners.map((partner) => (
-                                <PartnerLogoCell
-                                    key={partner.id}
-                                    partner={partner}
-                                    compact={compact}
-                                />
-                            ))}
-                        </div>
+                        <PartnerMarquee
+                            partners={partners}
+                            compact={compact}
+                            ariaLabel={marqueeLabel}
+                        />
                     ) : (
                         <EmptyTierMessage />
                     )}
@@ -191,6 +266,32 @@ export default function HomePartners() {
             id="partners"
             className="border-t border-border/50 bg-[#fafafa]"
         >
+            <style>{`
+                @keyframes partner-marquee-ltr {
+                    from { transform: translate3d(0, 0, 0); }
+                    to { transform: translate3d(-50%, 0, 0); }
+                }
+                @keyframes partner-marquee-rtl {
+                    from { transform: translate3d(-50%, 0, 0); }
+                    to { transform: translate3d(0, 0, 0); }
+                }
+                .partner-marquee-track {
+                    animation: partner-marquee-ltr var(--marquee-duration, 36s) linear infinite;
+                }
+                .partner-marquee-track-rtl {
+                    animation-name: partner-marquee-rtl;
+                }
+                .group\\/marquee:hover .partner-marquee-track {
+                    animation-play-state: paused;
+                }
+                @media (prefers-reduced-motion: reduce) {
+                    .partner-marquee-track {
+                        animation: none;
+                        transform: none;
+                    }
+                }
+            `}</style>
+
             <TililaContainer>
                 <SectionIntro />
 
@@ -201,6 +302,7 @@ export default function HomePartners() {
                             ring: 'ring-brand-light-purple/15',
                         }}
                         count={institutionalCount}
+                        marqueeLabel="Institutional partners"
                         label={
                             <TransText
                                 en="Institutional"
@@ -217,6 +319,7 @@ export default function HomePartners() {
                             ring: 'ring-beta-turquoise/15',
                         }}
                         count={mediaCount}
+                        marqueeLabel="Media partners"
                         label={
                             <TransText
                                 en="Media"
