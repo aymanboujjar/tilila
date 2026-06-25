@@ -109,17 +109,31 @@ function useFilePreview(file) {
     return url;
 }
 
-function isJuryPrizePerson(person) {
-    const labels = [person?.trophy?.en, person?.trophy?.fr, person?.trophy?.ar]
-        .filter(Boolean)
-        .map((value) => String(value).toLowerCase());
-
-    return labels.some(
-        (label) =>
-            label.includes('jury prize') ||
-            label.includes('prix du jury') ||
-            label.includes('لجنة التحكيم'),
+function winnerCategoryLabel(person) {
+    return (
+        person?.trophy?.fr ||
+        person?.trophy?.en ||
+        person?.trophy?.ar ||
+        'this category'
     );
+}
+
+function agencyInputValue(agency) {
+    if (!agency) {
+        return '';
+    }
+
+    if (typeof agency === 'string') {
+        return agency;
+    }
+
+    return agency.fr || agency.en || agency.ar || '';
+}
+
+function agencyFromInput(value) {
+    const name = value.trim();
+
+    return { en: name, fr: name, ar: name };
 }
 
 function assetPreviewSrc(path) {
@@ -162,7 +176,7 @@ function PersonRow({
     const showcaseExistingSrc = assetPreviewSrc(person?.showcase_image_path);
     const showcaseSrc = showcasePreviewUrl || showcaseExistingSrc || '';
     const isWinner = peopleKey === 'winners';
-    const isJuryPrize = isWinner && isJuryPrizePerson(person);
+    const categoryLabel = winnerCategoryLabel(person);
 
     return (
         <div
@@ -263,17 +277,18 @@ function PersonRow({
                             placeholderBase="Campaign title"
                         /> */}
                         <div className="mt-5">
-                            <TriInputs
-                                label="Agency"
-                                value={
-                                    person?.agency ?? {
-                                        en: '',
-                                        fr: '',
-                                        ar: '',
-                                    }
+                            <div className="text-sm font-semibold text-foreground">
+                                Agency
+                            </div>
+                            <Input
+                                className="mt-2"
+                                value={agencyInputValue(person?.agency)}
+                                onChange={(e) =>
+                                    updateRow(idx, {
+                                        agency: agencyFromInput(e.target.value),
+                                    })
                                 }
-                                onChange={(v) => updateRow(idx, { agency: v })}
-                                placeholderBase="Agency name"
+                                placeholder="Agency name"
                             />
                         </div>
                         <div className="mt-5">
@@ -308,15 +323,15 @@ function PersonRow({
                                 readOnly
                             />
                         </div>
-                        {isJuryPrize ? (
+                        {isWinner ? (
                             <div className="mt-5 rounded-lg border border-beta-blue/20 bg-beta-blue/5 p-4">
                                 <div className="text-sm font-semibold text-foreground">
-                                    Laureates section image (Prix du Jury)
+                                    Laureates section image ({categoryLabel})
                                 </div>
                                 <p className="mt-1 text-xs text-muted-foreground">
-                                    Shown on the Tilila program page next to
-                                    this winner. Pick from the edition gallery
-                                    or upload a dedicated image.
+                                    Shown on the Tilila program page for this
+                                    award category. Pick from the edition
+                                    gallery or upload a dedicated image.
                                 </p>
                                 <div className="mt-3 flex items-start gap-4">
                                     <div className="size-20 overflow-hidden rounded-lg border border-border bg-muted">
@@ -380,13 +395,12 @@ function PersonRow({
                                 />
                                 <div className="mt-5 border-t border-beta-blue/15 pt-4">
                                     <div className="text-sm font-semibold text-foreground">
-                                        Laureates section video (Prix du
-                                        Jury)
+                                        Laureates section video ({categoryLabel})
                                     </div>
                                     <p className="mt-1 text-xs text-muted-foreground">
                                         Mini video shown in the gallery frame
-                                        on the Tilila program page. YouTube
-                                        link or MP4/WebM upload.
+                                        for this category on the Tilila program
+                                        page. YouTube link or MP4/WebM upload.
                                     </p>
                                     <Input
                                         className="mt-3"
@@ -493,7 +507,7 @@ function PeopleSection({
                     </div>
                     <div className="mt-1 text-xs text-muted-foreground">
                         {peopleKey === 'winners'
-                            ? 'Add brand, trophy, campaign photo, campaign title, and agency.'
+                            ? 'Add brand, trophy, campaign photo, campaign title, agency, showcase image, and mini video per category.'
                             : 'Add name, photo, and a short bio.'}
                     </div>
                 </div>

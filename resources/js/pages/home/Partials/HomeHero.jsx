@@ -15,14 +15,9 @@ const HERO_VIDEO = '/assets/Cérémonie Tilila 2025.mp4';
 
 const HEADLINES = [
     {
-        en: 'Every creation tells a story.',
-        fr: 'Chaque création raconte une histoire.',
-        ar: 'كل إبداع يحكي قصة.',
-    },
-    {
-        en: 'Every story shapes a perspective.',
-        fr: 'Chaque histoire façonne un regard.',
-        ar: 'كل قصة تشكّل نظرة.',
+        en: 'Transforming perspectives, inspiring change.',
+        fr: 'Transformer les regards, inspirer le changement.',
+        ar: 'تحويل النظرات، تشجيع التغيير.',
     },
 ];
 
@@ -50,45 +45,17 @@ function HeroVideo() {
             className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-twhite/10 transition hover:ring-twhite/25"
             style={{ clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)' }}
         >
-            {playVideo ? (
-                <video
-                    className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
-                    src={HERO_VIDEO}
-                    poster={HERO_BACKGROUND}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    controls={false}
-                    preload="metadata"
-                />
-            ) : (
-                <button
-                    type="button"
-                    onClick={startVideo}
-                    className="group relative block w-full"
-                    aria-label="Play Tilila ceremony video"
-                >
-                    <img
-                        src={HERO_BACKGROUND}
-                        alt=""
-                        className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
-                        width={1280}
-                        height={720}
-                        fetchPriority="low"
-                        loading="lazy"
-                        decoding="async"
-                    />
-                    <span className="absolute inset-0 flex items-center justify-center bg-tblack/25 transition group-hover:bg-tblack/35">
-                        <span className="flex size-12 items-center justify-center rounded-full border-2 border-twhite/80 bg-twhite/15 text-twhite shadow-lg transition group-hover:scale-105 sm:size-14">
-                            <Play
-                                className="ms-0.5 size-5 fill-twhite sm:size-6"
-                                aria-hidden
-                            />
-                        </span>
-                    </span>
-                </button>
-            )}
+            <video
+                className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
+                src={HERO_VIDEO}
+                poster={HERO_BACKGROUND}
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls={false}
+                preload="metadata"
+            />
         </div>
     );
 }
@@ -128,9 +95,9 @@ export default function HomeHero() {
                             <div className="home-hero-copy mt-4 space-y-3 text-xs leading-snug text-twhite/85 sm:text-lg">
                                 <p>
                                     <TransText
-                                        en="Through Tilila Awards and Tililab, SOREAD 2M celebrates those who choose to put creativity at the service of change."
-                                        fr="À travers les Tilila Awards et Tililab, SOREAD 2M célèbre celles et ceux qui choisissent de mettre la créativité au service du changement."
-                                        ar="عبر تيليلا أووردز وتيليلاب، تحتفي SOREAD 2M بمن يختارون وضع الإبداع في خدمة التغيير."
+                                        en="Becoming references in the Moroccan advertising landscape, Tilila Awards and Tililab contribute to fighting against gender stereotypes, to valorizing the image of people with disabilities and to promoting an inclusive culture in advertising."
+                                        fr="Devenus des références dans le paysage publicitaire marocain, Tilila Awards et Tililab contribuent à lutter contre les stéréotypes féminins, à valoriser l’image des personnes en situation de handicap et à promouvoir une culture de l’inclusion dans la publicité.."
+                                        ar="أصبحت تيليلا أووردز وتيليلاب مراجعًا في ساحة الإعلان المغربي، وتساهم في مكافحة القوالب النمطية النسائية وتقدير الصور الشخصيات المعاقة، وتشجع الثقافة الشاملة في الإعلان."
                                     />
                                 </p>
                                 <p>

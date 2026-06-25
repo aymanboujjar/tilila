@@ -84,7 +84,7 @@ function CheckRow({ id, checked, onChange, label, error, embedded = false }) {
                     onCheckedChange={(v) => onChange(Boolean(v))}
                     className={
                         embedded
-                            ? 'border-twhite/50 data-[state=checked]:bg-beta-turquoise data-[state=checked]:border-beta-turquoise'
+                            ? 'border-twhite/50 data-[state=checked]:bg-tililab-cyan data-[state=checked]:border-tililab-cyan'
                             : undefined
                     }
                 />
@@ -586,7 +586,7 @@ export default function TililabParticipateForm({ embedded = false }) {
                             <DialogFooter className="sm:justify-center">
                                 <Button
                                     asChild
-                                    className="rounded-full bg-beta-blue text-twhite hover:bg-beta-blue/90"
+                                    className="rounded-full bg-[#00b8d9] text-twhite hover:brightness-110"
                                 >
                                     <Link href="/tililab">
                                         <TransText
@@ -628,7 +628,7 @@ export default function TililabParticipateForm({ embedded = false }) {
                             <DialogFooter className="sm:justify-center">
                                 <Button
                                     type="button"
-                                    className="rounded-full bg-beta-blue text-twhite hover:bg-beta-blue/90"
+                                    className="rounded-full bg-[#00b8d9] text-twhite hover:brightness-110"
                                     onClick={() => setResultModal(null)}
                                 >
                                     <TransText
@@ -666,7 +666,7 @@ export default function TililabParticipateForm({ embedded = false }) {
                             <button
                                 type="submit"
                                 disabled={processing}
-                                className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-beta-turquoise px-8 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:brightness-110 disabled:opacity-60"
+                                className="inline-flex items-center justify-center gap-2.5 rounded-lg bg-[#00b8d9] px-8 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:brightness-110 disabled:opacity-60"
                             >
                                 {processing ? (
                                     <Spinner className="size-4 text-twhite" />
@@ -992,7 +992,7 @@ function StandardFormFields({
             <button
                 type="submit"
                 disabled={processing}
-                className="flex w-full items-center justify-center gap-2 rounded-full bg-beta-blue py-3 text-sm font-semibold text-twhite hover:opacity-90 disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-2 rounded-full bg-[#00b8d9] py-3 text-sm font-semibold text-twhite hover:brightness-110 disabled:opacity-60"
             >
                 {processing ? <Spinner className="size-4 text-twhite" /> : null}
                 <TransText

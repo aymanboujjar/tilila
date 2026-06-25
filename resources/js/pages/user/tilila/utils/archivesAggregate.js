@@ -2,7 +2,6 @@ import {
     storagePhotoSrc,
     textFor,
 } from '@/pages/user/tilila/partials/EditionDetailContent';
-import { extractAgency } from '@/pages/user/tilila/utils/archiveEditions';
 import { resolveWinnerDisplay } from '@/pages/user/tilila/utils/winnerFields';
 
 function parseCampaignFromLine(line, locale = 'fr') {
@@ -12,19 +11,6 @@ function parseCampaignFromLine(line, locale = 'fr') {
     );
 
     return (campaignMatch?.[1] || campaignMatch?.[2] || '').trim() || null;
-}
-
-function parseCampaignFromWinner(winner, locale) {
-    const bio = textFor(winner?.bio, locale);
-    const name = winner?.full_name || '';
-    const campaignMatch =
-        bio.match(/Campagne\s*:\s*(.+)/i) || bio.match(/Campaign:\s*(.+)/i);
-
-    if (campaignMatch) {
-        return campaignMatch[1].trim();
-    }
-
-    return name || null;
 }
 
 /** @param {Array<Record<string, unknown>>} editions */

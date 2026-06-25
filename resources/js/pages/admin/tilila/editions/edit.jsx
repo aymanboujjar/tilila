@@ -21,6 +21,9 @@ export default function AdminTililaEditionsEdit({ edition }) {
         winners: (edition?.winners ?? []).map((p) => ({
             ...p,
             photo: null,
+            agency_photo: null,
+            showcase_photo: null,
+            video: null,
             trophy: p?.trophy ?? emptyTri(),
         })),
         jury: (edition?.jury ?? []).map((p) => ({ ...p, photo: null })),
