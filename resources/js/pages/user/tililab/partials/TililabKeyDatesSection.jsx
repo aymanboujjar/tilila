@@ -13,14 +13,14 @@ import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/Til
 const PARCOURS_STEPS = [
     {
         icon: Megaphone,
-        fr: 'Appel à candidatures',
-        en: 'Call for applications',
-        ar: 'دعوة للترشح',
+        fr: 'APPEL À CANDIDATURES',
+        en: 'APPLICATIONS OPEN',
+        ar: 'فتح باب الترشح',
     },
     {
         icon: Filter,
-        fr: 'Pré-sélection',
-        en: 'Pre-selection',
+        fr: 'PRÉSÉLECTION',
+        en: 'Preselection',
         ar: 'الفرز الأولي',
     },
 
@@ -38,9 +38,9 @@ const PARCOURS_STEPS = [
     },
     {
         icon: Gavel,
-        fr: 'Jury',
-        en: 'Jury',
-        ar: 'لجنة التحكيم',
+        fr: 'DÉLIBÉRATION DU JURY',
+        en: 'JURY DELIBERATION',
+        ar: 'مداولة لجنة التحكيم',
     },
     {
         icon: Trophy,

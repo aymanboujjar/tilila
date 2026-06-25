@@ -106,30 +106,37 @@ export default function TililaAdmissionJurySection({
                         <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase sm:text-base">
                             <TransText
                                 en="Admission conditions"
-                                fr="Conditions d'admission"
+                                fr="CONDITIONS DE SOUMISSION"
                                 ar="شروط القبول"
                             />
                         </h3>
                         <div className="mt-5 space-y-4 text-sm leading-relaxed text-tgray">
                             <p>
                                 <TransText
-                                    en="The competition is open to all Moroccan advertisers."
-                                    fr="Le concours est ouvert à tous les annonceurs marocains."
-                                    ar="المسابقة مفتوحة لجميع المعلنين المغاربة."
+                                    en="The competition is open to all Moroccan advertisers and agencies in the following categories:"
+                                    fr="Le concours est ouvert à l’ensemble des annonceurs et agences marocains dans les catégories suivantes :"
+                                    ar="المسابقة مفتوحة أمام جميع المعلنين والوكالات المغربية ضمن الفئات التالية:"
                                 />
                             </p>
                             <p>
                                 <TransText
-                                    en="Eligible campaigns are those broadcast on television, digital media, out-of-home, print or radio, in Arabic, Amazigh or French, regardless of sector."
-                                    fr="Sont éligibles les campagnes publicitaires diffusées en télévision, sur les supports digitaux, en affichage, en presse écrite ou en radio, en langue arabe, amazighe ou française, quel que soit le secteur d'activité concerné."
-                                    ar="تُقبل الحملات الإعلانية المبثة في التلفزيون أو الوسائط الرقمية أو الإشهار الخارجي أو الصحافة أو الإذاعة، بالعربية أو الأمازيغية أو الفرنسية، بغض النظر عن القطاع."
+                                    en="- Television: TV spots and television commercials broadcast on 2M's channels."
+                                    fr="- Télévision : Spots publicitaires et créations télévisuelles diffusés sur les antennes de 2M."
+                                    ar="- التلفزيون: إعلانات تلفزيونية وإعلانات تلفزيونية مبثوثة على قنوات 2M."
                                 />
                             </p>
                             <p>
                                 <TransText
-                                    en="Submitted campaigns must reflect Tilila values and promote equity, diversity and inclusion, including gender parity and/or inclusion of people with disabilities."
-                                    fr="Les campagnes soumises doivent s'inscrire dans les valeurs portées par le programme Tilila et contribuer à promouvoir l'équité, la diversité et l'inclusion, notamment la parité femmes-hommes et/ou l'inclusion des personnes en situation de handicap."
-                                    ar="يجب أن تتماشى الحملات المقدمة مع قيم برنامج تيليلا وتعزز المساواة والتنوع والإدماج، بما في ذلك المساواة بين الجنسين و/أو إدماج الأشخاص في وضعية إعاقة."
+                                    en="- Online: Campaigns and advertising content broadcast on digital platforms (social media, video platforms, websites and interactive formats)."
+                                    fr="- Online : Campagnes et productions publicitaires diffusées sur les canaux digitaux (réseaux sociaux, plateformes vidéo, sites web et formats interactifs)"
+                                    ar="- الرقمي: حملات وإعلانات إعلانية منشورة على المنصات الرقمية (منصات التواصل الاجتماعي، المنصات الفيديوية، المواقع الإلكترونية والتنسيقات التفاعلية)."
+                                />
+                            </p>
+                            <p>
+                                <TransText
+                                    en="- Offline: Advertising works and communication devices broadcast via out-of-home, print or radio."
+                                    fr="- Offline : Œuvres publicitaires et dispositifs de communication diffusés via l’affichage, la presse écrite ou la radio"
+                                    ar="- الخارجي: عملات إعلانية وأجهزة التواصل المنشورة عبر الإشهار الخارجي أو الصحافة المكتوبة أو الإذاعة."
                                 />
                             </p>
                         </div>
@@ -172,18 +179,12 @@ export default function TililaAdmissionJurySection({
                         <div className="mt-5 space-y-4 text-sm leading-relaxed text-tgray">
                             <p>
                                 <TransText
-                                    en="The Tilila Awards jury is made up of recognised figures from media, communication, creative industries, institutions, research and civil society."
-                                    fr="Le Jury des Tilila Awards est composé de personnalités reconnues issues du monde des médias, de la communication, de la création, des institutions, de la recherche et de la société civile."
-                                    ar="تتكون لجنة تحكيم تيليلا أووردز من شخصيات معروفة من الإعلام والتواصل والإبداع والمؤسسات والبحث والمجتمع المدني."
+                                    en="The Tilila Awards jury is made up of recognised figures from media, communication, creative industries, institutions, research and civil society. It evaluates applications based on creative quality, relevance, impact and contribution to equity, diversity and inclusion values."
+                                    fr="Le jury de Tilila Awards réunit des experts issus des médias, de la communication, de la création, des institutions, de la recherche et de la société civile. Il évalue les candidatures selon leur créativité, leur pertinence, leur impact et leur contribution à l’inclusion."
+                                    ar="تتكون لجنة تحكيم تيليلا أووردز من شخصيات معروفة من الإعلام والتواصل والإبداع والمؤسسات والبحث والمجتمع المدني. تقيّم الترشحات بناءً على الجودة الإبداعية والملاءمة والأثر والمساهمة في قيم المساواة والتنوع والإدماج."
                                 />
                             </p>
-                            <p>
-                                <TransText
-                                    en="It evaluates applications based on creative quality, relevance, impact and contribution to equity, diversity and inclusion values."
-                                    fr="Il évalue les candidatures sur la base de leur qualité créative, de leur pertinence, de leur impact et de leur contribution aux valeurs d'équité, de diversité et d'inclusion."
-                                    ar="تقيّم الترشحات بناءً على الجودة الإبداعية والملاءمة والأثر والمساهمة في قيم المساواة والتنوع والإدماج."
-                                />
-                            </p>
+                       
                         </div>
 
                         <JuryPreview members={members} />

@@ -16,19 +16,20 @@ const BENEFITS = [
     {
         icon: Heart,
         featured: true,
-        titleFr: 'Valoriser son engagement sociétal',
-        titleEn: 'Highlight your societal commitment',
-        titleAr: 'إبراز الالتزام المجتمعي',
+        titleFr: 'Rejoindre une communauté d\'acteurs engagés pour le changement',
+        titleEn: 'Join a community of engaged actors for change',
+        titleAr: 'الانضمام إلى مجتمع من الفاعلين الملتزمين بالتغيير',
         descFr:
             'Mettre en lumière les initiatives qui portent des valeurs responsables.',
         descEn: 'Spotlight initiatives that carry responsible values.',
         descAr: 'إبراز المبادرات التي تحمل قيماً مسؤولة.',
     },
+
     {
         icon: Award,
-        titleFr: 'Faire reconnaître ses campagnes par un jury indépendant',
-        titleEn: 'Gain recognition from an independent jury',
-        titleAr: 'الحصول على اعتراف من لجنة تحكيم مستقلة',
+        titleFr: 'Valoriser votre engagement en faveur de l\'inclusion',
+        titleEn: 'Showcase your commitment to inclusion',
+        titleAr: 'إبراز التزامكم لصالح الإدماج',
         descFr:
             "Bénéficier de l'évaluation d'experts issus des médias, de la création et de la société civile.",
         descEn:
@@ -37,7 +38,7 @@ const BENEFITS = [
     },
     {
         icon: Megaphone,
-        titleFr: "Bénéficier d'une visibilité nationale",
+        titleFr: "Un jury d'expert.e.s indépendant",
         titleEn: 'Benefit from national visibility',
         titleAr: 'الاستفادة من ظهور وطني',
         descFr:
@@ -47,9 +48,9 @@ const BENEFITS = [
     },
     {
         icon: Star,
-        titleFr: 'Contribuer à une communication responsable',
-        titleEn: 'Contribute to responsible communication',
-        titleAr: 'المساهمة في تواصل مسؤول',
+        titleFr: 'Gagner en visibilité à l’échelle nationale',
+        titleEn: 'Gain visibility on a national scale',
+        titleAr: 'اكتساب ظهور على المستوى الوطني',
         descFr:
             "Participer à l'évolution des représentations dans la publicité.",
         descEn: 'Help evolve representations in advertising.',
@@ -57,9 +58,9 @@ const BENEFITS = [
     },
     {
         icon: Users,
-        titleFr: "Rejoindre une communauté d'acteurs engagés",
-        titleEn: 'Join a community of engaged actors',
-        titleAr: 'الانضمام إلى مجتمع من الفاعلين الملتزمين',
+        titleFr: "Participer à l’évolution des représentations dans la publicité",
+        titleEn: 'Participate in evolving representations in advertising',
+        titleAr: 'المساهمة في تطور التمثيلات في الإعلان',
         descFr:
             'Intégrer un réseau de marques et de créateurs engagés pour le changement.',
         descEn: 'Join a network of brands and creators committed to change.',
@@ -133,18 +134,7 @@ const BenefitCard = memo(function BenefitCard({ item, index }) {
                     />
                 </h3>
 
-                <p
-                    className={cn(
-                        'mt-2 flex-1 text-sm leading-relaxed',
-                        featured ? 'text-twhite/85' : 'text-tgray',
-                    )}
-                >
-                    <TransText
-                        en={item.descEn}
-                        fr={item.descFr}
-                        ar={item.descAr}
-                    />
-                </p>
+       
 
                 {featured ? (
                     <div

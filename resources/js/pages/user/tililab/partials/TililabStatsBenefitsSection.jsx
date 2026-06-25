@@ -11,31 +11,37 @@ import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/Til
 const BENEFITS = [
     {
         icon: Lightbulb,
-        fr: 'Développer ses compétences créatives',
-        en: 'Develop creative skills',
-        ar: 'تطوير المهارات الإبداعية',
+        fr: 'Développer votre créativité',
+        en: 'Develop your creativity',
+        ar: 'تطوير الإبداع',
     },
     {
         icon: Users,
-        fr: 'Être accompagné par des professionnels',
-        en: 'Be mentored by professionals',
-        ar: 'المرافقة من قبل محترفين',
+        fr: 'Maîtriser les enjeux d’équité, de diversité et d’inclusion dans la publicité',
+        en: 'Master the issues of equity, diversity and inclusion in advertising',
+        ar: 'المساواة والتنوع والإدماج في الإعلان',
     },
     {
         icon: Sparkles,
-        fr: 'Participer à une expérience immersive unique',
-        en: 'Take part in a unique immersive experience',
-        ar: 'المشاركة في تجربة غامرة فريدة',
+        fr: 'Bénéficier de l’accompagnement de professionnels',
+        en: 'Benefit from the accompaniment of professionals',
+        ar: 'الاستفادة من المرافقة من قبل محترفين',
     },
     {
         icon: Clapperboard,
-        fr: 'Produire une œuvre audiovisuelle originale',
+        fr: 'Vivre une expérience immersive unique',
+        en: 'Live a unique immersive experience',
+        ar: 'تجربة غامرة فريدة',
+    },
+    {
+        icon: Trophy,
+        fr: 'Réaliser une création audiovisuelle originale',
         en: 'Produce an original audiovisual work',
         ar: 'إنتاج عمل سمعي بصري أصلي',
     },
     {
-        icon: Trophy,
-        fr: 'Gagner en visibilité auprès des médias et professionnels du secteur',
+        icon: Sparkles,
+        fr: 'Gagner en visibilité auprès des professionnels du secteur',
         en: 'Gain visibility with media and industry professionals',
         ar: 'اكتساب الظهور لدى الإعلام ومحترفي القطاع',
     },
@@ -59,7 +65,7 @@ export default function TililabStatsBenefitsSection() {
                     />
                 </div>
 
-                <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
+                <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-6">
                     {BENEFITS.map((item) => {
                         const Icon = item.icon;
                         return (

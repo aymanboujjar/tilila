@@ -123,29 +123,40 @@ export function TililabConceptSection() {
 export function TililabWhyParticipateSection() {
     const items = [
         {
-            en: 'Develop creative skills',
-            fr: 'Développer ses compétences créatives',
-            ar: 'تطوير المهارات الإبداعية',
+            
+            fr: 'Développer votre créativité',
+            en: 'Develop your creativity',
+            ar: 'تطوير الإبداع',
         },
         {
-            en: 'Be mentored by professionals',
-            fr: 'Être accompagné par des professionnels',
-            ar: 'المرافقة من قبل محترفين',
+            
+            fr: 'Maîtriser les enjeux d’équité, de diversité et d’inclusion dans la publicité',
+            en: 'Master the issues of equity, diversity and inclusion in advertising',
+            ar: 'المساواة والتنوع والإدماج في الإعلان',
         },
         {
-            en: 'Join a unique immersive experience',
-            fr: 'Participer à une expérience immersive unique',
+            
+            fr: 'Bénéficier de l’accompagnement de professionnels',
+            en: 'Benefit from the accompaniment of professionals',
+            ar: 'الاستفادة من المرافقة من قبل محترفين',
+        },
+        {
+            
+            fr: 'Vivre une expérience immersive unique',
+            en: 'Live a unique immersive experience',
             ar: 'تجربة غامرة فريدة',
         },
         {
+            
+            fr: 'Réaliser une création audiovisuelle originale',
             en: 'Produce an original audiovisual work',
-            fr: 'Produire une œuvre audiovisuelle originale',
             ar: 'إنتاج عمل سمعي بصري أصلي',
         },
         {
+            
+            fr: 'Gagner en visibilité auprès des professionnels du secteur',
             en: 'Gain visibility with media and industry professionals',
-            fr: 'Gagner en visibilité auprès des médias et professionnels du secteur',
-            ar: 'اكتساب ظهور لدى الإعلام ومحترفي القطاع',
+            ar: 'اكتساب الظهور لدى الإعلام ومحترفي القطاع',
         },
     ];
     return (
@@ -256,7 +267,7 @@ export function TililabAdmissionSection() {
             title={
                 <TransText
                     en="Admission conditions"
-                    fr="Conditions d'admission"
+                    fr="CONDITIONS DE SOUMISSION"
                     ar="شروط القبول"
                 />
             }
@@ -488,29 +499,29 @@ export function TililabJurySection({ editions = [] }) {
                                                             {(person?.bio?.en ||
                                                                 person?.bio
                                                                     ?.fr) && (
-                                                                <div className="mt-1 text-xs text-tgray">
-                                                                    <TransText
-                                                                        en={
-                                                                            person
-                                                                                .bio
-                                                                                ?.en ??
-                                                                            ''
-                                                                        }
-                                                                        fr={
-                                                                            person
-                                                                                .bio
-                                                                                ?.fr ??
-                                                                            ''
-                                                                        }
-                                                                        ar={
-                                                                            person
-                                                                                .bio
-                                                                                ?.ar ??
-                                                                            ''
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            )}
+                                                                    <div className="mt-1 text-xs text-tgray">
+                                                                        <TransText
+                                                                            en={
+                                                                                person
+                                                                                    .bio
+                                                                                    ?.en ??
+                                                                                ''
+                                                                            }
+                                                                            fr={
+                                                                                person
+                                                                                    .bio
+                                                                                    ?.fr ??
+                                                                                ''
+                                                                            }
+                                                                            ar={
+                                                                                person
+                                                                                    .bio
+                                                                                    ?.ar ??
+                                                                                ''
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                )}
                                                         </div>
                                                     </div>
                                                 </li>

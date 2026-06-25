@@ -23,21 +23,21 @@ const CONDITIONS = [
     },
     {
         icon: FolderOpen,
-        fr: 'Le candidat doit présenter un portfolio, une réalisation audiovisuelle antérieure ou un projet personnel démontrant son intérêt pour la création de contenus.',
-        en: 'Candidates must submit a portfolio, prior audiovisual work or a personal project demonstrating their interest in content creation.',
-        ar: 'يجب على المرشح تقديم ملف أعمال أو عمل سمعي بصري سابق أو مشروع شخصي يُظهر اهتمامه بصناعة المحتوى.',
+        fr: "Les candidats doivent soumettre un portfolio, une réalisation audiovisuelle antérieure ou un projet personnel témoignant d’un intérêt pour la création de contenus.",
+        en: "Candidates must submit a portfolio, previous audiovisual work, or a personal project demonstrating an interest in content creation.",
+        ar: "يجب على المترشحين تقديم ملف أعمال أو عمل سمعي بصري سابق أو مشروع شخصي يُظهر اهتمامًا بصناعة المحتوى.",
     },
     {
         icon: Languages,
-        fr: 'Les projets peuvent être soumis en arabe, amazighe ou français.',
-        en: 'Projects may be submitted in Arabic, Amazigh or French.',
-        ar: 'يمكن تقديم المشاريع بالعربية أو الأمازيغية أو الفرنسية.',
+        fr: 'Les projets peuvent être envoyés en arabe, amazighe ou français.',
+        en: 'Projects may be submitted in Arabic, Amazigh, or French.',
+        ar: 'يمكن إرسال المشاريع بالعربية أو الأمازيغية أو الفرنسية.',
     },
     {
         icon: Gavel,
-        fr: "Les candidatures reçues feront l'objet d'une phase de présélection par le jury. Seuls les candidats retenus à l'issue de cette étape seront admis à participer au Bootcamp Tililab et à poursuivre le concours jusqu'à sa phase finale.",
-        en: 'Applications will undergo a pre-selection phase by the jury. Only shortlisted candidates will be admitted to the Tililab Bootcamp and continue to the final stage.',
-        ar: 'ستخضع الترشيحات لمرحلة فرز أولي من طرف لجنة التحكيم. يُقبل في معسكر تيليلاب ومتابعة المسابقة المرشحون المختارون فقط.',
+        fr: "Les candidatures feront l’objet d’une présélection par le jury. Seuls les candidats retenus participeront au Bootcamp Tililab et poursuivront l’aventure jusqu’à la phase finale du concours.",
+        en: "Applications will undergo a pre-selection by the jury. Only selected candidates will participate in the Tililab Bootcamp and continue to the final stage of the competition.",
+        ar: "ستخضع الترشيحات لمرحلة فرز أولي من طرف لجنة التحكيم. فقط المرشحون المختارون سيشاركون في معسكر تيليلاب وسيواصلون المغامرة حتى المرحلة النهائية من المسابقة.",
     },
 ];
 
@@ -49,7 +49,7 @@ export default function TililabAdmissionJurySection() {
                     <h2 className="text-xl font-extrabold tracking-[0.12em] text-tililab-slate uppercase sm:text-2xl">
                         <TransText
                             en="Admission conditions"
-                            fr="Conditions d'admission"
+                            fr="CONDITIONS DE SOUMISSION"
                             ar="شروط القبول"
                         />
                     </h2>

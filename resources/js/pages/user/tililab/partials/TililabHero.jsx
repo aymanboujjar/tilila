@@ -45,27 +45,21 @@ export default function TililabHero() {
                     </p>
                     <h1 className="mt-3 text-2xl leading-[1.15] font-extrabold text-twhite sm:text-3xl lg:text-[2.35rem]">
                         <TransText
-                            en="Reveal the talents who create tomorrow's stories"
-                            fr="Révéler les talents qui créent les récits de demain"
-                            ar="إبراز المواهب التي تصنع سرديات الغد"
+                            en="Reveal the advertisers committed to tomorrow's advertising"
+                            fr="Révéler les publicitaires engagés pour demain"
+                            ar="إبراز المعلنين الملتزمين لصالح الإعلان المسؤول"
                         />
                     </h1>
 
                     <div className="mt-6 space-y-4 text-sm leading-relaxed text-twhite/90 sm:text-base">
                         <p>
                             <TransText
-                                en="Tililab is a detection, training and mentoring program for young Moroccan creative talents under 30."
-                                fr="Tililab est un programme de détection, de formation et d'accompagnement destiné aux jeunes talents créatifs marocains de moins de 30 ans."
-                                ar="تيليلاب برنامج لاكتشاف وتدريب ومرافقة المواهب الإبداعية الشابة في المغرب دون 30 سنة."
+                                en="Through an immersive journey, Tililab trains young content creators with values of equity, diversity and inclusion and accompanies them in producing inclusive advertising content with impact."
+                                fr="À travers un parcours immersif, Tililab forme les jeunes créatrices et créateurs de contenu aux valeurs d’équité, de diversité et d’inclusion et les accompagne dans la production de contenus publicitaires inclusifs porteurs d’impact."
+                                ar="من خلال مسار غامر، يتدرّب تيليلاب المبدعين الشباب إلى القيم المساواة والتنوع والإدماج ويرافقهم في إنتاج محتوى إعلاني شامل ومؤثر."
                             />
                         </p>
-                        <p>
-                            <TransText
-                                en="Through an immersive journey combining training, mentoring and audiovisual creation, Tililab supports tomorrow's creators in producing meaningful, impactful content."
-                                fr="À travers un parcours immersif mêlant formation, mentorat et création audiovisuelle, Tililab accompagne les créateurs et créatrices de demain dans la réalisation de contenus porteurs de sens et d'impact."
-                                ar="من خلال مسار غامر يجمع التكوين والإرشاد والإبداع السمعي البصري، ترافق تيليلاب مبدعي ومبدعات الغد في إنتاج محتوى هادف ومؤثر."
-                            />
-                        </p>
+                    
                     </div>
 
                     <div className={`mt-8 ${TILILA_HERO_CTA_ROW}`}>
