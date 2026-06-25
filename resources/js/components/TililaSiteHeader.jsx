@@ -121,7 +121,7 @@ const APPLY_CTAS = [
 ];
 
 const applyBtnClass =
-    'inline-flex items-center justify-center rounded-full px-2.5 py-2 text-[10px] font-bold tracking-[0.05em] text-twhite uppercase transition ';
+    'inline-flex items-center justify-center rounded-xl px-3 py-3 text-[10px] font-bold tracking-[0.05em] text-twhite uppercase transition ';
 
 function ApplyCtaButton({ cta, compact = false, className = '', onNavigate }) {
     return (
@@ -268,7 +268,7 @@ export default function TililaSiteHeader() {
                     <img
                         src="/assets/logo.png"
                         alt="Tilila Awards"
-                        className="h-8 w-auto max-w-[7.5rem] object-contain sm:h-9 xl:max-w-none"
+                        className="h-10 w-auto max-w-[8rem] object-contain sm:h-9 xl:max-w-none"
                         loading="eager"
                     />
                 </Link>
@@ -277,7 +277,7 @@ export default function TililaSiteHeader() {
                     className="hidden min-w-0 flex-1 overflow-visible lg:block"
                     aria-label="Tilila"
                 >
-                    <div className="flex flex-row flex-nowrap items-center justify-center gap-x-3 overflow-visible">
+                    <div className="flex flex-row flex-nowrap items-center justify-center  space-x-8 overflow-visible">
                         <DesktopNavItems
                             currentPath={currentPath}
                             currentHash={currentHash}

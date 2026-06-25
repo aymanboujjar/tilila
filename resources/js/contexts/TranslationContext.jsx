@@ -12,6 +12,7 @@ import ar from '@/locales/ar.json';
 
 const SUPPORTED_LOCALES = ['en', 'fr', 'ar'];
 const STORAGE_KEY = 'locale';
+const DEFAULT_LOCALE = 'fr';
 
 const TranslationContext = createContext(null);
 
@@ -26,7 +27,7 @@ function resolveDotNotationKey(dictionary, key) {
 }
 
 export function TranslationProvider({ children }) {
-    const [locale, setLocaleState] = useState('en');
+    const [locale, setLocaleState] = useState(DEFAULT_LOCALE);
 
     useEffect(() => {
         try {
@@ -68,7 +69,7 @@ export function TranslationProvider({ children }) {
     };
 
     const t = (key) => {
-        const dictionary = dictionaries[locale] ?? dictionaries.en;
+        const dictionary = dictionaries[locale] ?? dictionaries[DEFAULT_LOCALE];
         const resolved = resolveDotNotationKey(dictionary, key);
         return typeof resolved === 'string' ? resolved : key;
     };

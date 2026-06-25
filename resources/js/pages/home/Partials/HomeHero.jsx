@@ -67,7 +67,7 @@ export default function HomeHero() {
             <TililaContainer className="relative z-10">
                 <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
                     <div className="max-w-lg lg:max-w-xl">
-                        <div className="space-y-0.5 text-lg leading-[1.2] font-extrabold tracking-tight sm:text-xl lg:text-[1.5rem] xl:text-[1.65rem]">
+                        <div className="space-y-0.5 text-lg leading-[1.2] font-extrabold tracking-tight sm:text-xl lg:text-[1.5rem] xl:text-[2rem]">
                             <p>
                                 <TransText
                                     en="Every creation tells a story."
@@ -99,7 +99,7 @@ export default function HomeHero() {
                                     ar="عبر تيليلا أووردز وتيليلاب، تحتفي SOREAD 2M بمن يختارون وضع الإبداع في خدمة التغيير."
                                 />
                             </p>
-                            <p>
+                            {/* <p>
                                 <TransText
                                     en="Advertising creations that challenge stereotypes. Ideas that open new perspectives. Talents who imagine fairer, more representative and more inclusive stories."
                                     fr="Des créations publicitaires qui bousculent les stéréotypes. Des idées qui ouvrent de nouvelles perspectives. Des talents qui imaginent des récits plus justes, plus représentatifs et plus inclusifs."
@@ -112,7 +112,7 @@ export default function HomeHero() {
                                     fr="Qu'il s'agisse de distinguer les marques qui font évoluer les représentations ou d'accompagner les créateurs et créatrices publicitaires de demain, Tilila met à l'honneur le pouvoir des idées, des images et des mots pour inspirer, rassembler et faire progresser la société."
                                     ar="سواء تمييز العلامات التي تطور التمثيلات أو مرافقة صنّاع الإعلان في الغد، تكرّم تيليلا قوة الأفكار والصور والكلمات للإلهام والتجميع ودفع المجتمع قدمًا."
                                 />
-                            </p>
+                            </p> */}
                             <p>
                                 <TransText
                                     en="Far more than a competition, Tilila is a space for recognition, support and innovation in the service of responsible communication and impactful creativity."
