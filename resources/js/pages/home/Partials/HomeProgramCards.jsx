@@ -46,7 +46,7 @@ const CARDS = [
             "Tililab est un programme de détection, de formation et d'accompagnement destiné aux jeunes talents créatifs marocains de moins de 30 ans.",
         bodyAr:
             'تيليلاب برنامج لاكتشاف وتدريب ومرافقة المواهب الإبداعية الشابة في المغرب دون 30 سنة.',
-        gradient: 'from-[#0d9488] via-[#0891b2] to-tgray',
+        gradient: 'from-[#00b5d1] to-[#435b66]',
     },
 ];
 

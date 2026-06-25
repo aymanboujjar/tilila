@@ -46,7 +46,7 @@ export default function TililabStatsBenefitsSection() {
         <TililaSection id="why-participate" className="bg-twhite">
             <TililaContainer>
                 <div className="text-center">
-                    <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
+                    <h2 className="text-xl font-extrabold tracking-[0.12em] text-tililab-slate uppercase sm:text-2xl">
                         <TransText
                             en="Why participate?"
                             fr="Pourquoi participer ?"
@@ -54,7 +54,7 @@ export default function TililabStatsBenefitsSection() {
                         />
                     </h2>
                     <div
-                        className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-beta-turquoise"
+                        className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-tililab-cyan"
                         aria-hidden
                     />
                 </div>
@@ -67,13 +67,13 @@ export default function TililabStatsBenefitsSection() {
                                 key={item.fr}
                                 className="flex flex-col items-center text-center"
                             >
-                                <span className="inline-flex size-14 items-center justify-center rounded-full border border-beta-turquoise/25 bg-alpha-blue text-beta-turquoise">
+                                <span className="inline-flex size-14 items-center justify-center rounded-full border border-tililab-cyan/25 bg-alpha-tililab text-tililab-cyan">
                                     <Icon
                                         className="size-6 stroke-[1.5]"
                                         aria-hidden
                                     />
                                 </span>
-                                <p className="mt-4 text-sm leading-snug font-semibold text-beta-blue">
+                                <p className="mt-4 text-sm leading-snug font-semibold text-tililab-slate">
                                     <TransText
                                         en={item.en}
                                         fr={item.fr}

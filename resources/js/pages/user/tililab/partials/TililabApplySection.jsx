@@ -2,24 +2,23 @@ import TransText from '@/components/TransText';
 import TililabParticipateForm from '@/pages/user/tililab/partials/TililabParticipateForm';
 import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
-const SECTION_BG = '#0a0a23';
-const HERO_BG = '/assets/tililab/tililab-banner.png';
+const APPLY_BG = '/assets/tililab/tililab-banner.png';
 
 export default function TililabApplySection() {
     return (
         <section
             id="apply"
-            className="relative overflow-hidden py-14 sm:py-16 lg:py-20"
-            style={{ backgroundColor: SECTION_BG }}
+            className="relative overflow-hidden bg-linear-to-br from-[#00b5d1] to-[#435b66] py-14 sm:py-16 lg:py-20"
         >
             <img
-                src={HERO_BG}
+                src={APPLY_BG}
                 alt=""
                 className="pointer-events-none absolute inset-y-0 right-0 h-full w-[48%] object-cover object-center opacity-30"
                 loading="lazy"
+                decoding="async"
             />
             <div
-                className="pointer-events-none absolute inset-0 bg-linear-to-r from-[#0a0a23] from-0% via-[#0a0a23]/94 via-55% to-[#0a0a23]/55 to-100%"
+                className="pointer-events-none absolute inset-0 bg-linear-to-r from-[#435b66] from-0% via-[#435b66]/94 via-55% to-[#435b66]/55 to-100%"
                 aria-hidden
             />
 
@@ -33,7 +32,7 @@ export default function TililabApplySection() {
                         />
                     </h2>
                     <div
-                        className="mx-auto mt-3 h-0.5 w-10 rounded-full bg-beta-turquoise"
+                        className="mx-auto mt-3 h-0.5 w-10 rounded-full bg-twhite/60"
                         aria-hidden
                     />
                 </div>

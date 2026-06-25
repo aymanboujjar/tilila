@@ -217,7 +217,7 @@ function PartnerTier({
             <div className="grid grid-cols-1 lg:grid-cols-[11rem_1fr]">
                 <div
                     className={cn(
-                        'grid place-items-center px-4 py-6 text-center lg:py-8',
+                        'grid place-items-center px-2 py-6 text-center lg:py-8',
                         accent.rail,
                     )}
                 >
@@ -251,13 +251,13 @@ function SectionIntro({ description, showCta }) {
     return (
         <div className="tilila-section-fade grid gap-6 border-s-4 border-beta-blue ps-5 sm:ps-6 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-10">
             <div className="max-w-2xl">
-                <p className="text-[11px] font-bold tracking-[0.22em] text-beta-turquoise uppercase">
+                {/* <p className="text-[11px] font-bold tracking-[0.22em] text-beta-turquoise uppercase">
                     <TransText
                         en="Ecosystem"
                         fr="Écosystème"
                         ar="المنظومة"
                     />
-                </p>
+                </p> */}
                 <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-tblack sm:text-3xl lg:text-[2rem]">
                     <TransText
                         en="Partners"
@@ -265,12 +265,12 @@ function SectionIntro({ description, showCta }) {
                         ar="الشركاء"
                     />
                 </h2>
-                <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
+                {/* <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
                     {description}
-                </p>
+                </p> */}
             </div>
 
-            {showCta ? (
+            {/* {showCta ? (
                 <Link
                     href="/contact"
                     className="inline-grid w-fit place-items-center rounded-xl border-2 border-beta-blue px-5 py-3 text-xs font-bold tracking-[0.12em] text-beta-blue uppercase transition hover:bg-alpha-blue lg:justify-self-end"
@@ -284,7 +284,7 @@ function SectionIntro({ description, showCta }) {
                         <ArrowUpRight className="size-4" aria-hidden />
                     </span>
                 </Link>
-            ) : null}
+            ) : null} */}
         </div>
     );
 }
@@ -324,7 +324,7 @@ export default function PartnersMarqueeSection({
                                 rail: 'bg-linear-to-b from-[#5a3d96] to-beta-blue',
                                 ring: 'ring-brand-light-purple/15',
                             }}
-                            count={institutionalCount}
+                            // count={institutionalCount}
                             marqueeLabel="Institutional partners"
                             label={
                                 <TransText
@@ -346,7 +346,7 @@ export default function PartnersMarqueeSection({
                                 rail: 'bg-linear-to-b from-[#0d9488] to-beta-turquoise',
                                 ring: 'ring-beta-turquoise/15',
                             }}
-                            count={mediaCount}
+                            // count={mediaCount}
                             marqueeLabel="Media partners"
                             label={
                                 <TransText

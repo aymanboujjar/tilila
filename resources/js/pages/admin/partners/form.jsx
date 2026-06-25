@@ -1,5 +1,6 @@
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import { ChevronLeft } from 'lucide-react';
+import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -39,7 +40,7 @@ export default function AdminPartnerForm({ partner }) {
               ? [partner.group]
               : ['featured'];
 
-    const { data, setData, post, processing, errors } = useForm({
+    const { data, setData, errors, setError, clearErrors } = useForm({
         program: partner?.program ?? 'tilila',
         group: initialGroups[0],
         groups: initialGroups,
@@ -68,16 +69,36 @@ export default function AdminPartnerForm({ partner }) {
         logo: null,
     });
 
+    const [processing, setProcessing] = useState(false);
+
     const submit = (e) => {
         e.preventDefault();
+        clearErrors();
+
+        const hasLogoUpload = data.logo instanceof File;
+
         if (isEdit) {
-            post(`/admin/partners/${partner.id}`, {
-                forceFormData: true,
-                _method: 'put',
-            });
-        } else {
-            post('/admin/partners', { forceFormData: true });
+            router.post(
+                `/admin/partners/${partner.id}`,
+                { ...data, _method: 'put' },
+                {
+                    forceFormData: hasLogoUpload,
+                    preserveScroll: true,
+                    onStart: () => setProcessing(true),
+                    onFinish: () => setProcessing(false),
+                    onError: (serverErrors) => setError(serverErrors),
+                },
+            );
+            return;
         }
+
+        router.post('/admin/partners', data, {
+            forceFormData: hasLogoUpload,
+            preserveScroll: true,
+            onStart: () => setProcessing(true),
+            onFinish: () => setProcessing(false),
+            onError: (serverErrors) => setError(serverErrors),
+        });
     };
 
     return (

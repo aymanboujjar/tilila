@@ -46,7 +46,7 @@ export default function TililabAdmissionJurySection() {
         <TililaSection id="admission" className="bg-beta-white">
             <TililaContainer>
                 <div className="text-center">
-                    <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
+                    <h2 className="text-xl font-extrabold tracking-[0.12em] text-tililab-slate uppercase sm:text-2xl">
                         <TransText
                             en="Admission conditions"
                             fr="Conditions d'admission"
@@ -54,7 +54,7 @@ export default function TililabAdmissionJurySection() {
                         />
                     </h2>
                     <div
-                        className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-beta-turquoise"
+                        className="mx-auto mt-3 h-0.5 w-12 rounded-full bg-tililab-cyan"
                         aria-hidden
                     />
                 </div>
@@ -67,7 +67,7 @@ export default function TililabAdmissionJurySection() {
                                 key={item.fr}
                                 className="flex flex-col items-center text-center"
                             >
-                                <span className="inline-flex size-14 items-center justify-center rounded-full border border-beta-turquoise/25 bg-alpha-blue text-beta-turquoise">
+                                <span className="inline-flex size-14 items-center justify-center rounded-full border border-tililab-cyan/25 bg-alpha-tililab text-tililab-cyan">
                                     <Icon
                                         className="size-6 stroke-[1.5]"
                                         aria-hidden

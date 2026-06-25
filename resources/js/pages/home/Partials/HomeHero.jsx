@@ -50,45 +50,17 @@ function HeroVideo() {
             className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-twhite/10 transition hover:ring-twhite/25"
             style={{ clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)' }}
         >
-            {playVideo ? (
-                <video
-                    className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
-                    src={HERO_VIDEO}
-                    poster={HERO_BACKGROUND}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    controls={false}
-                    preload="metadata"
-                />
-            ) : (
-                <button
-                    type="button"
-                    onClick={startVideo}
-                    className="group relative block w-full"
-                    aria-label="Play Tilila ceremony video"
-                >
-                    <img
-                        src={HERO_BACKGROUND}
-                        alt=""
-                        className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
-                        width={1280}
-                        height={720}
-                        fetchPriority="low"
-                        loading="lazy"
-                        decoding="async"
-                    />
-                    <span className="absolute inset-0 flex items-center justify-center bg-tblack/25 transition group-hover:bg-tblack/35">
-                        <span className="flex size-12 items-center justify-center rounded-full border-2 border-twhite/80 bg-twhite/15 text-twhite shadow-lg transition group-hover:scale-105 sm:size-14">
-                            <Play
-                                className="ms-0.5 size-5 fill-twhite sm:size-6"
-                                aria-hidden
-                            />
-                        </span>
-                    </span>
-                </button>
-            )}
+            <video
+                className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
+                src={HERO_VIDEO}
+                poster={HERO_BACKGROUND}
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls={false}
+                preload="metadata"
+            />
         </div>
     );
 }

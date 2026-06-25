@@ -44,7 +44,7 @@ export default function TililabPrizesSection() {
             <TililaContainer>
                 <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-14 xl:gap-16">
                     <div>
-                        <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
+                        <h2 className="text-xl font-extrabold tracking-[0.12em] text-tililab-slate uppercase sm:text-2xl">
                             <TransText
                                 en="Rewards"
                                 fr="Récompenses"
@@ -52,7 +52,7 @@ export default function TililabPrizesSection() {
                             />
                         </h2>
                         <div
-                            className="mt-2.5 h-0.5 w-10 rounded-full bg-beta-turquoise"
+                            className="mt-2.5 h-0.5 w-10 rounded-full bg-tililab-cyan"
                             aria-hidden
                         />
 
@@ -65,7 +65,7 @@ export default function TililabPrizesSection() {
                                         className="flex items-center gap-3.5 sm:gap-4"
                                     >
                                         <Icon
-                                            className="size-5 shrink-0 text-beta-turquoise sm:size-[22px]"
+                                            className="size-5 shrink-0 text-tililab-cyan sm:size-[22px]"
                                             strokeWidth={1.75}
                                             aria-hidden
                                         />
@@ -83,7 +83,7 @@ export default function TililabPrizesSection() {
 
                         <Link
                             href="/tililab/reglement"
-                            className="mt-8 inline-flex items-center gap-2.5 rounded-lg bg-beta-blue px-5 py-3 text-[11px] font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-brand-light-purple sm:text-xs"
+                            className="mt-8 inline-flex items-center gap-2.5 rounded-lg bg-[#00b8d9] px-5 py-3 text-[11px] font-bold tracking-[0.12em] text-twhite uppercase transition hover:brightness-110 sm:text-xs"
                         >
                             <Download className="size-4 shrink-0" aria-hidden />
                             <TransText
