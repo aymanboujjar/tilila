@@ -2,7 +2,6 @@ import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 import TransText from '@/components/TransText';
 import AppLayout from '@/layouts/app-layout';
-import AboutGalleryStrip from '@/pages/user/about/partials/AboutGalleryStrip';
 import CommitteeSection from '@/pages/user/about/partials/CommitteeSection';
 import HeroSection from '@/pages/user/about/partials/HeroSection';
 import HistorySection from '@/pages/user/about/partials/HistorySection';
@@ -84,7 +83,6 @@ export default function About() {
             <AboutHead />
             <div className="bg-twhite">
                 <HeroSection />
-                {/* <AboutGalleryStrip /> */}
                 <LeadershipMessageSection
                     id="director"
                     className="bg-beta-white"
