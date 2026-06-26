@@ -2,13 +2,28 @@ import TransText from '@/components/TransText';
 import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 import { COMMITTEE_HISTORY } from '@/pages/user/about/partials/about-data';
 
-function HistoryMilestone({ item, isTop }) {
+function HistoryMilestoneVertical({ item, isLast }) {
+    return (
+        <li className={`relative pb-8 ${isLast ? 'pb-0' : ''}`}>
+            <span
+                className="absolute top-1.5 -start-[calc(2rem+5px)] size-3 rounded-full bg-beta-blue ring-4 ring-beta-white"
+                aria-hidden
+            />
+            <p className="text-sm font-extrabold text-beta-blue">{item.year}</p>
+            <p className="mt-1.5 text-sm leading-relaxed text-[#1a237e]/90 sm:text-[15px]">
+                <TransText en={item.en} fr={item.fr} ar={item.ar} />
+            </p>
+        </li>
+    );
+}
+
+function HistoryMilestoneHorizontal({ item, isTop }) {
     const content = (
         <>
-            <p className="text-[10px] font-extrabold text-beta-blue sm:text-xs lg:text-sm">
+            <p className="text-xs font-extrabold text-beta-blue lg:text-sm">
                 {item.year}
             </p>
-            <p className="mt-1 text-[9px] leading-snug text-[#1a237e]/90 sm:text-[11px] sm:leading-relaxed lg:text-xs">
+            <p className="mt-1 text-[11px] leading-snug text-[#1a237e]/90 lg:text-xs lg:leading-relaxed">
                 <TransText en={item.en} fr={item.fr} ar={item.ar} />
             </p>
         </>
@@ -17,15 +32,15 @@ function HistoryMilestone({ item, isTop }) {
     return (
         <li className="relative flex min-h-full min-w-0 flex-1 flex-col">
             <span
-                className="absolute top-1/2 left-1/2 z-10 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-beta-blue ring-4 ring-beta-white sm:size-3"
+                className="absolute top-1/2 left-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-beta-blue ring-4 ring-beta-white"
                 aria-hidden
             />
 
-            <div className="flex flex-1 flex-col justify-end px-0.5 pb-5 text-center sm:px-1 sm:pb-6">
+            <div className="flex flex-1 flex-col justify-end px-1 pb-6 text-center">
                 {isTop ? content : null}
             </div>
 
-            <div className="flex flex-1 flex-col justify-start px-0.5 pt-5 text-center sm:px-1 sm:pt-6">
+            <div className="flex flex-1 flex-col justify-start px-1 pt-6 text-center">
                 {isTop ? null : content}
             </div>
         </li>
@@ -33,6 +48,8 @@ function HistoryMilestone({ item, isTop }) {
 }
 
 export default function HistorySection() {
+    const lastIndex = COMMITTEE_HISTORY.length - 1;
+
     return (
         <section
             id="history"
@@ -48,15 +65,25 @@ export default function HistorySection() {
                     />
                 </h2>
 
-                <div className="relative mt-10 min-h-[240px] sm:min-h-[280px] lg:min-h-[320px]">
+                <ol className="relative mt-10 space-y-0 border-s-2 border-beta-blue/20 ps-8 lg:hidden">
+                    {COMMITTEE_HISTORY.map((item, index) => (
+                        <HistoryMilestoneVertical
+                            key={item.year}
+                            item={item}
+                            isLast={index === lastIndex}
+                        />
+                    ))}
+                </ol>
+
+                <div className="relative mt-10 hidden min-h-[320px] lg:block">
                     <div
                         className="pointer-events-none absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-beta-blue/25"
                         aria-hidden
                     />
 
-                    <ol className="relative flex min-h-[240px] w-full sm:min-h-[280px] lg:min-h-[320px]">
+                    <ol className="relative flex min-h-[320px] w-full">
                         {COMMITTEE_HISTORY.map((item, index) => (
-                            <HistoryMilestone
+                            <HistoryMilestoneHorizontal
                                 key={item.year}
                                 item={item}
                                 isTop={index % 2 === 0}

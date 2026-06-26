@@ -2,7 +2,6 @@ import {
     Clapperboard,
     Filter,
     Gavel,
-    GraduationCap,
     Megaphone,
     Trophy,
     Video,
@@ -23,7 +22,6 @@ const PARCOURS_STEPS = [
         en: 'Preselection',
         ar: 'الفرز الأولي',
     },
-
     {
         icon: Clapperboard,
         fr: 'Bootcamp créatif',
@@ -50,7 +48,32 @@ const PARCOURS_STEPS = [
     },
 ];
 
+function ParcoursStepIcon({ step, index }) {
+    const Icon = step.icon;
+
+    return (
+        <div className="relative shrink-0">
+            <div className="flex size-14 items-center justify-center rounded-full border-2 border-tililab-cyan/30 bg-twhite text-tililab-slate shadow-sm sm:size-[4.5rem]">
+                <Icon className="size-6 stroke-[1.5]" aria-hidden />
+            </div>
+            <span className="absolute -end-1 -bottom-1 flex size-5 items-center justify-center rounded-full bg-tililab-cyan text-[10px] font-bold text-twhite">
+                {index + 1}
+            </span>
+        </div>
+    );
+}
+
+function ParcoursStepLabel({ step }) {
+    return (
+        <p className="text-xs leading-snug font-bold tracking-wide text-tililab-slate uppercase sm:text-[11px] lg:text-center">
+            <TransText en={step.en} fr={step.fr} ar={step.ar} />
+        </p>
+    );
+}
+
 export default function TililabKeyDatesSection() {
+    const lastIndex = PARCOURS_STEPS.length - 1;
+
     return (
         <TililaSection id="parcours" className="bg-beta-white">
             <TililaContainer>
@@ -68,40 +91,41 @@ export default function TililabKeyDatesSection() {
                     />
                 </div>
 
-                <div className="relative mt-12 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <ol className="relative mt-10 space-y-0 border-s-2 border-tililab-cyan/25 ps-6 sm:ps-8 lg:hidden">
+                    {PARCOURS_STEPS.map((step, index) => (
+                        <li
+                            key={step.fr}
+                            className={`relative flex items-start gap-4 pb-8 ${index === lastIndex ? 'pb-0' : ''}`}
+                        >
+                            <span
+                                className="absolute top-7 -start-[calc(1.5rem+7px)] size-3 rounded-full bg-tililab-cyan ring-4 ring-beta-white sm:-start-[calc(2rem+7px)]"
+                                aria-hidden
+                            />
+                            <ParcoursStepIcon step={step} index={index} />
+                            <div className="min-w-0 flex-1 pt-3">
+                                <ParcoursStepLabel step={step} />
+                            </div>
+                        </li>
+                    ))}
+                </ol>
+
+                <div className="relative mt-12 hidden lg:block">
                     <div
-                        className="absolute top-9 right-[6%] left-[6%] hidden border-t-2 border-dashed border-tililab-cyan/25 lg:block"
+                        className="absolute top-9 right-[6%] left-[6%] border-t-2 border-dashed border-tililab-cyan/25"
                         aria-hidden
                     />
-                    <ol className="flex min-w-[720px] gap-3 lg:min-w-0 lg:justify-between">
-                        {PARCOURS_STEPS.map((step, index) => {
-                            const Icon = step.icon;
-                            return (
-                                <li
-                                    key={step.fr}
-                                    className="relative flex flex-1 flex-col items-center px-1 text-center"
-                                >
-                                    <div className="relative">
-                                        <div className="flex size-[4.25rem] items-center justify-center rounded-full border-2 border-tililab-cyan/30 bg-twhite text-tililab-slate shadow-sm sm:size-[4.5rem]">
-                                            <Icon
-                                                className="size-6 stroke-[1.5]"
-                                                aria-hidden
-                                            />
-                                        </div>
-                                        <span className="absolute -end-1 -bottom-1 flex size-5 items-center justify-center rounded-full bg-tililab-cyan text-[10px] font-bold text-twhite">
-                                            {index + 1}
-                                        </span>
-                                    </div>
-                                    <p className="mt-4 text-[10px] leading-snug font-bold tracking-wide text-tililab-slate uppercase sm:text-[11px]">
-                                        <TransText
-                                            en={step.en}
-                                            fr={step.fr}
-                                            ar={step.ar}
-                                        />
-                                    </p>
-                                </li>
-                            );
-                        })}
+                    <ol className="flex justify-between gap-3">
+                        {PARCOURS_STEPS.map((step, index) => (
+                            <li
+                                key={step.fr}
+                                className="relative flex flex-1 flex-col items-center px-1 text-center"
+                            >
+                                <ParcoursStepIcon step={step} index={index} />
+                                <div className="mt-4">
+                                    <ParcoursStepLabel step={step} />
+                                </div>
+                            </li>
+                        ))}
                     </ol>
                 </div>
             </TililaContainer>

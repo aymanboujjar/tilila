@@ -1,20 +1,18 @@
 import { Link } from '@inertiajs/react';
 import { ArrowRight, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
-import {
-    HERO_UNDER_NAV,
-    TILILA_HERO_BTN,
-    TILILA_HERO_CTA_ROW,
-    TililaContainer,
-} from '@/pages/user/tilila/partials/TililaUi';
+import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
 const HERO_BG = '/assets/homehero.jpg';
+
+const heroCtaClassName =
+    'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-[10px] font-bold tracking-[0.1em] uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-6 sm:py-3.5 sm:text-xs';
 
 export default function TililaHero() {
     return (
         <section
             id="hero"
-            className={`${HERO_UNDER_NAV} min-h-[420px] sm:min-h-[480px] lg:min-h-[540px]`}
+            className={`${HERO_UNDER_NAV} flex min-h-[420px] flex-col justify-start overflow-x-hidden pt-[calc(72px+2.5rem)] sm:min-h-[480px] sm:justify-center sm:pt-[calc(72px+3rem)] lg:min-h-[540px] lg:pt-[calc(72px+2.5rem)]`}
         >
             <img
                 src={HERO_BG}
@@ -26,16 +24,19 @@ export default function TililaHero() {
                 decoding="async"
             />
             <div
-                className="absolute inset-0 bg-linear-to-r from-tblack/90 via-tblack/75 to-tblack/40"
+                className="absolute inset-0 bg-linear-to-b from-tblack/95 via-tblack/80 to-tblack/60 sm:bg-linear-to-r sm:from-tblack/90 sm:via-tblack/75 sm:to-tblack/40"
                 aria-hidden
             />
 
-            <TililaContainer className="relative z-10 flex min-h-[420px] items-center py-14 sm:min-h-[480px] sm:py-16 lg:min-h-[540px]">
-                <div className="home-hero-copy max-w-2xl" id="candidature">
+            <TililaContainer className="relative z-10 flex w-full min-w-0 items-start py-10 sm:items-center sm:py-14 lg:py-16">
+                <div
+                    className="home-hero-copy w-full min-w-0 max-w-2xl"
+                    id="candidature"
+                >
                     <p className="text-[11px] font-bold tracking-[0.24em] text-twhite/80 uppercase">
                         Tilila Awards
                     </p>
-                    <h1 className="mt-4 text-2xl leading-[1.12] font-extrabold text-twhite sm:text-3xl lg:text-[2.35rem]">
+                    <h1 className="mt-3 text-xl leading-[1.2] font-extrabold text-twhite sm:mt-4 sm:text-3xl sm:leading-[1.12] lg:text-[2.35rem]">
                         <TransText
                             en="Rewarding campaigns that transform perceptions and reshape representations."
                             fr="Récompenser les campagnes qui font évoluer les représentations"
@@ -43,7 +44,7 @@ export default function TililaHero() {
                         />
                     </h1>
 
-                    <div className="mt-6 space-y-4 text-sm leading-relaxed text-twhite/90 sm:text-base">
+                    <div className="mt-4 space-y-4 text-sm leading-relaxed text-twhite/90 sm:mt-6 sm:text-base">
                         <p>
                             <TransText
                                 en="The Tilila Awards recognize advertising campaigns and individuals who contribute to transforming perceptions and promoting equity, diversity, and inclusion."
@@ -51,26 +52,25 @@ export default function TililaHero() {
                                 ar="تيليلا أووردز يميز الحملات الإعلانية والشخصيات التي تساهم في تغيير الصور النمطية وتعزيز المساواة والتنوع والإدماج."
                             />
                         </p>
-                     
                     </div>
 
-                    <div className={`home-hero-ctas mt-8 ${TILILA_HERO_CTA_ROW}`}>
+                    <div className="home-hero-ctas mt-6 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                         <Link
                             href="/tilila/participate"
-                            className={`inline-flex items-center justify-center gap-2 rounded-lg bg-beta-blue px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-brand-light-purple ${TILILA_HERO_BTN}`}
+                            className={`${heroCtaClassName} bg-beta-blue text-twhite hover:bg-brand-light-purple`}
                         >
                             <TransText
                                 en="Submit application"
                                 fr="Déposer une candidature"
                                 ar="قدّم ترشيحك"
                             />
-                            <ArrowRight className="size-4" aria-hidden />
+                            <ArrowRight className="size-4 shrink-0" aria-hidden />
                         </Link>
                         <a
                             href="/tilila/reglement"
-                            className={`inline-flex items-center justify-center gap-2 rounded-lg border-2 border-twhite bg-transparent px-6 py-3.5 text-xs font-bold tracking-[0.12em] text-twhite uppercase transition hover:bg-twhite/10 ${TILILA_HERO_BTN}`}
+                            className={`${heroCtaClassName} border-2 border-twhite bg-transparent text-twhite hover:bg-twhite/10`}
                         >
-                            <Eye className="size-4" aria-hidden />
+                            <Eye className="size-4 shrink-0" aria-hidden />
                             <TransText
                                 en="Read regulations"
                                 fr="Consulter le règlement"
