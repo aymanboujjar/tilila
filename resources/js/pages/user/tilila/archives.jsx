@@ -178,7 +178,7 @@ export default function TililaArchives() {
                     </TililaContainer>
                 </div>
 
-                <ArchivesTililabCards onNavigate={handleSidebarNav} />
+                {/* <ArchivesTililabCards onNavigate={handleSidebarNav} /> */}
                 <ArchivesContactCta />
             </div>
         </>

@@ -22,9 +22,7 @@ export const TILILA_HOME_STATS = [
         labelFr: 'campagnes candidates',
         labelEn: 'candidate campaigns',
         labelAr: 'حملة مرشحة',
-        labelPrefixFr: 'Plus de ',
-        labelPrefixEn: 'Over ',
-        labelPrefixAr: 'أكثر من ',
+        
     },
     {
         icon: Star,
@@ -32,9 +30,7 @@ export const TILILA_HOME_STATS = [
         labelFr: 'campagnes shortlistées',
         labelEn: 'shortlisted campaigns',
         labelAr: 'حملة في القائمة القصيرة',
-        labelPrefixFr: 'Plus de ',
-        labelPrefixEn: 'Over ',
-        labelPrefixAr: 'أكثر من ',
+        
     },
     {
         icon: Award,
@@ -46,8 +42,8 @@ export const TILILA_HOME_STATS = [
     {
         icon: Users,
         value: '26',
-        labelFr: 'membres de jury mobilisés',
-        labelEn: 'jury members mobilized',
+        labelFr: 'membres de jury',
+        labelEn: 'jury members',
         labelAr: 'عضوًا في لجنة التحكيم',
     },
     {
@@ -81,9 +77,7 @@ export const TILILAB_HOME_STATS = [
         labelFr: 'projets produits',
         labelEn: 'projects produced',
         labelAr: 'مشروع منتج',
-        labelPrefixFr: 'Plus de ',
-        labelPrefixEn: 'Over ',
-        labelPrefixAr: 'أكثر من ',
+        
     },
     {
         icon: GraduationCap,

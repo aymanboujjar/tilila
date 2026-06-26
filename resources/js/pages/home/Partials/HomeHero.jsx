@@ -23,7 +23,7 @@ const HeroCta = memo(function HeroCta({ href, className, children }) {
     return (
         <Link
             href={href}
-            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-3 text-[10px] font-bold tracking-[0.08em] text-twhite uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-5 sm:py-2.5 sm:text-[11px] lg:px-6 lg:text-xs ${className}`}
+            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-5 text-[10px] font-bold tracking-[0.08em] text-twhite uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-5 sm:py-2.5 sm:text-[11px] lg:px-6 lg:py-3 lg:text-sm ${className}`}
         >
             {children}
             <ArrowRight className="size-4 shrink-0" aria-hidden />
@@ -89,16 +89,16 @@ export default function HomeHero() {
                             <div className="home-hero-copy mt-4 space-y-3 text-sm leading-relaxed text-twhite/85 sm:mt-5 sm:text-base lg:text-lg">
                                 <p>
                                     <TransText
-                                        en="Becoming references in the Moroccan advertising landscape, Tilila Awards and Tililab contribute to fighting against gender stereotypes, to valorizing the image of people with disabilities and to promoting an inclusive culture in advertising."
-                                        fr="Devenus des références dans le paysage publicitaire marocain, Tilila Awards et Tililab contribuent à lutter contre les stéréotypes féminins, à valoriser l’image des personnes en situation de handicap et à promouvoir une culture de l’inclusion dans la publicité.."
-                                        ar="أصبحت تيليلا أووردز وتيليلاب مراجعًا في ساحة الإعلان المغربي، وتساهم في مكافحة القوالب النمطية النسائية وتقدير الصور الشخصيات المعاقة، وتشجع الثقافة الشاملة في الإعلان."
+                                        en="Because images have the power to shape perceptions, SOREAD 2M, through Tilila Awards and Tililab, recognizes and celebrates advertisers, agencies, public figures, and young creators who use their creativity and commitment to help build a more inclusive society."
+                                        fr="Parce que les images ont le pouvoir de façonner les perceptions, SOREAD 2M récompense, à travers Tilila Awards et Tililab, les annonceurs, les agences, les personnalités et les jeunes créateurs qui mettent leur créativité et leur engagement au service d'une société plus inclusive"
+                                        ar="لأن الصور تمتلك القدرة على تشكيل التصورات، تُكرّم سوراد 2M، من خلال جوائز تيليلا وتيليلاب، المعلنين والوكالات والشخصيات وصُنّاع الإبداع الشباب الذين يوظفون إبداعهم والتزامهم في خدمة مجتمع أكثر شمولاً."
                                     />
                                 </p>
                                 <p>
                                     <TransText
-                                        en="Far more than a competition, Tilila is a space for recognition, support and innovation in the service of responsible communication and impactful creativity."
-                                        fr="Bien plus qu'un concours, Tilila est un espace de reconnaissance, d'accompagnement et d'innovation au service d'une communication responsable et d'une créativité à impact."
-                                        ar="أكثر بكثير من مسابقة، تيليلا فضاء للتقدير والمرافقة والابتكار في خدمة تواصل مسؤول وإبداع مؤثر."
+                                        en="Having become leading references in Morocco’s advertising landscape, Tilila Awards and Tililab help combat gender stereotypes, promote positive representations of people with disabilities, and foster a culture of inclusion in advertising."
+                                        fr="Devenus des références dans le paysage publicitaire marocain, Tilila Awards et Tililab contribuent à lutter contre les stéréotypes féminins, à valoriser l’image des personnes en situation de handicap et à promouvoir une culture de l’inclusion dans la publicité."
+                                        ar="أصبحت جوائز تيليلا وتيليلاب مرجعًا بارزًا في المشهد الإعلاني المغربي، حيث تسهمان في مكافحة الصور النمطية المرتبطة بالمرأة، وتعزيز الصورة الإيجابية للأشخاص في وضعية إعاقة، وترسيخ ثقافة الإدماج والشمول في مجال الإعلانات."
                                     />
                                 </p>
                             </div>

@@ -6,14 +6,13 @@ import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/Ti
 const HERO_BG = '/assets/tililabhero.jpg';
 
 const heroCtaClassName =
-    'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-[10px] font-bold tracking-[0.1em] uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-6 sm:py-3.5 sm:text-xs';
+    'inline-flex w-full items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-xs font-bold tracking-[0.08em] uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-6 sm:py-4 sm:text-sm';
+
+const heroSectionClassName = `${HERO_UNDER_NAV} relative flex min-h-[460px] flex-col justify-center overflow-x-hidden pb-12 pt-[calc(72px+2.75rem)] sm:min-h-[520px] sm:pt-[calc(72px+3.25rem)] lg:min-h-[560px] lg:pt-[calc(72px+3rem)]`;
 
 export default function TililabHero() {
     return (
-        <section
-            id="hero"
-            className={`${HERO_UNDER_NAV} relative flex min-h-[480px] flex-col justify-start overflow-x-hidden pt-[calc(72px+2.5rem)] sm:min-h-[520px] sm:justify-center sm:pt-[calc(72px+3rem)] lg:min-h-[560px] lg:pt-[calc(72px+2.5rem)]`}
-        >
+        <section id="hero" className={heroSectionClassName}>
             <img
                 src={HERO_BG}
                 alt=""
@@ -24,13 +23,13 @@ export default function TililabHero() {
                 decoding="async"
             />
             <div
-                className="pointer-events-none absolute inset-0 bg-linear-to-b from-[#435b66]/85 via-[#435b66]/55 to-[#435b66]/35 sm:bg-linear-to-r sm:from-[#435b66]/55 sm:via-[#435b66]/30 sm:to-transparent"
+                className="pointer-events-none absolute inset-0 bg-linear-to-b from-[#15282f]/95 via-[#1e3a44]/82 to-[#243f49]/65 sm:bg-linear-to-r sm:from-[#15282f]/94 sm:via-[#1e3a44]/80 sm:to-[#243f49]/35"
                 aria-hidden
             />
 
-            <TililaContainer className="relative z-10 flex w-full min-w-0 items-start py-10 sm:items-center sm:py-14 lg:py-16">
+            <TililaContainer className="relative z-10 w-full py-9 sm:py-11">
                 <div
-                    className="home-hero-copy w-full min-w-0 max-w-2xl"
+                    className="home-hero-copy w-full min-w-0 max-w-2xl [text-shadow:0_2px_18px_rgba(0,0,0,0.45)]"
                     id="candidature"
                 >
                     <span className="inline-flex size-10 items-center justify-center rounded-full border border-twhite/35 bg-twhite/10 text-twhite">
@@ -41,18 +40,18 @@ export default function TililabHero() {
                         />
                     </span>
 
-                    <p className="mt-4 text-base font-extrabold tracking-wide text-twhite uppercase sm:mt-5 sm:text-lg lg:text-xl">
+                    <p className="mt-4 text-xs font-bold tracking-[0.24em] text-twhite/80 uppercase">
                         Tililab
                     </p>
-                    <h1 className="mt-3 text-xl leading-[1.2] font-extrabold text-twhite sm:text-3xl sm:leading-[1.15] lg:text-[2.35rem]">
+                    <h1 className="mt-3 text-2xl leading-[1.25] font-extrabold tracking-tight text-twhite sm:text-3xl lg:text-[1.85rem]">
                         <TransText
-                            en="Reveal the advertisers committed to tomorrow's advertising"
-                            fr="Révéler les publicitaires engagés pour demain"
-                            ar="إبراز المعلنين الملتزمين لصالح الإعلان المسؤول"
+                            en="Discovering and empowering the committed advertising professionals of tomorrow."
+                            fr="Révéler les publicitaires engagés de demain"
+                            ar="اكتشاف ودعم محترفي الإعلانات الملتزمين بالتغيير في المستقبل."
                         />
                     </h1>
 
-                    <div className="mt-4 space-y-4 text-sm leading-relaxed text-twhite/90 sm:mt-6 sm:text-base">
+                    <div className="mt-5 space-y-3 text-sm leading-relaxed text-twhite/90 sm:mt-6 sm:text-base lg:text-lg">
                         <p>
                             <TransText
                                 en="Through an immersive journey, Tililab trains young content creators with values of equity, diversity and inclusion and accompanies them in producing inclusive advertising content with impact."
@@ -62,7 +61,7 @@ export default function TililabHero() {
                         </p>
                     </div>
 
-                    <div className="home-hero-ctas mt-6 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+                    <div className="home-hero-ctas mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                         <Link
                             href="/tililab#apply"
                             className={`${heroCtaClassName} bg-[#00b8d9] text-twhite hover:brightness-110`}
@@ -72,13 +71,13 @@ export default function TililabHero() {
                                 fr="Déposer une candidature"
                                 ar="قدّم ترشيحك"
                             />
-                            <ArrowRight className="size-4 shrink-0" aria-hidden />
+                            <ArrowRight className="size-4.5 shrink-0" aria-hidden />
                         </Link>
                         <Link
                             href="/tililab/reglement"
                             className={`${heroCtaClassName} border-2 border-twhite/80 bg-twhite/10 text-twhite backdrop-blur-sm hover:bg-twhite/20`}
                         >
-                            <Eye className="size-4 shrink-0" aria-hidden />
+                            <Eye className="size-4.5 shrink-0" aria-hidden />
                             <TransText
                                 en="Read regulations"
                                 fr="Consulter le règlement"

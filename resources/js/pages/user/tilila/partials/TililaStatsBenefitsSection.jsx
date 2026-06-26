@@ -74,18 +74,16 @@ const BenefitCard = memo(function BenefitCard({ item, index }) {
     const featured = item.featured;
 
     return (
-        <StaggerItem
-            className={cn(featured && 'sm:col-span-2 lg:col-span-2 lg:row-span-2')}
-        >
+        <StaggerItem className="min-w-0">
             <article
                 className={cn(
-                    'group relative flex h-full flex-col overflow-hidden rounded-3xl border transition duration-200',
+                    'group relative flex h-full min-h-[175px] flex-col overflow-hidden rounded-2xl border p-4 transition duration-200 sm:min-h-[185px] sm:p-5',
                     featured
-                        ? 'min-h-[280px] border-brand-primary/20 bg-linear-to-br from-brand-primary via-[#5a2fc4] to-[#2a0f6e] p-6 text-twhite shadow-xl shadow-brand-primary/20 sm:p-8'
-                        : 'border-brand-primary/10 bg-twhite p-5 shadow-sm hover:-translate-y-0.5 hover:border-brand-primary/25 hover:shadow-md sm:p-6',
+                        ? 'border-brand-primary/20 bg-linear-to-br from-brand-primary via-[#5a2fc4] to-[#2a0f6e] text-twhite shadow-md shadow-brand-primary/15'
+                        : 'border-brand-primary/10 bg-twhite shadow-sm hover:-translate-y-0.5 hover:border-brand-primary/25 hover:shadow-md',
                 )}
             >
-                {!featured ? (
+                {/* {!featured ? (
                     <>
                         <span
                             className="pointer-events-none absolute -top-6 -right-2 text-[5.5rem] leading-none font-black text-brand-primary/6 select-none"
@@ -106,25 +104,23 @@ const BenefitCard = memo(function BenefitCard({ item, index }) {
                             ar="السبب الأول"
                         />
                     </span>
-                )}
+                )} */}
 
                 <span
                     className={cn(
-                        'mt-4 inline-flex size-12 items-center justify-center rounded-2xl border shadow-sm',
+                        'inline-flex size-10 shrink-0 items-center justify-center rounded-xl border shadow-sm',
                         featured
                             ? 'border-twhite/20 bg-twhite/15 text-twhite'
                             : 'border-brand-primary/15 bg-linear-to-br from-alpha-blue to-beta-purple text-brand-primary',
                     )}
                 >
-                    <Icon className="size-5 stroke-[1.75]" aria-hidden />
+                    <Icon className="size-[1.125rem] stroke-[1.75]" aria-hidden />
                 </span>
 
                 <h3
                     className={cn(
-                        'mt-4 font-extrabold leading-snug tracking-tight',
-                        featured
-                            ? 'text-lg sm:text-xl lg:text-2xl'
-                            : 'text-sm text-brand-primary sm:text-[0.95rem]',
+                        'mt-3 text-xs font-extrabold leading-snug tracking-tight sm:text-sm',
+                        featured ? 'text-twhite' : 'text-brand-primary',
                     )}
                 >
                     <TransText
@@ -134,14 +130,6 @@ const BenefitCard = memo(function BenefitCard({ item, index }) {
                     />
                 </h3>
 
-       
-
-                {featured ? (
-                    <div
-                        className="mt-6 h-1 w-16 rounded-full bg-linear-to-r from-twhite/80 to-twhite/20"
-                        aria-hidden
-                    />
-                ) : null}
             </article>
         </StaggerItem>
     );
@@ -170,9 +158,9 @@ export default function TililaStatsBenefitsSection() {
 
                     <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-tgray sm:text-base">
                         <TransText
-                            en="Five compelling reasons to put your campaigns forward and join a movement that reshapes advertising."
-                            fr="Cinq raisons de mettre vos campagnes en avant et de rejoindre un mouvement qui transforme la publicité."
-                            ar="خمسة أسباب مقنعة لتقديم حملاتكم والانضمام إلى حركة تعيد تشكيل الإعلان."
+                            en="Five reasons to join a competition that is helping transform advertising."
+                            fr="Cinq raisons de	rejoindre un concours qui contribue	à	transformer	la	publicité."
+                            ar="خمسة أسباب للمشاركة في مسابقة تُسهم في إحداث تحول في عالم الإعلانات."
                         />
                     </p>
 
@@ -187,7 +175,7 @@ export default function TililaStatsBenefitsSection() {
                 </RevealOnScroll>
 
                 <StaggerReveal
-                    className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 lg:gap-5"
+                    className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-4"
                     stagger={0.06}
                     delayChildren={0.08}
                 >

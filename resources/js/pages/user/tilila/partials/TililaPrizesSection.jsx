@@ -190,7 +190,7 @@ export default function TililaPrizesSection() {
                         ))}
                     </StaggerReveal>
 
-                    <RevealOnScroll className="mt-14 text-center sm:mt-16" delay={0.1} y={20}>
+                    {/* <RevealOnScroll className="mt-14 text-center sm:mt-16" delay={0.1} y={20}>
                         <Link
                             href="/tilila/reglement"
                             className="group inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-brand-primary bg-brand-primary px-7 py-3.5 text-xs font-bold tracking-[0.14em] text-twhite uppercase transition hover:bg-[#361388] hover:shadow-lg hover:shadow-brand-primary/25"
@@ -205,7 +205,7 @@ export default function TililaPrizesSection() {
                                 aria-hidden
                             />
                         </Link>
-                    </RevealOnScroll>
+                    </RevealOnScroll> */}
                 </TililaContainer>
             </div>
         </TililaSection>
