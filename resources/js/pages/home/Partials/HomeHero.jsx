@@ -1,12 +1,10 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, Play } from 'lucide-react';
-import { memo, useCallback, useState } from 'react';
+import { ArrowRight } from 'lucide-react';
+import { memo } from 'react';
 import { FadeInText, SlideIn } from '@/components/motion/home-motion';
 import TransText from '@/components/TransText';
 import {
     TililaContainer,
-    TILILA_HERO_BTN,
-    TILILA_HERO_CTA_ROW,
     TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
 
@@ -25,28 +23,21 @@ const HeroCta = memo(function HeroCta({ href, className, children }) {
     return (
         <Link
             href={href}
-            className={`inline-flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 text-[9px] font-bold tracking-[0.1em] text-twhite uppercase transition sm:px-5 sm:py-2.5 sm:text-[10px] ${TILILA_HERO_BTN} ${className}`}
+            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-3 text-[10px] font-bold tracking-[0.08em] text-twhite uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-5 sm:py-2.5 sm:text-[11px] lg:px-6 lg:text-xs ${className}`}
         >
             {children}
-            <ArrowRight className="size-4" aria-hidden />
+            <ArrowRight className="size-4 shrink-0" aria-hidden />
         </Link>
     );
 });
 
 function HeroVideo() {
-    const [playVideo, setPlayVideo] = useState(false);
-
-    const startVideo = useCallback(() => {
-        setPlayVideo(true);
-    }, []);
-
     return (
         <div
-            className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-twhite/10 transition hover:ring-twhite/25"
-            style={{ clipPath: 'polygon(8% 0, 100% 0, 100% 100%, 0 100%)' }}
+            className="relative overflow-hidden rounded-xl shadow-2xl ring-1 ring-twhite/10 transition hover:ring-twhite/25 sm:rounded-2xl sm:[clip-path:polygon(8%_0,100%_0,100%_100%,0_100%)]"
         >
             <video
-                className="aspect-video w-full max-h-[300px] object-cover brightness-[0.88] sm:max-h-[360px] lg:max-h-[400px]"
+                className="aspect-video w-full max-h-[220px] object-cover brightness-[0.88] sm:max-h-[320px] lg:max-h-[400px]"
                 src={HERO_VIDEO}
                 poster={HERO_BACKGROUND}
                 autoPlay
@@ -64,7 +55,7 @@ export default function HomeHero() {
     return (
         <TililaSection
             id="hero"
-            className="relative -mt-[72px] flex min-h-[100dvh] flex-col justify-center overflow-hidden pt-[72px] py-8 text-twhite sm:py-10"
+            className="relative -mt-[72px] flex min-h-dvh flex-col justify-start overflow-x-hidden pb-12 text-twhite pt-[calc(72px+3.5rem)] sm:justify-center sm:pb-10 sm:pt-[calc(72px+4rem)] lg:pt-[calc(72px+3rem)]"
         >
             <img
                 src={HERO_BACKGROUND}
@@ -76,23 +67,26 @@ export default function HomeHero() {
                 decoding="async"
             />
             <div
-                className="pointer-events-none absolute inset-0 bg-linear-to-r from-tblack/92 via-tblack/78 to-tblack/50"
+                className="pointer-events-none absolute inset-0 bg-linear-to-b from-tblack/95 via-tblack/80 to-tblack/65 sm:bg-linear-to-r sm:from-tblack/92 sm:via-tblack/78 sm:to-tblack/50"
                 aria-hidden
             />
 
-            <TililaContainer className="relative z-10">
-                <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-8">
+            <TililaContainer className="relative z-10 w-full pt-2 sm:pt-0">
+                <div className="grid w-full items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-8">
                     <SlideIn direction="left" delay={0.1}>
-                        <div className="max-w-lg lg:max-w-xl">
-                            <div className="space-y-0.5 text-lg leading-[1.6] font-extrabold tracking-tight sm:text-xl lg:text-[1.5rem] xl:text-[2.1rem]">
+                        <div className="w-full max-w-none lg:max-w-xl">
+                            <div className="text-base leading-[1.35] font-extrabold tracking-tight sm:text-xl sm:leading-[1.5] lg:text-[1.5rem] xl:text-[2.1rem]">
                                 {HEADLINES.map((line, index) => (
                                     <p key={line.en}>
-                                        <FadeInText {...line} delay={0.2 + index * 0.15} />
+                                        <FadeInText
+                                            {...line}
+                                            delay={0.2 + index * 0.15}
+                                        />
                                     </p>
                                 ))}
                             </div>
 
-                            <div className="home-hero-copy mt-4 space-y-3 text-xs leading-snug text-twhite/85 sm:text-lg">
+                            <div className="home-hero-copy mt-4 space-y-3 text-sm leading-relaxed text-twhite/85 sm:mt-5 sm:text-base lg:text-lg">
                                 <p>
                                     <TransText
                                         en="Becoming references in the Moroccan advertising landscape, Tilila Awards and Tililab contribute to fighting against gender stereotypes, to valorizing the image of people with disabilities and to promoting an inclusive culture in advertising."
@@ -109,7 +103,7 @@ export default function HomeHero() {
                                 </p>
                             </div>
 
-                            <div className={`home-hero-ctas mt-5 ${TILILA_HERO_CTA_ROW}`}>
+                            <div className="home-hero-ctas mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                                 <HeroCta
                                     href="/tilila"
                                     className="bg-beta-blue hover:bg-brand-light-purple"
@@ -135,7 +129,7 @@ export default function HomeHero() {
                     </SlideIn>
 
                     <SlideIn direction="right" delay={0.2}>
-                        <div className="relative mx-auto w-full max-w-md sm:max-w-lg lg:max-w-xl xl:max-w-2xl lg:justify-self-end">
+                        <div className="relative w-full max-w-none sm:mx-auto sm:max-w-lg lg:max-w-xl lg:justify-self-end xl:max-w-2xl">
                             <HeroVideo />
                         </div>
                     </SlideIn>

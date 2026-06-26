@@ -42,7 +42,7 @@ export default function TililabPrizesSection() {
     return (
         <TililaSection id="prizes" className="bg-twhite">
             <TililaContainer>
-                <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-14 xl:gap-16">
+                <div className="grid min-w-0 gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-14 xl:gap-16">
                     <div>
                         <h2 className="text-xl font-extrabold tracking-[0.12em] text-tililab-slate uppercase sm:text-2xl">
                             <TransText
@@ -94,11 +94,11 @@ export default function TililabPrizesSection() {
                         </Link>
                     </div>
 
-                    <div className="w-[650px] overflow-hidden rounded-xl shadow-[0_12px_40px_rgba(26,35,126,0.12)]">
+                    <div className="mx-auto w-full min-w-0 max-w-md overflow-hidden rounded-xl shadow-[0_12px_40px_rgba(26,35,126,0.12)] lg:mx-0 lg:max-w-none">
                         <img
                             src={LAUREATES_IMG}
                             alt=""
-                            className="aspect-[16/10] w-full object-cover object-center"
+                            className="aspect-[16/10] h-auto w-full max-w-full object-cover object-center"
                             loading="lazy"
                         />
                     </div>
