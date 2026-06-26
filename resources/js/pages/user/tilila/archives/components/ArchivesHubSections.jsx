@@ -4,7 +4,6 @@ import ArchivesLaureateCard from '@/pages/user/tilila/archives/components/Archiv
 import ArchivesSectionHeading from '@/pages/user/tilila/archives/components/ArchivesSectionHeading';
 import ArchivesMediaCarousel, {
     ArchivesGallerySlide,
-    ArchivesPhotoSlide,
 } from '@/pages/user/tilila/archives/components/ArchivesMediaCarousel';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TransText from '@/components/TransText';
@@ -172,46 +171,6 @@ export function ArchivesGallerySection({
                     <ArrowRight className="size-3.5" aria-hidden />
                 </Link>
             ) : null}
-        </section>
-    );
-}
-
-export function ArchivesPhotosSection({ photos = [], year }) {
-    const yearLabel = year === 'all' ? '' : ` ${year}`;
-
-    return (
-        <section id="photos" className="scroll-mt-32">
-            <ArchivesSectionHeading
-                title={
-                    <TransText
-                        en={`Photos${yearLabel}`}
-                        fr={`Photos${yearLabel}`}
-                        ar={`الصور${yearLabel}`}
-                    />
-                }
-            />
-
-            {!photos.length ? (
-                <p className="mt-6 text-sm text-tgray">
-                    <TransText
-                        en="No photos for this selection."
-                        fr="Aucune photo pour cette sélection."
-                        ar="لا توجد صور لهذا الاختيار."
-                    />
-                </p>
-            ) : (
-                <div className="mt-6">
-                    <ArchivesMediaCarousel ariaLabel="Photos">
-                        {photos.map((photo, index) => (
-                            <ArchivesPhotoSlide
-                                key={`${photo.src}-${index}`}
-                                src={photo.src}
-                                href={photo.src}
-                            />
-                        ))}
-                    </ArchivesMediaCarousel>
-                </div>
-            )}
         </section>
     );
 }
