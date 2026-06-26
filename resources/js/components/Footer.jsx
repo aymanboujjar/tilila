@@ -73,9 +73,9 @@ export default function Footer() {
                         />
                         <p className="mt-4 max-w-[220px] text-sm leading-relaxed text-tgray">
                             <TransText
-                                en="The award that recognises campaigns committed to equality, diversity and inclusion."
-                                fr="Le prix qui récompense les campagnes engagées pour l'égalité, la diversité et l'inclusion."
-                                ar="الجائزة التي تكرّم الحملات الملتزمة بالمساواة والتنوع والإدماج."
+                                en="The award recognizing campaigns committed to equity, diversity, and inclusion."
+                                fr="Le	Prix	qui	récompense	les	campagnes	engagées pour	l'équité,	la	diversité	et	l'inclusion."
+                                ar="جائزة تُكرّم الحملات الملتزمة بتعزيز الإنصاف والتنوع والشمول."
                             />
                         </p>
                         <div className="mt-5 flex items-center gap-4">
@@ -156,7 +156,7 @@ export default function Footer() {
                                     />
                                 </FooterLink>
                             </li>
-                          
+
                         </ul>
                     </FooterColumn>
 
@@ -164,18 +164,18 @@ export default function Footer() {
                         <FooterHeading>
                             <TransText en="Contact" fr="Contact" ar="التواصل" />
                         </FooterHeading>
-                    <ul className="mt-4 space-y-2.5">
-                        <li>
-                            <FooterLink href="/contact">
-                                <TransText
-                                    en="Contact us"
-                                    fr="Contactez-nous"
-                                    ar="اتصل بنا"
-                                />
-                            </FooterLink>
-                        </li>
-                    </ul>
-              
+                        <ul className="mt-4 space-y-2.5">
+                            <li>
+                                <FooterLink href="/contact">
+                                    <TransText
+                                        en="Contact us"
+                                        fr="Contactez-nous"
+                                        ar="اتصل بنا"
+                                    />
+                                </FooterLink>
+                            </li>
+                        </ul>
+
                     </FooterColumn>
 
                     {/* <FooterColumn className="col-span-2">

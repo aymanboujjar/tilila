@@ -6,18 +6,17 @@ import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/Ti
 const HERO_BG = '/assets/homehero.jpg';
 
 const heroCtaClassName =
-    'inline-flex w-full items-center justify-center gap-2 rounded-lg px-4 py-3 text-[10px] font-bold tracking-[0.1em] uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-6 sm:py-3.5 sm:text-xs';
+    'inline-flex w-full items-center justify-center gap-2 rounded-lg px-5 py-3.5 text-xs font-bold tracking-[0.08em] uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-6 sm:py-4 sm:text-sm';
+
+const heroSectionClassName = `${HERO_UNDER_NAV} flex min-h-[460px] flex-col justify-center overflow-x-hidden pb-12 pt-[calc(72px+2.75rem)] sm:min-h-[520px] sm:pt-[calc(72px+3.25rem)] lg:min-h-[560px] lg:pt-[calc(72px+3rem)]`;
 
 export default function TililaHero() {
     return (
-        <section
-            id="hero"
-            className={`${HERO_UNDER_NAV} flex min-h-[420px] flex-col justify-start overflow-x-hidden pt-[calc(72px+2.5rem)] sm:min-h-[480px] sm:justify-center sm:pt-[calc(72px+3rem)] lg:min-h-[540px] lg:pt-[calc(72px+2.5rem)]`}
-        >
+        <section id="hero" className={heroSectionClassName}>
             <img
                 src={HERO_BG}
                 alt=""
-                className="home-hero-bg pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom"
+                className="home-hero-bg pointer-events-none absolute inset-0 h-full w-full object-cover object-[center_75%]"
                 width={1920}
                 height={1080}
                 fetchPriority="high"
@@ -28,15 +27,15 @@ export default function TililaHero() {
                 aria-hidden
             />
 
-            <TililaContainer className="relative z-10 flex w-full min-w-0 items-start py-10 sm:items-center sm:py-14 lg:py-16">
+            <TililaContainer className="relative z-10 w-full py-9 sm:py-11">
                 <div
                     className="home-hero-copy w-full min-w-0 max-w-2xl"
                     id="candidature"
                 >
-                    <p className="text-[11px] font-bold tracking-[0.24em] text-twhite/80 uppercase">
+                    <p className="text-xs font-bold tracking-[0.24em] text-twhite/80 uppercase">
                         Tilila Awards
                     </p>
-                    <h1 className="mt-3 text-xl leading-[1.2] font-extrabold text-twhite sm:mt-4 sm:text-3xl sm:leading-[1.12] lg:text-[2.35rem]">
+                    <h1 className="mt-3 text-2xl leading-[1.25] font-extrabold tracking-tight text-twhite sm:text-3xl lg:text-[1.85rem]">
                         <TransText
                             en="Rewarding campaigns that transform perceptions and reshape representations."
                             fr="Récompenser les campagnes qui font évoluer les représentations"
@@ -44,7 +43,7 @@ export default function TililaHero() {
                         />
                     </h1>
 
-                    <div className="mt-4 space-y-4 text-sm leading-relaxed text-twhite/90 sm:mt-6 sm:text-base">
+                    <div className="mt-5 space-y-3 text-sm leading-relaxed text-twhite/90 sm:mt-6 sm:text-base lg:text-lg">
                         <p>
                             <TransText
                                 en="The Tilila Awards recognize advertising campaigns and individuals who contribute to transforming perceptions and promoting equity, diversity, and inclusion."
@@ -54,7 +53,7 @@ export default function TililaHero() {
                         </p>
                     </div>
 
-                    <div className="home-hero-ctas mt-6 flex flex-col gap-2.5 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
+                    <div className="home-hero-ctas mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3">
                         <Link
                             href="/tilila/participate"
                             className={`${heroCtaClassName} bg-beta-blue text-twhite hover:bg-brand-light-purple`}
@@ -64,13 +63,13 @@ export default function TililaHero() {
                                 fr="Déposer une candidature"
                                 ar="قدّم ترشيحك"
                             />
-                            <ArrowRight className="size-4 shrink-0" aria-hidden />
+                            <ArrowRight className="size-4.5 shrink-0" aria-hidden />
                         </Link>
                         <a
                             href="/tilila/reglement"
                             className={`${heroCtaClassName} border-2 border-twhite bg-transparent text-twhite hover:bg-twhite/10`}
                         >
-                            <Eye className="size-4 shrink-0" aria-hidden />
+                            <Eye className="size-4.5 shrink-0" aria-hidden />
                             <TransText
                                 en="Read regulations"
                                 fr="Consulter le règlement"

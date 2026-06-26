@@ -75,10 +75,10 @@ const PartnerLogoCell = memo(function PartnerLogoCell({
             src={partner.logo_url}
             alt={`${partner.name} logo`}
             className={cn(
-                'max-w-full object-contain opacity-80 transition duration-300 group-hover:opacity-100 group-hover:grayscale-0',
+                'max-w-full object-contain opacity-90 transition duration-300 group-hover:opacity-100',
                 compact
                     ? 'max-h-10 sm:max-h-12'
-                    : 'max-h-14 grayscale sm:max-h-16',
+                    : 'max-h-14 sm:max-h-16',
             )}
             loading="lazy"
             decoding="async"

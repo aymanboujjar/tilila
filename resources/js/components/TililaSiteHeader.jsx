@@ -312,7 +312,7 @@ export default function TililaSiteHeader() {
                         src="/assets/logo.png"
                         alt="Tilila Awards"
                         className={cn(
-                            'h-10 w-auto max-w-[8rem] object-contain transition sm:h-9 xl:max-w-none',
+                            'h-12 w-auto  object-contain transition',
                             onDark && 'brightness-0 invert',
                         )}
                         loading="eager"

@@ -105,6 +105,27 @@ function isLogoLikeImage(src, brandPhoto) {
     return /\/winners\//.test(src) && !/\/showcase\//.test(src);
 }
 
+const LOGO_FRAME_CLASS =
+    'flex h-[4.5rem] w-[7.5rem] shrink-0 items-center justify-center rounded-xl bg-muted/50 p-2 sm:h-20 sm:w-36 sm:p-2.5';
+
+function LaureateLogo({ src }) {
+    if (!src) {
+        return null;
+    }
+
+    return (
+        <div className={LOGO_FRAME_CLASS}>
+            <img
+                src={src}
+                alt=""
+                className="max-h-full max-w-full object-contain"
+                loading="lazy"
+                decoding="async"
+            />
+        </div>
+    );
+}
+
 const WinnerMiniVideo = memo(function WinnerMiniVideo({
     uploadSrc,
     youtubeUrl,
@@ -216,7 +237,7 @@ const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
             </div>
 
             <div className="flex flex-1 flex-col justify-center space-y-4 p-5 sm:space-y-5 sm:p-6 lg:p-8">
-                <p className="text-[11px] font-bold tracking-[0.16em] text-beta-blue uppercase sm:text-xs">
+                <p className="text-[18px] font-bold tracking-[0.16em] text-beta-blue uppercase">
                     <TransText
                         en={laureate.trophy?.en || 'Jury Prize'}
                         fr={laureate.trophy?.fr || 'Prix du Jury'}
@@ -231,17 +252,7 @@ const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
                             <TransText en="Brand" fr="Marque" ar="العلامة" />
                         </p>
                         <div className="mt-2 flex items-center gap-3">
-                            {laureate.brandPhoto ? (
-                                <div className="flex h-12 w-20 shrink-0 items-center justify-center rounded-lg bg-muted/50 p-1.5">
-                                    <img
-                                        src={laureate.brandPhoto}
-                                        alt=""
-                                        className="max-h-full max-w-full object-contain"
-                                        loading="lazy"
-                                        decoding="async"
-                                    />
-                                </div>
-                            ) : null}
+                            <LaureateLogo src={laureate.brandPhoto} />
                             <p className="text-lg font-extrabold text-tblack sm:text-xl">
                                 {laureate.brand}
                             </p>
@@ -259,18 +270,8 @@ const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
                                     ar="الوكالة"
                                 />
                             </p>
-                            <div className="mt-2 flex items-center gap-4">
-                                {laureate.agencyPhoto ? (
-                                    <div className="flex h-20 w-32 shrink-0 items-center justify-center rounded-xl bg-muted/50 p-3 sm:h-24 sm:w-40">
-                                        <img
-                                            src={laureate.agencyPhoto}
-                                            alt=""
-                                            className="max-h-full max-w-full object-contain"
-                                            loading="lazy"
-                                            decoding="async"
-                                        />
-                                    </div>
-                                ) : null}
+                            <div className="mt-2 flex items-center gap-3">
+                                <LaureateLogo src={laureate.agencyPhoto} />
                                 <p className="text-base font-semibold text-tblack sm:text-lg">
                                     <TransText
                                         en={laureate.agency.en}
@@ -328,9 +329,9 @@ export default function TililaLaureatesSection() {
                 <div className="text-center">
                     <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
                         <TransText
-                            en="They won a Tilila Award"
-                            fr="Ils ont remporté un Tilila Award"
-                            ar="فازوا بجائزة تيليلا"
+                            en="They won a Tilila Award 2025"
+                            fr="Ils ont remporté un Tilila Award 2025"
+                            ar="فازوا بجائزة تيليلا 2025"
                         />
                     </h2>
                     <div

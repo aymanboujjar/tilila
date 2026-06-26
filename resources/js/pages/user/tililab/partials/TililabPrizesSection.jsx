@@ -81,7 +81,7 @@ export default function TililabPrizesSection() {
                             })}
                         </ul>
 
-                        <Link
+                        {/* <Link
                             href="/tililab/reglement"
                             className="mt-8 inline-flex items-center gap-2.5 rounded-lg bg-[#00b8d9] px-5 py-3 text-[11px] font-bold tracking-[0.12em] text-twhite uppercase transition hover:brightness-110 sm:text-xs"
                         >
@@ -91,7 +91,7 @@ export default function TililabPrizesSection() {
                                 fr="Consulter le règlement intégral"
                                 ar="اطلع على النظام الكامل"
                             />
-                        </Link>
+                        </Link> */}
                     </div>
 
                     <div className="mx-auto w-full min-w-0 max-w-md overflow-hidden rounded-xl shadow-[0_12px_40px_rgba(26,35,126,0.12)] lg:mx-0 lg:max-w-none">

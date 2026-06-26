@@ -137,7 +137,7 @@ function ProgramStatsPanel({ programKey }) {
                             {theme.title}
                         </h3>
                     </div>
-                    <p className="mt-2 max-w-xs text-xs leading-relaxed text-twhite/80 sm:text-sm">
+                    {/* <p className="mt-2 max-w-xs text-xs leading-relaxed text-twhite/80 sm:text-sm">
                         {programKey === 'tilila' ? (
                             <TransText
                                 en="Campaigns, juries & awards that move representation forward."
@@ -151,7 +151,7 @@ function ProgramStatsPanel({ programKey }) {
                                 ar="تدريب وإنتاج وإرشاد للمواهب الإبداعية الشابة."
                             />
                         )}
-                    </p>
+                    </p> */}
                 </div>
 
                 <Link
@@ -202,9 +202,9 @@ function SectionHeading() {
 
             <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
                 <TransText
-                    en="Two programmes, one mission — measurable momentum for equality, diversity and creative talent in Morocco."
-                    fr="Deux programmes, une mission — un impact concret pour l'égalité, la diversité et les talents créatifs au Maroc."
-                    ar="برنامجان، مهمة واحدة — زخم ملموس للمساواة والتنوع والمواهب الإبداعية في المغرب."
+                    en="Two programs, one mission, and a tangible impact in support of Equity, Diversity, and Inclusion."
+                    fr="Deux programmes,une	mission	et un impact concret en	faveur	de	l’Equité, la Diversité et l’Inclusion."
+                    ar="برنامجان، ورسالة واحدة، وأثر ملموس من أجل تعزيز الإنصاف والتنوع والشمول."
                 />
             </p>
 

@@ -3,17 +3,13 @@ import { ARCHIVE_CATEGORY_ICONS } from '@/pages/user/tilila/utils/archiveCategor
 import { useTranslation } from '@/contexts/TranslationContext';
 
 const GRADIENTS = {
-    laureats:
-        'from-amber-500/20 via-amber-400/10 to-transparent dark:from-amber-400/25',
-    campagnes:
-        'from-violet-500/20 via-violet-400/10 to-transparent dark:from-violet-400/25',
-    marques:
-        'from-sky-500/20 via-sky-400/10 to-transparent dark:from-sky-400/25',
-    agences:
-        'from-emerald-500/20 via-emerald-400/10 to-transparent dark:from-emerald-400/25',
-    jurys: 'from-rose-500/20 via-rose-400/10 to-transparent dark:from-rose-400/25',
-    photos: 'from-fuchsia-500/20 via-fuchsia-400/10 to-transparent dark:from-fuchsia-400/25',
-    videos: 'from-indigo-500/20 via-indigo-400/10 to-transparent dark:from-indigo-400/25',
+    laureats: 'from-amber-500/15 via-amber-400/5 to-transparent',
+    campagnes: 'from-violet-500/15 via-violet-400/5 to-transparent',
+    marques: 'from-sky-500/15 via-sky-400/5 to-transparent',
+    agences: 'from-emerald-500/15 via-emerald-400/5 to-transparent',
+    jurys: 'from-rose-500/15 via-rose-400/5 to-transparent',
+    photos: 'from-fuchsia-500/15 via-fuchsia-400/5 to-transparent',
+    videos: 'from-indigo-500/15 via-indigo-400/5 to-transparent',
 };
 
 export default function StatisticCard({ categoryId, count, index = 0 }) {
@@ -23,28 +19,27 @@ export default function StatisticCard({ categoryId, count, index = 0 }) {
 
     return (
         <motion.article
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.45, delay: index * 0.06 }}
-            whileHover={{ y: -4, scale: 1.02 }}
-            className={`group relative overflow-hidden rounded-2xl border border-white/60 bg-white/70 p-5 shadow-[0_8px_32px_rgba(46,24,97,0.08)] backdrop-blur-xl transition-shadow hover:shadow-[0_16px_48px_rgba(46,24,97,0.14)] dark:border-white/10 dark:bg-white/5 dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:hover:shadow-[0_16px_48px_rgba(0,0,0,0.5)]`}
+            transition={{ duration: 0.4, delay: index * 0.05 }}
+            className="group relative overflow-hidden rounded-2xl border border-border/50 bg-beta-white p-5 shadow-sm transition hover:shadow-md"
         >
             <div
-                className={`pointer-events-none absolute inset-0 bg-linear-to-br ${gradient} opacity-80 transition-opacity group-hover:opacity-100`}
+                className={`pointer-events-none absolute inset-0 bg-linear-to-br ${gradient}`}
             />
             <div className="relative flex items-start justify-between gap-3">
-                <span className="inline-flex size-11 items-center justify-center rounded-xl border border-beta-blue/10 bg-white/80 text-beta-blue shadow-sm dark:border-white/10 dark:bg-white/10 dark:text-beta-turquoise">
-                    <Icon className="size-5" aria-hidden />
+                <span className="inline-flex size-10 items-center justify-center rounded-xl border border-beta-blue/10 bg-twhite text-beta-blue shadow-sm">
+                    <Icon className="size-4.5" aria-hidden />
                 </span>
-                <span className="text-3xl font-extrabold tracking-tight text-beta-blue dark:text-twhite">
+                <span className="text-2xl font-extrabold tracking-tight text-beta-blue">
                     {count}
                 </span>
             </div>
-            <p className="relative mt-4 text-sm font-bold text-tblack dark:text-twhite">
+            <p className="relative mt-3 text-sm font-bold text-tblack">
                 {t(`tilila.archives.stats.${categoryId}`)}
             </p>
-            <p className="relative mt-1 line-clamp-2 text-xs leading-relaxed text-tgray dark:text-twhite/60">
+            <p className="relative mt-1 line-clamp-2 text-xs leading-relaxed text-tgray">
                 {t(`tilila.archives.statsHint.${categoryId}`)}
             </p>
         </motion.article>
