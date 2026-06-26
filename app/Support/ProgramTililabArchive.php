@@ -67,11 +67,27 @@ class ProgramTililabArchive
 
             $path = $yearPhotoMap[$name] ?? $globalPhotoMap[$name] ?? null;
             if ($path !== null) {
-                $person['photo_path'] = $path;
+                $person['photo_path'] = self::preferTililabJuryPath($path);
             }
 
             return $person;
         }, $jury));
+    }
+
+    private static function preferTililabJuryPath(string $tililaPath): string
+    {
+        if (! str_starts_with($tililaPath, 'tilila-editions/jury/')) {
+            return $tililaPath;
+        }
+
+        $basename = basename($tililaPath);
+        $tililabPath = 'tililab-editions/jury/'.$basename;
+
+        if (Storage::disk('public')->exists($tililabPath)) {
+            return $tililabPath;
+        }
+
+        return $tililaPath;
     }
 
     public static function resolveCeremonyVideoUrl(int|string|null $tililabYear): ?string

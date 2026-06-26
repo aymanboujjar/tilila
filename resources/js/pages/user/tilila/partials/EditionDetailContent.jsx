@@ -132,6 +132,13 @@ export function EditionWinnersSection({
                                           </p>
                                       </div>
                                   ) : null}
+                                  {!textFor(campaign, locale) &&
+                                  !textFor(agency, locale) &&
+                                  textFor(w.bio, locale) ? (
+                                      <p className="mt-2 text-sm leading-relaxed text-tgray">
+                                          {textFor(w.bio, locale)}
+                                      </p>
+                                  ) : null}
                               </div>
                           </article>
                           );

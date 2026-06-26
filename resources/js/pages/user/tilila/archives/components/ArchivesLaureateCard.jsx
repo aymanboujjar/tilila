@@ -8,24 +8,34 @@ const CARD_CLASS =
 const LOGO_ZONE_CLASS =
     'flex h-32 w-full shrink-0 items-center justify-center bg-twhite p-4 sm:h-[8.75rem] sm:p-5';
 
+const PORTRAIT_ZONE_CLASS =
+    'relative min-h-[11rem] w-full shrink-0 overflow-hidden bg-[#1e3a44]/10 sm:min-h-[12rem]';
+
 export default function ArchivesLaureateCard({ card, showYear = false }) {
     const { t } = useTranslation();
+    const isPortrait = card.isPortrait;
 
     return (
         <Link href={card.detailsUrl} className="group block h-full">
             <article className={CARD_CLASS}>
                 <div
                     className={
-                        card.isLogo || card.isTrophy
-                            ? LOGO_ZONE_CLASS
-                            : `${LOGO_ZONE_CLASS} bg-alpha-blue/30`
+                        isPortrait
+                            ? PORTRAIT_ZONE_CLASS
+                            : card.isLogo || card.isTrophy
+                              ? LOGO_ZONE_CLASS
+                              : `${LOGO_ZONE_CLASS} bg-alpha-blue/30`
                     }
                 >
                     {card.photoSrc ? (
                         <img
                             src={card.photoSrc}
                             alt=""
-                            className="max-h-full max-w-full object-contain object-center"
+                            className={
+                                isPortrait
+                                    ? 'h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]'
+                                    : 'max-h-full max-w-full object-contain object-center'
+                            }
                             loading="lazy"
                             decoding="async"
                         />

@@ -71,10 +71,16 @@ function laureatePhotoMeta(winner, edition, program) {
         ? resolveShowcaseImage(winner, edition, fallback)
         : edition.cover_image_src || fallback;
     const photoSrc = brandPhoto || showcase || fallback;
-    const isLogo = isLogoLikeArchiveImage(photoSrc, brandPhoto);
+    const isTililabPortrait =
+        program === 'tililab' &&
+        Boolean(winner?.photo_path) &&
+        Boolean(brandPhoto);
+    const isLogo =
+        !isTililabPortrait &&
+        isLogoLikeArchiveImage(photoSrc, brandPhoto);
     const isTrophy = isTrophyFallback(photoSrc);
 
-    return { photoSrc, isLogo, isTrophy };
+    return { photoSrc, isLogo, isTrophy, isPortrait: isTililabPortrait };
 }
 
 export function buildLaureatCards(editions, year, locale, program = 'tilila') {
@@ -85,7 +91,7 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
         if (edition.winners?.length) {
             for (const [index, winner] of edition.winners.entries()) {
                 const { campaign, agency } = resolveWinnerDisplay(winner);
-                const { photoSrc, isLogo, isTrophy } = laureatePhotoMeta(
+                const { photoSrc, isLogo, isTrophy, isPortrait } = laureatePhotoMeta(
                     winner,
                     edition,
                     program,
@@ -99,6 +105,7 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
                     photoSrc,
                     isLogo,
                     isTrophy,
+                    isPortrait,
                     detailsUrl: `${edition.details_url}#winners`,
                     year: edition.year,
                 });

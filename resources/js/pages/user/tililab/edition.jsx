@@ -4,8 +4,12 @@ import { ChevronLeft } from 'lucide-react';
 import AppLayout from '@/layouts/app-layout';
 import EditionTopHero from '@/components/program/EditionTopHero';
 import TransText from '@/components/TransText';
-import TililaPeopleGrid from '@/components/TililaPeopleGrid';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { resolveTililabHeroMedia } from '@/lib/editionHeroMedia';
+import {
+    EditionJurySection,
+    EditionWinnersSection,
+} from '@/pages/user/tilila/partials/EditionDetailContent';
 import { coverImageSrc } from '@/pages/user/tililab/utils/editions';
 
 function GalleryGrid({ images }) {
@@ -57,6 +61,7 @@ function GalleryGrid({ images }) {
 
 export default function TililabEditionDetails() {
     const { edition } = usePage().props;
+    const { locale } = useTranslation();
     const isCurrent = Boolean(edition?.is_current);
     const winners = isCurrent
         ? []
@@ -146,21 +151,14 @@ export default function TililabEditionDetails() {
                     </a>
                 </nav>
 
+                <div className="mt-10 space-y-14">
                 {!isCurrent ? (
-                    <div id="winners">
-                        <TililaPeopleGrid
-                            title={
-                                <TransText
-                                    en="Winners"
-                                    fr="Lauréats"
-                                    ar="الفائزون"
-                                />
-                            }
-                            people={winners}
-                        />
-                    </div>
+                    <EditionWinnersSection
+                        winners={winners}
+                        locale={locale}
+                    />
                 ) : (
-                    <div className="mt-10 rounded-2xl border border-border bg-beta-white p-8 text-center text-sm text-tgray">
+                    <div className="rounded-2xl border border-border bg-beta-white p-8 text-center text-sm text-tgray">
                         <TransText
                             en="Winners for this edition will be announced after the national final."
                             fr="Les lauréats de cette édition seront annoncés après la finale nationale."
@@ -168,16 +166,10 @@ export default function TililabEditionDetails() {
                         />
                     </div>
                 )}
-                <div id="jury">
-                    <TililaPeopleGrid
-                        title={
-                            <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
-                        }
-                        people={jury}
-                    />
-                </div>
+                <EditionJurySection jury={jury} locale={locale} />
                 <div id="gallery">
                     <GalleryGrid images={images} />
+                </div>
                 </div>
             </section>
         </>

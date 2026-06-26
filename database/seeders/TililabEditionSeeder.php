@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\TililabEdition;
+use App\Support\TililabStorageAssetSync;
 use Database\Seeders\Concerns\SeedsTililaJury;
 use Illuminate\Database\Seeder;
 
@@ -20,7 +21,7 @@ class TililabEditionSeeder extends Seeder
                     'edition_label' => $row['edition_label'],
                     'theme' => $row['theme'],
                     'winners' => $row['winners'],
-                    'jury' => $row['jury'],
+                    'jury' => $this->juryForYear((string) $year),
                     'gallery_images' => [],
                     'has_gallery' => false,
                     'winners_url' => null,
@@ -49,6 +50,8 @@ class TililabEditionSeeder extends Seeder
         if ($current !== null) {
             $current->update(['is_current' => true]);
         }
+
+        app(TililabStorageAssetSync::class)->syncAll();
     }
 
     /**
