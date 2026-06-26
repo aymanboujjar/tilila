@@ -20,6 +20,7 @@ export function ArchivesLaureatsSection({
     const programLabel = program === 'tililab' ? 'Tililab' : 'Tilila Awards';
     const yearLabel = year === 'all' ? '' : year;
     const title = `${t('tilila.archives.hub.laureatsTitle')} ${programLabel}${yearLabel ? ` ${yearLabel}` : ''}`;
+    const showYear = year === 'all';
 
     if (!cards.length) {
         return (
@@ -32,7 +33,7 @@ export function ArchivesLaureatsSection({
         );
     }
 
-    const useGrid = cards.length <= 4;
+    const useCarousel = cards.length > 4;
 
     return (
         <section id="laureats" className="scroll-mt-32">
@@ -47,24 +48,33 @@ export function ArchivesLaureatsSection({
                 title={title}
             />
 
-            {useGrid ? (
-                <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                    {cards.map((card) => (
-                        <ArchivesLaureateCard key={card.id} card={card} />
-                    ))}
-                </div>
-            ) : (
+            {useCarousel ? (
                 <div className="mt-8">
                     <ArchivesMediaCarousel
                         ariaLabel="Laureates"
                         visibleCount={VISIBLE_LAUREATS}
                         showFade={cards.length > VISIBLE_LAUREATS}
-                        slideClassName="w-[calc((100%-3rem)/4)] shrink-0 snap-start"
+                        slideClassName="w-[calc((100%-3rem)/4)] min-w-[11rem] shrink-0 snap-start sm:min-w-[12.5rem]"
+                        trackGapClassName="gap-4"
                     >
                         {cards.map((card) => (
-                            <ArchivesLaureateCard key={card.id} card={card} />
+                            <ArchivesLaureateCard
+                                key={card.id}
+                                card={card}
+                                showYear={showYear}
+                            />
                         ))}
                     </ArchivesMediaCarousel>
+                </div>
+            ) : (
+                <div className="mt-8 grid auto-rows-fr items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                    {cards.map((card) => (
+                        <ArchivesLaureateCard
+                            key={card.id}
+                            card={card}
+                            showYear={showYear}
+                        />
+                    ))}
                 </div>
             )}
 

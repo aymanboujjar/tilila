@@ -4,6 +4,8 @@ namespace App\Support;
 
 use App\Models\TililaEdition;
 use App\Models\TililabEdition;
+use Illuminate\Support\Facades\Storage;
+use Normalizer;
 
 class ProgramTililabArchive
 {
@@ -12,6 +14,9 @@ class ProgramTililabArchive
 
     /** @var array<string, array<string, string>> */
     private static array $tililaJuryPhotosByYear = [];
+
+    /** @var array<string, string>|null */
+    private static ?array $tililaJuryPhotosGlobal = null;
 
     public static function enrichEdition(TililabEdition $edition): TililabEdition
     {
@@ -39,28 +44,30 @@ class ProgramTililabArchive
         }
 
         $tililaYear = self::resolveTililaYear((int) $tililabYear);
-        if ($tililaYear === null) {
-            return $jury;
-        }
+        $yearPhotoMap = $tililaYear !== null
+            ? self::tililaJuryPhotoMapForYear($tililaYear)
+            : [];
+        $globalPhotoMap = self::tililaJuryPhotoMapGlobal();
 
-        $photoMap = self::tililaJuryPhotoMapForYear($tililaYear);
-        if ($photoMap === []) {
-            return $jury;
-        }
-
-        return array_values(array_map(function (mixed $person) use ($photoMap): array {
+        return array_values(array_map(function (mixed $person) use ($yearPhotoMap, $globalPhotoMap): array {
             if (! is_array($person)) {
                 return [];
             }
 
-            $photoPath = $person['photo_path'] ?? null;
-            if (is_string($photoPath) && $photoPath !== '') {
+            if (self::juryPhotoPathIsUsable($person['photo_path'] ?? null)) {
                 return $person;
             }
 
+            unset($person['photo_path']);
+
             $name = self::normalizePersonName((string) ($person['full_name'] ?? ''));
-            if ($name !== '' && isset($photoMap[$name])) {
-                $person['photo_path'] = $photoMap[$name];
+            if ($name === '') {
+                return $person;
+            }
+
+            $path = $yearPhotoMap[$name] ?? $globalPhotoMap[$name] ?? null;
+            if ($path !== null) {
+                $person['photo_path'] = $path;
             }
 
             return $person;
@@ -123,7 +130,7 @@ class ProgramTililabArchive
                 $name = self::normalizePersonName((string) ($row['full_name'] ?? ''));
                 $path = $row['photo_path'] ?? null;
 
-                if ($name !== '' && is_string($path) && $path !== '') {
+                if ($name !== '' && self::juryPhotoPathIsUsable($path)) {
                     $map[$name] = $path;
                 }
             }
@@ -134,10 +141,65 @@ class ProgramTililabArchive
         return self::$tililaJuryPhotosByYear[$key];
     }
 
+    /** @return array<string, string> */
+    private static function tililaJuryPhotoMapGlobal(): array
+    {
+        if (self::$tililaJuryPhotosGlobal !== null) {
+            return self::$tililaJuryPhotosGlobal;
+        }
+
+        $map = [];
+
+        $editions = TililaEdition::query()
+            ->orderByDesc('year')
+            ->get(['jury']);
+
+        foreach ($editions as $edition) {
+            $rows = is_array($edition->jury) ? $edition->jury : [];
+
+            foreach ($rows as $row) {
+                if (! is_array($row)) {
+                    continue;
+                }
+
+                $name = self::normalizePersonName((string) ($row['full_name'] ?? ''));
+                $path = $row['photo_path'] ?? null;
+
+                if ($name !== '' && ! isset($map[$name]) && self::juryPhotoPathIsUsable($path)) {
+                    $map[$name] = $path;
+                }
+            }
+        }
+
+        self::$tililaJuryPhotosGlobal = $map;
+
+        return $map;
+    }
+
+    private static function juryPhotoPathIsUsable(mixed $photoPath): bool
+    {
+        return is_string($photoPath)
+            && $photoPath !== ''
+            && Storage::disk('public')->exists($photoPath);
+    }
+
     private static function normalizePersonName(string $name): string
     {
         $normalized = preg_replace('/\s+/u', ' ', trim($name));
+        $normalized = mb_strtolower(is_string($normalized) ? $normalized : '');
 
-        return mb_strtolower(is_string($normalized) ? $normalized : '');
+        if ($normalized === '') {
+            return '';
+        }
+
+        if (class_exists(Normalizer::class)) {
+            $decomposed = Normalizer::normalize($normalized, Normalizer::FORM_D);
+
+            if (is_string($decomposed)) {
+                $normalized = preg_replace('/\p{Mn}/u', '', $decomposed) ?? $decomposed;
+            }
+        }
+
+        return $normalized;
     }
 }

@@ -117,7 +117,7 @@ export default function TililaArchives() {
         );
     };
 
-    const showStats = program === 'tilila' && year === 'all';
+    const showStats = year === 'all';
 
     return (
         <>
