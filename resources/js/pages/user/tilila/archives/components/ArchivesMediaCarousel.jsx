@@ -1,16 +1,18 @@
 import { Play } from 'lucide-react';
+import { archiveImageFitClass, isTrophyFallback } from '@/pages/user/tilila/utils/archivesImageUtils';
 import TililaHorizontalCarousel from '@/pages/user/tilila/partials/TililaHorizontalCarousel';
 
 export function ArchivesPhotoSlide({ src, href, className = '' }) {
     const content = (
         <div
-            className={`aspect-[4/3] overflow-hidden rounded-xl border border-border/70 bg-beta-white shadow-sm ${className}`}
+            className={`aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-alpha-blue shadow-sm ${className}`}
         >
             <img
                 src={src}
                 alt=""
-                className="h-full w-full object-cover transition duration-500 hover:scale-[1.03]"
+                className="h-full w-full object-cover object-center"
                 loading="lazy"
+                decoding="async"
             />
         </div>
     );
@@ -26,39 +28,44 @@ export function ArchivesPhotoSlide({ src, href, className = '' }) {
     return content;
 }
 
-export function ArchivesGallerySlide({ item, compact = false }) {
+export function ArchivesGallerySlide({ item }) {
+    const isTrophy = isTrophyFallback(item.src);
+    const fitClass = archiveImageFitClass({ isTrophy });
+
     const inner = (
-        <>
-            <div
-                className={`overflow-hidden border border-border/50 bg-beta-white shadow-sm ${
-                    compact
-                        ? 'aspect-[3/8] rounded-xl'
-                        : 'aspect-[3/2] rounded-xl'
-                }`}
-            >
-                <img
-                    src={item.src}
-                    alt=""
-                    className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                    loading="lazy"
-                />
-            </div>
+        <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-alpha-blue shadow-sm">
+            <img
+                src={item.src}
+                alt=""
+                className={`h-full w-full transition duration-500 group-hover:scale-[1.02] ${fitClass}`}
+                loading="lazy"
+                decoding="async"
+            />
             {item.type === 'video' ? (
-                <span
-                    className={`absolute inset-0 flex items-center justify-center bg-tblack/20 ${
-                        compact ? 'rounded-xl' : 'rounded-xl'
-                    }`}
-                >
-                    <span className="flex size-9 items-center justify-center rounded-full bg-white/95 text-beta-blue shadow sm:size-10">
+                <span className="absolute inset-0 flex items-center justify-center rounded-2xl bg-beta-blue/20">
+                    <span className="flex size-11 items-center justify-center rounded-full bg-twhite text-beta-blue shadow-lg">
                         <Play
-                            className="size-4 fill-beta-blue sm:size-5"
+                            className="size-5 fill-beta-blue"
                             aria-hidden
                         />
                     </span>
                 </span>
             ) : null}
-        </>
+        </div>
     );
+
+    if (item.type === 'photo') {
+        return (
+            <a
+                href={item.src}
+                target="_blank"
+                rel="noreferrer"
+                className="group relative block"
+            >
+                {inner}
+            </a>
+        );
+    }
 
     return (
         <a href={item.detailsUrl} className="group relative block">
@@ -69,7 +76,7 @@ export function ArchivesGallerySlide({ item, compact = false }) {
 
 export default function ArchivesMediaCarousel({
     ariaLabel,
-    slideClassName = 'w-[min(100%,220px)] shrink-0 snap-start sm:w-[42%] md:w-[30%] lg:w-[22%] xl:w-[18%]',
+    slideClassName = 'w-[min(100%,340px)] shrink-0 snap-start sm:w-[48%] lg:w-[32%]',
     visibleCount = null,
     headerRow = null,
     showFade = true,
@@ -87,7 +94,7 @@ export default function ArchivesMediaCarousel({
             showFade={showFade}
             navOverlay={navOverlay}
             trackGapClassName={trackGapClassName}
-            fadeFrom="from-white"
+            fadeFrom="from-twhite"
             autoAdvanceMs={autoAdvanceMs}
         >
             {children}

@@ -6,22 +6,14 @@ import {
     TililaIconBadge,
     TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
-import { resolveWinnerDisplay } from '@/pages/user/tilila/utils/winnerFields';
+import { resolveWinnerDisplay, storageAssetSrc } from '@/pages/user/tilila/utils/winnerFields';
 
 export function textFor(obj, locale) {
     return obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
 }
 
 export function storagePhotoSrc(path) {
-    if (!path || typeof path !== 'string') return '';
-    if (
-        path.startsWith('http://') ||
-        path.startsWith('https://') ||
-        path.startsWith('/')
-    ) {
-        return path;
-    }
-    return `/storage/${path}`;
+    return storageAssetSrc(path);
 }
 
 export function PersonPhoto({ path, alt = '', className = 'size-16' }) {
@@ -35,7 +27,7 @@ export function PersonPhoto({ path, alt = '', className = 'size-16' }) {
             <img
                 src={src}
                 alt={alt}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover object-top"
                 loading="lazy"
                 decoding="async"
             />
@@ -236,7 +228,7 @@ export function EditionGallerySection({ images = [] }) {
                 <TililaHorizontalCarousel
                     ariaLabel="Edition gallery"
                     className="mt-6"
-                    slideClassName="w-[min(100%,400px)] shrink-0 snap-start sm:w-[60%] lg:w-[40%]"
+                    slideClassName="w-[min(100%,420px)] shrink-0 snap-start sm:w-[55%] lg:w-[38%]"
                     autoAdvanceMs={5200}
                 >
                     {rows.map((path) => {
@@ -247,12 +239,12 @@ export function EditionGallerySection({ images = [] }) {
                                 href={src}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="group block overflow-hidden rounded-2xl border border-border/60 shadow-md"
+                                className="group block overflow-hidden rounded-2xl border border-border/60 bg-alpha-blue shadow-sm"
                             >
                                 <img
                                     src={src}
                                     alt=""
-                                    className="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.04]"
+                                    className="aspect-[4/3] w-full object-cover object-center transition duration-500 group-hover:scale-[1.03]"
                                     loading="lazy"
                                 />
                             </a>

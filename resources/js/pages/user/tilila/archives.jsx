@@ -2,17 +2,17 @@ import { Head, usePage } from '@inertiajs/react';
 import { useMemo } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import AppLayout from '@/layouts/app-layout';
-import ArchivesCategoryPanels from '@/pages/user/tilila/archives/components/ArchivesCategoryPanels';
 import ArchivesContactCta from '@/pages/user/tilila/archives/components/ArchivesContactCta';
 import ArchivesHero from '@/pages/user/tilila/archives/components/ArchivesHero';
 import {
     ArchivesGallerySection,
     ArchivesLaureatsSection,
-    ArchivesPhotosSection,
 } from '@/pages/user/tilila/archives/components/ArchivesHubSections';
 import ArchivesJurySection from '@/pages/user/tilila/archives/components/ArchivesJurySection';
 import ArchivesSidebar from '@/pages/user/tilila/archives/components/ArchivesSidebar';
+import ArchivesStats from '@/pages/user/tilila/archives/components/ArchivesStats';
 import ArchivesTililabCards from '@/pages/user/tilila/archives/components/ArchivesTililabCards';
+import ArchivesToolbar from '@/pages/user/tilila/archives/components/ArchivesToolbar';
 import { useArchivesHub } from '@/pages/user/tilila/archives/hooks/useArchivesHub';
 import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 import { buildArchiveEditions } from '@/pages/user/tilila/utils/archiveEditions';
@@ -24,6 +24,7 @@ import {
     filterGalleryItems,
     hubEditionCta,
 } from '@/pages/user/tilila/utils/archivesHubData';
+import { computeGlobalStats } from '@/pages/user/tilila/utils/archivesPageData';
 
 export default function TililaArchives() {
     const { editions: rawEditions, tililabEditions: rawTililab } =
@@ -65,6 +66,11 @@ export default function TililaArchives() {
     const sections = useMemo(
         () => buildCategorySections(activeEditions, year, locale),
         [activeEditions, year, locale],
+    );
+
+    const stats = useMemo(
+        () => computeGlobalStats(activeEditions, locale),
+        [activeEditions, locale],
     );
 
     const detailsUrl = hubEditionCta(activeEditions, year);
@@ -111,72 +117,48 @@ export default function TililaArchives() {
         );
     };
 
+    const showStats = program === 'tilila' && year === 'all';
+
     return (
         <>
             <Head title={t('tilila.archives.pageTitle')} />
 
             <div className="min-h-screen bg-twhite">
-                <ArchivesHero />
+                <ArchivesHero editionCount={activeEditions.length} />
 
-                <div className="relative z-10 -mt-6 rounded-t-3xl bg-twhite shadow-[0_-8px_30px_rgba(26,35,126,0.06)] sm:-mt-8">
-                    <TililaContainer className="pt-8 pb-14 sm:pt-10 sm:pb-16">
-                        <div className="flex gap-8 border-b border-border/50">
-                            {['tilila', 'tililab'].map((tab) => (
-                                <button
-                                    key={tab}
-                                    type="button"
-                                    onClick={() => setProgram(tab)}
-                                    className={`pb-3 text-xs font-extrabold tracking-[0.14em] uppercase transition sm:text-sm ${
-                                        program === tab
-                                            ? 'border-b-[3px] border-beta-blue text-beta-blue'
-                                            : 'text-tgray hover:text-beta-blue'
-                                    }`}
-                                >
-                                    {tab === 'tilila'
-                                        ? 'Tilila Awards'
-                                        : 'Tililab'}
-                                </button>
-                            ))}
-                        </div>
+                <div className="relative z-10 -mt-6 rounded-t-3xl bg-twhite shadow-[0_-8px_30px_rgba(68,25,168,0.06)] sm:-mt-8">
+                    {showStats ? <ArchivesStats stats={stats} /> : null}
 
-                        <div className="mt-6 flex flex-wrap gap-2">
-                            {years.map((y) => (
-                                <button
-                                    key={y}
-                                    type="button"
-                                    onClick={() => setSelectedYear(y)}
-                                    className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                                        year === y
-                                            ? 'bg-beta-blue text-twhite shadow-sm'
-                                            : 'border border-border/70 bg-white text-tblack hover:border-beta-blue hover:text-beta-blue'
-                                    }`}
-                                >
-                                    {y}
-                                </button>
-                            ))}
-                            <button
-                                type="button"
-                                onClick={() => setSelectedYear('all')}
-                                className={`rounded-full px-4 py-2 text-sm font-bold transition ${
-                                    year === 'all'
-                                        ? 'bg-beta-blue text-twhite shadow-sm'
-                                        : 'border border-border/70 bg-white text-tblack hover:border-beta-blue hover:text-beta-blue'
-                                }`}
-                            >
-                                {t('tilila.archives.allYears')}
-                            </button>
-                        </div>
+                    <ArchivesToolbar
+                        program={program}
+                        onProgramChange={setProgram}
+                        years={years}
+                        year={year}
+                        onYearChange={setSelectedYear}
+                    />
 
-                        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1fr)_240px] xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-12">
-                            <div className="min-w-0 space-y-12">
-                                <ArchivesLaureatsSection
-                                    cards={laureatCards}
-                                    year={year}
-                                    program={program}
-                                    detailsUrl={detailsUrl}
-                                />
+                    <TililaContainer className="py-10 sm:py-14">
+                        <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-12">
+                            <div className="min-w-0 space-y-8">
+                                <section className="rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(68,25,168,0.06)] sm:p-8">
+                                    <ArchivesLaureatsSection
+                                        cards={laureatCards}
+                                        year={year}
+                                        program={program}
+                                        detailsUrl={detailsUrl}
+                                    />
+                                </section>
 
-                                <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
+                                <section className="rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(68,25,168,0.06)] sm:p-8">
+                                    <ArchivesJurySection
+                                        members={sections.jurys}
+                                        program={program}
+                                        year={year}
+                                        detailsUrl={detailsUrl}
+                                    />
+                                </section>
+
+                                <section className="rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(68,25,168,0.06)] sm:p-8">
                                     <ArchivesGallerySection
                                         items={galleryItems}
                                         year={year}
@@ -184,18 +166,8 @@ export default function TililaArchives() {
                                         filter={galleryFilter}
                                         onFilterChange={setGalleryFilter}
                                         detailsUrl={detailsUrl}
-                                        compact
                                     />
-
-                                    <ArchivesJurySection
-                                        members={sections.jurys}
-                                        program={program}
-                                        year={year}
-                                        detailsUrl={detailsUrl}
-                                        compact
-                                    />
-                                </div>
-
+                                </section>
                             </div>
 
                             <ArchivesSidebar

@@ -1,10 +1,13 @@
 import { Camera, Play, Trophy } from 'lucide-react';
 import TransText from '@/components/TransText';
+import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
 const CARDS = [
     {
         id: 'laureats',
         icon: Trophy,
+        accent: 'border-beta-turquoise/30 bg-alpha-turquoise',
+        iconClass: 'text-beta-turquoise',
         title: {
             fr: 'Tililab Lauréats',
             en: 'Tililab Winners',
@@ -26,6 +29,8 @@ const CARDS = [
     {
         id: 'projets',
         icon: Play,
+        accent: 'border-beta-blue/20 bg-alpha-blue',
+        iconClass: 'text-beta-blue',
         title: {
             fr: 'Projets réalisés',
             en: 'Completed projects',
@@ -48,6 +53,8 @@ const CARDS = [
     {
         id: 'bootcamp',
         icon: Camera,
+        accent: 'border-brand-light-purple/25 bg-beta-purple',
+        iconClass: 'text-brand-light-purple',
         title: {
             fr: 'Best-of Bootcamps',
             en: 'Best-of Bootcamps',
@@ -71,57 +78,74 @@ const CARDS = [
 
 export default function ArchivesTililabCards({ onNavigate }) {
     return (
-        <section className="border-t border-border/40 bg-[#f5f6f8] py-12 sm:py-14">
-            <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-3 lg:gap-6 lg:px-8">
-                {CARDS.map((card) => {
-                    const Icon = card.icon;
+        <section className="border-t border-border/40 bg-beta-white py-14 sm:py-16">
+            <TililaContainer>
+                <p className="text-center text-[11px] font-bold tracking-[0.28em] text-beta-turquoise uppercase">
+                    <TransText
+                        en="Tililab"
+                        fr="Tililab"
+                        ar="تيليلاب"
+                    />
+                </p>
+                <h2 className="mt-2 text-center text-2xl font-extrabold tracking-tight text-beta-blue sm:text-3xl">
+                    <TransText
+                        en="Explore Tililab archives"
+                        fr="Explorer les archives Tililab"
+                        ar="استكشف أرشيف تيليلاب"
+                    />
+                </h2>
 
-                    return (
-                        <article
-                            key={card.id}
-                            className="flex flex-col rounded-xl border border-border/50 bg-twhite p-6 shadow-sm"
-                        >
-                            <Icon
-                                className="size-9 text-beta-turquoise"
-                                strokeWidth={1.5}
-                                aria-hidden
-                            />
-                            <h3 className="mt-4 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase">
-                                <TransText
-                                    fr={card.title.fr}
-                                    en={card.title.en}
-                                    ar={card.title.ar}
-                                />
-                            </h3>
-                            <p className="mt-3 flex-1 text-sm leading-relaxed text-tgray">
-                                <TransText
-                                    fr={card.description.fr}
-                                    en={card.description.en}
-                                    ar={card.description.ar}
-                                />
-                            </p>
-                            <button
-                                type="button"
-                                onClick={() =>
-                                    onNavigate(
-                                        card.sectionId,
-                                        card.program,
-                                        card.galleryFilter,
-                                    )
-                                }
-                                className="mt-6 inline-flex items-center gap-2 self-start rounded-md border-2 border-beta-turquoise px-5 py-2.5 text-xs font-extrabold tracking-[0.1em] text-beta-turquoise uppercase transition hover:bg-beta-turquoise hover:text-twhite"
+                <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {CARDS.map((card) => {
+                        const Icon = card.icon;
+
+                        return (
+                            <article
+                                key={card.id}
+                                className={`flex flex-col rounded-2xl border p-6 shadow-sm ${card.accent}`}
                             >
-                                <TransText
-                                    fr={card.cta.fr}
-                                    en={card.cta.en}
-                                    ar={card.cta.ar}
+                                <Icon
+                                    className={`size-9 ${card.iconClass}`}
+                                    strokeWidth={1.5}
+                                    aria-hidden
                                 />
-                                <span aria-hidden>→</span>
-                            </button>
-                        </article>
-                    );
-                })}
-            </div>
+                                <h3 className="mt-4 text-sm font-extrabold tracking-wide text-beta-blue uppercase">
+                                    <TransText
+                                        fr={card.title.fr}
+                                        en={card.title.en}
+                                        ar={card.title.ar}
+                                    />
+                                </h3>
+                                <p className="mt-3 flex-1 text-sm leading-relaxed text-tgray">
+                                    <TransText
+                                        fr={card.description.fr}
+                                        en={card.description.en}
+                                        ar={card.description.ar}
+                                    />
+                                </p>
+                                <button
+                                    type="button"
+                                    onClick={() =>
+                                        onNavigate(
+                                            card.sectionId,
+                                            card.program,
+                                            card.galleryFilter,
+                                        )
+                                    }
+                                    className="mt-6 inline-flex items-center gap-2 self-start rounded-lg border-2 border-beta-blue px-5 py-2.5 text-xs font-extrabold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-beta-blue hover:text-twhite"
+                                >
+                                    <TransText
+                                        fr={card.cta.fr}
+                                        en={card.cta.en}
+                                        ar={card.cta.ar}
+                                    />
+                                    <span aria-hidden>→</span>
+                                </button>
+                            </article>
+                        );
+                    })}
+                </div>
+            </TililaContainer>
         </section>
     );
 }

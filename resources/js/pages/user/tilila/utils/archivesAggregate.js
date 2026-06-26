@@ -1,8 +1,5 @@
-import {
-    storagePhotoSrc,
-    textFor,
-} from '@/pages/user/tilila/partials/EditionDetailContent';
-import { resolveWinnerDisplay } from '@/pages/user/tilila/utils/winnerFields';
+import { textFor } from '@/pages/user/tilila/partials/EditionDetailContent';
+import { resolveWinnerDisplay, storageAssetSrc } from '@/pages/user/tilila/utils/winnerFields';
 
 function parseCampaignFromLine(line, locale = 'fr') {
     const text = line?.[locale] || line?.fr || line?.en || '';
@@ -120,7 +117,7 @@ export function buildArchivesSections(editions, locale = 'fr') {
             for (const path of edition.gallery_images) {
                 photos.push({
                     ...base,
-                    src: storagePhotoSrc(path),
+                    src: storageAssetSrc(path),
                 });
             }
         }

@@ -10,25 +10,25 @@ export default function ArchivesStats({ stats }) {
     return (
         <section
             id="statistics"
-            className="relative border-b border-border/40 bg-linear-to-b from-beta-white to-twhite py-14 sm:py-16 dark:from-[#0c0618] dark:to-[#120a22]"
+            className="border-b border-border/40 bg-beta-white py-10 sm:py-12"
         >
             <TililaContainer>
                 <motion.div
-                    initial={{ opacity: 0, y: 16 }}
+                    initial={{ opacity: 0, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
+                    transition={{ duration: 0.45 }}
                     className="max-w-2xl"
                 >
-                    <p className="text-xs font-bold tracking-[0.28em] text-beta-turquoise uppercase">
+                    <p className="text-[11px] font-bold tracking-[0.28em] text-beta-turquoise uppercase">
                         {t('tilila.archives.statsSection.kicker')}
                     </p>
-                    <h2 className="mt-2 text-2xl font-bold tracking-tight text-beta-blue sm:text-3xl dark:text-twhite">
+                    <h2 className="mt-1.5 text-xl font-extrabold tracking-tight text-beta-blue sm:text-2xl">
                         {t('tilila.archives.statsSection.title')}
                     </h2>
                 </motion.div>
 
-                <div className="mt-10 hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
+                <div className="mt-8 hidden gap-4 sm:grid sm:grid-cols-2 lg:grid-cols-4">
                     {ARCHIVE_STAT_KEYS.map((key, index) => (
                         <StatisticCard
                             key={key}
@@ -39,11 +39,11 @@ export default function ArchivesStats({ stats }) {
                     ))}
                 </div>
 
-                <div className="mt-10 flex gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden">
+                <div className="mt-8 flex gap-4 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] sm:hidden [&::-webkit-scrollbar]:hidden">
                     {ARCHIVE_STAT_KEYS.map((key, index) => (
                         <div
                             key={key}
-                            className="w-[min(100%,260px)] shrink-0 snap-start"
+                            className="w-[min(100%,240px)] shrink-0 snap-start"
                         >
                             <StatisticCard
                                 categoryId={key}

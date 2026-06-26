@@ -1,13 +1,22 @@
-import {
-    storagePhotoSrc,
-    textFor,
-} from '@/pages/user/tilila/partials/EditionDetailContent';
+import { textFor } from '@/pages/user/tilila/partials/EditionDetailContent';
 import {
     extractAgency,
     editionWinnerRows,
 } from '@/pages/user/tilila/utils/archiveEditions';
 import { buildArchivesSections } from '@/pages/user/tilila/utils/archivesAggregate';
+import {
+    isLogoLikeArchiveImage,
+    isTrophyFallback,
+} from '@/pages/user/tilila/utils/archivesImageUtils';
+import {
+    resolveShowcaseImage,
+    resolveWinnerDisplay,
+    storageAssetSrc,
+} from '@/pages/user/tilila/utils/winnerFields';
 import { normalizeEdition as normalizeTililabEdition } from '@/pages/user/tililab/utils/editions';
+
+const FALLBACK_TILILA = '/assets/tilila/trophee-tilila.png';
+const FALLBACK_TILILAB = '/assets/tililab/tililab-logo.png';
 
 export function buildTililabArchiveEditions(rawEditions = []) {
     return (Array.isArray(rawEditions) ? rawEditions : [])
@@ -49,11 +58,55 @@ function primaryEdition(editions, year) {
     return pool[0] ?? null;
 }
 
+function fallbackForProgram(program) {
+    return program === 'tililab' ? FALLBACK_TILILAB : FALLBACK_TILILA;
+}
+
+function laureatePhotoMeta(winner, edition, program) {
+    const fallback = fallbackForProgram(program);
+    const brandPhoto = winner
+        ? storageAssetSrc(winner.photo_path)
+        : '';
+    const showcase = winner
+        ? resolveShowcaseImage(winner, edition, fallback)
+        : edition.cover_image_src || fallback;
+    const photoSrc = brandPhoto || showcase || fallback;
+    const isLogo = isLogoLikeArchiveImage(photoSrc, brandPhoto);
+    const isTrophy = isTrophyFallback(photoSrc);
+
+    return { photoSrc, isLogo, isTrophy };
+}
+
 export function buildLaureatCards(editions, year, locale, program = 'tilila') {
     const pool = editionsForYear(editions, year);
     const cards = [];
 
     for (const edition of pool) {
+        if (edition.winners?.length) {
+            for (const [index, winner] of edition.winners.entries()) {
+                const { campaign, agency } = resolveWinnerDisplay(winner);
+                const { photoSrc, isLogo, isTrophy } = laureatePhotoMeta(
+                    winner,
+                    edition,
+                    program,
+                );
+
+                cards.push({
+                    id: `${edition.id}-laureat-${index}`,
+                    trophy: textFor(winner.trophy, locale),
+                    name: winner.full_name || '',
+                    agency: textFor(agency, locale),
+                    photoSrc,
+                    isLogo,
+                    isTrophy,
+                    detailsUrl: `${edition.details_url}#winners`,
+                    year: edition.year,
+                });
+            }
+
+            continue;
+        }
+
         const rows = editionWinnerRows(edition, locale);
 
         for (const [index, row] of rows.entries()) {
@@ -61,6 +114,7 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
                 /Agence\s*:\s*(.+)|Agency:\s*(.+)/i,
             );
             const agency =
+                row.agency ||
                 extractAgency(
                     { [locale]: row.detail, fr: row.detail, en: row.detail },
                     locale,
@@ -68,6 +122,12 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
                 agencyMatch?.[1]?.trim() ||
                 agencyMatch?.[2]?.trim() ||
                 '';
+
+            const photoSrc =
+                (row.photo ? storageAssetSrc(row.photo) : '') ||
+                edition.cover_image_src ||
+                fallbackForProgram(program);
+            const isTrophy = isTrophyFallback(photoSrc);
 
             cards.push({
                 id: `${edition.id}-laureat-${index}`,
@@ -78,12 +138,9 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
                     row.detail ||
                     '',
                 agency,
-                photoSrc: row.photo
-                    ? storagePhotoSrc(row.photo)
-                    : edition.cover_image_src ||
-                      (program === 'tililab'
-                          ? '/assets/tililab/tililab-logo.png'
-                          : '/assets/tilila/trophee-tilila.png'),
+                photoSrc,
+                isLogo: false,
+                isTrophy,
                 detailsUrl: `${edition.details_url}#winners`,
                 year: edition.year,
             });
@@ -102,7 +159,7 @@ export function buildGalleryItems(editions, year) {
             items.push({
                 id: `${edition.id}-photo-${path}`,
                 type: 'photo',
-                src: storagePhotoSrc(path),
+                src: storageAssetSrc(path),
                 year: edition.year,
                 detailsUrl: `${edition.details_url}#gallery`,
             });
@@ -110,14 +167,14 @@ export function buildGalleryItems(editions, year) {
 
         if (edition.ceremony_video_url) {
             const thumb =
-                edition.cover_image_src || '/assets/tilila/trophee-tilila.png';
+                edition.cover_image_src || FALLBACK_TILILA;
             items.push({
                 id: `${edition.id}-video`,
                 type: 'video',
                 videoUrl: edition.ceremony_video_url,
                 src: thumb,
                 year: edition.year,
-                detailsUrl: `${edition.details_url}#edition-hero`,
+                detailsUrl: `${edition.details_url}#video`,
             });
         }
     }
