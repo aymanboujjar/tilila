@@ -32,6 +32,7 @@ export function buildTililabArchiveEditions(rawEditions = []) {
                 ...base,
                 winners: Array.isArray(raw.winners) ? raw.winners : [],
                 jury: Array.isArray(raw.jury) ? raw.jury : [],
+                bootcamp: raw.bootcamp ?? null,
                 gallery_images: Array.isArray(raw.gallery_images)
                     ? raw.gallery_images
                     : [],
@@ -205,6 +206,19 @@ export function buildCategorySections(editions, year, locale) {
     const pool = editionsForYear(editions, year);
 
     return buildArchivesSections(pool, locale);
+}
+
+export function buildBootcampArchiveItems(editions, year) {
+    const pool = editionsForYear(editions, year);
+
+    return pool
+        .filter((edition) => edition.bootcamp && typeof edition.bootcamp === 'object')
+        .map((edition) => ({
+            year: edition.year,
+            bootcamp: edition.bootcamp,
+            detailsUrl: edition.details_url,
+        }))
+        .sort((a, b) => Number(b.year) - Number(a.year));
 }
 
 export function hubEditionCta(editions, year) {

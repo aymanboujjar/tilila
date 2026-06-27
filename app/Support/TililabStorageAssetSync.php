@@ -2,7 +2,6 @@
 
 namespace App\Support;
 
-use App\Models\TililaEdition;
 use App\Models\TililabEdition;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -13,8 +12,6 @@ class TililabStorageAssetSync
 
     public function syncAll(): void
     {
-        $this->syncJuryPhotosFromTililaDisk();
-
         TililabEdition::query()
             ->where('is_current', false)
             ->orderBy('year')
@@ -39,7 +36,6 @@ class TililabStorageAssetSync
         $edition->has_gallery = $gallery !== [];
         $edition->cover_image_path = $this->coverImage($year, $gallery, $winners);
         $edition->ceremony_video_path = $this->spotVideo($year) ?? $edition->ceremony_video_path;
-        $edition->jury = $this->syncJuryFromTilila($edition);
 
         $edition->save();
 
@@ -131,85 +127,6 @@ class TililabStorageAssetSync
         }
 
         return false;
-    }
-
-    /** @return list<array<string, mixed>> */
-    private function syncJuryFromTilila(TililabEdition $edition): array
-    {
-        $tililabYear = (int) $edition->year;
-        $tililaYear = $tililabYear >= 2026 ? 2025 : $tililabYear;
-
-        $tililaEdition = TililaEdition::query()
-            ->where('year', (string) $tililaYear)
-            ->first();
-
-        if ($tililaEdition === null) {
-            return is_array($edition->jury) ? $edition->jury : [];
-        }
-
-        $jury = is_array($tililaEdition->jury) ? $tililaEdition->jury : [];
-
-        return array_values(array_map(
-            fn (mixed $member): array => is_array($member)
-                ? $this->copyJuryPhotoToTililab($member)
-                : [],
-            $jury,
-        ));
-    }
-
-    /**
-     * @param  array<string, mixed>  $member
-     * @return array<string, mixed>
-     */
-    private function copyJuryPhotoToTililab(array $member): array
-    {
-        $path = $member['photo_path'] ?? null;
-
-        if (! is_string($path) || $path === '') {
-            return $member;
-        }
-
-        if (! str_starts_with($path, 'tilila-editions/jury/')) {
-            return $member;
-        }
-
-        $basename = basename($path);
-        $dest = self::BASE.'/jury/'.$basename;
-        $disk = Storage::disk('public');
-
-        if ($disk->exists($path)) {
-            $disk->copy($path, $dest);
-            $member['photo_path'] = $dest;
-        }
-
-        return $member;
-    }
-
-    private function syncJuryPhotosFromTililaDisk(): void
-    {
-        $disk = Storage::disk('public');
-        $sourceDir = 'tilila-editions/jury';
-        $destDir = self::BASE.'/jury';
-
-        if (! $disk->exists($sourceDir)) {
-            return;
-        }
-
-        if ($disk->exists($destDir)) {
-            foreach ($disk->files($destDir) as $existing) {
-                $disk->delete($existing);
-            }
-        } else {
-            $disk->makeDirectory($destDir);
-        }
-
-        foreach ($disk->files($sourceDir) as $file) {
-            $dest = $destDir.'/'.basename($file);
-
-            if ($disk->exists($file)) {
-                $disk->copy($file, $dest);
-            }
-        }
     }
 
     private function coverImage(string $year, array $gallery, array $winners): ?string

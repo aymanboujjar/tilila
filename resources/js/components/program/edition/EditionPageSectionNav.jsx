@@ -23,6 +23,7 @@ function NavLink({ href, children, delay = 0 }) {
 export default function EditionPageSectionNav({
     isCurrent,
     showVideo,
+    showBootcamp = false,
 }) {
     const reduced = useReducedMotion();
     let delay = 0.05;
@@ -54,6 +55,15 @@ export default function EditionPageSectionNav({
                 <NavLink href="#jury" delay={nextDelay()}>
                     <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
                 </NavLink>
+                {showBootcamp ? (
+                    <NavLink href="#bootcamp" delay={nextDelay()}>
+                        <TransText
+                            en="Bootcamp"
+                            fr="Bootcamp"
+                            ar="المعسكر"
+                        />
+                    </NavLink>
+                ) : null}
                 <NavLink href="#gallery" delay={nextDelay()}>
                     <TransText en="Gallery" fr="Galerie" ar="المعرض" />
                 </NavLink>

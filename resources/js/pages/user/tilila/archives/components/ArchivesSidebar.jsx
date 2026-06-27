@@ -18,6 +18,8 @@ const CATEGORY_ICON_MAP = {
     photos: 'photos',
     videos: 'videos',
     projets: 'videos',
+    programme: 'programme',
+    intervenants: 'intervenants',
     bootcamp: 'photos',
 };
 
@@ -32,7 +34,7 @@ function CategoryList({
         <ul className="mt-2 space-y-1">
             {categories.map((category) => {
                 const iconKey = CATEGORY_ICON_MAP[category.id] ?? 'laureats';
-                const Icon = ARCHIVE_CATEGORY_ICONS[iconKey];
+                const Icon = ARCHIVE_CATEGORY_ICONS[iconKey] ?? ARCHIVE_CATEGORY_ICONS.laureats;
 
                 return (
                     <li key={category.id}>

@@ -9,8 +9,11 @@ import {
     EditionMotionSection,
     MotionCard,
 } from '@/components/program/edition/EditionPageMotion';
-import ArchivesSectionHeading from '@/pages/user/tilila/archives/components/ArchivesSectionHeading';
+import ArchivesBootcampSection, {
+    EditionBootcampSchedule,
+} from '@/pages/user/tilila/archives/components/ArchivesBootcampSection';
 import { ArchivesPhotoSlide } from '@/pages/user/tilila/archives/components/ArchivesMediaCarousel';
+import ArchivesSectionHeading from '@/pages/user/tilila/archives/components/ArchivesSectionHeading';
 import { TililaIconBadge } from '@/pages/user/tilila/partials/TililaUi';
 import {
     resolveWinnerDisplay,
@@ -268,6 +271,32 @@ export function EditionPageJurySection({ jury = [], locale }) {
                         <JuryCarouselCard member={member} locale={locale} />
                     )}
                 />
+            </div>
+        </EditionMotionSection>
+    );
+}
+
+export function EditionPageBootcampSection({ bootcamp, locale }) {
+    if (!bootcamp || typeof bootcamp !== 'object') {
+        return null;
+    }
+
+    return (
+        <EditionMotionSection id="bootcamp">
+            <ArchivesSectionHeading
+                kicker={
+                    <TransText en="Bootcamp" fr="Bootcamp" ar="المعسكر" />
+                }
+                title={
+                    <TransText
+                        en="Programme"
+                        fr="Programme"
+                        ar="البرنامج"
+                    />
+                }
+            />
+            <div className="mt-8">
+                <EditionBootcampSchedule bootcamp={bootcamp} locale={locale} />
             </div>
         </EditionMotionSection>
     );

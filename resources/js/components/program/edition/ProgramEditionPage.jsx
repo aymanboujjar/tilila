@@ -6,6 +6,7 @@ import { EDITION_PAGE_CONFIG } from '@/components/program/edition/editionPageCon
 import EditionPageHeroBand from '@/components/program/edition/EditionPageHeroBand';
 import EditionPageSectionNav from '@/components/program/edition/EditionPageSectionNav';
 import {
+    EditionPageBootcampSection,
     EditionPageGallerySection,
     EditionPageJurySection,
     EditionPageWinnersSection,
@@ -40,6 +41,9 @@ export default function ProgramEditionPage({
     const images = Array.isArray(edition?.gallery_images)
         ? edition.gallery_images
         : [];
+
+    const bootcamp =
+        program === 'tililab' && edition?.bootcamp ? edition.bootcamp : null;
 
     const ceremonyVideo = useYoutubeAvailability(
         showCeremonyVideoCheck ? edition?.ceremony_video_url : null,
@@ -81,6 +85,7 @@ export default function ProgramEditionPage({
                     <EditionPageSectionNav
                         isCurrent={isCurrent}
                         showVideo={showVideo}
+                        showBootcamp={Boolean(bootcamp)}
                     />
 
                     <div className="mt-12 space-y-16 sm:space-y-20">
@@ -91,6 +96,12 @@ export default function ProgramEditionPage({
                             pendingMessage={config.winnersPending}
                         />
                         <EditionPageJurySection jury={jury} locale={locale} />
+                        {bootcamp ? (
+                            <EditionPageBootcampSection
+                                bootcamp={bootcamp}
+                                locale={locale}
+                            />
+                        ) : null}
                         <EditionPageGallerySection
                             images={images}
                             galleryTitle={config.galleryTitle}
