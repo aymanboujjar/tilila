@@ -10,12 +10,7 @@ import TransText from '@/components/TransText';
 
 const VISIBLE_LAUREATS = 4;
 
-export function ArchivesLaureatsSection({
-    cards,
-    year,
-    program,
-    detailsUrl,
-}) {
+export function ArchivesLaureatsSection({ cards, year, program, detailsUrl }) {
     const { t } = useTranslation();
     const programLabel = program === 'tililab' ? 'Tililab' : 'Tilila Awards';
     const yearLabel = year === 'all' ? '' : year;
@@ -38,13 +33,7 @@ export function ArchivesLaureatsSection({
     return (
         <section id="laureats" className="scroll-mt-32">
             <ArchivesSectionHeading
-                kicker={
-                    <TransText
-                        en="Palmarès"
-                        fr="Palmarès"
-                        ar="الجوائز"
-                    />
-                }
+                kicker={<TransText en="Palmarès" fr="Palmarès" ar="الجوائز" />}
                 title={title}
             />
 
@@ -130,13 +119,7 @@ export function ArchivesGallerySection({
     return (
         <section id="galerie" className="scroll-mt-32">
             <ArchivesSectionHeading
-                kicker={
-                    <TransText
-                        en="Media"
-                        fr="Médias"
-                        ar="الوسائط"
-                    />
-                }
+                kicker={<TransText en="Media" fr="Médias" ar="الوسائط" />}
                 title={title}
             />
             {filterPills}

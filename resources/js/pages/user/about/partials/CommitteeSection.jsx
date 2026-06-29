@@ -58,8 +58,6 @@ export default function CommitteeSection() {
                             </p>
                         </div>
                     </div>
-
-            
                 </div>
             </TililaContainer>
         </section>

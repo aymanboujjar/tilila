@@ -22,7 +22,6 @@ export const TILILA_HOME_STATS = [
         labelFr: 'Campagnes candidates',
         labelEn: 'Candidate campaigns',
         labelAr: 'حملة مرشحة',
-        
     },
     {
         icon: Star,
@@ -30,7 +29,6 @@ export const TILILA_HOME_STATS = [
         labelFr: 'Campagnes shortlistées',
         labelEn: 'Shortlisted campaigns',
         labelAr: 'حملة في القائمة القصيرة',
-        
     },
     {
         icon: Award,
@@ -77,7 +75,6 @@ export const TILILAB_HOME_STATS = [
         labelFr: 'Projets produits',
         labelEn: 'Projects produced',
         labelAr: 'مشروع منتج',
-        
     },
     {
         icon: GraduationCap,

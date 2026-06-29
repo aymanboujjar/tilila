@@ -47,7 +47,7 @@ export const TILILA_FAQ_PAGE_ITEMS = [
             ar: 'كيف أقدّم ترشيحاً؟',
         },
         a: {
-            fr: 'Les candidatures s\'effectuent directement en ligne via le formulaire disponible sur la page Tilila Awards.',
+            fr: "Les candidatures s'effectuent directement en ligne via le formulaire disponible sur la page Tilila Awards.",
             en: 'Applications are submitted online through the form on the Tilila Awards page.',
             ar: 'تتم الترشيحات مباشرة عبر الإنترنت من خلال الاستمارة المتاحة في صفحة تيليلا أووردز.',
         },
@@ -102,7 +102,7 @@ export const TILILAB_FAQ_PAGE_ITEMS = [
             ar: 'ما المستندات المطلوبة؟',
         },
         a: {
-            fr: "Le candidat doit présenter un portfolio, une réalisation audiovisuelle antérieure ou un projet personnel démontrant son intérêt pour la création de contenus.",
+            fr: 'Le candidat doit présenter un portfolio, une réalisation audiovisuelle antérieure ou un projet personnel démontrant son intérêt pour la création de contenus.',
             en: 'Candidates must provide a portfolio, a previous audiovisual work or a personal project demonstrating their interest in content creation.',
             ar: 'يجب على المرشح تقديم محفظة أعمال أو إنتاج سمعي بصري سابق أو مشروع شخصي يظهر اهتمامه بصناعة المحتوى.',
         },
@@ -115,7 +115,7 @@ export const TILILAB_FAQ_PAGE_ITEMS = [
             ar: 'كيف تتم عملية الانتقاء؟',
         },
         a: {
-            fr: 'Les candidatures font l\'objet d\'une phase de présélection par le jury. Les candidats retenus participent ensuite au Bootcamp Tililab avant la phase finale du concours.',
+            fr: "Les candidatures font l'objet d'une phase de présélection par le jury. Les candidats retenus participent ensuite au Bootcamp Tililab avant la phase finale du concours.",
             en: 'Applications go through a jury pre-selection phase. Shortlisted candidates then take part in the Tililab Bootcamp before the final stage.',
             ar: 'تخضع الترشيحات لمرحلة فرز أولي من طرف لجنة التحكيم. يشارك المرشحون المختارون بعدها في معسكر تيليلاب قبل المرحلة النهائية.',
         },

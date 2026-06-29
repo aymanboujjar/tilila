@@ -1,12 +1,9 @@
-import {
-    Clapperboard,
-    Lightbulb,
-    Sparkles,
-    Trophy,
-    Users,
-} from 'lucide-react';
+import { Clapperboard, Lightbulb, Sparkles, Trophy, Users } from 'lucide-react';
 import TransText from '@/components/TransText';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const BENEFITS = [
     {

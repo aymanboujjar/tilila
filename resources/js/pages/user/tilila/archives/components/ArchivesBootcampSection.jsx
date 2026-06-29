@@ -39,9 +39,7 @@ export default function ArchivesBootcampSection({
     return (
         <section id="bootcamp-programme" className="scroll-mt-32">
             <ArchivesSectionHeading
-                kicker={
-                    <TransText en="Tililab" fr="Tililab" ar="تيليلاب" />
-                }
+                kicker={<TransText en="Tililab" fr="Tililab" ar="تيليلاب" />}
                 title={
                     <TransText
                         en={`Bootcamp programme${yearLabel}`}

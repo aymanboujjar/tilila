@@ -15,7 +15,10 @@ export function isTrophyFallback(src) {
     return /trophee-tilila|tililab-logo/i.test(src || '');
 }
 
-export function archiveImageFitClass({ isLogo = false, isTrophy = false } = {}) {
+export function archiveImageFitClass({
+    isLogo = false,
+    isTrophy = false,
+} = {}) {
     if (isLogo || isTrophy) {
         return 'object-contain object-center p-4 sm:p-6';
     }

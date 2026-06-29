@@ -172,9 +172,7 @@ export default function TililaHorizontalCarousel({
                       </div>
                   )}
 
-            <div
-                className={`relative ${navOverlay ? 'px-9 sm:px-10' : ''}`}
-            >
+            <div className={`relative ${navOverlay ? 'px-9 sm:px-10' : ''}`}>
                 {navOverlay && hasMultiple ? (
                     <>
                         <button

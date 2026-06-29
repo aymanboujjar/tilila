@@ -1,8 +1,4 @@
-import {
-    motion,
-    useInView,
-    useReducedMotion,
-} from 'framer-motion';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 
@@ -101,13 +97,7 @@ export function StaggerItem({ children, className, y = 20 }) {
     );
 }
 
-export function FadeInText({
-    en,
-    fr,
-    ar,
-    className,
-    delay = 0,
-}) {
+export function FadeInText({ en, fr, ar, className, delay = 0 }) {
     const { locale } = useTranslation();
     const reduced = useReducedMotion();
     const text = locale === 'ar' ? ar : locale === 'fr' ? fr : en;
@@ -203,7 +193,13 @@ export function SlideIn({
 }) {
     const reduced = useReducedMotion();
     const offset =
-        direction === 'right' ? 32 : direction === 'left' ? -32 : direction === 'up' ? 24 : -24;
+        direction === 'right'
+            ? 32
+            : direction === 'left'
+              ? -32
+              : direction === 'up'
+                ? 24
+                : -24;
 
     if (reduced) {
         return <div className={className}>{children}</div>;

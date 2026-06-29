@@ -3,9 +3,7 @@ export default function ActualitesSectionHeading({
     accent = 'purple',
 }) {
     const accentClass =
-        accent === 'turquoise'
-            ? 'bg-beta-turquoise'
-            : 'bg-beta-blue/70';
+        accent === 'turquoise' ? 'bg-beta-turquoise' : 'bg-beta-blue/70';
 
     return (
         <div>

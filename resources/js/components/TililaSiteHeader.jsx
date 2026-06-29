@@ -25,7 +25,6 @@ const NAV = [
         fr: 'À propos',
         ar: 'من نحن',
         match: (p) => p.startsWith('/about'),
-      
     },
     {
         type: 'link',
@@ -143,7 +142,7 @@ function ApplyCtaButton({ cta, compact = false, className = '', onNavigate }) {
 
 const linkClass = (active, onDark) =>
     cn(
-        'inline-flex h-10 shrink-0 items-center whitespace-nowrap text-[12px] font-bold tracking-[0.05em] uppercase transition 2xl:tracking-[0.07em]',
+        'inline-flex h-10 shrink-0 items-center text-[12px] font-bold tracking-[0.05em] whitespace-nowrap uppercase transition 2xl:tracking-[0.07em]',
         onDark
             ? active
                 ? 'text-twhite'
@@ -198,11 +197,11 @@ function DesktopNavDropdown({ item, active, onDark }) {
             >
                 <NavLabel item={item} />
                 <ChevronDown
-                    className="size-3 shrink-0 transition group-hover:rotate-180 group-focus-within:rotate-180"
+                    className="size-3 shrink-0 transition group-focus-within:rotate-180 group-hover:rotate-180"
                     aria-hidden
                 />
             </button>
-            <div className="pointer-events-none absolute top-full left-1/2 z-[60] hidden w-72 -translate-x-1/2 pt-2 group-hover:block group-focus-within:block">
+            <div className="pointer-events-none absolute top-full left-1/2 z-[60] hidden w-72 -translate-x-1/2 pt-2 group-focus-within:block group-hover:block">
                 <div className="pointer-events-auto rounded-xl border border-border/80 bg-twhite py-2 shadow-lg">
                     {item.children.map((child, index) => (
                         <Link
@@ -299,7 +298,7 @@ export default function TililaSiteHeader() {
                         src="/assets/logo.png"
                         alt="Tilila Awards"
                         className={cn(
-                            'h-12 w-auto  object-contain transition',
+                            'h-12 w-auto object-contain transition',
                             onDark && 'brightness-0 invert',
                         )}
                         loading="eager"
@@ -381,20 +380,24 @@ export default function TililaSiteHeader() {
                                         </button>
                                         {aboutOpen ? (
                                             <div className="mb-1 flex flex-col gap-0.5 ps-3">
-                                                {item.children.map((child, index) => (
-                                                    <Link
-                                                        key={`${item.id}-${child.href}-${index}`}
-                                                        href={child.href}
-                                                        className="rounded-lg px-3 py-2 text-sm font-medium text-tgray hover:bg-alpha-blue/40 hover:text-beta-blue"
-                                                        onClick={closeMobile}
-                                                    >
-                                                        <TransText
-                                                            en={child.en}
-                                                            fr={child.fr}
-                                                            ar={child.ar}
-                                                        />
-                                                    </Link>
-                                                ))}
+                                                {item.children.map(
+                                                    (child, index) => (
+                                                        <Link
+                                                            key={`${item.id}-${child.href}-${index}`}
+                                                            href={child.href}
+                                                            className="rounded-lg px-3 py-2 text-sm font-medium text-tgray hover:bg-alpha-blue/40 hover:text-beta-blue"
+                                                            onClick={
+                                                                closeMobile
+                                                            }
+                                                        >
+                                                            <TransText
+                                                                en={child.en}
+                                                                fr={child.fr}
+                                                                ar={child.ar}
+                                                            />
+                                                        </Link>
+                                                    ),
+                                                )}
                                             </div>
                                         ) : null}
                                     </div>

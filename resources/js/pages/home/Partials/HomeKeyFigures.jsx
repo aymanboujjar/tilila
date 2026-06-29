@@ -48,7 +48,8 @@ const PROGRAMS = {
         valueClass: 'text-[#007a94]',
         iconWrap:
             'border-beta-turquoise/25 bg-linear-to-br from-beta-turquoise/20 to-[#0891b2]/10 text-[#007a94]',
-        cardHover: 'hover:border-beta-turquoise/35 hover:shadow-beta-turquoise/15',
+        cardHover:
+            'hover:border-beta-turquoise/35 hover:shadow-beta-turquoise/15',
         ringClass: 'ring-beta-turquoise/20',
     },
 };
@@ -96,7 +97,11 @@ const StatCard = memo(function StatCard({ item, theme }) {
                             : 'text-2xl sm:text-[1.65rem]',
                     )}
                 >
-                    {isCompact ? item.value : <CountUpStat value={item.value} />}
+                    {isCompact ? (
+                        item.value
+                    ) : (
+                        <CountUpStat value={item.value} />
+                    )}
                 </p>
 
                 <p className="mt-1.5 max-w-[11rem] text-[11px] leading-snug font-medium text-tgray sm:text-xs">

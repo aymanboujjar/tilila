@@ -156,7 +156,6 @@ export default function Footer() {
                                     />
                                 </FooterLink>
                             </li>
-
                         </ul>
                     </FooterColumn>
 
@@ -175,7 +174,6 @@ export default function Footer() {
                                 </FooterLink>
                             </li>
                         </ul>
-
                     </FooterColumn>
 
                     {/* <FooterColumn className="col-span-2">

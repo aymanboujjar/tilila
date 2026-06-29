@@ -23,7 +23,7 @@ const HeroCta = memo(function HeroCta({ href, className, children }) {
     return (
         <Link
             href={href}
-            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-5 text-[10px] font-bold tracking-[0.08em] text-twhite uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-5 sm:py-2.5 sm:text-[11px] lg:px-6 lg:py-3 lg:text-sm ${className}`}
+            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-5 text-[10px] font-bold tracking-[0.08em] text-twhite uppercase transition sm:w-auto sm:shrink-0 sm:px-5 sm:py-2.5 sm:text-[11px] sm:whitespace-nowrap lg:px-6 lg:py-3 lg:text-sm ${className}`}
         >
             {children}
             <ArrowRight className="size-4 shrink-0" aria-hidden />
@@ -33,11 +33,9 @@ const HeroCta = memo(function HeroCta({ href, className, children }) {
 
 function HeroVideo() {
     return (
-        <div
-            className="relative overflow-hidden rounded-xl shadow-2xl ring-1 ring-twhite/10 transition hover:ring-twhite/25 sm:rounded-2xl sm:[clip-path:polygon(8%_0,100%_0,100%_100%,0_100%)]"
-        >
+        <div className="relative overflow-hidden rounded-xl shadow-2xl ring-1 ring-twhite/10 transition hover:ring-twhite/25 sm:rounded-2xl sm:[clip-path:polygon(8%_0,100%_0,100%_100%,0_100%)]">
             <video
-                className="aspect-video w-full max-h-[220px] object-cover brightness-[0.88] sm:max-h-[320px] lg:max-h-[400px]"
+                className="aspect-video max-h-[220px] w-full object-cover brightness-[0.88] sm:max-h-[320px] lg:max-h-[400px]"
                 src={HERO_VIDEO}
                 poster={HERO_BACKGROUND}
                 autoPlay
@@ -55,7 +53,7 @@ export default function HomeHero() {
     return (
         <TililaSection
             id="hero"
-            className="relative -mt-[72px] flex min-h-dvh flex-col justify-start overflow-x-hidden pb-12 text-twhite pt-[calc(72px+3.5rem)] sm:justify-center sm:pb-10 sm:pt-[calc(72px+4rem)] lg:pt-[calc(72px+3rem)]"
+            className="relative -mt-[72px] flex min-h-dvh flex-col justify-start overflow-x-hidden pt-[calc(72px+3.5rem)] pb-12 text-twhite sm:justify-center sm:pt-[calc(72px+4rem)] sm:pb-10 lg:pt-[calc(72px+3rem)]"
         >
             <img
                 src={HERO_BACKGROUND}

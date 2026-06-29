@@ -34,10 +34,7 @@ export default function EditionInfiniteMarquee({
         [items, minItems],
     );
 
-    const track = useMemo(
-        () => [...loopItems, ...loopItems],
-        [loopItems],
-    );
+    const track = useMemo(() => [...loopItems, ...loopItems], [loopItems]);
 
     const durationSec = Math.max(26, loopItems.length * durationMultiplier);
 
@@ -51,7 +48,7 @@ export default function EditionInfiniteMarquee({
             aria-label={ariaLabel}
         >
             <div
-                className={`pointer-events-none absolute inset-y-0 start-0 z-10 w-12 bg-linear-to-e ${fadeFrom} to-transparent`}
+                className={`bg-linear-to-e pointer-events-none absolute inset-y-0 start-0 z-10 w-12 ${fadeFrom} to-transparent`}
                 aria-hidden
             />
             <div
@@ -71,7 +68,7 @@ export default function EditionInfiniteMarquee({
             >
                 {track.map((item, index) => (
                     <div
-                        key={`${index}-${typeof item === 'string' ? item : item?.full_name ?? index}`}
+                        key={`${index}-${typeof item === 'string' ? item : (item?.full_name ?? index)}`}
                         className={slideClassName}
                     >
                         {renderItem(item, index % loopItems.length)}

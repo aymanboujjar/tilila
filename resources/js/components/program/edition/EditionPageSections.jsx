@@ -1,9 +1,6 @@
 import { Award, Gavel } from 'lucide-react';
 import TransText from '@/components/TransText';
-import {
-    StaggerItem,
-    StaggerReveal,
-} from '@/components/motion/home-motion';
+import { StaggerItem, StaggerReveal } from '@/components/motion/home-motion';
 import EditionInfiniteMarquee from '@/components/program/edition/EditionInfiniteMarquee';
 import {
     EditionMotionSection,
@@ -51,10 +48,8 @@ function WinnerCard({ winner, locale }) {
     const photoSrc = storageAssetSrc(winner.photo_path);
 
     return (
-        <MotionCard
-            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/50 bg-twhite shadow-[0_4px_24px_rgba(68,25,168,0.08)] lg:flex-row"
-        >
-            <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-alpha-blue/40 sm:aspect-[5/4] lg:aspect-auto lg:w-[42%] lg:min-h-[280px]">
+        <MotionCard className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/50 bg-twhite shadow-[0_4px_24px_rgba(68,25,168,0.08)] lg:flex-row">
+            <div className="relative aspect-[4/5] w-full shrink-0 overflow-hidden bg-alpha-blue/40 sm:aspect-[5/4] lg:aspect-auto lg:min-h-[280px] lg:w-[42%]">
                 {photoSrc ? (
                     <PersonPortrait
                         path={winner.photo_path}
@@ -117,9 +112,7 @@ function WinnerCard({ winner, locale }) {
                 ) : null}
 
                 {!hasCampaign && !hasAgency && bio ? (
-                    <p className="text-sm leading-relaxed text-tgray">
-                        {bio}
-                    </p>
+                    <p className="text-sm leading-relaxed text-tgray">{bio}</p>
                 ) : null}
             </div>
         </MotionCard>
@@ -174,18 +167,12 @@ export function EditionPageWinnersSection({
 }) {
     const heading = (
         <ArchivesSectionHeading
-            kicker={
-                <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
-            }
+            kicker={<TransText en="Winners" fr="Lauréats" ar="الفائزون" />}
             title={
                 isCurrent ? (
                     <TransText en="To be announced" fr="À venir" ar="قريبًا" />
                 ) : (
-                    <TransText
-                        en="Laureates"
-                        fr="Palmarès"
-                        ar="الفائزون"
-                    />
+                    <TransText en="Laureates" fr="Palmarès" ar="الفائزون" />
                 )
             }
         />
@@ -229,9 +216,7 @@ export function EditionPageWinnersSection({
 export function EditionPageJurySection({ jury = [], locale }) {
     const heading = (
         <ArchivesSectionHeading
-            kicker={
-                <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
-            }
+            kicker={<TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />}
             title={
                 <TransText
                     en="Jury members"
@@ -284,18 +269,12 @@ export function EditionPageBootcampSection({ bootcamp, locale }) {
     return (
         <EditionMotionSection id="bootcamp">
             <ArchivesSectionHeading
-                kicker={
-                    <TransText en="Bootcamp" fr="Bootcamp" ar="المعسكر" />
-                }
+                kicker={<TransText en="Bootcamp" fr="Bootcamp" ar="المعسكر" />}
                 title={
-                    <TransText
-                        en="Programme"
-                        fr="Programme"
-                        ar="البرنامج"
-                    />
+                    <TransText en="Programme" fr="Programme" ar="البرنامج" />
                 }
             />
-            <div className="mt-8 -mx-1 sm:mx-0">
+            <div className="-mx-1 mt-8 sm:mx-0">
                 <EditionBootcampSchedule bootcamp={bootcamp} locale={locale} />
             </div>
         </EditionMotionSection>
@@ -309,9 +288,7 @@ export function EditionPageGallerySection({ images = [], galleryTitle }) {
         return (
             <EditionMotionSection id="gallery">
                 <ArchivesSectionHeading
-                    kicker={
-                        <TransText en="Gallery" fr="Galerie" ar="المعرض" />
-                    }
+                    kicker={<TransText en="Gallery" fr="Galerie" ar="المعرض" />}
                     title={
                         <TransText
                             en={galleryTitle.en}
@@ -334,9 +311,7 @@ export function EditionPageGallerySection({ images = [], galleryTitle }) {
     return (
         <EditionMotionSection id="gallery">
             <ArchivesSectionHeading
-                kicker={
-                    <TransText en="Gallery" fr="Galerie" ar="المعرض" />
-                }
+                kicker={<TransText en="Gallery" fr="Galerie" ar="المعرض" />}
                 title={
                     <TransText
                         en={galleryTitle.en}

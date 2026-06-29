@@ -6,7 +6,10 @@ import {
     TililaIconBadge,
     TililaSectionHeading,
 } from '@/pages/user/tilila/partials/TililaUi';
-import { resolveWinnerDisplay, storageAssetSrc } from '@/pages/user/tilila/utils/winnerFields';
+import {
+    resolveWinnerDisplay,
+    storageAssetSrc,
+} from '@/pages/user/tilila/utils/winnerFields';
 
 export function textFor(obj, locale) {
     return obj?.[locale] || obj?.fr || obj?.en || obj?.ar || '';
@@ -75,72 +78,72 @@ export function EditionWinnersSection({
                               resolveWinnerDisplay(w);
 
                           return (
-                          <article
-                              key={i}
-                              className="flex h-full min-h-[200px] flex-col gap-4 rounded-2xl border border-border/60 bg-twhite p-5 shadow-sm"
-                          >
-                              {w.photo_path ? (
-                                  <PersonPhoto
-                                      path={w.photo_path}
-                                      alt={w.full_name}
-                                      className="size-24"
-                                  />
-                              ) : (
-                                  <TililaIconBadge icon={Award} />
-                              )}
-                              <div className="min-w-0 flex-1">
-                                  <p className="text-xs font-bold tracking-wide text-beta-blue uppercase">
-                                      {textFor(w.trophy, locale)}
-                                  </p>
-                                  <p className="mt-1 text-lg font-bold text-tblack">
-                                      {w.full_name}
-                                  </p>
-                                  {textFor(campaign, locale) ? (
-                                      <p className="mt-2 text-sm leading-relaxed text-tgray">
-                                          <span className="font-semibold text-tblack">
-                                              <TransText
-                                                  en="Campaign"
-                                                  fr="Campagne"
-                                                  ar="الحملة"
-                                              />
-                                              {': '}
-                                          </span>
-                                          {textFor(campaign, locale)}
+                              <article
+                                  key={i}
+                                  className="flex h-full min-h-[200px] flex-col gap-4 rounded-2xl border border-border/60 bg-twhite p-5 shadow-sm"
+                              >
+                                  {w.photo_path ? (
+                                      <PersonPhoto
+                                          path={w.photo_path}
+                                          alt={w.full_name}
+                                          className="size-24"
+                                      />
+                                  ) : (
+                                      <TililaIconBadge icon={Award} />
+                                  )}
+                                  <div className="min-w-0 flex-1">
+                                      <p className="text-xs font-bold tracking-wide text-beta-blue uppercase">
+                                          {textFor(w.trophy, locale)}
                                       </p>
-                                  ) : null}
-                                  {textFor(agency, locale) ? (
-                                      <div className="mt-2 flex items-center gap-2">
-                                          {agencyPhoto ? (
-                                              <img
-                                                  src={agencyPhoto}
-                                                  alt=""
-                                                  className="h-8 max-w-[4.5rem] object-contain"
-                                                  loading="lazy"
-                                                  decoding="async"
-                                              />
-                                          ) : null}
-                                          <p className="text-sm leading-relaxed text-tgray">
+                                      <p className="mt-1 text-lg font-bold text-tblack">
+                                          {w.full_name}
+                                      </p>
+                                      {textFor(campaign, locale) ? (
+                                          <p className="mt-2 text-sm leading-relaxed text-tgray">
                                               <span className="font-semibold text-tblack">
                                                   <TransText
-                                                      en="Agency"
-                                                      fr="Agence"
-                                                      ar="الوكالة"
+                                                      en="Campaign"
+                                                      fr="Campagne"
+                                                      ar="الحملة"
                                                   />
                                                   {': '}
                                               </span>
-                                              {textFor(agency, locale)}
+                                              {textFor(campaign, locale)}
                                           </p>
-                                      </div>
-                                  ) : null}
-                                  {!textFor(campaign, locale) &&
-                                  !textFor(agency, locale) &&
-                                  textFor(w.bio, locale) ? (
-                                      <p className="mt-2 text-sm leading-relaxed text-tgray">
-                                          {textFor(w.bio, locale)}
-                                      </p>
-                                  ) : null}
-                              </div>
-                          </article>
+                                      ) : null}
+                                      {textFor(agency, locale) ? (
+                                          <div className="mt-2 flex items-center gap-2">
+                                              {agencyPhoto ? (
+                                                  <img
+                                                      src={agencyPhoto}
+                                                      alt=""
+                                                      className="h-8 max-w-[4.5rem] object-contain"
+                                                      loading="lazy"
+                                                      decoding="async"
+                                                  />
+                                              ) : null}
+                                              <p className="text-sm leading-relaxed text-tgray">
+                                                  <span className="font-semibold text-tblack">
+                                                      <TransText
+                                                          en="Agency"
+                                                          fr="Agence"
+                                                          ar="الوكالة"
+                                                      />
+                                                      {': '}
+                                                  </span>
+                                                  {textFor(agency, locale)}
+                                              </p>
+                                          </div>
+                                      ) : null}
+                                      {!textFor(campaign, locale) &&
+                                      !textFor(agency, locale) &&
+                                      textFor(w.bio, locale) ? (
+                                          <p className="mt-2 text-sm leading-relaxed text-tgray">
+                                              {textFor(w.bio, locale)}
+                                          </p>
+                                      ) : null}
+                                  </div>
+                              </article>
                           );
                       })
                     : historyLines.map((line, i) => (

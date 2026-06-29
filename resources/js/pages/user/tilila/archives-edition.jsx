@@ -17,7 +17,10 @@ import {
     TililaSectionHeading,
     TililaTealText,
 } from '@/pages/user/tilila/partials/TililaUi';
-import { findArchiveEdition, editionWinnerRows } from '@/pages/user/tilila/utils/archiveEditions';
+import {
+    findArchiveEdition,
+    editionWinnerRows,
+} from '@/pages/user/tilila/utils/archiveEditions';
 import {
     ARCHIVE_STAT_KEYS,
     computeEditionStats,
@@ -41,11 +44,7 @@ function EditionPalmarèsSection({ edition, locale }) {
             <section id="winners">
                 <TililaSectionHeading
                     title={
-                        <TransText
-                            en="Palmarès"
-                            fr="Palmarès"
-                            ar="الجوائز"
-                        />
+                        <TransText en="Palmarès" fr="Palmarès" ar="الجوائز" />
                     }
                 />
                 <p className="mt-6 rounded-2xl border border-dashed border-beta-blue/20 bg-beta-white px-6 py-12 text-center text-sm text-tgray">
@@ -62,13 +61,7 @@ function EditionPalmarèsSection({ edition, locale }) {
     return (
         <section id="winners">
             <TililaSectionHeading
-                title={
-                    <TransText
-                        en="Palmarès"
-                        fr="Palmarès"
-                        ar="الجوائز"
-                    />
-                }
+                title={<TransText en="Palmarès" fr="Palmarès" ar="الجوائز" />}
                 subtitle={
                     <TransText
                         en={`Every prize and laureate for the ${edition.year} edition.`}

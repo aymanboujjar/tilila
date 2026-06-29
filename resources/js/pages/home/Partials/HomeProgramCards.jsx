@@ -24,7 +24,7 @@ const HeroCta = memo(function HeroCta({ href, className, children }) {
     return (
         <Link
             href={href}
-            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-3 text-[10px] font-bold tracking-[0.08em] text-twhite uppercase transition sm:w-auto sm:shrink-0 sm:whitespace-nowrap sm:px-5 sm:py-2.5 sm:text-[11px] lg:px-6 lg:py-3 lg:text-sm ${className}`}
+            className={`inline-flex w-full items-center justify-center gap-1.5 rounded-lg px-4 py-3 text-[10px] font-bold tracking-[0.08em] text-twhite uppercase transition sm:w-auto sm:shrink-0 sm:px-5 sm:py-2.5 sm:text-[11px] sm:whitespace-nowrap lg:px-6 lg:py-3 lg:text-sm ${className}`}
         >
             {children}
         </Link>
@@ -98,12 +98,9 @@ const CARDS = [
         subtitleFr:
             'Récompenser les campagnes qui font évoluer les représentations.',
         subtitleAr: 'مكافأة الحملات التي تطور التمثيلات.',
-        bodyEn:
-            'Tilila Awards recognizes advertising campaigns and individuals who contribute to advancing representation and promoting equity, diversity, and inclusion.',
-        bodyFr:
-            "Tilila Awards distingue les campagnes publicitaires et les personnalités qui contribuent à faire évoluer les représentations et à promouvoir l’équité, la diversité et l’inclusion",
-        bodyAr:
-            'تكرّم جوائز تيليلا الحملات الإعلانية والشخصيات التي تساهم في تطوير التمثلات وتعزيز الإنصاف والتنوع والشمول.',
+        bodyEn: 'Tilila Awards recognizes advertising campaigns and individuals who contribute to advancing representation and promoting equity, diversity, and inclusion.',
+        bodyFr: 'Tilila Awards distingue les campagnes publicitaires et les personnalités qui contribuent à faire évoluer les représentations et à promouvoir l’équité, la diversité et l’inclusion',
+        bodyAr: 'تكرّم جوائز تيليلا الحملات الإعلانية والشخصيات التي تساهم في تطوير التمثلات وتعزيز الإنصاف والتنوع والشمول.',
         gradient: 'from-[#6b4a9a] via-[#3d2870] to-[#12081f]',
     },
     {
@@ -116,12 +113,9 @@ const CARDS = [
         subtitleEn: "Reveal tomorrow's committed advertising professionals.",
         subtitleFr: 'Révéler les publicitaires engagés de demain',
         subtitleAr: 'الكشف عن محترفي الإعلانات الملتزمين في المستقبل.',
-        bodyEn:
-            'Tililab is a creative competition designed to train and support young content creators in Morocco.',
-        bodyFr:
-            "Tililab est un concours de création destiné à former et à accompagner les jeunes créateurs et créatrices de contenus au Maroc.",
-        bodyAr:
-            'تيليلاب هي مسابقة إبداعية تهدف إلى تدريب ودعم صنّاع وصانعات المحتوى الشباب في المغرب.',
+        bodyEn: 'Tililab is a creative competition designed to train and support young content creators in Morocco.',
+        bodyFr: 'Tililab est un concours de création destiné à former et à accompagner les jeunes créateurs et créatrices de contenus au Maroc.',
+        bodyAr: 'تيليلاب هي مسابقة إبداعية تهدف إلى تدريب ودعم صنّاع وصانعات المحتوى الشباب في المغرب.',
         gradient: 'from-[#00b5d1] to-[#435b66]',
     },
 ];
@@ -131,9 +125,9 @@ function SectionTitle() {
         <RevealOnScroll className="mb-8 text-center sm:mb-10">
             <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
                 <TransText
-                    en='Transforming perspectives, inspiring change.'
-                fr= 'Transformer les regards, inspirer le changement.'
-                ar= 'تحويل النظرات، تشجيع التغيير.'
+                    en="Transforming perspectives, inspiring change."
+                    fr="Transformer les regards, inspirer le changement."
+                    ar="تحويل النظرات، تشجيع التغيير."
                 />
             </h2>
             <div
@@ -168,17 +162,14 @@ const ProgramCard = memo(function ProgramCard({ card }) {
                     </span>
 
                     <h3
-                        className={`${card.id === 'tilila'
-                                ? '-mt-1.5'
-                                : 'mt-4'
-                            } text-lg font-extrabold tracking-wide text-twhite uppercase sm:text-xl`}
+                        className={`${
+                            card.id === 'tilila' ? '-mt-1.5' : 'mt-4'
+                        } text-lg font-extrabold tracking-wide text-twhite uppercase sm:text-xl`}
                     >
                         {card.title}
                     </h3>
 
-
-
-                    <p className="mt-2 text-sm font-semibold leading-snug text-twhite sm:text-[0.95rem]">
+                    <p className="mt-2 text-sm leading-snug font-semibold text-twhite sm:text-[0.95rem]">
                         <TransText
                             en={card.subtitleEn}
                             fr={card.subtitleFr}
@@ -197,11 +188,7 @@ const ProgramCard = memo(function ProgramCard({ card }) {
                     <span
                         className={`mt-6 inline-flex w-fit items-center justify-center rounded-lg px-5 py-2.5 text-[10px] font-bold tracking-[0.14em] text-twhite uppercase transition sm:text-xs ${card.buttonClass}`}
                     >
-                        <TransText
-                            en="Discover"
-                            fr="Découvrir"
-                            ar="اكتشف"
-                        />
+                        <TransText en="Discover" fr="Découvrir" ar="اكتشف" />
                     </span>
                 </div>
             </Link>

@@ -6,7 +6,7 @@ export default function HeroSection() {
     return (
         <section
             id="overview"
-            className="scroll-mt-28 bg-twhite relative min-h-[320px] sm:min-h-[400px] lg:min-h-[600px] flex items-stretch"
+            className="relative flex min-h-[320px] scroll-mt-28 items-stretch bg-twhite sm:min-h-[400px] lg:min-h-[600px]"
         >
             {/* 
                 Background image, shown clearly, 
@@ -24,10 +24,12 @@ export default function HeroSection() {
                 }}
             />
             {/* Optional subtle gradient on left for text readability */}
-            <div className="absolute inset-0 z-10 bg-gradient-to-r from-twhite/70 via-twhite/20 to-transparent" aria-hidden />
-            
-            <div className="relative z-20 flex flex-col justify-center w-full lg:w-1/2 px-6 py-12 sm:px-10 lg:px-14 lg:py-16 xl:px-20">
-         
+            <div
+                className="absolute inset-0 z-10 bg-gradient-to-r from-twhite/70 via-twhite/20 to-transparent"
+                aria-hidden
+            />
+
+            <div className="relative z-20 flex w-full flex-col justify-center px-6 py-12 sm:px-10 lg:w-1/2 lg:px-14 lg:py-16 xl:px-20">
                 <h1 className="mt-5 text-xl leading-[1.15] font-extrabold tracking-tight text-black uppercase sm:text-2xl lg:text-[1.65rem] xl:text-[1.85rem]">
                     <TransText
                         en="Tilila: SOREAD 2M’s Equity, Diversity and Inclusion programme"

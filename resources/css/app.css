@@ -350,7 +350,8 @@ html {
     }
 
     .partner-marquee-track {
-        animation: partner-marquee-ltr var(--marquee-duration, 36s) linear infinite;
+        animation: partner-marquee-ltr var(--marquee-duration, 36s) linear
+            infinite;
         contain: layout style;
     }
 
@@ -368,7 +369,8 @@ html {
 
     .home-hero2-progress {
         transform-origin: left center;
-        animation: home-hero2-progress var(--autoplay-ms, 7000ms) linear forwards;
+        animation: home-hero2-progress var(--autoplay-ms, 7000ms) linear
+            forwards;
     }
 
     .home-hero2-paused .home-hero2-progress {

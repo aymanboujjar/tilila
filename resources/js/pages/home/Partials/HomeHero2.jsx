@@ -1,21 +1,6 @@
-import {
-    AnimatePresence,
-    motion,
-    useReducedMotion,
-} from 'framer-motion';
-import {
-    ChevronDown,
-    ChevronLeft,
-    ChevronRight,
-    Play,
-} from 'lucide-react';
-import {
-    memo,
-    useCallback,
-    useEffect,
-    useRef,
-    useState,
-} from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { ChevronDown, ChevronLeft, ChevronRight, Play } from 'lucide-react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 import { HOME_EASE } from '@/components/motion/home-motion';
 import TransText from '@/components/TransText';
 import { cn } from '@/lib/utils';
@@ -223,7 +208,7 @@ function CarouselNavButton({ direction, onClick }) {
             onClick={onClick}
             whileHover={{ scale: 1.08, x: direction === 'prev' ? -2 : 2 }}
             whileTap={{ scale: 0.94 }}
-            className="inline-flex size-11 items-center justify-center rounded-full border border-twhite/20 bg-tblack/30 text-twhite opacity-80 shadow-lg backdrop-blur-md transition-opacity duration-300 sm:opacity-0 sm:group-hover/hero:opacity-100 hover:border-brand-light-purple/50 hover:bg-beta-blue/25 sm:size-12"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-twhite/20 bg-tblack/30 text-twhite opacity-80 shadow-lg backdrop-blur-md transition-opacity duration-300 hover:border-brand-light-purple/50 hover:bg-beta-blue/25 sm:size-12 sm:opacity-0 sm:group-hover/hero:opacity-100"
             aria-label={direction === 'prev' ? 'Previous slide' : 'Next slide'}
         >
             <Icon className="size-5 sm:size-6" aria-hidden />
@@ -326,14 +311,7 @@ function HeroMediaCarousel() {
 
         const id = window.setInterval(goNext, activeDuration);
         return () => window.clearInterval(id);
-    }, [
-        slideCount,
-        paused,
-        goNext,
-        reducedMotion,
-        safeIndex,
-        activeDuration,
-    ]);
+    }, [slideCount, paused, goNext, reducedMotion, safeIndex, activeDuration]);
 
     useEffect(() => {
         const onKeyDown = (event) => {
@@ -427,14 +405,20 @@ function HeroMediaCarousel() {
                 {slideCount > 1 ? (
                     <>
                         <div className="absolute start-4 top-1/2 z-20 -translate-y-1/2 sm:start-6 lg:start-10">
-                            <CarouselNavButton direction="prev" onClick={goPrev} />
+                            <CarouselNavButton
+                                direction="prev"
+                                onClick={goPrev}
+                            />
                         </div>
 
                         <div className="absolute end-4 top-1/2 z-20 -translate-y-1/2 sm:end-6 lg:end-10">
-                            <CarouselNavButton direction="next" onClick={goNext} />
+                            <CarouselNavButton
+                                direction="next"
+                                onClick={goNext}
+                            />
                         </div>
 
-                        <div className="absolute inset-x-0 bottom-0 z-20 bg-linear-to-t from-tblack/80 via-tblack/35 to-transparent px-4 pb-6 pt-14 sm:px-8 sm:pb-8">
+                        <div className="absolute inset-x-0 bottom-0 z-20 bg-linear-to-t from-tblack/80 via-tblack/35 to-transparent px-4 pt-14 pb-6 sm:px-8 sm:pb-8">
                             <div className="mx-auto flex w-full max-w-4xl flex-col items-center gap-5">
                                 <ThumbnailStrip
                                     slides={MEDIA_SLIDES}

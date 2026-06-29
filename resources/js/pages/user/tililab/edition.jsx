@@ -22,11 +22,7 @@ export default function TililabEditionDetails() {
                 ceremonyVideoUrl: edition?.ceremony_video_url,
                 bannerSrc: coverSrc,
             }),
-        [
-            edition?.ceremony_video_path,
-            edition?.ceremony_video_url,
-            coverSrc,
-        ],
+        [edition?.ceremony_video_path, edition?.ceremony_video_url, coverSrc],
     );
 
     return (

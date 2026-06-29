@@ -106,7 +106,7 @@ const PrizeMedal = memo(function PrizeMedal({ prize, index }) {
 
                 <div
                     className={cn(
-                        'relative -mt-3 w-full overflow-hidden rounded-b-2xl rounded-t-lg border border-brand-primary/10 bg-twhite px-3 pt-5 pb-4 shadow-md transition group-hover:border-brand-primary/25 group-hover:shadow-lg sm:px-4 sm:pt-6 sm:pb-5',
+                        'relative -mt-3 w-full overflow-hidden rounded-t-lg rounded-b-2xl border border-brand-primary/10 bg-twhite px-3 pt-5 pb-4 shadow-md transition group-hover:border-brand-primary/25 group-hover:shadow-lg sm:px-4 sm:pt-6 sm:pb-5',
                         prize.honorary && 'border-gold/25',
                     )}
                 >
@@ -121,7 +121,8 @@ const PrizeMedal = memo(function PrizeMedal({ prize, index }) {
                     <div
                         className="pointer-events-none absolute -top-px left-1/2 h-3 w-8 -translate-x-1/2 bg-twhite"
                         style={{
-                            clipPath: 'polygon(0 0, 100% 0, 85% 100%, 15% 100%)',
+                            clipPath:
+                                'polygon(0 0, 100% 0, 85% 100%, 15% 100%)',
                         }}
                         aria-hidden
                     />

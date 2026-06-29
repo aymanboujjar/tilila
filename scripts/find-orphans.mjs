@@ -17,12 +17,16 @@ const keepAlways = new Set([
 function walk(dir, files = []) {
     for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
         if (ent.isDirectory()) {
-            if (skipDirs.has(ent.name)) continue;
+            if (skipDirs.has(ent.name)) {
+continue;
+}
+
             walk(path.join(dir, ent.name), files);
         } else if (exts.has(path.extname(ent.name))) {
             files.push(path.join(dir, ent.name).replace(/\\/g, '/'));
         }
     }
+
     return files;
 }
 
@@ -33,8 +37,12 @@ function collectInertiaPages() {
     function walkPhp(dir) {
         for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
             const p = path.join(dir, ent.name);
-            if (ent.isDirectory()) walkPhp(p);
-            else if (ent.name.endsWith('.php')) phpFiles.push(p);
+
+            if (ent.isDirectory()) {
+walkPhp(p);
+} else if (ent.name.endsWith('.php')) {
+phpFiles.push(p);
+}
         }
     }
 
@@ -43,9 +51,11 @@ function collectInertiaPages() {
 
     for (const php of phpFiles) {
         const c = fs.readFileSync(php, 'utf8');
+
         for (const m of c.matchAll(/Inertia::render\(['"]([^'"]+)['"]/g)) {
             addPage(pages, m[1]);
         }
+
         for (const m of c.matchAll(/Route::inertia\([^,]+,\s*['"]([^'"]+)['"]/g)) {
             addPage(pages, m[1]);
         }
@@ -65,6 +75,7 @@ function moduleKeys(file) {
     const rel = file.replace(/^resources\/js\//, '').replace(/\.(jsx?|tsx?)$/, '');
     const base = path.basename(file, path.extname(file));
     const dir = path.dirname(rel);
+
     return { rel, base, dir, keys: [rel, `@/${rel}`, base] };
 }
 
@@ -111,7 +122,10 @@ function isReferenced(targetFile, fromFile, content) {
             `import(\n    () => import('@/${bare}'`,
             `import(\n    () => import("@/${bare}"`,
         ];
-        if (patterns.some((p) => content.includes(p))) return true;
+
+        if (patterns.some((p) => content.includes(p))) {
+return true;
+}
     }
 
     return false;
@@ -124,39 +138,61 @@ const fileContents = new Map(
 );
 
 function isInertiaPage(f) {
-    if (inertiaPages.has(f)) return true;
+    if (inertiaPages.has(f)) {
+return true;
+}
+
     const rel = f
         .replace('resources/js/pages/', '')
         .replace(/\.(jsx|tsx)$/, '')
         .replace(/\/index$/, '');
+
     for (const p of inertiaPages) {
         const pr = p
             .replace('resources/js/pages/', '')
             .replace(/\.(jsx|tsx)$/, '')
             .replace(/\/index$/, '');
-        if (rel === pr) return true;
+
+        if (rel === pr) {
+return true;
+}
     }
+
     return false;
 }
 
 const orphans = [];
 
 for (const f of files) {
-    if (keepAlways.has(f) || isInertiaPage(f)) continue;
-    if (f.includes('/routes/') || f.includes('/actions/') || f.includes('/wayfinder/')) continue;
+    if (keepAlways.has(f) || isInertiaPage(f)) {
+continue;
+}
+
+    if (f.includes('/routes/') || f.includes('/actions/') || f.includes('/wayfinder/')) {
+continue;
+}
 
     let referenced = false;
+
     for (const [other, content] of fileContents) {
-        if (other === f) continue;
+        if (other === f) {
+continue;
+}
+
         if (isReferenced(f, other, content)) {
             referenced = true;
             break;
         }
     }
 
-    if (!referenced) orphans.push(f);
+    if (!referenced) {
+orphans.push(f);
+}
 }
 
 orphans.sort();
 console.log(`ORPHANS: ${orphans.length}`);
-for (const f of orphans) console.log(f);
+
+for (const f of orphans) {
+console.log(f);
+}

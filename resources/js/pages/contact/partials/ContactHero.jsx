@@ -1,5 +1,8 @@
 import TransText from '@/components/TransText';
-import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    HERO_UNDER_NAV,
+    TililaContainer,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const HERO_IMAGE = '/assets/tilila/editions/edition-2025.png';
 
@@ -20,11 +23,7 @@ export default function ContactHero() {
                 <div className="max-w-3xl text-twhite">
                     <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-tight">
                         <span className="inline-block border-b-4 border-beta-turquoise pb-1">
-                            <TransText
-                                fr="Contact"
-                                en="Contact"
-                                ar="تواصل"
-                            />
+                            <TransText fr="Contact" en="Contact" ar="تواصل" />
                         </span>
                     </h1>
                     <p className="mt-5 max-w-2xl text-sm leading-relaxed text-twhite/90 sm:text-base lg:text-[17px]">

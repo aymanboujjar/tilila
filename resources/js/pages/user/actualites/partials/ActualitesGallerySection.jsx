@@ -28,7 +28,10 @@ function GalleryCell({ src, className = '' }) {
 
 export default function ActualitesGallerySection({ images = [] }) {
     const pool = images.length ? images : FALLBACK_GALLERY;
-    const list = Array.from({ length: 5 }, (_, index) => pool[index % pool.length]);
+    const list = Array.from(
+        { length: 5 },
+        (_, index) => pool[index % pool.length],
+    );
 
     return (
         <div className="flex h-full min-h-0 flex-col lg:min-h-[460px]">

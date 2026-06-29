@@ -1,5 +1,8 @@
 import { Play } from 'lucide-react';
-import { archiveImageFitClass, isTrophyFallback } from '@/pages/user/tilila/utils/archivesImageUtils';
+import {
+    archiveImageFitClass,
+    isTrophyFallback,
+} from '@/pages/user/tilila/utils/archivesImageUtils';
 import TililaHorizontalCarousel from '@/pages/user/tilila/partials/TililaHorizontalCarousel';
 
 export function ArchivesPhotoSlide({ src, href, className = '' }) {
@@ -44,10 +47,7 @@ export function ArchivesGallerySlide({ item }) {
             {item.type === 'video' ? (
                 <span className="absolute inset-0 flex items-center justify-center rounded-2xl bg-beta-blue/20">
                     <span className="flex size-11 items-center justify-center rounded-full bg-twhite text-beta-blue shadow-lg">
-                        <Play
-                            className="size-5 fill-beta-blue"
-                            aria-hidden
-                        />
+                        <Play className="size-5 fill-beta-blue" aria-hidden />
                     </span>
                 </span>
             ) : null}

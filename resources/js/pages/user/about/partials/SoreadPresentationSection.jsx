@@ -5,10 +5,7 @@ const SOREAD_IMAGE = '/assets/about/about4.jpg';
 
 export default function SoreadPresentationSection() {
     return (
-        <section
-            id="soread"
-            className="scroll-mt-28 bg-twhite py-14 sm:py-16"
-        >
+        <section id="soread" className="scroll-mt-28 bg-twhite py-14 sm:py-16">
             <TililaContainer>
                 {/* 2-column layout: left (2M, un média citoyen) | right (Tilila : le programme ...) */}
                 <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
@@ -46,7 +43,7 @@ export default function SoreadPresentationSection() {
                             </p>
                         </div>
                     </div>
-                    
+
                     {/* Right: Tilila : le programme Équité, Diversité et Inclusion de 2M */}
                     <div className="flex flex-col justify-center">
                         <div className="rounded-xl border border-border/60 bg-beta-white p-6 sm:p-7">

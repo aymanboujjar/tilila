@@ -62,10 +62,12 @@ function LatestCard({ item, locale }) {
 
             <p className="mt-3 flex items-center gap-1.5 text-[11px] font-semibold text-beta-turquoise">
                 <Calendar className="size-3 shrink-0" aria-hidden />
-                <time dateTime={item.date}>{formatDate(item.date, locale)}</time>
+                <time dateTime={item.date}>
+                    {formatDate(item.date, locale)}
+                </time>
             </p>
 
-            <h3 className="mt-2 flex-1 text-sm font-extrabold leading-snug text-tblack">
+            <h3 className="mt-2 flex-1 text-sm leading-snug font-extrabold text-tblack">
                 {textFor(item.title, locale)}
             </h3>
 
@@ -93,11 +95,7 @@ export default function ActualitesLatestSection({ news = [] }) {
 
                 <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-5">
                     {items.map((item) => (
-                        <LatestCard
-                            key={item.id}
-                            item={item}
-                            locale={locale}
-                        />
+                        <LatestCard key={item.id} item={item} locale={locale} />
                     ))}
                 </div>
 

@@ -122,7 +122,7 @@ export default function About() {
                 />
                 <CommitteeSection />
                 <HistorySection />
-             
+
                 <MembersSection />
             </div>
         </>

@@ -362,9 +362,7 @@ function PersonRow({
                                                 Brand logo (default)
                                             </option>
                                             {coverImagePath ? (
-                                                <option
-                                                    value={coverImagePath}
-                                                >
+                                                <option value={coverImagePath}>
                                                     Edition cover
                                                 </option>
                                             ) : null}
@@ -395,7 +393,8 @@ function PersonRow({
                                 />
                                 <div className="mt-5 border-t border-beta-blue/15 pt-4">
                                     <div className="text-sm font-semibold text-foreground">
-                                        Laureates section video ({categoryLabel})
+                                        Laureates section video ({categoryLabel}
+                                        )
                                     </div>
                                     <p className="mt-1 text-xs text-muted-foreground">
                                         Mini video shown in the gallery frame
@@ -420,8 +419,7 @@ function PersonRow({
                                         onChange={(e) =>
                                             updateRow(idx, {
                                                 video:
-                                                    e.target.files?.[0] ??
-                                                    null,
+                                                    e.target.files?.[0] ?? null,
                                             })
                                         }
                                     />

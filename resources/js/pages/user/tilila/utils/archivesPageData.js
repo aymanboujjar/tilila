@@ -38,4 +38,3 @@ export function computeGlobalStats(editions, locale = 'fr') {
         editions: editions.length,
     };
 }
-

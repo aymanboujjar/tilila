@@ -21,7 +21,9 @@ function InfoRow({ icon: Icon, iconClass, children, href }) {
             >
                 <Icon className="size-4 text-twhite" aria-hidden />
             </span>
-            <div className="pt-1.5 text-sm leading-relaxed text-tgray">{children}</div>
+            <div className="pt-1.5 text-sm leading-relaxed text-tgray">
+                {children}
+            </div>
         </div>
     );
 
@@ -54,7 +56,9 @@ function ProgramCard({
                     <Icon className="size-5" aria-hidden />
                 </span>
                 <div>
-                    <h3 className="text-sm font-extrabold text-tblack">{title}</h3>
+                    <h3 className="text-sm font-extrabold text-tblack">
+                        {title}
+                    </h3>
                     <p className="mt-1.5 text-sm leading-relaxed text-tgray">
                         {description}
                     </p>
@@ -224,7 +228,10 @@ export default function ContactSidebar() {
                                             en="Download"
                                             ar="تحميل"
                                         />
-                                        <Download className="size-3.5" aria-hidden />
+                                        <Download
+                                            className="size-3.5"
+                                            aria-hidden
+                                        />
                                     </span>
                                 </a>
                             </li>

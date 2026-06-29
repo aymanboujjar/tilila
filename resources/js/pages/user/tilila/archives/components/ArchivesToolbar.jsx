@@ -5,7 +5,11 @@ import { useTranslation } from '@/contexts/TranslationContext';
 const PROGRAMS = [
     {
         id: 'tilila',
-        label: { fr: 'Tilila Awards', en: 'Tilila Awards', ar: 'تيليلا أووردز' },
+        label: {
+            fr: 'Tilila Awards',
+            en: 'Tilila Awards',
+            ar: 'تيليلا أووردز',
+        },
         accent: 'bg-beta-blue',
     },
     {

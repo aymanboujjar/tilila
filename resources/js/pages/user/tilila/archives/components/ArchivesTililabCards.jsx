@@ -81,11 +81,7 @@ export default function ArchivesTililabCards({ onNavigate }) {
         <section className="border-t border-border/40 bg-beta-white py-14 sm:py-16">
             <TililaContainer>
                 <p className="text-center text-[11px] font-bold tracking-[0.28em] text-beta-turquoise uppercase">
-                    <TransText
-                        en="Tililab"
-                        fr="Tililab"
-                        ar="تيليلاب"
-                    />
+                    <TransText en="Tililab" fr="Tililab" ar="تيليلاب" />
                 </p>
                 <h2 className="mt-2 text-center text-2xl font-extrabold tracking-tight text-beta-blue sm:text-3xl">
                     <TransText

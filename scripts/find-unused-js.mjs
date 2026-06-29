@@ -17,15 +17,20 @@ const keepAlways = new Set([
 function walk(dir, files = []) {
     for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
         if (ent.isDirectory()) {
-            if (skipDirs.has(ent.name)) continue;
+            if (skipDirs.has(ent.name)) {
+continue;
+}
+
             walk(path.join(dir, ent.name), files);
         } else {
             const ext = path.extname(ent.name);
+
             if (exts.has(ext)) {
                 files.push(path.join(dir, ent.name).replace(/\\/g, '/'));
             }
         }
     }
+
     return files;
 }
 
@@ -36,8 +41,12 @@ function collectInertiaPages() {
     function walkPhp(dir) {
         for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
             const p = path.join(dir, ent.name);
-            if (ent.isDirectory()) walkPhp(p);
-            else if (ent.name.endsWith('.php')) phpFiles.push(p);
+
+            if (ent.isDirectory()) {
+walkPhp(p);
+} else if (ent.name.endsWith('.php')) {
+phpFiles.push(p);
+}
         }
     }
 
@@ -46,6 +55,7 @@ function collectInertiaPages() {
 
     for (const php of phpFiles) {
         const c = fs.readFileSync(php, 'utf8');
+
         for (const m of c.matchAll(/Inertia::render\(['"]([^'"]+)['"]/g)) {
             const name = m[1];
             pages.add(`resources/js/pages/${name}.jsx`);
@@ -53,6 +63,7 @@ function collectInertiaPages() {
             pages.add(`resources/js/pages/${name}/index.jsx`);
             pages.add(`resources/js/pages/${name}/index.tsx`);
         }
+
         for (const m of c.matchAll(/Route::inertia\([^,]+,\s*['"]([^'"]+)['"]/g)) {
             const name = m[1];
             pages.add(`resources/js/pages/${name}.jsx`);
@@ -77,18 +88,26 @@ const inertiaPages = collectInertiaPages();
 const combinedSource = allContent.map((x) => x.c).join('\n');
 
 function isInertiaPage(f) {
-    if (inertiaPages.has(f)) return true;
+    if (inertiaPages.has(f)) {
+return true;
+}
+
     const rel = f
         .replace('resources/js/pages/', '')
         .replace(/\.(jsx|tsx)$/, '')
         .replace(/\/index$/, '');
+
     for (const p of inertiaPages) {
         const pr = p
             .replace('resources/js/pages/', '')
             .replace(/\.(jsx|tsx)$/, '')
             .replace(/\/index$/, '');
-        if (rel === pr) return true;
+
+        if (rel === pr) {
+return true;
+}
     }
+
     return false;
 }
 
@@ -98,13 +117,16 @@ function moduleKeys(file) {
         .replace(/\.(jsx?|tsx?)$/, '');
     const noExt = rel;
     const base = path.basename(file, path.extname(file));
+
     return [noExt, `@/${noExt}`, base];
 }
 
 const unused = [];
 
 for (const { f } of allContent) {
-    if (keepAlways.has(f) || isInertiaPage(f)) continue;
+    if (keepAlways.has(f) || isInertiaPage(f)) {
+continue;
+}
 
     const keys = moduleKeys(f);
     let referenced = false;
@@ -119,9 +141,11 @@ for (const { f } of allContent) {
             `import(\n        '${key}'`,
             `import('@/${key.replace(/^@\//, '')}'`,
         ];
+
         if (key.startsWith('@/')) {
             patterns.push(`from '${key}'`, `from "${key}"`, `import('${key}'`, `import("${key}"`);
         }
+
         const bare = key.replace(/^@\//, '');
         patterns.push(`'@/${bare}'`, `"@/${bare}"`, `'${bare}'`, `"${bare}"`);
 
@@ -131,12 +155,20 @@ for (const { f } of allContent) {
                 break;
             }
         }
-        if (referenced) break;
+
+        if (referenced) {
+break;
+}
     }
 
-    if (!referenced) unused.push(f);
+    if (!referenced) {
+unused.push(f);
+}
 }
 
 unused.sort();
 console.log(`UNUSED COUNT: ${unused.length}`);
-for (const f of unused) console.log(f);
+
+for (const f of unused) {
+console.log(f);
+}
