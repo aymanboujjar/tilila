@@ -295,7 +295,7 @@ export function EditionPageBootcampSection({ bootcamp, locale }) {
                     />
                 }
             />
-            <div className="mt-8">
+            <div className="mt-8 -mx-1 sm:mx-0">
                 <EditionBootcampSchedule bootcamp={bootcamp} locale={locale} />
             </div>
         </EditionMotionSection>
