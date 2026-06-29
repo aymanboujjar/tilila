@@ -12,13 +12,13 @@ import {
     TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
 
-const HEADLINES = [
-    {
-        en: 'Transforming perspectives, inspiring change.',
-        fr: 'Transformer les regards, inspirer le changement.',
-        ar: 'تحويل النظرات، تشجيع التغيير.',
-    },
-];
+// const HEADLINES = [
+//     {
+//         en: 'Transforming perspectives, inspiring change.',
+//         fr: 'Transformer les regards, inspirer le changement.',
+//         ar: 'تحويل النظرات، تشجيع التغيير.',
+//     },
+// ];
 
 const HeroCta = memo(function HeroCta({ href, className, children }) {
     return (
@@ -34,13 +34,13 @@ const HeroCta = memo(function HeroCta({ href, className, children }) {
 function ProgramIntro() {
     return (
         <RevealOnScroll className="mx-auto mb-10 max-w-3xl text-center sm:mb-12">
-            <h2 className="text-xl font-extrabold leading-[1.35] tracking-tight text-beta-blue sm:text-2xl lg:text-[1.75rem]">
+            {/* <h2 className="text-xl font-extrabold leading-[1.35] tracking-tight text-beta-blue sm:text-2xl lg:text-[1.75rem]">
                 {HEADLINES.map((line, index) => (
                     <span key={line.en} className="block">
                         <FadeInText {...line} delay={0.1 + index * 0.1} />
                     </span>
                 ))}
-            </h2>
+            </h2> */}
 
             <div className="mt-5 space-y-4 text-sm leading-relaxed text-tblack/80 sm:text-base">
                 <p>
@@ -58,7 +58,7 @@ function ProgramIntro() {
                     />
                 </p>
             </div>
-{/* 
+            {/* 
             <div className="mt-6 flex flex-col items-center justify-center gap-2.5 sm:flex-row sm:flex-wrap sm:gap-3">
                 <HeroCta
                     href="/tilila"
@@ -91,7 +91,7 @@ const CARDS = [
         href: '/tilila',
         logoSrc: '/assets/tilila/LOGO Tilila Awards-01.png',
         logoClassName:
-            'h-16 w-auto max-w-[12rem] -translate-x-5 sm:h-[4.5rem] sm:max-w-[13.5rem] sm:-translate-x-6',
+            'h-16 w-auto max-w-[12rem] -translate-x-5 sm:h-[8rem] sm:max-w-[13.5rem] sm:-translate-x-20 -mt-5',
         buttonClass: 'bg-brand-light-purple hover:bg-brand-light-purple/90',
         title: 'TILILA AWARDS',
         subtitleEn: 'Reward campaigns that evolve representations.',
@@ -110,7 +110,7 @@ const CARDS = [
         id: 'tililab',
         href: '/tililab',
         logoSrc: '/assets/tililab/tililab-logo.png',
-        logoClassName: 'h-14 w-14 object-contain sm:h-16 sm:w-16',
+        logoClassName: 'h-14 w-14 object-contain sm:h-16 sm:w-16 ',
         buttonClass: 'bg-[#00b8d9] hover:bg-[#00a8c4]',
         title: 'TILILAB',
         subtitleEn: "Reveal tomorrow's committed advertising professionals.",
@@ -131,9 +131,9 @@ function SectionTitle() {
         <RevealOnScroll className="mb-8 text-center sm:mb-10">
             <h2 className="text-xl font-extrabold tracking-[0.12em] text-beta-blue uppercase sm:text-2xl">
                 <TransText
-                    en="Our two competitions"
-                    fr="Nos deux competitions"
-                    ar="مسابقتان"
+                    en='Transforming perspectives, inspiring change.'
+                fr= 'Transformer les regards, inspirer le changement.'
+                ar= 'تحويل النظرات، تشجيع التغيير.'
                 />
             </h2>
             <div
@@ -167,9 +167,16 @@ const ProgramCard = memo(function ProgramCard({ card }) {
                         />
                     </span>
 
-                    <h3 className="mt-4 text-lg font-extrabold tracking-wide text-twhite uppercase sm:text-xl">
+                    <h3
+                        className={`${card.id === 'tilila'
+                                ? '-mt-1.5'
+                                : 'mt-4'
+                            } text-lg font-extrabold tracking-wide text-twhite uppercase sm:text-xl`}
+                    >
                         {card.title}
                     </h3>
+
+
 
                     <p className="mt-2 text-sm font-semibold leading-snug text-twhite sm:text-[0.95rem]">
                         <TransText
