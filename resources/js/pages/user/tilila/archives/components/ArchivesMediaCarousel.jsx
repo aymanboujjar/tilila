@@ -1,14 +1,13 @@
-import { Play } from 'lucide-react';
-import {
-    archiveImageFitClass,
-    isTrophyFallback,
-} from '@/pages/user/tilila/utils/archivesImageUtils';
+import WinnerPosterVideo from '@/pages/user/tilila/archives/components/WinnerPosterVideo';
 import TililaHorizontalCarousel from '@/pages/user/tilila/partials/TililaHorizontalCarousel';
+
+const GALLERY_MEDIA_FRAME =
+    'relative aspect-video w-full overflow-hidden rounded-2xl border border-border/40 shadow-[0_8px_30px_rgba(26,35,126,0.08)]';
 
 export function ArchivesPhotoSlide({ src, href, className = '' }) {
     const content = (
         <div
-            className={`aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-alpha-blue shadow-sm ${className}`}
+            className={`${GALLERY_MEDIA_FRAME} bg-alpha-blue ${className}`}
         >
             <img
                 src={src}
@@ -31,47 +30,63 @@ export function ArchivesPhotoSlide({ src, href, className = '' }) {
     return content;
 }
 
-export function ArchivesGallerySlide({ item }) {
-    const isTrophy = isTrophyFallback(item.src);
-    const fitClass = archiveImageFitClass({ isTrophy });
+function GalleryWinnerLabel({ label }) {
+    if (!label) {
+        return null;
+    }
 
-    const inner = (
-        <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-alpha-blue shadow-sm">
-            <img
-                src={item.src}
-                alt=""
-                className={`h-full w-full transition duration-500 group-hover:scale-[1.02] ${fitClass}`}
-                loading="lazy"
-                decoding="async"
-            />
-            {item.type === 'video' ? (
-                <span className="absolute inset-0 flex items-center justify-center rounded-2xl bg-beta-blue/20">
-                    <span className="flex size-11 items-center justify-center rounded-full bg-twhite text-beta-blue shadow-lg">
-                        <Play className="size-5 fill-beta-blue" aria-hidden />
-                    </span>
-                </span>
-            ) : null}
+    return (
+        <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/45 to-transparent px-3 pt-10 pb-3 text-sm font-extrabold text-twhite">
+            {label}
+        </p>
+    );
+}
+
+function GalleryInlineVideo({ item }) {
+    const isWinner = item.videoKind === 'winner';
+
+    return (
+        <div className="h-full w-full min-w-0">
+            <div className={`${GALLERY_MEDIA_FRAME} bg-[#0a1028]`}>
+                <div className="absolute inset-0">
+                    <WinnerPosterVideo
+                        uploadSrc={item.videoUploadSrc ?? null}
+                        youtubeUrl={
+                            item.videoYoutubeUrl ?? item.videoUrl ?? null
+                        }
+                        posterSrc={item.src}
+                        brand={item.label}
+                    />
+                </div>
+                {isWinner ? <GalleryWinnerLabel label={item.label} /> : null}
+            </div>
         </div>
     );
+}
 
+export function ArchivesGallerySlide({ item }) {
     if (item.type === 'photo') {
         return (
             <a
                 href={item.src}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative block"
+                className="group block h-full w-full min-w-0"
             >
-                {inner}
+                <div className={`${GALLERY_MEDIA_FRAME} bg-alpha-blue`}>
+                    <img
+                        src={item.src}
+                        alt=""
+                        className="h-full w-full object-cover object-center transition duration-500 group-hover:scale-[1.02]"
+                        loading="lazy"
+                        decoding="async"
+                    />
+                </div>
             </a>
         );
     }
 
-    return (
-        <a href={item.detailsUrl} className="group relative block">
-            {inner}
-        </a>
-    );
+    return <GalleryInlineVideo item={item} />;
 }
 
 export default function ArchivesMediaCarousel({

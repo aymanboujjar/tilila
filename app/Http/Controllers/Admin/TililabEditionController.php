@@ -153,6 +153,10 @@ class TililabEditionController extends Controller
             if (is_string($path) && $path !== '') {
                 Storage::disk('public')->delete($path);
             }
+            $videoPath = $row['video_path'] ?? null;
+            if (is_string($videoPath) && $videoPath !== '') {
+                Storage::disk('public')->delete($videoPath);
+            }
         }
         $jury = is_array($edition->jury) ? $edition->jury : [];
         foreach ($jury as $row) {
@@ -203,6 +207,8 @@ class TililabEditionController extends Controller
             'winners.*.bio.fr' => ['nullable', 'string', 'max:800'],
             'winners.*.bio.ar' => ['nullable', 'string', 'max:800'],
             'winners.*.photo_path' => ['nullable', 'string', 'max:500'],
+            'winners.*.video_url' => ['nullable', 'string', 'max:2048'],
+            'winners.*.video_path' => ['nullable', 'string', 'max:500'],
             'jury' => ['nullable', 'array'],
             'jury.*.full_name' => ['nullable', 'string', 'max:255'],
             'jury.*.bio' => ['nullable', 'array'],
@@ -247,6 +253,7 @@ class TililabEditionController extends Controller
             $request->validate([
                 'winners' => ['array'],
                 'winners.*.photo' => ['nullable', 'file', 'image', 'max:10240'],
+                'winners.*.video' => ['nullable', 'file', 'mimetypes:video/mp4,video/webm,video/quicktime,video/x-matroska', 'max:102400'],
             ]);
         }
         if ($request->hasFile('jury')) {
@@ -348,6 +355,7 @@ class TililabEditionController extends Controller
         $files = $request->file($key);
         $files = is_array($files) ? $files : [];
 
+        $keepVideoPaths = [];
         $next = [];
         foreach ($incoming as $idx => $row) {
             if (! is_array($row)) {
@@ -374,11 +382,51 @@ class TililabEditionController extends Controller
                 $photoPath = null;
             }
 
-            $next[] = [
+            $videoUrl = null;
+            $videoPath = null;
+
+            if ($key === 'winners') {
+                $videoUrl = trim((string) ($row['video_url'] ?? ''));
+                if ($videoUrl !== '' && YoutubeVideo::embedUrlFromInput($videoUrl) === null) {
+                    throw ValidationException::withMessages([
+                        "winners.$idx.video_url" => 'Enter a valid YouTube link (watch, live, shorts, youtu.be, or embed).',
+                    ]);
+                }
+
+                $videoFile = null;
+                if (isset($files[$idx]) && is_array($files[$idx]) && ($files[$idx]['video'] ?? null) instanceof UploadedFile) {
+                    $videoFile = $files[$idx]['video'];
+                }
+
+                if ($videoFile instanceof UploadedFile && $videoFile->isValid()) {
+                    $oldVideoPath = is_string($row['video_path'] ?? null)
+                        ? (string) $row['video_path']
+                        : null;
+                    if ($oldVideoPath !== null && $oldVideoPath !== '') {
+                        Storage::disk('public')->delete($oldVideoPath);
+                    }
+                    $videoPath = $videoFile->store('tililab-editions/videos', 'public');
+                } elseif ($this->isAllowedTililabAssetPath($row['video_path'] ?? null)) {
+                    $videoPath = (string) $row['video_path'];
+                }
+
+                if (is_string($videoPath) && $videoPath !== '') {
+                    $keepVideoPaths[] = $videoPath;
+                }
+            }
+
+            $entry = [
                 'full_name' => is_string($row['full_name'] ?? null) ? (string) $row['full_name'] : '',
                 'bio' => array_merge(['en' => '', 'fr' => '', 'ar' => ''], $bio),
                 'photo_path' => $photoPath,
             ];
+
+            if ($key === 'winners') {
+                $entry['video_url'] = $videoUrl === '' ? null : $videoUrl;
+                $entry['video_path'] = $videoPath;
+            }
+
+            $next[] = $entry;
         }
 
         // Cleanup: remove photos that were present before but no longer referenced.
@@ -395,7 +443,32 @@ class TililabEditionController extends Controller
             }
         }
 
+        if ($key === 'winners') {
+            foreach ($existing as $oldRow) {
+                if (! is_array($oldRow)) {
+                    continue;
+                }
+
+                $oldVideoPath = $oldRow['video_path'] ?? null;
+                if (
+                    is_string($oldVideoPath)
+                    && $oldVideoPath !== ''
+                    && ! in_array($oldVideoPath, $keepVideoPaths, true)
+                ) {
+                    Storage::disk('public')->delete($oldVideoPath);
+                }
+            }
+        }
+
         return $next;
+    }
+
+    private function isAllowedTililabAssetPath(mixed $path): bool
+    {
+        return is_string($path)
+            && $path !== ''
+            && ! str_contains($path, '..')
+            && str_starts_with($path, 'tililab-editions/');
     }
 
     /**

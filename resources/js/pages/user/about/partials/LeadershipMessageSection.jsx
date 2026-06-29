@@ -9,6 +9,13 @@ export default function LeadershipMessageSection({
     className = 'bg-beta-white',
     imageSrc,
 }) {
+    // Determine if this is the Directeur Général (director) section by ID
+    // This logic is tied to the ID prop as used in the parent file:
+    // <LeadershipMessageSection id="director" ... />
+    // <LeadershipMessageSection id="president" ... />
+    // If you ever change these IDs upstream, be sure to update here as well!
+    const isDirector = id === 'director';
+
     return (
         <section id={id} className={`scroll-mt-28 py-14 sm:py-16 ${className}`}>
             <TililaContainer>
@@ -19,6 +26,20 @@ export default function LeadershipMessageSection({
                             : 'mx-auto max-w-3xl'
                     }
                 >
+                    {/* For Directeur Général, put text first, image second.
+                        For president, put image first, text second. */}
+                    {imageSrc && !isDirector ? (
+                        // President: image first
+                        <div className="relative min-h-[220px] overflow-hidden sm:min-h-[280px] lg:h-full lg:min-h-0">
+                            <img
+                                src={imageSrc}
+                                alt=""
+                                className="absolute inset-0 h-full w-full object-cover object-top"
+                                loading="lazy"
+                            />
+                        </div>
+                    ) : null}
+
                     <div
                         className={
                             imageSrc
@@ -50,7 +71,8 @@ export default function LeadershipMessageSection({
                         </p>
                     </div>
 
-                    {imageSrc ? (
+                    {imageSrc && isDirector ? (
+                        // Directeur Général: image second
                         <div className="relative min-h-[220px] overflow-hidden sm:min-h-[280px] lg:h-full lg:min-h-0">
                             <img
                                 src={imageSrc}

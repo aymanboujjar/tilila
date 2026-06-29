@@ -22,7 +22,8 @@ function NavLink({ href, children, delay = 0 }) {
 
 export default function EditionPageSectionNav({
     isCurrent,
-    showVideo,
+    showCeremonyVideo = false,
+    showTopHeroVideo = false,
     showBootcamp = false,
 }) {
     const reduced = useReducedMotion();
@@ -45,7 +46,7 @@ export default function EditionPageSectionNav({
             <div className="flex flex-wrap gap-2">
                 {!isCurrent ? (
                     <NavLink href="#winners" delay={nextDelay()}>
-                        <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
+                        <TransText en="Palmarès" fr="Palmarès" ar="الجوائز" />
                     </NavLink>
                 ) : null}
                 <NavLink href="#jury" delay={nextDelay()}>
@@ -59,9 +60,18 @@ export default function EditionPageSectionNav({
                 <NavLink href="#gallery" delay={nextDelay()}>
                     <TransText en="Gallery" fr="Galerie" ar="المعرض" />
                 </NavLink>
-                {showVideo ? (
+                {showTopHeroVideo ? (
                     <NavLink href="#edition-hero" delay={nextDelay()}>
                         <TransText en="Video" fr="Vidéo" ar="فيديو" />
+                    </NavLink>
+                ) : null}
+                {showCeremonyVideo ? (
+                    <NavLink href="#video" delay={nextDelay()}>
+                        <TransText
+                            en="Ceremony"
+                            fr="Cérémonie"
+                            ar="الحفل"
+                        />
                     </NavLink>
                 ) : null}
             </div>

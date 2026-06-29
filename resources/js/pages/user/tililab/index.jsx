@@ -4,6 +4,7 @@ import TililabAdmissionJurySection from '@/pages/user/tililab/partials/TililabAd
 import TililabApplySection from '@/pages/user/tililab/partials/TililabApplySection';
 import TililabHero from '@/pages/user/tililab/partials/TililabHero';
 import TililabKeyDatesSection from '@/pages/user/tililab/partials/TililabKeyDatesSection';
+import TililabArchivesHubSection from '@/pages/user/tililab/partials/TililabArchivesHubSection';
 import TililabPartnersSection from '@/pages/user/tililab/partials/TililabPartnersSection';
 import TililabPrizesSection from '@/pages/user/tililab/partials/TililabPrizesSection';
 import TililabStatsBenefitsSection from '@/pages/user/tililab/partials/TililabStatsBenefitsSection';
@@ -27,6 +28,7 @@ export default function TililabIndex() {
                 <TililabKeyDatesSection />
                 <TililabPrizesSection />
                 <TililabAdmissionJurySection />
+                <TililabArchivesHubSection />
                 <TililabPartnersSection />
                 <TililabApplySection />
             </div>

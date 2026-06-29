@@ -57,6 +57,22 @@ function firstFormError(errors) {
     return flat[0] ?? null;
 }
 
+function FormFaqLink({ embedded = false }) {
+    return (
+        <Link
+            href="/faq#tililab"
+            className={
+                embedded
+                    ? 'inline-flex items-center gap-2 rounded-lg border-2 border-twhite/50 bg-twhite/5 px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-twhite uppercase transition hover:bg-twhite/10'
+                    : 'inline-flex items-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue'
+            }
+        >
+            <TransText en="FAQ" fr="FAQ" ar="الأسئلة الشائعة" />
+            <ArrowRight className="size-4" aria-hidden />
+        </Link>
+    );
+}
+
 function Field({ label, error, children, embedded = false, required = true }) {
     return (
         <label className="block text-sm">
@@ -691,6 +707,7 @@ export default function TililabParticipateForm({ embedded = false }) {
                                     }
                                 />
                             </button>
+                            <FormFaqLink embedded />
                         </div>
                     </>
                 ) : (
@@ -1014,6 +1031,10 @@ function StandardFormFields({
                     <ArrowRight className="size-4" aria-hidden />
                 ) : null}
             </button>
+
+            <div className="flex justify-center pt-2">
+                <FormFaqLink />
+            </div>
         </div>
     );
 }

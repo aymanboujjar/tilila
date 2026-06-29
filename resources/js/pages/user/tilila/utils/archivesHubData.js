@@ -11,6 +11,7 @@ import {
 import {
     resolveShowcaseImage,
     resolveWinnerDisplay,
+    resolveWinnerVideo,
     storageAssetSrc,
 } from '@/pages/user/tilila/utils/winnerFields';
 import { normalizeEdition as normalizeTililabEdition } from '@/pages/user/tililab/utils/editions';
@@ -89,6 +90,7 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
         if (edition.winners?.length) {
             for (const [index, winner] of edition.winners.entries()) {
                 const { agency } = resolveWinnerDisplay(winner);
+                const { uploadSrc, youtubeUrl } = resolveWinnerVideo(winner);
                 const { photoSrc, isLogo, isTrophy, isPortrait } =
                     laureatePhotoMeta(winner, edition, program);
 
@@ -101,6 +103,8 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
                     isLogo,
                     isTrophy,
                     isPortrait,
+                    videoUploadSrc: uploadSrc,
+                    videoYoutubeUrl: youtubeUrl,
                     detailsUrl: `${edition.details_url}#winners`,
                     year: edition.year,
                 });
@@ -152,9 +156,10 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
     return cards;
 }
 
-export function buildGalleryItems(editions, year) {
+export function buildGalleryItems(editions, year, program = 'tilila') {
     const pool = editionsForYear(editions, year);
     const items = [];
+    const fallback = fallbackForProgram(program);
 
     for (const edition of pool) {
         for (const path of edition.gallery_images ?? []) {
@@ -168,15 +173,46 @@ export function buildGalleryItems(editions, year) {
         }
 
         if (edition.ceremony_video_url) {
-            const thumb = edition.cover_image_src || FALLBACK_TILILA;
+            const thumb = edition.cover_image_src || fallback;
             items.push({
-                id: `${edition.id}-video`,
+                id: `${edition.id}-ceremony-video`,
                 type: 'video',
+                videoKind: 'ceremony',
                 videoUrl: edition.ceremony_video_url,
                 src: thumb,
                 year: edition.year,
                 detailsUrl: `${edition.details_url}#video`,
             });
+        }
+
+        if (edition.winners?.length) {
+            for (const [index, winner] of edition.winners.entries()) {
+                const { uploadSrc, youtubeUrl } = resolveWinnerVideo(winner);
+                const videoUrl = uploadSrc || youtubeUrl;
+
+                if (!videoUrl) {
+                    continue;
+                }
+
+                const thumb =
+                    (winner.photo_path
+                        ? storageAssetSrc(winner.photo_path)
+                        : '') ||
+                    resolveShowcaseImage(winner, edition, fallback);
+
+                items.push({
+                    id: `${edition.id}-winner-video-${index}`,
+                    type: 'video',
+                    videoKind: 'winner',
+                    videoUrl,
+                    videoUploadSrc: uploadSrc,
+                    videoYoutubeUrl: youtubeUrl,
+                    src: thumb,
+                    year: edition.year,
+                    detailsUrl: `${edition.details_url}#winners`,
+                    label: winner.full_name || '',
+                });
+            }
         }
     }
 
@@ -186,6 +222,18 @@ export function buildGalleryItems(editions, year) {
 export function filterGalleryItems(items, filter) {
     if (filter === 'photos') {
         return items.filter((i) => i.type === 'photo');
+    }
+
+    if (filter === 'ceremony-videos') {
+        return items.filter(
+            (i) => i.type === 'video' && i.videoKind === 'ceremony',
+        );
+    }
+
+    if (filter === 'winner-videos') {
+        return items.filter(
+            (i) => i.type === 'video' && i.videoKind === 'winner',
+        );
     }
 
     if (filter === 'videos') {
@@ -217,10 +265,22 @@ export function buildBootcampArchiveItems(editions, year) {
         .sort((a, b) => Number(b.year) - Number(a.year));
 }
 
-export function hubEditionCta(editions, year) {
+export function hubEditionCta(editions, year, program = 'tilila') {
     const edition = primaryEdition(editions, year);
 
-    return edition?.details_url ?? '/tilila/archives';
+    if (edition?.details_url) {
+        return edition.details_url;
+    }
+
+    return program === 'tililab'
+        ? '/tilila/archives?program=tililab'
+        : '/tilila/archives';
+}
+
+export function hubArchivesUrl(program = 'tilila') {
+    return program === 'tililab'
+        ? '/tilila/archives?program=tililab'
+        : '/tilila/archives';
 }
 
 export function hubEditionLabel(editions, year, locale) {

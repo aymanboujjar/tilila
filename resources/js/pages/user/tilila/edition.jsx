@@ -3,13 +3,11 @@ import { useMemo } from 'react';
 
 import ProgramEditionPage from '@/components/program/edition/ProgramEditionPage';
 import AppLayout from '@/layouts/app-layout';
-import { useYoutubeAvailability } from '@/hooks/useYoutubeAvailability';
 import { resolveTililaHeroMedia } from '@/lib/editionHeroMedia';
 import { coverImageSrc } from '@/pages/user/tilila/utils/editions';
 
 export default function TililaEditionDetails() {
     const { edition } = usePage().props;
-    const ceremonyVideo = useYoutubeAvailability(edition?.ceremony_video_url);
 
     const coverSrc = coverImageSrc(
         edition?.cover_image_path,
@@ -19,12 +17,10 @@ export default function TililaEditionDetails() {
     const heroMedia = useMemo(
         () =>
             resolveTililaHeroMedia({
-                ceremonyVideoUrl: ceremonyVideo.available
-                    ? edition?.ceremony_video_url
-                    : null,
+                ceremonyVideoUrl: null,
                 bannerSrc: coverSrc,
             }),
-        [ceremonyVideo.available, edition?.ceremony_video_url, coverSrc],
+        [coverSrc],
     );
 
     return (
@@ -34,7 +30,7 @@ export default function TililaEditionDetails() {
             heroMedia={heroMedia}
             coverSrc={coverSrc}
             pageTitle={`${edition?.year ?? ''} — Tilila Awards`}
-            showCeremonyVideoCheck
+            ceremonyVideoAtEnd
         />
     );
 }

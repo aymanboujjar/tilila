@@ -75,7 +75,7 @@ function FaqColumn({ program, items, cta }) {
         : 'border-beta-turquoise text-beta-turquoise hover:bg-beta-turquoise hover:text-twhite';
 
     return (
-        <div className="flex h-full flex-col">
+        <div className="flex h-full flex-col" id={isTilila ? undefined : 'tililab'}>
             <div className="flex items-start gap-4">
                 <div
                     className={`flex size-12 shrink-0 items-center justify-center rounded-full ${iconBg} text-twhite`}

@@ -109,7 +109,7 @@ function useFilePreview(file) {
     return url;
 }
 
-function PersonRow({ peopleKey, idx, person, updateRow, removeRow }) {
+function PersonRow({ peopleKey, idx, person, updateRow, removeRow, showVideo = false }) {
     const existingSrc = person?.photo_path
         ? `/storage/${person.photo_path}`
         : '';
@@ -185,6 +185,47 @@ function PersonRow({ peopleKey, idx, person, updateRow, removeRow }) {
                     placeholderBase="Short bio"
                 />
             </div>
+
+            {showVideo ? (
+                <div className="mt-5 border-t border-border/60 pt-4">
+                    <div className="text-sm font-semibold text-foreground">
+                        Project video
+                    </div>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                        Winner project video for archives and edition page.
+                        YouTube link or MP4/WebM/MOV upload.
+                    </p>
+                    <Input
+                        className="mt-3"
+                        type="url"
+                        value={person?.video_url ?? ''}
+                        onChange={(e) =>
+                            updateRow(idx, { video_url: e.target.value })
+                        }
+                        placeholder="https://www.youtube.com/watch?v=…"
+                    />
+                    <input
+                        type="file"
+                        accept="video/mp4,video/webm,video/quicktime,video/x-matroska"
+                        className="mt-3 block w-full text-sm"
+                        onChange={(e) =>
+                            updateRow(idx, {
+                                video: e.target.files?.[0] ?? null,
+                            })
+                        }
+                    />
+                    {person?.video_path ? (
+                        <p className="mt-2 truncate text-xs text-muted-foreground">
+                            Saved file: {person.video_path}
+                        </p>
+                    ) : null}
+                    <input
+                        type="hidden"
+                        value={person?.video_path ?? ''}
+                        readOnly
+                    />
+                </div>
+            ) : null}
         </div>
     );
 }
@@ -200,6 +241,9 @@ function PeopleSection({ title, peopleKey, data, setData }) {
                 bio: { en: '', fr: '', ar: '' },
                 photo: null,
                 photo_path: null,
+                ...(peopleKey === 'winners'
+                    ? { video: null, video_path: null, video_url: '' }
+                    : {}),
             },
         ]);
     };
@@ -246,6 +290,7 @@ function PeopleSection({ title, peopleKey, data, setData }) {
                             person={p}
                             updateRow={updateRow}
                             removeRow={removeRow}
+                            showVideo={peopleKey === 'winners'}
                         />
                     ))}
                 </div>

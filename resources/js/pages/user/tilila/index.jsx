@@ -13,6 +13,9 @@ const TililaPrizesSection = lazy(
 const TililaLaureatesSection = lazy(
     () => import('@/pages/user/tilila/partials/TililaLaureatesSection'),
 );
+const TililaArchivesHubSection = lazy(
+    () => import('@/pages/user/tilila/partials/TililaArchivesHubSection'),
+);
 const TililaAdmissionJurySection = lazy(
     () => import('@/pages/user/tilila/partials/TililaAdmissionJurySection'),
 );
@@ -51,6 +54,8 @@ export default function TililaIndex() {
                     <TililaPrizesSection />
                 </Suspense>
 
+               
+
                 {/* <Suspense fallback={<SectionFallback className="min-h-[420px]" />}>
                     <TililaLaureatesSection />
                 </Suspense> */}
@@ -63,7 +68,11 @@ export default function TililaIndex() {
                         hasCurrentEdition={Boolean(currentEdition)}
                     />
                 </Suspense>
-
+                <Suspense
+                    fallback={<SectionFallback className="min-h-[720px]" />}
+                >
+                    <TililaArchivesHubSection />
+                </Suspense>
                 <Suspense
                     fallback={<SectionFallback className="min-h-[280px]" />}
                 >

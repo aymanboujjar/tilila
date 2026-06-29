@@ -61,9 +61,9 @@ export default function TililaArchives() {
     );
 
     const galleryItems = useMemo(() => {
-        const all = buildGalleryItems(activeEditions, year);
+        const all = buildGalleryItems(activeEditions, year, program);
         return filterGalleryItems(all, galleryFilter);
-    }, [activeEditions, year, galleryFilter]);
+    }, [activeEditions, year, galleryFilter, program]);
 
     const bootcampItems = useMemo(
         () =>
@@ -83,7 +83,7 @@ export default function TililaArchives() {
         [activeEditions, locale],
     );
 
-    const detailsUrl = hubEditionCta(activeEditions, year);
+    const detailsUrl = hubEditionCta(activeEditions, year, program);
 
     const handleSidebarNav = (
         sectionId,
@@ -99,11 +99,13 @@ export default function TililaArchives() {
         } else if (sectionId === 'photos') {
             setGalleryFilter('photos');
         } else if (sectionId === 'videos') {
-            setGalleryFilter('videos');
+            setGalleryFilter('ceremony-videos');
+        } else if (sectionId === 'winner-videos') {
+            setGalleryFilter('winner-videos');
         } else if (sectionId === 'bootcamp') {
             setGalleryFilter('photos');
         } else if (sectionId === 'projets') {
-            setGalleryFilter('videos');
+            setGalleryFilter('winner-videos');
         }
 
         const map = {
@@ -149,7 +151,7 @@ export default function TililaArchives() {
                     />
 
                     <TililaContainer className="py-10 sm:py-14">
-                        <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-12">
+                        <div className="grid gap-10 xl:grid-cols-1 xl:gap-12">
                             <div className="min-w-0 space-y-8">
                                 <section className="rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(68,25,168,0.06)] sm:p-8">
                                     <ArchivesLaureatsSection
@@ -192,10 +194,10 @@ export default function TililaArchives() {
                                 </section>
                             </div>
 
-                            <ArchivesSidebar
+                            {/* <ArchivesSidebar
                                 program={program}
                                 onNavigate={handleSidebarNav}
-                            />
+                            /> */}
                         </div>
                     </TililaContainer>
                 </div>
