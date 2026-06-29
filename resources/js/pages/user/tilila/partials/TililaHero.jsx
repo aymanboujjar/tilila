@@ -27,14 +27,24 @@ export default function TililaHero() {
                 aria-hidden
             />
 
-            <TililaContainer className="relative z-10 w-full py-9 sm:py-11">
+            <TililaContainer className="relative z-10 w-full py-9 sm:py-10">
                 <div
                     className="home-hero-copy w-full min-w-0 max-w-2xl"
                     id="candidature"
                 >
-                    <p className="text-xs font-bold tracking-[0.24em] text-twhite/80 uppercase">
-                        Tilila Awards
-                    </p>
+                    <div className="mb-1 flex items-center gap-0">
+                        <img
+                            src="/assets/tilila/LOGO Tilila Awards-01.png"
+                            alt=""
+                            className="-ms-14 h-[5.25rem] w-auto max-w-[13rem] shrink-0 object-contain object-left brightness-0 invert sm:-ms-19 sm:h-28 sm:max-w-[18rem]"
+                            draggable={false}
+                            loading="eager"
+                            fetchPriority="high"
+                        />
+                        <p className="-ms-10 text-sm font-bold tracking-[0.22em] text-twhite/90 uppercase sm:-ms-15 sm:text-base">
+                            Tilila Awards
+                        </p>
+                    </div>
                     <h1 className="mt-3 text-2xl leading-[1.25] font-extrabold tracking-tight text-twhite sm:text-3xl lg:text-[1.85rem]">
                         <TransText
                             en="Rewarding campaigns that transform perceptions and reshape representations."

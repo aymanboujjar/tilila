@@ -362,6 +362,28 @@ html {
         animation-play-state: paused;
     }
 
+    .home-hero2-grain {
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .home-hero2-progress {
+        transform-origin: left center;
+        animation: home-hero2-progress var(--autoplay-ms, 7000ms) linear forwards;
+    }
+
+    .home-hero2-paused .home-hero2-progress {
+        animation-play-state: paused;
+    }
+
+    @keyframes home-hero2-progress {
+        from {
+            transform: scaleX(0);
+        }
+        to {
+            transform: scaleX(1);
+        }
+    }
+
     @media (prefers-reduced-motion: reduce) {
         .home-hero-bg,
         .home-hero-copy,
@@ -373,6 +395,11 @@ html {
         .partner-marquee-track {
             animation: none;
             transform: none;
+        }
+
+        .home-hero2-progress {
+            animation: none;
+            transform: scaleX(1);
         }
     }
 }

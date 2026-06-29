@@ -1,6 +1,6 @@
 import { Head } from '@inertiajs/react';
 import { lazy, Suspense } from 'react';
-import HomeHero from '@/pages/home/Partials/HomeHero';
+import HomeHero2 from '@/pages/home/Partials/HomeHero2';
 import AppLayout from '@/layouts/app-layout';
 import { useTranslation } from '@/contexts/TranslationContext';
 
@@ -23,7 +23,7 @@ export default function HomeIndex() {
         <>
             <Head title={t('home.headTitle')} />
 
-            <HomeHero />
+            <HomeHero2 />
 
             <Suspense fallback={<SectionFallback className="min-h-[320px]" />}>
                 <HomeProgramCards />

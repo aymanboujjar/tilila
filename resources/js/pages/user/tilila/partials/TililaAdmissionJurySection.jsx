@@ -24,7 +24,7 @@ const MEDIA_CHANNELS = [
     { Icon: Tv, labelFr: 'TV', labelEn: 'TV', labelAr: 'تلفزيون' },
     { Icon: Monitor, labelFr: 'Digital', labelEn: 'Digital', labelAr: 'رقمي' },
     // { Icon: Radio, labelFr: 'Radio', labelEn: 'Radio', labelAr: 'إذاعة' },
-    { Icon: Newspaper, labelFr: 'Presse', labelEn: 'Press', labelAr: 'صحافة' },
+    // { Icon: Newspaper, labelFr: 'Presse', labelEn: 'Press', labelAr: 'صحافة' },
     {
         Icon: Smartphone,
         labelFr: 'Affichage',
