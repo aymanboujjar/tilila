@@ -7,13 +7,42 @@ import { cn } from '@/lib/utils';
 
 const IMAGE_AUTOPLAY_MS = 5500;
 const VIDEO_AUTOPLAY_MS = 16000;
-const HERO_POSTER = '/assets/homehero.jpg';
+const HERO_POSTER = '/assets/home/slide-1.jpeg';
 const HERO_VIDEO = '/assets/Cérémonie Tilila 2025.mp4';
 
-const SLIDE_TRANSITION = {
-    duration: 0.9,
-    ease: HOME_EASE,
-};
+const HOME_HERO_IMAGES = [
+    {
+        id: 'home-slide-1',
+        file: 'slide-1.jpeg',
+        alt: 'Tilila programme highlight 1',
+    },
+    // {
+    //     id: 'home-slide-2',
+    //     file: 'slide-2.jpeg',
+    //     alt: 'Tilila programme highlight 2',
+    // },
+    {
+        id: 'home-slide-3',
+        file: 'slide-3.jpeg',
+        alt: 'Tilila programme highlight 3',
+    },
+    {
+        id: 'home-slide-4',
+        file: 'slide-4.jpeg',
+        alt: 'Tilila programme highlight 4',
+    },
+].map(({ id, file, alt }) => {
+    const src = `/assets/home/${file}`;
+    return {
+        id,
+        type: 'image',
+        src,
+        alt,
+        thumb: src,
+        fit: 'cover',
+        durationMs: IMAGE_AUTOPLAY_MS,
+    };
+});
 
 const MEDIA_SLIDES = [
     {
@@ -26,34 +55,13 @@ const MEDIA_SLIDES = [
         durationMs: VIDEO_AUTOPLAY_MS,
         isPrimary: true,
     },
-    {
-        id: 'ceremony-photo',
-        type: 'image',
-        src: HERO_POSTER,
-        alt: 'Tilila Awards ceremony',
-        thumb: HERO_POSTER,
-        fit: 'cover',
-        durationMs: IMAGE_AUTOPLAY_MS,
-    },
-    {
-        id: 'edition-2025',
-        type: 'image',
-        src: '/assets/tilila/editions/edition-2025.png',
-        alt: 'Tilila Awards 2025',
-        thumb: '/assets/tilila/editions/edition-2025.png',
-        fit: 'contain',
-        durationMs: IMAGE_AUTOPLAY_MS,
-    },
-    {
-        id: 'hero-edition',
-        type: 'image',
-        src: '/assets/tilila/hero-7eme-edition.png',
-        alt: '7ème édition Tilila Awards',
-        thumb: '/assets/tilila/hero-7eme-edition.png',
-        fit: 'contain',
-        durationMs: IMAGE_AUTOPLAY_MS,
-    },
+    ...HOME_HERO_IMAGES,
 ];
+
+const SLIDE_TRANSITION = {
+    duration: 0.9,
+    ease: HOME_EASE,
+};
 
 const slideVariants = {
     enter: (direction) => ({
