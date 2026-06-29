@@ -61,9 +61,9 @@ export default function TililaArchives() {
     );
 
     const galleryItems = useMemo(() => {
-        const all = buildGalleryItems(activeEditions, year);
+        const all = buildGalleryItems(activeEditions, year, program);
         return filterGalleryItems(all, galleryFilter);
-    }, [activeEditions, year, galleryFilter]);
+    }, [activeEditions, year, galleryFilter, program]);
 
     const bootcampItems = useMemo(
         () =>
@@ -83,7 +83,7 @@ export default function TililaArchives() {
         [activeEditions, locale],
     );
 
-    const detailsUrl = hubEditionCta(activeEditions, year);
+    const detailsUrl = hubEditionCta(activeEditions, year, program);
 
     const handleSidebarNav = (
         sectionId,
@@ -105,7 +105,7 @@ export default function TililaArchives() {
         } else if (sectionId === 'bootcamp') {
             setGalleryFilter('photos');
         } else if (sectionId === 'projets') {
-            setGalleryFilter('videos');
+            setGalleryFilter('winner-videos');
         }
 
         const map = {

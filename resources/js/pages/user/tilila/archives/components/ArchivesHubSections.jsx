@@ -1,6 +1,7 @@
 import { Link } from '@inertiajs/react';
 import { ArrowRight } from 'lucide-react';
 import ArchivesLaureateCard from '@/pages/user/tilila/archives/components/ArchivesLaureateCard';
+import ArchivesLaureateVideoCard from '@/pages/user/tilila/archives/components/ArchivesLaureateVideoCard';
 import ArchivesSectionHeading from '@/pages/user/tilila/archives/components/ArchivesSectionHeading';
 import ArchivesMediaCarousel, {
     ArchivesGallerySlide,
@@ -29,6 +30,17 @@ export function ArchivesLaureatsSection({ cards, year, program, detailsUrl }) {
     }
 
     const useCarousel = cards.length > 4;
+    const useTililabVideoCards = program === 'tililab';
+    const LaureateCard = useTililabVideoCards
+        ? ArchivesLaureateVideoCard
+        : ArchivesLaureateCard;
+
+    const tililabGridClass =
+        cards.length === 1
+            ? 'mx-auto mt-8 max-w-3xl'
+            : cards.length === 2
+              ? 'mt-8 grid gap-6 sm:grid-cols-2'
+              : 'mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3';
 
     return (
         <section id="laureats" className="scroll-mt-32">
@@ -37,17 +49,31 @@ export function ArchivesLaureatsSection({ cards, year, program, detailsUrl }) {
                 title={title}
             />
 
-            {useCarousel ? (
+            {useTililabVideoCards && !useCarousel ? (
+                <div className={tililabGridClass}>
+                    {cards.map((card) => (
+                        <LaureateCard
+                            key={card.id}
+                            card={card}
+                            showYear={showYear}
+                        />
+                    ))}
+                </div>
+            ) : useCarousel ? (
                 <div className="mt-8">
                     <ArchivesMediaCarousel
                         ariaLabel="Laureates"
                         visibleCount={VISIBLE_LAUREATS}
                         showFade={cards.length > VISIBLE_LAUREATS}
-                        slideClassName="w-[calc((100%-3rem)/4)] min-w-[11rem] shrink-0 snap-start sm:min-w-[12.5rem]"
+                        slideClassName={
+                            useTililabVideoCards
+                                ? 'w-[min(100%,420px)] shrink-0 snap-start sm:w-[48%] lg:w-[32%]'
+                                : 'w-[calc((100%-3rem)/4)] min-w-[11rem] shrink-0 snap-start sm:min-w-[12.5rem]'
+                        }
                         trackGapClassName="gap-4"
                     >
                         {cards.map((card) => (
-                            <ArchivesLaureateCard
+                            <LaureateCard
                                 key={card.id}
                                 card={card}
                                 showYear={showYear}
@@ -56,9 +82,15 @@ export function ArchivesLaureatsSection({ cards, year, program, detailsUrl }) {
                     </ArchivesMediaCarousel>
                 </div>
             ) : (
-                <div className="mt-8 grid auto-rows-fr items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <div
+                    className={
+                        useTililabVideoCards
+                            ? 'mt-8 grid auto-rows-fr items-stretch gap-6 sm:grid-cols-2'
+                            : 'mt-8 grid auto-rows-fr items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4'
+                    }
+                >
                     {cards.map((card) => (
-                        <ArchivesLaureateCard
+                        <LaureateCard
                             key={card.id}
                             card={card}
                             showYear={showYear}
@@ -157,7 +189,7 @@ export function ArchivesGallerySection({
                             ))}
                         </ArchivesMediaCarousel>
                     ) : (
-                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="grid auto-rows-fr grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                             {items.map((item) => (
                                 <ArchivesGallerySlide
                                     key={item.id}

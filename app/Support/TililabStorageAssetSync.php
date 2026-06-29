@@ -28,8 +28,10 @@ class TililabStorageAssetSync
 
         $gallery = $this->galleryImages($year);
         $winnerPhotos = $this->winnerPhotoMap($year);
+        $winnerVideos = $this->winnerVideoMap($year);
         $winners = is_array($edition->winners) ? $edition->winners : [];
         $winners = $this->applyWinnerPhotos($winners, $winnerPhotos);
+        $winners = $this->applyWinnerVideos($winners, $winnerVideos);
 
         $edition->winners = $winners;
         $edition->gallery_images = $gallery;
@@ -68,11 +70,28 @@ class TililabStorageAssetSync
         return $map;
     }
 
+    /** @return array<string, string> */
+    private function winnerVideoMap(string $year): array
+    {
+        $map = [];
+
+        foreach ($this->filesIn("videos/{$year}") as $path) {
+            $slug = Str::slug(pathinfo($path, PATHINFO_FILENAME));
+            if ($slug !== '') {
+                $map[$slug] = $path;
+            }
+        }
+
+        return $map;
+    }
+
     /** @var array<string, list<string>> */
     private const WINNER_PHOTO_ALIASES = [
         'zakaria-jaouhari' => ['zakaria', 'jouhari'],
         'aymen' => ['aymane', 'oulmadou'],
         'photo-winner' => ['coupinates', 'creators'],
+        '4-coupinates' => ['coupinates'],
+        '5-creators' => ['creators'],
         'yassine' => ['yassine', 'fataoui'],
         'mohammed' => ['mohamed', 'bekkali', 'mohammed'],
     ];
@@ -102,6 +121,67 @@ class TililabStorageAssetSync
             if (isset($photoMap['photo-winner'])) {
                 $winner['photo_path'] = $photoMap['photo-winner'];
             }
+
+            return $winner;
+        }, $winners);
+    }
+
+    /**
+     * @param  list<array<string, mixed>>  $winners
+     * @param  array<string, string>  $videoMap
+     * @return list<array<string, mixed>>
+     */
+    private function applyWinnerVideos(array $winners, array $videoMap): array
+    {
+        if ($winners === [] || $videoMap === []) {
+            return $winners;
+        }
+
+        $winners = array_map(function (array $winner) use ($videoMap): array {
+            if (! empty($winner['video_path'])) {
+                return $winner;
+            }
+
+            $slug = Str::slug((string) ($winner['full_name'] ?? ''));
+
+            foreach ($videoMap as $fileSlug => $path) {
+                if ($this->winnerMatchesPhotoSlug($slug, $fileSlug)) {
+                    $winner['video_path'] = $path;
+
+                    return $winner;
+                }
+            }
+
+            return $winner;
+        }, $winners);
+
+        $spotPath = null;
+        foreach ($videoMap as $fileSlug => $path) {
+            if (str_contains($fileSlug, 'spot') && str_contains($fileSlug, 'winner')) {
+                $spotPath = $path;
+                break;
+            }
+        }
+
+        if ($spotPath === null) {
+            return $winners;
+        }
+
+        $withoutVideo = array_values(array_filter(
+            $winners,
+            fn (array $winner): bool => empty($winner['video_path']),
+        ));
+
+        if (count($withoutVideo) !== 1) {
+            return $winners;
+        }
+
+        return array_map(function (array $winner) use ($spotPath): array {
+            if (! empty($winner['video_path'])) {
+                return $winner;
+            }
+
+            $winner['video_path'] = $spotPath;
 
             return $winner;
         }, $winners);
