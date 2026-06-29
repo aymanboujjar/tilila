@@ -24,6 +24,13 @@ export default function TililabApplySection() {
 
             <TililaContainer className="relative z-10">
                 <div className="text-center">
+                    <img
+                        src="/assets/tililab/tililab-logo.png"
+                        alt="Tililab"
+                        className="mx-auto mb-5 h-12 w-auto sm:h-14"
+                        loading="lazy"
+                        decoding="async"
+                    />
                     <h2 className="text-xl font-extrabold tracking-[0.14em] text-twhite uppercase sm:text-2xl">
                         <TransText
                             en="Submit application"

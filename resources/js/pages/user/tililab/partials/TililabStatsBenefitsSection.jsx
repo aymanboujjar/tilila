@@ -49,6 +49,13 @@ export default function TililabStatsBenefitsSection() {
         <TililaSection id="why-participate" className="bg-twhite">
             <TililaContainer>
                 <div className="text-center">
+                    <img
+                        src="/assets/tililab/tililab-logo.png"
+                        alt="Tililab logo"
+                        className="mx-auto mb-6 h-16 w-auto"
+                        loading="lazy"
+                    />
+              
                     <h2 className="text-xl font-extrabold tracking-[0.12em] text-tililab-slate uppercase sm:text-2xl">
                         <TransText
                             en="Why participate?"

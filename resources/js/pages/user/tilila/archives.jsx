@@ -151,7 +151,7 @@ export default function TililaArchives() {
                     />
 
                     <TililaContainer className="py-10 sm:py-14">
-                        <div className="grid gap-10 xl:grid-cols-[minmax(0,1fr)_280px] xl:gap-12">
+                        <div className="grid gap-10 xl:grid-cols-1 xl:gap-12">
                             <div className="min-w-0 space-y-8">
                                 <section className="rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(68,25,168,0.06)] sm:p-8">
                                     <ArchivesLaureatsSection
@@ -194,10 +194,10 @@ export default function TililaArchives() {
                                 </section>
                             </div>
 
-                            <ArchivesSidebar
+                            {/* <ArchivesSidebar
                                 program={program}
                                 onNavigate={handleSidebarNav}
-                            />
+                            /> */}
                         </div>
                     </TililaContainer>
                 </div>

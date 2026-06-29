@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowRight, Clapperboard, Eye } from 'lucide-react';
+import { ArrowRight, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     HERO_UNDER_NAV,
@@ -35,18 +35,16 @@ export default function TililabHero() {
                     className="home-hero-copy w-full max-w-2xl min-w-0 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)]"
                     id="candidature"
                 >
-                    <span className="inline-flex size-10 items-center justify-center rounded-full border border-twhite/35 bg-twhite/10 text-twhite">
-                        <Clapperboard
-                            className="size-5"
-                            strokeWidth={1.75}
-                            aria-hidden
-                        />
-                    </span>
+                    <img
+                        src="/assets/tililab/tililab-logo.png"
+                        alt="Tililab"
+                        className="h-12 w-auto sm:h-14"
+                        width={160}
+                        height={56}
+                        decoding="async"
+                    />
 
-                    <p className="mt-4 text-xs font-bold tracking-[0.24em] text-twhite/80 uppercase">
-                        Tililab
-                    </p>
-                    <h1 className="mt-3 text-2xl leading-[1.25] font-extrabold tracking-tight text-twhite sm:text-3xl lg:text-[1.85rem]">
+                    <h1 className="mt-4 text-2xl leading-[1.25] font-extrabold tracking-tight text-twhite sm:mt-5 sm:text-3xl lg:text-[1.85rem]">
                         <TransText
                             en="Discovering and empowering the committed advertising professionals of tomorrow."
                             fr="Révéler les publicitaires engagés de demain"

@@ -246,7 +246,7 @@ export default function TililaAdmissionJurySection({
                             <Mail className="size-4" aria-hidden />
                             contact@tilila.org
                         </a> */}
-                        <div className="mt-8">
+                        <div className="mt-8 flex flex-wrap gap-3">
                             <Link
                                 href="/contact"
                                 className="inline-flex items-center gap-2 rounded-lg bg-beta-turquoise px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-twhite uppercase transition hover:brightness-110"
@@ -256,6 +256,13 @@ export default function TililaAdmissionJurySection({
                                     fr="Nous contacter"
                                     ar="تواصل معنا"
                                 />
+                                <ArrowRight className="size-4" aria-hidden />
+                            </Link>
+                            <Link
+                                href="/faq"
+                                className="inline-flex items-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue"
+                            >
+                                <TransText en="FAQ" fr="FAQ" ar="الأسئلة الشائعة" />
                                 <ArrowRight className="size-4" aria-hidden />
                             </Link>
                         </div>
