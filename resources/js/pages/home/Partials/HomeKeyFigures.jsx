@@ -187,10 +187,10 @@ function ProgramStatsPanel({ programKey }) {
 function SectionHeading() {
     return (
         <RevealOnScroll className="mx-auto max-w-2xl text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-beta-blue/15 bg-alpha-blue/60 px-3 py-1 text-[10px] font-bold tracking-[0.14em] text-beta-blue uppercase">
+            {/* <span className="inline-flex items-center gap-1.5 rounded-full border border-beta-blue/15 bg-alpha-blue/60 px-3 py-1 text-[10px] font-bold tracking-[0.14em] text-beta-blue uppercase">
                 <Sparkles className="size-3.5" aria-hidden />
                 <TransText en="Impact" fr="Impact" ar="الأثر" />
-            </span>
+            </span> */}
 
             <h2 className="mt-4 text-2xl font-extrabold tracking-tight text-tblack sm:text-3xl">
                 <TransText
@@ -202,9 +202,9 @@ function SectionHeading() {
 
             <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
                 <TransText
-                    en="Two programs, one mission, and a tangible impact in support of Equity, Diversity, and Inclusion."
-                    fr="Deux programmes,une	mission	et un impact concret en	faveur	de	l’Equité, la Diversité et l’Inclusion."
-                    ar="برنامجان، ورسالة واحدة، وأثر ملموس من أجل تعزيز الإنصاف والتنوع والشمول."
+                    en=" one mission, and a tangible impact in support of Equity, Diversity, and Inclusion."
+                    fr="une	mission	et un impact concret en	faveur	de	l’Equité, la Diversité et l’Inclusion."
+                    ar=" رسالة واحدة، وأثر ملموس من أجل تعزيز الإنصاف والتنوع والشمول."
                 />
             </p>
 
