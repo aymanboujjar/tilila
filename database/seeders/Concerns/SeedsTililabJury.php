@@ -64,12 +64,6 @@ trait SeedsTililabJury
             $name = (string) ($member['full_name'] ?? '');
             $key = $this->normalizeJuryName($name);
 
-            if ($key !== '' && isset($existingByYear[$year][$key])) {
-                $member['photo_path'] = $existingByYear[$year][$key];
-
-                return $member;
-            }
-
             if ($key !== '' && isset($yearBatch[$name])) {
                 $member['photo_path'] = $yearBatch[$name];
 
@@ -79,8 +73,15 @@ trait SeedsTililabJury
             foreach ($yearBatch as $batchName => $path) {
                 if ($this->normalizeJuryName($batchName) === $key) {
                     $member['photo_path'] = $path;
-                    break;
+
+                    return $member;
                 }
+            }
+
+            if ($key !== '' && isset($existingByYear[$year][$key])) {
+                $member['photo_path'] = $existingByYear[$year][$key];
+
+                return $member;
             }
 
             return $member;
