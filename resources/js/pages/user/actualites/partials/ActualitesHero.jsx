@@ -1,5 +1,8 @@
 import TransText from '@/components/TransText';
-import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    HERO_UNDER_NAV,
+    TililaContainer,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const HERO_IMAGE = '/assets/tilila/hero-7eme-edition.png';
 

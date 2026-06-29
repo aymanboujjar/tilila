@@ -76,9 +76,7 @@ const PartnerLogoCell = memo(function PartnerLogoCell({
             alt={`${partner.name} logo`}
             className={cn(
                 'max-w-full object-contain opacity-90 transition duration-300 group-hover:opacity-100',
-                compact
-                    ? 'max-h-10 sm:max-h-12'
-                    : 'max-h-14 sm:max-h-16',
+                compact ? 'max-h-10 sm:max-h-12' : 'max-h-14 sm:max-h-16',
             )}
             loading="lazy"
             decoding="async"
@@ -99,7 +97,9 @@ const PartnerLogoCell = memo(function PartnerLogoCell({
 
     const cellClass = cn(
         'group grid h-full w-full place-items-center border-border/50 bg-twhite p-4 transition duration-300 hover:bg-alpha-blue/25 sm:p-5',
-        compact ? 'min-h-[5.5rem] sm:min-h-[6rem]' : 'min-h-[7rem] sm:min-h-[8rem]',
+        compact
+            ? 'min-h-[5.5rem] sm:min-h-[6rem]'
+            : 'min-h-[7rem] sm:min-h-[8rem]',
         className,
     );
 
@@ -152,7 +152,7 @@ const PartnerMarquee = memo(function PartnerMarquee({
             aria-label={ariaLabel}
         >
             <div
-                className="pointer-events-none absolute inset-y-0 start-0 z-10 w-10 bg-linear-to-e from-twhite to-transparent"
+                className="bg-linear-to-e pointer-events-none absolute inset-y-0 start-0 z-10 w-10 from-twhite to-transparent"
                 aria-hidden
             />
             <div
@@ -225,13 +225,13 @@ function PartnerTier({
                         <p className="text-[10px] font-bold tracking-[0.2em] text-twhite/70 uppercase">
                             {count}
                         </p>
-                        <h3 className="mt-2 text-sm font-extrabold leading-tight tracking-[0.08em] text-twhite uppercase sm:text-base">
+                        <h3 className="mt-2 text-sm leading-tight font-extrabold tracking-[0.08em] text-twhite uppercase sm:text-base">
                             {label}
                         </h3>
                     </div>
                 </div>
 
-                <div className="overflow-hidden border-t border-border/50 lg:border-t-0 lg:border-s lg:border-border/50">
+                <div className="overflow-hidden border-t border-border/50 lg:border-s lg:border-t-0 lg:border-border/50">
                     {partners.length > 0 ? (
                         <PartnerMarquee
                             partners={partners}
@@ -259,11 +259,7 @@ function SectionIntro({ description, showCta }) {
                     />
                 </p> */}
                 <h2 className="mt-2 text-2xl font-extrabold tracking-tight text-tblack sm:text-3xl lg:text-[2rem]">
-                    <TransText
-                        en="Partners"
-                        fr="Partenaires"
-                        ar="الشركاء"
-                    />
+                    <TransText en="Partners" fr="Partenaires" ar="الشركاء" />
                 </h2>
                 {/* <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
                     {description}
@@ -349,11 +345,7 @@ export default function PartnersMarqueeSection({
                             // count={mediaCount}
                             marqueeLabel="Media partners"
                             label={
-                                <TransText
-                                    en="Media"
-                                    fr="Médias"
-                                    ar="إعلام"
-                                />
+                                <TransText en="Media" fr="Médias" ar="إعلام" />
                             }
                             partners={media}
                             compact

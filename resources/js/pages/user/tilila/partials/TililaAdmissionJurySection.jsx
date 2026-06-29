@@ -14,7 +14,10 @@ import {
 } from 'lucide-react';
 import TransText from '@/components/TransText';
 import { storagePhotoSrc } from '@/pages/user/tilila/partials/EditionDetailContent';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const TililaJuryMembersModal = lazy(
     () => import('@/pages/user/tilila/partials/TililaJuryMembersModal'),
@@ -101,7 +104,11 @@ export default function TililaAdmissionJurySection({
                 <div className="grid gap-12 lg:grid-cols-3 lg:gap-10 xl:gap-14">
                     <article>
                         <ColumnIcon className="bg-alpha-blue text-beta-turquoise">
-                            <Trophy className="size-7" strokeWidth={1.5} aria-hidden />
+                            <Trophy
+                                className="size-7"
+                                strokeWidth={1.5}
+                                aria-hidden
+                            />
                         </ColumnIcon>
                         <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-turquoise uppercase sm:text-base">
                             <TransText
@@ -167,7 +174,11 @@ export default function TililaAdmissionJurySection({
 
                     <article id="jury" className="scroll-mt-28">
                         <ColumnIcon className="bg-beta-blue/10 text-beta-blue">
-                            <Award className="size-7" strokeWidth={1.5} aria-hidden />
+                            <Award
+                                className="size-7"
+                                strokeWidth={1.5}
+                                aria-hidden
+                            />
                         </ColumnIcon>
                         <h3 className="mt-5 text-sm font-extrabold tracking-wide text-beta-blue uppercase sm:text-base">
                             <TransText
@@ -184,7 +195,6 @@ export default function TililaAdmissionJurySection({
                                     ar="تتكون لجنة تحكيم تيليلا أووردز من شخصيات معروفة من الإعلام والتواصل والإبداع والمؤسسات والبحث والمجتمع المدني. تقيّم الترشحات بناءً على الجودة الإبداعية والملاءمة والأثر والمساهمة في قيم المساواة والتنوع والإدماج."
                                 />
                             </p>
-                       
                         </div>
 
                         <JuryPreview members={members} />

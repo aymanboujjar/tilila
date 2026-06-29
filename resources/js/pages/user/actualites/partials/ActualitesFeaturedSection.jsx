@@ -69,7 +69,7 @@ function FeaturedCard({ item, locale }) {
                     </time>
                 </p>
 
-                <h3 className="mt-2 text-base font-extrabold leading-snug text-tblack sm:text-lg">
+                <h3 className="mt-2 text-base leading-snug font-extrabold text-tblack sm:text-lg">
                     <Link
                         href={item.href}
                         className="transition hover:text-beta-blue"

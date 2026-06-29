@@ -72,14 +72,22 @@ export default function ContactFormSection() {
         post('/contact', {
             preserveScroll: true,
             onSuccess: () =>
-                reset('name', 'organization', 'email', 'phone', 'subject', 'message', 'consent'),
+                reset(
+                    'name',
+                    'organization',
+                    'email',
+                    'phone',
+                    'subject',
+                    'message',
+                    'consent',
+                ),
         });
     };
 
     return (
         <div
             id="contact-form"
-            className="scroll-mt-28 flex h-full min-h-full w-full flex-col rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(26,35,126,0.06)] sm:p-8 lg:p-10"
+            className="flex h-full min-h-full w-full scroll-mt-28 flex-col rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(26,35,126,0.06)] sm:p-8 lg:p-10"
         >
             <ContactSectionHeading>
                 <TransText
@@ -117,7 +125,9 @@ export default function ContactFormSection() {
                             required
                         />
                         {errors.name ? (
-                            <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+                            <p className="mt-1 text-xs text-red-600">
+                                {errors.name}
+                            </p>
                         ) : null}
                     </label>
 
@@ -166,17 +176,15 @@ export default function ContactFormSection() {
                             required
                         />
                         {errors.email ? (
-                            <p className="mt-1 text-xs text-red-600">{errors.email}</p>
+                            <p className="mt-1 text-xs text-red-600">
+                                {errors.email}
+                            </p>
                         ) : null}
                     </label>
 
                     <label className="block text-sm">
                         <span className="font-semibold text-tblack">
-                            <TransText
-                                fr="Téléphone"
-                                en="Phone"
-                                ar="الهاتف"
-                            />
+                            <TransText fr="Téléphone" en="Phone" ar="الهاتف" />
                         </span>
                         <input
                             type="tel"
@@ -219,7 +227,9 @@ export default function ContactFormSection() {
                         ))}
                     </select>
                     {errors.subject ? (
-                        <p className="mt-1 text-xs text-red-600">{errors.subject}</p>
+                        <p className="mt-1 text-xs text-red-600">
+                            {errors.subject}
+                        </p>
                     ) : null}
                 </label>
 
@@ -242,49 +252,53 @@ export default function ContactFormSection() {
                         required
                     />
                     {errors.message ? (
-                        <p className="mt-1 text-xs text-red-600">{errors.message}</p>
+                        <p className="mt-1 text-xs text-red-600">
+                            {errors.message}
+                        </p>
                     ) : null}
                 </label>
 
                 <div className="mt-auto shrink-0 space-y-4 pt-2">
-                <label className="flex items-start gap-3 text-sm leading-relaxed text-tgray">
-                    <input
-                        type="checkbox"
-                        checked={data.consent}
-                        onChange={(e) => setData('consent', e.target.checked)}
-                        className="mt-1 size-4 rounded border-border text-beta-blue focus:ring-beta-blue/30"
-                        required
-                    />
-                    <span>
-                        <TransText
-                            fr="J'accepte que les informations communiquées soient utilisées pour le traitement de ma demande."
-                            en="I agree that the information provided may be used to process my request."
-                            ar="أوافق على استخدام المعلومات المقدمة لمعالجة طلبي."
+                    <label className="flex items-start gap-3 text-sm leading-relaxed text-tgray">
+                        <input
+                            type="checkbox"
+                            checked={data.consent}
+                            onChange={(e) =>
+                                setData('consent', e.target.checked)
+                            }
+                            className="mt-1 size-4 rounded border-border text-beta-blue focus:ring-beta-blue/30"
+                            required
                         />
-                    </span>
-                </label>
-                {errors.consent ? (
-                    <p className="text-xs text-red-600">{errors.consent}</p>
-                ) : null}
+                        <span>
+                            <TransText
+                                fr="J'accepte que les informations communiquées soient utilisées pour le traitement de ma demande."
+                                en="I agree that the information provided may be used to process my request."
+                                ar="أوافق على استخدام المعلومات المقدمة لمعالجة طلبي."
+                            />
+                        </span>
+                    </label>
+                    {errors.consent ? (
+                        <p className="text-xs text-red-600">{errors.consent}</p>
+                    ) : null}
 
-                {flash?.success ? (
-                    <p className="text-sm font-semibold text-beta-turquoise">
-                        {flash.success}
-                    </p>
-                ) : null}
+                    {flash?.success ? (
+                        <p className="text-sm font-semibold text-beta-turquoise">
+                            {flash.success}
+                        </p>
+                    ) : null}
 
-                <button
-                    type="submit"
-                    disabled={processing}
-                    className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-beta-blue px-6 py-3.5 text-xs font-extrabold tracking-[0.14em] text-twhite uppercase transition hover:bg-brand-light-purple disabled:opacity-60"
-                >
-                    <TransText
-                        fr="Envoyer mon message"
-                        en="Send my message"
-                        ar="إرسال رسالتي"
-                    />
-                    <Send className="size-4" aria-hidden />
-                </button>
+                    <button
+                        type="submit"
+                        disabled={processing}
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-beta-blue px-6 py-3.5 text-xs font-extrabold tracking-[0.14em] text-twhite uppercase transition hover:bg-brand-light-purple disabled:opacity-60"
+                    >
+                        <TransText
+                            fr="Envoyer mon message"
+                            en="Send my message"
+                            ar="إرسال رسالتي"
+                        />
+                        <Send className="size-4" aria-hidden />
+                    </button>
                 </div>
             </form>
         </div>

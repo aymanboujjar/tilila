@@ -64,9 +64,7 @@ function SessionRow({ session, locale, isLast }) {
                 )}
             </div>
 
-            <div
-                className={`min-w-0 flex-1 pb-6 ${isLast ? 'pb-0' : ''}`}
-            >
+            <div className={`min-w-0 flex-1 pb-6 ${isLast ? 'pb-0' : ''}`}>
                 <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                     {kindLabel ? (
                         <span className="text-[10px] font-bold tracking-wide text-tililab-cyan uppercase">
@@ -119,7 +117,10 @@ function JuryNote({ jury }) {
                 <TransText en="Jury" fr="Jury" ar="لجنة التحكيم" />
                 {': '}
             </span>
-            {jury.map((m) => m.name).filter(Boolean).join(' · ')}
+            {jury
+                .map((m) => m.name)
+                .filter(Boolean)
+                .join(' · ')}
         </p>
     );
 }
@@ -267,12 +268,9 @@ export default function TililabBootcampProgramme({
         ? bootcamp.masters_of_ceremony
         : [];
 
-    const activeDay =
-        activeKey !== 'pre' ? days[Number(activeKey)] : null;
+    const activeDay = activeKey !== 'pre' ? days[Number(activeKey)] : null;
     const activeLabel =
-        activeKey === 'pre'
-            ? null
-            : textFor(activeDay?.label, locale);
+        activeKey === 'pre' ? null : textFor(activeDay?.label, locale);
 
     const metaParts = [
         dates ? { icon: Calendar, text: dates } : null,

@@ -11,7 +11,11 @@ export default function FaqContactCta() {
                 <div className="overflow-hidden rounded-2xl bg-[#120a2e] px-6 py-10 sm:px-10 sm:py-12 lg:flex lg:items-center lg:justify-between lg:gap-10">
                     <div className="flex shrink-0 items-center justify-center lg:justify-start">
                         <div className="flex size-14 items-center justify-center rounded-full bg-twhite text-beta-blue">
-                            <Mail className="size-6" strokeWidth={1.5} aria-hidden />
+                            <Mail
+                                className="size-6"
+                                strokeWidth={1.5}
+                                aria-hidden
+                            />
                         </div>
                     </div>
 

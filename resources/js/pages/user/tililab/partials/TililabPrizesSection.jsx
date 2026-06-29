@@ -1,7 +1,10 @@
 import { Download, Gem, Megaphone, Target, Trophy, Users } from 'lucide-react';
 import { Link } from '@inertiajs/react';
 import TransText from '@/components/TransText';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const LAUREATES_IMG = '/assets/tililab/tililab1.jpg';
 
@@ -94,7 +97,7 @@ export default function TililabPrizesSection() {
                         </Link> */}
                     </div>
 
-                    <div className="mx-auto w-full min-w-0 max-w-md overflow-hidden rounded-xl shadow-[0_12px_40px_rgba(26,35,126,0.12)] lg:mx-0 lg:max-w-none">
+                    <div className="mx-auto w-full max-w-md min-w-0 overflow-hidden rounded-xl shadow-[0_12px_40px_rgba(26,35,126,0.12)] lg:mx-0 lg:max-w-none">
                         <img
                             src={LAUREATES_IMG}
                             alt=""

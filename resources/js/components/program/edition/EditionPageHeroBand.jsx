@@ -69,7 +69,10 @@ export default function EditionPageHeroBand({
                 <>
                     <motion.div
                         className="pointer-events-none absolute -end-20 top-1/4 size-64 rounded-full bg-beta-turquoise/20 blur-3xl"
-                        animate={{ opacity: [0.35, 0.65, 0.35], scale: [1, 1.15, 1] }}
+                        animate={{
+                            opacity: [0.35, 0.65, 0.35],
+                            scale: [1, 1.15, 1],
+                        }}
                         transition={{
                             duration: 8,
                             repeat: Infinity,
@@ -88,7 +91,7 @@ export default function EditionPageHeroBand({
                 </>
             ) : null}
 
-            <TililaContainer className="relative flex min-h-[inherit] flex-col justify-end pb-12 pt-8 sm:pb-14 lg:pb-16">
+            <TililaContainer className="relative flex min-h-[inherit] flex-col justify-end pt-8 pb-12 sm:pb-14 lg:pb-16">
                 <motion.div
                     initial={reduced ? false : 'hidden'}
                     animate="visible"

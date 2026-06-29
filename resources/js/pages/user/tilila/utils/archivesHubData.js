@@ -65,9 +65,7 @@ function fallbackForProgram(program) {
 
 function laureatePhotoMeta(winner, edition, program) {
     const fallback = fallbackForProgram(program);
-    const brandPhoto = winner
-        ? storageAssetSrc(winner.photo_path)
-        : '';
+    const brandPhoto = winner ? storageAssetSrc(winner.photo_path) : '';
     const showcase = winner
         ? resolveShowcaseImage(winner, edition, fallback)
         : edition.cover_image_src || fallback;
@@ -77,8 +75,7 @@ function laureatePhotoMeta(winner, edition, program) {
         Boolean(winner?.photo_path) &&
         Boolean(brandPhoto);
     const isLogo =
-        !isTililabPortrait &&
-        isLogoLikeArchiveImage(photoSrc, brandPhoto);
+        !isTililabPortrait && isLogoLikeArchiveImage(photoSrc, brandPhoto);
     const isTrophy = isTrophyFallback(photoSrc);
 
     return { photoSrc, isLogo, isTrophy, isPortrait: isTililabPortrait };
@@ -91,12 +88,9 @@ export function buildLaureatCards(editions, year, locale, program = 'tilila') {
     for (const edition of pool) {
         if (edition.winners?.length) {
             for (const [index, winner] of edition.winners.entries()) {
-                const { campaign, agency } = resolveWinnerDisplay(winner);
-                const { photoSrc, isLogo, isTrophy, isPortrait } = laureatePhotoMeta(
-                    winner,
-                    edition,
-                    program,
-                );
+                const { agency } = resolveWinnerDisplay(winner);
+                const { photoSrc, isLogo, isTrophy, isPortrait } =
+                    laureatePhotoMeta(winner, edition, program);
 
                 cards.push({
                     id: `${edition.id}-laureat-${index}`,
@@ -174,8 +168,7 @@ export function buildGalleryItems(editions, year) {
         }
 
         if (edition.ceremony_video_url) {
-            const thumb =
-                edition.cover_image_src || FALLBACK_TILILA;
+            const thumb = edition.cover_image_src || FALLBACK_TILILA;
             items.push({
                 id: `${edition.id}-video`,
                 type: 'video',
@@ -212,7 +205,10 @@ export function buildBootcampArchiveItems(editions, year) {
     const pool = editionsForYear(editions, year);
 
     return pool
-        .filter((edition) => edition.bootcamp && typeof edition.bootcamp === 'object')
+        .filter(
+            (edition) =>
+                edition.bootcamp && typeof edition.bootcamp === 'object',
+        )
         .map((edition) => ({
             year: edition.year,
             bootcamp: edition.bootcamp,

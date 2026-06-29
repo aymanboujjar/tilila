@@ -20,9 +20,13 @@ function FaqAccordion({ items, accent = 'purple', defaultOpen = 0 }) {
     const accentText =
         accent === 'turquoise' ? 'text-beta-turquoise' : 'text-beta-blue';
     const accentBorder =
-        accent === 'turquoise' ? 'border-beta-turquoise/30' : 'border-beta-blue/20';
+        accent === 'turquoise'
+            ? 'border-beta-turquoise/30'
+            : 'border-beta-blue/20';
     const accentHover =
-        accent === 'turquoise' ? 'hover:text-beta-turquoise' : 'hover:text-beta-blue';
+        accent === 'turquoise'
+            ? 'hover:text-beta-turquoise'
+            : 'hover:text-beta-blue';
 
     return (
         <div className="space-y-0 divide-y divide-border/50 border-y border-border/50">
@@ -33,14 +37,12 @@ function FaqAccordion({ items, accent = 'purple', defaultOpen = 0 }) {
                     <div key={item.id} className="py-1">
                         <button
                             type="button"
-                            onClick={() =>
-                                setOpenId(isOpen ? null : item.id)
-                            }
+                            onClick={() => setOpenId(isOpen ? null : item.id)}
                             className={`flex w-full items-start justify-between gap-4 py-4 text-start transition ${accentHover}`}
                             aria-expanded={isOpen}
                         >
                             <span
-                                className={`text-sm font-extrabold leading-snug sm:text-[15px] ${isOpen ? accentText : 'text-tblack'}`}
+                                className={`text-sm leading-snug font-extrabold sm:text-[15px] ${isOpen ? accentText : 'text-tblack'}`}
                             >
                                 {textFor(item.q, locale)}
                             </span>
@@ -115,11 +117,7 @@ function FaqColumn({ program, items, cta }) {
                 href={cta.href}
                 className={`mt-8 inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 bg-twhite px-5 py-3.5 text-xs font-extrabold tracking-[0.1em] uppercase transition sm:text-sm ${ctaClass}`}
             >
-                <TransText
-                    fr={cta.fr}
-                    en={cta.en}
-                    ar={cta.ar}
-                />
+                <TransText fr={cta.fr} en={cta.en} ar={cta.ar} />
                 <ExternalLink className="size-4" aria-hidden />
             </Link>
         </div>

@@ -9,7 +9,11 @@ export default function ContactHelpCta() {
                 <div className="overflow-hidden rounded-2xl bg-linear-to-r from-[#2e1861] to-[#1a1045] px-6 py-10 sm:px-10 sm:py-12 lg:flex lg:items-center lg:justify-between lg:gap-10">
                     <div className="flex shrink-0 justify-center lg:justify-start">
                         <div className="flex size-16 items-center justify-center rounded-full border-2 border-twhite/30 bg-transparent text-twhite">
-                            <Mail className="size-7" strokeWidth={1.5} aria-hidden />
+                            <Mail
+                                className="size-7"
+                                strokeWidth={1.5}
+                                aria-hidden
+                            />
                         </div>
                     </div>
 

@@ -51,16 +51,10 @@ export default function MembersSection() {
         member[locale] || member.fr || member.en || member.ar || '';
 
     return (
-        <section
-            id="members"
-            className="scroll-mt-28 bg-twhite py-14 sm:py-16"
-        >
+        <section id="members" className="scroll-mt-28 bg-twhite py-14 sm:py-16">
             <TililaContainer>
                 <div className="mx-auto max-w-6xl">
-                    <div
-                        className="mb-4 h-1 w-10 bg-beta-blue"
-                        aria-hidden
-                    />
+                    <div className="mb-4 h-1 w-10 bg-beta-blue" aria-hidden />
                     <h2 className="text-xl font-extrabold tracking-tight text-[#1a237e] uppercase sm:text-[1.35rem]">
                         <TransText
                             en="Our members"

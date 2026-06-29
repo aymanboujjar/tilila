@@ -28,7 +28,9 @@ export default function ActualitesIndex({ news = [], galleryImages = [] }) {
                     <TililaContainer>
                         <div className="grid gap-10 lg:min-h-[520px] lg:grid-cols-[minmax(0,1.65fr)_minmax(0,1fr)] lg:items-stretch lg:gap-12">
                             <div className="flex h-full min-h-0 flex-col">
-                                <ActualitesGallerySection images={galleryImages} />
+                                <ActualitesGallerySection
+                                    images={galleryImages}
+                                />
                             </div>
                             <div className="flex h-full min-h-0 self-stretch">
                                 <ActualitesNewsletterCard />

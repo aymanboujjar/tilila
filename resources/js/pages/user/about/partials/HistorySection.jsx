@@ -6,7 +6,7 @@ function HistoryMilestoneVertical({ item, isLast }) {
     return (
         <li className={`relative pb-8 ${isLast ? 'pb-0' : ''}`}>
             <span
-                className="absolute top-1.5 -start-[calc(2rem+5px)] size-3 rounded-full bg-beta-blue ring-4 ring-beta-white"
+                className="absolute -start-[calc(2rem+5px)] top-1.5 size-3 rounded-full bg-beta-blue ring-4 ring-beta-white"
                 aria-hidden
             />
             <p className="text-sm font-extrabold text-beta-blue">{item.year}</p>

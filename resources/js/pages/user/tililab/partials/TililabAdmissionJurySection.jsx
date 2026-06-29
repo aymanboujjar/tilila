@@ -6,7 +6,10 @@ import {
     UserCheck,
 } from 'lucide-react';
 import TransText from '@/components/TransText';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const CONDITIONS = [
     {

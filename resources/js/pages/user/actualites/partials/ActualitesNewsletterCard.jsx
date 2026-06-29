@@ -37,15 +37,11 @@ export default function ActualitesNewsletterCard() {
                 </div>
 
                 <ActualitesSectionHeading accent="turquoise">
-                    <TransText
-                        fr="Newsletter"
-                        en="Newsletter"
-                        ar="النشرة"
-                    />
+                    <TransText fr="Newsletter" en="Newsletter" ar="النشرة" />
                 </ActualitesSectionHeading>
 
                 <div className="space-y-3 lg:space-y-4">
-                    <h3 className="text-lg font-extrabold leading-tight text-tblack lg:text-xl">
+                    <h3 className="text-lg leading-tight font-extrabold text-tblack lg:text-xl">
                         <TransText
                             fr="Restez informés"
                             en="Stay informed"
@@ -59,8 +55,14 @@ export default function ActualitesNewsletterCard() {
                 </div>
             </div>
 
-            <form onSubmit={submit} className="mt-6 flex flex-col gap-4 lg:mt-8">
-                <label htmlFor="actualites-newsletter-email" className="sr-only">
+            <form
+                onSubmit={submit}
+                className="mt-6 flex flex-col gap-4 lg:mt-8"
+            >
+                <label
+                    htmlFor="actualites-newsletter-email"
+                    className="sr-only"
+                >
                     Email
                 </label>
                 <input
@@ -69,7 +71,7 @@ export default function ActualitesNewsletterCard() {
                     value={data.email}
                     onChange={(e) => setData('email', e.target.value)}
                     placeholder={t('actualites.newsletter.emailPlaceholder')}
-                    className="w-full rounded-lg border border-border/60 bg-twhite px-4 py-3.5 text-sm text-tblack outline-none transition placeholder:text-tgray/60 focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/20 lg:py-4"
+                    className="w-full rounded-lg border border-border/60 bg-twhite px-4 py-3.5 text-sm text-tblack transition outline-none placeholder:text-tgray/60 focus:border-beta-blue focus:ring-2 focus:ring-beta-blue/20 lg:py-4"
                     required
                 />
                 {errors.email ? (

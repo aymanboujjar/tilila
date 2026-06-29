@@ -51,7 +51,7 @@ export default function LeadershipMessageSection({
                     </div>
 
                     {imageSrc ? (
-                        <div className="relative min-h-[220px] overflow-hidden sm:min-h-[280px] lg:min-h-0 lg:h-full">
+                        <div className="relative min-h-[220px] overflow-hidden sm:min-h-[280px] lg:h-full lg:min-h-0">
                             <img
                                 src={imageSrc}
                                 alt=""

@@ -23,8 +23,18 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 
 const CITY_OPTIONS = [
-    { value: '', fr: 'Sélectionner une ville', en: 'Select a city', ar: 'اختر مدينة' },
-    { value: 'casablanca', fr: 'Casablanca', en: 'Casablanca', ar: 'الدار البيضاء' },
+    {
+        value: '',
+        fr: 'Sélectionner une ville',
+        en: 'Select a city',
+        ar: 'اختر مدينة',
+    },
+    {
+        value: 'casablanca',
+        fr: 'Casablanca',
+        en: 'Casablanca',
+        ar: 'الدار البيضاء',
+    },
     { value: 'rabat', fr: 'Rabat', en: 'Rabat', ar: 'الرباط' },
     { value: 'marrakech', fr: 'Marrakech', en: 'Marrakech', ar: 'مراكش' },
     { value: 'tanger', fr: 'Tanger', en: 'Tangier', ar: 'طنجة' },
@@ -47,13 +57,7 @@ function firstFormError(errors) {
     return flat[0] ?? null;
 }
 
-function Field({
-    label,
-    error,
-    children,
-    embedded = false,
-    required = true,
-}) {
+function Field({ label, error, children, embedded = false, required = true }) {
     return (
         <label className="block text-sm">
             <span
@@ -84,7 +88,7 @@ function CheckRow({ id, checked, onChange, label, error, embedded = false }) {
                     onCheckedChange={(v) => onChange(Boolean(v))}
                     className={
                         embedded
-                            ? 'border-twhite/50 data-[state=checked]:bg-tililab-cyan data-[state=checked]:border-tililab-cyan'
+                            ? 'border-twhite/50 data-[state=checked]:border-tililab-cyan data-[state=checked]:bg-tililab-cyan'
                             : undefined
                     }
                 />
@@ -151,7 +155,7 @@ function FileDropzone({ onFile, error }) {
                         ar="اسحب ملفك هنا أو تصفح"
                     />
                 </p>
-         
+
                 <input
                     ref={inputRef}
                     type="file"
@@ -257,11 +261,7 @@ function EmbeddedFormFields({
                     </Field>
 
                     <div className="grid gap-4 sm:grid-cols-2">
-                        <Field
-                            label="Téléphone"
-                            error={errors.phone}
-                            embedded
-                        >
+                        <Field label="Téléphone" error={errors.phone} embedded>
                             <input
                                 className={inputClass}
                                 value={data.phone}
@@ -793,7 +793,10 @@ function StandardFormFields({
                             required
                         />
                     </Field>
-                    <Field label="Niveau d'études" error={errors.education_level}>
+                    <Field
+                        label="Niveau d'études"
+                        error={errors.education_level}
+                    >
                         <input
                             className={inputClass}
                             value={data.education_level}
@@ -933,7 +936,10 @@ function StandardFormFields({
                             required
                         />
                     </Field>
-                    <Field label="Message principal" error={errors.main_message}>
+                    <Field
+                        label="Message principal"
+                        error={errors.main_message}
+                    >
                         <textarea
                             rows={3}
                             className={inputClass}

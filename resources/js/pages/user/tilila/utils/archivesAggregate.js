@@ -1,5 +1,8 @@
 import { textFor } from '@/pages/user/tilila/partials/EditionDetailContent';
-import { resolveWinnerDisplay, storageAssetSrc } from '@/pages/user/tilila/utils/winnerFields';
+import {
+    resolveWinnerDisplay,
+    storageAssetSrc,
+} from '@/pages/user/tilila/utils/winnerFields';
 
 function parseCampaignFromLine(line, locale = 'fr') {
     const text = line?.[locale] || line?.fr || line?.en || '';
@@ -36,7 +39,8 @@ export function buildArchivesSections(editions, locale = 'fr') {
                     ...base,
                     trophy: textFor(winner.trophy, locale),
                     name: winner.full_name,
-                    detail: textFor(campaign, locale) || textFor(agency, locale),
+                    detail:
+                        textFor(campaign, locale) || textFor(agency, locale),
                 });
 
                 if (winner.full_name) {

@@ -3,7 +3,10 @@ import { ArrowRight } from 'lucide-react';
 import { memo, useMemo } from 'react';
 import TransText from '@/components/TransText';
 import { useYoutubeAvailability } from '@/hooks/useYoutubeAvailability';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 import { coverImageSrc } from '@/pages/user/tilila/utils/editions';
 import {
     findJuryPrizeWinner,
@@ -209,10 +212,7 @@ const LaureateVideo = memo(function LaureateVideo({
     );
 });
 
-const JuryPrizeLaureate = memo(function JuryPrizeLaureate({
-    laureate,
-    year,
-}) {
+const JuryPrizeLaureate = memo(function JuryPrizeLaureate({ laureate, year }) {
     const logoShowcase = isLogoLikeImage(
         laureate.showcaseSrc,
         laureate.brandPhoto,

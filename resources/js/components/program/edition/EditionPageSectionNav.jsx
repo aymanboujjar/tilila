@@ -45,11 +45,7 @@ export default function EditionPageSectionNav({
             <div className="flex flex-wrap gap-2">
                 {!isCurrent ? (
                     <NavLink href="#winners" delay={nextDelay()}>
-                        <TransText
-                            en="Winners"
-                            fr="Lauréats"
-                            ar="الفائزون"
-                        />
+                        <TransText en="Winners" fr="Lauréats" ar="الفائزون" />
                     </NavLink>
                 ) : null}
                 <NavLink href="#jury" delay={nextDelay()}>
@@ -57,11 +53,7 @@ export default function EditionPageSectionNav({
                 </NavLink>
                 {showBootcamp ? (
                     <NavLink href="#bootcamp" delay={nextDelay()}>
-                        <TransText
-                            en="Bootcamp"
-                            fr="Bootcamp"
-                            ar="المعسكر"
-                        />
+                        <TransText en="Bootcamp" fr="Bootcamp" ar="المعسكر" />
                     </NavLink>
                 ) : null}
                 <NavLink href="#gallery" delay={nextDelay()}>

@@ -1,7 +1,10 @@
 import { Link } from '@inertiajs/react';
 import { ArrowRight, Clapperboard, Eye } from 'lucide-react';
 import TransText from '@/components/TransText';
-import { HERO_UNDER_NAV, TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    HERO_UNDER_NAV,
+    TililaContainer,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const HERO_BG = '/assets/tililabhero.jpg';
 
@@ -29,7 +32,7 @@ export default function TililabHero() {
 
             <TililaContainer className="relative z-10 w-full py-9 sm:py-11">
                 <div
-                    className="home-hero-copy w-full min-w-0 max-w-2xl [text-shadow:0_2px_18px_rgba(0,0,0,0.45)]"
+                    className="home-hero-copy w-full max-w-2xl min-w-0 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)]"
                     id="candidature"
                 >
                     <span className="inline-flex size-10 items-center justify-center rounded-full border border-twhite/35 bg-twhite/10 text-twhite">
@@ -71,7 +74,10 @@ export default function TililabHero() {
                                 fr="Déposer une candidature"
                                 ar="قدّم ترشيحك"
                             />
-                            <ArrowRight className="size-4.5 shrink-0" aria-hidden />
+                            <ArrowRight
+                                className="size-4.5 shrink-0"
+                                aria-hidden
+                            />
                         </Link>
                         <Link
                             href="/tililab/reglement"

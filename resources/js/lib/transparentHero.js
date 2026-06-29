@@ -35,6 +35,7 @@ function getHomeSlides(slides) {
 
 function isHomeHeroPath(pathname) {
     const path = (pathname || '/').replace(/\/$/, '') || '/';
+
     return path === '/';
 }
 

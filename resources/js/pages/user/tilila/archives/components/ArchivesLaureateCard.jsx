@@ -54,7 +54,7 @@ export default function ArchivesLaureateCard({ card, showYear = false }) {
                             {card.trophy}
                         </p>
                     ) : null}
-                    <p className="line-clamp-2 text-sm font-extrabold leading-snug text-tblack sm:text-base">
+                    <p className="line-clamp-2 text-sm leading-snug font-extrabold text-tblack sm:text-base">
                         {card.name}
                     </p>
                     {card.agency ? (

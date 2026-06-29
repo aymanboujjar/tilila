@@ -7,7 +7,10 @@ import {
     Video,
 } from 'lucide-react';
 import TransText from '@/components/TransText';
-import { TililaContainer, TililaSection } from '@/pages/user/tilila/partials/TililaUi';
+import {
+    TililaContainer,
+    TililaSection,
+} from '@/pages/user/tilila/partials/TililaUi';
 
 const PARCOURS_STEPS = [
     {
@@ -98,7 +101,7 @@ export default function TililabKeyDatesSection() {
                             className={`relative flex items-start gap-4 pb-8 ${index === lastIndex ? 'pb-0' : ''}`}
                         >
                             <span
-                                className="absolute top-7 -start-[calc(1.5rem+7px)] size-3 rounded-full bg-tililab-cyan ring-4 ring-beta-white sm:-start-[calc(2rem+7px)]"
+                                className="absolute -start-[calc(1.5rem+7px)] top-7 size-3 rounded-full bg-tililab-cyan ring-4 ring-beta-white sm:-start-[calc(2rem+7px)]"
                                 aria-hidden
                             />
                             <ParcoursStepIcon step={step} index={index} />
