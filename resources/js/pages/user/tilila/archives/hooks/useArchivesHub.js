@@ -1,15 +1,24 @@
 import { useCallback, useMemo, useState } from 'react';
 
+import { latestArchiveYear } from '@/pages/user/tilila/utils/archiveEditions';
+
 export function useArchivesHub(tililaEditions, tililabEditions) {
     const [program, setProgramState] = useState('tilila');
-    const [selectedYear, setSelectedYear] = useState('all');
+    const [selectedYear, setSelectedYear] = useState(() =>
+        latestArchiveYear(tililaEditions),
+    );
     const [galleryFilter, setGalleryFilter] = useState('all');
 
-    const setProgram = useCallback((nextProgram) => {
-        setProgramState(nextProgram);
-        setSelectedYear('all');
-        setGalleryFilter('all');
-    }, []);
+    const setProgram = useCallback(
+        (nextProgram) => {
+            setProgramState(nextProgram);
+            const editions =
+                nextProgram === 'tilila' ? tililaEditions : tililabEditions;
+            setSelectedYear(latestArchiveYear(editions));
+            setGalleryFilter('all');
+        },
+        [tililaEditions, tililabEditions],
+    );
 
     const activeEditions = useMemo(
         () => (program === 'tilila' ? tililaEditions : tililabEditions),

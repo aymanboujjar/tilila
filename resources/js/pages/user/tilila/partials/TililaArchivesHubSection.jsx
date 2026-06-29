@@ -13,7 +13,7 @@ import {
     TililaContainer,
     TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
-import { buildArchiveEditions } from '@/pages/user/tilila/utils/archiveEditions';
+import { buildArchiveEditions, latestArchiveYear } from '@/pages/user/tilila/utils/archiveEditions';
 import {
     buildCategorySections,
     buildGalleryItems,
@@ -34,13 +34,15 @@ function SectionCard({ children }) {
 export default function TililaArchivesHubSection() {
     const { editions: rawEditions } = usePage().props;
     const { locale } = useTranslation();
-    const [year, setYear] = useState('all');
-    const [galleryFilter, setGalleryFilter] = useState('all');
-
     const tililaEditions = useMemo(
         () => buildArchiveEditions(rawEditions ?? []),
         [rawEditions],
     );
+
+    const [year, setYear] = useState(() =>
+        latestArchiveYear(buildArchiveEditions(rawEditions ?? [])),
+    );
+    const [galleryFilter, setGalleryFilter] = useState('all');
 
     const years = useMemo(
         () => tililaEditions.map((edition) => edition.year),

@@ -150,6 +150,13 @@ export function buildArchiveEditions(apiEditions = []) {
     );
 }
 
+/** Default year filter: most recent edition, or `all` when none exist. */
+export function latestArchiveYear(editions = []) {
+    const year = editions[0]?.year;
+
+    return year ?? 'all';
+}
+
 export function extractAgency(bio, locale = 'fr') {
     const text = bio?.[locale] || bio?.fr || bio?.en || '';
     const match =

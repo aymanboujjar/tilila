@@ -123,6 +123,11 @@ export function ArchivesGallerySection({
         </div>
     );
 
+    const useCarousel =
+        filter === 'ceremony-videos' ||
+        filter === 'winner-videos' ||
+        items.length > 6;
+
     return (
         <section id="galerie" className="scroll-mt-32">
             <ArchivesSectionHeading
@@ -137,19 +142,12 @@ export function ArchivesGallerySection({
                 </p>
             ) : (
                 <div className="mt-8">
-                    {items.length <= 6 ? (
-                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                            {items.map((item) => (
-                                <ArchivesGallerySlide
-                                    key={item.id}
-                                    item={item}
-                                />
-                            ))}
-                        </div>
-                    ) : (
+                    {useCarousel ? (
                         <ArchivesMediaCarousel
                             ariaLabel="Gallery"
                             slideClassName="w-[min(100%,340px)] shrink-0 snap-start sm:w-[48%] lg:w-[32%]"
+                            showFade={items.length > 3}
+                            autoAdvanceMs={0}
                         >
                             {items.map((item) => (
                                 <ArchivesGallerySlide
@@ -158,6 +156,15 @@ export function ArchivesGallerySection({
                                 />
                             ))}
                         </ArchivesMediaCarousel>
+                    ) : (
+                        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                            {items.map((item) => (
+                                <ArchivesGallerySlide
+                                    key={item.id}
+                                    item={item}
+                                />
+                            ))}
+                        </div>
                     )}
                 </div>
             )}

@@ -54,11 +54,7 @@ export default function TililaIndex() {
                     <TililaPrizesSection />
                 </Suspense>
 
-                <Suspense
-                    fallback={<SectionFallback className="min-h-[720px]" />}
-                >
-                    <TililaArchivesHubSection />
-                </Suspense>
+               
 
                 {/* <Suspense fallback={<SectionFallback className="min-h-[420px]" />}>
                     <TililaLaureatesSection />
@@ -72,7 +68,11 @@ export default function TililaIndex() {
                         hasCurrentEdition={Boolean(currentEdition)}
                     />
                 </Suspense>
-
+                <Suspense
+                    fallback={<SectionFallback className="min-h-[720px]" />}
+                >
+                    <TililaArchivesHubSection />
+                </Suspense>
                 <Suspense
                     fallback={<SectionFallback className="min-h-[280px]" />}
                 >

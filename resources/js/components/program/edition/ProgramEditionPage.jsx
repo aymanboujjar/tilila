@@ -7,6 +7,7 @@ import EditionPageHeroBand from '@/components/program/edition/EditionPageHeroBan
 import EditionPageSectionNav from '@/components/program/edition/EditionPageSectionNav';
 import {
     EditionPageBootcampSection,
+    EditionPageCeremonyVideoSection,
     EditionPageGallerySection,
     EditionPageJurySection,
     EditionPageWinnersSection,
@@ -26,7 +27,7 @@ export default function ProgramEditionPage({
     heroMedia,
     coverSrc,
     pageTitle,
-    showCeremonyVideoCheck = false,
+    ceremonyVideoAtEnd = false,
 }) {
     const { locale } = useTranslation();
     const config = EDITION_PAGE_CONFIG[program];
@@ -46,14 +47,21 @@ export default function ProgramEditionPage({
         program === 'tililab' && edition?.bootcamp ? edition.bootcamp : null;
 
     const ceremonyVideo = useYoutubeAvailability(
-        showCeremonyVideoCheck ? edition?.ceremony_video_url : null,
+        ceremonyVideoAtEnd ? edition?.ceremony_video_url : null,
     );
 
-    const showVideo =
-        Boolean(heroMedia?.uploadSrc) ||
-        Boolean(heroMedia?.embedUrl) ||
-        Boolean(heroMedia?.bannerSrc) ||
-        ceremonyVideo.available;
+    const showTopHero =
+        !ceremonyVideoAtEnd &&
+        (Boolean(heroMedia?.uploadSrc) ||
+            Boolean(heroMedia?.embedUrl) ||
+            Boolean(heroMedia?.bannerSrc));
+
+    const showCeremonySection =
+        ceremonyVideoAtEnd && ceremonyVideo.available;
+
+    const showTopHeroVideo =
+        showTopHero &&
+        (Boolean(heroMedia?.uploadSrc) || Boolean(heroMedia?.embedUrl));
 
     const label = textFor(edition?.edition_label, locale);
     const theme = textFor(edition?.theme, locale);
@@ -76,7 +84,7 @@ export default function ProgramEditionPage({
 
             <TililaSection className="bg-linear-to-b from-beta-white to-twhite pb-20">
                 <TililaContainer>
-                    {showVideo ? (
+                    {showTopHero ? (
                         <RevealOnScroll className="mb-10" y={32} scale={0.98}>
                             <EditionTopHero {...heroMedia} />
                         </RevealOnScroll>
@@ -84,13 +92,15 @@ export default function ProgramEditionPage({
 
                     <EditionPageSectionNav
                         isCurrent={isCurrent}
-                        showVideo={showVideo}
+                        showCeremonyVideo={showCeremonySection}
+                        showTopHeroVideo={showTopHeroVideo}
                         showBootcamp={Boolean(bootcamp)}
                     />
 
                     <div className="mt-12 space-y-16 sm:space-y-20">
                         <EditionPageWinnersSection
                             winners={winners}
+                            edition={edition}
                             locale={locale}
                             isCurrent={isCurrent}
                             pendingMessage={config.winnersPending}
@@ -106,6 +116,13 @@ export default function ProgramEditionPage({
                             images={images}
                             galleryTitle={config.galleryTitle}
                         />
+                        {showCeremonySection ? (
+                            <EditionPageCeremonyVideoSection
+                                videoUrl={edition?.ceremony_video_url}
+                                embedUrl={ceremonyVideo.embedUrl}
+                                year={edition?.year}
+                            />
+                        ) : null}
                     </div>
                 </TililaContainer>
             </TililaSection>
