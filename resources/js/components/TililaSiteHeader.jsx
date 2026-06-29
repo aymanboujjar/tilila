@@ -217,9 +217,9 @@ function DesktopNavDropdown({ item, active, onDark }) {
             </button>
             <div className="pointer-events-none absolute top-full left-1/2 z-[60] hidden w-72 -translate-x-1/2 pt-2 group-hover:block group-focus-within:block">
                 <div className="pointer-events-auto rounded-xl border border-border/80 bg-twhite py-2 shadow-lg">
-                    {item.children.map((child) => (
+                    {item.children.map((child, index) => (
                         <Link
-                            key={child.href}
+                            key={`${item.id}-${child.href}-${index}`}
                             href={child.href}
                             className="block px-4 py-2.5 text-xs leading-snug font-semibold text-tblack transition hover:bg-alpha-blue/40 hover:text-beta-blue"
                         >
@@ -394,9 +394,9 @@ export default function TililaSiteHeader() {
                                         </button>
                                         {aboutOpen ? (
                                             <div className="mb-1 flex flex-col gap-0.5 ps-3">
-                                                {item.children.map((child) => (
+                                                {item.children.map((child, index) => (
                                                     <Link
-                                                        key={child.href}
+                                                        key={`${item.id}-${child.href}-${index}`}
                                                         href={child.href}
                                                         className="rounded-lg px-3 py-2 text-sm font-medium text-tgray hover:bg-alpha-blue/40 hover:text-beta-blue"
                                                         onClick={closeMobile}

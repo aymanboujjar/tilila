@@ -57,25 +57,29 @@ export const COMMITTEE_HISTORY = [
 
 export const COMMITTEE_MEMBERS = [
     {
-        name: 'Abderrahmane Amezloug',
+        name: 'Abderrahmane Amzelloug',
+        photo: '/assets/cpd/abderrahmane-amzelloug.png',
         fr: 'Chef de département – Direction Fiction',
         en: 'Department Head – Fiction Division',
         ar: 'رئيس قسم – إدارة الدراما',
     },
     {
         name: 'Adil Chquiry',
+        photo: '/assets/cpd/adil-chquiry.png',
         fr: 'Directeur des programmes et Directeur marketing et digital',
         en: 'Director of Programmes and Director of Marketing & Digital',
         ar: 'مدير البرامج ومدير التسويق والرقمنة',
     },
     {
         name: 'Adil Maazouz',
+        photo: '/assets/cpd/adil-maazouz.png',
         fr: 'Directeur juridique et Ressources Humaines',
         en: 'Legal and Human Resources Director',
         ar: 'المدير القانوني والموارد البشرية',
     },
     {
         name: 'Ghizlane Gabari',
+        photo: '/assets/cpd/ghizlane-gabari.png',
         fr: 'Journaliste et Rédactrice en chef',
         en: 'Journalist and Editor-in-Chief',
         ar: 'صحفية ورئيسة تحرير',
@@ -88,36 +92,42 @@ export const COMMITTEE_MEMBERS = [
     },
     {
         name: 'Ibtissame Koutaibi',
+        photo: '/assets/cpd/ibtissame-koutaibi.png',
         fr: 'Journaliste présentatrice TV',
         en: 'TV Journalist and Presenter',
         ar: 'صحفية ومقدمة تلفزيونية',
     },
     {
         name: 'Ihssane Benbel',
+        photo: '/assets/cpd/ihssane-benbel.png',
         fr: 'Présentatrice d’Info Soir et Rédactrice en chef',
         en: 'Info Soir Presenter and Editor-in-Chief',
         ar: 'مقدمة نشرة أخبار المساء ورئيسة تحرير',
     },
     {
         name: 'Jamaâ Goulahsen',
+        photo: '/assets/cpd/jamaa-goulahsen.png',
         fr: 'Directeur des programmes d’information et de documentaires',
         en: 'Director of News and Documentary Programmes',
         ar: 'مدير برامج الأخبار والوثائقيات',
     },
     {
         name: 'Meryem Bouriki',
+        photo: '/assets/cpd/meryem-bouriki.png',
         fr: 'Assistante de Direction générale',
         en: 'Assistant to the Director General',
         ar: 'مساعدة المدير العام',
     },
     {
         name: 'Mohamed El Wafy',
+        photo: '/assets/cpd/mohamed-el-wafy.png',
         fr: 'Directeur du département production',
         en: 'Director of the Production Department',
         ar: 'مدير قسم الإنتاج',
     },
     {
         name: 'Nadia Hammouchi',
+        photo: '/assets/cpd/nadia-hammouchi.png',
         fr: 'Rédactrice en chef de 2m.ma',
         en: 'Editor-in-Chief of 2m.ma',
         ar: 'رئيسة تحرير 2m.ma',
@@ -130,6 +140,7 @@ export const COMMITTEE_MEMBERS = [
     },
     {
         name: 'Sanaâ Rahimi',
+        photo: '/assets/cpd/sanaa-rahimi.png',
         fr: 'Journaliste et Rédactrice en chef',
         en: 'Journalist and Editor-in-Chief',
         ar: 'صحفية ورئيسة تحرير',
@@ -142,6 +153,7 @@ export const COMMITTEE_MEMBERS = [
     },
     {
         name: 'Zakaria Ait Abdelmajid',
+        photo: '/assets/cpd/zakaria-ait-abdelmajid.png',
         fr: 'Journaliste présentateur JT',
         en: 'Journalist and Main News Presenter',
         ar: 'صحفي ومقدم النشرة الرئيسية',

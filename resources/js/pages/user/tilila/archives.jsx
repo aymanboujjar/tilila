@@ -2,6 +2,7 @@ import { Head, usePage } from '@inertiajs/react';
 import { useMemo } from 'react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import AppLayout from '@/layouts/app-layout';
+import ArchivesBootcampSection from '@/pages/user/tilila/archives/components/ArchivesBootcampSection';
 import ArchivesContactCta from '@/pages/user/tilila/archives/components/ArchivesContactCta';
 import ArchivesHero from '@/pages/user/tilila/archives/components/ArchivesHero';
 import {
@@ -17,6 +18,7 @@ import { useArchivesHub } from '@/pages/user/tilila/archives/hooks/useArchivesHu
 import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 import { buildArchiveEditions } from '@/pages/user/tilila/utils/archiveEditions';
 import {
+    buildBootcampArchiveItems,
     buildCategorySections,
     buildGalleryItems,
     buildLaureatCards,
@@ -63,6 +65,14 @@ export default function TililaArchives() {
         return filterGalleryItems(all, galleryFilter);
     }, [activeEditions, year, galleryFilter]);
 
+    const bootcampItems = useMemo(
+        () =>
+            program === 'tililab'
+                ? buildBootcampArchiveItems(activeEditions, year)
+                : [],
+        [activeEditions, year, program],
+    );
+
     const sections = useMemo(
         () => buildCategorySections(activeEditions, year, locale),
         [activeEditions, year, locale],
@@ -90,22 +100,23 @@ export default function TililaArchives() {
             setGalleryFilter('photos');
         } else if (sectionId === 'videos') {
             setGalleryFilter('videos');
-        } else if (sectionId === 'bootcamp' || sectionId === 'projets') {
-            setGalleryFilter(
-                sectionId === 'projets' ? 'videos' : 'all',
-            );
+        } else if (sectionId === 'bootcamp') {
+            setGalleryFilter('photos');
+        } else if (sectionId === 'projets') {
+            setGalleryFilter('videos');
         }
 
         const map = {
             laureats: 'laureats',
             finalistes: 'laureats',
+            intervenants: 'intervenants',
+            programme: 'bootcamp-programme',
             projets: 'galerie',
             bootcamp: 'galerie',
             galerie: 'galerie',
             photos: 'galerie',
             videos: 'videos',
             jurys: 'jurys',
-            intervenants: 'intervenants',
             campagnes: 'campagnes',
         };
 
@@ -157,6 +168,17 @@ export default function TililaArchives() {
                                         detailsUrl={detailsUrl}
                                     />
                                 </section>
+
+                                {program === 'tililab' ? (
+                                    <section className="rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(68,25,168,0.06)] sm:p-8">
+                                        <ArchivesBootcampSection
+                                            items={bootcampItems}
+                                            year={year}
+                                            detailsUrl={detailsUrl}
+                                            locale={locale}
+                                        />
+                                    </section>
+                                ) : null}
 
                                 <section className="rounded-2xl border border-border/40 bg-twhite p-6 shadow-[0_4px_24px_rgba(68,25,168,0.06)] sm:p-8">
                                     <ArchivesGallerySection

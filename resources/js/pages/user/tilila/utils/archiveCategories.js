@@ -2,10 +2,12 @@ import {
     Award,
     Briefcase,
     Building2,
+    Calendar,
     Camera,
     Gavel,
     Megaphone,
     Play,
+    Users,
 } from 'lucide-react';
 
 export const ARCHIVE_CATEGORY_ICONS = {
@@ -14,6 +16,8 @@ export const ARCHIVE_CATEGORY_ICONS = {
     marques: Building2,
     agences: Briefcase,
     jurys: Gavel,
+    intervenants: Users,
+    programme: Calendar,
     photos: Camera,
     videos: Play,
 };

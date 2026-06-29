@@ -36,6 +36,18 @@ export const TILILA_HUB_CATEGORIES = [
 export const TILILAB_HUB_CATEGORIES = [
     { id: 'laureats', fr: 'Lauréats', en: 'Winners', ar: 'الفائزون' },
     {
+        id: 'intervenants',
+        fr: 'Intervenants',
+        en: 'Speakers',
+        ar: 'المتحدثون',
+    },
+    {
+        id: 'programme',
+        fr: 'Programme bootcamp',
+        en: 'Bootcamp programme',
+        ar: 'برنامج المعسكر',
+    },
+    {
         id: 'projets',
         fr: 'Projets réalisés (Vidéos)',
         en: 'Completed projects (Videos)',
@@ -43,8 +55,8 @@ export const TILILAB_HUB_CATEGORIES = [
     },
     {
         id: 'bootcamp',
-        fr: 'Best-of Bootcamps (Vidéos – Photos)',
-        en: 'Best-of Bootcamps (Videos – Photos)',
-        ar: 'أفضل لحظات المعسكرات (فيديو – صور)',
+        fr: 'Best-of Bootcamps (Photos)',
+        en: 'Best-of Bootcamps (Photos)',
+        ar: 'أفضل لحظات المعسكرات (صور)',
     },
 ];

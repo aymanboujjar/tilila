@@ -3,12 +3,15 @@
 namespace Database\Seeders;
 
 use App\Models\TililabEdition;
-use Database\Seeders\Concerns\SeedsTililaJury;
+use App\Support\TililabStorageAssetSync;
+use Database\Seeders\Concerns\SeedsTililabBootcamp;
+use Database\Seeders\Concerns\SeedsTililabJury;
 use Illuminate\Database\Seeder;
 
 class TililabEditionSeeder extends Seeder
 {
-    use SeedsTililaJury;
+    use SeedsTililabBootcamp;
+    use SeedsTililabJury;
 
     public function run(): void
     {
@@ -16,11 +19,16 @@ class TililabEditionSeeder extends Seeder
 
         foreach ($this->editions() as $row) {
             $year = (int) $row['year'];
+            $yearKey = (string) $year;
             $payload = [
                     'edition_label' => $row['edition_label'],
                     'theme' => $row['theme'],
                     'winners' => $row['winners'],
-                    'jury' => $row['jury'],
+                    'jury' => $this->mergeJuryPhotoPaths(
+                        $this->tililabJuryForYear($yearKey),
+                        $yearKey,
+                    ),
+                    'bootcamp' => $this->bootcampForYear($yearKey),
                     'gallery_images' => [],
                     'has_gallery' => false,
                     'winners_url' => null,
@@ -49,6 +57,8 @@ class TililabEditionSeeder extends Seeder
         if ($current !== null) {
             $current->update(['is_current' => true]);
         }
+
+        app(TililabStorageAssetSync::class)->syncAll();
     }
 
     /**
@@ -65,7 +75,6 @@ class TililabEditionSeeder extends Seeder
                     'Édition inaugurale de Tililab — publicité inclusive et égalité des genres.',
                     'الدورة الافتتاحية لتيليلاب — إعلان شامل والمساواة بين الجنسين.',
                 ),
-                'jury' => $this->juryForYear('2021'),
                 'winners' => [
                     $this->winner(
                         'Zakaria El Jouhari',
@@ -83,7 +92,6 @@ class TililabEditionSeeder extends Seeder
                     'Thème : diversité dans la création publicitaire. Bootcamp à Marrakech.',
                     'الموضوع: التنوع في الإبداع الإعلاني. المعسكر في مراكش.',
                 ),
-                'jury' => $this->juryForYear('2022'),
                 'winners' => [
                     $this->winner(
                         'Aymane Oulmadou',
@@ -101,7 +109,6 @@ class TililabEditionSeeder extends Seeder
                     'Édition mettant l’accent sur le travail d’équipe des jeunes créateurs (lauréats ex-aequo).',
                     'دورة تؤكد العمل الجماعي للمبدعين الشباب (فائزون مناصفة).',
                 ),
-                'jury' => $this->juryForYear('2023'),
                 'winners' => [
                     $this->winner(
                         'Coupinates (ex-aequo)',
@@ -125,7 +132,6 @@ class TililabEditionSeeder extends Seeder
                     'Thème : inclusion des personnes en situation de handicap et usage de l’intelligence artificielle.',
                     'الموضوع: إدماج ذوي الإعاقة واستخدام الذكاء الاصطناعي.',
                 ),
-                'jury' => $this->juryForYear('2024'),
                 'winners' => [
                     $this->winner(
                         'Yassine El Fataoui',
@@ -143,7 +149,6 @@ class TililabEditionSeeder extends Seeder
                     'Thème : bénévolat pour la Coupe du Monde 2030. Bootcamp Marrakech (10–13 sept. 2025), 7 finalistes ; enfants de Douar Shems’y (Al Haouz).',
                     'الموضوع: التطوع لكأس العالم 2030. معسكر مراكش (10–13 سبتمبر 2025)، 7 متأهلين؛ أطفال دوار شمسي (الحوز).',
                 ),
-                'jury' => $this->juryForYear('2025'),
                 'winners' => [
                     $this->winner(
                         'Mohamed Saïd El Bekkali',
@@ -161,7 +166,6 @@ class TililabEditionSeeder extends Seeder
                     'Édition en cours — les candidatures sont ouvertes jusqu’à la finale nationale.',
                     'الدورة الحالية — الترشيحات مفتوحة حتى النهائي الوطني.',
                 ),
-                'jury' => $this->juryForYear('2025'),
                 'winners' => [],
             ],
         ];
