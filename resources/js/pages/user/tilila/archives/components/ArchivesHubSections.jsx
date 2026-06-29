@@ -94,7 +94,14 @@ export function ArchivesGallerySection({
     const filters = [
         { id: 'all', label: t('tilila.archives.hub.galleryAll') },
         { id: 'photos', label: t('tilila.archives.hub.galleryPhotos') },
-        { id: 'videos', label: t('tilila.archives.hub.galleryVideos') },
+        {
+            id: 'ceremony-videos',
+            label: t('tilila.archives.hub.galleryCeremonyVideos'),
+        },
+        {
+            id: 'winner-videos',
+            label: t('tilila.archives.hub.galleryWinnerVideos'),
+        },
     ];
 
     const filterPills = (

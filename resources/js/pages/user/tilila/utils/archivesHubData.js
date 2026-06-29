@@ -11,6 +11,7 @@ import {
 import {
     resolveShowcaseImage,
     resolveWinnerDisplay,
+    resolveWinnerVideo,
     storageAssetSrc,
 } from '@/pages/user/tilila/utils/winnerFields';
 import { normalizeEdition as normalizeTililabEdition } from '@/pages/user/tililab/utils/editions';
@@ -170,13 +171,42 @@ export function buildGalleryItems(editions, year) {
         if (edition.ceremony_video_url) {
             const thumb = edition.cover_image_src || FALLBACK_TILILA;
             items.push({
-                id: `${edition.id}-video`,
+                id: `${edition.id}-ceremony-video`,
                 type: 'video',
+                videoKind: 'ceremony',
                 videoUrl: edition.ceremony_video_url,
                 src: thumb,
                 year: edition.year,
                 detailsUrl: `${edition.details_url}#video`,
             });
+        }
+
+        if (edition.winners?.length) {
+            for (const [index, winner] of edition.winners.entries()) {
+                const { uploadSrc, youtubeUrl } = resolveWinnerVideo(winner);
+                const videoUrl = uploadSrc || youtubeUrl;
+
+                if (!videoUrl) {
+                    continue;
+                }
+
+                const thumb =
+                    (winner.photo_path
+                        ? storageAssetSrc(winner.photo_path)
+                        : '') ||
+                    resolveShowcaseImage(winner, edition, FALLBACK_TILILA);
+
+                items.push({
+                    id: `${edition.id}-winner-video-${index}`,
+                    type: 'video',
+                    videoKind: 'winner',
+                    videoUrl,
+                    src: thumb,
+                    year: edition.year,
+                    detailsUrl: `${edition.details_url}#winners`,
+                    label: winner.full_name || '',
+                });
+            }
         }
     }
 
@@ -186,6 +216,18 @@ export function buildGalleryItems(editions, year) {
 export function filterGalleryItems(items, filter) {
     if (filter === 'photos') {
         return items.filter((i) => i.type === 'photo');
+    }
+
+    if (filter === 'ceremony-videos') {
+        return items.filter(
+            (i) => i.type === 'video' && i.videoKind === 'ceremony',
+        );
+    }
+
+    if (filter === 'winner-videos') {
+        return items.filter(
+            (i) => i.type === 'video' && i.videoKind === 'winner',
+        );
     }
 
     if (filter === 'videos') {

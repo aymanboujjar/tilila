@@ -19,6 +19,16 @@ export default function LeadershipMessageSection({
                             : 'mx-auto max-w-3xl'
                     }
                 >
+                    {imageSrc ? (
+                        <div className="relative min-h-[220px] overflow-hidden sm:min-h-[280px] lg:h-full lg:min-h-0">
+                            <img
+                                src={imageSrc}
+                                alt=""
+                                className="absolute inset-0 h-full w-full object-cover object-top"
+                                loading="lazy"
+                            />
+                        </div>
+                    ) : null}
                     <div
                         className={
                             imageSrc
@@ -50,16 +60,7 @@ export default function LeadershipMessageSection({
                         </p>
                     </div>
 
-                    {imageSrc ? (
-                        <div className="relative min-h-[220px] overflow-hidden sm:min-h-[280px] lg:h-full lg:min-h-0">
-                            <img
-                                src={imageSrc}
-                                alt=""
-                                className="absolute inset-0 h-full w-full object-cover object-top"
-                                loading="lazy"
-                            />
-                        </div>
-                    ) : null}
+                
                 </div>
             </TililaContainer>
         </section>

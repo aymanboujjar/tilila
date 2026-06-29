@@ -25,6 +25,7 @@ export default function ArchivesToolbar({
     years,
     year,
     onYearChange,
+    hideProgramToggle = false,
 }) {
     const { t } = useTranslation();
 
@@ -32,38 +33,42 @@ export default function ArchivesToolbar({
         <div className="sticky top-16 z-30 border-b border-border/50 bg-twhite/95 backdrop-blur-xl sm:top-18">
             <TililaContainer className="py-4">
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    {hideProgramToggle ? null : (
+                        <div
+                            className="inline-flex w-fit rounded-full border border-border/60 bg-beta-white p-1 shadow-sm"
+                            role="tablist"
+                            aria-label="Program"
+                        >
+                            {PROGRAMS.map((tab) => {
+                                const active = program === tab.id;
+
+                                return (
+                                    <button
+                                        key={tab.id}
+                                        type="button"
+                                        role="tab"
+                                        aria-selected={active}
+                                        onClick={() => onProgramChange(tab.id)}
+                                        className={`rounded-full px-5 py-2 text-xs font-extrabold tracking-[0.1em] uppercase transition sm:px-6 sm:text-sm ${
+                                            active
+                                                ? `${tab.accent} text-twhite shadow-sm`
+                                                : 'text-tgray hover:text-beta-blue'
+                                        }`}
+                                    >
+                                        <TransText
+                                            fr={tab.label.fr}
+                                            en={tab.label.en}
+                                            ar={tab.label.ar}
+                                        />
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    )}
+
                     <div
-                        className="inline-flex w-fit rounded-full border border-border/60 bg-beta-white p-1 shadow-sm"
-                        role="tablist"
-                        aria-label="Program"
+                        className={`flex flex-wrap items-center gap-2 ${hideProgramToggle ? 'w-full' : ''}`}
                     >
-                        {PROGRAMS.map((tab) => {
-                            const active = program === tab.id;
-
-                            return (
-                                <button
-                                    key={tab.id}
-                                    type="button"
-                                    role="tab"
-                                    aria-selected={active}
-                                    onClick={() => onProgramChange(tab.id)}
-                                    className={`rounded-full px-5 py-2 text-xs font-extrabold tracking-[0.1em] uppercase transition sm:px-6 sm:text-sm ${
-                                        active
-                                            ? `${tab.accent} text-twhite shadow-sm`
-                                            : 'text-tgray hover:text-beta-blue'
-                                    }`}
-                                >
-                                    <TransText
-                                        fr={tab.label.fr}
-                                        en={tab.label.en}
-                                        ar={tab.label.ar}
-                                    />
-                                </button>
-                            );
-                        })}
-                    </div>
-
-                    <div className="flex flex-wrap items-center gap-2">
                         {years.map((y) => (
                             <button
                                 key={y}

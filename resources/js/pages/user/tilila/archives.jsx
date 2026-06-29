@@ -99,7 +99,9 @@ export default function TililaArchives() {
         } else if (sectionId === 'photos') {
             setGalleryFilter('photos');
         } else if (sectionId === 'videos') {
-            setGalleryFilter('videos');
+            setGalleryFilter('ceremony-videos');
+        } else if (sectionId === 'winner-videos') {
+            setGalleryFilter('winner-videos');
         } else if (sectionId === 'bootcamp') {
             setGalleryFilter('photos');
         } else if (sectionId === 'projets') {

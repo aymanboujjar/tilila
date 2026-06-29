@@ -36,7 +36,7 @@ export function ArchivesGallerySlide({ item }) {
     const fitClass = archiveImageFitClass({ isTrophy });
 
     const inner = (
-        <div className="aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-alpha-blue shadow-sm">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl border border-border/50 bg-alpha-blue shadow-sm">
             <img
                 src={item.src}
                 alt=""
@@ -68,7 +68,12 @@ export function ArchivesGallerySlide({ item }) {
     }
 
     return (
-        <a href={item.detailsUrl} className="group relative block">
+        <a
+            href={item.videoUrl || item.detailsUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="group relative block"
+        >
             {inner}
         </a>
     );
