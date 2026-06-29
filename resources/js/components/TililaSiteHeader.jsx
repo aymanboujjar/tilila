@@ -19,26 +19,13 @@ const NAV = [
         match: (p) => p === '/',
     },
     {
-        type: 'dropdown',
-        id: 'about',
+        type: 'link',
+        href: '/about',
         en: 'About',
         fr: 'À propos',
         ar: 'من نحن',
         match: (p) => p.startsWith('/about'),
-        children: [
-            {
-                href: '/about',
-                en: 'Tilila: SOREAD 2M EDI programme',
-                fr: 'Tilila : Programme EDI SOREAD 2M',
-                ar: 'تيليلا: برنامج EDI SOREAD 2M',
-            },
-            {
-                href: '/about',
-                en: 'Parity & Diversity Committee',
-                fr: 'Comité Parité & Diversité',
-                ar: 'لجنة المساواة والتنوع',
-            },
-        ],
+      
     },
     {
         type: 'link',

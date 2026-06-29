@@ -89,9 +89,9 @@ export default function About() {
                     imageSrc="/assets/about/about5.jpg"
                     eyebrow={
                         <TransText
-                            en="Message from the Director General"
-                            fr="Mot du Directeur Général"
-                            ar="كلمة المدير العام"
+                            en="Message from the Director General of SOREAD 2M"
+                            fr="Mot du Directeur Général de SOREAD 2M"
+                            ar="كلمة المدير العام لـ SOREAD 2M"
                         />
                     }
                     paragraphs={DIRECTOR_PARAGRAPHS}
@@ -102,17 +102,15 @@ export default function About() {
                     }}
                 />
                 <SoreadPresentationSection />
-                <CommitteeSection />
-                <HistorySection />
                 <LeadershipMessageSection
                     id="president"
                     className="bg-twhite"
                     imageSrc="/assets/about/about4.jpg"
                     eyebrow={
                         <TransText
-                            en="Message from the Chair"
-                            fr="Mot de la Présidente"
-                            ar="كلمة الرئيسة"
+                            en="Message from the Chair of the 2M Parity and Diversity Committee"
+                            fr="Mot de la Présidente de la Commité Parité et Diversité 2M"
+                            ar="كلمة السيدة رئيسة لجنة المساواة والتنوع بقناة 2M"
                         />
                     }
                     paragraphs={PRESIDENT_PARAGRAPHS}
@@ -122,6 +120,9 @@ export default function About() {
                         ar: 'Khadija BOUJANOUI، رئيسة لجنة المساواة والتنوع 2M',
                     }}
                 />
+                <CommitteeSection />
+                <HistorySection />
+             
                 <MembersSection />
             </div>
         </>

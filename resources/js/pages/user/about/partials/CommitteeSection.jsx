@@ -12,13 +12,13 @@ export default function CommitteeSection() {
             <TililaContainer>
                 <div className="flex flex-col gap-10 lg:flex-row lg:items-stretch lg:gap-16">
                     <div className="flex min-w-0 flex-1 flex-col lg:pe-4">
-                        <p className="text-[11px] font-bold tracking-[0.24em] text-beta-blue uppercase">
+                        {/* <p className="text-[11px] font-bold tracking-[0.24em] text-beta-blue uppercase">
                             <TransText
                                 en="Parity and Diversity Committee"
                                 fr="Présentation du Comité Parité et Diversité 2M"
                                 ar="تقديم لجنة المساواة والتنوع 2M"
                             />
-                        </p>
+                        </p> */}
                         <h2 className="mt-4 text-xl font-extrabold tracking-tight text-[#1a237e] uppercase sm:text-[1.35rem]">
                             <TransText
                                 en="Over ten years of commitment to a more inclusive society"
@@ -59,23 +59,7 @@ export default function CommitteeSection() {
                         </div>
                     </div>
 
-                    <figure className="flex min-w-0 flex-1 flex-col">
-                        <div className="relative min-h-[220px] flex-1 overflow-hidden sm:min-h-[280px] lg:min-h-0">
-                            <img
-                                src={COMMITTEE_IMAGE}
-                                alt=""
-                                className="absolute inset-0 h-full w-full object-cover object-center"
-                                loading="lazy"
-                            />
-                        </div>
-                        <figcaption className="mt-3 shrink-0 text-center text-xs leading-relaxed text-beta-blue sm:text-sm">
-                            <TransText
-                                en="The Parity and Diversity Committee of SOREAD 2M."
-                                fr="Le Comité Parité et Diversité de SOREAD 2M."
-                                ar="لجنة المساواة والتنوع لـ SOREAD 2M."
-                            />
-                        </figcaption>
-                    </figure>
+            
                 </div>
             </TililaContainer>
         </section>

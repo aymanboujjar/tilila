@@ -10,15 +10,17 @@ export default function SoreadPresentationSection() {
             className="scroll-mt-28 bg-twhite py-14 sm:py-16"
         >
             <TililaContainer>
-                <div className="grid gap-10 lg:grid-cols-1 lg:items-stretch lg:gap-16">
-                    <div className="flex flex-col justify-center lg:pe-4">
-                        <p className="text-[11px] font-bold tracking-[0.24em] text-beta-blue uppercase">
+                {/* 2-column layout: left (2M, un média citoyen) | right (Tilila : le programme ...) */}
+                <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
+                    {/* Left: 2M, un média citoyen */}
+                    <div className="flex flex-col justify-center lg:pe-6">
+                        {/* <p className="text-[11px] font-bold tracking-[0.24em] text-beta-blue uppercase">
                             <TransText
                                 en="SOREAD 2M presentation"
                                 fr="Présentation SOREAD 2M"
                                 ar="تقديم SOREAD 2M"
                             />
-                        </p>
+                        </p> */}
                         <h2 className="mt-4 text-xl font-extrabold tracking-tight text-[#1a237e] uppercase sm:text-[1.35rem]">
                             <TransText
                                 en="2M, a citizen media"
@@ -43,8 +45,11 @@ export default function SoreadPresentationSection() {
                                 />
                             </p>
                         </div>
-
-                        <div className="mt-10 rounded-xl border border-border/60 bg-beta-white p-6 sm:p-7">
+                    </div>
+                    
+                    {/* Right: Tilila : le programme Équité, Diversité et Inclusion de 2M */}
+                    <div className="flex flex-col justify-center">
+                        <div className="rounded-xl border border-border/60 bg-beta-white p-6 sm:p-7">
                             <h3 className="text-base font-extrabold text-[#1a237e] sm:text-lg">
                                 <TransText
                                     en="Tilila: SOREAD 2M’s Equity, Diversity and Inclusion programme"
@@ -70,15 +75,6 @@ export default function SoreadPresentationSection() {
                             </div>
                         </div>
                     </div>
-
-                    {/* <div className="relative min-h-[220px] overflow-hidden sm:min-h-[280px] lg:min-h-0 lg:h-full">
-                        <img
-                            src={SOREAD_IMAGE}
-                            alt=""
-                            className="absolute inset-0 h-full w-full object-cover object-top"
-                            loading="lazy"
-                        />
-                    </div> */}
                 </div>
             </TililaContainer>
         </section>
