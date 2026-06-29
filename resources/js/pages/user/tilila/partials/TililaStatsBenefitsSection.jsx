@@ -1,4 +1,4 @@
-import { Award, Heart, Megaphone, Sparkles, Star, Users } from 'lucide-react';
+import { Award, Heart, Megaphone, Star, Users } from 'lucide-react';
 import { memo } from 'react';
 import {
     RevealOnScroll,
@@ -139,16 +139,19 @@ export default function TililaStatsBenefitsSection() {
     return (
         <TililaSection
             id="why-participate"
-            className="border-t border-brand-primary/10 bg-linear-to-b from-alpha-blue/50 via-twhite to-beta-purple/30 py-16 sm:py-20"
+            className="border-t border-brand-primary/10 bg-linear-to-b from-alpha-blue/50 via-twhite to-beta-purple/30 py-16 sm:py-8"
         >
             <TililaContainer>
                 <RevealOnScroll className="mx-auto max-w-3xl text-center">
-                    <span className="inline-flex items-center gap-2 rounded-full border border-brand-primary/15 bg-twhite px-4 py-1.5 text-[10px] font-bold tracking-[0.2em] text-brand-primary uppercase shadow-sm">
-                        <Sparkles className="size-3.5" aria-hidden />
-                        Tilila Awards
-                    </span>
+                    <img
+                        src="/assets/tilila/LOGO Tilila Awards-01.png"
+                        alt="Tilila Awards"
+                        className="mx-auto h-14 w-auto object-contain sm:h-16 lg:h-[10rem]"
+                        loading="lazy"
+                        decoding="async"
+                    />
 
-                    <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-brand-primary sm:text-3xl lg:text-[2.35rem]">
+                    <h2 className=" text-2xl font-extrabold tracking-tight text-brand-primary sm:text-3xl lg:text-[2.35rem]">
                         <TransText
                             en="Why participate?"
                             fr="Pourquoi participer ?"

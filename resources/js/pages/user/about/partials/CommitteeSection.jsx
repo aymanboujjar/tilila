@@ -1,7 +1,7 @@
 import TransText from '@/components/TransText';
 import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
-const COMMITTEE_IMAGE = '/assets/about/about1.jpg';
+const COMMITTEE_IMAGE = 'LOGO';
 
 export default function CommitteeSection() {
     return (
