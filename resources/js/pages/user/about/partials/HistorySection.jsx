@@ -19,28 +19,28 @@ function HistoryMilestoneVertical({ item, isLast }) {
 
 function HistoryMilestoneHorizontal({ item, isTop }) {
     const content = (
-        <>
+        <div className="mx-auto w-[13.5rem] xl:w-[15.5rem] 2xl:w-[10rem]">
             <p className="text-xs font-extrabold text-beta-blue lg:text-sm">
                 {item.year}
             </p>
-            <p className="mt-1 text-[11px] leading-snug text-[#1a237e]/90 lg:text-xs lg:leading-relaxed">
+            <p className="mt-1 text-xs leading-snug text-[#1a237e]/90 lg:text-sm lg:leading-relaxed">
                 <TransText en={item.en} fr={item.fr} ar={item.ar} />
             </p>
-        </>
+        </div>
     );
 
     return (
-        <li className="relative flex min-h-full min-w-0 flex-1 flex-col">
+        <li className="relative flex min-h-full min-w-0 flex-1 flex-col overflow-visible">
             <span
                 className="absolute top-1/2 left-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-beta-blue ring-4 ring-beta-white"
                 aria-hidden
             />
 
-            <div className="flex flex-1 flex-col justify-end px-1 pb-6 text-center">
+            <div className="flex flex-1 flex-col justify-end pb-6 text-center">
                 {isTop ? content : null}
             </div>
 
-            <div className="flex flex-1 flex-col justify-start px-1 pt-6 text-center">
+            <div className="flex flex-1 flex-col justify-start pt-6 text-center">
                 {isTop ? null : content}
             </div>
         </li>
@@ -75,13 +75,13 @@ export default function HistorySection() {
                     ))}
                 </ol>
 
-                <div className="relative mt-10 hidden min-h-[320px] lg:block">
+                <div className="relative mt-10 hidden min-h-[300px] overflow-visible lg:block">
                     <div
                         className="pointer-events-none absolute inset-x-0 top-1/2 h-0.5 -translate-y-1/2 bg-beta-blue/25"
                         aria-hidden
                     />
 
-                    <ol className="relative flex min-h-[320px] w-full">
+                    <ol className="relative flex min-h-[300px] w-full overflow-visible">
                         {COMMITTEE_HISTORY.map((item, index) => (
                             <HistoryMilestoneHorizontal
                                 key={item.year}
