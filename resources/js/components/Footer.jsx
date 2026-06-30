@@ -63,22 +63,22 @@ export default function Footer() {
 
     return (
         <footer id="contact" className="border-t border-border bg-twhite">
-            <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
-                <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-0">
-                    <FooterColumn className="">
+            <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+                <div className="grid items-start gap-8 sm:grid-cols-2 lg:grid-cols-[minmax(0,21.5rem)_repeat(3,minmax(0,1fr))] lg:gap-x-10">
+                    <FooterColumn className="sm:col-span-2 lg:col-span-1">
                         <img
                             src="/assets/logo.png"
                             alt="Tilila"
-                            className="h-11 w-auto object-contain"
+                            className="h-9 w-auto object-contain"
                         />
-                        <p className="mt-4 max-w-[220px] text-sm leading-relaxed text-tgray">
+                        <p className="mt-3 max-w-xl text-xs leading-relaxed text-tgray sm:text-sm lg:max-w-none">
                             <TransText
-                                en="The award recognizing campaigns committed to equity, diversity, and inclusion."
-                                fr="Le	Prix	qui	récompense	les	campagnes	engagées pour	l'équité,	la	diversité	et	l'inclusion."
-                                ar="جائزة تُكرّم الحملات الملتزمة بتعزيز الإنصاف والتنوع والشمول."
+                                en="Tilila is SOREAD 2M’s Equity, Diversity and Inclusion (EDI) flagship initiative, driven by a simple ambition: to make 2M a media platform that reflects the full richness and diversity of Morocco. Gender equality, cultural and regional diversity, the inclusion of persons with disabilities, and a strong commitment to youth and emerging talent are at the heart of Tilila. By making EDI a driving force for editorial, cultural and social transformation, Tilila promotes change that is visible, experienced and measurable. A diverse, equitable and accessible Morocco, championed by 2M."
+                                fr="Tilila est la marque-programme EDI de Soread 2M : une ambition simple, faire de 2M un média qui reflète le Maroc dans toute sa pluralité. Parité femmes-hommes, diversité culturelle et régionale, inclusion des personnes en situation de handicap, engagement pour la jeunesse et les talents : Tilila fait de l’EDI un moteur éditorial, culturel et social — qui se voit, se vit et se mesure. Le Maroc pluriel, équitable et accessible, porté par 2M."
+                                ar="تيليلا هي العلامة المرجعية لبرنامج المساواة والتنوع والإدماج (EDI) التابع لـ سورياد 2M، وتقوم على طموح بسيط يتمثل في جعل 2M وسيلة إعلام تعكس المغرب بكل غناه وتعدده. فمن خلال تعزيز المساواة بين النساء والرجال، والتنوع الثقافي والجهوي، وإدماج الأشخاص في وضعية إعاقة، ودعم الشباب والمواهب، تجعل تيليلا من المساواة والتنوع والإدماج محركًا للتحول الإعلامي والثقافي والمجتمعي. رؤية تتجسد في الواقع، وتُعاش، ويُقاس أثرها. مغربٌ متنوع، منصف، ومتاح للجميع، برعاية 2M."
                             />
                         </p>
-                        <div className="mt-5 flex items-center gap-4">
+                        <div className="mt-4 flex items-center gap-3.5">
                             {[
                                 { Icon: Facebook, label: 'Facebook' },
                                 { Icon: Instagram, label: 'Instagram' },
@@ -108,7 +108,7 @@ export default function Footer() {
                                 ar="الترشحات"
                             />
                         </FooterHeading>
-                        <ul className="mt-4 space-y-2.5">
+                        <ul className="mt-3 space-y-2">
                             <li>
                                 <FooterLink href="/tilila">
                                     Tilila Awards
@@ -137,7 +137,7 @@ export default function Footer() {
                                 ar="الموارد"
                             />
                         </FooterHeading>
-                        <ul className="mt-4 space-y-2.5">
+                        <ul className="mt-3 space-y-2">
                             <li>
                                 <FooterLink href="/tilila/reglement">
                                     <TransText
@@ -163,7 +163,7 @@ export default function Footer() {
                         <FooterHeading>
                             <TransText en="Contact" fr="Contact" ar="التواصل" />
                         </FooterHeading>
-                        <ul className="mt-4 space-y-2.5">
+                        <ul className="mt-3 space-y-2">
                             <li>
                                 <FooterLink href="/contact">
                                     <TransText
@@ -230,12 +230,12 @@ export default function Footer() {
                     </FooterColumn> */}
                 </div>
 
-                <div className="mt-10 flex flex-col gap-4 border-t border-border pt-6 text-xs text-tgray sm:flex-row sm:items-center sm:justify-between">
+                <div className="mt-8 flex flex-col gap-3 border-t border-border pt-5 text-xs text-tgray sm:flex-row sm:items-center sm:justify-between">
                     <span>
                         <TransText
-                            en="© Tilila Awards 2026 — All rights reserved"
-                            fr="© Tilila Awards 2026 — Tous droits réservés"
-                            ar="© تيليلا أووردز 2026 — جميع الحقوق محفوظة"
+                            en="© Tilila  2026 — All rights reserved"
+                            fr="© Tilila  2026 — Tous droits réservés"
+                            ar="© تيليلا  2026 — جميع الحقوق محفوظة"
                         />
                     </span>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
