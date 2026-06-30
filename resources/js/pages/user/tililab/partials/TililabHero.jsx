@@ -35,14 +35,22 @@ export default function TililabHero() {
                     className="home-hero-copy w-full max-w-2xl min-w-0 [text-shadow:0_2px_18px_rgba(0,0,0,0.45)]"
                     id="candidature"
                 >
-                    <img
-                        src="/assets/tililab/tililab-logo.png"
-                        alt="Tililab"
-                        className="h-12 w-auto sm:h-14"
-                        width={160}
-                        height={56}
-                        decoding="async"
-                    />
+                    <div
+                        className="flex items-center gap-3 sm:gap-4"
+                        aria-label="Tililab"
+                    >
+                        <img
+                            src="/assets/tililab/tililab-logo.png"
+                            alt=""
+                            className="h-14 w-14 shrink-0 object-contain brightness-0 invert sm:h-16 sm:w-16"
+                            width={64}
+                            height={64}
+                            decoding="async"
+                        />
+                        <span className="text-2xl font-extrabold tracking-[0.16em] text-twhite  sm:text-3xl">
+                            Tililab
+                        </span>
+                    </div>
 
                     <h1 className="mt-4 text-2xl leading-[1.25] font-extrabold tracking-tight text-twhite sm:mt-5 sm:text-3xl lg:text-[1.85rem]">
                         <TransText
