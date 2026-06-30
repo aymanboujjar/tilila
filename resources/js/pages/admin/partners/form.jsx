@@ -31,6 +31,22 @@ const GROUP_OPTIONS = [
     { value: 'strip', label: 'Strip' },
 ];
 
+function emptyTri() {
+    return { fr: '', en: '', ar: '' };
+}
+
+function normalizeTri(value) {
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+        return {
+            fr: value.fr ?? '',
+            en: value.en ?? '',
+            ar: value.ar ?? '',
+        };
+    }
+
+    return emptyTri();
+}
+
 export default function AdminPartnerForm({ partner }) {
     const isEdit = Boolean(partner?.id);
     const initialGroups =
@@ -45,22 +61,10 @@ export default function AdminPartnerForm({ partner }) {
         group: initialGroups[0],
         groups: initialGroups,
         name: partner?.name ?? '',
-        subtitle: {
-            fr: partner?.subtitle?.fr ?? '',
-            en: partner?.subtitle?.en ?? '',
-            ar: partner?.subtitle?.ar ?? '',
-        },
+        subtitle: normalizeTri(partner?.subtitle),
         meta: {
-            role: {
-                fr: partner?.meta?.role?.fr ?? '',
-                en: partner?.meta?.role?.en ?? '',
-                ar: partner?.meta?.role?.ar ?? '',
-            },
-            edition: {
-                fr: partner?.meta?.edition?.fr ?? '',
-                en: partner?.meta?.edition?.en ?? '',
-                ar: partner?.meta?.edition?.ar ?? '',
-            },
+            role: normalizeTri(partner?.meta?.role),
+            edition: normalizeTri(partner?.meta?.edition),
         },
         url: partner?.url ?? '',
         logo_path: partner?.logo_path ?? '',
@@ -70,6 +74,7 @@ export default function AdminPartnerForm({ partner }) {
     });
 
     const [processing, setProcessing] = useState(false);
+    const subtitle = data.subtitle ?? emptyTri();
 
     const submit = (e) => {
         e.preventDefault();
@@ -176,10 +181,8 @@ export default function AdminPartnerForm({ partner }) {
                                     const groups = data.groups.includes(value)
                                         ? data.groups
                                         : [...data.groups, value];
-                                    setData({
-                                        group: value,
-                                        groups,
-                                    });
+                                    setData('group', value);
+                                    setData('groups', groups);
                                 }}
                             >
                                 <SelectTrigger>
@@ -223,11 +226,11 @@ export default function AdminPartnerForm({ partner }) {
                                                               value !==
                                                               option.value,
                                                       );
-                                                setData({
-                                                    groups,
-                                                    group:
-                                                        groups[0] ?? data.group,
-                                                });
+                                                setData('groups', groups);
+                                                setData(
+                                                    'group',
+                                                    groups[0] ?? data.group,
+                                                );
                                             }}
                                         />
                                         {option.label}
@@ -289,36 +292,27 @@ export default function AdminPartnerForm({ partner }) {
                             <div className="space-y-2">
                                 <Label>Subtitle (FR)</Label>
                                 <Input
-                                    value={data.subtitle.fr}
+                                    value={subtitle.fr}
                                     onChange={(e) =>
-                                        setData('subtitle', {
-                                            ...data.subtitle,
-                                            fr: e.target.value,
-                                        })
+                                        setData('subtitle.fr', e.target.value)
                                     }
                                 />
                             </div>
                             <div className="space-y-2">
                                 <Label>Subtitle (EN)</Label>
                                 <Input
-                                    value={data.subtitle.en}
+                                    value={subtitle.en}
                                     onChange={(e) =>
-                                        setData('subtitle', {
-                                            ...data.subtitle,
-                                            en: e.target.value,
-                                        })
+                                        setData('subtitle.en', e.target.value)
                                     }
                                 />
                             </div>
                             <div className="space-y-2">
                                 <Label>Subtitle (AR)</Label>
                                 <Input
-                                    value={data.subtitle.ar}
+                                    value={subtitle.ar}
                                     onChange={(e) =>
-                                        setData('subtitle', {
-                                            ...data.subtitle,
-                                            ar: e.target.value,
-                                        })
+                                        setData('subtitle.ar', e.target.value)
                                     }
                                 />
                             </div>

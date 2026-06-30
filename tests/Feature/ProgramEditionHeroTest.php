@@ -41,6 +41,26 @@ it('keeps a stored tilila ceremony video url', function () {
     expect($payload['ceremony_video_url'])->toBe('https://www.youtube.com/live/Tj03Erz0gGI');
 });
 
+it('keeps stored tilila ceremony video path and url', function () {
+    $edition = TililaEdition::query()->create([
+        'year' => '2025',
+        'edition_label' => ['en' => '7th', 'fr' => '7e', 'ar' => '7'],
+        'theme' => ['en' => 'Theme', 'fr' => 'Thème', 'ar' => 'موضوع'],
+        'ceremony_video_url' => 'https://www.youtube.com/live/yKYDLPWRRkU',
+        'ceremony_video_path' => 'tilila-editions/videos/sample.mp4',
+        'cover_image_path' => 'tilila-editions/covers/sample.jpg',
+        'winners' => [],
+        'jury' => [],
+        'sort' => 0,
+        'is_current' => false,
+    ]);
+
+    $payload = ProgramEditionHero::forTilila($edition);
+
+    expect($payload['ceremony_video_url'])->toBe('https://www.youtube.com/live/yKYDLPWRRkU');
+    expect($payload['ceremony_video_path'])->toBe('tilila-editions/videos/sample.mp4');
+});
+
 it('normalizes empty tililab ceremony video fields to null', function () {
     $edition = TililabEdition::query()->create([
         'year' => '2021',

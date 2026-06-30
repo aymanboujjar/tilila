@@ -16,6 +16,9 @@ export default function AdminTililaEditionsEdit({ edition }) {
         edition_label: edition?.edition_label ?? emptyTri(),
         theme: edition?.theme ?? emptyTri(),
         ceremony_video_url: edition?.ceremony_video_url ?? '',
+        ceremony_video: null,
+        ceremony_video_path: edition?.ceremony_video_path ?? null,
+        remove_ceremony_video: false,
         cover_image: null,
         cover_image_path: edition?.cover_image_path ?? null,
         winners: (edition?.winners ?? []).map((p) => ({

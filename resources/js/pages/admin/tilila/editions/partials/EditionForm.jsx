@@ -740,28 +740,112 @@ export default function EditionForm({
                         />
                     </div>
 
-                    <div className="mt-6 space-y-2 rounded-xl border border-border/70 bg-muted/20 p-4">
-                        <div className="text-sm font-semibold text-foreground">
-                            Ceremony video (YouTube)
-                        </div>
-                        <p className="text-xs text-muted-foreground">
-                            Optional link to the awards ceremony replay. Shown
-                            on the public edition page.
-                        </p>
-                        <Input
-                            id="ceremony_video_url"
-                            type="url"
-                            value={data.ceremony_video_url ?? ''}
-                            onChange={(e) =>
-                                setData('ceremony_video_url', e.target.value)
-                            }
-                            placeholder="https://www.youtube.com/watch?v=… or /live/…"
-                        />
-                        {errors?.ceremony_video_url ? (
-                            <div className="text-xs text-alpha-danger">
-                                {errors.ceremony_video_url}
+                    <div className="mt-6 space-y-4 rounded-xl border border-border/70 bg-muted/20 p-4">
+                        <div>
+                            <div className="text-sm font-semibold text-foreground">
+                                Ceremony video
                             </div>
-                        ) : null}
+                            <p className="mt-1 text-xs text-muted-foreground">
+                                Use a YouTube URL or upload an MP4/MOV/WEBM
+                                file. An uploaded file takes priority over the
+                                URL on the public edition page.
+                            </p>
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="ceremony_video_url"
+                                className="text-xs font-semibold tracking-wide text-muted-foreground uppercase"
+                            >
+                                YouTube URL
+                            </label>
+                            <Input
+                                id="ceremony_video_url"
+                                type="url"
+                                value={data.ceremony_video_url ?? ''}
+                                onChange={(e) =>
+                                    setData(
+                                        'ceremony_video_url',
+                                        e.target.value,
+                                    )
+                                }
+                                placeholder="https://www.youtube.com/watch?v=… or /live/…"
+                                className="mt-2"
+                            />
+                            {errors?.ceremony_video_url ? (
+                                <div className="mt-2 text-xs text-alpha-danger">
+                                    {errors.ceremony_video_url}
+                                </div>
+                            ) : null}
+                        </div>
+
+                        <div>
+                            <label
+                                htmlFor="ceremony_video"
+                                className="text-xs font-semibold tracking-wide text-muted-foreground uppercase"
+                            >
+                                Upload video
+                            </label>
+                            {data?.ceremony_video_path &&
+                            !data?.remove_ceremony_video ? (
+                                <p className="mt-2 text-xs text-muted-foreground">
+                                    Current file:{' '}
+                                    <a
+                                        href={`/storage/${data.ceremony_video_path}`}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="font-semibold text-beta-blue hover:underline"
+                                    >
+                                        {data.ceremony_video_path
+                                            .split('/')
+                                            .pop()}
+                                    </a>
+                                </p>
+                            ) : null}
+                            <input
+                                id="ceremony_video"
+                                type="file"
+                                accept="video/mp4,video/webm,video/quicktime,video/x-matroska"
+                                className="mt-2 block w-full text-sm"
+                                onChange={(e) => {
+                                    setData(
+                                        'ceremony_video',
+                                        e.target.files?.[0] ?? null,
+                                    );
+                                    if (e.target.files?.[0]) {
+                                        setData('remove_ceremony_video', false);
+                                    }
+                                }}
+                            />
+                            {data?.ceremony_video instanceof File ? (
+                                <p className="mt-2 text-xs text-muted-foreground">
+                                    Selected: {data.ceremony_video.name}
+                                </p>
+                            ) : null}
+                            {errors?.ceremony_video ? (
+                                <div className="mt-2 text-xs text-alpha-danger">
+                                    {errors.ceremony_video}
+                                </div>
+                            ) : null}
+                            {data?.ceremony_video_path ? (
+                                <label className="mt-3 inline-flex items-center gap-2 text-xs font-semibold text-foreground">
+                                    <input
+                                        type="checkbox"
+                                        checked={Boolean(
+                                            data.remove_ceremony_video,
+                                        )}
+                                        onChange={(e) =>
+                                            setData(
+                                                'remove_ceremony_video',
+                                                e.target.checked,
+                                            )
+                                        }
+                                        className="size-4 rounded border-border"
+                                    />
+                                    Remove uploaded video
+                                </label>
+                            ) : null}
+                        </div>
                     </div>
                 </div>
 

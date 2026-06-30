@@ -46,8 +46,14 @@ export default function ProgramEditionPage({
     const bootcamp =
         program === 'tililab' && edition?.bootcamp ? edition.bootcamp : null;
 
+    const ceremonyUploadSrc = edition?.ceremony_video_path
+        ? `/storage/${edition.ceremony_video_path}`
+        : '';
+
     const ceremonyVideo = useYoutubeAvailability(
-        ceremonyVideoAtEnd ? edition?.ceremony_video_url : null,
+        ceremonyVideoAtEnd && !edition?.ceremony_video_path
+            ? edition?.ceremony_video_url
+            : null,
     );
 
     const showTopHero =
@@ -56,7 +62,9 @@ export default function ProgramEditionPage({
             Boolean(heroMedia?.embedUrl) ||
             Boolean(heroMedia?.bannerSrc));
 
-    const showCeremonySection = ceremonyVideoAtEnd && ceremonyVideo.available;
+    const showCeremonySection =
+        ceremonyVideoAtEnd &&
+        (Boolean(ceremonyUploadSrc) || ceremonyVideo.available);
 
     const showTopHeroVideo =
         showTopHero &&
@@ -131,6 +139,7 @@ export default function ProgramEditionPage({
                             <EditionPageCeremonyVideoSection
                                 videoUrl={edition?.ceremony_video_url}
                                 embedUrl={ceremonyVideo.embedUrl}
+                                uploadSrc={ceremonyUploadSrc}
                                 year={edition?.year}
                             />
                         ) : null}

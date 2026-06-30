@@ -172,13 +172,18 @@ export function buildGalleryItems(editions, year, program = 'tilila') {
             });
         }
 
-        if (edition.ceremony_video_url) {
+        if (edition.ceremony_video_path || edition.ceremony_video_url) {
             const thumb = edition.cover_image_src || fallback;
+            const uploadSrc = edition.ceremony_video_path
+                ? storageAssetSrc(edition.ceremony_video_path)
+                : '';
             items.push({
                 id: `${edition.id}-ceremony-video`,
                 type: 'video',
                 videoKind: 'ceremony',
-                videoUrl: edition.ceremony_video_url,
+                videoUrl: uploadSrc || edition.ceremony_video_url,
+                videoUploadSrc: uploadSrc,
+                videoYoutubeUrl: edition.ceremony_video_url ?? '',
                 src: thumb,
                 year: edition.year,
                 detailsUrl: `${edition.details_url}#video`,
