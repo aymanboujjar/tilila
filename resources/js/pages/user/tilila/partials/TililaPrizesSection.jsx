@@ -1,13 +1,14 @@
-import { ArrowRight, Crown, Medal, Trophy } from 'lucide-react';
-import { Link } from '@inertiajs/react';
-import { memo } from 'react';
+import { Crown, Medal, Trophy } from 'lucide-react';
+import { memo, useState } from 'react';
 import {
     RevealOnScroll,
     StaggerItem,
     StaggerReveal,
 } from '@/components/motion/home-motion';
 import TransText from '@/components/TransText';
+import { useTranslation } from '@/contexts/TranslationContext';
 import { cn } from '@/lib/utils';
+import { getTililaPrizeDetails } from '@/pages/user/tilila/data/tilila-prizes-content';
 import {
     TililaContainer,
     TililaSection,
@@ -15,6 +16,7 @@ import {
 
 const PRIZES = [
     {
+        id: 'jury',
         fr: 'Prix du Jury',
         en: 'Jury Prize',
         ar: 'جائزة لجنة التحكيم',
@@ -22,9 +24,9 @@ const PRIZES = [
         tone: 'from-brand-primary to-[#2a0f6e]',
         ring: 'ring-brand-primary/30',
         ribbon: 'bg-brand-primary',
-        liftClass: '',
     },
     {
+        id: 'honneur',
         fr: "Prix d'Honneur",
         en: 'Honour Prize',
         ar: 'جائزة الشرف',
@@ -32,9 +34,9 @@ const PRIZES = [
         tone: 'from-[#5a2fc4] to-brand-primary',
         ring: 'ring-brand-light-purple/35',
         ribbon: 'bg-[#5a2fc4]',
-        liftClass: 'lg:mt-7',
     },
     {
+        id: 'online',
         fr: 'Prix Communication Engagée – ONLINE',
         en: 'Engaged Communication – ONLINE',
         ar: 'جائزة التواصل الملتزم – ONLINE',
@@ -42,9 +44,9 @@ const PRIZES = [
         tone: 'from-[#3d1f8c] to-[#4419a8]',
         ring: 'ring-brand-primary/25',
         ribbon: 'bg-[#3d1f8c]',
-        liftClass: 'lg:mt-14',
     },
     {
+        id: 'offline',
         fr: 'Prix Communication Engagée – OFFLINE',
         en: 'Engaged Communication – OFFLINE',
         ar: 'جائزة التواصل الملتزم – OFFLINE',
@@ -52,9 +54,9 @@ const PRIZES = [
         tone: 'from-brand-light-purple to-[#4419a8]',
         ring: 'ring-brand-light-purple/30',
         ribbon: 'bg-brand-light-purple',
-        liftClass: 'lg:mt-7',
     },
     {
+        id: 'hommage',
         fr: 'Hommage Tilila',
         en: 'Hommage Tilila',
         ar: 'تكريم تيليلا',
@@ -63,20 +65,31 @@ const PRIZES = [
         tone: 'from-[#2a0f6e] via-brand-primary to-[#5a2fc4]',
         ring: 'ring-gold/40',
         ribbon: 'bg-linear-to-r from-gold/90 to-[#c29d57]',
-        liftClass: '',
     },
 ];
 
-const PrizeMedal = memo(function PrizeMedal({ prize, index }) {
+const DEFAULT_PRIZE_ID = PRIZES[0].id;
+
+const PrizeMedal = memo(function PrizeMedal({
+    prize,
+    index,
+    isSelected,
+    onSelect,
+}) {
     const Icon = prize.icon;
 
     return (
         <StaggerItem className="flex justify-center">
-            <article
+            <button
+                type="button"
+                onClick={() => onSelect(prize.id)}
+                aria-pressed={isSelected}
                 className={cn(
-                    'group relative flex w-full max-w-[220px] flex-col items-center transition duration-200 hover:-translate-y-1',
+                    'group relative flex w-full max-w-[220px] flex-col items-center rounded-2xl text-start transition duration-200 focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 focus-visible:outline-none',
                     prize.honorary && 'max-w-[240px]',
-                    prize.liftClass,
+                    isSelected
+                        ? '-translate-y-1 scale-[1.02]'
+                        : 'hover:-translate-y-0.5 opacity-90 hover:opacity-100',
                 )}
             >
                 <div
@@ -84,9 +97,11 @@ const PrizeMedal = memo(function PrizeMedal({ prize, index }) {
                         'relative flex size-[4.5rem] items-center justify-center rounded-full bg-linear-to-br shadow-lg ring-4 sm:size-20',
                         prize.tone,
                         prize.ring,
-                        prize.honorary
-                            ? 'shadow-gold/20 ring-offset-2 ring-offset-beta-white'
-                            : 'shadow-brand-primary/25 ring-offset-2 ring-offset-beta-white',
+                        isSelected
+                            ? 'ring-brand-primary ring-offset-4'
+                            : prize.honorary
+                              ? 'shadow-gold/20 ring-offset-2 ring-offset-beta-white'
+                              : 'shadow-brand-primary/25 ring-offset-2 ring-offset-beta-white',
                     )}
                 >
                     <Icon
@@ -106,7 +121,10 @@ const PrizeMedal = memo(function PrizeMedal({ prize, index }) {
 
                 <div
                     className={cn(
-                        'relative -mt-3 w-full overflow-hidden rounded-t-lg rounded-b-2xl border border-brand-primary/10 bg-twhite px-3 pt-5 pb-4 shadow-md transition group-hover:border-brand-primary/25 group-hover:shadow-lg sm:px-4 sm:pt-6 sm:pb-5',
+                        'relative -mt-3 w-full overflow-hidden rounded-t-lg rounded-b-2xl border bg-twhite px-3 pt-5 pb-4 shadow-md transition sm:px-4 sm:pt-6 sm:pb-5',
+                        isSelected
+                            ? 'border-brand-primary/40 shadow-lg'
+                            : 'border-brand-primary/10 group-hover:border-brand-primary/25 group-hover:shadow-lg',
                         prize.honorary && 'border-gold/25',
                     )}
                 >
@@ -131,12 +149,45 @@ const PrizeMedal = memo(function PrizeMedal({ prize, index }) {
                         <TransText en={prize.en} fr={prize.fr} ar={prize.ar} />
                     </h3>
                 </div>
-            </article>
+            </button>
         </StaggerItem>
     );
 });
 
+function PrizeDetailPanel({ prize, locale }) {
+    const { description, reward } = getTililaPrizeDetails(locale, prize.id);
+
+    return (
+        <RevealOnScroll
+            key={prize.id}
+            className="mx-auto mt-10 max-w-3xl rounded-2xl border border-brand-primary/15 bg-twhite p-6 shadow-[0_8px_30px_rgba(68,25,168,0.08)] sm:mt-12 sm:p-8"
+            delay={0.04}
+            y={16}
+        >
+            <p className="text-[10px] font-extrabold tracking-[0.18em] text-beta-turquoise uppercase">
+                <TransText
+                    en="Prize details"
+                    fr="Détails du prix"
+                    ar="تفاصيل الجائزة"
+                />
+            </p>
+            <h3 className="mt-2 text-lg font-extrabold text-brand-primary sm:text-xl">
+                <TransText en={prize.en} fr={prize.fr} ar={prize.ar} />
+            </h3>
+            <p className="mt-4 text-sm leading-relaxed text-tgray sm:text-base">
+                {description}
+            </p>
+    
+        </RevealOnScroll>
+    );
+}
+
 export default function TililaPrizesSection() {
+    const { locale } = useTranslation();
+    const [selectedId, setSelectedId] = useState(DEFAULT_PRIZE_ID);
+    const selectedPrize =
+        PRIZES.find((prize) => prize.id === selectedId) ?? PRIZES[0];
+
     return (
         <TililaSection
             id="prizes"
@@ -184,29 +235,16 @@ export default function TililaPrizesSection() {
                     >
                         {PRIZES.map((prize, index) => (
                             <PrizeMedal
-                                key={prize.fr}
+                                key={prize.id}
                                 prize={prize}
                                 index={index}
+                                isSelected={selectedId === prize.id}
+                                onSelect={setSelectedId}
                             />
                         ))}
                     </StaggerReveal>
 
-                    {/* <RevealOnScroll className="mt-14 text-center sm:mt-16" delay={0.1} y={20}>
-                        <Link
-                            href="/tilila/reglement"
-                            className="group inline-flex items-center justify-center gap-2.5 rounded-full border-2 border-brand-primary bg-brand-primary px-7 py-3.5 text-xs font-bold tracking-[0.14em] text-twhite uppercase transition hover:bg-[#361388] hover:shadow-lg hover:shadow-brand-primary/25"
-                        >
-                            <TransText
-                                en="View full regulations"
-                                fr="Consulter le règlement intégral"
-                                ar="اطلع على النظام الكامل"
-                            />
-                            <ArrowRight
-                                className="size-4 transition group-hover:translate-x-0.5"
-                                aria-hidden
-                            />
-                        </Link>
-                    </RevealOnScroll> */}
+                    <PrizeDetailPanel prize={selectedPrize} locale={locale} />
                 </TililaContainer>
             </div>
         </TililaSection>
