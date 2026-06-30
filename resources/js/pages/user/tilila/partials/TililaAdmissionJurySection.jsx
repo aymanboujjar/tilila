@@ -262,7 +262,11 @@ export default function TililaAdmissionJurySection({
                                 href="/faq"
                                 className="inline-flex items-center gap-2 rounded-lg border-2 border-beta-blue bg-transparent px-5 py-2.5 text-xs font-bold tracking-[0.1em] text-beta-blue uppercase transition hover:bg-alpha-blue"
                             >
-                                <TransText en="FAQ" fr="FAQ" ar="الأسئلة الشائعة" />
+                                <TransText
+                                    en="FAQ"
+                                    fr="FAQ"
+                                    ar="الأسئلة الشائعة"
+                                />
                                 <ArrowRight className="size-4" aria-hidden />
                             </Link>
                         </div>

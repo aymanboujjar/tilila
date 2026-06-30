@@ -73,7 +73,7 @@ export default function ArchivesToolbar({
                             <button
                                 key={y}
                                 type="button"
-                                 onClick={() => onYearChange(y)}
+                                onClick={() => onYearChange(y)}
                                 className={`rounded-full px-3.5 py-1.5 text-sm font-bold transition ${
                                     year === y
                                         ? 'bg-beta-blue text-twhite shadow-sm'

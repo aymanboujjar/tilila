@@ -6,9 +6,7 @@ const GALLERY_MEDIA_FRAME =
 
 export function ArchivesPhotoSlide({ src, href, className = '' }) {
     const content = (
-        <div
-            className={`${GALLERY_MEDIA_FRAME} bg-alpha-blue ${className}`}
-        >
+        <div className={`${GALLERY_MEDIA_FRAME} bg-alpha-blue ${className}`}>
             <img
                 src={src}
                 alt=""

@@ -89,7 +89,7 @@ const PrizeMedal = memo(function PrizeMedal({
                     prize.honorary && 'max-w-[240px]',
                     isSelected
                         ? '-translate-y-1 scale-[1.02]'
-                        : 'hover:-translate-y-0.5 opacity-90 hover:opacity-100',
+                        : 'opacity-90 hover:-translate-y-0.5 hover:opacity-100',
                 )}
             >
                 <div
@@ -164,14 +164,12 @@ function PrizeDetailPanel({ prize, locale }) {
             delay={0.04}
             y={16}
         >
-           
             {/* <h3 className="mt-2 text-lg font-extrabold text-brand-primary sm:text-xl">
                 <TransText en={prize.en} fr={prize.fr} ar={prize.ar} />
             </h3> */}
             <p className="mt-4 text-sm leading-relaxed text-tgray sm:text-base">
                 {description}
             </p>
-    
         </RevealOnScroll>
     );
 }
@@ -208,8 +206,6 @@ export default function TililaPrizesSection() {
                                 ar="5 جوائز"
                             />
                         </span>
-
-                     
                     </RevealOnScroll>
                 </TililaContainer>
             </div>

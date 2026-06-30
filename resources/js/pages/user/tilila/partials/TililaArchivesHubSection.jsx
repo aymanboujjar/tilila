@@ -14,7 +14,10 @@ import {
     TililaContainer,
     TililaSection,
 } from '@/pages/user/tilila/partials/TililaUi';
-import { buildArchiveEditions, latestArchiveYear } from '@/pages/user/tilila/utils/archiveEditions';
+import {
+    buildArchiveEditions,
+    latestArchiveYear,
+} from '@/pages/user/tilila/utils/archiveEditions';
 import {
     buildBootcampArchiveItems,
     buildCategorySections,

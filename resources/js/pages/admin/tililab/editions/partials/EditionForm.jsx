@@ -109,7 +109,14 @@ function useFilePreview(file) {
     return url;
 }
 
-function PersonRow({ peopleKey, idx, person, updateRow, removeRow, showVideo = false }) {
+function PersonRow({
+    peopleKey,
+    idx,
+    person,
+    updateRow,
+    removeRow,
+    showVideo = false,
+}) {
     const existingSrc = person?.photo_path
         ? `/storage/${person.photo_path}`
         : '';

@@ -54,8 +54,6 @@ export default function TililaIndex() {
                     <TililaPrizesSection />
                 </Suspense>
 
-               
-
                 {/* <Suspense fallback={<SectionFallback className="min-h-[420px]" />}>
                     <TililaLaureatesSection />
                 </Suspense> */}

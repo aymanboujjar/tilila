@@ -214,8 +214,8 @@ function SectionHeading() {
 
             <p className="mt-3 text-sm leading-relaxed text-tgray sm:text-base">
                 <TransText
-                    en=" one mission, and a tangible impact in support of Equity, Diversity, and Inclusion."
-                    fr="une	mission	et un impact concret en	faveur	de	l’Equité, la Diversité et l’Inclusion."
+                    en=" One mission, and a tangible impact in support of Equity, Diversity, and Inclusion."
+                    fr="Une	mission	et un impact concret en	faveur	de	l’Equité, la Diversité et l’Inclusion."
                     ar=" رسالة واحدة، وأثر ملموس من أجل تعزيز الإنصاف والتنوع والشمول."
                 />
             </p>
