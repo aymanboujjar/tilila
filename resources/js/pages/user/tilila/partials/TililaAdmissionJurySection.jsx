@@ -234,9 +234,9 @@ export default function TililaAdmissionJurySection({
                         </h3>
                         <p className="mt-5 text-sm leading-relaxed text-tgray">
                             <TransText
-                                en="Our team is available to answer your questions about Tilila Awards."
-                                fr="Notre équipe est à votre disposition pour répondre à vos questions sur les Tilila Awards."
-                                ar="فريقنا متاح للإجابة على أسئلتكم حول تيليلا أووردز."
+                                en="If you have a question, we invite you to consult the FAQ section. If you do not find the answer to your question, please do not hesitate to contact us."
+                                fr="Si vous avez une question, nous vous invitons à consulter la rubrique FAQ. Si vous ne trouvez pas la réponse à votre question, n'hésitez pas à nous contacter."
+                                ar="إذا كان لديك سؤال، نحن ندعوك إلى الاطلاع على قسم الأسئلة الشائعة. إذا لم تجد الجواب على سؤالك، يرجى الاتصال بنا."
                             />
                         </p>
                         {/* <a

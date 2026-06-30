@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import EditionTopHero from '@/components/program/EditionTopHero';
 import { EDITION_PAGE_CONFIG } from '@/components/program/edition/editionPageConfig';
@@ -65,6 +65,18 @@ export default function ProgramEditionPage({
 
     const label = textFor(edition?.edition_label, locale);
     const theme = textFor(edition?.theme, locale);
+
+    useEffect(() => {
+        const hash = window.location.hash.replace(/^#/, '');
+        if (!hash) {
+            return;
+        }
+
+        const target = document.getElementById(hash);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [edition?.id]);
 
     return (
         <>

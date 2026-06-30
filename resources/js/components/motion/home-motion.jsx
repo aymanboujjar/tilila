@@ -16,15 +16,23 @@ export function RevealOnScroll({
     duration = 0.5,
     once = true,
     as: Component = motion.div,
+    id,
+    ...rest
 }) {
     const reduced = useReducedMotion();
+    const StaticTag = Component === motion.section ? 'section' : 'div';
 
     if (reduced) {
-        return <div className={className}>{children}</div>;
+        return (
+            <StaticTag id={id} className={className} {...rest}>
+                {children}
+            </StaticTag>
+        );
     }
 
     return (
         <Component
+            id={id}
             className={className}
             initial={{
                 opacity: 0,
@@ -36,6 +44,7 @@ export function RevealOnScroll({
             viewport={once ? VIEWPORT : { ...VIEWPORT, once: false }}
             transition={{ duration, delay, ease: HOME_EASE }}
             style={{ willChange: 'opacity, transform' }}
+            {...rest}
         >
             {children}
         </Component>

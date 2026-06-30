@@ -165,9 +165,9 @@ function PrizeDetailPanel({ prize, locale }) {
             y={16}
         >
            
-            <h3 className="mt-2 text-lg font-extrabold text-brand-primary sm:text-xl">
+            {/* <h3 className="mt-2 text-lg font-extrabold text-brand-primary sm:text-xl">
                 <TransText en={prize.en} fr={prize.fr} ar={prize.ar} />
-            </h3>
+            </h3> */}
             <p className="mt-4 text-sm leading-relaxed text-tgray sm:text-base">
                 {description}
             </p>

@@ -2,13 +2,32 @@ import { motion, useReducedMotion } from 'framer-motion';
 import TransText from '@/components/TransText';
 import { HOME_EASE } from '@/components/motion/home-motion';
 
+function scrollToSection(hash) {
+    const id = hash.replace(/^#/, '');
+    if (!id) {
+        return;
+    }
+
+    const target = document.getElementById(id);
+    if (!target) {
+        return;
+    }
+
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.history.replaceState(null, '', `#${id}`);
+}
+
 function NavLink({ href, children, delay = 0 }) {
     const reduced = useReducedMotion();
 
     return (
         <motion.a
             href={href}
-            className="inline-flex shrink-0 items-center rounded-full border border-border/60 bg-twhite px-4 py-2 text-xs font-bold tracking-wide text-beta-blue uppercase shadow-sm transition-colors hover:border-beta-blue/40 hover:bg-alpha-blue"
+            onClick={(event) => {
+                event.preventDefault();
+                scrollToSection(href);
+            }}
+            className="inline-flex shrink-0 items-center rounded-full border border-beta-blue/35 bg-transparent px-5 py-2.5 text-sm font-bold tracking-[0.08em] text-beta-blue uppercase transition-colors hover:border-beta-blue hover:bg-beta-blue hover:text-twhite sm:px-6 sm:py-3"
             initial={reduced ? false : { opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay, ease: HOME_EASE }}
@@ -43,7 +62,7 @@ export default function EditionPageSectionNav({
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: HOME_EASE }}
         >
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2.5 sm:gap-3">
                 {!isCurrent ? (
                     <NavLink href="#winners" delay={nextDelay()}>
                         <TransText en="Palmarès" fr="Palmarès" ar="الجوائز" />
