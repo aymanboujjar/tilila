@@ -51,6 +51,98 @@ const LANGUAGE_OPTIONS = [
     { value: 'zgh', fr: 'Amazighe', en: 'Amazigh', ar: 'الأمازيغية' },
 ];
 
+const PLACEHOLDERS = {
+    first_name: {
+        fr: 'Ex. : Yasmine',
+        en: 'E.g. Yasmine',
+        ar: 'مثال: ياسمين',
+    },
+    last_name: {
+        fr: 'Ex. : Benali',
+        en: 'E.g. Benali',
+        ar: 'مثال: بنعلي',
+    },
+    phone: {
+        fr: '+212 6 12 34 56 78',
+        en: '+212 6 12 34 56 78',
+        ar: '+212 6 12 34 56 78',
+    },
+    email: {
+        fr: 'exemple@email.ma',
+        en: 'name@email.com',
+        ar: 'exemple@email.ma',
+    },
+    city: {
+        fr: 'Ex. : Casablanca',
+        en: 'E.g. Casablanca',
+        ar: 'مثال: الدار البيضاء',
+    },
+    cin: {
+        fr: 'Ex. : AB123456',
+        en: 'E.g. AB123456',
+        ar: 'مثال: AB123456',
+    },
+    education_level: {
+        fr: 'Ex. : Licence en communication',
+        en: 'E.g. BA in Communication',
+        ar: 'مثال: إجازة في الاتصال',
+    },
+    profession: {
+        fr: 'Ex. : Créatif digital',
+        en: 'E.g. Digital creative',
+        ar: 'مثال: مبدع رقمي',
+    },
+    project_title: {
+        fr: 'Ex. : Publicité inclusive pour…',
+        en: 'E.g. Inclusive ad for…',
+        ar: 'مثال: إعلان شامل من أجل…',
+    },
+    prior_work_link: {
+        fr: 'https://vimeo.com/…',
+        en: 'https://vimeo.com/…',
+        ar: 'https://vimeo.com/…',
+    },
+    social_links: {
+        fr: 'https://linkedin.com/in/…',
+        en: 'https://linkedin.com/in/…',
+        ar: 'https://linkedin.com/in/…',
+    },
+    candidate_presentation: {
+        fr: 'Présentez votre parcours, vos compétences et votre expérience…',
+        en: 'Introduce your background, skills and experience…',
+        ar: 'قدّم مسارك ومهاراتك وخبرتك…',
+    },
+    project_presentation: {
+        fr: 'Décrivez votre projet, son format et son objectif…',
+        en: 'Describe your project, its format and objective…',
+        ar: 'صف مشروعك وصيغته وهدفه…',
+    },
+    main_message: {
+        fr: 'Quel est le message central que vous souhaitez transmettre ?',
+        en: 'What is the core message you want to convey?',
+        ar: 'ما الرسالة الأساسية التي تريد إيصالها؟',
+    },
+    motivation: {
+        fr: 'Pourquoi souhaitez-vous participer à Tililab ?',
+        en: 'Why do you want to take part in Tililab?',
+        ar: 'لماذا ترغب في المشاركة في تيليلاب؟',
+    },
+};
+
+function pickTri(tri, locale) {
+    if (locale === 'ar') {
+        return tri.ar;
+    }
+    if (locale === 'en') {
+        return tri.en;
+    }
+    return tri.fr;
+}
+
+function pickPlaceholder(key, locale) {
+    return pickTri(PLACEHOLDERS[key] ?? { fr: '', en: '', ar: '' }, locale);
+}
+
 function firstFormError(errors) {
     const values = Object.values(errors ?? {});
     const flat = values.flat().filter(Boolean);
@@ -202,6 +294,8 @@ function EmbeddedFormFields({
         return item.fr;
     };
 
+    const ph = (key) => pickPlaceholder(key, locale);
+
     const handleDroppedFile = (file) => {
         if (file.type.startsWith('video/')) {
             setData('original_video', file);
@@ -227,6 +321,7 @@ function EmbeddedFormFields({
                             <input
                                 className={inputClass}
                                 value={data.first_name}
+                                placeholder={ph('first_name')}
                                 onChange={(e) =>
                                     setData('first_name', e.target.value)
                                 }
@@ -237,6 +332,7 @@ function EmbeddedFormFields({
                             <input
                                 className={inputClass}
                                 value={data.last_name}
+                                placeholder={ph('last_name')}
                                 onChange={(e) =>
                                     setData('last_name', e.target.value)
                                 }
@@ -281,6 +377,7 @@ function EmbeddedFormFields({
                             <input
                                 className={inputClass}
                                 value={data.phone}
+                                placeholder={ph('phone')}
                                 onChange={(e) =>
                                     setData('phone', e.target.value)
                                 }
@@ -292,6 +389,7 @@ function EmbeddedFormFields({
                                 type="email"
                                 className={inputClass}
                                 value={data.email}
+                                placeholder={ph('email')}
                                 onChange={(e) =>
                                     setData('email', e.target.value)
                                 }
@@ -334,7 +432,7 @@ function EmbeddedFormFields({
                             onChange={(e) =>
                                 setData('prior_work_link', e.target.value)
                             }
-                            placeholder="https://"
+                            placeholder={ph('prior_work_link')}
                         />
                     </Field>
 
@@ -355,6 +453,7 @@ function EmbeddedFormFields({
                         <input
                             className={inputClass}
                             value={data.cin}
+                            placeholder={ph('cin')}
                             onChange={(e) => setData('cin', e.target.value)}
                             required
                         />
@@ -367,6 +466,7 @@ function EmbeddedFormFields({
                         <input
                             className={inputClass}
                             value={data.education_level}
+                            placeholder={ph('education_level')}
                             onChange={(e) =>
                                 setData('education_level', e.target.value)
                             }
@@ -381,6 +481,7 @@ function EmbeddedFormFields({
                         <input
                             className={inputClass}
                             value={data.profession}
+                            placeholder={ph('profession')}
                             onChange={(e) =>
                                 setData('profession', e.target.value)
                             }
@@ -395,6 +496,7 @@ function EmbeddedFormFields({
                         <input
                             className={inputClass}
                             value={data.project_title}
+                            placeholder={ph('project_title')}
                             onChange={(e) =>
                                 setData('project_title', e.target.value)
                             }
@@ -413,6 +515,7 @@ function EmbeddedFormFields({
                             rows={3}
                             className={inputClass}
                             value={data.candidate_presentation}
+                            placeholder={ph('candidate_presentation')}
                             onChange={(e) =>
                                 setData(
                                     'candidate_presentation',
@@ -431,6 +534,7 @@ function EmbeddedFormFields({
                             rows={3}
                             className={inputClass}
                             value={data.project_presentation}
+                            placeholder={ph('project_presentation')}
                             onChange={(e) =>
                                 setData('project_presentation', e.target.value)
                             }
@@ -446,6 +550,7 @@ function EmbeddedFormFields({
                             rows={2}
                             className={inputClass}
                             value={data.main_message}
+                            placeholder={ph('main_message')}
                             onChange={(e) =>
                                 setData('main_message', e.target.value)
                             }
@@ -461,6 +566,7 @@ function EmbeddedFormFields({
                             rows={2}
                             className={inputClass}
                             value={data.motivation}
+                            placeholder={ph('motivation')}
                             onChange={(e) =>
                                 setData('motivation', e.target.value)
                             }
@@ -518,7 +624,7 @@ export default function TililabParticipateForm({ embedded = false }) {
 
     const inputClass = embedded
         ? 'w-full rounded-md border-0 bg-twhite px-3 py-2.5 text-sm text-tblack placeholder:text-tgray/60'
-        : 'w-full rounded-md border border-border bg-background px-3 py-2 text-sm';
+        : 'w-full rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground';
 
     const selectClass = embedded
         ? 'w-full rounded-md border-0 bg-twhite px-3 py-2.5 text-sm text-tblack'
@@ -735,6 +841,9 @@ function StandardFormFields({
     legendClass,
     processing,
 }) {
+    const { locale } = useTranslation();
+    const ph = (key) => pickPlaceholder(key, locale);
+
     return (
         <div className="mt-8 space-y-8">
             <fieldset className={fieldsetClass}>
@@ -750,6 +859,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.first_name}
+                            placeholder={ph('first_name')}
                             onChange={(e) =>
                                 setData('first_name', e.target.value)
                             }
@@ -760,6 +870,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.last_name}
+                            placeholder={ph('last_name')}
                             onChange={(e) =>
                                 setData('last_name', e.target.value)
                             }
@@ -781,6 +892,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.cin}
+                            placeholder={ph('cin')}
                             onChange={(e) => setData('cin', e.target.value)}
                             required
                         />
@@ -789,6 +901,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.city}
+                            placeholder={ph('city')}
                             onChange={(e) => setData('city', e.target.value)}
                             required
                         />
@@ -798,6 +911,7 @@ function StandardFormFields({
                             type="email"
                             className={inputClass}
                             value={data.email}
+                            placeholder={ph('email')}
                             onChange={(e) => setData('email', e.target.value)}
                             required
                         />
@@ -806,6 +920,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.phone}
+                            placeholder={ph('phone')}
                             onChange={(e) => setData('phone', e.target.value)}
                             required
                         />
@@ -817,6 +932,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.education_level}
+                            placeholder={ph('education_level')}
                             onChange={(e) =>
                                 setData('education_level', e.target.value)
                             }
@@ -827,6 +943,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.profession}
+                            placeholder={ph('profession')}
                             onChange={(e) =>
                                 setData('profession', e.target.value)
                             }
@@ -841,6 +958,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.social_links}
+                            placeholder={ph('social_links')}
                             onChange={(e) =>
                                 setData('social_links', e.target.value)
                             }
@@ -858,6 +976,7 @@ function StandardFormFields({
                         <input
                             className={inputClass}
                             value={data.project_title}
+                            placeholder={ph('project_title')}
                             onChange={(e) =>
                                 setData('project_title', e.target.value)
                             }
@@ -873,6 +992,7 @@ function StandardFormFields({
                             type="url"
                             className={inputClass}
                             value={data.prior_work_link}
+                            placeholder={ph('prior_work_link')}
                             onChange={(e) =>
                                 setData('prior_work_link', e.target.value)
                             }
@@ -930,6 +1050,7 @@ function StandardFormFields({
                             rows={4}
                             className={inputClass}
                             value={data.candidate_presentation}
+                            placeholder={ph('candidate_presentation')}
                             onChange={(e) =>
                                 setData(
                                     'candidate_presentation',
@@ -947,6 +1068,7 @@ function StandardFormFields({
                             rows={4}
                             className={inputClass}
                             value={data.project_presentation}
+                            placeholder={ph('project_presentation')}
                             onChange={(e) =>
                                 setData('project_presentation', e.target.value)
                             }
@@ -961,6 +1083,7 @@ function StandardFormFields({
                             rows={3}
                             className={inputClass}
                             value={data.main_message}
+                            placeholder={ph('main_message')}
                             onChange={(e) =>
                                 setData('main_message', e.target.value)
                             }
@@ -972,6 +1095,7 @@ function StandardFormFields({
                             rows={3}
                             className={inputClass}
                             value={data.motivation}
+                            placeholder={ph('motivation')}
                             onChange={(e) =>
                                 setData('motivation', e.target.value)
                             }

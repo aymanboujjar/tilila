@@ -122,16 +122,16 @@ export const COMMITTEE_MEMBERS = [
     {
         name: 'Mohamed El Wafy',
         photo: '/assets/cpd/Mohamed%20El%20Wafy.jpeg',
-        fr: 'Directeur du département production',
-        en: 'Director of the Production Department',
-        ar: 'مدير قسم الإنتاج',
+        fr: 'Directeur de production',
+        en: 'Director of  Production ',
+        ar: 'مدير  الإنتاج',
     },
     {
         name: 'Nadia Hammouchi',
         photo: '/assets/cpd/nadia-hammouchi.png',
-        fr: 'Rédactrice en chef de 2m.ma',
-        en: 'Editor-in-Chief of 2m.ma',
-        ar: 'رئيسة تحرير 2m.ma',
+        fr: ' Directrice Adjointe Digital 2m.ma',
+        en: 'Assistant Director of Digital 2m.ma',
+        ar: 'مديرة تحرير 2m.ma',
     },
     {
         name: 'Samid Ghailane',
@@ -143,9 +143,9 @@ export const COMMITTEE_MEMBERS = [
     {
         name: 'Sanaâ Rahimi',
         photo: '/assets/cpd/sanaa-rahimi.jpeg',
-        fr: 'Journaliste et Rédactrice en chef',
-        en: 'Journalist and Editor-in-Chief',
-        ar: 'صحفية ورئيسة تحرير',
+        fr: 'Journaliste et Rédactrice en Cheffe Principale',
+        en: 'Journalist and Main Editor-in-Chief',
+        ar: 'صحفية ومقدمة التحرير الرئيسية',
     },
     {
         name: 'Sara Faiq',

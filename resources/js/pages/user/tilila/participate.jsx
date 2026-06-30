@@ -3,6 +3,7 @@ import { CheckCircle2, XCircle } from 'lucide-react';
 import { useState } from 'react';
 import AppLayout from '@/layouts/app-layout';
 import TransText from '@/components/TransText';
+import { useTranslation } from '@/contexts/TranslationContext';
 import RegulationCta from '@/components/program/RegulationCta';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -18,7 +19,84 @@ import { Label } from '@/components/ui/label';
 import { Spinner } from '@/components/ui/spinner';
 
 const inputClass =
-    'w-full rounded-md border border-border bg-background px-3 py-2 text-sm';
+    'w-full rounded-md border border-border bg-background px-3 py-2 text-sm placeholder:text-muted-foreground';
+
+const PLACEHOLDERS = {
+    first_name: {
+        fr: 'Ex. : Fatima',
+        en: 'E.g. Jane',
+        ar: 'مثال: فاطمة',
+    },
+    last_name: {
+        fr: 'Ex. : Alaoui',
+        en: 'E.g. Smith',
+        ar: 'مثال: العلوي',
+    },
+    representative_role: {
+        fr: 'Ex. : Directrice marketing',
+        en: 'E.g. Marketing Director',
+        ar: 'مثال: مديرة التسويق',
+    },
+    email: {
+        fr: 'exemple@entreprise.ma',
+        en: 'name@company.com',
+        ar: 'exemple@entreprise.ma',
+    },
+    phone: {
+        fr: '+212 6 12 34 56 78',
+        en: '+212 6 12 34 56 78',
+        ar: '+212 6 12 34 56 78',
+    },
+    company: {
+        fr: 'Ex. : Nom de l’annonceur',
+        en: 'E.g. Advertiser name',
+        ar: 'مثال: اسم المعلن',
+    },
+    brand: {
+        fr: 'Ex. : Nom de la marque',
+        en: 'E.g. Brand name',
+        ar: 'مثال: اسم العلامة',
+    },
+    agency: {
+        fr: 'Ex. : Nom de l’agence',
+        en: 'E.g. Agency name',
+        ar: 'مثال: اسم الوكالة',
+    },
+    campaign_title: {
+        fr: 'Ex. : Campagne Inclusion 2025',
+        en: 'E.g. Inclusion Campaign 2025',
+        ar: 'مثال: حملة الإدماج 2025',
+    },
+    submission_link: {
+        fr: 'https://www.youtube.com/watch?v=…',
+        en: 'https://www.youtube.com/watch?v=…',
+        ar: 'https://www.youtube.com/watch?v=…',
+    },
+    creative_concept: {
+        fr: 'Décrivez le concept créatif, le ton et le message principal de la campagne…',
+        en: 'Describe the creative concept, tone and main message of the campaign…',
+        ar: 'صف المفهوم الإبداعي ونبرة الحملة ورسالتها الرئيسية…',
+    },
+    edi_contribution: {
+        fr: 'Expliquez comment la campagne contribue à l’équité, la diversité et l’inclusion…',
+        en: 'Explain how the campaign contributes to equity, diversity and inclusion…',
+        ar: 'اشرح كيف تساهم الحملة في المساواة والتنوع والإدماج…',
+    },
+};
+
+function pickPlaceholder(key, locale) {
+    const tri = PLACEHOLDERS[key];
+    if (!tri) {
+        return '';
+    }
+    if (locale === 'ar') {
+        return tri.ar;
+    }
+    if (locale === 'en') {
+        return tri.en;
+    }
+    return tri.fr;
+}
 
 function firstFormError(errors) {
     const values = Object.values(errors ?? {});
@@ -68,6 +146,8 @@ function formatBytes(bytes) {
 }
 
 export default function TililaParticipate() {
+    const { locale } = useTranslation();
+    const ph = (key) => pickPlaceholder(key, locale);
     const [resultModal, setResultModal] = useState(null);
     const [errorSummary, setErrorSummary] = useState('');
     const [uploadPercent, setUploadPercent] = useState(0);
@@ -289,6 +369,7 @@ export default function TililaParticipate() {
                                 <input
                                     className={inputClass}
                                     value={data.first_name}
+                                    placeholder={ph('first_name')}
                                     onChange={(e) =>
                                         setData('first_name', e.target.value)
                                     }
@@ -303,6 +384,7 @@ export default function TililaParticipate() {
                                 <input
                                     className={inputClass}
                                     value={data.last_name}
+                                    placeholder={ph('last_name')}
                                     onChange={(e) =>
                                         setData('last_name', e.target.value)
                                     }
@@ -318,6 +400,7 @@ export default function TililaParticipate() {
                             <input
                                 className={inputClass}
                                 value={data.representative_role}
+                                placeholder={ph('representative_role')}
                                 onChange={(e) =>
                                     setData(
                                         'representative_role',
@@ -333,6 +416,7 @@ export default function TililaParticipate() {
                                     type="email"
                                     className={inputClass}
                                     value={data.email}
+                                    placeholder={ph('email')}
                                     onChange={(e) =>
                                         setData('email', e.target.value)
                                     }
@@ -347,6 +431,7 @@ export default function TililaParticipate() {
                                 <input
                                     className={inputClass}
                                     value={data.phone}
+                                    placeholder={ph('phone')}
                                     onChange={(e) =>
                                         setData('phone', e.target.value)
                                     }
@@ -362,6 +447,7 @@ export default function TililaParticipate() {
                             <input
                                 className={inputClass}
                                 value={data.company}
+                                placeholder={ph('company')}
                                 onChange={(e) =>
                                     setData('company', e.target.value)
                                 }
@@ -372,6 +458,7 @@ export default function TililaParticipate() {
                             <input
                                 className={inputClass}
                                 value={data.brand}
+                                placeholder={ph('brand')}
                                 onChange={(e) =>
                                     setData('brand', e.target.value)
                                 }
@@ -386,6 +473,7 @@ export default function TililaParticipate() {
                             <input
                                 className={inputClass}
                                 value={data.agency}
+                                placeholder={ph('agency')}
                                 onChange={(e) =>
                                     setData('agency', e.target.value)
                                 }
@@ -410,6 +498,7 @@ export default function TililaParticipate() {
                             <input
                                 className={inputClass}
                                 value={data.campaign_title}
+                                placeholder={ph('campaign_title')}
                                 onChange={(e) =>
                                     setData('campaign_title', e.target.value)
                                 }
@@ -442,6 +531,7 @@ export default function TililaParticipate() {
                                 type="url"
                                 className={inputClass}
                                 value={data.submission_link}
+                                placeholder={ph('submission_link')}
                                 onChange={(e) =>
                                     setData('submission_link', e.target.value)
                                 }
@@ -517,6 +607,7 @@ export default function TililaParticipate() {
                                 rows={4}
                                 className={inputClass}
                                 value={data.creative_concept}
+                                placeholder={ph('creative_concept')}
                                 onChange={(e) =>
                                     setData('creative_concept', e.target.value)
                                 }
@@ -532,6 +623,7 @@ export default function TililaParticipate() {
                                 rows={4}
                                 className={inputClass}
                                 value={data.edi_contribution}
+                                placeholder={ph('edi_contribution')}
                                 onChange={(e) =>
                                     setData('edi_contribution', e.target.value)
                                 }

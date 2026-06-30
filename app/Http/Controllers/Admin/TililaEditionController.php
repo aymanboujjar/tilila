@@ -60,6 +60,8 @@ class TililaEditionController extends Controller
             $data['cover_image_path'] = ($data['cover_image_path'] ?? null) ?: null;
         }
 
+        $data = $this->applyCeremonyVideoUpload($request, $data, null);
+
         $edition = TililaEdition::query()->create($data);
 
         $edition->winners = $this->applyPeopleUploads($request, 'winners', 'tilila-editions/winners', []);
@@ -98,6 +100,8 @@ class TililaEditionController extends Controller
             $data['cover_image_path'] = ($data['cover_image_path'] ?? null) ?: $edition->cover_image_path;
         }
 
+        $data = $this->applyCeremonyVideoUpload($request, $data, $edition);
+
         $edition->update($data);
 
         $existingWinners = is_array($edition->winners) ? $edition->winners : [];
@@ -133,6 +137,10 @@ class TililaEditionController extends Controller
     {
         if (is_string($edition->cover_image_path) && $edition->cover_image_path !== '') {
             Storage::disk('public')->delete($edition->cover_image_path);
+        }
+
+        if (is_string($edition->ceremony_video_path) && $edition->ceremony_video_path !== '') {
+            Storage::disk('public')->delete($edition->ceremony_video_path);
         }
 
         $winners = is_array($edition->winners) ? $edition->winners : [];
@@ -217,6 +225,8 @@ class TililaEditionController extends Controller
             'jury_url' => ['nullable', 'url', 'max:2048'],
             'gallery_url' => ['nullable', 'url', 'max:2048'],
             'ceremony_video_url' => ['nullable', 'string', 'max:2048'],
+            'ceremony_video_path' => ['nullable', 'string', 'max:500'],
+            'remove_ceremony_video' => ['sometimes', 'boolean'],
             'has_gallery' => ['sometimes', 'boolean'],
             'is_current' => ['sometimes', 'boolean'],
             'applications_close_at' => ['nullable', 'date'],
@@ -227,6 +237,16 @@ class TililaEditionController extends Controller
         if ($request->hasFile('cover_image')) {
             $request->validate([
                 'cover_image' => ['file', 'image', 'max:10240'],
+            ]);
+        }
+
+        if ($request->hasFile('ceremony_video')) {
+            $request->validate([
+                'ceremony_video' => [
+                    'file',
+                    'mimetypes:video/mp4,video/webm,video/quicktime,video/x-matroska',
+                    'max:204800',
+                ],
             ]);
         }
 
@@ -509,5 +529,44 @@ class TililaEditionController extends Controller
 
         return str_starts_with($path, 'tilila-editions/')
             || str_starts_with($path, 'assets/');
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
+    private function applyCeremonyVideoUpload(
+        Request $request,
+        array $data,
+        ?TililaEdition $edition,
+    ): array {
+        $video = $request->file('ceremony_video');
+
+        if ($video instanceof UploadedFile && $video->isValid()) {
+            $old = $edition?->ceremony_video_path;
+            if (is_string($old) && $old !== '') {
+                Storage::disk('public')->delete($old);
+            }
+
+            $data['ceremony_video_path'] = $video->store('tilila-editions/videos', 'public');
+
+            return $data;
+        }
+
+        if ($request->boolean('remove_ceremony_video')) {
+            $old = $edition?->ceremony_video_path;
+            if (is_string($old) && $old !== '') {
+                Storage::disk('public')->delete($old);
+            }
+
+            $data['ceremony_video_path'] = null;
+
+            return $data;
+        }
+
+        $data['ceremony_video_path'] = ($data['ceremony_video_path'] ?? null)
+            ?: $edition?->ceremony_video_path;
+
+        return $data;
     }
 }

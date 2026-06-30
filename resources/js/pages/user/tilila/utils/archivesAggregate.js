@@ -126,10 +126,13 @@ export function buildArchivesSections(editions, locale = 'fr') {
             }
         }
 
-        if (edition.ceremony_video_url) {
+        if (edition.ceremony_video_path || edition.ceremony_video_url) {
+            const uploadSrc = edition.ceremony_video_path
+                ? storageAssetSrc(edition.ceremony_video_path)
+                : '';
             videos.push({
                 ...base,
-                videoUrl: edition.ceremony_video_url,
+                videoUrl: uploadSrc || edition.ceremony_video_url,
             });
         }
     }

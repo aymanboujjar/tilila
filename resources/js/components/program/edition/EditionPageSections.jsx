@@ -590,8 +590,16 @@ export function EditionPageGallerySection({ images = [], galleryTitle }) {
     );
 }
 
-export function EditionPageCeremonyVideoSection({ videoUrl, embedUrl, year }) {
-    if (!embedUrl) {
+export function EditionPageCeremonyVideoSection({
+    videoUrl,
+    embedUrl,
+    uploadSrc = '',
+    year,
+}) {
+    const hasUpload = Boolean(uploadSrc);
+    const hasEmbed = Boolean(embedUrl);
+
+    if (!hasUpload && !hasEmbed) {
         return null;
     }
 
@@ -609,13 +617,23 @@ export function EditionPageCeremonyVideoSection({ videoUrl, embedUrl, year }) {
             />
             <div className="mt-8 overflow-hidden rounded-2xl border border-border/60 bg-tblack shadow-lg">
                 <div className="aspect-video">
-                    <iframe
-                        title={`Ceremony ${year ?? ''}`}
-                        src={embedUrl}
-                        className="h-full w-full border-0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        allowFullScreen
-                    />
+                    {hasUpload ? (
+                        <video
+                            src={uploadSrc}
+                            className="h-full w-full bg-tblack object-contain"
+                            controls
+                            playsInline
+                            preload="metadata"
+                        />
+                    ) : (
+                        <iframe
+                            title={`Ceremony ${year ?? ''}`}
+                            src={embedUrl}
+                            className="h-full w-full border-0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                        />
+                    )}
                 </div>
             </div>
             {videoUrl && !videoUrl.includes('youtube') ? (
