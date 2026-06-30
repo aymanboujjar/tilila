@@ -47,7 +47,7 @@ export default function TililabHero() {
                             height={64}
                             decoding="async"
                         />
-                        <span className="text-2xl font-extrabold tracking-[0.16em] text-twhite  sm:text-3xl">
+                        <span className="text-2xl font-extrabold tracking-[0.16em] text-twhite sm:text-3xl">
                             Tililab
                         </span>
                     </div>

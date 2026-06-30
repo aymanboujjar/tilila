@@ -86,11 +86,7 @@ export default function EditionPageSectionNav({
                 ) : null}
                 {showCeremonyVideo ? (
                     <NavLink href="#video" delay={nextDelay()}>
-                        <TransText
-                            en="Ceremony"
-                            fr="Cérémonie"
-                            ar="الحفل"
-                        />
+                        <TransText en="Ceremony" fr="Cérémonie" ar="الحفل" />
                     </NavLink>
                 ) : null}
             </div>

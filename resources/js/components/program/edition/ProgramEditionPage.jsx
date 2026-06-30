@@ -56,8 +56,7 @@ export default function ProgramEditionPage({
             Boolean(heroMedia?.embedUrl) ||
             Boolean(heroMedia?.bannerSrc));
 
-    const showCeremonySection =
-        ceremonyVideoAtEnd && ceremonyVideo.available;
+    const showCeremonySection = ceremonyVideoAtEnd && ceremonyVideo.available;
 
     const showTopHeroVideo =
         showTopHero &&

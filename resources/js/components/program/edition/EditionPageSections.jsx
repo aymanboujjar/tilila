@@ -293,16 +293,12 @@ function WinnerCardMeta({
 
             <div className="flex gap-3 sm:gap-4">
                 <WinnerLogoColumn
-                    label={
-                        <TransText en="Laureate" fr="Lauréat" ar="الفائز" />
-                    }
+                    label={<TransText en="Laureate" fr="Lauréat" ar="الفائز" />}
                     logoSrc={brandPhoto}
                     fallbackName={winnerName}
                 />
                 <WinnerLogoColumn
-                    label={
-                        <TransText en="Agency" fr="Agence" ar="الوكالة" />
-                    }
+                    label={<TransText en="Agency" fr="Agence" ar="الوكالة" />}
                     logoSrc={agencyPhoto}
                     fallbackName={agencyName}
                 />
@@ -311,11 +307,7 @@ function WinnerCardMeta({
             {hasCampaign ? (
                 <p className="line-clamp-2 text-sm leading-relaxed text-tblack">
                     <span className="font-extrabold text-beta-blue">
-                        <TransText
-                            en="Campaign"
-                            fr="Campagne"
-                            ar="الحملة"
-                        />
+                        <TransText en="Campaign" fr="Campagne" ar="الحملة" />
                         {': '}
                     </span>
                     {campaignText}
@@ -598,11 +590,7 @@ export function EditionPageGallerySection({ images = [], galleryTitle }) {
     );
 }
 
-export function EditionPageCeremonyVideoSection({
-    videoUrl,
-    embedUrl,
-    year,
-}) {
+export function EditionPageCeremonyVideoSection({ videoUrl, embedUrl, year }) {
     if (!embedUrl) {
         return null;
     }
