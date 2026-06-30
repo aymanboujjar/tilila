@@ -164,13 +164,7 @@ function PrizeDetailPanel({ prize, locale }) {
             delay={0.04}
             y={16}
         >
-            <p className="text-[10px] font-extrabold tracking-[0.18em] text-beta-turquoise uppercase">
-                <TransText
-                    en="Prize details"
-                    fr="Détails du prix"
-                    ar="تفاصيل الجائزة"
-                />
-            </p>
+           
             <h3 className="mt-2 text-lg font-extrabold text-brand-primary sm:text-xl">
                 <TransText en={prize.en} fr={prize.fr} ar={prize.ar} />
             </h3>
@@ -206,8 +200,8 @@ export default function TililaPrizesSection() {
 
                 <TililaContainer className="relative">
                     <RevealOnScroll className="text-center">
-                        <span className="inline-flex items-center gap-2 rounded-full border border-twhite/20 bg-twhite/10 px-4 py-1.5 text-[10px] font-bold tracking-[0.22em] text-twhite/90 uppercase">
-                            <Trophy className="size-3.5" aria-hidden />
+                        <span className="inline-flex items-center gap-2 rounded-full border border-twhite/20 bg-twhite/10 px-4 py-1.5 text-[15px] font-bold tracking-[0.22em] text-twhite/90 uppercase">
+                            <Trophy className="size-5" aria-hidden />
                             <TransText
                                 en="5 distinctions"
                                 fr="5 distinctions"
@@ -215,13 +209,7 @@ export default function TililaPrizesSection() {
                             />
                         </span>
 
-                        <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-twhite sm:text-3xl lg:text-[2.35rem]">
-                            <TransText
-                                en="Rewards"
-                                fr="Les récompenses"
-                                ar="المكافآت"
-                            />
-                        </h2>
+                     
                     </RevealOnScroll>
                 </TililaContainer>
             </div>

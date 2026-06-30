@@ -2,7 +2,7 @@
 export default {
     title: 'كأس تيليلاب',
     subtitle: 'نظام المسابقة',
-    intro: 'يلغي هذا النظام ويحل محل نظام مسابقة «تيليلاب» السابق.',
+    // intro: 'يلغي هذا النظام ويحل محل نظام مسابقة «تيليلاب» السابق.',
     articles: [
         {
             number: 1,
@@ -109,6 +109,6 @@ export default {
         },
     ],
     footer: ['المدير العام', 'Salim CHEIKH'],
-    version: 'v2 — 2026',
+    // version: 'v2 — 2026',
     articleLabel: 'المادة',
 };

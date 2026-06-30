@@ -2,7 +2,7 @@
 export default {
     title: 'TILILA AWARDS',
     subtitle: 'RÈGLEMENT DU CONCOURS',
-    intro: 'Le présent règlement annule et remplace le Règlement du concours « Trophée Tilila » établi le 01 mai 2019, ainsi que l’avenant n°1 & 02, et le règlement du 13 juin 2025, déposés chez le notaire.',
+    // intro: 'Le présent règlement annule et remplace le Règlement du concours « Trophée Tilila » établi le 01 mai 2019, ainsi que l’avenant n°1 & 02, et le règlement du 13 juin 2025, déposés chez le notaire.',
     articles: [
         {
             number: 1,
@@ -139,6 +139,6 @@ export default {
         },
     ],
     footer: ['LE DIRECTEUR GÉNÉRAL', 'Salim CHEIKH'],
-    version: 'v4 — 2026',
+    // version: 'v4 — 2026',
     articleLabel: 'Article',
 };

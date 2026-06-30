@@ -1,5 +1,5 @@
 import { Link } from '@inertiajs/react';
-import { ArrowUpRight, Clapperboard, Sparkles, Trophy } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { memo } from 'react';
 import {
     CountUpStat,
@@ -23,7 +23,10 @@ const PROGRAMS = {
     tilila: {
         title: 'Tilila Awards',
         href: '/tilila',
-        icon: Trophy,
+        logoSrc: '/assets/tilila/LOGO Tilila Awards-01.png',
+        logoClassName:
+            'h-[5.25rem] w-auto max-w-[12rem] shrink-0 object-contain object-left brightness-0 invert sm:h-25 -mb-7 -mt-4 -ml-15 sm:max-w-[14rem]',
+        showTitle: false,
         stats: TILILA_HOME_STATS,
         gridClass: 'sm:grid-cols-2 xl:grid-cols-3',
         headerClass:
@@ -39,7 +42,10 @@ const PROGRAMS = {
     tililab: {
         title: 'Tililab',
         href: '/tililab',
-        icon: Clapperboard,
+        logoSrc: '/assets/tililab/tililab-logo.png',
+        logoClassName:
+            'h-12 w-12 shrink-0 object-contain brightness-0 invert sm:h-14 sm:w-14',
+        showTitle: true,
         stats: TILILAB_HOME_STATS,
         gridClass: 'sm:grid-cols-2',
         headerClass:
@@ -114,7 +120,6 @@ const StatCard = memo(function StatCard({ item, theme }) {
 
 function ProgramStatsPanel({ programKey }) {
     const theme = PROGRAMS[programKey];
-    const HeaderIcon = theme.icon;
 
     return (
         <div
@@ -130,17 +135,19 @@ function ProgramStatsPanel({ programKey }) {
                 )}
             >
                 <div className="min-w-0">
-                    <div className="flex items-center gap-2.5">
-                        <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-xl border border-twhite/30 bg-twhite/15 text-twhite">
-                            <HeaderIcon
-                                className="size-4"
-                                strokeWidth={1.75}
-                                aria-hidden
-                            />
-                        </span>
-                        <h3 className="text-base font-extrabold tracking-wide text-twhite uppercase sm:text-lg">
-                            {theme.title}
-                        </h3>
+                    <div className="flex items-center gap-3">
+                        <img
+                            src={theme.logoSrc}
+                            alt={theme.title}
+                            className={theme.logoClassName}
+                            loading="lazy"
+                            decoding="async"
+                        />
+                        {theme.showTitle !== false ? (
+                            <h3 className="text-base font-extrabold tracking-wide text-twhite uppercase sm:text-lg">
+                                {theme.title}
+                            </h3>
+                        ) : null}
                     </div>
                     {/* <p className="mt-2 max-w-xs text-xs leading-relaxed text-twhite/80 sm:text-sm">
                         {programKey === 'tilila' ? (

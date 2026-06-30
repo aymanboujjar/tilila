@@ -2,7 +2,7 @@
 export default {
     title: 'TILILAB TROPHY',
     subtitle: 'COMPETITION REGULATIONS',
-    intro: 'These regulations cancel and replace the previous Tililab competition regulations.',
+    // intro: 'These regulations cancel and replace the previous Tililab competition regulations.',
     articles: [
         {
             number: 1,
@@ -109,6 +109,6 @@ export default {
         },
     ],
     footer: ['CHIEF EXECUTIVE OFFICER', 'Salim CHEIKH'],
-    version: 'v2 — 2026',
+    // version: 'v2 — 2026',
     articleLabel: 'Article',
 };
