@@ -1,6 +1,5 @@
 /**
  * Tilila Awards — published edition facts (winners, jury, themes).
- * Kept in sync with database/seeders/TililaEditionSeeder.php
  */
 export const TILILA_EDITIONS_HISTORY = [
     {

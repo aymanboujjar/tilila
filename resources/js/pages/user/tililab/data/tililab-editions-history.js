@@ -1,5 +1,5 @@
 /**
- * Tililab — edition facts (winners & themes). Sync with TililabEditionSeeder.php
+ * Tililab — edition facts (winners & themes).
  */
 export const TILILAB_EDITIONS_HISTORY = [
     {
