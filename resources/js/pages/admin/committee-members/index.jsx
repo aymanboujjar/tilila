@@ -73,10 +73,7 @@ export default function AdminCommitteeMembersIndex({ members, stats }) {
             <div className="mx-auto flex w-full max-w-[min(100%,90rem)] flex-col gap-8 px-4 py-6 sm:gap-10 sm:px-6 sm:py-8 lg:px-10 lg:pb-10">
                 <div className="grid gap-3 sm:grid-cols-2">
                     <StatCard label="Total" value={stats?.total ?? 0} />
-                    <StatCard
-                        label="Published"
-                        value={stats?.published ?? 0}
-                    />
+                    <StatCard label="Published" value={stats?.published ?? 0} />
                 </div>
 
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
