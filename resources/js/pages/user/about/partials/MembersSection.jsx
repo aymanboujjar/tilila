@@ -1,8 +1,8 @@
 import TransText from '@/components/TransText';
+import { usePage } from '@inertiajs/react';
 import { useTranslation } from '@/contexts/TranslationContext';
 import TililaHorizontalCarousel from '@/pages/user/tilila/partials/TililaHorizontalCarousel';
 import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
-import { COMMITTEE_MEMBERS } from '@/pages/user/about/partials/about-data';
 
 function initials(name) {
     return (name || '?')
@@ -14,12 +14,14 @@ function initials(name) {
 }
 
 function MemberCard({ member, role }) {
+    const photoUrl = member.photo_url ?? member.photo ?? null;
+
     return (
         <article className="flex h-full flex-col items-center px-2 text-center">
             <div className="relative size-28 overflow-hidden rounded-full border-2 border-beta-blue/15 bg-beta-white sm:size-32">
-                {member.photo ? (
+                {photoUrl ? (
                     <img
-                        src={member.photo}
+                        src={photoUrl}
                         alt={member.name}
                         className="h-full w-full object-cover object-top"
                         loading="lazy"
@@ -46,9 +48,16 @@ function MemberCard({ member, role }) {
 
 export default function MembersSection() {
     const { locale } = useTranslation();
+    const { committeeMembers = [] } = usePage().props;
 
-    const roleFor = (member) =>
-        member[locale] || member.fr || member.en || member.ar || '';
+    const roleFor = (member) => {
+        const bio = member.bio;
+        if (bio && typeof bio === 'object') {
+            return bio[locale] || bio.fr || bio.en || bio.ar || '';
+        }
+
+        return member[locale] || member.fr || member.en || member.ar || '';
+    };
 
     return (
         <section id="members" className="scroll-mt-28 bg-twhite py-14 sm:py-16">
@@ -57,9 +66,9 @@ export default function MembersSection() {
                     <div className="mb-4 h-1 w-10 bg-beta-blue" aria-hidden />
                     <h2 className="text-xl font-extrabold tracking-tight text-[#1a237e] uppercase sm:text-[1.35rem]">
                         <TransText
-                            en="Our members"
-                            fr="Nos membres"
-                            ar="أعضاؤنا"
+                            en="Parity Committee members"
+                            fr="Membres du Comité Parité"
+                            ar="أعضاء لجنة المساواة"
                         />
                     </h2>
 
@@ -70,9 +79,9 @@ export default function MembersSection() {
                             fadeFrom="from-twhite"
                             autoAdvanceMs={5200}
                         >
-                            {COMMITTEE_MEMBERS.map((member) => (
+                            {committeeMembers.map((member) => (
                                 <MemberCard
-                                    key={member.name}
+                                    key={member.id ?? member.name}
                                     member={member}
                                     role={roleFor(member)}
                                 />

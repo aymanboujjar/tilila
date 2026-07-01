@@ -34,15 +34,15 @@ const BENEFITS = [
         descEn: 'Benefit from evaluation by experts from media, creative fields and civil society.',
         descAr: 'الاستفادة من تقييم خبراء من الإعلام والإبداع والمجتمع المدني.',
     },
-    {
-        icon: Star,
-        titleFr: 'Gagner en visibilité à l’échelle nationale',
-        titleEn: 'Gain visibility on a national scale',
-        titleAr: 'اكتساب ظهور على المستوى الوطني',
-        descFr: "Participer à l'évolution des représentations dans la publicité.",
-        descEn: 'Help evolve representations in advertising.',
-        descAr: 'المساهمة في تطور التمثيلات في الإعلان.',
-    },
+    // {
+    //     icon: Star,
+    //     titleFr: 'Gagner en visibilité à l’échelle nationale',
+    //     titleEn: 'Gain visibility on a national scale',
+    //     titleAr: 'اكتساب ظهور على المستوى الوطني',
+    //     descFr: "Participer à l'évolution des représentations dans la publicité.",
+    //     descEn: 'Help evolve representations in advertising.',
+    //     descAr: 'المساهمة في تطور التمثيلات في الإعلان.',
+    // },
     {
         icon: Users,
         titleFr:
@@ -64,7 +64,7 @@ const BenefitCard = memo(function BenefitCard({ item, index }) {
         <StaggerItem className="min-w-0">
             <article
                 className={cn(
-                    'group relative flex h-full min-h-[175px] flex-col overflow-hidden rounded-2xl border p-4 transition duration-200 sm:min-h-[185px] sm:p-5',
+                    'group relative flex h-full min-h-[105px] flex-col overflow-hidden rounded-2xl border p-4 transition duration-200 sm:min-h-[155px] sm:p-5',
                     featured
                         ? 'border-brand-primary/20 bg-linear-to-br from-brand-primary via-[#5a2fc4] to-[#2a0f6e] text-twhite shadow-md shadow-brand-primary/15'
                         : 'border-brand-primary/10 bg-twhite shadow-sm hover:-translate-y-0.5 hover:border-brand-primary/25 hover:shadow-md',
@@ -167,7 +167,7 @@ export default function TililaStatsBenefitsSection() {
                 </RevealOnScroll>
 
                 <StaggerReveal
-                    className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4"
+                    className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4"
                     stagger={0.06}
                     delayChildren={0.08}
                 >

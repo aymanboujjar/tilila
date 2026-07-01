@@ -251,6 +251,11 @@ export function AppSidebar() {
                                         icon: Handshake,
                                     },
                                     {
+                                        title: 'Committee members',
+                                        href: '/admin/committee-members',
+                                        icon: Users,
+                                    },
+                                    {
                                         title: 'Newsletter',
                                         href: '/admin/newsletter',
                                         icon: Mail,

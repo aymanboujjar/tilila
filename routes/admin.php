@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AccessRequestController;
+use App\Http\Controllers\Admin\CommitteeMemberController;
 use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\ExpertApplicationController;
 use App\Http\Controllers\Admin\ExpertController;
@@ -95,6 +96,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('partners', PartnerController::class)
         ->except(['show'])
         ->names('partners');
+
+    Route::resource('committee-members', CommitteeMemberController::class)
+        ->except(['show'])
+        ->names('committee-members');
 
     require __DIR__.'/newsletter.php';
 });

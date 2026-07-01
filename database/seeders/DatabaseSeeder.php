@@ -41,5 +41,6 @@ class DatabaseSeeder extends Seeder
         $this->call(TililaConnectRequestSeeder::class);
         $this->call(NewsletterSubscriptionSeeder::class);
         $this->call(PartnerSeeder::class);
+        $this->call(CommitteeMemberSeeder::class);
     }
 }

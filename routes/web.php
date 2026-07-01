@@ -15,6 +15,7 @@ use App\Http\Controllers\ProgramRegulationController;
 use App\Http\Controllers\TililabInscriptionController;
 use App\Http\Controllers\TililaConnectController;
 use App\Http\Controllers\TililaParticipationController;
+use App\Models\CommitteeMember;
 use App\Models\Event;
 use App\Models\Expert;
 use App\Models\MediaItem;
@@ -195,6 +196,7 @@ Route::post('/opportunities/{opportunity}/apply', [OpportunityController::class,
 Route::get('/about', function () {
     return Inertia::render('user/about/index', [
         ...ProgramPageProps::allPublished(),
+        'committeeMembers' => CommitteeMember::published()->get(),
     ]);
 });
 Route::get('/actualites', [ActualitesController::class, 'index'])
