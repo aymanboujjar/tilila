@@ -85,7 +85,7 @@ class PartnerSeeder extends Seeder
     private function tililaMediaPartners(): array
     {
         return [
-            $this->mediaRow('tilila', '2M.ma', 'partners/logo-2m.ma-1-200x100.png', 10),
+            $this->mediaRow('tilila', '2M.ma', 'partners/2M_TV_logo.svg.webp', 10),
             $this->mediaRow('tilila', 'Radio 2M', 'partners/Logo-radio2M-01-182x100.png', 11),
             $this->mediaRow('tilila', 'SNRT News', 'partners/Logo-snrtnews-141x100.png', 12),
             $this->mediaRow('tilila', 'Le Site Info', 'partners/Lesiteinfo-Logo-Vector_page-0001-200x74.jpg', 13),
@@ -100,7 +100,7 @@ class PartnerSeeder extends Seeder
     private function tililabMediaPartners(): array
     {
         return [
-            $this->mediaRow('tililab', '2M.ma', 'partners/logo-2m.ma-1-200x100.png', 10),
+            $this->mediaRow('tililab', '2M.ma', 'partners/2M_TV_logo.svg.webp', 10),
             $this->mediaRow('tililab', 'Radio 2M', 'partners/Logo-radio2M-01-182x100.png', 11),
             [
                 'program' => 'tililab',

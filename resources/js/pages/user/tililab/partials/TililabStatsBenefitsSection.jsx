@@ -1,4 +1,4 @@
-import { Clapperboard, Lightbulb, Sparkles, Trophy, Users } from 'lucide-react';
+import { Clapperboard, Handshake, Sparkles, Trophy, Users } from 'lucide-react';
 import TransText from '@/components/TransText';
 import {
     TililaContainer,
@@ -6,12 +6,6 @@ import {
 } from '@/pages/user/tilila/partials/TililaUi';
 
 const BENEFITS = [
-    {
-        icon: Lightbulb,
-        fr: 'Développer votre créativité',
-        en: 'Develop your creativity',
-        ar: 'تطوير الإبداع',
-    },
     {
         icon: Users,
         fr: 'Maîtriser les enjeux d’équité, de diversité et d’inclusion dans la publicité',
@@ -32,15 +26,15 @@ const BENEFITS = [
     },
     {
         icon: Trophy,
-        fr: 'Réaliser une création audiovisuelle originale',
-        en: 'Produce an original audiovisual work',
-        ar: 'إنتاج عمل سمعي بصري أصلي',
+        fr: 'Réaliser une création audiovisuelle originale avec des équipes de professionnel.le.s.',
+        en: 'Produce an original audiovisual work with teams of professionals.',
+        ar: 'إنتاج عمل سمعي بصري أصلي مع فرق من المحترفين والمحترفات.',
     },
     {
-        icon: Sparkles,
-        fr: 'Gagner en visibilité auprès des professionnels du secteur',
-        en: 'Gain visibility with media and industry professionals',
-        ar: 'اكتساب الظهور لدى الإعلام ومحترفي القطاع',
+        icon: Handshake,
+        fr: 'Développer son réseau auprès des professionnels du secteur',
+        en: 'Develop your network among industry professionals',
+        ar: 'توسيع شبكة العلاقات لدى محترفي القطاع',
     },
 ];
 
@@ -69,7 +63,7 @@ export default function TililabStatsBenefitsSection() {
                     />
                 </div>
 
-                <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-6 lg:gap-6">
+                <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6">
                     {BENEFITS.map((item) => {
                         const Icon = item.icon;
                         return (

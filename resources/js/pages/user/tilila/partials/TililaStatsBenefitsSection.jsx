@@ -1,4 +1,4 @@
-import { Award, Heart, Megaphone, Star, Users } from 'lucide-react';
+import { Award, Heart, Star, Users } from 'lucide-react';
 import { memo } from 'react';
 import {
     RevealOnScroll,
@@ -33,15 +33,6 @@ const BENEFITS = [
         descFr: "Bénéficier de l'évaluation d'experts issus des médias, de la création et de la société civile.",
         descEn: 'Benefit from evaluation by experts from media, creative fields and civil society.',
         descAr: 'الاستفادة من تقييم خبراء من الإعلام والإبداع والمجتمع المدني.',
-    },
-    {
-        icon: Megaphone,
-        titleFr: "Un jury d'expert.e.s indépendant",
-        titleEn: 'Benefit from national visibility',
-        titleAr: 'الاستفادة من ظهور وطني',
-        descFr: "Profiter d'une exposition médiatique auprès d'un large public.",
-        descEn: 'Gain media exposure to a wide audience.',
-        descAr: 'الاستفادة من ظهور إعلامي أمام جمهور واسع.',
     },
     {
         icon: Star,
@@ -157,13 +148,13 @@ export default function TililaStatsBenefitsSection() {
                         />
                     </h2>
 
-                    <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-tgray sm:text-base">
+                    {/* <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-tgray sm:text-base">
                         <TransText
-                            en="Five reasons to join a competition that is helping transform advertising."
-                            fr="Cinq raisons de	rejoindre un concours qui contribue	à	transformer	la	publicité."
-                            ar="خمسة أسباب للمشاركة في مسابقة تُسهم في إحداث تحول في عالم الإعلانات."
+                            en="Four reasons to join a competition that is helping transform advertising."
+                            fr="Quatre raisons de rejoindre un concours qui contribue à transformer la publicité."
+                            ar="أربعة أسباب للمشاركة في مسابقة تُسهم في إحداث تحول في عالم الإعلانات."
                         />
-                    </p>
+                    </p> */}
 
                     <div
                         className="mx-auto mt-5 flex items-center justify-center gap-2"
@@ -176,7 +167,7 @@ export default function TililaStatsBenefitsSection() {
                 </RevealOnScroll>
 
                 <StaggerReveal
-                    className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-5 lg:gap-4"
+                    className="mx-auto mt-10 grid max-w-7xl grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4"
                     stagger={0.06}
                     delayChildren={0.08}
                 >

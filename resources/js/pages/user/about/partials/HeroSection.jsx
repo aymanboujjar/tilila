@@ -1,18 +1,14 @@
 import TransText from '@/components/TransText';
+import { TililaContainer } from '@/pages/user/tilila/partials/TililaUi';
 
-const HERO_IMAGE = '/assets/about/about1.jpg';
+const HERO_IMAGE = '/assets/about/aboutt.jpeg';
 
 export default function HeroSection() {
     return (
         <section
             id="overview"
-            className="relative flex min-h-[320px] scroll-mt-28 items-stretch bg-twhite sm:min-h-[400px] lg:min-h-[600px]"
+            className="relative flex min-h-[460px] scroll-mt-28 flex-col justify-center overflow-x-hidden bg-twhite sm:min-h-[520px] lg:min-h-[560px]"
         >
-            {/* 
-                Background image, shown clearly, 
-                with more of the image's top revealed 
-                (backgroundPosition 'center top' vs default 'center center')
-            */}
             <div
                 className="absolute inset-0 z-0"
                 aria-hidden
@@ -23,32 +19,32 @@ export default function HeroSection() {
                     backgroundRepeat: 'no-repeat',
                 }}
             />
-            {/* Optional subtle gradient on left for text readability */}
             <div
                 className="absolute inset-0 z-10 bg-gradient-to-r from-twhite/70 via-twhite/20 to-transparent"
                 aria-hidden
             />
 
-            <div className="relative z-20 flex w-full flex-col justify-center px-6 py-12 sm:px-10 lg:w-1/2 lg:px-14 lg:py-16 xl:px-20">
-                <h1 className="mt-5 text-xl leading-[1.15] font-extrabold tracking-tight text-black uppercase sm:text-2xl lg:text-[1.65rem] xl:text-[1.85rem]">
-                    <TransText
-                        en="Tilila: SOREAD 2M’s Equity, Diversity and Inclusion programme"
-                        fr="Tilila : le programme Équité, Diversité et Inclusion de SOREAD 2M"
-                        ar="تيليلا : برنامج المساواة والتنوع والإدماج لـ SOREAD 2M"
-                    />
-                </h1>
-
-                <div className="mt-7 space-y-5 text-sm leading-[1.75] text-black/90 sm:text-[15px]">
-                    <p>
+            <TililaContainer className="relative z-20 w-full py-9 sm:py-10">
+                <div className="home-hero-copy w-full max-w-2xl min-w-0">
+                    <h1 className="text-xl leading-[1.15] font-extrabold tracking-tight text-black uppercase sm:text-2xl lg:text-[1.65rem] xl:text-[1.85rem]">
                         <TransText
-                            en="Discover SOREAD 2M’s citizen commitment, the Parity and Diversity Committee and the Tilila programme — equity, diversity and inclusion at the heart of our media action."
-                            fr="Découvrez l'engagement citoyen de SOREAD 2M, le Comité Parité et Diversité et le programme Tilila — équité, diversité et inclusion au cœur de notre action médiatique."
-                            ar="اكتشفوا التزام SOREAD 2M المواطن، ولجنة المساواة والتنوع وبرنامج تيليلا — المساواة والتنوع والإدماج في صميم عملنا الإعلامي."
+                            en="Tilila: SOREAD 2M’s Equity, Diversity and Inclusion programme"
+                            fr="Tilila : le programme Équité, Diversité et Inclusion de SOREAD 2M"
+                            ar="تيليلا : برنامج المساواة والتنوع والإدماج لـ SOREAD 2M"
                         />
-                    </p>
+                    </h1>
+
+                    <div className="mt-7 space-y-5 text-sm leading-[1.75] text-black/90 sm:text-[15px]">
+                        <p>
+                            <TransText
+                                en="Discover SOREAD 2M’s citizen commitment, the Parity and Diversity Committee and the Tilila programme — equity, diversity and inclusion at the heart of our media action."
+                                fr="Découvrez l'engagement citoyen de SOREAD 2M, le Comité Parité et Diversité et le programme Tilila — équité, diversité et inclusion au cœur de notre action médiatique."
+                                ar="اكتشفوا التزام SOREAD 2M المواطن، ولجنة المساواة والتنوع وبرنامج تيليلا — المساواة والتنوع والإدماج في صميم عملنا الإعلامي."
+                            />
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div className="hidden lg:block lg:w-1/2" aria-hidden />
+            </TililaContainer>
         </section>
     );
 }

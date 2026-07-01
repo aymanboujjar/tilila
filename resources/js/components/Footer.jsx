@@ -44,6 +44,7 @@ function FooterColumn({ children, className = '' }) {
 export default function Footer() {
     const { locale } = useTranslation();
     const { flash } = usePage().props;
+    const year = new Date().getFullYear();
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         locale,
@@ -233,9 +234,9 @@ export default function Footer() {
                 <div className="mt-8 flex flex-col gap-3 border-t border-border pt-5 text-xs text-tgray sm:flex-row sm:items-center sm:justify-between">
                     <span>
                         <TransText
-                            en="© Tilila  2026 — All rights reserved"
-                            fr="© Tilila  2026 — Tous droits réservés"
-                            ar="© تيليلا  2026 — جميع الحقوق محفوظة"
+                            en={`© ${year} SOREAD 2M — Tilila. All rights reserved.`}
+                            fr={`© ${year} SOREAD 2M — Tilila. Tous droits réservés.`}
+                            ar={`© ${year} SOREAD 2M — تيليلا. جميع الحقوق محفوظة.`}
                         />
                     </span>
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1">

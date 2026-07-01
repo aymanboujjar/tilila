@@ -54,18 +54,18 @@ export default function TililabHero() {
 
                     <h1 className="mt-4 text-2xl leading-[1.25] font-extrabold tracking-tight text-twhite sm:mt-5 sm:text-3xl lg:text-[1.85rem]">
                         <TransText
-                            en="Discovering and empowering the committed advertising professionals of tomorrow."
-                            fr="Révéler les publicitaires engagés de demain"
-                            ar="اكتشاف ودعم محترفي الإعلانات الملتزمين بالتغيير في المستقبل."
+                            en="Revealing tomorrow's storytellers."
+                            fr="Révéler les storyteller.euse.s de demain."
+                            ar="اكتشاف صانعي وصانعات القصص البصرية في الغد."
                         />
                     </h1>
 
                     <div className="mt-5 space-y-3 text-sm leading-relaxed text-twhite/90 sm:mt-6 sm:text-base lg:text-lg">
                         <p>
                             <TransText
-                                en="Through an immersive journey, Tililab trains young content creators with values of equity, diversity and inclusion and accompanies them in producing inclusive advertising content with impact."
-                                fr="À travers un parcours immersif, Tililab forme les jeunes créatrices et créateurs de contenu aux valeurs d’équité, de diversité et d’inclusion et les accompagne dans la production de contenus publicitaires inclusifs porteurs d’impact."
-                                ar="من خلال مسار غامر، يتدرّب تيليلاب المبدعين الشباب إلى القيم المساواة والتنوع والإدماج ويرافقهم في إنتاج محتوى إعلاني شامل ومؤثر."
+                                en="Tililab aims to bring out new visual storytelling talent in line with the equity, diversity and inclusion values upheld by 2M. Participants are guided by a team of professionals from idea to finished content, with full support in production and post-production."
+                                fr="Tililab a pour but de faire émerger les nouveaux talents de la narration visuelle en accord avec les valeurs d'équité, de diversité et d'inclusion portées par 2M. Les participant.e.s sont accompagné.e.s par une équipe de professionnel.le.s, de l'idée au contenu fini, avec un encadrement complet en production et post-production."
+                                ar="يهدف تيليلاب إلى إبراز مواهب جديدة في السرد البصري، وفق قيم المساواة والتنوع والإدماج التي تتبناها 2M. يُرافق المشاركون والمشاركات فريق من المحترفين والمحترفات من الفكرة إلى المحتوى النهائي، مع إشراف كامل في مرحلتي الإنتاج وما بعد الإنتاج."
                             />
                         </p>
                     </div>

@@ -190,9 +190,9 @@ export default function TililaAdmissionJurySection({
                         <div className="mt-5 space-y-4 text-sm leading-relaxed text-tgray">
                             <p>
                                 <TransText
-                                    en="The Tilila Awards jury is made up of recognised figures from media, communication, creative industries, institutions, research and civil society. It evaluates applications based on creative quality, relevance, impact and contribution to equity, diversity and inclusion values."
-                                    fr="Le jury de Tilila Awards réunit des experts issus des médias, de la communication, de la création, des institutions, de la recherche et de la société civile. Il évalue les candidatures selon leur créativité, leur pertinence, leur impact et leur contribution à l’inclusion."
-                                    ar="تتكون لجنة تحكيم تيليلا أووردز من شخصيات معروفة من الإعلام والتواصل والإبداع والمؤسسات والبحث والمجتمع المدني. تقيّم الترشحات بناءً على الجودة الإبداعية والملاءمة والأثر والمساهمة في قيم المساواة والتنوع والإدماج."
+                                    en="The Tilila Awards jury brings together experts from media, communication, creative industries, institutions, research and civil society. It evaluates applications based on their creativity, relevance, impact and contribution to inclusion."
+                                    fr="Le jury de Tilila Awards réunit des expert.e.s issus des médias, de la communication, de la création, des institutions, de la recherche et de la société civile. Il évalue les candidatures selon leur créativité, leur pertinence, leur impact et leur contribution à l’inclusion."
+                                    ar="تجمع لجنة تحكيم تيليلا أووردز خبراء وخبيرات من الإعلام والتواصل والإبداع والمؤسسات والبحث والمجتمع المدني. تقيّم الترشحات وفق إبداعها وملاءمتها وأثرها ومساهمتها في الإدماج."
                                 />
                             </p>
                         </div>
